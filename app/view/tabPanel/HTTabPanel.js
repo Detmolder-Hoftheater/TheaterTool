@@ -1,0 +1,77 @@
+/**
+ * Creates class TheaterTool.view.tabPanel.CETabPanel that extend from TheaterTool.view.tabPanel.CETabPanel.
+ * @class
+ */
+Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
+	extend: 'Ext.tab.Panel',
+	
+	defaults: {
+		autoScroll: true
+		
+	},
+	
+	
+	id: 'cetabpanel',
+	
+	//flex: 4,
+	
+	collapsible: false,
+	region: 'center',
+	
+	slursItem: null,
+	hairpinsItems: null,
+	dynamsItems: null,
+	dirsItems: null,
+	controllsView:null,
+	
+	repertoireTab: null,
+	
+	//bodyPadding: 3,
+	
+	
+	/**
+	 * Create items
+	 * @overrides
+	 */
+	initComponent: function () {
+		
+		/*this.slursItem = new TheaterTool.view.tabPanel.ControlEventsItem({
+			title: 'Slurs',
+			id: 'slursitem'
+			// icon: 'resources/images/mix_volume.png'
+			
+		}),*/
+		
+		
+		this.repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+			title: 'Repertoire',
+			id: 'hairpinsitem'
+			
+		});
+		
+		
+		
+		
+		
+		/*this.dynamsItems = new TheaterTool.view.tabPanel.ControlEventsItem({
+			title: 'Dynams',
+			id: 'dynamsitem'
+			// icon: 'resources/images/mix_volume.png'
+		}),
+		
+		this.dirsItems = new TheaterTool.view.tabPanel.ControlEventsItem({
+			title: 'Dirs',
+			id: 'dirsitem'
+			// icon: 'resources/images/mix_volume.png'
+		}),*/
+		this.items =[
+		//this.slursItem,
+		this.repertoireTab
+		//this.dynamsItems,
+		//this.dirsItems
+		
+		],
+		
+		this.callParent()
+	}
+});
