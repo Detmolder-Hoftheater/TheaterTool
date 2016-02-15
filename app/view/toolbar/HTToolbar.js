@@ -7,13 +7,22 @@
  
 Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	extend: 'Ext.panel.Panel',
+	
+requires:[
+	'Ext.tip.*',
+    'Ext.Button',
+    'Ext.window.MessageBox'],
+    
+ // xtype: 'basic-toolbar',
+   
 	//xtype: 'basic-toolbar',
-	xtype: 'basic-panels',
+	//xtype: 'basic-panels',
+	//xtype: 'layout-horisontal-box',
 	//id: 'cetoolbar',
 	
 	//bodyPadding: 3,
-	
-	//height: 40,
+	//flex:1,
+	height: 45,
 	
 	//bodyStyle:{"background-color":"red"},
 	
@@ -28,12 +37,15 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	border: false,
 	
 	//border: false,
-    style: {
-      borderRight: '3px solid #A80016',
-      borderLeft: '3px solid #A80016',
-      borderTop: '3px solid #A80016',
+    /*style: {
+      borderRight: '5px solid #A80016',
+      borderLeft: '5px solid #A80016',
+      borderTop: '5px solid #A80016',
       borderBottom: '3px solid #A80016'
-    },
+    },*/
+    
+    
+    //toolbarBackground:{"color":"#A80016"},
 	
 	/**
 	 * Create buttons and icons.
@@ -41,13 +53,20 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	 */
 	initComponent: function () {
 	
-	
-		/*var homeButton = this.createCEBox({
+	/*
+		var homeButton = this.createCEBox({
 			tag: 'img',  glyph: 72, width: 26,
 			height: 26
 		},
 		this.homeOnItemToggle, true);
-		sourceButton = this.createCEButton('Source', 'source',[ {
+		
+		
+		var tip = Ext.create('Ext.tip.ToolTip', {
+    target: 'test',
+    html: 'Press this button to clear the form'
+});*/
+		
+		/*sourceButton = this.createCEButton('Source', 'source',[ {
 			handler: this.sourceOnItemClick
 		}], this.sourceClick);
 		movementButton = this.createCEButton('Movement', 'movement',[ {
@@ -91,34 +110,125 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 		'-',
 		loginButton],*/
 		
-		this.items =[
-		//homeButton,
-		//'-',
-		//'->',
-		/*{
-        xtype: 'label',
-        //forId: 'myFieldId',
-        text: 'Detmolder Hoftheater 1825 - 1875',       
-        margin: '0 0 0 500'
-    }*/
+	/*	this.tbar =[
+		
+    '->',
 		{
 		html: '<p style="font-family: sans-serif; text-align:center;"><FONT SIZE=3">Detmolder Hoftheater 1825-1875</FONT></p>',
-        bodyStyle:{"background-color":"#A80016"}
+        style:{"background-color":"#A80016"},
        
-		}
-		/*{
+        bodyBorder: false,
+		border: false
+		},
 		
-        html: '<h4 style="background-color:blue; text-align:center; color:red;">Detmolder Hoftheaterarchiv 1825 - 1847</h4>'
-        
-		}*/
+	'->',	
+
+{
+    xtype: 'button',
+     text: 'Teiferschlißung',
+     scale: 'large',
+    //style:{"background-color":"#A80016"},
+    tip: 'This is a tip',
+    listeners: {
+        render: function(c) {
+            Ext.create('Ext.tip.ToolTip', {
+                target: c.getEl(),
+                html: c.tip
+            });
+        }
+    }
+},
+'-',
+{
+    xtype: 'button',
+     text: 'Fenster anordnen',
+     scale: 'large'
+     //Desktop 173
+    
+},
+'->'
+		],*/
 		
 		
-		//'->'
-		//'-',
-		//'Suche',
-		//searchField,
-		//'Erweiterte Suche'
-		],
+this.tbar = new Ext.Toolbar({
+
+ style: {
+      background: '#A80016'
+     
+      /*borderRight: '5px solid #A80016',
+      borderLeft: '5px solid #A80016',
+      borderTop: '5px solid #A80016',
+      borderBottom: '3px solid #A80016'*/
+    },
+   // bodyBorder: true,
+	//border: true,
+
+//border-color:#18181a;
+//background-color:#393d4e;
+
+//bodyBackground:{"color":"#A80016"},
+	items: [
+		 '->',
+		'->',
+		'->',
+		{
+		html: '<p style="font-family: sans-serif; text-align:center;"><FONT SIZE=3">Detmolder Hoftheater 1825-1875</FONT></p>'
+      //  style:{"background-color":"#A80016"},
+       
+      //  bodyBorder: false,
+		//border: false
+		},
+		
+	'->',	
+	'->',	
+		
+{
+    xtype: 'button',
+     text: 'Fenster anordnen',
+   menu: [{
+                        text:'Menu Item 1'
+                    },{
+                        text:'Menu Item 2'
+                    },{
+                        text:'Menu Item 3'
+                    }]
+     //Desktop 173
+    
+},		
+
+{ xtype: 'tbseparator',
+style: {
+      borderRight: '1px solid black',
+      borderLeft: '1px solid black'
+     // borderTop: '1px solid black',
+     // borderBottom: '1px solid black'
+    }
+},
+
+{
+    xtype: 'button',
+     text: 'Teiferschließung',
+    tip: 'This is a tip',
+     menu: [{
+                        text:'Menu Item 1'
+                    },{
+                        text:'Menu Item 2'
+                    },{
+                        text:'Menu Item 3'
+                    }],
+    listeners: {
+        render: function(c) {
+            Ext.create('Ext.tip.ToolTip', {
+                target: c.getEl(),
+                html: c.tip
+            });
+        }
+    }
+},
+'->'
+	]
+});
+
 		
 		
 		this.callParent()
@@ -683,6 +793,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	createCEBox: function (ceAutoEl, ceOnItemToggle, ceEnableToggle) {
 		var ceBox = Ext.create('Ext.button.Button', {
 			autoEl: ceAutoEl,
+			id: 'test',
 			enableToggle: ceEnableToggle,
 			toggleHandler: ceOnItemToggle
 		});

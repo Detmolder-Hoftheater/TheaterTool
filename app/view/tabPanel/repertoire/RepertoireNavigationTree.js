@@ -11,6 +11,14 @@ var store = Ext.create('Ext.data.TreeStore', {
                 incipits: true,
                 details: false,
                 children: [
+                 {
+                	name: 'Incipits',
+                	leaf:true,
+                	xml: false,
+                	icon: 'resources/images/MusicTranscript-17.png',
+                    	incipits: true,
+                    	 details: false
+                },
                     { name: 'Copyist of Detmold',
                     icon: 'resources/images/Book1-16.png',
                     expanded: true,
@@ -18,6 +26,12 @@ var store = Ext.create('Ext.data.TreeStore', {
                     details: true,
                     incipits: false,
                      children: [
+                     { leaf:true, 
+                    name: 'Facsimile',
+                    		xml: false,
+                    	incipits: false,
+                    	 details: true,
+                   icon: 'resources/images/Images-17.png'},
                     { name: 'RISM',
                     icon: 'resources/images/Literature-17.png',
                     	leaf:true, 
@@ -33,6 +47,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                    icon: 'resources/images/Musical-16.png'}
                 ]
                 }
+               
        ] 
        }
 ]
@@ -87,8 +102,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 	   var me = this;
 		
 		this.xmlColumn = this.createColumn('XML', 'resources/images/Save-17.png');
-		this.incipitsColumn = this.createColumn('Incipits', 'resources/images/Door-24.png');
-		this.detailsColumn = this.createColumn('Facsimile', 'resources/images/Door-24.png');
+		//this.incipitsColumn = this.createColumn('Incipits', 'resources/images/Door-24.png');
+		//this.detailsColumn = this.createColumn('Facsimile', 'resources/images/Door-24.png');
 		
 		this.listeners = {
 			
@@ -134,14 +149,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 		
 		this.columns =[ {
 			xtype: 'treecolumn',
-			text: 'Werk/Quelle/RISM',
-			flex: 2,
+			text: 'Werk/Insipits/Quelle/Facsimile/RISM/Vertaktung',
+			flex: 1,
 			sortable: true,
 			dataIndex: 'name'
 			
 		},
-		this.incipitsColumn,
-		this.detailsColumn,
+		//this.incipitsColumn,
+		//this.detailsColumn,
 		this.xmlColumn
 		
 		];

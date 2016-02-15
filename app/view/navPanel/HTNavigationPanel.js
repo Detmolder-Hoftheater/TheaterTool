@@ -7,13 +7,13 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 	extend: 'Ext.form.Panel',
 	requires:[
 	'TheaterTool.view.facsimileView.LeafletFacsimile'],
-	//layout: 'vbox',
+	//layout: 'vbox'
 	region: 'east',
 	//flex: 1,
 	//id: 'facsimileview',
 	//autoScroll: true,
 	
-	width: 260,
+	width: 253,
 	
 	/*layout: {
 		type: 'vbox',

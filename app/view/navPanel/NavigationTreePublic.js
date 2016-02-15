@@ -6,8 +6,9 @@ var store = Ext.create('Ext.data.TreeStore', {
             {
                 text: 'Repertoire',
                 icon: 'resources/images/Library-17.png',
-                //expanded: true,
-                children: [
+                leaf:true
+               
+              /*  children: [
                     { text: 'Aschenbrödel: Isouard', 
                      icon: 'resources/images/Books1-17.png',
                      children: [
@@ -49,7 +50,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                			 ]
                     }
                     ]}
-                ]
+                ]*/
             },
             {
                 text: 'Programm',

@@ -6,7 +6,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePanel', {
 	extend: 'Ext.panel.Panel',
     
 	region: 'center',
-            flex: 4
+            flex: 6
 	
 
 /*	initComponent: function () {
