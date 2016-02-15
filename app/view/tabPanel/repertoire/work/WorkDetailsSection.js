@@ -8,6 +8,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
         'Ext.grid.feature.Grouping'
     ],*/
     collapsible: true,
+    collapsed: true,
    // iconCls: 'icon-grid',
     frame: true,
     //width: 600,

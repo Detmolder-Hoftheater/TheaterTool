@@ -16,19 +16,19 @@ mixins, etc.).
 
 This folder contains Sass files defining CSS rules corresponding to classes
 included in the application's JavaScript code build. By default, files in this 
-folder are mapped to the application's root namespace, 'pmdCE'. This is set in
+folder are mapped to the application's root namespace, 'TheaterTool'. This is set in
 `"app.json"`:
 
     "sass": {
-        "namespace": "pmdCE"
+        "namespace": "TheaterTool"
     }
 
 ### ./sass/var
 
 This folder contains Sass files defining Sass variables corresponding to classes
 included in the application's JavaScript code build. By default, files in this 
-folder are mapped to the application's root namespace, 'pmdCE' in the same way
-as `"pmdCE/sass/src"`.
+folder are mapped to the application's root namespace, 'TheaterTool' in the same way
+as `"TheaterTool/sass/src"`.
 
 ## Slicing
 

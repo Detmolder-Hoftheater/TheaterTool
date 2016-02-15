@@ -2,7 +2,7 @@
     /**
      * The application's namespace.
      */
-    "name": "pmdCE",
+    "name": "TheaterTool",
     
     /**
      * The version of the application.
@@ -53,13 +53,13 @@
     "sass": {
         /**
          * The root namespace to use when mapping *.scss files to classes in the
-         * sass/src and sass/var directories. For example, "pmdCE.view.Foo" would
-         * map to "sass/src/view/Foo.scss". If we changed this to "pmdCE.view" then
+         * sass/src and sass/var directories. For example, "TheaterTool.view.Foo" would
+         * map to "sass/src/view/Foo.scss". If we changed this to "TheaterTool.view" then
          * it would map to "sass/src/Foo.scss". To style classes outside the app's
          * root namespace, change this to "". Doing so would change the mapping of
-         * "pmdCE.view.Foo" to "sass/src/pmdCE/view/Foo.scss".
+         * "TheaterTool.view.Foo" to "sass/src/TheaterTool/view/Foo.scss".
          */
-        "namespace": "pmdCE"
+        "namespace": "TheaterTool"
     },
 
     /**
@@ -232,7 +232,7 @@
      *          "js": "app.js",
      *          "microloader": {
      *              "path": "microloader.js",
-     *              "embed": true,
+     *              "embed": false,
      *              "enable": true
      *          },
      *          "manifest": {

@@ -47,7 +47,7 @@ let $change :=
                                 <persName>{$user}</persName>
                             </respStmt>
                             <changeDesc>
-                                <p>pmdCE on {$test}: {string-join($change, ', ')}</p>
+                                <p>TheaterTool on {$test}: {string-join($change, ', ')}</p>
                             </changeDesc>
                             <date isodate="{substring(string(current-dateTime()),1,19)}"/>
                         </change>

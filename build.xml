@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="pmdCE" default=".help">
+<project name="TheaterTool" default=".help">
     <!--
     The build-impl.xml file imported here contains the guts of the build process. It is
     a great idea to read that file to understand how the process works, but it is best to
@@ -40,7 +40,7 @@
     -->
     
     <property name="project.version" value="0.1"/>
-    <property name="project.app" value="freidi-pmdCE"/>
+    <property name="project.app" value="freidi-TheaterTool"/>
     <property name="build.dir" value="build"/>
     
     <target name="build-plus">
@@ -51,7 +51,17 @@
     
     <target name="xar">
         <mkdir dir="build-xar"/>
-        <zip basedir="." destfile="build-xar/${project.app}-${project.version}.xar" excludes="build-xar/, add/, .sencha/, build.xml, build.sh, README.md" />
-    </target>
+    	<mkdir dir="temp"/>
+    	<copy todir="temp">
+    		<fileset dir="${basedir}/add"/>
+    		<fileset dir="${basedir}/build/production/TheaterTool"/>
+    		<file file="index.html"/>
+    	</copy>
+    	<copydir dest="temp/data" src="data"/>
+    	<copydir dest="temp/modules" src="modules"/>
+    	
+    	<zip basedir="temp" destfile="build-xar/${project.app}-${project.version}.xar"  />
+    	
+    	<delete dir="temp/"/>    </target>
 
 </project>

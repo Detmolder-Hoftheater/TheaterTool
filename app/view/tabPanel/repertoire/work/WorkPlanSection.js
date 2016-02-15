@@ -21,7 +21,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPlanSection', {
     
     collapsed: true,
    
-   margin: '5 0 5 0',
+ //  margin: '5 0 5 0',
 				
 
   /*  features: [{

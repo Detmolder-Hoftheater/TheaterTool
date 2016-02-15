@@ -20,6 +20,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection', 
     resizable: true,
     
     collapsed: true,
+    
+     margin: '5 0 0 0',
    
    /* features: [{
         ftype: 'grouping',

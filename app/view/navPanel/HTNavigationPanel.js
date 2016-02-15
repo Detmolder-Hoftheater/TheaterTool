@@ -13,7 +13,7 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 	//id: 'facsimileview',
 	//autoScroll: true,
 	
-	width: 253,
+	width: 255,
 	
 	/*layout: {
 		type: 'vbox',
