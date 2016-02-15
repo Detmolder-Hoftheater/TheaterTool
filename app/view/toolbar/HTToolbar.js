@@ -184,13 +184,16 @@ this.tbar = new Ext.Toolbar({
 		
 {
     xtype: 'button',
-     text: 'Fenster anordnen',
+     text: 'Tabs anordnen',
    menu: [{
-                        text:'Menu Item 1'
+                        text:'Horizontal verteilen',
+                        icon: 'resources/images/Horizontal-17.png'
                     },{
-                        text:'Menu Item 2'
+                        text:'Vertikal verteilen',
+                        icon: 'resources/images/Vertical-17.png'
                     },{
-                        text:'Menu Item 3'
+                        text:'Stapeln',
+                        icon: 'resources/images/Sheets-17.png'
                     }]
      //Desktop 173
     
@@ -208,22 +211,25 @@ style: {
 {
     xtype: 'button',
      text: 'Teiferschließung',
-    tip: 'This is a tip',
+   // tip: 'This is a tip',
      menu: [{
-                        text:'Menu Item 1'
+                        text:'Aschenbrödel: Isouard',
+                        icon: 'resources/images/Books1-17.png'
                     },{
-                        text:'Menu Item 2'
+                        text:'Der Bettelstudent: v. Winter',
+                        icon: 'resources/images/Books1-17.png'
                     },{
-                        text:'Menu Item 3'
-                    }],
-    listeners: {
+                        text:'Des Teufels Anteil: Auber',
+                        icon: 'resources/images/Books1-17.png'
+                    }]
+   /* listeners: {
         render: function(c) {
             Ext.create('Ext.tip.ToolTip', {
                 target: c.getEl(),
                 html: c.tip
             });
         }
-    }
+    }*/
 },
 '->'
 	]

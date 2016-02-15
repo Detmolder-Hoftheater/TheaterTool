@@ -121,9 +121,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
 					me.repertoirePanel.removeAll(true);
-					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
-					me.repertoirePanel.add(me.sourcePanel);	
-				
+					if(eOpts[0].data.name === 'Incipits'){
+						// TODO
+						//me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
+						//me.repertoirePanel.add(me.sourcePanel);	
+					}
+					else {
+						me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
+						me.repertoirePanel.add(me.sourcePanel);	
+					}
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
 				//console.log(eOpts[0].data);
@@ -132,9 +138,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 						me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel();
 						me.repertoirePanel.add(me.rismPanel);	
 					}
-					else{
+					else if(eOpts[0].data.name === 'Vertaktung'){
 						me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
 						me.repertoirePanel.add(me.beatPanel);
+					}
+					else if(eOpts[0].data.name === 'Facsimile'){
+						// TODO
+						//me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
+						//me.repertoirePanel.add(me.beatPanel);
 					}
 						
 				
