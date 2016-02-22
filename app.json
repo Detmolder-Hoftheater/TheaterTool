@@ -232,7 +232,7 @@
      *          "js": "app.js",
      *          "microloader": {
      *              "path": "microloader.js",
-     *              "embed": false,
+     *              "embed": true,
      *              "enable": true
      *          },
      *          "manifest": {

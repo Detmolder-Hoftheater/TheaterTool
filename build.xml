@@ -38,6 +38,7 @@
             <target name="-before-build"/>
             <target name="-after-build"/>
     -->
+	
     
     <property name="project.version" value="0.1"/>
     <property name="project.app" value="freidi-TheaterTool"/>
@@ -48,20 +49,52 @@
             <fileset dir="${basedir}/add"/>
         </copy>
     </target>
-    
-    <target name="xar">
-        <mkdir dir="build-xar"/>
-    	<mkdir dir="temp"/>
-    	<copy todir="temp">
-    		<fileset dir="${basedir}/add"/>
-    		<fileset dir="${basedir}/build/production/TheaterTool"/>
-    		<file file="index.html"/>
-    	</copy>
-    	<copydir dest="temp/data" src="data"/>
-    	<copydir dest="temp/modules" src="modules"/>
-    	
-    	<zip basedir="temp" destfile="build-xar/${project.app}-${project.version}.xar"  />
-    	
-    	<delete dir="temp/"/>    </target>
+	
+	<!--<target name="xar">
+		<mkdir dir="build-xar"/>
+		<mkdir dir="temp"/>
+		<copy todir="temp">
+			<!-\-<fileset dir="build/production/TheaterTool">
+				<include name="**"/>
+			</fileset>-\->
+			<fileset dir=".">
+				<include name="data/**"/>
+				<include name="ext/**"/>
+				<include name="modules/**"/>
+				<include name="index.html"/>
+				<!-\-<include name="bootstrap.js"/>
+				<include name="bootstrap.json"/>
+				<include name="bootstrap.css"/>-\->
+				<!-\-<include name="app.js"/>
+				<include name="app.json"/>
+				<include name="bootstrap.js"/>
+				
+				-\->
+			</fileset>
+			<!-\-\-\->
+			<fileset dir="add">
+				<include name="**"/>
+			</fileset>
+			<fileset dir="build/production/TheaterTool">
+				<exclude name="*.*"/>
+			</fileset>
+			<fileset dir="build/temp/production/TheaterTool">
+				<include name="**"/>
+			</fileset>
+			
+		</copy>-->
+		<!--<copydir dest="temp/data" src="data"/>
+		<copydir dest="temp/modules" src="modules"/>-->
+		
+		
+	<target name="xar">
+		<mkdir dir="build-xar"/>
+		<zip basedir="." destfile="build-xar/${project.app}-${project.version}.xar" excludes="build-xar/, add/, .sencha/, build.xml, build.sh, README.md" />
+		
+		<!--<zip basedir="temp" destfile="build-xar/${project.app}-${project.version}.xar"  />-->
+		
+	</target>
+	
+	
 
 </project>
