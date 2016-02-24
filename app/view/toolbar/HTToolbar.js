@@ -22,17 +22,17 @@ requires:[
 	
 	//bodyPadding: 3,
 	//flex:1,
-	height: 45,
+	//height: 35,
 	
 	//bodyStyle:{"background-color":"red"},
 	
 	//border: true,
-    /*style: {
-      borderRight: '3px solid #A80016',
+    style: {
+     // borderRight: '5px solid #A80016',
       borderLeft: '3px solid #A80016',
-      borderTop: '3px solid #A80016',
+      borderTop: '5px solid #A80016',
       borderBottom: '3px solid #A80016'
-    },*/
+    },
 	bodyBorder: false,
 	border: false,
 	
@@ -160,54 +160,25 @@ this.tbar = new Ext.Toolbar({
       borderTop: '5px solid #A80016',
       borderBottom: '3px solid #A80016'*/
     },
-   // bodyBorder: true,
-	//border: true,
+  
 
 //border-color:#18181a;
 //background-color:#393d4e;
 
 //bodyBackground:{"color":"#A80016"},
 	items: [
-		 '->',
-		'->',
-		'->',
 		{
-		html: '<p style="font-family: sans-serif; text-align:center;"><FONT SIZE=3">Detmolder Hoftheater 1825-1875</FONT></p>'
-      //  style:{"background-color":"#A80016"},
-       
-      //  bodyBorder: false,
-		//border: false
+		html: '<i style="color:#A80016; text-align:center;">la vita di teatro</i>',
+        style:{"background-color":"#A87678"}
 		},
-		
-	'->',	
-	'->',	
-		
-{
-    xtype: 'button',
-     text: 'Tabs anordnen',
-   menu: [{
-                        text:'Horizontal verteilen',
-                        icon: 'resources/images/Horizontal-17.png'
-                    },{
-                        text:'Vertikal verteilen',
-                        icon: 'resources/images/Vertical-17.png'
-                    },{
-                        text:'Stapeln',
-                        icon: 'resources/images/Sheets-17.png'
-                    }]
-     //Desktop 173
-    
-},		
-
-{ xtype: 'tbseparator',
+/*		{ xtype: 'tbseparator',
 style: {
       borderRight: '1px solid black',
       borderLeft: '1px solid black'
      // borderTop: '1px solid black',
      // borderBottom: '1px solid black'
     }
-},
-
+},*/
 {
     xtype: 'button',
      text: 'Teiferschließung',
@@ -231,7 +202,43 @@ style: {
         }
     }*/
 },
-'->'
+
+{ xtype: 'tbseparator',
+style: {
+      borderRight: '1px solid #A87678',
+      borderLeft: '1px solid #A87678'
+     // borderTop: '1px solid black',
+     // borderBottom: '1px solid black'
+    }
+},
+
+{
+    xtype: 'button',
+     text: 'Tabs anordnen',
+   menu: [{
+                        text:'Horizontal verteilen',
+                        icon: 'resources/images/Horizontal-17.png'
+                    },{
+                        text:'Vertikal verteilen',
+                        icon: 'resources/images/Vertical-17.png'
+                    },{
+                        text:'Stapeln',
+                        icon: 'resources/images/Sheets-17.png'
+                    }]
+     //Desktop 173
+    
+}
+
+
+
+
+
+
+	
+
+
+
+
 	]
 });
 

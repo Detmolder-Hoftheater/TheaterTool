@@ -28,6 +28,21 @@ Ext.define('TheaterTool.Application', {
 	'tabPanel.repertoire.beat.BeatPanel',
 	'tabPanel.repertoire.beat.BeatXMLSection',
 	'tabPanel.repertoire.work.PlanTable',
+	'tabPanel.repertoire.work.WorkJournalSection',
+	'tabPanel.repertoire.work.JournalTable',
+	'tabPanel.repertoire.work.JournalDetailsTabPanel',
+	'tabPanel.repertoire.work.WorkRegieSection',
+	'tabPanel.repertoire.work.RegieTable',
+	'tabPanel.repertoire.work.RegieDetailsTabPanel',
+	'tabPanel.repertoire.work.WorkRoleSection',
+	'tabPanel.repertoire.work.RoleTable',
+	'tabPanel.repertoire.work.RoleDetailsTabPanel',
+	'tabPanel.repertoire.work.WorkRevenueSection',
+	'tabPanel.repertoire.work.RevenueTable',
+	'tabPanel.repertoire.work.RevenueDetailsTabPanel',
+	'tabPanel.repertoire.work.WorkIssueSection',
+	'tabPanel.repertoire.work.IssueTable',
+	'tabPanel.repertoire.work.IssueDetailsTabPanel',
 	'navPanel.SearchPanel',
 	'navPanel.SearchTabPanel',
 	'navPanel.SearchTab',
@@ -70,10 +85,40 @@ Ext.define('TheaterTool.Application', {
 	slurDataStore: null,
 	
 	werkDataStore: null,
+	personenForWorkDataStore: null,
+	plansForWorkDataStore: null,
 	
 	launch: function () {
 		
-		this.renderer = new verovio.toolkit()
+		this.renderer = new verovio.toolkit();
+		
+		this.personenForWorkDataStore = Ext.create('Ext.data.Store', {
+			model: 'TheaterTool.model.Person',
+			proxy: {
+				type: 'ajax',
+				url: 'data/getPersonenForWork.xql',
+				//url: 'resources/xql/pmd_ce_getNavigation.xql',
+				reader: {
+					type: 'json',
+					rootProperty: 'sigle'
+				}
+			},
+			autoLoad: false
+		});
+		
+		this.plansForWorkDataStore = Ext.create('Ext.data.Store', {
+			model: 'TheaterTool.model.Plan',
+			proxy: {
+				type: 'ajax',
+				url: 'data/getPlainsForWork.xql',
+				//url: 'resources/xql/pmd_ce_getNavigation.xql',
+				reader: {
+					type: 'json',
+					rootProperty: 'sigle'
+				}
+			},
+			autoLoad: false
+		});
 		
 		
 //		this.werkDataStore = Ext.create('Ext.data.TreeStore', {
@@ -190,5 +235,15 @@ Ext.define('TheaterTool.Application', {
 	
 	getDirDataStore: function () {
 		return this.dirDataStore;
+	},
+	
+	
+	getPersonenForWorkDataStore: function () {
+		return this.personenForWorkDataStore;
+	},
+	
+	getPlansForWorkDataStore: function () {
+		return this.plansForWorkDataStore;
 	}
+	
 });

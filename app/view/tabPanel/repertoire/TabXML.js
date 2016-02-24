@@ -19,7 +19,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.TabXML', {
 	
 	
 	
-	var me = this;
+	/*var me = this;
 	Ext.Ajax.request({           
     url: '/data/hairpin.xml',            
     success: function (response) {
@@ -53,20 +53,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.TabXML', {
        // var test = Ext.DomQuery.select('Item', object);
         //console.log('test', test);
     }
-});
+});*/
 	
-	/*var objects = $('<div></div>');
 	
-	var tmp = hljs.highlightAuto($(objects).html()).value;
-		
-		
-			$('#'+this.id+'-body').html(tmp);*/
-		
-		
-		/*this.items =[
-		{text: data/hairpin.xml}
-		]*/
-		
 		this.callParent()
 	}
 	

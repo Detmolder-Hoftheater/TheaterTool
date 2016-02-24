@@ -41,7 +41,7 @@
 	
     
     <property name="project.version" value="0.1"/>
-    <property name="project.app" value="freidi-TheaterTool"/>
+    <property name="project.app" value="TheaterTool"/>
     <property name="build.dir" value="build"/>
     
     <target name="build-plus">

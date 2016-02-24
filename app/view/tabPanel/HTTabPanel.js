@@ -26,6 +26,8 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 	
 	repertoireTab: null,
 	
+
+   
 	//bodyPadding: 3,
 	
 	
@@ -44,7 +46,8 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 		
 		
 		this.repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-			title: 'Repertoire',
+			title: 'Repertoire: A-B-C',
+			icon: 'resources/images/Library-17.png',
 			id: 'hairpinsitem'
 			
 		});

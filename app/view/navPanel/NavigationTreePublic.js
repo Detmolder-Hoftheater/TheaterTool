@@ -6,7 +6,63 @@ var store = Ext.create('Ext.data.TreeStore', {
             {
                 text: 'Repertoire',
                 icon: 'resources/images/Library-17.png',
-                leaf:true
+            
+                 children: [
+                    { leaf:true, text: 'A-B-C',
+                    icon: 'resources/images/Books1-17.png'},
+                   /*  { leaf:true, text: 'B',
+                    icon: 'null'},
+                      { leaf:true, text: 'C',
+                    icon: 'null'},*/
+                       { leaf:true, text: 'D-E-F',
+                    icon: 'resources/images/Books1-17.png'},
+                        /*{ leaf:true, text: 'E',
+                    icon: 'null'},
+                         { leaf:true, text: 'F',
+                    icon: 'null'},*/
+                          { leaf:true, text: 'G-H-I',
+                    icon: 'resources/images/Books1-17.png'},
+                          /* { leaf:true, text: 'H',
+                    icon: 'null'},
+                            { leaf:true, text: 'I',
+                    icon: 'null'},*/
+                             { leaf:true, text: 'J-K-L',
+                    icon: 'resources/images/Books1-17.png'},
+                             /* { leaf:true, text: 'K',
+                    icon: 'null'},
+                               { leaf:true, text: 'L',
+                    icon: 'null'},*/
+                                { leaf:true, text: 'M-N-O',
+                    icon: 'resources/images/Books1-17.png'},
+                                 /*{ leaf:true, text: 'N',
+                    icon: 'null'},
+                                  { leaf:true, text: 'O',
+                    icon: 'null'},*/
+                                   { leaf:true, text: 'P-Q-R',
+                    icon: 'resources/images/Books1-17.png'},
+                                   /* { leaf:true, text: 'Q',
+                    icon: 'null'},
+                                     { leaf:true, text: 'R',
+                    icon: 'null'},*/
+                                      { leaf:true, text: 'S-T-U',
+                    icon: 'resources/images/Books1-17.png'},
+                                      /* { leaf:true, text: 'T',
+                    icon: 'null'},
+                                        { leaf:true, text: 'U',
+                    icon: 'null'},*/
+                                         { leaf:true, text: 'V-W-X-Y-Z',
+                    icon: 'resources/images/Books1-17.png'}
+                                         /* { leaf:true, text: 'W',
+                    icon: 'null'},
+                                           { leaf:true, text: 'X',
+                    icon: 'null'},
+                                            { leaf:true, text: 'Y',
+                    icon: 'null'},
+                                             { leaf:true, text: 'Z',
+                    icon: 'null'}*/
+                                             
+                 
+                ]
                
               /*  children: [
                     { text: 'Aschenbrödel: Isouard', 
@@ -122,7 +178,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
     initComponent: function() {
         this.items = [
             {
-                title: 'Öffentlichkeit',
+                title: 'Spielbetrieb',
                 useArrows: true
                 //colspan: 2
             }

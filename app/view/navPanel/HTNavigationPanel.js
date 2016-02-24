@@ -9,6 +9,7 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 	'TheaterTool.view.facsimileView.LeafletFacsimile'],
 	//layout: 'vbox'
 	region: 'east',
+	//region: 'west',
 	//flex: 1,
 	//id: 'facsimileview',
 	//autoScroll: true,
@@ -21,7 +22,7 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 		align: 'stretch'
 	},*/
 	
-	title: '1825-1875',
+	title: 'Detmolder Hoftheater 1825-1875',
 	
 	defaultListenerScope: true,
 	//border: true,

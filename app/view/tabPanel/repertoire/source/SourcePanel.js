@@ -27,7 +27,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 	
 	initComponent: function () {
 	
-	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection();
+	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({margin: '5 0 5 0'});
 		
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection();
 	

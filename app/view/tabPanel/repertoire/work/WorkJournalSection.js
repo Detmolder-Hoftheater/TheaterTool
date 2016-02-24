@@ -1,9 +1,9 @@
 /**
  * This example illustrates how to use the grouping feature of the Grid.
  */
-Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection', {
+Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkJournalSection', {
     extend: 'Ext.panel.Panel',
-   // xtype: 'grouped-grid',
+    //xtype: 'grouped-grid',
     requires: [
         'Ext.grid.feature.Grouping'
     ],
@@ -16,60 +16,51 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection', {
     // Need a minHeight. Neptune resizable framed panels are overflow:visible so as to
     // enable resizing handles to be embedded in the border lines.
     minHeight: 200,
-    title: 'Beteiligte Personen',
+   title: 'Berichte im Theaterjournal',
     resizable: true,
     
     collapsed: true,
    
-   //margin: '5 0 5 0',
-	icon: 'resources/images/Mask-19.png',	
-   
-    personTable: null,
+   margin: '5 0 5 0',
+   icon: 'resources/images/Dossier-17.png',
+				
 
-   /* features: [{
+  /*  features: [{
         ftype: 'grouping',
         groupHeaderTpl: '{columnName}: {name} ({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
         hideGroupedHeader: true,
         startCollapsed: true,
         id: 'restaurantGrouping'
     }],*/
+    
+    personTable:null,
 
     initComponent: function() {
-   
-   var me = this;
     
-    me.personTable = new TheaterTool.view.tabPanel.repertoire.PersonTree();
-     me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.PersonDetailsTabPanel();
+    var me = this;
+    
+    me.personTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable();
+    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.JournalDetailsTabPanel();
 	
     
    me.items =[
    me.personTable,
    me.repertoireTab
-		],
-	
-        /*this.store = new TheaterTool.store.Store();
-        this.columns = [{
-            text: 'Name',
-            flex: 1,
-            dataIndex: 'name'
-        },{
-            text: 'Cuisine',
-            flex: 1,
-            dataIndex: 'cuisine'
-        }];*/
-        
-        me.listeners = {
+		];
+       
+         me.listeners = {
         	expand: function (p, eOpts) {
         	console.log("expand");
+        	// TODO
         	var app = TheaterTool.getApplication();
-        	var store = app.getPersonenForWorkDataStore();
+        	var store = app.getPlansForWorkDataStore();
 			store.load();
 			me.personTable.getView().bindStore(store);
          
         }
-    },
+          };
 
-        me.callParent();
+        this.callParent();
         
         }
 

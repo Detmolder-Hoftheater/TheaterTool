@@ -9,6 +9,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 	personSection: null,
 	planSection: null,
 	detailSection: null,
+	journalSection: null,
+	regieSection: null,
+	roleSection: null,
+	revenueSection: null,
+	issueSection: null,
 	
 	layout: {
 					type: 'vbox',
@@ -34,14 +39,28 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 	
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection();
 	
+	this.journalSection = new TheaterTool.view.tabPanel.repertoire.work.WorkJournalSection();
+
+ 	this.regieSection  = new TheaterTool.view.tabPanel.repertoire.work.WorkRegieSection();
+
+	this.roleSection = new TheaterTool.view.tabPanel.repertoire.work.WorkRoleSection();
+
+	this.revenueSection = new TheaterTool.view.tabPanel.repertoire.work.WorkRevenueSection();
+
+	this.issueSection = new TheaterTool.view.tabPanel.repertoire.work.WorkIssueSection();
+
+	
     this.items = [
        
 			this.detailSection,
+			this.planSection,
 			this.personSection,
-			this.planSection
+			this.journalSection,
+     		this.regieSection,
+			this.roleSection,
+			this.issueSection,
+			this.revenueSection
 			
-       
-     
     ]
     	this.callParent();
 	}

@@ -1,8 +1,9 @@
-Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
+Ext.define('TheaterTool.view.tabPanel.repertoire.work.RoleTable', {
 	extend: 'Ext.grid.Panel',
 	
 	requires:[
 	 'Ext.grid.column.Action',
+	 // TODO
 	'TheaterTool.model.Plan'
 	],
 	
@@ -24,7 +25,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
 		
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
-		
+		// TODO
 		this.columns =[ {
 			//xtype: 'treecolumn',
 			text: 'Jahr',

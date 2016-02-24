@@ -18,14 +18,21 @@ requires:[
 	
 	closable: true,
 	
-	defaults: {
+	/*defaults: {
 		frame: true,
 		autoScroll: true
-	},
+	},*/
+	
+	/* style: {
+     // borderRight: '5px solid #A80016'
+      borderLeft: '1px solid #FFF',
+      borderTop: '1px solid #FFF',
+      borderBottom: '1px solid #FFF'
+    },*/
 	
 	
-	//bodyPadding: 10,
-	//border: false,
+	bodyPadding: 5,
+	border: true,
 	
 	autoScroll: true,
 	
@@ -34,12 +41,12 @@ requires:[
 	
 	initComponent: function () {
 	
-	this.repertoireNavigation = new TheaterTool.view.tabPanel.repertoire.RepertoireAlphNavigation();
+	//this.repertoireNavigation = new TheaterTool.view.tabPanel.repertoire.RepertoireAlphNavigation();
 	
 	this.repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel();
 		
 		this.items =[
-		this.repertoireNavigation,
+		//this.repertoireNavigation,
 		this.repertoireDetails
 		];
 	

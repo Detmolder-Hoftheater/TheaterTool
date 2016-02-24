@@ -3,11 +3,11 @@ var store = Ext.create('Ext.data.TreeStore', {
         text: 'Ext JS',
         expanded: true,
         children: [
-            {
-                text: 'Theater Organisation',
+           // {
+               /* text: 'Theater Organisation',
                 icon: 'resources/images/Audience-17.png',
                 expanded: true,
-                children: [
+                children: [*/
                     { leaf:true, text: 'Dekoration',
                     icon: 'resources/images/theatre.png' },
                     { leaf:true, text: 'Regiebücher',
@@ -15,9 +15,9 @@ var store = Ext.create('Ext.data.TreeStore', {
                     { leaf:true, text: 'Rollen- & Kostümbücher',
                      icon: 'resources/images/carnival.png'},
                     { leaf:true, text: 'Theaterberufe',
-                    icon: 'resources/images/theatreB.png'}
-                ]
-            },
+                    icon: 'resources/images/theatreB.png'},
+                //]
+          //  },
             {
                 text: 'Finanzwesen',
                 icon: 'resources/images/Coins-17.png',
@@ -69,7 +69,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreeTheaterLife', {
     initComponent: function() {
         this.items = [
             {
-                title: 'Theaterleben',
+                title: 'Verwaltung',
                 useArrows: true
                // colspan: 2
             }

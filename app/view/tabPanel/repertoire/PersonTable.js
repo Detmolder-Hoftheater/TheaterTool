@@ -1,13 +1,3 @@
-var store = Ext.create('Ext.data.Store', {
-    model: 'TheaterTool.model.Person',
-    data: [
-        { name: 'Isouard', vorname: 'Nicolas', xml: true, details: true },
-        { name: 'Herklots', vorname: 'Karl Alexander', xml: true, details: true }
-       
-    ]
-});
-
-
 Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTree', {
 	extend: 'Ext.grid.Panel',
 	
@@ -18,7 +8,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTree', {
 	
 	//xtype: 'array-grid',
 	//rootVisible: false,
-	store: store ,
+	//store: store ,
 	xmlColumn: null,
 	
 	detailsColumn: null,
@@ -30,9 +20,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTree', {
 	
 	initComponent: function () {
 	
-	this.xmlColumn = this.createColumn('XML', 'resources/images/Load.png');
+	this.xmlColumn = this.createColumn('XML', 'resources/images/Save-17.png');
 		
-		this.detailsColumn = this.createColumn('Details', 'resources/images/Folder.png');
+		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
 		
 		this.columns =[ {
@@ -78,8 +68,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTree', {
 			align: 'center',
 			menuDisabled: true,
 			renderer: function (val, metadata, record) {
-			
-			console.log(record.data);
 			
 			if(headerName == 'XML'){
 				if(record.data.xml === true){
