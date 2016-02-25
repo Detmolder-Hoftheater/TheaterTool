@@ -91,17 +91,13 @@ Ext.define('TheaterTool.Application', {
 	launch: function () {
 		
 		this.renderer = new verovio.toolkit();
-		
+
 		this.personenForWorkDataStore = Ext.create('Ext.data.Store', {
 			model: 'TheaterTool.model.Person',
 			proxy: {
 				type: 'ajax',
-				url: 'data/getPersonenForWork.xql',
-				//url: 'resources/xql/pmd_ce_getNavigation.xql',
-				reader: {
-					type: 'json',
-					rootProperty: 'sigle'
-				}
+				//url: 'data/getPersonenForWork.xql',
+				url: 'resources/xql/getPersonenForWork.xql'
 			},
 			autoLoad: false
 		});
