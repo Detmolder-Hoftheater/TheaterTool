@@ -168,8 +168,8 @@ this.tbar = new Ext.Toolbar({
 //bodyBackground:{"color":"#A80016"},
 	items: [
 		{
-		html: '<b style="color:#A80016; text-align:center;">la vita di teatro</b>',
-        style:{"background-color":"#A87678"}
+		html: '<b style="color:#A87678;">la vita di teatro</b>',
+        style:{"background-color":"#A80016"}
 		},
 /*		{ xtype: 'tbseparator',
 style: {
@@ -179,6 +179,9 @@ style: {
      // borderBottom: '1px solid black'
     }
 },*/
+'->',
+'->',
+'->',
 {
     xtype: 'button',
      text: 'Teiferschließung',
@@ -227,7 +230,8 @@ style: {
                     }]
      //Desktop 173
     
-}
+},
+'->'
 
 
 

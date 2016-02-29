@@ -5,23 +5,21 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.TabText', {
 	extend: 'Ext.panel.Panel',
-requires:[
+/*requires:[
 	'Ext.layout.container.VBox'],
-	//xtype: 'layout-vertical-box',
-	//flex: 1,
 	
 	layout: {
 		type: 'vbox',
 		pack: 'start',
 		align: 'stretch'
-	},
+	},*/
 	
 	//closable: true,
 	
-	defaults: {
+	/*defaults: {
 		frame: true,
 		autoScroll: true
-	},
+	},*/
 	
 	
 	//bodyPadding: 15,
@@ -33,13 +31,35 @@ requires:[
 	searchField: null,
 	
 	initComponent: function () {
+
+var me = this;
 	
 	//this.searchField = this.createTextField('Suche1', 'Suche1');
 	//this.searchField.setDisabled(true);
+
+
+Ext.Ajax.request({
+            //url: 'data/Output_Exist.xql',
+ 			url: 'resources/xql/test_Exist.xql',
+            method: 'GET',
+            params: {
+                uri: '/db/contents/works/H0201xx/H020149.xml',
+                type: 'work'
+            },
+            success: function(response){
+
+
+//console.log(me.id);
+$('#'+me.id+'-innerCt').html(response.responseText);
+
+	//console.log(response.responseText);
+
+
+     }
+          // scope: this
+        });
 	
-	
-	
-	this.items =[
+	//this.items =[
 		
 			//this.searchField
 			
@@ -69,7 +89,7 @@ requires:[
         }*/
 			
     
-		];
+	//	];
 		
 		/*this.items =[
 		 {
