@@ -44,14 +44,13 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 			
 		}),*/
 		
-		
+		/*
 		this.repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 			title: 'Repertoire: A-B-C',
-			icon: 'resources/images/Library-17.png',
-			id: 'hairpinsitem'
+			icon: 'resources/images/Library-17.png'
 			
 		});
-		
+		*/
 		
 		
 		
@@ -67,13 +66,13 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 			id: 'dirsitem'
 			// icon: 'resources/images/mix_volume.png'
 		}),*/
-		this.items =[
+		//this.items =[
 		//this.slursItem,
-		this.repertoireTab
+		//this.repertoireTab
 		//this.dynamsItems,
 		//this.dirsItems
 		
-		],
+		//],
 		
 		this.callParent()
 	}

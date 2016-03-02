@@ -42,10 +42,11 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
 	initComponent: function () {
 		
 		//this.ceTabView = new TheaterTool.view.tabPanel.CETabPanel(),
-		this.htTabView = new
-		TheaterTool.view.tabPanel.HTTabPanel();
+		this.htTabView = new TheaterTool.view.tabPanel.HTTabPanel();
 		
 		this.htNavPanel = new TheaterTool.view.navPanel.HTNavigationPanel({bodyStyle:{"background-color":"#A80016"}});
+
+		this.htNavPanel.setHTTabPanel(this.htTabView);
 		
 		
 		this.items =[
@@ -53,5 +54,10 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
 		this.htNavPanel],
 		
 		this.callParent();
-	}
+	},
+
+getHTTabPanel: function(){
+	return this.htTabView;
+
+}
 });

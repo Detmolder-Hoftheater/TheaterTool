@@ -21,10 +21,10 @@ Ext.define('TheaterTool.view.navPanel.SearchPanel', {
 	
 	border: false,
     style: {
-      borderRight: '1px solid #A80016',
-      borderLeft: '1px solid #A80016',
-      borderTop: '7px solid #A80016',
-      borderBottom: '1px solid #A80016'
+      borderRight: '3px solid #fff',
+      borderLeft: '3px solid #fff',
+      borderTop: '3px solid #fff',
+      borderBottom: '3px solid #fff'
     },
 	
 	repertoireTab: null,

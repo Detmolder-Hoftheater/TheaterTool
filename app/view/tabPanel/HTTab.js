@@ -43,12 +43,12 @@ requires:[
 	
 	//this.repertoireNavigation = new TheaterTool.view.tabPanel.repertoire.RepertoireAlphNavigation();
 	
-	this.repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel();
+	//this.repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel();
 		
-		this.items =[
+	//	this.items =[
 		//this.repertoireNavigation,
-		this.repertoireDetails
-		];
+	//	this.repertoireDetails
+	//	];
 	
 		
 		this.callParent();

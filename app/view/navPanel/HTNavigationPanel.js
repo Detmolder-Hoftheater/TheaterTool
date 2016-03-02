@@ -47,7 +47,7 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 	treeTheaterLife: null,
 	
 	searchPanel: null,
-	
+	tabPanel: null,
 	
 	
 	//bodyStyle:{"background-color":"white"},
@@ -61,7 +61,9 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 	
 	this.treePublic = new TheaterTool.view.navPanel.NavigationTreePublic();
 	
+	
 	this.treeTheaterLife = new TheaterTool.view.navPanel.NavigationTreeTheaterLife();
+	
 	
 	this.searchPanel = new TheaterTool.view.navPanel.SearchPanel({bodyStyle:{"background-color":"#A80016"}});
 	
@@ -93,6 +95,12 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 		this.callParent()
 	},
 	
+
+	setHTTabPanel: function(tabPanel){
+		this.treePublic.setHTTabPanel(tabPanel);
+		this.treeTheaterLife.setHTTabPanel(tabPanel);
+	
+	},
 	
 	
 	click: function () {		
