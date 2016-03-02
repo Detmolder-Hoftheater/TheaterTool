@@ -2,9 +2,6 @@
  * Creates class TheaterTool.view.toolbar.CEToolbar that extend from Ext.panel.Panel.
  * @class
  */
-
-
-
 Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	extend: 'Ext.panel.Panel',
 	
@@ -89,19 +86,11 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 		
 		this.callParent()
 	},
-	
-	
+		
 	setViewPanel: function (htPanel) {
 		this.htPanel = htPanel;
 	},
 	
-	/**
-	 * Create button with menu
-	 * @param {string} ceSource: name.
-	 * @param {string} ceId.
-	 * @param {object} ceMenu.
-	 * @param {object} ceHandler.
-	 */
 	createCEButton: function (htText) {
 		
 		var me = this;
@@ -109,7 +98,6 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 			xtype: 'button',
 			text: htText,
 			scope: this,
-			//handler: ceHandler,
 			menu:[],
 			scale: 'medium'
 		});
@@ -125,12 +113,30 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 					click: function (item, e, eOpts) {
 						if (item.text === 'Aschenbrödel: Isouard') {
 							var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-								title: 'Repertoire: A-B-C',
-								icon: 'resources/images/Library-17.png'
+								title: 'Aschenbrödel: Isouard',
+								icon: 'resources/images/Books1-17.png'
 							});
 							
 							var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel();
 							repertoireTab.add(repertoireDetails);
+							
+							me.htPanel.getHTTabPanel().add(repertoireTab);
+							me.htPanel.getHTTabPanel().setActiveTab(repertoireTab);
+						}
+						else if (item.text === 'Der Bettelstudent: v. Winter') {
+							var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+								title: 'Der Bettelstudent: v. Winter',
+								icon: 'resources/images/Books1-17.png'
+							});
+							
+							me.htPanel.getHTTabPanel().add(repertoireTab);
+							me.htPanel.getHTTabPanel().setActiveTab(repertoireTab);
+						}
+						else if (item.text === 'Des Teufels Anteil: Auber') {
+							var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+								title: 'Des Teufels Anteil: Auber',
+								icon: 'resources/images/Books1-17.png'
+							});
 							
 							me.htPanel.getHTTabPanel().add(repertoireTab);
 							me.htPanel.getHTTabPanel().setActiveTab(repertoireTab);
@@ -142,51 +148,6 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 		}
 		
 		return ceButton;
-	},
-	
-	/**
-	 * Create login button
-	 * @param {string} ceSource: name.
-	 */
-	createLoginButton: function (ceSource) {
-		var ceButton = Ext.create('Ext.button.Button', {
-			xtype: 'button',
-			scale: 'medium',
-			text: ceSource
-		});
-		
-		return ceButton;
-	},
-	
-	/**
-	 * Create button-icon
-	 * @param {string} ceId.
-	 * @param {string} ceIcon: icon path.
-	 * @param {object} ceHandler.
-	 */
-	createCEIcon: function (ceId, ceIcon, ceHandler) {
-		var ceIcon = Ext.create('Ext.button.Button', {
-			id: ceId,
-			icon: ceIcon,
-			scale: 'medium',
-			handler: ceHandler
-		});
-		return ceIcon;
-	},
-	
-	/**
-	 * Create button
-	 * @param {object} ceAutoEl: icon.
-	 * @param {object} ceOnItemToggle: handler.
-	 * @param {boolean} ceEnableToggle.
-	 */
-	createCEBox: function (ceAutoEl, ceOnItemToggle, ceEnableToggle) {
-		var ceBox = Ext.create('Ext.button.Button', {
-			autoEl: ceAutoEl,
-			id: 'test',
-			enableToggle: ceEnableToggle,
-			toggleHandler: ceOnItemToggle
-		});
-		return ceBox;
 	}
+
 });
