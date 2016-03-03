@@ -14,7 +14,7 @@ Ext.define('TheaterTool.view.navPanel.SearchTabPanel', {
 	searchTab: null,
 	extendSearchTab: null,
 
-
+border: false,
 	
 	//minHeight: 205,
 	

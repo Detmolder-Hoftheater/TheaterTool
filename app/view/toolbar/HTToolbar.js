@@ -32,28 +32,15 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 				background: '#A80016'
 			},
 			
-			
-			//border-color:#18181a;
-			//background-color:#393d4e;
-			
-			//bodyBackground:{"color":"#A80016"},
 			items:[ {
-				html: '<b style="color:#A87678;">la vita di teatro</b>',
-				style: {
-					"background-color": "#A80016"
-				}
+
+				xtype: 'label',
+        		html: '<b style="color:#A87678;">la vita di teatro</b>',
+        		margin: '0 0 0 10'
+
 			},
-			/*		{ xtype: 'tbseparator',
-			style: {
-			borderRight: '1px solid black',
-			borderLeft: '1px solid black'
-			// borderTop: '1px solid black',
-			// borderBottom: '1px solid black'
-			}
-			},*/
-			
-'->',
-'->',
+			'->',
+			'->',
 
 			this.extendWorkButton, 
 			{

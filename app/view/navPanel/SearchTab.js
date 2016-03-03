@@ -18,11 +18,12 @@ requires:[
 	
 	//closable: true,
 	
-	defaults: {
+	/*defaults: {
 		frame: true,
 		autoScroll: true
-	},
+	},*/
 	
+border: false,
 	
 	bodyPadding: 15,
 	//border: false,
