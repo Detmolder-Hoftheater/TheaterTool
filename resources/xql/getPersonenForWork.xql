@@ -15,18 +15,18 @@ declare option exist:serialize "method=text media-type=text/plain omit-xml-decla
 
 (:declare variable $path := 'xmldb:exist:///db/contents/persons/H0000xx/H000001.xml';:)
 
-declare variable $file := doc('xmldb:exist:///apps/theater-data/persons/H0000xx/H000001.xml');
-declare variable $persName := $file//tei:persName[@type = 'reg'];
+declare variable $file := doc('xmldb:exist:///apps/theater-data/works/H0201xx/H020149.xml');
+declare variable $persName := $file//mei:persName;
+
 
 declare function local:jsonifySlurs($persName) {
 
 let $strings := for $elem in $persName
-                    let $surname := $elem/tei:surname
-					let $forename := $elem/tei:forename[1]
+                    let $surname := $elem
+					
                     return 
                         concat('{name:"',$surname,'",',
-                            'vorname:"',$forename,'",',
-                            'details:"',"true",'",',                          
+							'details:"',"true",'",',                          
                             'xml:"',"true",'"',
                             '}')
     return 
@@ -38,8 +38,12 @@ let $strings := for $elem in $persName
        
     
  (
+
+  '[',
+        local:jsonifySlurs($persName),
+    ']'
    
-        local:jsonifySlurs($persName)
+      
    
 
 )

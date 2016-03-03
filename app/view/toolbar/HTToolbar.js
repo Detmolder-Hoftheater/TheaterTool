@@ -12,8 +12,8 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	
 	style: {
 		//borderLeft: '3px solid #A80016',
-		borderTop: '3px solid #A80016'
-		//borderBottom: '1px solid #fff'
+		borderTop: '5px solid #A80016',
+		borderBottom: '3px solid #A80016'
 	},
 	bodyBorder: false,
 	border: false,
@@ -89,9 +89,9 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 		var ceButton = Ext.create('Ext.button.Button', {
 			xtype: 'button',
 			text: htText,
-			scope: this,
-			menu:[],
-			scale: 'medium'
+			//scope: this,
+			menu:[]
+			//scale: 'medium'
 		});
 		
 		var storeField = new Array("Aschenbrödel: Isouard", "Der Bettelstudent: v. Winter", 'Des Teufels Anteil: Auber');

@@ -1,4 +1,4 @@
-Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTree', {
+Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTable', {
 	extend: 'Ext.grid.Panel',
 	
 	requires:[
@@ -32,12 +32,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTree', {
 			sortable: true,
 			dataIndex: 'name'
 			
-		},
-		{
-			text: 'Vorname',
-			flex: 2,
-			sortable: true,
-			dataIndex: 'vorname'
 		},
 		this.detailsColumn,
 		this.xmlColumn

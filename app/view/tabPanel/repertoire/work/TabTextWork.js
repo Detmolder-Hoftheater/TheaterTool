@@ -39,8 +39,8 @@ var me = this;
 
 
 Ext.Ajax.request({
-            url: 'data/Output_Exist.xql',
- 			//url: 'resources/xql/test_Exist.xql',
+           // url: 'data/Output_Exist.xql',
+ 			url: 'resources/xql/test_Exist.xql',
             method: 'GET',
             params: {
                 uri: '/db/contents/works/H0201xx/H020149.xml',

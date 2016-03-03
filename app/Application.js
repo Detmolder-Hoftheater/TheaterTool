@@ -65,7 +65,7 @@ Ext.define('TheaterTool.Application', {
 	'navPanel.NavigationTreePublic',
 	'navPanel.NavigationTreeTheaterLife',
 	'tabPanel.repertoire.RepertoireNavigationTree',
-	'tabPanel.repertoire.PersonTree'
+	'tabPanel.repertoire.PersonTable'
 	],
 	
 	models:[
@@ -111,8 +111,8 @@ Ext.define('TheaterTool.Application', {
 			model: 'TheaterTool.model.Plan',
 			proxy: {
 				type: 'ajax',
-				url: 'data/getPlainsForWork.xql'
-				//url: 'resources/xql/pmd_ce_getNavigation.xql',
+				//url: 'data/getPlainsForWork.xql'
+				url: 'resources/xql/pmd_ce_getNavigation.xql'
 				/*reader: {
 					type: 'json',
 					rootProperty: 'sigle'

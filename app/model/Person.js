@@ -3,7 +3,6 @@ Ext.define('TheaterTool.model.Person', {
     fields: [
         {name: 'name',   type: 'string'},       
         {name: 'xml',   type: 'boolean'},
-        {name: 'vorname',   type: 'string'},
          {name: 'details',   type: 'boolean'}
     ]
 });

@@ -47,7 +47,7 @@ style: {
    
    var me = this;
     
-    me.personTable = new TheaterTool.view.tabPanel.repertoire.PersonTree();
+    me.personTable = new TheaterTool.view.tabPanel.repertoire.PersonTable();
      me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.PersonDetailsTabPanel();
 	
     
