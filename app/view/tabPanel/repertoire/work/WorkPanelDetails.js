@@ -21,7 +21,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 					align: 'stretch'
 				},
 				
-				//bodyPadding: 5,
+				bodyPadding: 3,
 				
 				/*defaults: {
 					frame: true

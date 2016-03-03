@@ -26,7 +26,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkRegieSection', {
 
 style: {
 		//borderLeft: '3px solid #A80016',
-		borderTop: '3px solid #fff'
+		borderTop: '5px solid #fff'
 		//borderBottom: '1px solid #fff'
 	},
 	bodyBorder: false,
@@ -60,10 +60,10 @@ style: {
         	expand: function (p, eOpts) {
         	console.log("expand");
         	// TODO
-        	var app = TheaterTool.getApplication();
+        	/*var app = TheaterTool.getApplication();
         	var store = app.getPlansForWorkDataStore();
 			store.load();
-			me.personTable.getView().bindStore(store);
+			me.personTable.getView().bindStore(store);*/
          
         }
           };

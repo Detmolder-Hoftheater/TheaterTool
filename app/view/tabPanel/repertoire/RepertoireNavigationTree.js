@@ -71,7 +71,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 	rootVisible: false,
 	store: store ,
 	
-	//title: 'A',
+	title: 'Werke',
 	
 	xmlColumn: null,
 	incipitsColumn: null,
@@ -89,7 +89,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
     },
     
   
-	//collapsible: true,
+	collapsible: true,
             
             //bodyStyle:{"grid-row-cell-background-color":"#A80016"},
     

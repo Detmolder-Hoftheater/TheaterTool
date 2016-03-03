@@ -31,7 +31,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
 
 style: {
 		//borderLeft: '3px solid #A80016',
-		borderTop: '3px solid #fff'
+		borderTop: '2px solid #fff'
 		//borderBottom: '1px solid #fff'
 	},
 	bodyBorder: false,

@@ -15,9 +15,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 					align: 'stretch'
 				},
 				
-			/*	bodyPadding: 5,
+				bodyPadding: 3,
 				
-				defaults: {
+				/*defaults: {
 					frame: true
 					
 				},*/

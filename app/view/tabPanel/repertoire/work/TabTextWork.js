@@ -22,10 +22,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabTextWork', {
 	},*/
 	
 	
-	//bodyPadding: 15,
-	//border: false,
+	bodyPadding: 10,
+
 	
-	autoScroll: true,
+	//autoScroll: true,
 	
 	
 	searchField: null,

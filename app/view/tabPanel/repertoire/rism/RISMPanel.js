@@ -14,14 +14,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
 					align: 'stretch'
 				},
 				
-				//bodyPadding: 5,
+				bodyPadding: 3,
 				
 				/*defaults: {
 					frame: true
 				},*/
 				
-				border: false,
 	
+bodyBorder: false,
+	border: false,
 	
 	initComponent: function () {
 		

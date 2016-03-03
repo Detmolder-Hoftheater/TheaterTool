@@ -19,7 +19,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection', 
    
 style: {
 		//borderLeft: '3px solid #A80016',
-		borderTop: '3px solid #fff'
+		borderTop: '5px solid #fff'
 		//borderBottom: '1px solid #fff'
 	},
 	bodyBorder: false,

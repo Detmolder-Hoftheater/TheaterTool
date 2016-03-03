@@ -25,7 +25,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkIssueSection', {
    icon: 'resources/images/MoneyTransfer-17.png',
 	style: {
 		//borderLeft: '3px solid #A80016',
-		borderTop: '3px solid #fff'
+		borderTop: '5px solid #fff'
 		//borderBottom: '1px solid #fff'
 	},
 	bodyBorder: false,
@@ -58,10 +58,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkIssueSection', {
         	expand: function (p, eOpts) {
         	console.log("expand");
         	// TODO
-        	var app = TheaterTool.getApplication();
+        /*	var app = TheaterTool.getApplication();
         	var store = app.getPlansForWorkDataStore();
 			store.load();
-			me.personTable.getView().bindStore(store);
+			me.personTable.getView().bindStore(store);*/
          
         }
           };

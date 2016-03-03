@@ -12,11 +12,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsTabPanel', {
 	
 	//bodyPadding: 3,
 	
-	//bodyBorder: false,
 	
 	/*defaults: {
 		split: true
 	},*/
+
+bodyBorder: false,
+	border: false,
 	
 	textTab: null,
 	xmlTab: null,

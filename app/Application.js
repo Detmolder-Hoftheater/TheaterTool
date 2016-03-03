@@ -107,19 +107,19 @@ Ext.define('TheaterTool.Application', {
 			autoLoad: false
 		});
 		
-		this.plansForWorkDataStore = Ext.create('Ext.data.Store', {
+		/*this.plansForWorkDataStore = Ext.create('Ext.data.Store', {
 			model: 'TheaterTool.model.Plan',
 			proxy: {
 				type: 'ajax',
 				//url: 'data/getPlainsForWork.xql'
 				url: 'resources/xql/pmd_ce_getNavigation.xql'
-				/*reader: {
+				/\*reader: {
 					type: 'json',
 					rootProperty: 'sigle'
-				}*/
+				}*\/
 			},
 			autoLoad: false
-		});
+		});*/
 		
 		
 //		this.werkDataStore = Ext.create('Ext.data.TreeStore', {
