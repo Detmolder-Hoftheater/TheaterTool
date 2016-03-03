@@ -44,7 +44,9 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
 		//this.ceTabView = new TheaterTool.view.tabPanel.CETabPanel(),
 		this.htTabView = new TheaterTool.view.tabPanel.HTTabPanel();
 		
-		this.htNavPanel = new TheaterTool.view.navPanel.HTNavigationPanel({bodyStyle:{"background-color":"#A80016"}});
+		//this.htNavPanel = new TheaterTool.view.navPanel.HTNavigationPanel({bodyStyle:{"background-color":"#A80016"}});
+
+this.htNavPanel = new TheaterTool.view.navPanel.HTNavigationPanel();
 
 		this.htNavPanel.setHTTabPanel(this.htTabView);
 		

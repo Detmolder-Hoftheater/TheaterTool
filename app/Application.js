@@ -43,6 +43,11 @@ Ext.define('TheaterTool.Application', {
 	'tabPanel.repertoire.work.WorkIssueSection',
 	'tabPanel.repertoire.work.IssueTable',
 	'tabPanel.repertoire.work.IssueDetailsTabPanel',
+	'tabPanel.repertoire.work.TabTextWork',
+	'tabPanel.repertoire.rism.RISMDetailsTabPanel',
+	'tabPanel.repertoire.rism.RISMDetailsSection',
+	'tabPanel.repertoire.source.SourceDetailsTabPanel',
+	'tabPanel.repertoire.source.SourceDetailsSection',
 	'navPanel.SearchPanel',
 	'navPanel.SearchTabPanel',
 	'navPanel.SearchTab',
@@ -106,12 +111,12 @@ Ext.define('TheaterTool.Application', {
 			model: 'TheaterTool.model.Plan',
 			proxy: {
 				type: 'ajax',
-				url: 'data/getPlainsForWork.xql',
+				url: 'data/getPlainsForWork.xql'
 				//url: 'resources/xql/pmd_ce_getNavigation.xql',
-				reader: {
+				/*reader: {
 					type: 'json',
 					rootProperty: 'sigle'
-				}
+				}*/
 			},
 			autoLoad: false
 		});

@@ -11,9 +11,9 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	'Ext.window.MessageBox'],
 	
 	style: {
-		borderLeft: '3px solid #A80016',
-		borderTop: '5px solid #A80016',
-		borderBottom: '3px solid #A80016'
+		//borderLeft: '3px solid #A80016',
+		borderTop: '3px solid #A80016'
+		//borderBottom: '1px solid #fff'
 	},
 	bodyBorder: false,
 	border: false,
@@ -51,10 +51,12 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 			// borderBottom: '1px solid black'
 			}
 			},*/
-			'->',
-			'->',
-			'->',
-			this.extendWorkButton, {
+			
+'->',
+'->',
+
+			this.extendWorkButton, 
+			{
 				xtype: 'tbseparator',
 				style: {
 					borderRight: '1px solid #A87678',
@@ -62,7 +64,8 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 					// borderTop: '1px solid black',
 					// borderBottom: '1px solid black'
 				}
-			}, {
+			}, 
+			{
 				xtype: 'button',
 				text: 'Tabs anordnen',
 				menu:[ {
@@ -79,7 +82,9 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 				}]
 				//Desktop 173
 			},
-			'->']
+'->'
+
+]
 		});
 		
 		

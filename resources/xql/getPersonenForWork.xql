@@ -15,7 +15,7 @@ declare option exist:serialize "method=text media-type=text/plain omit-xml-decla
 
 (:declare variable $path := 'xmldb:exist:///db/contents/persons/H0000xx/H000001.xml';:)
 
-declare variable $file := doc('xmldb:exist:///db/contents/persons/H0000xx/H000001.xml');
+declare variable $file := doc('xmldb:exist:///apps/theater-data/persons/H0000xx/H000001.xml');
 declare variable $persName := $file//tei:persName[@type = 'reg'];
 
 declare function local:jsonifySlurs($persName) {

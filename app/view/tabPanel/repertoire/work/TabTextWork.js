@@ -3,7 +3,7 @@
  * @class
  * @classdesc TheaterTool.view.tabPanel.ControlEventsItem for create hairpins-, dirs-, dynams- and slurs- items.
  */
-Ext.define('TheaterTool.view.tabPanel.repertoire.TabText', {
+Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabTextWork', {
 	extend: 'Ext.panel.Panel',
 /*requires:[
 	'Ext.layout.container.VBox'],
@@ -38,7 +38,7 @@ var me = this;
 	//this.searchField.setDisabled(true);
 
 
-/*Ext.Ajax.request({
+Ext.Ajax.request({
             url: 'data/Output_Exist.xql',
  			//url: 'resources/xql/test_Exist.xql',
             method: 'GET',
@@ -48,14 +48,45 @@ var me = this;
             },
             success: function(response){
 
+
+//console.log(me.id);
 $('#'+me.id+'-innerCt').html(response.responseText);
+
+	//console.log(response.responseText);
 
 
      }
-         
+          // scope: this
         });
-	*/
 	
+	//this.items =[
+		
+			//this.searchField
+			
+			
+			/*{
+            xtype      : 'fieldcontainer',
+           // fieldLabel : 'Size',
+            defaultType: 'radiofield',
+            defaults: {
+                flex: 1
+            },
+            margin: '10 10 0 10',
+            layout: 'vbox',
+            items: [
+                {
+                    boxLabel  : 'Werk',
+                    name      : 'option',
+                    inputValue: 'w',
+                    id        : 'radio1'
+                }, {
+                    boxLabel  : 'Person',
+                    name      : 'option',
+                    inputValue: 'p',
+                    id        : 'radio2'
+                }
+            ]
+        }*/
 			
     
 	//	];

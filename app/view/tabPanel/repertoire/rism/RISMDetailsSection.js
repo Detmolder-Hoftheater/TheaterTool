@@ -1,13 +1,14 @@
 /**
  * This example illustrates how to use the grouping feature of the Grid.
  */
-Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection', {
+Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSection', {
     extend: 'Ext.panel.Panel',
-   // xtype: 'grouped-grid',
-   /* requires: [
+    //xtype: 'grouped-grid',
+    /*requires: [
         'Ext.grid.feature.Grouping'
     ],*/
     collapsible: true,
+    collapsed: false,
    // iconCls: 'icon-grid',
     //frame: true,
     //width: 600,
@@ -16,11 +17,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection', {
     // Need a minHeight. Neptune resizable framed panels are overflow:visible so as to
     // enable resizing handles to be embedded in the border lines.
    // minHeight: 200,
-    title: '<b style="color:gray;">Beteiligte Personen</b>',
-
-   // resizable: true,
-    
-    collapsed: true,
+    title: '<b style="color:gray;">Text und XML Ansicht</b>',
 
 style: {
 		//borderLeft: '3px solid #A80016',
@@ -29,12 +26,9 @@ style: {
 	},
 	bodyBorder: false,
 	border: false,
-   
-   //margin: '5 0 5 0',
-	icon: 'resources/images/Mask-19.png',	
-   
-    personTable: null,
 
+    //resizable: true,
+   
    /* features: [{
         ftype: 'grouping',
         groupHeaderTpl: '{columnName}: {name} ({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
@@ -42,20 +36,21 @@ style: {
         startCollapsed: true,
         id: 'restaurantGrouping'
     }],*/
+    
+    repertoireTab:null,
 
     initComponent: function() {
-   
-   var me = this;
     
-    me.personTable = new TheaterTool.view.tabPanel.repertoire.PersonTree();
-     me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.PersonDetailsTabPanel();
+    this.repertoireTab = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsTabPanel();
 	
-    
-   me.items =[
-   me.personTable,
-   me.repertoireTab
+	this.items =[
+		//this.slursItem,
+		this.repertoireTab
+		//this.dynamsItems,
+		//this.dirsItems
+		
 		],
-	
+    
         /*this.store = new TheaterTool.store.Store();
         this.columns = [{
             text: 'Name',
@@ -66,19 +61,8 @@ style: {
             flex: 1,
             dataIndex: 'cuisine'
         }];*/
-        
-        me.listeners = {
-        	expand: function (p, eOpts) {
-        	console.log("expand");
-        	var app = TheaterTool.getApplication();
-        	var store = app.getPersonenForWorkDataStore();
-			store.load();
-			me.personTable.getView().bindStore(store);
-         
-        }
-    },
 
-        me.callParent();
+        this.callParent();
         
         }
 

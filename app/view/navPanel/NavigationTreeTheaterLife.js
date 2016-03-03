@@ -62,7 +62,15 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreeTheaterLife', {
 	store: store ,
 	tabPanel: null,
 
-	title: 'Verwaltung',
+style: {
+     
+     
+     
+      borderBottom: '1px solid #A80016'
+    },
+border:false,
+
+	title: '<b style="color:gray;">Verwaltung</b>',
     
     initComponent: function() {
 

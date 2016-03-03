@@ -31,10 +31,10 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 	split: true,
 	border: false,
     style: {
-      borderRight: '1px solid #A80016',
-      borderLeft: '3px solid #A80016',
+     // borderRight: '1px solid #A80016'
+      borderLeft: '1px solid #A80016'
      // borderTop: '3px solid #A80016',
-      borderBottom: '1px solid #A80016'
+    //  borderBottom: '1px solid #A80016'
     },
    /* split: true,
     height: '25%',*/

@@ -31,8 +31,8 @@ requires:[
     },*/
 	
 	
-	bodyPadding: 5,
-	border: true,
+	//bodyPadding: 5,
+	border: false,
 	
 	autoScroll: true,
 	

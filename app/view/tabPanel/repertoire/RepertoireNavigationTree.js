@@ -120,7 +120,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 					me.repertoirePanel.removeAll(true);
 					me.workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails();
 					me.repertoirePanel.add(me.workPanel);
-				me.repertoirePanel.setTitle('Aschenbrödel: Isouard');
+				me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard</b>');
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
 					me.repertoirePanel.removeAll(true);
@@ -128,12 +128,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 						// TODO
 						//me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
 						//me.repertoirePanel.add(me.sourcePanel);	
-						me.repertoirePanel.setTitle('Aschenbrödel: Isouard -> Incipits');
+						me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard -> Incipits</b>');
 					}
 					else {
 						me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
 						me.repertoirePanel.add(me.sourcePanel);	
-						me.repertoirePanel.setTitle('Aschenbrödel: Isouard -> Quelle: Copyst of Detmold');
+						me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard -> Quelle: Copyst of Detmold</b>');
 					}
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
@@ -142,18 +142,18 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 					if(eOpts[0].data.name === 'RISM'){
 						me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel();
 						me.repertoirePanel.add(me.rismPanel);
-						me.repertoirePanel.setTitle('Aschenbrödel: Isouard -> Quelle: Copyst of Detmold -> RISM');	
+						me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard -> Quelle: Copyst of Detmold -> RISM</b>');	
 					}
 					else if(eOpts[0].data.name === 'Vertaktung'){
 						me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
 						me.repertoirePanel.add(me.beatPanel);
-						me.repertoirePanel.setTitle('Aschenbrödel: Isouard -> Quelle: Copyst of Detmold -> Vertaktung');
+						me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard -> Quelle: Copyst of Detmold -> Vertaktung</b>');
 					}
 					else if(eOpts[0].data.name === 'Facsimile'){
 						// TODO
 						//me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
 						//me.repertoirePanel.add(me.beatPanel);
-						me.repertoirePanel.setTitle('Aschenbrödel: Isouard -> Quelle: Copyst of Detmold -> Facsimile');
+						me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard -> Quelle: Copyst of Detmold -> Facsimile</b>');
 					}
 						
 				
@@ -168,7 +168,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 		
 		this.columns =[ {
 			xtype: 'treecolumn',
-			header: '<b>Werk/Insipits/Quelle/Facsimile/RISM/Vertaktung</b>',
+			header: '<b style="color:#A87678;">Werk/Insipits/Quelle/Facsimile/RISM/Vertaktung</b>',
 			flex: 1,
 			sortable: true,
 			dataIndex: 'name'
@@ -206,7 +206,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 		
 		var eColumn = Ext.create('Ext.grid.column.Action', {			
 			xtype: 'actioncolumn',
-			header: headerName,
+			header: '<b style="color:#A87678;">'+headerName+'</b>',
 			width: 40,
 			//flex:1,
 			align: 'center',

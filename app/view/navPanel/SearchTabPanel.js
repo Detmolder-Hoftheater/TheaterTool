@@ -8,13 +8,13 @@ Ext.define('TheaterTool.view.navPanel.SearchTabPanel', {
 	//id: 'cetabpanel',
 	
 	
-	//flex: 4,
-	
 	//collapsible: false,
 	//region: 'center',
 	
 	searchTab: null,
 	extendSearchTab: null,
+
+
 	
 	//minHeight: 205,
 	
@@ -36,14 +36,14 @@ Ext.define('TheaterTool.view.navPanel.SearchTabPanel', {
 		
 		
 		this.searchTab = new TheaterTool.view.navPanel.SearchTab({
-			title: 'Suche',
-			id: 'searchitem'
+			title: 'Suche'
+			//id: 'searchitem'
 			//bodyStyle:{"background-color":"#A80016"}
 		});
 		
 		this.extendSearchTab = new TheaterTool.view.navPanel.ExtendSearchTab({
-			title: 'Erweitert',
-			id: 'extendsearchitem'
+			title: 'Erweitert'
+			//id: 'extendsearchitem'
 		});
 	
 	

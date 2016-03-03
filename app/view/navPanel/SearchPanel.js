@@ -20,12 +20,12 @@ Ext.define('TheaterTool.view.navPanel.SearchPanel', {
 	},*/
 	
 	border: false,
-    style: {
+   /* style: {
       borderRight: '3px solid #fff',
       borderLeft: '3px solid #fff',
       borderTop: '3px solid #fff',
       borderBottom: '3px solid #fff'
-    },
+    },*/
 	
 	repertoireTab: null,
 	

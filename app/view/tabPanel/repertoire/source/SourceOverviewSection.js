@@ -10,18 +10,25 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection', 
     collapsible: true,
    // iconCls: 'icon-grid',
     
-    frame: true,
+   // frame: true,
     
     // Need a minHeight. Neptune resizable framed panels are overflow:visible so as to
     // enable resizing handles to be embedded in the border lines.
-    minHeight: 200,
-    title: 'Beschreibung',
+   // minHeight: 200,
+    title: '<b style="color:gray;">Beschreibung</b>',
    
-    resizable: true,
+style: {
+		//borderLeft: '3px solid #A80016',
+		borderTop: '3px solid #fff'
+		//borderBottom: '1px solid #fff'
+	},
+	bodyBorder: false,
+	border: false,
+    //resizable: true,
     
     collapsed: true,
     
-     margin: '5 0 0 0',
+    // margin: '5 0 0 0',
    
    /* features: [{
         ftype: 'grouping',

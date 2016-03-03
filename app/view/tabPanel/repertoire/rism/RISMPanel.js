@@ -14,19 +14,18 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
 					align: 'stretch'
 				},
 				
-				bodyPadding: 5,
+				//bodyPadding: 5,
 				
-				defaults: {
+				/*defaults: {
 					frame: true
-					//bodyPadding: 10
-				},
+				},*/
 				
 				border: false,
 	
 	
 	initComponent: function () {
 		
-	this.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection();
+	this.detailSection = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSection();
 	
     this.items = [
        

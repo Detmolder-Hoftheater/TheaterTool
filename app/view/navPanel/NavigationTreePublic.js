@@ -180,10 +180,16 @@ reserveScrollbar: true,
 	rootVisible: false,
 	store: store ,
 
-	title: 'Spielbetrieb',
+	title: '<b style="color:gray;">Spielbetrieb</b>',
 
 	tabPanel: null,
-    
+    /* style: {
+     
+     
+      borderTop: '1px solid #A80016',
+      borderBottom: '1px solid #A80016'
+    },*/
+border:false,
     
     initComponent: function() {
 

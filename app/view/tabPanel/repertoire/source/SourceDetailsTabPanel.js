@@ -2,7 +2,7 @@
  * Creates class TheaterTool.view.tabPanel.CEPanel that extend from Ext.panel.Panel.
  * @class
  */
-Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
+Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', {
 	extend: 'Ext.tab.Panel',
 	//id: 'cepanel',
 	/*requires:[
@@ -23,7 +23,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
 	
 	initComponent: function () {
 	
-	this.textTab = new TheaterTool.view.tabPanel.repertoire.work.TabTextWork({
+	this.textTab = new TheaterTool.view.tabPanel.repertoire.TabText({
 			title: 'Text'
 		});
 		

@@ -15,21 +15,21 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 					align: 'stretch'
 				},
 				
-				bodyPadding: 5,
+			/*	bodyPadding: 5,
 				
 				defaults: {
 					frame: true
-					//bodyPadding: 10
-				},
+					
+				},*/
 				
 				border: false,
 	
 	
 	initComponent: function () {
 	
-	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({margin: '5 0 5 0'});
+	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection();
 		
-	this.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection();
+	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection();
 	
 	this.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
 	

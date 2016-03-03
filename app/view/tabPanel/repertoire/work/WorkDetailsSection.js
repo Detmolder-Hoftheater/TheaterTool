@@ -10,15 +10,16 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
     collapsible: true,
     collapsed: true,
    // iconCls: 'icon-grid',
-    frame: true,
+    //frame: true,
     //width: 600,
     //height: 400,
    
     // Need a minHeight. Neptune resizable framed panels are overflow:visible so as to
     // enable resizing handles to be embedded in the border lines.
-    minHeight: 200,
-    title: 'Text und XML Ansicht',
-    resizable: true,
+   // minHeight: 200,
+    title: '<b style="color:gray;">Text und XML Ansicht</b>',
+
+   // resizable: true,
    
    /* features: [{
         ftype: 'grouping',
@@ -27,6 +28,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
         startCollapsed: true,
         id: 'restaurantGrouping'
     }],*/
+
+style: {
+		//borderLeft: '3px solid #A80016',
+		borderTop: '3px solid #fff'
+		//borderBottom: '1px solid #fff'
+	},
+	bodyBorder: false,
+	border: false,
     
     repertoireTab:null,
 

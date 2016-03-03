@@ -4,24 +4,33 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkRevenueSection', {
     extend: 'Ext.panel.Panel',
     //xtype: 'grouped-grid',
-    requires: [
+   /* requires: [
         'Ext.grid.feature.Grouping'
-    ],
+    ],*/
     collapsible: true,
    // iconCls: 'icon-grid',
-    frame: true,
+   // frame: true,
     //width: 600,
     //height: 400,
    
     // Need a minHeight. Neptune resizable framed panels are overflow:visible so as to
     // enable resizing handles to be embedded in the border lines.
-    minHeight: 200,
-   title: 'Einnahmen',
-    resizable: true,
+  //  minHeight: 200,
+   title: '<b style="color:gray;">Einnahmen</b>',
+   // resizable: true,
     
     collapsed: true,
+
+
+style: {
+		//borderLeft: '3px solid #A80016',
+		borderTop: '3px solid #fff'
+		//borderBottom: '1px solid #fff'
+	},
+	bodyBorder: false,
+	border: false,
    
-   margin: '5 0 5 0',
+  // margin: '5 0 5 0',
    icon: 'resources/images/MoneyBox-17.png',
 				
 
