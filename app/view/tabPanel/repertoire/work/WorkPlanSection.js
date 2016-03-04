@@ -71,10 +71,10 @@ style: {
          me.listeners = {
         	expand: function (p, eOpts) {
         	console.log("expand");
-        	var app = TheaterTool.getApplication();
+        	/*var app = TheaterTool.getApplication();
         	var store = app.getPlansForWorkDataStore();
 			store.load();
-			me.personTable.getView().bindStore(store);
+			me.personTable.getView().bindStore(store);*/
          
         }
           };

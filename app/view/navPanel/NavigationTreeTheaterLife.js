@@ -109,7 +109,7 @@ this.listeners = {
 			else if(item.data.text === 'Ausgaben'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: 'Finanzwesen: Ausgaben',
-						icon: 'resources/images/Transfer-17.png'
+						icon: 'resources/images/MoneyTransfer-17.png'
 					});
 				
 				}

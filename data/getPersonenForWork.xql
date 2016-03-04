@@ -1,6 +1,6 @@
 
 [
-        { name: 'Isouard', vorname: 'Nicolas', xml: true, details: true },
-        { name: 'Herklots', vorname: 'Karl Alexander', xml: true, details: true }
-       
-    ]
+{name:"Isouard, Nicolas",details:"true",xml:"true"},
+{name:"Etienne, Charles Guillaume",details:"true" ,xml:"true"},
+{name:"Charles Perrault",details:"true",xml:"true"}
+]

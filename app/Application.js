@@ -101,7 +101,7 @@ Ext.define('TheaterTool.Application', {
 			model: 'TheaterTool.model.Person',
 			proxy: {
 				type: 'ajax',
-				//url: 'data/getPersonenForWork.xql',
+				//url: 'data/getPersonenForWork.xql'
 				url: 'resources/xql/getPersonenForWork.xql'
 			},
 			autoLoad: false

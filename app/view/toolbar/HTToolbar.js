@@ -35,7 +35,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 			items:[ {
 
 				xtype: 'label',
-        		html: '<b style="color:#A87678;">la vita di teatro</b>',
+        		html: '<b style="color:#CC9FA7;">la vita di teatro</b>',
         		margin: '0 0 0 10'
 
 			},
@@ -46,8 +46,8 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 			{
 				xtype: 'tbseparator',
 				style: {
-					borderRight: '1px solid #A87678',
-					borderLeft: '1px solid #A87678'
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7'
 					// borderTop: '1px solid black',
 					// borderBottom: '1px solid black'
 				}

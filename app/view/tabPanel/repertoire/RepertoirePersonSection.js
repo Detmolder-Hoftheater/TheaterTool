@@ -22,6 +22,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection', {
     
     collapsed: true,
 
+	store: null,
+
 style: {
 		//borderLeft: '3px solid #A80016',
 		borderTop: '5px solid #fff'
@@ -70,10 +72,13 @@ style: {
         me.listeners = {
         	expand: function (p, eOpts) {
         	console.log("expand");
-        	var app = TheaterTool.getApplication();
-        	var store = app.getPersonenForWorkDataStore();
-			store.load();
-			me.personTable.getView().bindStore(store);
+			if(me.store === null){
+				var app = TheaterTool.getApplication();
+        		me.store = app.getPersonenForWorkDataStore();
+				me.store.load();
+			}
+        	
+			me.personTable.getView().bindStore(me.store);
          
         }
     },

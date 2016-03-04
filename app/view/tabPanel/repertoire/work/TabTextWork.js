@@ -49,10 +49,10 @@ Ext.Ajax.request({
             success: function(response){
 
 
-//console.log(me.id);
-$('#'+me.id+'-innerCt').html(response.responseText);
+			//console.log(me.id);
+			$('#'+me.id+'-innerCt').html(response.responseText);
 
-	//console.log(response.responseText);
+			//console.log(response.responseText);
 
 
      }
@@ -118,33 +118,5 @@ $('#'+me.id+'-innerCt').html(response.responseText);
 		];*/
 		
 		this.callParent();
-	},
-	
-	/**
-	 * Create mandatory text field.
-	 * @param {string} fieldName - text name and id.
-	 * @param {string} fieldLabel - field label.
-	 */
-	createTextField: function (fieldName, fieldLabel) {
-		var me = this;
-		var ceTextField = Ext.create('Ext.form.field.Text', {
-			//name: fieldName,
-			id: fieldName,
-			width: 235,
-			//fieldLabel: fieldLabel,
-			listeners: {
-				focus: function (e, eOpts) {
-					me.handleCreateButton();
-				},
-				render: function (c) {
-					c.getEl().on('keyup', function () {
-						me.handleCreateButton();
-					},
-					c);
-				}
-			}
-		});
-		
-		return ceTextField;
 	}
 });
