@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0"
     xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -408,12 +407,6 @@
                         <xsl:for-each select="*|text()|@*">
                             <xsl:copy-of select="."/>
                         </xsl:for-each>
-                        <xsl:if test="count(text()) = 0">
-                            <xsl:variable name="href" select="@href"/>
-                            <xsl:element name="span">
-                                <xsl:attribute name="class">external-link</xsl:attribute>
-                                [Link: <xsl:value-of select="$href"/>]
-                            </xsl:element></xsl:if>
                     </xsl:copy>
                 </xsl:for-each>
             </xsl:otherwise>
@@ -526,16 +519,10 @@
         <xsl:apply-templates
             select="tei:*[not(self::tei:speaker) and not(self::tei:stage[@rend = 'inline'][1])]"/>
     </xsl:template>
-    <xsl:template match="tei:del" priority="5">
-        <xsl:element name="{if (tei:blockContext(.) or *[not(tei:is-inline(.))]) then 'div' else 'span' }">
-            <xsl:call-template name="rendToClass">
-                <xsl:with-param name="default">del</xsl:with-param>
-            </xsl:call-template>
-            <xsl:if test="@hand">
-                <xsl:attribute name="data-eo-hand" select="@hand"/>
-            </xsl:if>
+    <xsl:template match="tei:del">
+        <span class="del">
             <xsl:apply-templates/>
-        </xsl:element>
+        </span>
     </xsl:template>
     <xsl:template match="tei:lb" priority="5">
         <xsl:choose>
@@ -613,7 +600,7 @@
                     select="./following-sibling::tei:stage[@rend = 'inline'][1]"/></xsl:if>
         </xsl:element>
     </xsl:template>
-    <xsl:template match="tei:l[@part = 'F']" priority="6">
+    <xsl:template match="tei:l[@part = 'F']">
         <xsl:variable name="init" select="preceding::tei:l[@part = 'I'][1]"/>
         <xsl:element name="{if (ancestor::tei:head or ancestor::tei:hi) then 'span' else 'div'}">
             <xsl:attribute name="style"
@@ -671,14 +658,16 @@
     <xsl:template match="tei:add" priority="5">
         <xsl:element
             name="{if (tei:blockContext(.) or *[not(tei:is-inline(.))]) then 'div' else 'span' }">
-            <!-- TODO: Is this necessary for us? -->
-            <!--<xsl:if test="./parent::tei:subst and @place='above'">
+            <xsl:if test="./parent::tei:subst and @place='above'">
                 <xsl:variable name="del" select="preceding-sibling::tei:del"/>
                 <xsl:variable name="delLines" select="count($del//tei:lb)"/>
-                <xsl:variable name="firstLine" select="if($delLines gt 0) then(normalize-space(string-join($del//tei:lb/preceding-sibling::node()//text(),''))) else(normalize-space(string-join($del//text(),'')))"/>
+                <xsl:variable name="firstLine"
+                    select="if($delLines gt 0) then(normalize-space(string-join($del//tei:lb/preceding-sibling::node()//text(),''))) else(normalize-space(string-join($del//text(),'')))"/>
                 <xsl:variable name="offset" select="string-length($firstLine) * 0.45"/>
-                <xsl:attribute name="style" select="concat('margin-left:-',$offset,'em; margin-top:-',$delLines * 2,'em;')"/>
-            </xsl:if>-->
+                <xsl:attribute name="style"
+                    select="concat('margin-left:-',$offset,'em; margin-top:-',$delLines * 2,'em;')"
+                />
+            </xsl:if>
             <xsl:call-template name="rendToClass">
                 <xsl:with-param name="default">
                     <xsl:choose>
@@ -688,9 +677,6 @@
                     </xsl:choose>
                 </xsl:with-param>
             </xsl:call-template>
-            <xsl:if test="@hand">
-                <xsl:attribute name="data-eo-hand" select="@hand"/>
-            </xsl:if>
             <xsl:apply-templates/>
         </xsl:element>
     </xsl:template>
@@ -700,9 +686,6 @@
             <xsl:call-template name="rendToClass">
                 <xsl:with-param name="default"> subst </xsl:with-param>
             </xsl:call-template>
-            <xsl:if test="@hand">
-                <xsl:attribute name="data-eo-hand" select="@hand"/>
-            </xsl:if>
             <xsl:apply-templates/>
         </xsl:element>
     </xsl:template>
@@ -949,7 +932,7 @@
         </span>
     </xsl:template>
 
-    <xsl:template match="tei:*[@rend = 'underline' and @n = '2']" priority="6">
+    <xsl:template match="tei:*[@rend = 'underline' and @n = '2']" priority="5">
         
         <xsl:variable name="default">
             <xsl:next-match/>
@@ -960,23 +943,5 @@
                 <xsl:copy-of select="."/>
             </xsl:for-each>
         </xsl:element>
-    </xsl:template>
-    
-    <xsl:template match="tei:ref[starts-with(@target, '#footnote')]" priority="5">
-        <xsl:variable name="footnote_id" select="substring(./@target, 2)" as="xs:string"/>
-        <xsl:variable name="footnote" select="//tei:note[@xml:id=$footnote_id]//text()" as="xs:string*"/>
-        
-        <span class="footnote" title="{normalize-space(string-join($footnote, ' '))}">
-            <xsl:apply-templates/>
-        </span>
-    </xsl:template>
-    
-    <xsl:template match="tei:milestone">
-        <xsl:variable name="className" as="xs:string*">
-            <xsl:for-each select="@* except @xml:id">
-                <xsl:value-of select="concat(local-name(.), '_', string(.))"/>
-            </xsl:for-each>
-        </xsl:variable>
-        <a class="{string-join($className, ' ')}" id="{./string(@xml:id)}"><!-- anchor --></a>
     </xsl:template>
 </xsl:stylesheet>

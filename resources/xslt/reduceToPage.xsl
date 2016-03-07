@@ -61,10 +61,6 @@
         <xsl:copy/>
     </xsl:template>
     <xsl:template match="text()">
-        <xsl:choose><xsl:when test=".[./preceding::tei:pb[@n eq $pb1] and (./following::tei:pb[@n eq $pb2] or $pb2 eq '')]">
-                <xsl:copy/>
-    </xsl:when>
-            <xsl:otherwise/>
-        </xsl:choose>
+        <xsl:copy/>
     </xsl:template>
 </xsl:stylesheet>

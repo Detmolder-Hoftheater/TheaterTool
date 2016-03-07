@@ -24,7 +24,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	
 	initComponent: function () {
 		
-		this.extendWorkButton = this.createCEButton('Teiferschließung');
+		this.extendWorkButton = this.createCEButton('Teifenerschließung');
 		
 		this.tbar = new Ext.Toolbar({
 			

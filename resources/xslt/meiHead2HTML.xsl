@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:eof="http://www.edirom.de/xslt/ediromOnlineFunctions" exclude-result-prefixes="xs xd" xpath-default-namespace="http://www.music-encoding.org/ns/mei" version="2.0" xml:space="default">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:eof="http://www.edirom.de/xslt/ediromOnlineFunctions" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs xd" xpath-default-namespace="http://www.music-encoding.org/ns/mei" version="2.0" xml:space="default">
 
 <!-- IMPORTs ======================================================= -->
     <xsl:import href="ediromOnline_params.xsl"/>
@@ -31,6 +31,7 @@
     <!--<xsl:template match="* | @*" mode="#all">
         <xsl:apply-templates mode="#current"/>
     </xsl:template>-->
+    
     <xsl:template match="node()" mode="plainCommaSep">
         <xsl:choose>
             <!-- nur attribute keinerlei kindknoten -->
@@ -43,15 +44,7 @@
             <xsl:when test="@* and not(*)">
                 <xsl:apply-templates mode="plainCommaSep"/>
                 <xsl:text> (</xsl:text>
-                <xsl:choose>
-                    <xsl:when test="count(@*) gt 1">
-                    <!--<xsl:call-template name="attCommaSep"/>-->
-                        <xsl:value-of select="@*" separator=", "/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:apply-templates select="@*" mode="plainCommaSep"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:apply-templates select="@*" mode="plainCommaSep"/>
                 <xsl:text>)</xsl:text>
             </xsl:when>
             <!-- kindeskinder und attribute -->
@@ -69,50 +62,20 @@
                 <xsl:apply-templates select="*" mode="plainCommaSep"/>
                 <xsl:apply-templates select="@*" mode="plainCommaSep"/>
             </xsl:when>
-          <!-- only element children that might have attributes -->
-            <xsl:when test="*/@*">
-                <xsl:for-each select="*">
-                    <xsl:apply-templates select="." mode="plainCommaSep"/>
-                    <xsl:if test="following-sibling::*">
-                        <xsl:text>, </xsl:text>
-                    </xsl:if>
-                </xsl:for-each>
-            </xsl:when>
-          <!-- only element children without attributes -->
             <xsl:when test="*">
                 <xsl:value-of select="*" separator=", "/>
             </xsl:when>
-            <!-- if node is none of the above but has attribute -->
+            <!-- if node is none of the above but has atribute -->
             <xsl:when test="@*">
                 <xsl:text> (</xsl:text>
                 <xsl:apply-templates select="@*" mode="plainCommaSep"/>
                 <xsl:text>) </xsl:text>
             </xsl:when>
-            <xsl:when test="(comment() and not(*)) or self::comment()"/>
-          <!-- has to be an attribute -->
-          <!--<xsl:when test="node()"></xsl:when>-->
             <xsl:otherwise>
                 <xsl:value-of select="."/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-  
-  <!--<xsl:template name="attCommaSep">
-    <xsl:variable name="attVals" as="element()*">
-      <xsl:for-each select="@*">
-        <xsl:element name="att">
-          <xsl:apply-templates mode="plainCommaSep"/>
-        </xsl:element>
-      </xsl:for-each>
-    </xsl:variable>
-    <xsl:for-each select="$attVals/att">
-      <xsl:copy-of select="*"/>
-      <xsl:if test="index-of($attVals, .) lt count($attVals)">
-        <xsl:text>, </xsl:text>
-      </xsl:if>
-    </xsl:for-each>
-  </xsl:template>-->
-<!--  <xsl:template match="comment()" mode="#all"/>-->
     
     <!--<xsl:template match="*" mode="plainDivs">
         <xsl:element name="div">
@@ -120,8 +83,11 @@
             <xsl:apply-templates/>
         </xsl:element>
     </xsl:template>-->
+    
     <xsl:template match="@*" mode="subProp"/>
+    
     <xsl:template match="@*" mode="valueOnly"/>
+    
     <xsl:template match="node()" mode="subProp">
         <xsl:if test="@*">
             <xsl:text> (</xsl:text>
@@ -133,119 +99,37 @@
     
 <!-- TEMPLATEs ======================================================= -->
     <xsl:template match="@altrend | @rend" mode="#all"/>
-    <xsl:template match="@label" mode="plainCommaSep"/>
-    <xsl:template match="@role" mode="plainCommaSep">
-        <xsl:value-of select="eof:getLabel(.)"/>
+    
+    <xsl:template match="@target" mode="plainCommaSep">
+        <xsl:element name="a">
+            <xsl:attribute name="href" select="."/>
+            <xsl:attribute name="target">_blank</xsl:attribute>
+            <xsl:value-of select="."/>
+        </xsl:element>
     </xsl:template>
+    
     <xsl:template match="mei:address" mode="plainCommaSep">
         <xsl:element name="div">
             <xsl:attribute name="class">address plain</xsl:attribute>
             <xsl:value-of select="*" separator=", "/>
         </xsl:element>
     </xsl:template>
-        <xsl:template match="@target" mode="plainCommaSep"><!-- TODO choice -->
-        <xsl:choose>
-            <xsl:when test="starts-with(.,'xmldb:exist')"><!-- relativer link: non http , '/' darf xmldb:exist -->
-                <xsl:element name="span">
-                    <xsl:attribute name="onclick">
-                        <xsl:text>loadLink('</xsl:text>
-                        <xsl:value-of select="."/>
-                        <xsl:text>')</xsl:text>
-                        <xsl:if test="false()">
-                            <xsl:text>[</xsl:text>]<!-- teiBody2HTML l:327 ff -->
-                        </xsl:if>
-                    </xsl:attribute>
-                    <xsl:value-of select="."/>
-                </xsl:element>
-            </xsl:when>
-            <xsl:when test="parent::mei:relation">
-                <xsl:element name="a">
-                <xsl:attribute name="href">#</xsl:attribute>
-                    <xsl:attribute name="onclick">
-                        <xsl:text>loadLink('</xsl:text>
-                        <xsl:value-of select="concat('xmldb:exist:///',.)"/>
-                        <xsl:text>')</xsl:text>
-                        
-                    </xsl:attribute>
-                    <xsl:value-of select="."/>
-                </xsl:element>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:element name="a">
-                    <xsl:attribute name="href" select="."/>
-                    <xsl:attribute name="target">_blank</xsl:attribute>
-                    <xsl:value-of select="."/>
-                </xsl:element>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <xsl:template match="@xml:id" mode="plainCommaSep"/>
-    <xsl:template match="mei:componentGrp">
-        <xsl:param name="sub" tunnel="yes"/>
-        <xsl:element name="div">
-            <xsl:choose>
-                <xsl:when test="$sub">
-                    <xsl:call-template name="rendToSubProperty"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="rendToProperty"/>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:element name="div">
-                <xsl:attribute name="class">value</xsl:attribute>
-                <xsl:element name="ol">
-                    <xsl:for-each select="*">
-                        <xsl:element name="li">
-                            <xsl:apply-templates mode="plainCommaSep"/>
-                        </xsl:element>
-                    </xsl:for-each>
-                </xsl:element>
-            </xsl:element>
-        </xsl:element>
-    </xsl:template>
-    <xsl:template match="mei:componentGrp" mode="plainCommaSep">
-       <!-- <xsl:element name="ul">
-            <xsl:for-each select="*">
-                <xsl:element name="li">
-                    <xsl:apply-templates mode="#current"/>
-                </xsl:element>
-            </xsl:for-each>
-            
-        </xsl:element>-->
-        <xsl:for-each select="*">
-        <xsl:call-template name="makeSubProperty">
-            <xsl:with-param name="node" select="."/>
-            <xsl:with-param name="key" select="mei:titleStmt/mei:title"/>
-        </xsl:call-template>
-        </xsl:for-each>
-    </xsl:template>
-    <xsl:template match="mei:expression" mode="subProp">
-        <xsl:value-of select=".//mei:instrVoice/@label" separator=", "/>
-    </xsl:template>
-    <xsl:template match="@xml:id" mode="subProp"/>
-    <!--<xsltemplate match="mei:instrumentation" mode="subProp">
-        <xsl:element name="ul">
-            <xsl:for-each select="*">
-                <xsl:element name="li">
-                    <xsl:apply-templates mode="#current"/>
-                </xsl:element>
-            </xsl:for-each>
-        </xsl:element>
-    </xsltemplate>-->
+    
     <xsl:template match="mei:meiHead">
         <xsl:element name="div">
             <xsl:attribute name="class">meiHead</xsl:attribute>
+            
             <xsl:apply-templates select="mei:fileDesc"/>
-            <xsl:apply-templates select="mei:workDesc"/>
+            
             <!-- TODO check for workDesc with resp data -->
-            <!--<xsl:choose>
-                <xsl:when test="count(./mei:workDesc/mei:work) gt 1">
+            <xsl:choose>
+                <xsl:when test="count(./workDesc/work) gt 1">
                     <xsl:element name="div">
                         <xsl:attribute name="class">section</xsl:attribute>
                         <xsl:element name="h1">
                             <xsl:value-of select="eof:getLabel('works')"/>
                         </xsl:element>
-                        <xsl:for-each select="./mei:workDesc/mei:work">
+                        <xsl:for-each select="./workDesc/work">
                             <xsl:call-template name="work">
                                 <xsl:with-param name="labeled">
                                     <xsl:value-of select="true()"/>
@@ -254,14 +138,14 @@
                         </xsl:for-each>
                     </xsl:element>
                 </xsl:when>
-                <xsl:when test="./mei:workDesc/mei:work">
-                    <xsl:apply-templates select="./mei:workDesc/mei:work">
+                <xsl:when test="./workDesc/work">
+                    <xsl:apply-templates select="./workDesc/work">
                         <xsl:with-param name="labeled">
                             <xsl:value-of select="false()"/>
                         </xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:when>
-            </xsl:choose>-->
+            </xsl:choose>
             
             <!-- ende fileDesc -->
             
@@ -270,179 +154,99 @@
             <xsl:apply-templates select="mei:revisionDesc"/>
         </xsl:element>
     </xsl:template>
-    <xsl:template match="mei:expressionList">
-        <xsl:call-template name="makeSection">
-            <xsl:with-param name="element" select="."/>
-        </xsl:call-template>
-    </xsl:template>
-    <xsl:template match="mei:expression">
-        <xsl:param name="key" select="@label"/>
-        <xsl:param name="sub" tunnel="yes" select="true()"/>
+    
+    <xsl:template match="work" name="work">
+        <xsl:param name="labeled"/>
+        <!-- TODO -->
         <xsl:element name="div">
-            <xsl:attribute name="class">property</xsl:attribute>
+            <xsl:attribute name="class">section</xsl:attribute>
+            <xsl:element name="h1">
+                <xsl:choose>
+                    <xsl:when test="$labeled eq 'true'">
+                        <xsl:value-of select="./titleStmt/title[1]/text()"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="eof:getLabel('workDesc')"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:element>
             <xsl:element name="div">
-                <xsl:attribute name="class" select="string('key')"/>
-                <xsl:value-of select="eof:getLabel($key)"/>
-                <xsl:if test="@unit and not(@unit eq '')">
-                    <xsl:element name="span">
-                        <xsl:attribute name="class">unit</xsl:attribute>
-                        (<xsl:value-of select="eof:getLabel('classification')"/>: <xsl:value-of select="mei:classification//mei:term" separator=", "/>)
+                <xsl:attribute name="class">section</xsl:attribute>
+                <xsl:element name="h1">
+                    <xsl:value-of select="eof:getLabel('workTitle')"/>
+                </xsl:element>
+                <xsl:apply-templates select="./titleStmt"/>
+            </xsl:element>
+            <xsl:if test="count(./pubStmt/child::*) gt 0">
+                <xsl:element name="div">
+                    <xsl:attribute name="class">section</xsl:attribute>
+                    <xsl:element name="h1">
+                        <xsl:value-of select="eof:getLabel('publication')"/>
                     </xsl:element>
-                </xsl:if>
-            </xsl:element>
-            <xsl:element name="div">
-                <xsl:attribute name="class" select="string('value')"/>
-                <xsl:apply-templates select="." mode="plainCommaSep">
-                    <xsl:with-param name="sub" select="$sub" tunnel="yes"/>
-                </xsl:apply-templates>
-            </xsl:element>
+                    <xsl:apply-templates select="./pubStmt"/>
+                </xsl:element>
+            </xsl:if>
+            <xsl:if test="./langUsage | ./editionStmt or (./notesStmt and $includeNotes eq 'true')">
+                <xsl:element name="div">
+                    <xsl:attribute name="class">section</xsl:attribute>
+                    <xsl:element name="h1">
+                        <xsl:value-of select="eof:getLabel('additionalMeta')"/>
+                    </xsl:element>
+                    <xsl:element name="div">
+                        <xsl:attribute name="class">propertyList</xsl:attribute>
+                        <xsl:apply-templates select="./langUsage | ./editionStmt"/>
+                        <xsl:if test="$includeNotes eq 'true'">
+                            <xsl:apply-templates select="./notesStmt"/>
+                        </xsl:if>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:if>
+            <xsl:if test="./history and ./history/child::*/node()">
+                <xsl:element name="div">
+                    <xsl:attribute name="class">section</xsl:attribute>
+                    <xsl:element name="h1">
+                        <xsl:choose>
+                            <xsl:when test="./history/head/node()">
+                                <xsl:apply-templates select="./history/head"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="eof:getLabel('history')"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:element>
+                    <xsl:element name="div">
+                        <xsl:attribute name="class">propertyList</xsl:attribute>
+                        <xsl:apply-templates select="./history/creation | ./history/p |./history/eventList"/>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:if>
+            
+            <!-- identifier -->
+            <xsl:if test="./key or ./meter or ./perfMedium or ./castList">
+                <xsl:element name="div">
+                    <xsl:attribute name="class">section</xsl:attribute>
+                    <xsl:element name="h1">
+                        <xsl:value-of select="eof:getLabel('musicalInfo')"/>
+                    </xsl:element>
+                    <xsl:element name="div">
+                        <xsl:attribute name="class">propertyList</xsl:attribute>
+                        <xsl:apply-templates select="./key | ./meter | ./perfMedium | ./castList"/>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:if>
+            <xsl:if test="count(./seriesStmt/child::node()) gt 0">
+                <xsl:element name="div">
+                    <xsl:attribute name="class">section</xsl:attribute>
+                    <xsl:element name="h1">
+                        <xsl:value-of select="eof:getLabel('series')"/>
+                    </xsl:element>
+                    <xsl:apply-templates select="./seriesStmt"/>
+                </xsl:element>
+            </xsl:if>
+            <xsl:apply-templates select="mei:classification"/>
         </xsl:element>
-    </xsl:template>
-    <xsl:template match="mei:expression" mode="plainCommaSep">
-        <xsl:param name="sub" tunnel="yes"/>
-        <xsl:apply-templates mode="#current" select="@*|node()">
-            <xsl:with-param name="sub" select="$sub" tunnel="yes"/>
-        </xsl:apply-templates>
-    </xsl:template>
-    <xsl:template match="mei:workDesc">
-        <xsl:variable name="numberOfworks" select="count(mei:work)"/>
-        <xsl:choose>
-            <xsl:when test="$numberOfworks = 1">
-                <!--<xsl:call-template name="makeSection">
-                    <xsl:with-param name="element" select="."/>
-                </xsl:call-template>-->
-                <xsl:apply-templates/>
-            </xsl:when>
-            <xsl:when test="$numberOfworks gt 1">
-                <!-- TODO implement sections for multiple works -->
-                <xsl:apply-templates>
-                    <xsl:with-param name="labeled" select="true()"/>
-                </xsl:apply-templates>
-            </xsl:when>
-            <xsl:otherwise/>
-        </xsl:choose>
     </xsl:template>
     
-    <!--<xsl:template match="mei:work">
-<!-\-        <xsl:element name="div">-\->
-            <!-\-<xsl:call-template name="rendToProperty"/>-\->
-<!-\-            <xsl:element name="div">-\->
-        <xsl:apply-templates select="mei:titleStmt"/>
-        <xsl:apply-templates select="mei:identifier"/>
-        <xsl:apply-templates select="mei:pubStmt"/>
-                <xsl:apply-templates select="*[local-name() != ('expressionList')]"/>
-                <xsl:apply-templates select="mei:expressionList"/>
-            <!-\-</xsl:element>-\->
-        <!-\-</xsl:element>-\->
-    </xsl:template>-->
-  <!-- * labeled Wertitel anstatt standard wert
-       * titleStmt
-       * pubStmt
-       * addtional meta mit: langUsage editionStmt notesStmt[includeNotes true]
-       * history
-       * musicalInfo mit key meter perfMEdium castLis
-       * seriesStmt
-  -->
-    <xsl:template match="mei:work" name="work">
-        <xsl:param name="labeled"/>
-        <xsl:element name="div">
-            <xsl:call-template name="rendToSection">
-                <xsl:with-param name="key">
-                    <xsl:choose>
-                        <xsl:when test="$labeled eq 'true'">
-                            <xsl:value-of select="mei:titleStmt/title[1]/text()"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="eof:getLabel('workDesc')"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:with-param>
-            </xsl:call-template>
-            <xsl:element name="div">
-                <xsl:attribute name="class" select="string('propertyList')"/>
-                <xsl:for-each select="@*">
-                    <xsl:call-template name="makeProperty">
-                        <xsl:with-param name="key" select="local-name(.)"/>
-                    </xsl:call-template>
-                </xsl:for-each>
-                <xsl:apply-templates select="mei:titleStmt"/>
-                <xsl:if test="count(mei:identifier) gt 0">
-                    <xsl:element name="div">
-                        <xsl:call-template name="rendToProperty">
-                            <xsl:with-param name="key" select="string('identifier')"/>
-                        </xsl:call-template>
-                        <xsl:element name="div">
-                            <xsl:attribute name="class">value</xsl:attribute>
-                            <xsl:for-each select="mei:identifier">
-                                <xsl:call-template name="makeSubProperty">
-                                    <xsl:with-param name="node" select="."/>
-                                    <xsl:with-param name="key" select="@type"/>
-                                </xsl:call-template>
-                            </xsl:for-each>
-                        </xsl:element>
-                    </xsl:element>
-                </xsl:if>
-                <xsl:apply-templates select="mei:pubStmt"/>
-                <xsl:apply-templates select="mei:classification"/>
-                <xsl:if test="mei:langUsage | mei:editionStmt"><!-- TODO test  | mei:classification-->
-                    <xsl:element name="div">
-                        <xsl:attribute name="class">section</xsl:attribute>
-                        <xsl:call-template name="rendToSection">
-                            <xsl:with-param name="key" select="eof:getLabel('additionalMeta')"/>
-                        </xsl:call-template>
-                        <xsl:element name="div">
-                            <xsl:attribute name="class">propertyList</xsl:attribute>
-                            <xsl:apply-templates select="mei:langUsage | mei:editionStmt" mode="plainCommaSep"/><!--  | mei:classification -->
-                        </xsl:element>
-                    </xsl:element>
-                </xsl:if>
-                <!--<xsl:if test="mei:history and mei:history/child::*/node()">
-                    <xsl:element name="div">
-                        <xsl:attribute name="class">section</xsl:attribute>
-                        <xsl:element name="h1">
-                            <xsl:choose>
-                                <xsl:when test="mei:history/mei:head/node()">
-                                    <xsl:apply-templates select="mei:history/mei:head"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of select="eof:getLabel('history')"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:element>
-                        <xsl:element name="div">
-                            <xsl:attribute name="class">propertyList</xsl:attribute>
-                            <xsl:apply-templates select="mei:history/creation | mei:history/mei:p |mei:history/mei:eventList"/>
-                        </xsl:element>
-                    </xsl:element>
-                </xsl:if>-->
-                <xsl:apply-templates select="mei:history"/>
-                <xsl:if test="mei:key or mei:meter or mei:perfMedium or mei:castList or mei:componentGrp">
-                    <xsl:element name="div">
-                        <xsl:attribute name="class">section</xsl:attribute>
-                        <xsl:element name="h1">
-                            <xsl:value-of select="eof:getLabel('musicalInfo')"/>
-                        </xsl:element>
-                        <xsl:element name="div">
-                            <xsl:attribute name="class">propertyList</xsl:attribute>
-                            <xsl:apply-templates select="mei:key | mei:meter | mei:perfMedium | mei:castList | mei:componentGrp"/>
-                        </xsl:element>
-                    </xsl:element>
-                </xsl:if>
-                <xsl:if test="count(mei:seriesStmt/child::node()) gt 0">
-                    <xsl:element name="div">
-                        <xsl:attribute name="class">section</xsl:attribute>
-                        <xsl:element name="h1">
-                            <xsl:value-of select="eof:getLabel('series')"/>
-                        </xsl:element>
-                        <xsl:apply-templates select="mei:seriesStmt"/>
-                    </xsl:element>
-                </xsl:if>
-<!--                <xsl:apply-templates select="mei:componentGrp"/>-->
-                <xsl:apply-templates select="mei:expressionList"/>
-                <xsl:apply-templates select="mei:notesStmt"/>
-            </xsl:element>
-        </xsl:element>
-    </xsl:template>
     <xsl:template match="mei:change">
         <xsl:element name="div">
             <xsl:attribute name="class">property</xsl:attribute>
@@ -462,16 +266,12 @@
             <xsl:element name="div">
                 <xsl:attribute name="class">value</xsl:attribute>
                 <xsl:apply-templates select="mei:respStmt" mode="valueOnly"/>
-                <xsl:apply-templates select="./changeDesc/p" mode="valueOnly"/>
+                 <xsl:apply-templates select="./changeDesc/p" mode="valueOnly"/> 
             </xsl:element>
         </xsl:element>
     </xsl:template>
-    <xsl:template match="mei:fileDesc">
-        <xsl:element name="div">
-            <xsl:call-template name="makeSection"/>
-        </xsl:element>
-    </xsl:template>
-    <!--<xsl:template match="mei:fileDesc" mode="getFileInfo">
+    
+    <xsl:template match="mei:fileDesc" mode="getFileInfo">
         <xsl:apply-templates select="./mei:titleStmt"/>
         <xsl:if test="count(./pubStmt/child::node()) gt 0">
             <xsl:element name="div">
@@ -491,29 +291,19 @@
                 <xsl:apply-templates select="./seriesStmt"/>
             </xsl:element>
         </xsl:if>
-    </xsl:template>-->
-    <xsl:template match="mei:history">
-        <xsl:call-template name="makeProperty">
-            <xsl:with-param name="node" select="."/>
-        </xsl:call-template>
     </xsl:template>
-        <xsl:template match="mei:history" mode="plainCommaSep">
-        <xsl:call-template name="makeSubProperty">
-            <xsl:with-param name="node" select="."/>
-        </xsl:call-template>
+    
+    <xsl:template match="mei:titleStmt">
+<!--        <xsl:element name="div">-->
+<!--            <xsl:attribute name="class">propertyList</xsl:attribute>-->
+            <xsl:for-each select="./title">
+                <xsl:call-template name="title"/>
+            </xsl:for-each>
+            <xsl:for-each select="./respStmt/*">
+                <xsl:call-template name="resp"/>
+            </xsl:for-each>
+        <!--</xsl:element>-->
     </xsl:template>
- 
-    <!--<xsl:template match="mei:titleStmt">
-<!-\-        <xsl:element name="div">-\->
-<!-\-            <xsl:attribute name="class">propertyList</xsl:attribute>-\->
-        <xsl:for-each select="./title">
-            <xsl:call-template name="title"/>
-        </xsl:for-each>
-        <xsl:for-each select="./respStmt/*">
-            <xsl:call-template name="resp"/>
-        </xsl:for-each>
-        <!-\-</xsl:element>-\->
-    </xsl:template>-->
     
     <!--<xsl:template match="mei:pubStmt">
         <xsl:element name="div">
@@ -574,57 +364,25 @@
             </xsl:if>
         </xsl:element>
     </xsl:template>-->
-    <xsl:template match="mei:list" mode="valueOnly">
-        <xsl:element name="ul">
-            <xsl:apply-templates mode="valueOnly"/>
-        </xsl:element>
-    </xsl:template>
-    <xsl:template match="mei:li" mode="valueOnly">
-        <xsl:element name="li">
-            <xsl:apply-templates mode="valueOnly"/>
-        </xsl:element>
-    </xsl:template>
+    
     <xsl:template match="mei:pubStmt">
         <xsl:call-template name="makeProperty">
             <xsl:with-param name="node" select="."/>
         </xsl:call-template>
     </xsl:template>
+    
     <xsl:template match="mei:pubStmt" mode="plainCommaSep">
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
-    <xsl:template match="mei:pubPlace | mei:publisher" mode="plainCommaSep">
+    
+    <xsl:template match="mei:pubPlace | mei:publisher | mei:respStmt" mode="plainCommaSep">
         <xsl:call-template name="makeSubProperty">
             <xsl:with-param name="node" select="."/>
         </xsl:call-template>
     </xsl:template>
-    <xsl:template match="mei:seriesStmt">
-        <xsl:variable name="sub">
-            <xsl:choose>
-                <xsl:when test="ancestor::mei:work"><!-- TODO test -->
-                    <xsl:value-of select="true()"/>
-                </xsl:when>
-                <xsl:when test="ancestor::mei:source">
-                    <xsl:value-of select="false()"/>
-                </xsl:when>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:call-template name="propOrSub">
-            <xsl:with-param name="sub" select="$sub"/>
-            <xsl:with-param name="key" select="local-name(.)"/>
-            <xsl:with-param name="node" select="."/>
-        </xsl:call-template>
-        <!--<xsl:element name="div">
-            <xsl:call-template name="rendToSubProperty">
-                <xsl:with-param name="key" select="string('seriesStmt')"/>
-            </xsl:call-template>
-            <xsl:element name="div">
-                <xsl:attribute name="class">value</xsl:attribute>
-                <xsl:apply-templates>
-                    <xsl:with-param name="sub" select="true()"></xsl:with-param>
-                </xsl:apply-templates>
-            </xsl:element>
-        </xsl:element>-->
-        <!--<xsl:element name="div">
+    
+    <xsl:template match="seriesStmt">
+        <xsl:element name="div">
             <xsl:attribute name="class">propertyList</xsl:attribute>
             <xsl:for-each select="./title">
                 <xsl:call-template name="title"/>
@@ -635,12 +393,14 @@
             <xsl:for-each select="./identifier">
                 <xsl:call-template name="identifier"/>
             </xsl:for-each>
-        </xsl:element>-->
+        </xsl:element>
     </xsl:template>
     <xsl:template match="mei:source" name="source">
         <xsl:param name="labeled"/>
         <!--<xsl:element name="div">-->
             <!--<xsl:attribute name="class">section</xsl:attribute>-->
+        
+            
         <xsl:if test="$labeled eq 'true'">
             <xsl:element name="h1">
                 <xsl:value-of select="./titleStmt/title[1]/text()"/>
@@ -651,27 +411,9 @@
             </xsl:otherwise>-->
             
             <!--<xsl:element name="div">-->
-        <xsl:apply-templates select="mei:titleStmt">
-            <xsl:with-param name="sub" tunnel="yes"/>
-        </xsl:apply-templates>
+        <xsl:apply-templates select="./mei:titleStmt"/>
             <!--</xsl:element>-->
-        <xsl:if test="count(mei:identifier) gt 0">
-            <xsl:element name="div">
-                <xsl:call-template name="rendToProperty">
-                    <xsl:with-param name="key" select="string('identifier')"/>
-                </xsl:call-template>
-                <xsl:element name="div">
-                    <xsl:attribute name="class">value</xsl:attribute>
-                    <xsl:for-each select="mei:identifier">
-                        <xsl:call-template name="makeSubProperty">
-                            <xsl:with-param name="node" select="."/>
-                            <xsl:with-param name="key" select="@type"/>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:element>
-            </xsl:element>
-        </xsl:if>
-
+        
         <!--<xsl:if test="count(./pubStmt/child::*) gt 0"><!-\- TODO -\->
             <xsl:element name="div">
                 <xsl:attribute name="class">section</xsl:attribute>
@@ -681,8 +423,10 @@
                 <xsl:apply-templates select="./pubStmt"/>
             </xsl:element>
         </xsl:if>-->
+        
         <xsl:apply-templates select="./mei:pubStmt"/>
-        <!--<xsl:if test="./history and ./history/child::*/node()">
+        
+        <xsl:if test="./history and ./history/child::*/node()"><!-- TODO -->
             <xsl:element name="div">
                 <xsl:attribute name="class">section</xsl:attribute>
                 <xsl:element name="h1">
@@ -700,32 +444,38 @@
                     <xsl:apply-templates select="./history/creation | ./history/p |./history/eventList"/>
                 </xsl:element>
             </xsl:element>
-        </xsl:if>-->
+        </xsl:if>
+        
         <xsl:apply-templates select="mei:physDesc"/>
-        <xsl:apply-templates select="mei:history"/>
-        <xsl:if test="./key or ./meter or ./perfMedium or ./castList or mei:componentGrp">
-            <xsl:element name="div">
-                <xsl:attribute name="class">section</xsl:attribute>
-                <xsl:element name="h1">
-                    <xsl:value-of select="eof:getLabel('musicalInfo')"/>
-                </xsl:element>
+            
+            <!-- identifier -->
+            <xsl:if test="./key or ./meter or ./perfMedium or ./castList">
                 <xsl:element name="div">
-                    <xsl:attribute name="class">propertyList</xsl:attribute>
-                    <xsl:apply-templates select="./key | ./meter | ./perfMedium | ./castList | mei:componentGrp"/>
+                    <xsl:attribute name="class">section</xsl:attribute>
+                    <xsl:element name="h1">
+                        <xsl:value-of select="eof:getLabel('musicalInfo')"/>
+                    </xsl:element>
+                    <xsl:element name="div">
+                        <xsl:attribute name="class">propertyList</xsl:attribute>
+                        <xsl:apply-templates select="./key | ./meter | ./perfMedium | ./castList"/>
+                    </xsl:element>
                 </xsl:element>
-            </xsl:element>
-        </xsl:if>
-        <xsl:if test="count(./seriesStmt/child::node()) gt 0">
-            <xsl:element name="div">
-                <xsl:attribute name="class">section</xsl:attribute>
-                <xsl:element name="h1">
-                    <xsl:value-of select="eof:getLabel('series')"/>
+            </xsl:if>
+        
+            <xsl:if test="count(./seriesStmt/child::node()) gt 0">
+                <xsl:element name="div">
+                    <xsl:attribute name="class">section</xsl:attribute>
+                    <xsl:element name="h1">
+                        <xsl:value-of select="eof:getLabel('series')"/>
+                    </xsl:element>
+                    <xsl:apply-templates select="./seriesStmt"/>
                 </xsl:element>
-                <xsl:apply-templates select="./seriesStmt"/>
-            </xsl:element>
-        </xsl:if>
-        <xsl:apply-templates select="mei:classification"/>
+            </xsl:if>
+            
+            <xsl:apply-templates select="mei:classification"/>
+        
         <xsl:apply-templates select="mei:itemList"/>
+        
         <xsl:apply-templates select="mei:notesStmt"/>
         
         <!--<xsl:if test="./langUsage or ./editionStmt or (mei:notesStmt and $includeNotes = true())"> <!-\- TODO -\->
@@ -743,13 +493,14 @@
                 </xsl:element>
             </xsl:element>
         </xsl:if>-->
+        
     </xsl:template>
-    <xsl:template match="mei:title" name="title" mode="#all">
-        <xsl:param name="sub" tunnel="yes"/>
+    
+    <xsl:template match="mei:title" name="title">
         <xsl:element name="div">
-            <xsl:attribute name="class" select="if($sub)then(string('subProperty'))else(string('property'))"/>
+            <xsl:attribute name="class">property</xsl:attribute>
             <xsl:element name="div">
-                <xsl:attribute name="class" select="if($sub)then(string('subkey'))else(string('key'))"/>
+                <xsl:attribute name="class">key</xsl:attribute>
                 <xsl:choose>
                     <xsl:when test="@type eq 'uniform'">
                         <xsl:value-of select="eof:getLabel('uniformTitle')"/>
@@ -775,181 +526,52 @@
                 </xsl:if>
             </xsl:element>
             <xsl:element name="div">
-                <xsl:attribute name="class" select="if($sub)then(string('subvalue'))else(string('value'))"/>
+                <xsl:attribute name="class">value</xsl:attribute>
                 <xsl:call-template name="titleValue"/>
             </xsl:element>
         </xsl:element>
     </xsl:template>
-    <!--<xsl:template match="mei:title" mode="plainCommaSep">
-        <xsl:param name="sub"/>
-        <xsl:call-template name="makeSubProperty"/>
-    </xsl:template>-->
+    
     <xsl:template match="title" name="titleValue" mode="valueOnly">
-        <xsl:value-of select="./node()" separator=" "/>
+        <xsl:value-of select="./text()"/>
     </xsl:template>
-    <xsl:template match="mei:relation" mode="plainCommaSep">
-        <xsl:element name="span">
-            <xsl:value-of select="@rel"/>
-        </xsl:element>
-        <xsl:text>: </xsl:text>
-        <xsl:element name="span">
-            <xsl:apply-templates select="@target"/>
-        </xsl:element>
-        <xsl:text>;</xsl:text>
-    </xsl:template>
-    <xsl:template match="mei:relationList" mode="subProp">
-        <xsl:apply-templates mode="#current"/>
-    </xsl:template>
-        <xsl:template match="mei:relationList">
-        <xsl:param name="sub" tunnel="yes"/>
-
-                <xsl:call-template name="makeProperty">
-                    <xsl:with-param name="node" select="."/>
-                    <xsl:with-param name="sub" tunnel="yes"/>
-                </xsl:call-template>
-    </xsl:template>
-    <xsl:template match="mei:relationList" mode="plainCommaSep">
-        <xsl:param name="sub" tunnel="yes"/>
-        <xsl:choose>
-            <xsl:when test="$sub">
-                <xsl:call-template name="makeSubProperty">
-                    <xsl:with-param name="node" select="."/>
-                    <xsl:with-param name="sub" tunnel="yes"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <xsl:template match="mei:respStmt" name="respStmt">
-        <xsl:param name="sub" tunnel="yes"/>
-        <xsl:variable name="key">
-            <xsl:choose>
-                <xsl:when test="@label">
-                    <xsl:value-of select="@label"/>
-                </xsl:when>
-                <xsl:when test="@role">
-                    <xsl:value-of select="@role"/>
-                </xsl:when>
-                <xsl:when test="mei:resp">
-                    <xsl:value-of select="mei:resp"/>
-                </xsl:when>
-                <xsl:when test="count(distinct-values(*/tokenize(@role,' '))) = 1">
-                    <xsl:value-of select="distinct-values(*/tokenize(@role,' '))[1]"/>
-                </xsl:when>
-                <xsl:when test="(count(distinct-values(*/tokenize(@role,' '))) = 2) and ('led' = (distinct-values(*/tokenize(@role,' '))))">
-                    <xsl:value-of select="(distinct-values(*/tokenize(@role,' ')))[. != 'led']"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="eof:getLabel(local-name())"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:choose>
-            <xsl:when test="false()">
-                <xsl:element name="div">
-                    <xsl:call-template name="rendToProperty"/>
-                    <xsl:call-template name="propOrSub">
-                        <xsl:with-param name="sub" select="$sub"/>
-                        <xsl:with-param name="node" select="."/>
-                        <xsl:with-param name="key" select="$key"/>
-                    </xsl:call-template>
-                </xsl:element>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="propOrSub">
-                    <xsl:with-param name="sub" select="$sub"/>
-                    <xsl:with-param name="node" select="."/>
-                    <xsl:with-param name="key" select="$key"/>
-                </xsl:call-template>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <xsl:template match="mei:respStmt" mode="plainCommaSep">
-        <xsl:param name="sub" tunnel="yes"/>
-        <xsl:variable name="key">
-            <xsl:choose>
-                <xsl:when test="@label">
-                    <xsl:value-of select="@label"/>
-                </xsl:when>
-                <xsl:when test="@role">
-                    <xsl:value-of select="@role"/>
-                </xsl:when>
-                <xsl:when test="mei:resp">
-                    <xsl:value-of select="mei:resp"/>
-                </xsl:when>
-                <xsl:when test="count(distinct-values(*/tokenize(@role,' '))) = 1">
-                    <xsl:value-of select="distinct-values(*/tokenize(@role,' '))[1]"/>
-                </xsl:when>
-                <xsl:when test="(count(distinct-values(*/tokenize(@role,' '))) = 2) and ('led' = (distinct-values(*/tokenize(@role,' '))))">
-                    <xsl:value-of select="(distinct-values(*/tokenize(@role,' ')))[. != 'led']"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="eof:getLabel(local-name())"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        
-                <xsl:call-template name="makeSubProperty">
-                    <xsl:with-param name="node" select="."/>
-                    <xsl:with-param name="key" select="$key"/>
-                </xsl:call-template>
-    </xsl:template>
-    <xsl:template match="mei:persName['led' = tokenize(@role, ' ')]" mode="plainCommaSep subProp">
-        <xsl:apply-templates mode="#current"/>
-        <xsl:text> (</xsl:text>
-        <xsl:value-of select="eof:getLabel('led')"/>
-        <xsl:text>)</xsl:text>
-    </xsl:template>
-    <!--<xsl:template match="@role" mode="#default">
-        <xsl:text> (</xsl:text>
-        <xsl:value-of select="eof:getLabel('led')"/>
-        <xsl:text>)</xsl:text>
-    </xsl:template>-->
-    
-    
-    <!--<xsl:template match="mei:respStmt/*" mode="plainCommaSep">
-        <xsl:apply-templates mode="#current"/>
-    </xsl:template>-->
-    
-        <!--<xsl:template match="respStmt/*[not(local-name() eq 'resp')]" name="resp" mode="plainCommaSep">
+    <xsl:template match="respStmt/*[not(local-name() eq 'resp')]" name="resp">
+        <xsl:element name="div">
+            <xsl:attribute name="class">property</xsl:attribute>
             <xsl:element name="div">
-                <xsl:attribute name="class">property</xsl:attribute>
-                <xsl:element name="div">
-                    <xsl:attribute name="class">key</xsl:attribute>
-                    <xsl:choose>
-                        <xsl:when test="./@role">
-                            <xsl:value-of select="eof:getLabel(@role)"/>
-                        </xsl:when>
-                        <xsl:when test="exists(./ancestor::*[local-name() eq 'pubStmt']) and count(preceding-sibling::*) eq 0 and count(following-sibling::*) eq 0">
-                            <xsl:value-of select="eof:getLabel('publisher')"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="eof:getLabel('responsible')"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:element>
-                <xsl:element name="div">
-                    <xsl:attribute name="class">value</xsl:attribute>
-                    <xsl:choose>
-                        <xsl:when test="@authURI">
-                            <xsl:element name="a">
-                                <xsl:attribute name="class">authURI</xsl:attribute>
-                                <xsl:attribute name="href">
-                                    <xsl:value-of select="@authURI"/>
-                                </xsl:attribute>
-                                <xsl:value-of select="./text()"/>
-                            </xsl:element>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="./text()"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:element>
+                <xsl:attribute name="class">key</xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="./@role">
+                        <xsl:value-of select="eof:getLabel(@role)"/>
+                    </xsl:when>
+                    <xsl:when test="exists(./ancestor::*[local-name() eq 'pubStmt']) and count(preceding-sibling::*) eq 0 and count(following-sibling::*) eq 0">
+                        <xsl:value-of select="eof:getLabel('publisher')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="eof:getLabel('responsible')"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:element>
-        </xsl:template>-->
-    <!--<xsl:template match="respStmt/*[not(local-name() eq 'resp')]" name="respValue" mode="valueOnly">
+            <xsl:element name="div">
+                <xsl:attribute name="class">value</xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="@authURI">
+                        <xsl:element name="a">
+                            <xsl:attribute name="class">authURI</xsl:attribute>
+                            <xsl:attribute name="href">
+                                <xsl:value-of select="@authURI"/>
+                            </xsl:attribute>
+                            <xsl:value-of select="./text()"/>
+                        </xsl:element>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="./text()"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="respStmt/*[not(local-name() eq 'resp')]" name="respValue" mode="valueOnly">
         <xsl:choose>
             <xsl:when test="@authURI">
                 <xsl:element name="a">
@@ -981,7 +603,7 @@
                 <xsl:when test="./@role eq 'funder'">
                     <xsl:value-of select="eof:getLabel('funder')"/>
                 </xsl:when>
-                <!-\- TODO: Add other values -\->
+                <!-- TODO: Add other values -->
                 <xsl:when test="./@role">
                     <xsl:value-of select="concat(upper-case(substring(@role,1,1)), substring(@role,2))"/>
                 </xsl:when>
@@ -997,7 +619,7 @@
             <xsl:element name="br"/>
             <xsl:value-of select="concat('[',$role,']')"/>
         </xsl:if>
-    </xsl:template>-->
+    </xsl:template>
     <xsl:template match="key">
         <xsl:element name="div">
             <xsl:attribute name="class">property</xsl:attribute>
@@ -1070,48 +692,7 @@
     <xsl:template match="meter">
         <!-- TODO -->
     </xsl:template>
-    <xsl:template match="mei:castList">
-        <xsl:apply-templates mode="plainCommaSep"/>
-    </xsl:template>
-    <xsl:template match="mei:castGrp" mode="plainCommaSep">
-        <xsl:call-template name="makeSubProperty">
-            <xsl:with-param name="node" select="."/>
-            <xsl:with-param name="key">
-                <xsl:choose>
-                    <xsl:when test="@label">
-                        <xsl:value-of select="@label"/>
-                    </xsl:when>
-                </xsl:choose>
-            </xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-    <xsl:template match="mei:castGrp" mode="subProp">
-        <xsl:apply-templates select="@* except (@label)" mode="#current"/>
-        <xsl:apply-templates mode="plainCommaSep"/>
-    </xsl:template>
-    <xsl:template match="mei:castItem" mode="plainCommaSep">
-        <xsl:choose>
-            <xsl:when test="mei:actor and (mei:role or mei:roleDesc)">
-                <xsl:value-of select="mei:actor"/>
-                <xsl:text> [</xsl:text>
-                <xsl:value-of select="mei:role|mei:roleDesc" separator=", "/>
-                <xsl:text>]</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates mode="#current"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:choose>
-            <xsl:when test="following-sibling::mei:castItem">
-                <xsl:text>; </xsl:text>
-            </xsl:when>
-            <xsl:otherwise/>
-        </xsl:choose>
-    </xsl:template>
-    <xsl:template match="mei:perfMedium" mode="subProp">
-        <xsl:apply-templates mode="#current"/>
-    </xsl:template>
-    <!--<xsl:template match="perfMedium">
+    <xsl:template match="perfMedium">
         <xsl:element name="div">
             <xsl:attribute name="class">property</xsl:attribute>
             <xsl:element name="div">
@@ -1157,69 +738,80 @@
                 </xsl:for-each>
             </xsl:element>
         </xsl:element>
-    </xsl:template>-->
-    <!--<xsl:template match="castList">
-        <!-\- TODO -\->
-    </xsl:template>-->
+    </xsl:template>
+    <xsl:template match="castList">
+        <!-- TODO -->
+    </xsl:template>
+    
     <xsl:template match="mei:identifier" name="identifier">
         <xsl:call-template name="makeProperty">
             <xsl:with-param name="node" select="."/>
         </xsl:call-template>
     </xsl:template>
-    <xsl:template match="mei:identifier[parent::mei:source]" mode="plainCommaSep">
-        <xsl:call-template name="makeSubProperty">
-            <xsl:with-param name="node" select="."/>
-        </xsl:call-template>
-    </xsl:template>
-    <xsl:template match="mei:identifier" mode="plainCommaSep">
-        <xsl:call-template name="makeSubProperty">
-            <xsl:with-param name="node" select="."/>
-        </xsl:call-template>
-    </xsl:template>
-    <xsl:template match="mei:corpName[parent::mei:edition]" mode="plainCommaSep">
-        <xsl:call-template name="makeSubProperty">
-            <xsl:with-param name="node" select="."/>
-        </xsl:call-template>
-    </xsl:template>
+    
     <xsl:template match="mei:identifier[parent::mei:pubStmt]">
         <xsl:call-template name="makeSubProperty">
             <xsl:with-param name="node" select="."/>
         </xsl:call-template>
     </xsl:template>
-    <xsl:template match="mei:instrumentation">
-        <xsl:param name="sub" tunnel="yes"/>
-        <xsl:element name="div">
-            <xsl:attribute name="class" select="if($sub)then(string('subProperty'))else(string('property'))"/>
-            <xsl:element name="div">
-                <xsl:attribute name="class" select="if($sub)then(string('subkey'))else(string('key'))"/>
-                <xsl:value-of select="eof:getLabel(local-name())"/>
-            </xsl:element>
-            <xsl:element name="div">
-                <xsl:attribute name="class" select="if($sub)then(string('subvalue'))else(string('value'))"/>
-                <xsl:element name="ul">
-                    <xsl:for-each select="*">
-                        <xsl:element name="li">
-                            <xsl:value-of select="."/>
-                            <xsl:if test="@code">
-                                <xsl:text> (</xsl:text>
-                                <xsl:element name="a">
-                                    <xsl:attribute name="href" select="@authURI"/>
-                                    <xsl:attribute name="target">_blank</xsl:attribute>
-                                    <xsl:value-of select="@code"/>
-                                </xsl:element>
-                                <xsl:text>)</xsl:text>
-                            </xsl:if>
-                        </xsl:element>
-                    </xsl:for-each>
-                </xsl:element>
-            </xsl:element>
-        </xsl:element>
-    </xsl:template>
-    <xsl:template match="mei:instrVoice"/>
+    
     <xsl:template match="mei:availability" mode="plainCommaSep">
         <xsl:call-template name="makeSubProperty">
             <xsl:with-param name="node" select="."/>
         </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="mei:useRestrict" mode="plainCommaSep">
+        <xsl:apply-templates mode="#current"/>
+    </xsl:template>
+    
+    <xsl:template match="mei:lb" mode="plainCommaSep">
+        <br/>
+    </xsl:template>
+    
+    <xsl:template match="editionStmt">
+        <xsl:for-each select="./*">
+            <xsl:choose>
+                <xsl:when test="local-name() eq 'respStmt'">
+                    <xsl:for-each select="./*[not(local-name() eq 'resp')]">
+                        <xsl:call-template name="resp"/>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="local-name() eq 'edition'">
+                    <xsl:apply-templates select="."/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:for-each>
+    </xsl:template>
+    <xsl:template match="edition">
+        <xsl:element name="div">
+            <xsl:attribute name="class">property</xsl:attribute>
+            <xsl:element name="div">
+                <xsl:attribute name="class">key</xsl:attribute>
+                <xsl:value-of select="eof:getLabel('edition')"/>
+            </xsl:element>
+            <xsl:element name="div">
+                <xsl:attribute name="class">value</xsl:attribute>
+                <xsl:apply-templates select="node()" mode="valueOnly"/>
+                <xsl:value-of select="string(' ')"/>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="geogName" name="geogName">
+        <xsl:element name="div">
+            <xsl:attribute name="class">property</xsl:attribute>
+            <xsl:element name="div">
+                <xsl:attribute name="class">key</xsl:attribute>
+                <xsl:value-of select="eof:getLabel('geogName')"/>
+            </xsl:element>
+            <xsl:element name="div">
+                <xsl:attribute name="class">value</xsl:attribute>
+                <xsl:call-template name="geogNameValue"/>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="geogName" name="geogNameValue" mode="valueOnly">
+        <xsl:apply-templates select="node()" mode="#current"/>
     </xsl:template>
     <xsl:template match="creation">
         <xsl:element name="div">
@@ -1239,95 +831,6 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
-    <xsl:template match="mei:useRestrict" mode="plainCommaSep">
-        <xsl:apply-templates mode="#current"/>
-    </xsl:template>
-    <xsl:template match="mei:lb" mode="plainCommaSep">
-        <br/>
-    </xsl:template>
-    <!--<xsl:template match="mei:editionStmt" mode="#all">
-        <!-\-<xsl:for-each select="./*">
-            <xsl:choose>
-                <xsl:when test="local-name() eq 'respStmt'">
-                    <xsl:for-each select="./*[not(local-name() eq 'resp')]">
-                        <xsl:call-template name="resp"/>
-                    </xsl:for-each>
-                </xsl:when>
-                <xsl:when test="local-name() eq 'edition'">
-                    <xsl:apply-templates select="."/>
-                </xsl:when>
-            </xsl:choose>
-        </xsl:for-each>-\->
-        <xsl:call-template name="makeProperty">
-            <xsl:with-param name="node" select="."/>
-        </xsl:call-template>
-        <!-\-<xsl:apply-templates mode="plainCommaSep">
-<!-\\-          <xsl:with-param name="sub" select="true()"/>-\\->
-        </xsl:apply-templates>-\->
-    </xsl:template>-->
-  <!--<xsl:template match="mei:editionStmt">
-    <!-\-<xsl:call-template name="makeProperty">
-      <xsl:with-param name="node" select="."/>
-    </xsl:call-template>-\->
-    <xsl:apply-templates mode="#current">
-      <xsl:wi
-    </xsl:apply-templates>
-  </xsl:template>-->
-    <xsl:template match="mei:editionStmt" mode="plainCommaSep">
-        <xsl:param name="sub" tunnel="yes"/>
-        <xsl:apply-templates mode="#current">
-            <xsl:with-param name="sub" select="true()" tunnel="yes"/>
-        </xsl:apply-templates>
-    </xsl:template>
-    <xsl:template match="mei:edition">
-        <xsl:param name="sub" tunnel="yes"/>
-        <xsl:call-template name="makeProperty">
-            <xsl:with-param name="node" select="."/>
-            <xsl:with-param name="sub" select="$sub" tunnel="yes"/>
-        </xsl:call-template>
-    </xsl:template>
-    <xsl:template match="mei:edition" mode="plainCommaSep">
-        <xsl:apply-templates select="@*"/>
-        <xsl:apply-templates select="*" mode="plainCommaSep">
-            <xsl:with-param name="sub" select="true()" tunnel="yes"/>
-        </xsl:apply-templates>
-    </xsl:template>
-    <xsl:template match="mei:fig" mode="#all">
-        <xsl:choose>
-            <xsl:when test="mei:graphic">
-                <xsl:apply-templates select="mei:graphic" mode="#current">
-                    <xsl:with-param name="alt" select="mei:figDesc"/>
-                </xsl:apply-templates>
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>
-    <xsl:template match="mei:graphic" mode="#all">
-        <xsl:param name="alt"/>
-        <xsl:element name="img">
-            <xsl:attribute name="src">
-                <xsl:apply-templates select="@target" mode="plainCommaSep"/>
-            </xsl:attribute>
-            <xsl:attribute name="alt" select="$alt"/>
-        </xsl:element>
-    </xsl:template>
-    <xsl:template match="geogName" name="geogName">
-        <xsl:element name="div">
-            <xsl:attribute name="class">property</xsl:attribute>
-            <xsl:element name="div">
-                <xsl:attribute name="class">key</xsl:attribute>
-                <xsl:value-of select="eof:getLabel('geogName')"/>
-            </xsl:element>
-            <xsl:element name="div">
-                <xsl:attribute name="class">value</xsl:attribute>
-                <xsl:call-template name="geogNameValue"/>
-            </xsl:element>
-        </xsl:element>
-    </xsl:template>
-    <xsl:template match="geogName" name="geogNameValue" mode="valueOnly">
-        <xsl:apply-templates select="node()" mode="#current"/>
-    </xsl:template>
-    
-    
     <!--<xsl:template match="eventList">
         <xsl:for-each select="./event">
             <xsl:element name="div">
@@ -1339,7 +842,7 @@
                             <xsl:value-of select="@label"/>
                         </xsl:when>
                         <xsl:when test="local-name(child::*[1]) eq 'title'">
-                            <xsl:apply-templates select="./rceedition[1]" mode="valueOnly"/>
+                            <xsl:apply-templates select="./title[1]" mode="valueOnly"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:value-of select="eof:getLabel('event')"/>
@@ -1405,6 +908,7 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
+    
     <xsl:template match="mei:annot[@type='movementConcordance']"/>
     <xsl:template match="mei:annot[@type='connection']"/>
     <xsl:template match="mei:annot[@type='criticalCommentary']">
@@ -1423,6 +927,7 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
+
     <xsl:template match="mei:annot">
         <xsl:call-template name="makeProperty">
             <xsl:with-param name="node" select="."/>
@@ -1441,7 +946,15 @@
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
+    
     <xsl:template match="@label[parent::mei:annot] | @type[parent::mei:annot]" mode="plainCommaSep"/>
+    
+    <xsl:template match="mei:classification">
+        <xsl:call-template name="makeProperty">
+            <xsl:with-param name="node" select="."/>
+        </xsl:call-template>
+    </xsl:template>
+    
     <xsl:template match="address" name="address">
         <xsl:element name="div">
             <xsl:attribute name="class">property</xsl:attribute>
@@ -1462,27 +975,6 @@
                 <xsl:element name="br"/>
             </xsl:if>
         </xsl:for-each>
-    </xsl:template>
-    <xsl:template match="mei:classification">
-        <xsl:param name="sub" tunnel="yes"/>
-        <xsl:choose>
-            <xsl:when test="$sub">
-                <xsl:call-template name="makeSubProperty">
-                    <xsl:with-param name="node" select="."/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="makeProperty">
-                    <xsl:with-param name="node" select="."/>
-                </xsl:call-template>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <xsl:template match="mei:classification" mode="plainCommaSep">
-        <xsl:param name="sub" tunnel="yes"/>
-                <xsl:call-template name="makeSubProperty">
-                    <xsl:with-param name="node" select="."/>
-                </xsl:call-template>
     </xsl:template>
     <xsl:template match="date" name="date">
         <xsl:param name="label"/>
@@ -1562,11 +1054,14 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
+
+    
     <xsl:template match="mei:date" mode="plainCommaSep">
         <xsl:call-template name="makeSubProperty">
             <xsl:with-param name="node" select="."/>
         </xsl:call-template>
     </xsl:template>
+    
     <xsl:template match="mei:date[parent::mei:p]" mode="plainCommaSep">
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
@@ -1591,6 +1086,7 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>-->
+    
     <xsl:template match="mei:dimensions" mode="plainCommaSep">
         <xsl:param name="key" select="local-name(.)"/>
         <xsl:element name="div">
@@ -1625,6 +1121,7 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
+    
     <xsl:template match="mei:extent" mode="plainCommaSep">
         <xsl:param name="key" select="local-name(.)"/>
         <xsl:element name="div">
@@ -1682,6 +1179,7 @@
             </xsl:element>
         </xsl:for-each>
     </xsl:template>
+
     <xsl:template match="mei:handList[parent::mei:physDesc]" mode="plainCommaSep">
         <xsl:element name="div">
             <xsl:attribute name="class">subproperty</xsl:attribute>
@@ -1698,13 +1196,16 @@
                 <xsl:element name="ul">
                     <xsl:for-each select="mei:hand">
                         <xsl:element name="li">
-                            <xsl:apply-templates mode="plainCommaSep"/>
+                             <xsl:apply-templates mode="plainCommaSep"/>
                         </xsl:element>
                     </xsl:for-each>
                 </xsl:element>
+                
             </xsl:element>
         </xsl:element>
+        
     </xsl:template>
+    
     <xsl:template match="inscription">
         <xsl:element name="div">
             <xsl:attribute name="class">property</xsl:attribute>
@@ -1720,7 +1221,7 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="mei:physLoc">
+    <!--<xsl:template match="mei:physLoc">
         <xsl:element name="div">
             <xsl:attribute name="class">property</xsl:attribute>
             <xsl:element name="div">
@@ -1739,12 +1240,14 @@
                 <xsl:apply-templates mode="plainCommaSep"/>
             </xsl:element>
         </xsl:element>
-    </xsl:template>
+    </xsl:template>-->
+    
     <xsl:template match="mei:physMedium" mode="plainCommaSep">
         <xsl:call-template name="makeSubProperty">
             <xsl:with-param name="node" select="."/>
         </xsl:call-template>
     </xsl:template>
+    
     <xsl:template match="plateNum">
         <xsl:element name="div">
             <xsl:attribute name="class">property</xsl:attribute>
@@ -1794,24 +1297,14 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
-    <xsl:template match="mei:repository" mode="#default">
+    
+    <xsl:template match="mei:repository">
         <!-- TODO: Resolve @authURI etc. -->
         <xsl:call-template name="makeProperty">
             <xsl:with-param name="node" select="."/>
         </xsl:call-template>
+        
     </xsl:template>
-    <xsl:template match="mei:repository" mode="plainCommaSep">
-        <!-- TODO: Resolve @authURI etc. -->
-        <xsl:call-template name="makeSubProperty">
-            <xsl:with-param name="node" select="."/>
-        </xsl:call-template>
-    </xsl:template>
-  <!--<xsl:template match="mei:repository" mode="subProp">
-    <!-\- TODO: Resolve @authURI etc. -\->
-    <xsl:apply-templates>
-      <xsl:with-param name="sub" select="true()"/>
-    </xsl:apply-templates>
-  </xsl:template>-->
     <xsl:template match="mei:termList" mode="plainCommaSep">
         <xsl:element name="ul">
             <xsl:for-each select="mei:term">
@@ -1821,6 +1314,7 @@
             </xsl:for-each>
         </xsl:element>
     </xsl:template>
+    
     <xsl:template match="mei:term[parent::mei:termList]">
         <!-- TODO: have a closer look into the contents? -->
         <xsl:value-of select="."/>
@@ -1849,6 +1343,7 @@
             <xsl:text>)</xsl:text>
         </xsl:if>
     </xsl:template>
+    
     <xsl:template match="mei:titlePage" mode="plainCommaSep">
         <xsl:element name="div">
             <xsl:attribute name="class">subproperty</xsl:attribute>
@@ -1872,9 +1367,6 @@
                 <xsl:value-of select="string(' ')"/>
             </xsl:element>
         </xsl:element>
-    </xsl:template>
-    <xsl:template match="mei:titlePage" mode="subProp">
-        <xsl:apply-templates mode="valueOnly"/>
     </xsl:template>
     <xsl:template match="treatHist">
         <xsl:element name="div">
@@ -1918,6 +1410,7 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
+    
     <xsl:template match="mei:watermark" mode="plainCommaSep">
         <xsl:element name="div">
             <xsl:attribute name="class">subproperty</xsl:attribute>
@@ -1939,9 +1432,11 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
+    
     <xsl:template match="mei:encodingDesc">
         <xsl:call-template name="makeSection"/>
     </xsl:template>
+    
     <xsl:template match="mei:appInfo">
         <xsl:for-each select="mei:application">
             <xsl:element name="div">
@@ -2061,14 +1556,17 @@
             <xsl:apply-templates select="* | text()"/>
         </xsl:element>
     </xsl:template>
+    
     <xsl:template match="mei:ref" mode="valueOnly">
         <xsl:apply-templates select="* | text()"/>
     </xsl:template>
+    
     <xsl:template match="mei:p" mode="plainCommaSep">
         <p>
             <xsl:apply-templates mode="plainCommaSep"/>
         </p>
     </xsl:template>
+    
     <xsl:template match="mei:rend" mode="#all">
         <xsl:variable name="style">
             <xsl:if test="@color">
@@ -2082,6 +1580,7 @@
                     </xsl:otherwise>
                 </xsl:choose>;
             </xsl:if>
+            
             <xsl:if test="@fontfam | @fontname">
                 font-family: '<xsl:value-of select="@fontfam | @fontname"/>';
             </xsl:if>
@@ -2089,6 +1588,7 @@
                 font-weight: '<xsl:value-of select="@fontweight"/>';
             </xsl:if>
         </xsl:variable>
+        
         <xsl:element name="span">
             <xsl:if test="(@rend and string-length(@rend) gt 0) or (@altrend and string-length(@altrend) gt 0)">
                 <xsl:attribute name="class">
@@ -2121,26 +1621,24 @@
         </xsl:element>
         <xsl:text>]</xsl:text>
     </xsl:template>
-    <xsl:template name="rendToClass">
-        <xsl:param name="default"/>
-        <xsl:attribute name="class" select="default"/>
-    </xsl:template>
     <xsl:template match="music" mode="#all"/>
+    
+    <xsl:template match="mei:fileDesc">
+        <xsl:element name="div">
+            <xsl:call-template name="makeSection"/>
+        </xsl:element>
+    </xsl:template>
+    
     <xsl:template match="mei:physDesc">
         <xsl:call-template name="makeProperty">
             <xsl:with-param name="node" select="."/>
         </xsl:call-template>
     </xsl:template>
-    <xsl:template match="mei:physDesc" mode="plainCommaSep">
-        <xsl:for-each select="*">
-            <xsl:call-template name="makeSubProperty">
-                <xsl:with-param name="node" select="."/>
-            </xsl:call-template>
-        </xsl:for-each>
-    </xsl:template>
+    
     <xsl:template match="mei:sourceDesc">
         <xsl:element name="div">
             <xsl:call-template name="rendToSection"/>
+            
             <xsl:choose>
                 <xsl:when test="count(mei:source) gt 1"><!-- TODO: check implementation -->
                     <xsl:element name="div">
@@ -2161,28 +1659,33 @@
                     <xsl:element name="div">
                         <xsl:attribute name="class" select="string('propertyList')"/>
                         <xsl:apply-templates select="mei:source">
-                            <xsl:with-param name="labeled">
-                                <xsl:value-of select="false()"/>
-                            </xsl:with-param>
-                        </xsl:apply-templates>
+                        <xsl:with-param name="labeled">
+                            <xsl:value-of select="false()"/>
+                        </xsl:with-param>
+                    </xsl:apply-templates>
                     </xsl:element>
                 </xsl:when>
             </xsl:choose>
         </xsl:element>
     </xsl:template>
+    
     <xsl:template match="mei:revisionDesc">
         <xsl:call-template name="makeSection"/>
     </xsl:template>
+    
+    
     <xsl:template match="mei:itemList | mei:notesStmt">
         <xsl:element name="div">
             <xsl:call-template name="makeSection"/>
         </xsl:element>
     </xsl:template>
+    
     <xsl:template match="mei:provenance" mode="plainCommaSep">
         <xsl:call-template name="makeSubProperty">
             <xsl:with-param name="node" select="."/>
         </xsl:call-template>
     </xsl:template>
+    
     <xsl:template match="mei:eventList" mode="plainCommaSep">
         <xsl:element name="ol">
             <xsl:for-each select="mei:event">
@@ -2192,7 +1695,9 @@
             </xsl:for-each>
         </xsl:element>
     </xsl:template>
+    
     <xsl:template match="mei:event" mode="plainCommaSep">
         <xsl:apply-templates mode="plainCommaSep"/>
     </xsl:template>
+    
 </xsl:stylesheet>
