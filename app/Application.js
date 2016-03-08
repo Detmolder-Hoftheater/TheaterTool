@@ -92,10 +92,47 @@ Ext.define('TheaterTool.Application', {
 	werkDataStore: null,
 	personenForWorkDataStore: null,
 	plansForWorkDataStore: null,
+
+createStore: function(){
+	var werkDataStore = Ext.create('Ext.data.TreeStore', {
+			model: 'TheaterTool.model.Werk',
+			extraParams: {
+				selection1: '',
+				selection2: '',
+				selection3: '',
+				selection4: '',
+				selection5: ''
+			},
+			proxy: {
+				type: 'ajax',
+				url: 'resources/xql/getWorks.xql'				
+				//url: 'data/getWorks.xql'
+			},
+			autoLoad: false
+		});
+return werkDataStore;
+},
 	
 	launch: function () {
 		
 		this.renderer = new verovio.toolkit();
+
+		this.werkDataStore = Ext.create('Ext.data.TreeStore', {
+			model: 'TheaterTool.model.Werk',
+			extraParams: {
+				selection1: '',
+				selection2: '',
+				selection3: '',
+				selection4: '',
+				selection5: ''
+			},
+			proxy: {
+				type: 'ajax',
+				url: 'resources/xql/getWorks.xql'				
+				//url: 'data/getWorks.xql'
+			},
+			autoLoad: false
+		});
 
 		this.personenForWorkDataStore = Ext.create('Ext.data.Store', {
 			model: 'TheaterTool.model.Person',
@@ -121,17 +158,6 @@ Ext.define('TheaterTool.Application', {
 			autoLoad: false
 		});*/
 		
-		
-//		this.werkDataStore = Ext.create('Ext.data.TreeStore', {
-//			model: 'TheaterTool.model.Werk',
-//			proxy: {
-//				type: 'ajax',
-//				//url: 'resources/xql/getControlEvents.xql'
-//				
-//				url: 'data/tree/treegridWerk.json'
-//			},
-//			autoLoad: true
-//		});
 		
 		/*this.sourcesStore = Ext.create('Ext.data.Store', {
 			model: 'TheaterTool.model.Source',
@@ -245,6 +271,12 @@ Ext.define('TheaterTool.Application', {
 	
 	getPlansForWorkDataStore: function () {
 		return this.plansForWorkDataStore;
+	},
+
+	getWerkDataStore: function () {
+		return this.werkDataStore;
 	}
+
+
 	
 });

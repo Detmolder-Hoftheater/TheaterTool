@@ -15,8 +15,12 @@ declare option exist:serialize "method=text media-type=text/plain omit-xml-decla
 
 (:declare variable $path := 'xmldb:exist:///db/contents/persons/H0000xx/H000001.xml';:)
 
-declare variable $file := doc('xmldb:exist:///apps/theater-data/works/H0201xx/H020149.xml');
+declare variable $path := 'xmldb:exist:///apps/theater-data/works/H0201xx/';
+
+declare variable $file := collection($path);
+(:doc('xmldb:exist:///apps/theater-data/works/H0201xx/H020149.xml');:)
 declare variable $persName := $file//mei:persName;
+(:$file//mei:persName;:)
 
 
 declare function local:jsonifySlurs($persName) {
@@ -35,12 +39,37 @@ let $strings := for $elem in $persName
    
     
 };
+
+(:declare function local:jsonifySlurs($path) {
+
+let $local-doctypes := collection($path)
+
+let $strings1 := for $elem1 in $local-doctypes
+					(\:let $fileTest := doc($elem1):\)
+				let $surname := $elem1
+                   (\: let $strings := for $elem in $elem1
+                    	let $surname := $elem//mei:persName:\)
+					
+                    	return 
+                        	concat('{name:"',$surname,'",',
+							'details:"',"true",'",',                          
+                            'xml:"',"true",'"',
+                            '}')
+   (\: return 
+        string-join($strings,','):\)
+    return 
+        string-join($strings1,',')
+
+};:)
+
+
        
     
  (
 
   '[',
         local:jsonifySlurs($persName),
+(:local:jsonifySlurs($path),:)
     ']'
    
       

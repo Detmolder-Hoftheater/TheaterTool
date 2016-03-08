@@ -203,7 +203,7 @@ this.listeners = {
 						icon: 'resources/images/Library-17.png'
 					});
 				
-				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel();
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 1});
 				repertoireTab.add(repertoireDetails);
 
 		
@@ -213,6 +213,8 @@ this.listeners = {
 						title: 'Repertoire: D-E-F',
 						icon: 'resources/images/Library-17.png'
 					});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 2});
+				repertoireTab.add(repertoireDetails);
 				
 				}
 			else if(item.data.text === 'G-H-I'){
@@ -220,6 +222,8 @@ this.listeners = {
 						title: 'Repertoire: G-H-I',
 						icon: 'resources/images/Library-17.png'
 					});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 3});
+				repertoireTab.add(repertoireDetails);
 				
 				}
 			else if(item.data.text === 'J-K-L'){
@@ -227,6 +231,8 @@ this.listeners = {
 						title: 'Repertoire: J-K-L',
 						icon: 'resources/images/Library-17.png'
 					});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 4});
+				repertoireTab.add(repertoireDetails);
 				
 				}
 			else if(item.data.text === 'M-N-O'){
@@ -234,6 +240,8 @@ this.listeners = {
 						title: 'Repertoire: M-N-O',
 						icon: 'resources/images/Library-17.png'
 					});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 5});
+				repertoireTab.add(repertoireDetails);
 				
 				}
 			else if(item.data.text === 'P-Q-R'){
@@ -241,6 +249,8 @@ this.listeners = {
 						title: 'Repertoire: P-Q-R',
 						icon: 'resources/images/Library-17.png'
 					});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 6});
+				repertoireTab.add(repertoireDetails);
 			
 				}
 			else if(item.data.text === 'S-T-U'){
@@ -248,6 +258,8 @@ this.listeners = {
 						title: 'Repertoire: S-T-U',
 						icon: 'resources/images/Library-17.png'
 					});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 7});
+				repertoireTab.add(repertoireDetails);
 				
 				}
 			else if(item.data.text === 'V-W-X-Y-Z'){
@@ -255,6 +267,8 @@ this.listeners = {
 						title: 'Repertoire: V-W-X-Y-Z',
 						icon: 'resources/images/Library-17.png'
 					});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 8});
+				repertoireTab.add(repertoireDetails);
 				
 				}
 			else if(item.data.text === 'Spielpläne'){

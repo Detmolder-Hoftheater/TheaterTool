@@ -1,60 +1,3 @@
-var store = Ext.create('Ext.data.TreeStore', {
-   root: {
-        text: 'Ext JS',
-        expanded: true,
-        children: [
-            {
-                name: 'Aschenbrödel: Isouard',
-                icon: 'resources/images/Books1-17.png',
-                 expanded: true,
-                xml: true,               
-                incipits: true,
-                details: false,
-                children: [
-                 {
-                	name: 'Incipits',
-                	leaf:true,
-                	xml: false,
-                	icon: 'resources/images/MusicTranscript-17.png',
-                    	incipits: true,
-                    	 details: false
-                },
-                    { name: 'Copyist of Detmold',
-                    icon: 'resources/images/Book1-16.png',
-                    expanded: true,
-                    xml: true,
-                    details: true,
-                    incipits: false,
-                     children: [
-                     { leaf:true, 
-                    name: 'Facsimile',
-                    		xml: false,
-                    	incipits: false,
-                    	 details: true,
-                   icon: 'resources/images/Images-17.png'},
-                    { name: 'RISM',
-                    icon: 'resources/images/Literature-17.png',
-                    	leaf:true, 
-                    	xml: true,
-                    	incipits: false,
-                    	 details: false
-                    },
-                    { leaf:true, 
-                    name: 'Vertaktung',
-                    		xml: true,
-                    	incipits: false,
-                    	 details: false,
-                   icon: 'resources/images/Musical-16.png'}
-                ]
-                }
-               
-       ] 
-       }
-]
-}
-})
-
-
 Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 	extend: 'Ext.tree.Panel',
 	
@@ -65,11 +8,16 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 	'TheaterTool.model.Werk'
 	],
 	
-	reserveScrollbar: true,
+	//reserveScrollbar: true,
+	
+	//useArrows: true,
+	//rootVisible: false,
+	//store: store ,
+
+reserveScrollbar: true,
 	
 	useArrows: true,
 	rootVisible: false,
-	store: store ,
 	
 	title: 'Werke',
 	
