@@ -30,14 +30,14 @@ let $strings := for $elem in $fileNames
 		let $file1 := doc($path1)
 		let $fileName :=  $file1//mei:title[not(@type)][1]
 
-		let $fileNameCut := substring($fileName, 1,4)
+		let $comp := $file1//mei:persName[@role ="cmp"]
 
+		let $fileNameCut := substring($fileName, 1,4)
 		let $fileNameFiltered :=  if(contains($fileNameCut, 'Der ') 
 								or contains($fileNameCut, 'Die ') 
 								or contains($fileNameCut, 'Das '))
 			then(substring($fileName, 5))
 			else($fileName)
-
 		let $fileName1 := if(contains(substring($fileNameFiltered, 1,1), $selection1) 
 								or contains(substring($fileNameFiltered, 1,1), $selection2) 
 								or contains(substring($fileNameFiltered, 1,1), $selection3)
@@ -59,6 +59,7 @@ let $strings := for $elem in $fileNames
                         concat('{name:"',$fileName,'",',
 							'details:"',"true",'",',                          
                             'xml:"',"true",'",', 
+							'componist:"',$comp,'",', 
 							'incipits:"',"false",'",',
 							'"icon":"resources/images/Books1-17.png",',
  							

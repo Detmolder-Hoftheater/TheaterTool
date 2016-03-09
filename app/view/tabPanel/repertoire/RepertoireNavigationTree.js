@@ -112,13 +112,23 @@ reserveScrollbar: true,
 		
 		this.columns =[ {
 			xtype: 'treecolumn',
-			header: '<b style="color:#A87678;">Werk/Insipits/Quelle/Facsimile/RISM/Vertaktung</b>',
-			flex: 1,
+			header: '<b style="color:#A87678;">Werk/Quelle/Facsimile/Incipits/RISM</b>',
+			flex: 2.5,
 			sortable: true,
 			menuDisabled: true,
 			dataIndex: 'name'
 			
 		},
+		{
+			header: '<b style="color:#A87678;">Komponist</b>',
+			flex: 1,
+			sortable: true,
+			menuDisabled: true,
+			align: 'center',
+			dataIndex: 'componist'
+			
+		},
+
 		//this.incipitsColumn,
 		//this.detailsColumn,
 		this.xmlColumn

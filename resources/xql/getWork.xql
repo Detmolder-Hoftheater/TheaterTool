@@ -27,6 +27,8 @@ let $strings := for $elem in $fileNames
 		let $file1 := doc($path1)
 		let $fileName :=  $file1//mei:title[not(@type)][1]
 
+		let $comp := $file1//mei:persName[@role ="cmp"]
+
 		let $fileName1 := if(contains($fileName, $selection1))
 			then($fileName)
 			else()
@@ -43,7 +45,8 @@ let $strings := for $elem in $fileNames
 						if($fileName1 != '')then(
                         concat('{name:"',$fileName1,'",',
 							'details:"',"true",'",',                          
-                            'xml:"',"true",'",', 
+                            'xml:"',"true",'",',
+							'componist:"',$comp,'",',  
 							'expanded:"',"true",'",', 
 							'incipits:"',"false",'",',
 							'"icon":"resources/images/Books1-17.png",',
