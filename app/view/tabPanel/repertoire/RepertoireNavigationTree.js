@@ -119,6 +119,7 @@ reserveScrollbar: true,
 			header: '<b style="color:#A87678;">Werk/Insipits/Quelle/Facsimile/RISM/Vertaktung</b>',
 			flex: 1,
 			sortable: true,
+			menuDisabled: true,
 			dataIndex: 'name'
 			
 		},

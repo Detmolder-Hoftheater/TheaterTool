@@ -92,7 +92,7 @@ Ext.define('TheaterTool.Application', {
 	werkDataStore: null,
 	personenForWorkDataStore: null,
 	plansForWorkDataStore: null,
-
+	
 createStore: function(){
 	var werkDataStore = Ext.create('Ext.data.TreeStore', {
 			model: 'TheaterTool.model.Werk',
@@ -111,6 +111,22 @@ createStore: function(){
 			autoLoad: false
 		});
 return werkDataStore;
+},
+
+createStoreForWork: function(){
+	var workDataStore = Ext.create('Ext.data.TreeStore', {
+			model: 'TheaterTool.model.Werk',
+			extraParams: {
+				workName: ''
+			},
+			proxy: {
+				type: 'ajax',
+				url: 'resources/xql/getWork.xql'				
+				//url: 'data/getWorks.xql'
+			},
+			autoLoad: false
+		});
+return workDataStore;
 },
 	
 	launch: function () {

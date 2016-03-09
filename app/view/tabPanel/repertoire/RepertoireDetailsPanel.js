@@ -30,6 +30,7 @@ selection: null,
 	detailSection: null,*/
 	workPanel: null,
 	navTreeStore: null,
+	workName: null,
 	
 	initComponent: function () {
 	
@@ -37,8 +38,16 @@ selection: null,
 
 	//if(this.navTreeStore === null && (this.oldSelection !== this.selection || this.oldSelection === null)){
 				var app = TheaterTool.getApplication();
-        		this.navTreeStore = app.createStore();
+				if(this.workName !== null && this.selection === 9){
+					this.navTreeStore = app.createStoreForWork();
 
+					this.navTreeStore.getProxy().extraParams.workName = this.workName;
+					
+					this.navTreeStore.load();
+					this.navTree.getView().bindStore(this.navTreeStore);
+				}
+				else{
+        		this.navTreeStore = app.createStore();
 				if(this.selection === 1){
 					this.navTreeStore.getProxy().extraParams.selection1 = 'A';
 					this.navTreeStore.getProxy().extraParams.selection2 = 'B';
@@ -92,8 +101,8 @@ selection: null,
 				
 				this.navTreeStore.load();
 				this.navTree.getView().bindStore(this.navTreeStore);
-	
-	
+				this.navTreeStore.sort('name');
+	}
 	
 	this.repertoirePanel = new TheaterTool.view.tabPanel.repertoire.RepertoirePanel();
 	

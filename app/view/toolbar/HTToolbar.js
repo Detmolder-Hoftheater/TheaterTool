@@ -94,7 +94,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 			//scale: 'medium'
 		});
 		
-		var storeField = new Array("Aschenbrödel: Isouard", "Der Bettelstudent: v. Winter", 'Des Teufels Anteil: Auber');
+		var storeField = new Array("Aschenbrödel", "Der Bettelstudent", 'Des Teufels Anteil');
 		
 		for (var i = 0; i < storeField.length; i++) {
 			var menuItem = Ext.create('Ext.menu.Item', {
@@ -103,36 +103,17 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 				listeners: {
 					
 					click: function (item, e, eOpts) {
-						if (item.text === 'Aschenbrödel: Isouard') {
+
 							var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-								title: 'Aschenbrödel: Isouard',
+								title: item.text,
 								icon: 'resources/images/Books1-17.png'
 							});
 							
-							var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel();
+							var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 9, workName: item.text});
 							repertoireTab.add(repertoireDetails);
 							
 							me.htPanel.getHTTabPanel().add(repertoireTab);
 							me.htPanel.getHTTabPanel().setActiveTab(repertoireTab);
-						}
-						else if (item.text === 'Der Bettelstudent: v. Winter') {
-							var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-								title: 'Der Bettelstudent: v. Winter',
-								icon: 'resources/images/Books1-17.png'
-							});
-							
-							me.htPanel.getHTTabPanel().add(repertoireTab);
-							me.htPanel.getHTTabPanel().setActiveTab(repertoireTab);
-						}
-						else if (item.text === 'Des Teufels Anteil: Auber') {
-							var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-								title: 'Des Teufels Anteil: Auber',
-								icon: 'resources/images/Books1-17.png'
-							});
-							
-							me.htPanel.getHTTabPanel().add(repertoireTab);
-							me.htPanel.getHTTabPanel().setActiveTab(repertoireTab);
-						}
 					}
 				}
 			});

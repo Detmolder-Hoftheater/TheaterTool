@@ -12,11 +12,8 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";:)
 declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";
 
-declare variable $selection1 := request:get-parameter('selection1', '');
-declare variable $selection2 := request:get-parameter('selection2', '');
-declare variable $selection3 := request:get-parameter('selection3', '');
-declare variable $selection4 := request:get-parameter('selection4', '');
-declare variable $selection5 := request:get-parameter('selection5', '');
+declare variable $selection1 := request:get-parameter('workName', '');
+
 
 declare variable $path := 'xmldb:exist:///apps/theater-data/works/';
 declare variable $file := collection($path);
@@ -30,11 +27,7 @@ let $strings := for $elem in $fileNames
 		let $file1 := doc($path1)
 		let $fileName :=  $file1//mei:title[not(@type)][1]
 
-		let $fileName1 := if(contains(substring($fileName, 1,1), $selection1) 
-								or contains(substring($fileName, 1,1), $selection2) 
-								or contains(substring($fileName, 1,1), $selection3)
-								or $selection4 != '' and contains(substring($fileName, 1,1), $selection4)
-								or $selection5 != '' and contains(substring($fileName, 1,1), $selection5))
+		let $fileName1 := if(contains($fileName, $selection1))
 			then($fileName)
 			else()
  
@@ -51,13 +44,15 @@ let $strings := for $elem in $fileNames
                         concat('{name:"',$fileName1,'",',
 							'details:"',"true",'",',                          
                             'xml:"',"true",'",', 
+							'expanded:"',"true",'",', 
 							'incipits:"',"false",'",',
 							'"icon":"resources/images/Books1-17.png",',
  							
 							'"children":[{',
 								'name:"',$sourceName,'",',
 								'incipits:"',"true",'",',
-								'details:"',"true",'",',                          
+								'details:"',"true",'",',  
+								'expanded:"',"true",'",',                         
                             	'xml:"',"true",'",',
 								'"icon":"resources/images/Book1-16.png",', 
 								'"children":[',
