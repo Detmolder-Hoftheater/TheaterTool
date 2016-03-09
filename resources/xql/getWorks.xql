@@ -30,11 +30,19 @@ let $strings := for $elem in $fileNames
 		let $file1 := doc($path1)
 		let $fileName :=  $file1//mei:title[not(@type)][1]
 
-		let $fileName1 := if(contains(substring($fileName, 1,1), $selection1) 
-								or contains(substring($fileName, 1,1), $selection2) 
-								or contains(substring($fileName, 1,1), $selection3)
-								or $selection4 != '' and contains(substring($fileName, 1,1), $selection4)
-								or $selection5 != '' and contains(substring($fileName, 1,1), $selection5))
+		let $fileNameCut := substring($fileName, 1,4)
+
+		let $fileNameFiltered :=  if(contains($fileNameCut, 'Der ') 
+								or contains($fileNameCut, 'Die ') 
+								or contains($fileNameCut, 'Das '))
+			then(substring($fileName, 5))
+			else($fileName)
+
+		let $fileName1 := if(contains(substring($fileNameFiltered, 1,1), $selection1) 
+								or contains(substring($fileNameFiltered, 1,1), $selection2) 
+								or contains(substring($fileNameFiltered, 1,1), $selection3)
+								or $selection4 != '' and contains(substring($fileNameFiltered, 1,1), $selection4)
+								or $selection5 != '' and contains(substring($fileNameFiltered, 1,1), $selection5))
 			then($fileName)
 			else()
  
@@ -48,7 +56,7 @@ let $strings := for $elem in $fileNames
 
                     return 
 						if($fileName1 != '')then(
-                        concat('{name:"',$fileName1,'",',
+                        concat('{name:"',$fileName,'",',
 							'details:"',"true",'",',                          
                             'xml:"',"true",'",', 
 							'incipits:"',"false",'",',

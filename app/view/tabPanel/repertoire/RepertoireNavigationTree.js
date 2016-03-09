@@ -46,6 +46,7 @@ reserveScrollbar: true,
 	rismPanel: null,
 	repertoirePanel: null,
 	beatPanel: null,
+	workName: null,
 	
 	initComponent: function () {
 	
@@ -57,7 +58,7 @@ reserveScrollbar: true,
 		
 		this.listeners = {
 			
-			selectionchange: function (selected, eOpts) {				
+			selectionchange: function (selected, eOpts) {			
 				if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 1) {	
 					/*if(me.sourcePanel !== null){						
 						me.repertoirePanel.removeAll(true);			
@@ -67,41 +68,36 @@ reserveScrollbar: true,
 					}*/
 					me.repertoirePanel.removeAll(true);
 					me.workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails();
-					me.repertoirePanel.add(me.workPanel);
-				me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard</b>');
+					me.repertoirePanel.add(me.workPanel);			
+					me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name+'</b>');
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
+					me.repertoirePanel.removeAll(true);
+					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
+					me.repertoirePanel.add(me.sourcePanel);	
+					me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].parentNode.data.name+' -> '+eOpts[0].data.name+'</b>');
+					
+				}
+				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
+				//console.log(eOpts[0].data);
 					me.repertoirePanel.removeAll(true);
 					if(eOpts[0].data.name === 'Incipits'){
 						// TODO
 						//me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
 						//me.repertoirePanel.add(me.sourcePanel);	
-						me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard -> Incipits</b>');
+
+						me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].parentNode.parentNode.data.name+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');
 					}
-					else {
-						me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
-						me.repertoirePanel.add(me.sourcePanel);	
-						me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard -> Quelle: Copyst of Detmold</b>');
-					}
-				}
-				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
-				//console.log(eOpts[0].data);
-					me.repertoirePanel.removeAll(true);
-					if(eOpts[0].data.name === 'RISM'){
+					else if(eOpts[0].data.name === 'RISM'){
 						me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel();
 						me.repertoirePanel.add(me.rismPanel);
-						me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard -> Quelle: Copyst of Detmold -> RISM</b>');	
-					}
-					else if(eOpts[0].data.name === 'Vertaktung'){
-						me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
-						me.repertoirePanel.add(me.beatPanel);
-						me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard -> Quelle: Copyst of Detmold -> Vertaktung</b>');
+						me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].parentNode.parentNode.data.name+' -> '+eOpts[0].parentNode.data.name+' -> RISM</b>');	
 					}
 					else if(eOpts[0].data.name === 'Facsimile'){
 						// TODO
 						//me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
 						//me.repertoirePanel.add(me.beatPanel);
-						me.repertoirePanel.setTitle('<b style="color:#A87678;">Aschenbrödel: Isouard -> Quelle: Copyst of Detmold -> Facsimile</b>');
+						me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].parentNode.parentNode.data.name+' -> '+eOpts[0].parentNode.data.name+' -> Facsimile</b>');
 					}
 						
 				
@@ -150,7 +146,7 @@ reserveScrollbar: true,
 		this.repertoirePanel = repertoirePanel;
 		
 	},
-	
+
 	createColumn: function (headerName, path) {
 		
 		var eColumn = Ext.create('Ext.grid.column.Action', {			
