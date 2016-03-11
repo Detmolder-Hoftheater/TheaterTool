@@ -28,6 +28,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 				},*/
 				
 				border: false,
+
+	workID: null,
 	
 	
 	initComponent: function () {
@@ -36,7 +38,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 	
 	this.planSection = new TheaterTool.view.tabPanel.repertoire.work.WorkPlanSection();
 	
-	this.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection();
+	this.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: this.workID});
 	
 	this.journalSection = new TheaterTool.view.tabPanel.repertoire.work.WorkJournalSection();
 

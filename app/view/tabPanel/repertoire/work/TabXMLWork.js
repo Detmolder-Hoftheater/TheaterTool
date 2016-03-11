@@ -3,7 +3,7 @@
  * @class
  * @classdesc TheaterTool.view.tabPanel.ControlEventsItem for create hairpins-, dirs-, dynams- and slurs- items.
  */
-Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabTextWork', {
+Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabXMLWork', {
 	extend: 'Ext.panel.Panel',
 /*requires:[
 	'Ext.layout.container.VBox'],
@@ -12,35 +12,36 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabTextWork', {
 		type: 'vbox',
 		pack: 'start',
 		align: 'stretch'
-	},
+	},*/
 	
-	closable: true,*/
+	//closable: true,
+	
+	/*defaults: {
+		frame: true,
+		autoScroll: true
+	},*/
+	
 	
 	bodyPadding: 10,
 
- //height: 100,
+	
+	//autoScroll: true,
+	
+	
+	searchField: null,
 
-//height: 100,
-
-    // Need a minHeight. Neptune resizable framed panels are overflow:visible so as to
-    // enable resizing handles to be embedded in the border lines.
-  //  minHeight: 50,
-   
-   // resizable: true,
-
-//autoScroll: true,
-//reserveScrollbar: true,
-
-
+	workID: null,
+	
 	initComponent: function () {
+
+var me = this;
 	
 	//this.searchField = this.createTextField('Suche1', 'Suche1');
 	//this.searchField.setDisabled(true);
-var me = this;
 
 
-Ext.Ajax.request({
-           // url: 'data/Output_Exist.xql',
+/*Ext.Ajax.request({
+            //url: 'data/Output_Exist.xql',
  			url: 'resources/xql/test_Exist.xql',
             method: 'GET',
             params: {
@@ -49,25 +50,12 @@ Ext.Ajax.request({
             },
             success: function(response){
 
-
-			//console.log(me.id);
 			$('#'+me.id+'-innerCt').html(response.responseText);
 
-			//console.log(response.responseText);
-
-
-     }
-         
-        });
-		
+     },
+          scope: me
+        });*/
+	
 		this.callParent();
-	},
-
-	setTextInfo: function(infoText){
-
-//this.items = [{html: infoText}];
-
-		$('#'+this.id).html(infoText);
-
 	}
 });

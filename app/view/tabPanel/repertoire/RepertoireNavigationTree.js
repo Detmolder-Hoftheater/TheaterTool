@@ -67,7 +67,7 @@ reserveScrollbar: true,
 						me.repertoirePanel.removeAll(true);
 					}*/
 					me.repertoirePanel.removeAll(true);
-					me.workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails();
+					me.workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails({workID: eOpts[0].data.werkID});
 					me.repertoirePanel.add(me.workPanel);			
 					me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name+'</b>');
 				}

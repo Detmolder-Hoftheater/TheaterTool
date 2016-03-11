@@ -30,6 +30,8 @@ let $strings := for $elem in $fileNames
 		let $file1 := doc($path1)
 		let $fileName :=  $file1//mei:title[not(@type)][1]
 
+		let $fileID :=  $file1//mei:work/@xml:id
+
 		let $comp := $file1//mei:persName[@role ="cmp"]
 
 		let $fileNameCut := substring($fileName, 1,4)
@@ -59,7 +61,8 @@ let $strings := for $elem in $fileNames
                         concat('{name:"',$fileName,'",',
 							'details:"',"true",'",',                          
                             'xml:"',"true",'",', 
-							'componist:"',$comp,'",', 
+							'componist:"',$comp,'",',
+							'werkID:"',$fileID,'",', 
 							'incipits:"',"false",'",',
 							'"icon":"resources/images/Books1-17.png",',
  							

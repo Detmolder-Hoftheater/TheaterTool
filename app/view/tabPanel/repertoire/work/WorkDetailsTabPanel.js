@@ -17,18 +17,27 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
 	/*defaults: {
 		split: true
 	},*/
+
+//minHeight: 100,
+
+
+//autoHeight: true,
 	
 	textTab: null,
 	xmlTab: null,
+	workID: null,
+
 	
 	initComponent: function () {
 	
 	this.textTab = new TheaterTool.view.tabPanel.repertoire.work.TabTextWork({
-			title: 'Text'
+			title: 'Text',
+			workID: this.workID
 		});
 		
-		this.xmlTab = new TheaterTool.view.tabPanel.repertoire.TabXML({
-			title: 'XML'
+		this.xmlTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork({
+			title: 'XML',
+			workID: this.workID
 		});
 	
 	this.items =[
@@ -41,5 +50,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
 		],
 		
 		this.callParent();
+	},
+
+	setTextInfo: function(infoText){
+		this.textTab.setTextInfo(infoText);
 	}
+
 });
