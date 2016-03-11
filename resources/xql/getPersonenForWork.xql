@@ -16,7 +16,10 @@ declare option exist:serialize "method=text media-type=text/plain omit-xml-decla
 (:declare variable $path := 'xmldb:exist:///db/contents/persons/H0000xx/H000001.xml';:)
 
 declare variable $fileName := request:get-parameter('fileName', '');
-declare variable $path := concat('xmldb:exist:///apps/theater-data/works/', $fileName, '.xml');
+declare variable $type := request:get-parameter('type', '');
+declare variable $path := if($type = 'work')then(concat('xmldb:exist:///apps/theater-data/works/', $fileName, '.xml'))else(concat('xmldb:exist:///apps/theater-data/sources/', $fileName, '.xml'));
+
+
 
 (:declare variable $path := 'xmldb:exist:///apps/theater-data/works/';:)
 

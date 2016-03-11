@@ -78,6 +78,7 @@ style: {
 				var app = TheaterTool.getApplication();
         		me.store = app.createStoreForPersonInRep();
 				me.store.getProxy().extraParams.fileName = me.workID;
+				me.store.getProxy().extraParams.type = me.type;
 				me.store.load();
 			//}
         	

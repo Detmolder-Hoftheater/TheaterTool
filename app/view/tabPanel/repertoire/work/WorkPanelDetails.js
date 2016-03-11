@@ -34,7 +34,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 	
 	initComponent: function () {
 	
-	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.workID});
+	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.workID, type:'work'});
 	
 	this.planSection = new TheaterTool.view.tabPanel.repertoire.work.WorkPlanSection();
 	

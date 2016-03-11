@@ -230,7 +230,8 @@ createStoreForPersonInRep: function(){
 this.personenForWorkDataStore = Ext.create('Ext.data.Store', {
 			model: 'TheaterTool.model.Person',
 			extraParams: {
-				fileName: ''
+				fileName: '',
+				type: ''
 			},
 			proxy: {
 				type: 'ajax',
