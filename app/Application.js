@@ -223,13 +223,14 @@ if(selection === 1){
 return navTreeStore;
 
 },
-	
-	launch: function () {
-		
-		this.renderer = new verovio.toolkit();
 
-		this.personenForWorkDataStore = Ext.create('Ext.data.Store', {
+createStoreForPersonInRep: function(){
+
+this.personenForWorkDataStore = Ext.create('Ext.data.Store', {
 			model: 'TheaterTool.model.Person',
+			extraParams: {
+				fileName: ''
+			},
 			proxy: {
 				type: 'ajax',
 				//url: 'data/getPersonenForWork.xql'
@@ -237,6 +238,26 @@ return navTreeStore;
 			},
 			autoLoad: false
 		});
+
+return this.personenForWorkDataStore;
+},
+	
+	launch: function () {
+		
+		this.renderer = new verovio.toolkit();
+
+		/*this.personenForWorkDataStore = Ext.create('Ext.data.Store', {
+			model: 'TheaterTool.model.Person',
+			extraParams: {
+				fileName: ''
+			},
+			proxy: {
+				type: 'ajax',
+				//url: 'data/getPersonenForWork.xql'
+				url: 'resources/xql/getPersonenForWork.xql'
+			},
+			autoLoad: false
+		});*/
 		
 		/*this.plansForWorkDataStore = Ext.create('Ext.data.Store', {
 			model: 'TheaterTool.model.Plan',

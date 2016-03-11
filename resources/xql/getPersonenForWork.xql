@@ -15,10 +15,15 @@ declare option exist:serialize "method=text media-type=text/plain omit-xml-decla
 
 (:declare variable $path := 'xmldb:exist:///db/contents/persons/H0000xx/H000001.xml';:)
 
-declare variable $path := 'xmldb:exist:///apps/theater-data/works/H0201xx/';
+declare variable $fileName := request:get-parameter('fileName', '');
+declare variable $path := concat('xmldb:exist:///apps/theater-data/works/', $fileName, '.xml');
 
-declare variable $file := collection($path);
+(:declare variable $path := 'xmldb:exist:///apps/theater-data/works/';:)
+
+declare variable $file := doc($path);
+(:collection($path);:)
 (:doc('xmldb:exist:///apps/theater-data/works/H0201xx/H020149.xml');:)
+
 declare variable $persName := $file//mei:persName;
 (:$file//mei:persName;:)
 
@@ -27,11 +32,15 @@ declare function local:jsonifySlurs($persName) {
 
 let $strings := for $elem in $persName
                     let $surname := $elem
+
+					let $xml := if($elem[not(@dbkey)])then('false')else('true')
+
+					let $details := if($elem[not(@dbkey)])then('false')else('true')
 					
                     return 
                         concat('{name:"',$surname,'",',
-							'details:"',"true",'",',                          
-                            'xml:"',"true",'"',
+							'details:"',$details,'",',                          
+                            'xml:"',$xml,'"',
                             '}')
     return 
         string-join($strings,',')

@@ -37,6 +37,8 @@ style: {
    
     personTable: null,
 
+	workID: null,
+
    /* features: [{
         ftype: 'grouping',
         groupHeaderTpl: '{columnName}: {name} ({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
@@ -72,11 +74,12 @@ style: {
         me.listeners = {
         	expand: function (p, eOpts) {
         	console.log("expand");
-			if(me.store === null){
+			//if(me.store === null){
 				var app = TheaterTool.getApplication();
-        		me.store = app.getPersonenForWorkDataStore();
+        		me.store = app.createStoreForPersonInRep();
+				me.store.getProxy().extraParams.fileName = me.workID;
 				me.store.load();
-			}
+			//}
         	
 			me.personTable.getView().bindStore(me.store);
          
