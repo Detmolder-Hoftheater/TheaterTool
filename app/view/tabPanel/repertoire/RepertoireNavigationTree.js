@@ -73,7 +73,7 @@ reserveScrollbar: true,
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
 					me.repertoirePanel.removeAll(true);
-					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
+					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: eOpts[0].data.sourceID});
 					me.repertoirePanel.add(me.sourcePanel);	
 					me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].parentNode.data.name+' -> '+eOpts[0].data.name+'</b>');
 					

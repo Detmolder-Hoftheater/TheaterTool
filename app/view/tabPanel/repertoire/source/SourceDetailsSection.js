@@ -39,9 +39,11 @@ style: {
     
     repertoireTab:null,
 
+	sourceID: null,
+
     initComponent: function() {
     
-    this.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel();
+    this.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel({sourceID: this.sourceID});
 	
 	this.items =[
 		//this.slursItem,

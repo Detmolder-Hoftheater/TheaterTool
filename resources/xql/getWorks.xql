@@ -69,6 +69,7 @@ let $strings := for $elem in $fileNames
 							'"children":[{',
 								'name:"',$sourceName,'",',
 								'incipits:"',"true",'",',
+								'sourceID:"',$sourceFileName,'",',
 								'details:"',"true",'",',                          
                             	'xml:"',"true",'",',
 								'"icon":"resources/images/Book1-16.png",', 

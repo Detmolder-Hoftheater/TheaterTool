@@ -1,6 +1,7 @@
 Ext.define('TheaterTool.model.Source', {
     extend: 'Ext.data.Model',
     fields: [
-        {name: 'id',  type: 'string'}     
+        {name: 'id',  type: 'string'},
+		{name: 'sourceID',   type: 'string'}         
     ]
 });

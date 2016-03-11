@@ -20,15 +20,19 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 	
 	textTab: null,
 	xmlTab: null,
+
+	sourceID: null,
 	
 	initComponent: function () {
 	
-	this.textTab = new TheaterTool.view.tabPanel.repertoire.TabText({
-			title: 'Text'
+	this.textTab = new TheaterTool.view.tabPanel.repertoire.source.TabTextSource({
+			title: 'Text',
+			sourceID: this.sourceID
 		});
 		
 		this.xmlTab = new TheaterTool.view.tabPanel.repertoire.TabXML({
-			title: 'XML'
+			title: 'XML',
+			sourceID: this.sourceID
 		});
 	
 	this.items =[

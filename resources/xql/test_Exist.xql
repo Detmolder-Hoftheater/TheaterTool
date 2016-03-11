@@ -16,7 +16,8 @@ let $uri := request:get-parameter('uri', '')
 (:let $uri := '/db/apps/theater-data/works/H0201xx/H020149.xml':)
 let $type := request:get-parameter('type', 'work')
 let $docUri := if(contains($uri, '#')) then(substring-before($uri, '#')) else($uri)
-let $doc := eutil:getDoc($docUri)/mei:work
+let $doc := if(contains($type, 'work'))then(eutil:getDoc($docUri)/mei:work)else(eutil:getDoc($docUri)/mei:source)
+(:let $doc := eutil:getDoc($docUri)/mei:work:)
 let $lang := request:get-parameter('lang', 'de')
 
 (:let $base := concat(replace(system:get-module-load-path(), 'embedded-eXist-server', ''), '/../xslt/') :)
@@ -28,8 +29,8 @@ return
     if($type = 'work')
     then(
         transform:transform($doc, concat($base, 'meiHead2HTML.xsl'), <parameters><param name="base" value="{$base}"/><param name="lang" value="{$lang}"/></parameters>))
-(:    else if($type = 'source'):)
-(:    then(transform:transform($doc, concat($base, 'meiHead2HTML.xsl'), <parameters><param name="base" value="\{$base\}"/><param name="lang" value="\{$lang\}"/></parameters>)):)
+    else if($type = 'source')
+   then(transform:transform($doc, concat($base, 'meiHead2HTML.xsl'), <parameters><param name="base" value="{$base}"/><param name="lang" value="{$lang}"/></parameters>))
 (:    else if($type = 'text'):)
 (:    then(transform:transform($doc, concat($base, 'teiHeader2HTML.xsl'),<parameters><param name="base" value="\{$base\}"/><param name="lang" value="\{$lang\}"/></parameters>)):)
     else()

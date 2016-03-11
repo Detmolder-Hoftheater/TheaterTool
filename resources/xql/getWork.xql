@@ -57,6 +57,7 @@ let $strings := for $elem in $fileNames
 							'"children":[{',
 								'name:"',$sourceName,'",',
 								'incipits:"',"true",'",',
+								'sourceID:"',$sourceFileName,'",',
 								'details:"',"true",'",',  
 								'expanded:"',"true",'",',                         
                             	'xml:"',"true",'",',

@@ -23,13 +23,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 				},*/
 				
 				border: false,
+
+	sourceID: null,
 	
 	
 	initComponent: function () {
 	
-	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection();
+	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({sourceID: this.sourceID});
 		
-	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection();
+	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID});
 	
 	this.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
 	
