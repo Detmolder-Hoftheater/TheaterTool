@@ -24,6 +24,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabXMLWork', {
 	
 	bodyPadding: 10,
 
+ minHeight: 200,
+   
+    resizable: true,
+
+autoScroll: true,
+reserveScrollbar: true,
+
 	
 	//autoScroll: true,
 	
@@ -32,15 +39,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabXMLWork', {
 
 	workID: null,
 	
-	initComponent: function () {
+/*	initComponent: function () {
 
 var me = this;
 	
-	//this.searchField = this.createTextField('Suche1', 'Suche1');
-	//this.searchField.setDisabled(true);
-
-
-/*Ext.Ajax.request({
+/\*Ext.Ajax.request({
             //url: 'data/Output_Exist.xql',
  			url: 'resources/xql/test_Exist.xql',
             method: 'GET',
@@ -54,8 +57,14 @@ var me = this;
 
      },
           scope: me
-        });*/
+        });*\/
 	
 		this.callParent();
+	}*/
+
+
+setTextInfo: function(infoText){
+		$('#'+this.id+'-innerCt').html(infoText);
+
 	}
 });

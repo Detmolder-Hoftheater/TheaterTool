@@ -5,7 +5,7 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 	extend: 'Ext.panel.Panel',
     
-	
+
 	personSection: null,
 	planSection: null,
 	detailSection: null,

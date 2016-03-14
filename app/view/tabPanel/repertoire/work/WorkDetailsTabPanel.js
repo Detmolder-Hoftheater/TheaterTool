@@ -4,24 +4,6 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
 	extend: 'Ext.tab.Panel',
-	//id: 'cepanel',
-	/*requires:[
-	'Ext.layout.container.Border'],*/
-	//layout: 'border',
-	//flex: 2,
-	
-	//bodyPadding: 3,
-	
-	//bodyBorder: false,
-	
-	/*defaults: {
-		split: true
-	},*/
-
-//minHeight: 100,
-
-
-//autoHeight: true,
 	
 	textTab: null,
 	xmlTab: null,
@@ -54,6 +36,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
 
 	setTextInfo: function(infoText){
 		this.textTab.setTextInfo(infoText);
+		this.xmlTab.setTextInfo(infoText);
 	}
 
 });
