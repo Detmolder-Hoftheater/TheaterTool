@@ -2,6 +2,7 @@ Ext.define('TheaterTool.model.Werk', {
     extend: 'Ext.data.Model',
     fields: [
         {name: 'name',   type: 'string'},  
+ 		{name: 'extName',   type: 'string'},  
  		{name: 'componist',   type: 'string'}, 
 		{name: 'werkID',   type: 'string'},       
         {name: 'xml',   type: 'boolean'},

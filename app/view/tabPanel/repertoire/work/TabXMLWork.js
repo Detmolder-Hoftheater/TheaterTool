@@ -5,23 +5,7 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabXMLWork', {
 	extend: 'Ext.panel.Panel',
-/*requires:[
-	'Ext.layout.container.VBox'],
-	
-	layout: {
-		type: 'vbox',
-		pack: 'start',
-		align: 'stretch'
-	},*/
-	
-	//closable: true,
-	
-	/*defaults: {
-		frame: true,
-		autoScroll: true
-	},*/
-	
-	
+
 	bodyPadding: 10,
 
  minHeight: 200,
@@ -31,40 +15,47 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabXMLWork', {
 autoScroll: true,
 reserveScrollbar: true,
 
-	
-	//autoScroll: true,
-	
-	
-	searchField: null,
+//infoText: null,
 
-	workID: null,
+
+	//workID: null,
 	
 /*	initComponent: function () {
-
 var me = this;
-	
-/\*Ext.Ajax.request({
-            //url: 'data/Output_Exist.xql',
- 			url: 'resources/xql/test_Exist.xql',
-            method: 'GET',
-            params: {
-                uri: '/db/apps/theater-data/works/'+this.workID+'.xml',
-                type: 'work'
-            },
-            success: function(response){
 
-			$('#'+me.id+'-innerCt').html(response.responseText);
+me.listeners = {
+        	activate: function (eOpts) {
+        	console.log("activate");
 
-     },
-          scope: me
-        });*\/
+			$('#'+me.id).html(me.infoText);
+
+
+  }
+    },
 	
-		this.callParent();
-	}*/
+//$('#'+me.id+'innerCt').html('My content was added during construction.');	
+	this.callParent();
+	},*/
 
 
 setTextInfo: function(infoText){
-		$('#'+this.id+'-innerCt').html(infoText);
+
+console.log(infoText);
+
+//$('#'+this.id+'-innerCt').html(infoText);
+
+
+
+ var fragment = document.createDocumentFragment('div');
+		var tempDiv = document.createElement('div');
+		fragment.appendChild(tempDiv);
+		tempDiv.innerHTML = infoText;
+
+
+
+ 		var tmp = hljs.highlightAuto($(tempDiv.innerHTML).html()).value;
+ 
+	$('#'+this.id+'-innerCt').html(tmp);
 
 	}
 });

@@ -2,7 +2,7 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPlanSection', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.form.FieldSet',
     //xtype: 'grouped-grid',
    /* requires: [
         'Ext.grid.feature.Grouping'
@@ -16,7 +16,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPlanSection', {
     // Need a minHeight. Neptune resizable framed panels are overflow:visible so as to
     // enable resizing handles to be embedded in the border lines.
    // minHeight: 200,
-   title: '<b style="color:gray;">Im Programm</b>',
+   title: '<b style="color:gray;">Programm</b>',
    // resizable: true,
     
     collapsed: true,

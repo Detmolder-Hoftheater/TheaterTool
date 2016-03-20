@@ -10,7 +10,6 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
 	layout: 'border',
 	flex: 1,
 	
-	//bodyPadding: 1,
 	
 	bodyBorder: false,
 	//border: false,
@@ -24,12 +23,6 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
     },
 
 	
-	
-	/* defaults: {
-        //collapsible: true,
-        split: true
-        
-    },*/
     
     
 	

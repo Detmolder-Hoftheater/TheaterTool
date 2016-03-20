@@ -36,9 +36,21 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 	this.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
 	
     this.items = [
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Details</b>',
+        		margin: '10 10 10 10'
+
+			},
        
 			this.detailSection,
 			this.overviewSection,
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Referenzen</b>',
+        		margin: '10 10 10 10'
+
+			},
 			this.personSection
 			
        

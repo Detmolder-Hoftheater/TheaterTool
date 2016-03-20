@@ -9,6 +9,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePanel', {
             flex: 6
 	
 
+
 /*	initComponent: function () {
 	
 	///this.workPanelDetails = new TheaterTool.view.tabPanel.repertoire.work.workPanelDetails();

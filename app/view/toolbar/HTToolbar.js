@@ -20,11 +20,13 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	
 	htPanel: null,
 	extendWorkButton: null,
-	
+	searchField: null,
 	
 	initComponent: function () {
 		
-		this.extendWorkButton = this.createCEButton('Teifenerschließung');
+		this.extendWorkButton = this.createCEButton('<font size = "1"><b style="color:#CC9FA7;">Tiefenerschließung</b></font>');
+
+this.searchField = this.createTextField('Suche', 'Suche');
 		
 		this.tbar = new Ext.Toolbar({
 			
@@ -36,14 +38,10 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 
 				xtype: 'label',
         		html: '<b style="color:#CC9FA7;">la vita di teatro</b>',
-        		margin: '0 0 0 10'
+        		margin: '0 10 0 10'
 
 			},
-			'->',
-			'->',
-
-			this.extendWorkButton, 
-			{
+			/*{
 				xtype: 'tbseparator',
 				style: {
 					borderRight: '1px solid #CC9FA7',
@@ -52,9 +50,21 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 					// borderBottom: '1px solid black'
 				}
 			}, 
-			{
+			
+			this.extendWorkButton, */
+{
+				xtype: 'tbseparator',
+				style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7'
+					// borderTop: '1px solid black',
+					// borderBottom: '1px solid black'
+				}
+			}, 
+
+	{
 				xtype: 'button',
-				text: 'Tabs anordnen',
+				text: '<font size = "1"><b style="color:#CC9FA7;">Tabs anordnen</b></font>',
 				menu:[ {
 					text: 'Horizontal verteilen',
 					icon: 'resources/images/Horizontal-17.png'
@@ -68,8 +78,29 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 					icon: 'resources/images/Sheets-17.png'
 				}]
 				//Desktop 173
+			},		
+
+			
+'->',
+
+
+
+{
+
+				xtype: 'label',
+        		html: '<font size = "1"><b style="color:#CC9FA7;">Suche</b></font>',
+        		margin: '0 10 0 10'
+
 			},
-'->'
+this.searchField,
+
+{
+
+				xtype: 'label',
+        		html: '<font size = "1"><b style="color:#CC9FA7;">Erweitert</b></font>',
+        		margin: '0 10 0 10'
+
+			}
 
 ]
 		});
@@ -105,7 +136,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 					click: function (item, e, eOpts) {
 
 							var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-								title: item.text,
+								title: '<font style="color:#A87678;">'+item.text+'</font>',
 								icon: 'resources/images/Books1-17.png'
 							});
 							
@@ -121,6 +152,30 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 		}
 		
 		return ceButton;
+	},
+
+createTextField: function (fieldName, fieldLabel) {
+		var me = this;
+		var ceTextField = Ext.create('Ext.form.field.Text', {
+			//name: '<b style="color:#CC9FA7;">'+fieldName+'</b>',
+			//id: fieldLabel,
+			width: 200,
+		//title: '<b style="color:#CC9FA7;">'+fieldName+'</b>',
+//margin: '0 10 0 10',
+			listeners: {
+				focus: function (e, eOpts) {
+					//me.handleCreateButton();
+				},
+				render: function (c) {
+					c.getEl().on('keyup', function () {
+						//me.handleCreateButton();
+					},
+					c);
+				}
+			}
+		});
+		
+		return ceTextField;
 	}
 
 });

@@ -50,6 +50,7 @@ Ext.define('TheaterTool.Application', {
 	'tabPanel.repertoire.source.SourceDetailsTabPanel',
 	'tabPanel.repertoire.source.SourceDetailsSection',
 	'tabPanel.repertoire.source.TabTextSource',
+	'tabPanel.repertoire.work.WorkDetailsSectionXML',
 	'navPanel.SearchPanel',
 	'navPanel.SearchTabPanel',
 	'navPanel.SearchTab',
@@ -127,8 +128,8 @@ createStoreForWork: function(){
 			},
 			proxy: {
 				type: 'ajax',
-				url: 'resources/xql/getWork.xql'				
-				//url: 'data/getWorks.xql'
+				//url: 'resources/xql/getWork.xql'				
+				url: 'data/getWorks.xql'
 			},
 			autoLoad: false
 		});
@@ -136,25 +137,30 @@ createStoreForWork: function(){
 return workDataStore;
 },
 
-handleStoreForWorks: function(selection, workName){
+handleStoreForWorks: function(selection){
 		var navTreeStore = null;
 		if(this.worksStoreMap === null){
 			this.worksStoreMap = new Map();
 		}
 		
 			if(selection === 9){
-				if(this.worksStoreMap.has(workName)){
-					navTreeStore = this.worksStoreMap.get(workName);
-				}
-				else{
-					navTreeStore = this.createStoreForWork();
-					navTreeStore.getProxy().extraParams.workName = workName;					
-					navTreeStore.load();
-					var key = workName;
-					this.worksStoreMap.set(key, navTreeStore);
-				}
 				
-				}
+				var storeField = new Array("Aschenbrödel", "Der Bettelstudent", 'Des Teufels Anteil');
+					//for(var i = 0; i < storeField.length; i++){
+						var workName = storeField;
+						if(this.worksStoreMap.has(workName)){
+							navTreeStore = this.worksStoreMap.get(workName);
+						}
+						else{
+							navTreeStore = this.createStoreForWork();
+							navTreeStore.getProxy().extraParams.workName = storeField;					
+							navTreeStore.load();
+							var key = storeField;
+							this.worksStoreMap.set(key, navTreeStore);
+						}
+				
+					//}
+			}
 			else {
 				if(this.worksStoreMap.has(selection)){
 					navTreeStore = this.worksStoreMap.get(selection);

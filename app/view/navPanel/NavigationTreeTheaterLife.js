@@ -1,7 +1,8 @@
 var store = Ext.create('Ext.data.TreeStore', {
    root: {
-        text: 'Ext JS',
+        text: 'Verwaltung',
         expanded: true,
+icon: 'resources/images/portfolio-17.png',
         children: [
            // {
                /* text: 'Theater Organisation',
@@ -24,11 +25,15 @@ var store = Ext.create('Ext.data.TreeStore', {
                // expanded: true,
                 children: [
                     { leaf:true, text: 'Ausgaben',
-                    icon: 'resources/images/MoneyTransfer-17.png'},
+                    icon: 'resources/images/MoneyTransfer-17.png'
+
+},
                     { leaf:true, text: 'Einnahmen',
-                    icon: 'resources/images/MoneyBox-17.png'},
+                    icon: 'resources/images/MoneyBox-17.png'
+},
                     { leaf:true, text: 'Gagenbücher',
-                    icon: 'resources/images/Gift-17.png'}
+                    icon: 'resources/images/Gift-17.png'
+}
                 ]
             }
         ]
@@ -58,19 +63,23 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreeTheaterLife', {
     reserveScrollbar: true,
 	
 	useArrows: true,
-	rootVisible: false,
+	rootVisible: true,
 	store: store ,
 	tabPanel: null,
 
-style: {
-     
-     
-     
-      borderBottom: '1px solid #A80016'
-    },
+//style: {
+    // borderRight: '1px solid #A80016',
+     // borderLeft: '1px solid #A80016',
+     // borderTop: '1px solid gray'
+     // borderBottom: '1px solid #A80016'
+//    },
 border:false,
+bodyborder: false,
+bodyPadding: 3,
 
-	title: '<b style="color:gray;">Verwaltung</b>',
+	//title: '<font style="color:#A87678;">Verwaltung</font>',
+
+/*'<b style="color:gray;">Verwaltung</b>',*/
     
     initComponent: function() {
 
@@ -80,49 +89,49 @@ this.listeners = {
 				var repertoireTab = null;
 				if(item.data.text === 'Dekoration'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Dekoration',
+						title: '<font style="color:#A87678;">Dekoration</font>',
 						icon: 'resources/images/theatre.png'
 					});
 				
 				}
 			else if(item.data.text === 'Regiebücher'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Regiebücher',
+						title: '<font style="color:#A87678;">Regiebücher</font>',
 						icon: 'resources/images/Crown-17.png'
 					});
 				
 				}
 			else if(item.data.text === 'Rollen- & Kostümbücher'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Rollen- & Kostümbücher',
+						title: '<font style="color:#A87678;">Rollen- & Kostümbücher</font>',
 						icon: 'resources/images/carnival.png'
 					});
 				
 				}
 			else if(item.data.text === 'Theaterberufe'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Theaterberufe',
+						title: '<font style="color:#A87678;">Theaterberufe</font>',
 						icon: 'resources/images/theatreB.png'
 					});
 				
 				}
 			else if(item.data.text === 'Ausgaben'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Finanzwesen: Ausgaben',
+						title: '<font style="color:#A87678;">Finanzwesen: Ausgaben</font>',
 						icon: 'resources/images/MoneyTransfer-17.png'
 					});
 				
 				}
 			else if(item.data.text === 'Einnahmen'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Finanzwesen: Einnahmen',
+						title: '<font style="color:#A87678;">Finanzwesen: Einnahmen</font>',
 						icon: 'resources/images/MoneyBox-17.png'
 					});
 				
 				}
 			else if(item.data.text === 'Gagenbücher'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Finanzwesen: Gagenbücher',
+						title: '<font style="color:#A87678;">Finanzwesen: Gagenbücher</font>',
 						icon: 'resources/images/Gift-17.png'
 					});
 				

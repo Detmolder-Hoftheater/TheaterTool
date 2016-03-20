@@ -1,13 +1,17 @@
 var store = Ext.create('Ext.data.TreeStore', {
-   root: {
-        text: 'Ext JS',
-        expanded: true,
-        children: [
-            {
+
+ root: {
+        text: 'Start',
+   		children: [{
+        	text: 'Spielbetrieb',
+			icon: 'resources/images/Library-17.png',
+        	expanded: true,
+        	children: [
+            	{
                 text: 'Repertoire',
-                icon: 'resources/images/Library-17.png',
-            
+                icon: 'resources/images/Books1-17.png',
                  children: [
+ 					{ leaf:true, text: 'Tiefenerschließung', icon: 'resources/images/Books1-17.png'},
                     { leaf:true, text: 'A-B-C',
                     icon: 'resources/images/Books1-17.png'},
                    /*  { leaf:true, text: 'B',
@@ -108,9 +112,9 @@ var store = Ext.create('Ext.data.TreeStore', {
                     ]}
                 ]*/
             },
-            {
+            	{
                 text: 'Programm',
-                expanded: true,
+                
                 icon: 'resources/images/Magazine-17.png',
                 children: [
                     { leaf:true, text: 'Spielpläne',
@@ -121,28 +125,74 @@ var store = Ext.create('Ext.data.TreeStore', {
                     icon: 'resources/images/Day-17.png' }
                 ]
             },
-            { 
+            	{ 
             	leaf:true, 
             	text: 'Personen',
             	icon: 'resources/images/Mask-19.png'
             	},
-            { 
+            	{ 
             	leaf:true, 
             	text: 'Karten & Abos',
             	icon: 'resources/images/Ticket-14.png'
             	},
-            {
+            	{
                 text: 'Presse',
                 icon: 'resources/images/Presse-16.png',
                 children: [
                     { leaf:true, text: 'Linksammlung',
-                    icon: 'resources/images/Link-15.png'  },
+                    icon: 'resources/images/Presse-16.png' 
+ /*icon: 'resources/images/Link-15.png'*/ 
+ },
                     { leaf:true, text: 'Theaterjournal',
-                    icon: 'resources/images/Dossier-17.png' }
+                    icon: 'resources/images/Presse-16.png'
+/*icon: 'resources/images/Dossier-17.png'*/ 
+}
+                ]
+            }
+        	]
+    	},
+		{
+ 		text: 'Verwaltung',
+		icon: 'resources/images/portfolio-17.png',
+		expanded: true,	
+        children: [
+           // {
+               /* text: 'Theater Organisation',
+                icon: 'resources/images/Audience-17.png',
+                expanded: true,
+                children: [*/
+                    { leaf:true, text: 'Dekoration',
+                    icon: 'resources/images/theatre.png' },
+                    { leaf:true, text: 'Regiebücher',
+                    icon: 'resources/images/Crown-17.png'},
+                    { leaf:true, text: 'Rollen- & Kostümbücher',
+                     icon: 'resources/images/carnival.png'},
+                    { leaf:true, text: 'Theaterberufe',
+                    icon: 'resources/images/theatreB.png'},
+                //]
+          //  },
+            {
+                text: 'Finanzwesen',
+                icon: 'resources/images/Coins-17.png',
+               // expanded: true,
+                children: [
+                    { leaf:true, text: 'Ausgaben',
+                    icon: 'resources/images/MoneyTransfer-17.png'
+
+},
+                    { leaf:true, text: 'Einnahmen',
+                    icon: 'resources/images/MoneyBox-17.png'
+},
+                    { leaf:true, text: 'Gagenbücher',
+                    icon: 'resources/images/Gift-17.png'
+}
                 ]
             }
         ]
-    }
+
+}
+]
+}
 })
 
 
@@ -152,8 +202,8 @@ var store = Ext.create('Ext.data.TreeStore', {
 Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
     extend: 'Ext.tree.Panel',
    //xtype: 'basic-trees',
-   // width: 330,
-    //flex: 2,
+   // width: 200,
+   // flex: 0.23,
    // autoScroll: true,
   
 	//rootVisible: false,
@@ -172,7 +222,6 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
         rootVisible: false,
         store: store
     },*/
-    
 
 reserveScrollbar: true,
 	
@@ -180,16 +229,20 @@ reserveScrollbar: true,
 	rootVisible: false,
 	store: store ,
 
-	title: '<b style="color:gray;">Spielbetrieb</b>',
+//	title: '<font style="color:#A87678;">Spielbetrieb</font>',
+/*'<b style="color:gray;">Spielbetrieb</b>',*/
 
 	tabPanel: null,
-    /* style: {
+    // style: {
      
-     
-      borderTop: '1px solid #A80016',
-      borderBottom: '1px solid #A80016'
-    },*/
+     /* borderRight: '1px solid #A80016',
+      borderLeft: '1px solid #A80016',*/
+     // borderTop: '1px solid gray'
+      //borderBottom: '1px solid #A80016'
+   // },
 border:false,
+bodyborder: false,
+bodyPadding: 3,
     
     initComponent: function() {
 
@@ -197,10 +250,19 @@ this.listeners = {
 			
 			itemdblclick: function (record, item, index, e, eOpts) {
 				var repertoireTab = null;
-				if(item.data.text === 'A-B-C'){					
+				if(item.data.text === 'Tiefenerschließung'){					
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Repertoire: A-B-C',
-						icon: 'resources/images/Library-17.png'
+						title: '<font style="color:#A87678;">Repertoire: Tiefenerschließung</font>',
+						icon: 'resources/images/Books1-17.png'
+					});
+				
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 9});
+				repertoireTab.add(repertoireDetails);		
+				}
+				else if(item.data.text === 'A-B-C'){					
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:#A87678;">Repertoire: A-B-C</font>',
+						icon: 'resources/images/Books1-17.png'
 					});
 				
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 1});
@@ -210,8 +272,8 @@ this.listeners = {
 				}
 			else  if(item.data.text === 'D-E-F'){
 				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Repertoire: D-E-F',
-						icon: 'resources/images/Library-17.png'
+						title: '<font style="color:#A87678;">Repertoire: D-E-F</font>',
+						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 2});
 				repertoireTab.add(repertoireDetails);
@@ -219,8 +281,8 @@ this.listeners = {
 				}
 			else if(item.data.text === 'G-H-I'){
 				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Repertoire: G-H-I',
-						icon: 'resources/images/Library-17.png'
+						title: '<font style="color:#A87678;">Repertoire: G-H-I</font>',
+						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 3});
 				repertoireTab.add(repertoireDetails);
@@ -228,8 +290,8 @@ this.listeners = {
 				}
 			else if(item.data.text === 'J-K-L'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Repertoire: J-K-L',
-						icon: 'resources/images/Library-17.png'
+						title: '<font style="color:#A87678;">Repertoire: J-K-L</font>',
+						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 4});
 				repertoireTab.add(repertoireDetails);
@@ -237,8 +299,8 @@ this.listeners = {
 				}
 			else if(item.data.text === 'M-N-O'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Repertoire: M-N-O',
-						icon: 'resources/images/Library-17.png'
+						title: '<font style="color:#A87678;">Repertoire: M-N-O</font>',
+						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 5});
 				repertoireTab.add(repertoireDetails);
@@ -246,8 +308,8 @@ this.listeners = {
 				}
 			else if(item.data.text === 'P-Q-R'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Repertoire: P-Q-R',
-						icon: 'resources/images/Library-17.png'
+						title: '<font style="color:#A87678;">Repertoire: P-Q-R</font>',
+						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 6});
 				repertoireTab.add(repertoireDetails);
@@ -255,8 +317,8 @@ this.listeners = {
 				}
 			else if(item.data.text === 'S-T-U'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Repertoire: S-T-U',
-						icon: 'resources/images/Library-17.png'
+						title: '<font style="color:#A87678;">Repertoire: S-T-U</font>',
+						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 7});
 				repertoireTab.add(repertoireDetails);
@@ -264,8 +326,8 @@ this.listeners = {
 				}
 			else if(item.data.text === 'V-W-X-Y-Z'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Repertoire: V-W-X-Y-Z',
-						icon: 'resources/images/Library-17.png'
+						title: '<font style="color:#A87678;">Repertoire: V-W-X-Y-Z</font>',
+						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 8});
 				repertoireTab.add(repertoireDetails);
@@ -273,50 +335,99 @@ this.listeners = {
 				}
 			else if(item.data.text === 'Spielpläne'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Programm: Spielpläne',
+						title: '<font style="color:#A87678;">Programm: Spielpläne</font>',
 						icon: 'resources/images/Calendar-17.png'
 					});
 			
 				}
 			else if(item.data.text === 'Aufführungen'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Programm: Aufführungen',
+						title: '<font style="color:#A87678;">Programm: Aufführungen</font>',
 						icon: 'resources/images/Time-17.png'
 					});
 				
 				}
 			else if(item.data.text === 'Theaterzettel'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Programm: Theaterzettel',
+						title: '<font style="color:#A87678;">Programm: Theaterzettel</font>',
 						icon: 'resources/images/Day-17.png'
 					});
 				
 				}
 			else if(item.data.text === 'Personen'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Personen',
+						title: '<font style="color:#A87678;">Personen</font>',
 						icon: 'resources/images/Mask-19.png'
 					});
 				
 				}
 			else if(item.data.text === 'Karten & Abos'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Karten & Abos',
+						title: '<font style="color:#A87678;">Karten & Abos</font>',
 						icon: 'resources/images/Ticket-14.png'
 					});
 				
 				}
 			else if(item.data.text === 'Linksammlung'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Presse: Linksammlung',
-						icon: 'resources/images/Link-15.png'
+						title: '<font style="color:#A87678;">Presse: Linksammlung</font>',
+						icon: 'resources/images/Presse-16.png'
 					});
 				
 				}
 			else if(item.data.text === 'Theaterjournal'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: 'Presse: Theaterjournal',
-						icon: 'resources/images/Dossier-17.png'
+						title: '<font style="color:#A87678;">Presse: Theaterjournal</font>',
+						icon: 'resources/images/Presse-16.png'
+					});
+				
+				}
+			else if(item.data.text === 'Dekoration'){
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:#A87678;">Dekoration</font>',
+						icon: 'resources/images/theatre.png'
+					});
+				
+				}
+			else if(item.data.text === 'Regiebücher'){
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:#A87678;">Regiebücher</font>',
+						icon: 'resources/images/Crown-17.png'
+					});
+				
+				}
+			else if(item.data.text === 'Rollen- & Kostümbücher'){
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:#A87678;">Rollen- & Kostümbücher</font>',
+						icon: 'resources/images/carnival.png'
+					});
+				
+				}
+			else if(item.data.text === 'Theaterberufe'){
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:#A87678;">Theaterberufe</font>',
+						icon: 'resources/images/theatreB.png'
+					});
+				
+				}
+			else if(item.data.text === 'Ausgaben'){
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:#A87678;">Finanzwesen: Ausgaben</font>',
+						icon: 'resources/images/MoneyTransfer-17.png'
+					});
+				
+				}
+			else if(item.data.text === 'Einnahmen'){
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:#A87678;">Finanzwesen: Einnahmen</font>',
+						icon: 'resources/images/MoneyBox-17.png'
+					});
+				
+				}
+			else if(item.data.text === 'Gagenbücher'){
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:#A87678;">Finanzwesen: Gagenbücher</font>',
+						icon: 'resources/images/Gift-17.png'
 					});
 				
 				}
@@ -334,7 +445,6 @@ this.listeners = {
             {
                 title: 'Spielbetrieb',
                 useArrows: true
-                //colspan: 2
             }
         ];
 

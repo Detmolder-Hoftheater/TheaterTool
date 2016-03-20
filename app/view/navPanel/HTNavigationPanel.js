@@ -4,17 +4,16 @@
  * @classdesc TheaterTool.view.facsimileView.FacsimileView for show facsimile.
  */
 Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
-	extend: 'Ext.form.Panel',
-	requires:[
-	'TheaterTool.view.facsimileView.LeafletFacsimile'],
+	extend: 'Ext.panel.Panel',
+	
 	//layout: 'vbox'
-	region: 'east',
-	//region: 'west',
-	//flex: 1,
+	//region: 'east',
+	region: 'west',
+	flex: 0.23,
 	//id: 'facsimileview',
 	//autoScroll: true,
 	
-	width: 255,
+	//width: 255,
 	
 	/*layout: {
 		type: 'vbox',
@@ -22,26 +21,30 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 		align: 'stretch'
 	},*/
 	
-	title: 'Detmolder Hoftheater 1825-1875',
-	
-	defaultListenerScope: true,
+	title: '<b style="color:#A87678;">Detmolder Hoftheater 1825-1875</b>',
+
+	//defaultListenerScope: true,
 	//border: true,
 	autoScroll: true,
 	
-	split: true,
+	//split: true,
 	border: false,
+
+//bodyBorder: false,
+
     style: {
-     // borderRight: '1px solid #A80016'
-      borderLeft: '1px solid #A80016'
-     // borderTop: '3px solid #A80016',
-    //  borderBottom: '1px solid #A80016'
+      borderRight: '7px solid #A80016',
+     borderLeft: '5px solid #A80016',
+      //borderTop: '7px solid #A80016',
+     borderBottom: '5px solid #A80016'
     },
-   /* split: true,
-    height: '25%',*/
+
+   // split: false,
+   // height: '25%',
 	collapsible: true,
-	
-	
-	//bodyPadding: 3,
+
+	//bodyPadding: 0,
+
 	
 	treePublic: null,
 	treeTheaterLife: null,
@@ -62,15 +65,15 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 	this.treePublic = new TheaterTool.view.navPanel.NavigationTreePublic();
 	
 	
-	this.treeTheaterLife = new TheaterTool.view.navPanel.NavigationTreeTheaterLife();
+	//this.treeTheaterLife = new TheaterTool.view.navPanel.NavigationTreeTheaterLife();
 	
 	
-	this.searchPanel = new TheaterTool.view.navPanel.SearchPanel({bodyStyle:{"background-color":"#A80016"}});
+	//this.searchPanel = new TheaterTool.view.navPanel.SearchPanel({bodyStyle:{"background-color":"#A80016"}});
 	
 	this.items =[ 
-						this.treePublic,
-				 this.treeTheaterLife,
-			this.searchPanel
+						this.treePublic
+			//	 this.treeTheaterLife
+			//this.searchPanel
 				]
 		
 		/*var selectedPage = Ext.getCmp('pages').getText();
@@ -98,7 +101,7 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 
 	setHTTabPanel: function(tabPanel){
 		this.treePublic.setHTTabPanel(tabPanel);
-		this.treeTheaterLife.setHTTabPanel(tabPanel);
+		//this.treeTheaterLife.setHTTabPanel(tabPanel);
 	
 	},
 	

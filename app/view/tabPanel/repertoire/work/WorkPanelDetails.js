@@ -9,6 +9,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 	personSection: null,
 	planSection: null,
 	detailSection: null,
+detailSection_1: null,
 	journalSection: null,
 	regieSection: null,
 	roleSection: null,
@@ -21,7 +22,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 					align: 'stretch'
 				},
 				
-				bodyPadding: 3,
+				//bodyPadding: 1,
 				
 				/*defaults: {
 					frame: true
@@ -39,6 +40,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 	this.planSection = new TheaterTool.view.tabPanel.repertoire.work.WorkPlanSection();
 	
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: this.workID});
+
+this.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: this.workID});
 	
 	this.journalSection = new TheaterTool.view.tabPanel.repertoire.work.WorkJournalSection();
 
@@ -52,8 +55,20 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 
 	
     this.items = [
-       
-			this.detailSection,
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Details</b>',
+        		margin: '10 10 10 10'
+
+			},
+			this.detailSection,	
+			this.detailSection_1,	
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Referenzen</b>',
+        		margin: '10 10 10 10'
+
+			},		
 			this.planSection,
 			this.personSection,
 			this.journalSection,

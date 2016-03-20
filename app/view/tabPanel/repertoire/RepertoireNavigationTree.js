@@ -2,8 +2,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
 	extend: 'Ext.tree.Panel',
 	
 	requires:[
-	'Ext.data.*',
-	'Ext.grid.*',
+	/*'Ext.data.*',
+	'Ext.grid.*',*/
 	'Ext.tree.*',
 	'TheaterTool.model.Werk'
 	],
@@ -18,27 +18,35 @@ reserveScrollbar: true,
 	
 	useArrows: true,
 	rootVisible: false,
+//lines: false,
+rowLines: true,
+columnLines: true,
+
+bodyPadding: 3,
+
+header: false,
 	
-	title: 'Werke',
+	title: '<b style="color:gray;">Werke</b>',
 	
 	xmlColumn: null,
 	incipitsColumn: null,
 	detailsColumn: null,
 	
-	 region:'west',
-	 //region:'east',
-            flex: 3,
-            border: false,
-    style: {
-      borderRight: '1px solid #A80016'
+	// region:'west',
+	 region:'east',
+            flex: 3.3,
+            border: true,
+   /* style: {
+      borderRight: 'px solid whote'
      // borderLeft: '3px solid #FFF',
      // borderTop: '3px solid #FFF',
      // borderBottom: '3px solid #FFF'
-    },
+    },*/
     
   
 	collapsible: true,
             
+
             //bodyStyle:{"grid-row-cell-background-color":"#A80016"},
     
 	workPanel: null,
@@ -69,13 +77,13 @@ reserveScrollbar: true,
 					me.repertoirePanel.removeAll(true);
 					me.workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails({workID: eOpts[0].data.werkID});
 					me.repertoirePanel.add(me.workPanel);			
-					me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name+'</b>');
+					me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].data.name+', '+eOpts[0].data.componist+'</b>');
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
 					me.repertoirePanel.removeAll(true);
 					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: eOpts[0].data.sourceID});
 					me.repertoirePanel.add(me.sourcePanel);	
-					me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].parentNode.data.name+' -> '+eOpts[0].data.name+'</b>');
+					me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.data.name+', '+eOpts[0].parentNode.data.componist+' -> '+eOpts[0].data.name+'</b>');
 					
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
@@ -86,18 +94,18 @@ reserveScrollbar: true,
 						//me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
 						//me.repertoirePanel.add(me.sourcePanel);	
 
-						me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].parentNode.parentNode.data.name+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');
+						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');
 					}
 					else if(eOpts[0].data.name === 'RISM'){
 						me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel();
 						me.repertoirePanel.add(me.rismPanel);
-						me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].parentNode.parentNode.data.name+' -> '+eOpts[0].parentNode.data.name+' -> RISM</b>');	
+						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> RISM</b>');	
 					}
 					else if(eOpts[0].data.name === 'Facsimile'){
 						// TODO
 						//me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
 						//me.repertoirePanel.add(me.beatPanel);
-						me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].parentNode.parentNode.data.name+' -> '+eOpts[0].parentNode.data.name+' -> Facsimile</b>');
+						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Facsimile</b>');
 					}
 						
 				
@@ -112,15 +120,15 @@ reserveScrollbar: true,
 		
 		this.columns =[ {
 			xtype: 'treecolumn',
-			header: '<b style="color:#A87678;">Werk/Quelle/Facsimile/Incipits/RISM</b>',
-			flex: 2.5,
+			header: '<b style="color:gray;">Werk/Quelle/Facsimile/Incipits/RISM</b>',
+			flex: 2,
 			sortable: true,
 			menuDisabled: true,
 			dataIndex: 'name'
 			
 		},
 		{
-			header: '<b style="color:#A87678;">Komponist</b>',
+			header: '<b style="color:gray;">Autor</b>',
 			flex: 1,
 			sortable: true,
 			menuDisabled: true,
@@ -161,9 +169,9 @@ reserveScrollbar: true,
 		
 		var eColumn = Ext.create('Ext.grid.column.Action', {			
 			xtype: 'actioncolumn',
-			header: '<b style="color:#A87678;">'+headerName+'</b>',
-			width: 40,
-			//flex:1,
+			header: '<b style="color:gray;">'+headerName+'</b>',
+			//width: 40,
+			flex:0.2,
 			align: 'center',
 			menuDisabled: true,
 			renderer: function (val, metadata, record) {

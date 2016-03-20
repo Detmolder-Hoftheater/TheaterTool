@@ -3,14 +3,20 @@
  * @class
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
-	extend: 'Ext.tab.Panel',
+	extend: 'Ext.panel.Panel',
 	
-	textTab: null,
-	xmlTab: null,
-	workID: null,
+	bodyPadding: 10,
+
+   minHeight: 200,
+   
+    resizable: true,
+
+autoScroll: true,
+reserveScrollbar: true,
+
 
 	
-	initComponent: function () {
+	/*initComponent: function () {
 	
 	this.textTab = new TheaterTool.view.tabPanel.repertoire.work.TabTextWork({
 			title: 'Text',
@@ -32,11 +38,18 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
 		],
 		
 		this.callParent();
-	},
+	},*/
 
-	setTextInfo: function(infoText){
+	
+	/*setTextInfo: function(infoText){
 		this.textTab.setTextInfo(infoText);
 		this.xmlTab.setTextInfo(infoText);
+		
+	}*/
+
+setTextInfo: function(infoText){
+		$('#'+this.id+'-innerCt').html(infoText);
+
 	}
 
 });

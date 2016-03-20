@@ -39,7 +39,7 @@ Ext.Ajax.request({
 	},*/
 
 	setTextInfo: function(infoText){
-		$('#'+this.id+'-body').html(infoText);
+		$('#'+this.id+'-innerCt').html(infoText);
 
 	}
 });

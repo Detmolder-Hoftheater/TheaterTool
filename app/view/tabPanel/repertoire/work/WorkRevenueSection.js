@@ -2,7 +2,7 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkRevenueSection', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.form.FieldSet',
     //xtype: 'grouped-grid',
    /* requires: [
         'Ext.grid.feature.Grouping'

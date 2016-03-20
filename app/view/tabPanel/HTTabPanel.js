@@ -26,7 +26,8 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 	
 	repertoireTab: null,
 	
-
+border:false,
+bodyBorder: false,
    
 	//bodyPadding: 3,
 	

@@ -2,7 +2,9 @@
    
         children: [
             {
-                name: 'Aschenbrödel: Isouard',
+                name: 'Aschenbrödel',
+				componist: 'Isouard',
+				extName: 'Aschenbrödel: Isouard',
                 icon: 'resources/images/Books1-17.png',
                  expanded: true,
                 xml: true,               
@@ -11,6 +13,7 @@
                 children: [
                     { name: 'Quelle: D-DT, Mus-n 120',
                     icon: 'resources/images/Book1-16.png',
+					extName: 'Quelle: D-DT, Mus-n 120',
                     expanded: true,
                     xml: true,
                     details: true,
@@ -19,6 +22,7 @@
                      
                     { name: 'RISM',
                     icon: 'resources/images/Literature-17.png',
+						extName: 'RISM',
                     	leaf:true, 
                     	xml: true,
                     	incipits: false,
@@ -27,6 +31,7 @@
                    
  				{
                 	name: 'Incipits',
+					extName: 'Incipits',
                 	leaf:true,
                 	xml: false,
                 	icon: 'resources/images/MusicTranscript-17.png',
@@ -35,6 +40,7 @@
                 },
 			{ leaf:true, 
                     name: 'Facsimile',
+						extName: 'Facsimile',
                     		xml: false,
                     	incipits: false,
                     	 details: true,

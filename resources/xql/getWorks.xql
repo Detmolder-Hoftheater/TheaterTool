@@ -55,6 +55,7 @@ let $strings := for $elem in $fileNames
 		let $rismLabel := $fileSource//mei:identifier[@label ="RISM-label"]
 		let $physLoc := $fileSource//mei:identifier[@type ="shelfLocation"][1]
 		let $sourceName := concat('Quelle: ', $rismLabel, ' , ' ,$physLoc)
+		let $extName := concat($fileName1, ': ',  $comp)
 
                     return 
 						if($fileName1 != '')then(
@@ -62,12 +63,14 @@ let $strings := for $elem in $fileNames
 							'details:"',"true",'",',                          
                             'xml:"',"true",'",', 
 							'componist:"',$comp,'",',
+							'extName:"',$extName,'",',
 							'werkID:"',$fileID,'",', 
 							'incipits:"',"false",'",',
 							'"icon":"resources/images/Books1-17.png",',
  							
 							'"children":[{',
 								'name:"',$sourceName,'",',
+								'extName:"',$sourceName,'",',
 								'incipits:"',"true",'",',
 								'sourceID:"',$sourceFileName,'",',
 								'details:"',"true",'",',                          
@@ -77,6 +80,7 @@ let $strings := for $elem in $fileNames
 									'{',
 									'"leaf":"true",',
 									'"name":"RISM",',
+									'"extName":"RISM",',
 									'incipits:"',"false",'",',
 									'details:"',"false",'",',                          
                             		'xml:"',"true",'",',
@@ -85,6 +89,7 @@ let $strings := for $elem in $fileNames
 								'{',
 									'"leaf":"true",',
 									'"name":"Incipits",',
+									'"extName":"Incipits",',
 									'incipits:"',"true",'",',
 									'details:"',"false",'",',                          
                             		'xml:"',"false",'",',
@@ -93,6 +98,7 @@ let $strings := for $elem in $fileNames
 								'{',
 									'"leaf":"true",',
 									'"name":"Facsimile",',
+									'"extName":"Facsimile",',
 									'incipits:"',"false",'",',
 									'details:"',"false",'",',                          
                             		'xml:"',"true",'",',

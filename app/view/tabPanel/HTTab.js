@@ -15,6 +15,9 @@ requires:[
 		pack: 'start',
 		align: 'stretch'
 	},
+
+border:false,
+bodyBorder: false,
 	
 	closable: true,
 	

@@ -14,9 +14,16 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel', {
 
 selection: null,
 	
-    //bodyBorder: true,
-    //border: true,
-   // bodyPadding: 5,
+    bodyBorder: false,
+   // border: false,
+  //  bodyPadding: 5,
+border: false,
+ style: {
+      borderRight: '7px solid white',
+      borderLeft: '7px solid white',
+      borderTop: '7px solid white',
+     borderBottom: '7px solid white'
+    },
     
    
    defaults: {
@@ -38,17 +45,17 @@ selection: null,
 
 	var app = TheaterTool.getApplication();
 		
-	this.navTreeStore = app.handleStoreForWorks(this.selection, this.workName);
+	this.navTreeStore = app.handleStoreForWorks(this.selection);
 
-				if(this.workName !== null && this.selection === 9){
+				/*if(this.workName !== null && this.selection === 9){
 					
 					this.navTree.getView().bindStore(this.navTreeStore);
 				}
-				else{
+				else{*/
         		
 				this.navTree.getView().bindStore(this.navTreeStore);
 				this.navTreeStore.sort('name');
-	}
+	//}
 	
 	this.repertoirePanel = new TheaterTool.view.tabPanel.repertoire.RepertoirePanel();
 	
