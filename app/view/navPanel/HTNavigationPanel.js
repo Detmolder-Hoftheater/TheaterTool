@@ -9,7 +9,7 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 	//layout: 'vbox'
 	//region: 'east',
 	region: 'west',
-	flex: 0.23,
+	flex: 0.21,
 	//id: 'facsimileview',
 	//autoScroll: true,
 	
@@ -34,9 +34,9 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 
     style: {
       borderRight: '7px solid #A80016',
-     borderLeft: '5px solid #A80016',
+     borderLeft: '1px solid #A80016',
       //borderTop: '7px solid #A80016',
-     borderBottom: '5px solid #A80016'
+     borderBottom: '1px solid #A80016'
     },
 
    // split: false,

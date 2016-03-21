@@ -16,10 +16,10 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
 	
 	border: false,
     style: {
-      borderRight: '3px solid #A80016',
-      borderLeft: '3px solid #A80016',
+      borderRight: '5px solid #A80016',
+      borderLeft: '5px solid #A80016',
       borderTop: '3px solid #A80016',
-      borderBottom: '3px solid #A80016'
+      borderBottom: '5px solid #A80016'
     },
 
 	

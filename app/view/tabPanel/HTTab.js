@@ -20,7 +20,7 @@ border:false,
 bodyBorder: false,
 	
 	closable: true,
-	
+
 	/*defaults: {
 		frame: true,
 		autoScroll: true

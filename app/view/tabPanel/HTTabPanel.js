@@ -11,8 +11,7 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 	},
 
 
-
-bodyPadding: 20,
+bodyPadding: 15,
 	
 	id: 'cetabpanel',
 	
@@ -30,16 +29,28 @@ bodyPadding: 20,
 	repertoireTab: null,
 	
 border:false,
-bodyBorder: false
+bodyBorder: false,
    
 	//bodyPadding: 3,
+
+ split: false,
 	
-	
+
+tabBar: {
+      
+		style:{"background-image":"url(resources/images/curtain-Fotor_1.jpg)",
+"background-size": "100%;"}      
+    },
+
+
 	/**
 	 * Create items
 	 * @overrides
 	 */
-	//initComponent: function () {
+	initComponent: function () {
+
+
+
 		
 		/*this.slursItem = new TheaterTool.view.tabPanel.ControlEventsItem({
 			title: 'Slurs',
@@ -78,6 +89,6 @@ bodyBorder: false
 		
 		//],
 		
-	//	this.callParent()
-	//}
+		this.callParent()
+	}
 });
