@@ -128,8 +128,8 @@ createStoreForWork: function(){
 			},
 			proxy: {
 				type: 'ajax',
-				//url: 'resources/xql/getWork.xql'				
-				url: 'data/getWorks.xql'
+				url: 'resources/xql/getWork.xql'				
+				//url: 'data/getWorks.xql'
 			},
 			autoLoad: false
 		});

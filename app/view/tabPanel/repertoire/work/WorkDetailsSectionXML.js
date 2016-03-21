@@ -38,8 +38,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML', {
         	expand: function (p, eOpts) {
         	console.log("expand");
 			Ext.Ajax.request({
-             url: '/data/H000001.xml',
- 			//url: 'resources/xql/test_Exist.xql',
+             //url: '/data/H000001.xml',
+ 			url: 'resources/xql/test_Exist.xql',
             method: 'GET',
             params: {
                 uri: '/db/apps/theater-data/works/'+this.workID+'.xml',

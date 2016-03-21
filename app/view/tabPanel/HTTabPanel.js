@@ -9,7 +9,10 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 		autoScroll: true
 		
 	},
-	
+
+
+
+bodyPadding: 20,
 	
 	id: 'cetabpanel',
 	
@@ -27,7 +30,7 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 	repertoireTab: null,
 	
 border:false,
-bodyBorder: false,
+bodyBorder: false
    
 	//bodyPadding: 3,
 	
@@ -36,7 +39,7 @@ bodyBorder: false,
 	 * Create items
 	 * @overrides
 	 */
-	initComponent: function () {
+	//initComponent: function () {
 		
 		/*this.slursItem = new TheaterTool.view.tabPanel.ControlEventsItem({
 			title: 'Slurs',
@@ -75,6 +78,6 @@ bodyBorder: false,
 		
 		//],
 		
-		this.callParent()
-	}
+	//	this.callParent()
+	//}
 });

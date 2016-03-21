@@ -35,7 +35,7 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
 	initComponent: function () {
 		
 		//this.ceTabView = new TheaterTool.view.tabPanel.CETabPanel(),
-		this.htTabView = new TheaterTool.view.tabPanel.HTTabPanel();
+		this.htTabView = new TheaterTool.view.tabPanel.HTTabPanel({bodyStyle:{"background-image":"url(resources/images/curtain-Fotor_1.jpg)", "background-size": "100%;"}});
 		
 		//this.htNavPanel = new TheaterTool.view.navPanel.HTNavigationPanel({bodyStyle:{"background-color":"#A80016"}});
 

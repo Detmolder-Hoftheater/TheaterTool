@@ -35,7 +35,7 @@ bodyBorder: false,
 	
 	
 	//bodyPadding: 5,
-	border: false,
+	//border: false,
 	
 	autoScroll: true,
 	
