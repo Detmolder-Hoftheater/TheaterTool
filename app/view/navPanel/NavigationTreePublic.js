@@ -436,6 +436,7 @@ this.listeners = {
 				if(repertoireTab !== null){
 					this.tabPanel.add(repertoireTab);
 					this.tabPanel.setActiveTab(repertoireTab);
+					this.tabPanel.getTabBar().setVisible(true);
 				}
 				
 			}

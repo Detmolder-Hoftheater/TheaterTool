@@ -39,17 +39,18 @@ bodyBorder: false,
 tabBar: {
       
 		style:{"background-image":"url(resources/images/curtain-Fotor_1.jpg)",
-"background-size": "100%;"}      
-    },
+				"background-size": "100%;"
+		},
+		border:false,
+		bodyBorder: false
+},
 
-
+ 
 	/**
 	 * Create items
 	 * @overrides
 	 */
 	initComponent: function () {
-
-
 
 		
 		/*this.slursItem = new TheaterTool.view.tabPanel.ControlEventsItem({
