@@ -51,6 +51,7 @@ Ext.define('TheaterTool.Application', {
 	'tabPanel.repertoire.source.SourceDetailsSection',
 	'tabPanel.repertoire.source.TabTextSource',
 	'tabPanel.repertoire.work.WorkDetailsSectionXML',
+	'tabPanel.repertoire.source.TabXMLSource',
 	'navPanel.SearchPanel',
 	'navPanel.SearchTabPanel',
 	'navPanel.SearchTab',
@@ -144,8 +145,6 @@ handleStoreForWorks: function(selection){
 		}
 		
 			if(selection === 9){
-				
-				var storeField = new Array("Aschenbrödel", "Der Bettelstudent", 'Des Teufels Anteil');
 					//for(var i = 0; i < storeField.length; i++){
 						var workName = storeField;
 						if(this.worksStoreMap.has(workName)){
@@ -253,6 +252,8 @@ return this.personenForWorkDataStore;
 	launch: function () {
 		
 		this.renderer = new verovio.toolkit();
+
+		storeField = new Array("Aschenbrödel", "Der Bettelstudent", 'Des Teufels Anteil');
 
 		/*this.personenForWorkDataStore = Ext.create('Ext.data.Store', {
 			model: 'TheaterTool.model.Person',

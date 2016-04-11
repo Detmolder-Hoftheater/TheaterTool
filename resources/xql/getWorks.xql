@@ -32,7 +32,8 @@ let $strings := for $elem in $fileNames
 
 		let $fileID :=  $file1//mei:work/@xml:id
 
-		let $comp := $file1//mei:persName[@role ="cmp"]
+		let $comp := $file1//mei:persName[@role ="cmp"] 
+(:or @role ="cre"  or @role ="aut"]:)
 
 		let $fileNameCut := substring($fileName, 1,4)
 		let $fileNameFiltered :=  if(contains($fileNameCut, 'Der ') 
@@ -56,6 +57,18 @@ let $strings := for $elem in $fileNames
 		let $physLoc := $fileSource//mei:identifier[@type ="shelfLocation"][1]
 		let $sourceName := concat('Quelle: ', $rismLabel, ' , ' ,$physLoc)
 		let $extName := concat($fileName1, ': ',  $comp)
+		let $isExtend := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then(concat('{',
+									'"leaf":"true",',
+									'"name":"Facsimile",',
+									'"extName":"Facsimile",',
+									'incipits:"',"false",'",',
+									'details:"',"false",'",',                          
+                            		'xml:"',"true",'",',
+									'"icon":"resources/images/Images-17.png",', 
+								'}')
+			)
+			else()
 
                     return 
 						if($fileName1 != '')then(
@@ -95,15 +108,7 @@ let $strings := for $elem in $fileNames
                             		'xml:"',"false",'",',
 									'"icon":"resources/images/MusicTranscript-17.png",', 
 								'},',
-								'{',
-									'"leaf":"true",',
-									'"name":"Facsimile",',
-									'"extName":"Facsimile",',
-									'incipits:"',"false",'",',
-									'details:"',"false",'",',                          
-                            		'xml:"',"true",'",',
-									'"icon":"resources/images/Images-17.png",', 
-								'}',
+								$isExtend,
 								']',
 							'}]',
                             '}'))

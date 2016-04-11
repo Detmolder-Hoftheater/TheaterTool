@@ -20,13 +20,6 @@ bodyPadding: 15,
 	collapsible: false,
 	region: 'center',
 	
-	slursItem: null,
-	hairpinsItems: null,
-	dynamsItems: null,
-	dirsItems: null,
-	controllsView:null,
-	
-	repertoireTab: null,
 	
 border:false,
 bodyBorder: false,
@@ -43,14 +36,14 @@ tabBar: {
 		},
 		border:false,
 		bodyBorder: false
-},
+}
 
  
 	/**
 	 * Create items
 	 * @overrides
 	 */
-	initComponent: function () {
+	//initComponent: function () {
 
 		
 		/*this.slursItem = new TheaterTool.view.tabPanel.ControlEventsItem({
@@ -90,6 +83,6 @@ tabBar: {
 		
 		//],
 		
-		this.callParent()
-	}
+	/*	this.callParent()
+	}*/
 });

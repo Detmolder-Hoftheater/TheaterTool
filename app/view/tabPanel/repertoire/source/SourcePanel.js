@@ -25,6 +25,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 				border: false,
 
 	sourceID: null,
+	werkTitle: null,
 	
 	
 	initComponent: function () {
@@ -32,10 +33,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
 		
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID});
-	
-	this.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
-	
-    this.items = [
+
+	if(storeField.indexOf(this.werkTitle) > -1){
+		this.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
+	}
+
+	if(this.overviewSection !== null){
+		this.items = [
 			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Details</b>',
@@ -44,7 +48,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 			},
        
 			this.detailSection,
-			this.overviewSection,
+			this.overviewSection,			
 			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Referenzen</b>',
@@ -52,29 +56,27 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 
 			},
 			this.personSection
-			
-       
-       // {
-           // title: 'Navigation',
-            //region:'west',
-            //flex: 1,
-            //floatable: false,
-           // margin: '5 0 0 0',
-           // width: 125,
-           // minWidth: 100,
-           // maxWidth: 250,
-           // html: '<p>Navigation</p>'
-         // bodyStyle:{"background-color":"white"}
-       // },
-        //{
-           // title: 'Main Content',
-            //collapsible: false,
-            
-           // margin: '5 0 0 0',
-         //   html: '<p>Main Content</p>'
-         //   bodyStyle:{"background-color":"white"}
-       // }
     ]
+	}
+else{
+    this.items = [
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Details</b>',
+        		margin: '10 10 10 10'
+
+			},
+       
+			this.detailSection,	
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Referenzen</b>',
+        		margin: '10 10 10 10'
+
+			},
+			this.personSection
+    ]
+}
     	this.callParent();
 	}
 });

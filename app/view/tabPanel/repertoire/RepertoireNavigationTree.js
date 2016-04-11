@@ -81,10 +81,9 @@ header: false,
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
 					me.repertoirePanel.removeAll(true);
-					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: eOpts[0].data.sourceID});
+					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: eOpts[0].data.sourceID, werkTitle: eOpts[0].parentNode.data.name});
 					me.repertoirePanel.add(me.sourcePanel);	
 					me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.data.name+', '+eOpts[0].parentNode.data.componist+' -> '+eOpts[0].data.name+'</b>');
-					
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
 				//console.log(eOpts[0].data);

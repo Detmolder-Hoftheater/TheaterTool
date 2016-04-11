@@ -41,7 +41,7 @@ detailSection_1: null,
 	
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: this.workID});
 
-this.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: this.workID});
+	this.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: this.workID});
 	
 	this.journalSection = new TheaterTool.view.tabPanel.repertoire.work.WorkJournalSection();
 

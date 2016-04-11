@@ -37,26 +37,20 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML', {
  	me.listeners = {
         	expand: function (p, eOpts) {
         	console.log("expand");
-			Ext.Ajax.request({
-             //url: '/data/H000001.xml',
- 			url: 'resources/xql/test_Exist.xql',
-            method: 'GET',
+			Ext.Ajax.request({           
+    			url:'resources/xql/getXML.xql', 
+				//url: 'data/H000001.xml' , 
+			method: 'GET',
             params: {
                 uri: '/db/apps/theater-data/works/'+this.workID+'.xml',
                 type: 'work'
-            },
-            success: function(response){
-				//var idtemp = me.repertoireTab.getTextTab().id;
+            },        
+    			success: function (response, options) {
+        			var object = response.responseText;
+					me.repertoireTab.setTextInfo(object);       			
+    			}
+			});
 
-				//$('#'+me.id).html(response.responseText);
-				
- 				me.repertoireTab.setTextInfo(response.responseText);
-				//me.repertoireTab.setTextInfo1(response.responseText);
-			//$('#'+me.id+'-innerCt').html(response.responseText);
-
-     		}
-         
-        });
 
 /*Ext.Ajax.request({
             url: 'data/Output_Exist.xql',

@@ -30,7 +30,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 			sourceID: this.sourceID
 		});
 		
-		this.xmlTab = new TheaterTool.view.tabPanel.repertoire.TabXML({
+		this.xmlTab = new TheaterTool.view.tabPanel.repertoire.source.TabXMLSource({
 			title: 'XML',
 			sourceID: this.sourceID
 		});
