@@ -9,16 +9,28 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
 
     title: 'Text',
 
+flex:1,
+
+
+/*defaults: {
+            labelWidth: 89,
+            anchor: '100%',
+            layout: {
+                type: 'hbox',
+                defaultMargins: {top: 0, right: 5, bottom: 0, left: 0}
+            }
+        },*/
+
 
 //style: {
 		//borderLeft: '3px solid #A80016',
 		//borderTop: '2px solid #fff'
 		//borderBottom: '1px solid #fff'
 //	},
-	bodyBorder: false,
-	border: false,
+	//bodyBorder: false,
+	//border: true,
 
-//bodyPadding: 3,
+
     
     repertoireTab:null,
 
@@ -58,24 +70,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
          
         });
 
-/*Ext.Ajax.request({
-            url: 'data/Output_Exist.xql',
- 			//url: 'resources/xql/test_Exist.xql',
-            method: 'GET',
-            params: {
-                uri: '/db/apps/theater-data/works/'+this.workID+'.xml',
-                type: 'work'
-            },
-            success: function(response){
-				
- 				me.repertoireTab.setTextInfo1(response.responseText);
-			//$('#'+me.id+'-innerCt').html(response.responseText);
-
-     		}
          
-        });*/
-         
-        }
+       }
     },
     
         me.callParent();

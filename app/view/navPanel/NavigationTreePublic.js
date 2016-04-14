@@ -9,9 +9,8 @@ var store = Ext.create('Ext.data.TreeStore', {
         	children: [
             	{
                 text: 'Repertoire',
-                icon: 'resources/images/Books1-17.png',
+                icon: 'resources/images/Folder-16.png',
                  children: [
- 					{ leaf:true, text: 'Tiefenerschließung', icon: 'resources/images/Books1-17.png'},
                     { leaf:true, text: 'A-B-C',
                     icon: 'resources/images/Books1-17.png'},
                    /*  { leaf:true, text: 'B',
@@ -111,6 +110,20 @@ var store = Ext.create('Ext.data.TreeStore', {
                     }
                     ]}
                 ]*/
+            },
+{
+                text: 'Tiefenerschließung',
+                
+                icon: 'resources/images/AddFolder-16.png',
+				children: [
+                    { leaf:true, text: 'Aschenbrödel',
+                    icon: 'resources/images/BookBlau-16.png'},
+//icon: 'resources/images/BookTiefWerk.png'},
+                    { leaf:true, text: 'Des Teufels Anteil',
+                    icon: 'resources/images/BookBlau-16.png'},
+                    { leaf:true, text: 'Der Bettelstudent',
+                    icon: 'resources/images/BookBlau-16.png' }
+                ]
             },
             	{
                 text: 'Programm',
@@ -250,10 +263,28 @@ this.listeners = {
 			
 			itemdblclick: function (record, item, index, e, eOpts) {
 				var repertoireTab = null;
-				if(item.data.text === 'Tiefenerschließung'){					
+				if(item.data.text === 'Aschenbrödel'){					
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Repertoire: Tiefenerschließung</font>',
-						icon: 'resources/images/Books1-17.png'
+						title: '<font style="color:gray;">Aschenbrödel</font>',
+						icon: 'resources/images/BookBlau-16.png'
+					});
+				
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 9});
+				repertoireTab.add(repertoireDetails);		
+				}
+				else if(item.data.text === 'Des Teufels Anteil'){					
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">Des Teufels Anteil</font>',
+						icon: 'resources/images/BookBlau-16.png'
+					});
+				
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 9});
+				repertoireTab.add(repertoireDetails);		
+				}
+				else if(item.data.text === 'Der Bettelstudent'){					
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">Der Bettelstudent</font>',
+						icon: 'resources/images/BookBlau-16.png'
 					});
 				
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 9});
@@ -261,7 +292,7 @@ this.listeners = {
 				}
 				else if(item.data.text === 'A-B-C'){					
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Repertoire: A-B-C</font>',
+						title: '<font style="color:gray;">A-B-C</font>',
 						icon: 'resources/images/Books1-17.png'
 					});
 				
@@ -272,7 +303,7 @@ this.listeners = {
 				}
 			else  if(item.data.text === 'D-E-F'){
 				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Repertoire: D-E-F</font>',
+						title: '<font style="color:gray;">D-E-F</font>',
 						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 2});
@@ -281,7 +312,7 @@ this.listeners = {
 				}
 			else if(item.data.text === 'G-H-I'){
 				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Repertoire: G-H-I</font>',
+						title: '<font style="color:gray;">G-H-I</font>',
 						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 3});
@@ -290,7 +321,7 @@ this.listeners = {
 				}
 			else if(item.data.text === 'J-K-L'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Repertoire: J-K-L</font>',
+						title: '<font style="color:gray;">J-K-L</font>',
 						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 4});
@@ -299,7 +330,7 @@ this.listeners = {
 				}
 			else if(item.data.text === 'M-N-O'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Repertoire: M-N-O</font>',
+						title: '<font style="color:gray;">M-N-O</font>',
 						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 5});
@@ -308,7 +339,7 @@ this.listeners = {
 				}
 			else if(item.data.text === 'P-Q-R'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Repertoire: P-Q-R</font>',
+						title: '<font style="color:gray;">P-Q-R</font>',
 						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 6});
@@ -317,7 +348,7 @@ this.listeners = {
 				}
 			else if(item.data.text === 'S-T-U'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Repertoire: S-T-U</font>',
+						title: '<font style="color:gray;">S-T-U</font>',
 						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 7});
@@ -326,7 +357,7 @@ this.listeners = {
 				}
 			else if(item.data.text === 'V-W-X-Y-Z'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Repertoire: V-W-X-Y-Z</font>',
+						title: '<font style="color:gray;">V-W-X-Y-Z</font>',
 						icon: 'resources/images/Books1-17.png'
 					});
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 8});
@@ -335,98 +366,98 @@ this.listeners = {
 				}
 			else if(item.data.text === 'Spielpläne'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Programm: Spielpläne</font>',
+						title: '<font style="color:gray;">Spielpläne</font>',
 						icon: 'resources/images/Calendar-17.png'
 					});
 			
 				}
 			else if(item.data.text === 'Aufführungen'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Programm: Aufführungen</font>',
+						title: '<font style="color:gray;">Aufführungen</font>',
 						icon: 'resources/images/Time-17.png'
 					});
 				
 				}
 			else if(item.data.text === 'Theaterzettel'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Programm: Theaterzettel</font>',
+						title: '<font style="color:gray;">Theaterzettel</font>',
 						icon: 'resources/images/Day-17.png'
 					});
 				
 				}
 			else if(item.data.text === 'Personen'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Personen</font>',
+						title: '<font style="color:gray;">Personen</font>',
 						icon: 'resources/images/Mask-19.png'
 					});
 				
 				}
 			else if(item.data.text === 'Karten & Abos'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Karten & Abos</font>',
+						title: '<font style="color:gray;">Karten & Abos</font>',
 						icon: 'resources/images/Ticket-14.png'
 					});
 				
 				}
 			else if(item.data.text === 'Linksammlung'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Presse: Linksammlung</font>',
+						title: '<font style="color:gray;">Linksammlung</font>',
 						icon: 'resources/images/Presse-16.png'
 					});
 				
 				}
 			else if(item.data.text === 'Theaterjournal'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Presse: Theaterjournal</font>',
+						title: '<font style="color:gray;">Theaterjournal</font>',
 						icon: 'resources/images/Presse-16.png'
 					});
 				
 				}
 			else if(item.data.text === 'Dekoration'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Dekoration</font>',
+						title: '<font style="color:gray;">Dekoration</font>',
 						icon: 'resources/images/theatre.png'
 					});
 				
 				}
 			else if(item.data.text === 'Regiebücher'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Regiebücher</font>',
+						title: '<font style="color:gray;">Regiebücher</font>',
 						icon: 'resources/images/Crown-17.png'
 					});
 				
 				}
 			else if(item.data.text === 'Rollen- & Kostümbücher'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Rollen- & Kostümbücher</font>',
+						title: '<font style="color:gray;">Rollen- & Kostümbücher</font>',
 						icon: 'resources/images/carnival.png'
 					});
 				
 				}
 			else if(item.data.text === 'Theaterberufe'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Theaterberufe</font>',
+						title: '<font style="color:gray;">Theaterberufe</font>',
 						icon: 'resources/images/theatreB.png'
 					});
 				
 				}
 			else if(item.data.text === 'Ausgaben'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Finanzwesen: Ausgaben</font>',
+						title: '<font style="color:gray;">Ausgaben</font>',
 						icon: 'resources/images/MoneyTransfer-17.png'
 					});
 				
 				}
 			else if(item.data.text === 'Einnahmen'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Finanzwesen: Einnahmen</font>',
+						title: '<font style="color:gray;">Einnahmen</font>',
 						icon: 'resources/images/MoneyBox-17.png'
 					});
 				
 				}
 			else if(item.data.text === 'Gagenbücher'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:#A87678;">Finanzwesen: Gagenbücher</font>',
+						title: '<font style="color:gray;">Gagenbücher</font>',
 						icon: 'resources/images/Gift-17.png'
 					});
 				
@@ -436,7 +467,7 @@ this.listeners = {
 				if(repertoireTab !== null){
 					this.tabPanel.add(repertoireTab);
 					this.tabPanel.setActiveTab(repertoireTab);
-					this.tabPanel.getTabBar().setVisible(true);					
+					//this.tabPanel.getTabBar().setVisible(true);					
 				}
 				
 			}

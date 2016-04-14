@@ -14,6 +14,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabXMLWork', {
 
 autoScroll: true,
 reserveScrollbar: true,
+border:false,
 
 
 setTextInfo: function(infoText){

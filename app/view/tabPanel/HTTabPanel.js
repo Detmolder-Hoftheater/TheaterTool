@@ -11,9 +11,9 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 	},
 
 
-bodyPadding: 15,
+bodyPadding: 1,
 	
-	id: 'cetabpanel',
+	//id: 'cetabpanel',
 	
 	//flex: 4,
 	
@@ -26,17 +26,17 @@ bodyBorder: false,
    
 	//bodyPadding: 3,
 
- split: false,
+ split: false
 	
 
-tabBar: {
+/*tabBar: {
       
 		style:{"background-image":"url(resources/images/curtain-Fotor_1.jpg)",
 				"background-size": "100%;"
 		},
 		border:false,
 		bodyBorder: false
-}
+}*/
 
  
 	/**

@@ -70,6 +70,10 @@ let $strings := for $elem in $fileNames
 			)
 			else()
 
+			let $iconWork := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then('resources/images/BookBlau-17.png')
+			else('resources/images/Books1-17.png')
+
                     return 
 						if($fileName1 != '')then(
                         concat('{name:"',$fileName,'",',
@@ -78,17 +82,16 @@ let $strings := for $elem in $fileNames
 							'componist:"',$comp,'",',
 							'extName:"',$extName,'",',
 							'werkID:"',$fileID,'",', 
-							'incipits:"',"false",'",',
-							'"icon":"resources/images/Books1-17.png",',
- 							
+							'icon:"',$iconWork,'",',
+							'incipits:"',"false",'",',							
 							'"children":[{',
 								'name:"',$sourceName,'",',
 								'extName:"',$sourceName,'",',
 								'incipits:"',"true",'",',
 								'sourceID:"',$sourceFileName,'",',
+								'"icon":"resources/images/Book1-16.png",', 
 								'details:"',"true",'",',                          
                             	'xml:"',"true",'",',
-								'"icon":"resources/images/Book1-16.png",', 
 								'"children":[',
 									'{',
 									'"leaf":"true",',

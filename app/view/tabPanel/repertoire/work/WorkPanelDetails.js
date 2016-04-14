@@ -22,7 +22,7 @@ detailSection_1: null,
 					align: 'stretch'
 				},
 				
-				//bodyPadding: 1,
+				//bodyPadding: 5,
 				
 				/*defaults: {
 					frame: true
@@ -61,8 +61,36 @@ detailSection_1: null,
         		margin: '10 10 10 10'
 
 			},
-			this.detailSection,	
-			this.detailSection_1,	
+this.detailSection,
+
+{
+					xtype: 'fieldset',
+					border: false,
+
+					layout: {
+					type: 'hbox',
+					pack: 'start',
+					align: 'stretch'
+					},
+
+					items: [
+					
+
+{
+        		html: '<img src="resources/images/Save-17.png" style="width:17px;height:17px;">',
+border: false
+
+				},
+this.detailSection_1
+					
+				
+]
+				
+},
+
+
+			/*this.detailSection,	
+			this.detailSection_1,*/	
 			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Referenzen</b>',

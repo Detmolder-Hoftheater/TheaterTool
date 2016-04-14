@@ -22,7 +22,7 @@ reserveScrollbar: true,
 rowLines: true,
 columnLines: true,
 
-bodyPadding: 3,
+bodyPadding: 5,
 
 header: false,
 	
@@ -60,7 +60,7 @@ header: false,
 	
 	   var me = this;
 		
-		this.xmlColumn = this.createColumn('XML', 'resources/images/Save-17.png');
+		//this.xmlColumn = this.createColumn('XML', 'resources/images/Save-17.png');
 		//this.incipitsColumn = this.createColumn('Incipits', 'resources/images/Door-24.png');
 		//this.detailsColumn = this.createColumn('Facsimile', 'resources/images/Door-24.png');
 		
@@ -134,11 +134,11 @@ header: false,
 			align: 'center',
 			dataIndex: 'componist'
 			
-		},
+		}
 
 		//this.incipitsColumn,
 		//this.detailsColumn,
-		this.xmlColumn
+		//this.xmlColumn
 		
 		];
 		

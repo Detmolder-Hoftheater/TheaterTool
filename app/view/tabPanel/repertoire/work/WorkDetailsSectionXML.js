@@ -8,6 +8,17 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML', {
    collapsed: true,
 
     title: 'XML',
+//+ '<img src="resources/images/Save-17.png" style="width:17px;height:17px;">',
+
+/*{
+				/\*xtype: 'label',
+        		html: 'Load XML'*\/
+xtype: 'image', src: 'resources/images/Save-17.png', width: 26,
+			height: 26
+
+				},*/
+
+flex:1,
 
 
 //style: {
@@ -15,8 +26,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML', {
 		//borderTop: '2px solid #fff'
 		//borderBottom: '1px solid #fff'
 //	},
-	bodyBorder: false,
-	border: false,
+	/*bodyBorder: false,
+	border: false,*/
 
 //bodyPadding: 3,
     
