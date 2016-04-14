@@ -144,17 +144,17 @@ handleStoreForWorks: function(selection){
 			this.worksStoreMap = new Map();
 		}
 		
-			if(selection === 9){
+			if(selection === 'Aschenbrödel' || selection === 'Des Teufels Anteil' || selection === 'Der Bettelstudent'){
 					//for(var i = 0; i < storeField.length; i++){
-						var workName = storeField;
-						if(this.worksStoreMap.has(workName)){
-							navTreeStore = this.worksStoreMap.get(workName);
+						var workName = selection;
+						if(this.worksStoreMap.has(selection)){
+							navTreeStore = this.worksStoreMap.get(selection);
 						}
 						else{
 							navTreeStore = this.createStoreForWork();
-							navTreeStore.getProxy().extraParams.workName = storeField;					
+							navTreeStore.getProxy().extraParams.workName = selection;					
 							navTreeStore.load();
-							var key = storeField;
+							var key = selection;
 							this.worksStoreMap.set(key, navTreeStore);
 						}
 				
