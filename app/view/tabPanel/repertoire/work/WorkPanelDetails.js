@@ -96,9 +96,9 @@ this.detailSection_1
         		html: '<b style="color:gray;">Referenzen</b>',
         		margin: '10 10 10 10'
 
-			},		
-			this.planSection,
-			this.personSection,
+			},
+			this.personSection,		
+			this.planSection,			
 			this.journalSection,
      		this.regieSection,
 			this.roleSection,

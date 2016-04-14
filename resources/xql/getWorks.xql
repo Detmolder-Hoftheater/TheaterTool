@@ -71,7 +71,7 @@ let $strings := for $elem in $fileNames
 			else()
 
 			let $iconWork := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
-			then('resources/images/BookBlau-17.png')
+			then('resources/images/BookBlau-15.png')
 			else('resources/images/Books1-17.png')
 
                     return 

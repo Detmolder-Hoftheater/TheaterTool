@@ -53,7 +53,7 @@ let $strings := for $elem in $fileNames
 							'extName:"',$extName,'",',
 							'werkID:"',$fileID,'",',   
 							'incipits:"',"false",'",',
-							'"icon":"resources/images/BookBlau-17.png",',
+							'"icon":"resources/images/BookBlau-15.png",',
  							
 							'"children":[{',
 								'name:"',$sourceName,'",',

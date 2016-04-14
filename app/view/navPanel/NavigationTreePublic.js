@@ -9,52 +9,52 @@ var store = Ext.create('Ext.data.TreeStore', {
         	children: [
             	{
                 text: 'Repertoire',
-                icon: 'resources/images/Folder-16.png',
+                icon: 'resources/images/Folder-17.png',
                  children: [
                     { leaf:true, text: 'A-B-C',
-                    icon: 'resources/images/Books1-17.png'},
+                    icon: 'resources/images/BooksVert-17.png'},
                    /*  { leaf:true, text: 'B',
                     icon: 'null'},
                       { leaf:true, text: 'C',
                     icon: 'null'},*/
                        { leaf:true, text: 'D-E-F',
-                    icon: 'resources/images/Books1-17.png'},
+                    icon: 'resources/images/BooksVert-17.png'},
                         /*{ leaf:true, text: 'E',
                     icon: 'null'},
                          { leaf:true, text: 'F',
                     icon: 'null'},*/
                           { leaf:true, text: 'G-H-I',
-                    icon: 'resources/images/Books1-17.png'},
+                    icon: 'resources/images/BooksVert-17.png'},
                           /* { leaf:true, text: 'H',
                     icon: 'null'},
                             { leaf:true, text: 'I',
                     icon: 'null'},*/
                              { leaf:true, text: 'J-K-L',
-                    icon: 'resources/images/Books1-17.png'},
+                    icon: 'resources/images/BooksVert-17.png'},
                              /* { leaf:true, text: 'K',
                     icon: 'null'},
                                { leaf:true, text: 'L',
                     icon: 'null'},*/
                                 { leaf:true, text: 'M-N-O',
-                    icon: 'resources/images/Books1-17.png'},
+                    icon: 'resources/images/BooksVert-17.png'},
                                  /*{ leaf:true, text: 'N',
                     icon: 'null'},
                                   { leaf:true, text: 'O',
                     icon: 'null'},*/
                                    { leaf:true, text: 'P-Q-R',
-                    icon: 'resources/images/Books1-17.png'},
+                    icon: 'resources/images/BooksVert-17.png'},
                                    /* { leaf:true, text: 'Q',
                     icon: 'null'},
                                      { leaf:true, text: 'R',
                     icon: 'null'},*/
                                       { leaf:true, text: 'S-T-U',
-                    icon: 'resources/images/Books1-17.png'},
+                    icon: 'resources/images/BooksVert-17.png'},
                                       /* { leaf:true, text: 'T',
                     icon: 'null'},
                                         { leaf:true, text: 'U',
                     icon: 'null'},*/
                                          { leaf:true, text: 'V-W-X-Y-Z',
-                    icon: 'resources/images/Books1-17.png'}
+                    icon: 'resources/images/BooksVert-17.png'}
                                          /* { leaf:true, text: 'W',
                     icon: 'null'},
                                            { leaf:true, text: 'X',
@@ -117,12 +117,12 @@ var store = Ext.create('Ext.data.TreeStore', {
                 icon: 'resources/images/AddFolder-16.png',
 				children: [
                     { leaf:true, text: 'Aschenbrödel',
-                    icon: 'resources/images/BookBlau-17.png'},
+                    icon: 'resources/images/BookBlau-15.png'},
 //icon: 'resources/images/BookTiefWerk.png'},
                     { leaf:true, text: 'Des Teufels Anteil',
-                    icon: 'resources/images/BookBlau-17.png'},
+                    icon: 'resources/images/BookBlau-15.png'},
                     { leaf:true, text: 'Der Bettelstudent',
-                    icon: 'resources/images/BookBlau-17.png' }
+                    icon: 'resources/images/BookBlau-15.png' }
                 ]
             },
             	{
@@ -266,7 +266,7 @@ this.listeners = {
 				if(item.data.text === 'Aschenbrödel'){					
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Aschenbrödel</font>',
-						icon: 'resources/images/BookBlau-17.png'
+						icon: 'resources/images/BookBlau-15.png'
 					});
 				
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
@@ -275,7 +275,7 @@ this.listeners = {
 				else if(item.data.text === 'Des Teufels Anteil'){					
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Des Teufels Anteil</font>',
-						icon: 'resources/images/BookBlau-17.png'
+						icon: 'resources/images/BookBlau-15.png'
 					});
 				
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Des Teufels Anteil'});
@@ -284,7 +284,7 @@ this.listeners = {
 				else if(item.data.text === 'Der Bettelstudent'){					
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Der Bettelstudent</font>',
-						icon: 'resources/images/BookBlau-17.png'
+						icon: 'resources/images/BookBlau-15.png'
 					});
 				
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
