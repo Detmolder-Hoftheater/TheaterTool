@@ -74,6 +74,18 @@ let $strings := for $elem in $fileNames
 			then('resources/images/BookBlau-15.png')
 			else('resources/images/Books1-17.png')
 
+			let $iconSource := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then('resources/images/SourceBlue.png')
+			else('resources/images/SourceRed.png')
+
+			let $iconIncipits := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then('resources/images/IncBlue.png')
+			else('resources/images/IncRed.png')
+
+			let $iconRISM := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then('resources/images/RismBlue.png')
+			else('resources/images/Literature-17.png')
+
                     return 
 						if($fileName1 != '')then(
                         concat('{name:"',$fileName,'",',
@@ -89,7 +101,7 @@ let $strings := for $elem in $fileNames
 								'extName:"',$sourceName,'",',
 								'incipits:"',"true",'",',
 								'sourceID:"',$sourceFileName,'",',
-								'"icon":"resources/images/Book1-16.png",', 
+								'icon:"',$iconSource,'",', 
 								'details:"',"true",'",',                          
                             	'xml:"',"true",'",',
 								'"children":[',
@@ -98,18 +110,18 @@ let $strings := for $elem in $fileNames
 									'"name":"RISM",',
 									'"extName":"RISM",',
 									'incipits:"',"false",'",',
-									'details:"',"false",'",',                          
+									'details:"',"false",'",', 
+									'icon:"',$iconRISM,'",',                         
                             		'xml:"',"true",'",',
-									'"icon":"resources/images/Literature-17.png",', 
 								'},',
 								'{',
 									'"leaf":"true",',
 									'"name":"Incipits",',
 									'"extName":"Incipits",',
 									'incipits:"',"true",'",',
-									'details:"',"false",'",',                          
+									'details:"',"false",'",', 
+									'icon:"',$iconIncipits,'",',                         
                             		'xml:"',"false",'",',
-									'"icon":"resources/images/MusicTranscript-17.png",', 
 								'},',
 								$isExtend,
 								']',

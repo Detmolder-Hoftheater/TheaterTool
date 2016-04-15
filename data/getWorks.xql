@@ -12,7 +12,7 @@
                 details: false,
                 children: [
                     { name: 'Quelle: D-DT, Mus-n 120',
-                    icon: 'resources/images/BookQB.png',
+                    icon: 'resources/images/SourceBlue.png',
 					extName: 'Quelle: D-DT, Mus-n 120',
                     expanded: true,
                     xml: true,
@@ -21,7 +21,7 @@
                      children: [
                      
                     { name: 'RISM',
-                    icon: 'resources/images/Literature-17.png',
+                    icon: 'resources/images/RismBlue.png',
 						extName: 'RISM',
                     	leaf:true, 
                     	xml: true,
@@ -34,7 +34,7 @@
 					extName: 'Incipits',
                 	leaf:true,
                 	xml: false,
-                	icon: 'resources/images/MusicTranscript-17.png',
+                	icon: 'resources/images/IncBlue.png',
                     	incipits: true,
                     	 details: false
                 },
