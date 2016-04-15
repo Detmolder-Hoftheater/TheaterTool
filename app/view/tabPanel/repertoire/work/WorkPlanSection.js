@@ -3,25 +3,16 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPlanSection', {
     extend: 'Ext.form.FieldSet',
-    //xtype: 'grouped-grid',
-   /* requires: [
-        'Ext.grid.feature.Grouping'
-    ],*/
+    
     collapsible: true,
-   // iconCls: 'icon-grid',
-   // frame: true,
-    //width: 600,
-    //height: 400,
-   
-    // Need a minHeight. Neptune resizable framed panels are overflow:visible so as to
-    // enable resizing handles to be embedded in the border lines.
-   // minHeight: 200,
+ 	collapsed: true,
+  
    title: '<b style="color:gray;">Programm</b>',
    // resizable: true,
     
-    collapsed: true,
+   flex:1,
    	
-   	icon: 'resources/images/Magazine-17.png',
+   /*	icon: 'resources/images/Magazine-17.png',
    
    //margin: '5 0 5 0',
 
@@ -31,7 +22,7 @@ style: {
 		//borderBottom: '1px solid #fff'
 	},
 	bodyBorder: false,
-	border: false,
+	border: false,*/
 				
 
   /*  features: [{

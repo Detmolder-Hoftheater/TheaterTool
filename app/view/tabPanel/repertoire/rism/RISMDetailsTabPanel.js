@@ -3,45 +3,22 @@
  * @class
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsTabPanel', {
-	extend: 'Ext.tab.Panel',
-	//id: 'cepanel',
-	/*requires:[
-	'Ext.layout.container.Border'],*/
-	//layout: 'border',
-	//flex: 2,
-	
-	//bodyPadding: 3,
-	
-	
-	/*defaults: {
-		split: true
-	},*/
+	extend: 'Ext.panel.Panel',
 
-bodyBorder: false,
-	border: false,
-	
-	textTab: null,
-	xmlTab: null,
-	
-	initComponent: function () {
-	
-	this.textTab = new TheaterTool.view.tabPanel.repertoire.TabText({
-			title: 'Text'
-		});
-		
-		this.xmlTab = new TheaterTool.view.tabPanel.repertoire.TabXML({
-			title: 'XML'
-		});
-	
-	this.items =[
-		//this.slursItem,
-		this.textTab,
-		this.xmlTab
-		//this.dynamsItems,
-		//this.dirsItems
-		
-		],
-		
-		this.callParent();
+minHeight: 200,
+   
+    resizable: true,
+
+autoScroll: true,
+reserveScrollbar: true,
+
+border: false,
+
+	setTextInfo: function(infoText){
+		$('#'+this.id+'-innerCt').html(infoText);
+
 	}
+	
+	
+	
 });

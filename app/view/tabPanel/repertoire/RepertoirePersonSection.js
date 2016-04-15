@@ -3,28 +3,17 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection', {
     extend: 'Ext.form.FieldSet',
-   // xtype: 'grouped-grid',
-   /* requires: [
-        'Ext.grid.feature.Grouping'
-    ],*/
-    collapsible: true,
-   // iconCls: 'icon-grid',
-    //frame: true,
-    //width: 600,
-    //height: 400,
    
-    // Need a minHeight. Neptune resizable framed panels are overflow:visible so as to
-    // enable resizing handles to be embedded in the border lines.
-   // minHeight: 200,
+    collapsible: true,
+	collapsed: true,
+   
     title: '<b style="color:gray;">Personen</b>',
 
-   // resizable: true,
-    
-    collapsed: true,
+	flex:1,
 
 	store: null,
 
-style: {
+/*style: {
 		//borderLeft: '3px solid #A80016',
 		borderTop: '5px solid #fff'
 		//borderBottom: '1px solid #fff'
@@ -33,7 +22,7 @@ style: {
 	border: false,
    
    //margin: '5 0 5 0',
-	icon: 'resources/images/Mask-19.png',	
+	icon: 'resources/images/Mask-19.png',*/	
    
     personTable: null,
 

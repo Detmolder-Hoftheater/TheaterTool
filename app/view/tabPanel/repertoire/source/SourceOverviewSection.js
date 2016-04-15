@@ -3,11 +3,9 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection', {
     extend: 'Ext.form.FieldSet',
-    //xtype: 'grouped-grid',
-    /*requires: [
-        'Ext.grid.feature.Grouping'
-    ],*/
+   
     collapsible: true,
+	collapsed: true,
    // iconCls: 'icon-grid',
     
    // frame: true,
@@ -16,17 +14,18 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection', 
     // enable resizing handles to be embedded in the border lines.
    // minHeight: 200,
     title: '<b style="color:gray;">Beschreibung</b>',
+	flex: 1,
    
-style: {
+/*style: {
 		//borderLeft: '3px solid #A80016',
 		borderTop: '5px solid #fff'
 		//borderBottom: '1px solid #fff'
 	},
 	bodyBorder: false,
-	border: false,
+	border: false,*/
     //resizable: true,
     
-    collapsed: true,
+    
     
     // margin: '5 0 0 0',
    

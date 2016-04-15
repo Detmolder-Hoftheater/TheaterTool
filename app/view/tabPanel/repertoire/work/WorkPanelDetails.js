@@ -22,7 +22,7 @@ detailSection_1: null,
 					align: 'stretch'
 				},
 				
-				//bodyPadding: 5,
+				bodyPadding: 15,
 				
 				/*defaults: {
 					frame: true
@@ -58,43 +58,22 @@ detailSection_1: null,
 			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Details</b>',
-        		margin: '10 10 10 10'
+        		margin: '0 0 10 0'
 
 			},
-this.detailSection,
+			this.detailSection,
 
-{
-					xtype: 'fieldset',
-					border: false,
-
-					layout: {
-					type: 'hbox',
-					pack: 'start',
-					align: 'stretch'
-					},
-
-					items: [
-					
-
-{
+			{
         		html: '<img src="resources/images/Save-17.png" style="width:17px;height:17px;">',
-border: false
+				border: false,
+				margin: '0 0 -19 70'
+			},
+			this.detailSection_1,
 
-				},
-this.detailSection_1
-					
-				
-]
-				
-},
-
-
-			/*this.detailSection,	
-			this.detailSection_1,*/	
 			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Referenzen</b>',
-        		margin: '10 10 10 10'
+        		margin: '10 0 10 0'
 
 			},
 			this.personSection,		

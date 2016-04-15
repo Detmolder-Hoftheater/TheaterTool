@@ -3,11 +3,9 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkRevenueSection', {
     extend: 'Ext.form.FieldSet',
-    //xtype: 'grouped-grid',
-   /* requires: [
-        'Ext.grid.feature.Grouping'
-    ],*/
+   
     collapsible: true,
+	collapsed: true,
    // iconCls: 'icon-grid',
    // frame: true,
     //width: 600,
@@ -18,11 +16,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkRevenueSection', {
   //  minHeight: 200,
    title: '<b style="color:gray;">Einnahmen</b>',
    // resizable: true,
+    flex: 1,
     
-    collapsed: true,
-
-
-style: {
+/*style: {
 		//borderLeft: '3px solid #A80016',
 		borderTop: '5px solid #fff'
 		//borderBottom: '1px solid #fff'
@@ -32,7 +28,7 @@ style: {
    
   // margin: '5 0 5 0',
    icon: 'resources/images/MoneyBox-17.png',
-				
+				*/
 
   /*  features: [{
         ftype: 'grouping',

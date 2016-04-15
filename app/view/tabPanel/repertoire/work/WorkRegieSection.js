@@ -3,11 +3,9 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkRegieSection', {
     extend: 'Ext.form.FieldSet',
-    //xtype: 'grouped-grid',
-    /*requires: [
-        'Ext.grid.feature.Grouping'
-    ],*/
+    
     collapsible: true,
+	collapsed: true,
    // iconCls: 'icon-grid',
    // frame: true,
     //width: 600,
@@ -18,11 +16,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkRegieSection', {
   //  minHeight: 200,
    title: '<b style="color:gray;">Regiebücher</b>',
    // resizable: true,
+    flex: 1,
     
-    collapsed: true,
    
   // margin: '5 0 5 0',
-   icon: 'resources/images/Crown-17.png',
+   /*icon: 'resources/images/Crown-17.png',
 
 style: {
 		//borderLeft: '3px solid #A80016',
@@ -30,7 +28,7 @@ style: {
 		//borderBottom: '1px solid #fff'
 	},
 	bodyBorder: false,
-	border: false,
+	border: false,*/
 				
 
   /*  features: [{

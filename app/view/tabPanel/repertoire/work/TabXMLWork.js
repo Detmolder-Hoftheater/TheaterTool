@@ -6,7 +6,7 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabXMLWork', {
 	extend: 'Ext.panel.Panel',
 
-	bodyPadding: 10,
+	//bodyPadding: 10,
 
  minHeight: 200,
    

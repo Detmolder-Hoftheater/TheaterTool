@@ -7,6 +7,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
     
 	
 	detailSection: null,
+	detailSection_xml: null,
 	
 	layout: {
 					type: 'vbox',
@@ -14,44 +15,39 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
 					align: 'stretch'
 				},
 				
-				bodyPadding: 3,
+				bodyPadding: 15,
 				
 				/*defaults: {
 					frame: true
 				},*/
 				
 	
-bodyBorder: false,
+/*bodyBorder: false,*/
 	border: false,
 	
 	initComponent: function () {
 		
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSection();
+
+	this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSectionXML({sourceID: this.sourceID});
 	
     this.items = [
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Details</b>',
+        		margin: '0 0 10 0'
+
+			},
        
-			this.detailSection
+			this.detailSection,
+			{
+        		html: '<img src="resources/images/Save-17.png" style="width:17px;height:17px;">',
+				border: false,
+				margin: '0 0 -19 70'
+			},
+			this.detailSection_xml
 			
-       // {
-           // title: 'Navigation',
-            //region:'west',
-            //flex: 1,
-            //floatable: false,
-           // margin: '5 0 0 0',
-           // width: 125,
-           // minWidth: 100,
-           // maxWidth: 250,
-           // html: '<p>Navigation</p>'
-         // bodyStyle:{"background-color":"white"}
-       // },
-        //{
-           // title: 'Main Content',
-            //collapsible: false,
-            
-           // margin: '5 0 0 0',
-         //   html: '<p>Main Content</p>'
-         //   bodyStyle:{"background-color":"white"}
-       // }
+       
     ]
     	this.callParent();
 	}

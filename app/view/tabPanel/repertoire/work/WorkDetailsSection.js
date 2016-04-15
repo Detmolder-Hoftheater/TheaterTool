@@ -7,7 +7,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
     collapsible: true,
    collapsed: true,
 
-    title: 'Text',
+    title: '<b style="color:gray;">Text</b>',
 
 flex:1,
 
@@ -54,7 +54,7 @@ flex:1,
  			url: 'resources/xql/test_Exist.xql',
             method: 'GET',
             params: {
-                uri: '/db/apps/theater-data/works/'+this.workID+'.xml',
+                uri: '/db/apps/theater-data/works/'+me.workID+'.xml',
                 type: 'work'
             },
             success: function(response){

@@ -3,29 +3,20 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSection', {
     extend: 'Ext.form.FieldSet',
-    //xtype: 'grouped-grid',
-    /*requires: [
-        'Ext.grid.feature.Grouping'
-    ],*/
+    
     collapsible: true,
-    collapsed: false,
-   // iconCls: 'icon-grid',
-    //frame: true,
-    //width: 600,
-    //height: 400,
+    collapsed: true,
    
-    // Need a minHeight. Neptune resizable framed panels are overflow:visible so as to
-    // enable resizing handles to be embedded in the border lines.
-   // minHeight: 200,
     title: '<b style="color:gray;">Text</b>',
+	flex: 1,
 
-style: {
+/*style: {
 		//borderLeft: '3px solid #A80016',
 		borderTop: '3px solid #fff'
 		//borderBottom: '1px solid #fff'
 	},
 	bodyBorder: false,
-	border: false,
+	border: false,*/
 
     //resizable: true,
    
@@ -44,114 +35,33 @@ style: {
     this.repertoireTab = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsTabPanel();
 	
 	this.items =[
-		//this.slursItem,
 		this.repertoireTab
-		//this.dynamsItems,
-		//this.dirsItems
-		
 		],
     
-        /*this.store = new TheaterTool.store.Store();
-        this.columns = [{
-            text: 'Name',
-            flex: 1,
-            dataIndex: 'name'
-        },{
-            text: 'Cuisine',
-            flex: 1,
-            dataIndex: 'cuisine'
-        }];*/
+        this.listeners = {
+        	expand: function (p, eOpts) {
+        	console.log("expand");
+			/*Ext.Ajax.request({
+           // url: 'data/Output_Exist.xql',
+ 			url: 'resources/xql/test_Exist.xql',
+            method: 'GET',
+            params: {
+               uri: '/db/apps/theater-data/sources/'+this.sourceID+'.xml',
+                type: 'source'
+            },
+            success: function(response){
+ 				me.repertoireTab.setTextInfo(response.responseText);
+     		}
+         
+        });*/
+
+         
+       }
+    },
 
         this.callParent();
         
         }
 
-       /* var store = this.getStore(),
-            toggleMenu = [];
-
-        this.groupingFeature = this.view.getFeature('restaurantGrouping');
-
-        // Create checkbox menu items to toggle associated group
-        store.getGroups().each(function(group) {
-            toggleMenu.push({
-                xtype: 'menucheckitem',
-                text: group.getGroupKey(),
-                handler: this.toggleGroup,
-                scope: this
-            });
-        }, this);
-
-        this.addDocked([{
-            xtype: 'toolbar',
-            items: ['->', {
-                text: 'Toggle groups...',
-                destroyMenu: true,
-                menu: toggleMenu
-            }]
-        }, {
-            xtype: 'toolbar',
-            ui: 'footer',
-            dock: 'bottom',
-            items: ['->', {
-                text:'Clear Grouping',
-                iconCls: 'icon-clear-group',
-                scope: this,
-                handler: this.onClearGroupingClick
-            }]
-        }]);
-
-        this.mon(this.store, 'groupchange', this.onGroupChange, this);
-        this.mon(this.view, {
-            groupcollapse: this.onGroupCollapse,
-            groupexpand: this.onGroupExpand,
-            scope: this
-        });
-    },
-
-    onClearGroupingClick: function(){
-        this.groupingFeature.disable();
-    },
-
-    toggleGroup: function(item) {
-        var groupName = item.text;
-        if (item.checked) {
-            this.groupingFeature.expand(groupName, true);
-        } else {
-            this.groupingFeature.collapse(groupName, true);
-        }
-    },
-
-    onGroupChange: function(store, grouper) {
-        var grouped = store.isGrouped(),
-            groupBy = grouper ? grouper.getProperty() : '',
-            toggleMenuItems, len, i = 0;
-
-        // Clear grouping button only valid if the store is grouped
-        this.down('[text=Clear Grouping]').setDisabled(!grouped);
-
-        // Sync state of group toggle checkboxes
-        if (grouped && groupBy === 'cuisine') {
-            toggleMenuItems = this.down('button[text=Toggle groups...]').menu.items.items;
-            for (len = toggleMenuItems.length; i < len; i++) {
-                toggleMenuItems[i].setChecked(
-                    this.groupingFeature.isExpanded(toggleMenuItems[i].text)
-                );
-            }
-            this.down('[text=Toggle groups...]').enable();
-        } else {
-            this.down('[text=Toggle groups...]').disable();
-        }
-    },
-
-    onGroupCollapse: function(v, n, groupName) {
-        if (!this.down('[text=Toggle groups...]').disabled) {
-            this.down('menucheckitem[text=' + groupName + ']').setChecked(false, true);
-        }
-    },
-
-    onGroupExpand: function(v, n, groupName) {
-        if (!this.down('[text=Toggle groups...]').disabled) {
-            this.down('menucheckitem[text=' + groupName + ']').setChecked(true, true);
-        }
-    }*/
+       
 });

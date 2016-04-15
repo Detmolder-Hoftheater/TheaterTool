@@ -3,27 +3,22 @@
  * @class
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', {
-	extend: 'Ext.tab.Panel',
-	//id: 'cepanel',
-	/*requires:[
-	'Ext.layout.container.Border'],*/
-	//layout: 'border',
-	//flex: 2,
+	extend: 'Ext.panel.Panel',
 	
-	//bodyPadding: 3,
-	
-	//bodyBorder: false,
-	
-	/*defaults: {
-		split: true
-	},*/
-	
-	textTab: null,
-	xmlTab: null,
+ minHeight: 200,
+   
+    resizable: true,
 
-	sourceID: null,
-	
-	initComponent: function () {
+autoScroll: true,
+reserveScrollbar: true,
+
+border: false,
+
+	setTextInfo: function(infoText){
+		$('#'+this.id+'-innerCt').html(infoText);
+
+	}
+	/*initComponent: function () {
 	
 	this.textTab = new TheaterTool.view.tabPanel.repertoire.source.TabTextSource({
 			title: 'Text',
@@ -45,5 +40,5 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 		],
 		
 		this.callParent();
-	}
+	}*/
 });

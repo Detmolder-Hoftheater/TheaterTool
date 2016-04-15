@@ -3,11 +3,10 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkJournalSection', {
     extend: 'Ext.form.FieldSet',
-    //xtype: 'grouped-grid',
-   /* requires: [
-        'Ext.grid.feature.Grouping'
-    ],*/
+   
     collapsible: true,
+	collapsed: true,
+
    // iconCls: 'icon-grid',
    // frame: true,
     //width: 600,
@@ -17,12 +16,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkJournalSection', {
     // enable resizing handles to be embedded in the border lines.
    // minHeight: 200,
    title: '<b style="color:gray;">Theaterjournal</b>',
-
+	flex:1,
     //resizable: true,
     
-    collapsed: true,
+    
 
-style: {
+/*style: {
 		//borderLeft: '3px solid #A80016',
 		borderTop: '5px solid #fff'
 		//borderBottom: '1px solid #fff'
@@ -31,7 +30,7 @@ style: {
 	border: false,
    
    //margin: '5 0 5 0',
-   icon: 'resources/images/Dossier-17.png',
+   icon: 'resources/images/Dossier-17.png',*/
 				
 
   /*  features: [{

@@ -8,6 +8,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 	personSection: null,
 	detailSection: null,
 	overviewSection: null,
+	detailSection_xml: null,
 	
 	layout: {
 					type: 'vbox',
@@ -15,7 +16,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 					align: 'stretch'
 				},
 				
-				bodyPadding: 3,
+				bodyPadding: 15,
 				
 				/*defaults: {
 					frame: true
@@ -34,6 +35,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 		
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID});
 
+	this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({sourceID: this.sourceID});
+
 	if(storeField.indexOf(this.werkTitle) > -1){
 		this.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
 	}
@@ -43,16 +46,22 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Details</b>',
-        		margin: '10 10 10 10'
+        		margin: '0 0 10 0'
 
 			},
        
 			this.detailSection,
+			{
+        		html: '<img src="resources/images/Save-17.png" style="width:17px;height:17px;">',
+				border: false,
+				margin: '0 0 -19 70'
+			},
+			this.detailSection_xml,
 			this.overviewSection,			
 			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Referenzen</b>',
-        		margin: '10 10 10 10'
+        		margin: '10 0 10 0'
 
 			},
 			this.personSection
@@ -63,15 +72,21 @@ else{
 			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Details</b>',
-        		margin: '10 10 10 10'
+        		margin: '0 0 10 0'
 
 			},
        
 			this.detailSection,	
 			{
+        		html: '<img src="resources/images/Save-17.png" style="width:17px;height:17px;">',
+				border: false,
+				margin: '0 0 -19 70'
+			},
+			this.detailSection_xml,
+			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Referenzen</b>',
-        		margin: '10 10 10 10'
+        		margin: '10 0 10 0'
 
 			},
 			this.personSection
