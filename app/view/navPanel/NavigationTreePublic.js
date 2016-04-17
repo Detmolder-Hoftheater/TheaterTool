@@ -117,12 +117,12 @@ var store = Ext.create('Ext.data.TreeStore', {
                 icon: 'resources/images/AddFolder-16.png',
 				children: [
                     { leaf:true, text: 'Aschenbrödel',
-                    icon: 'resources/images/BookBlau-15.png'},
+                    icon: 'resources/images/BookBlau-16.png'},
 //icon: 'resources/images/BookTiefWerk.png'},
                     { leaf:true, text: 'Des Teufels Anteil',
-                    icon: 'resources/images/BookBlau-15.png'},
+                    icon: 'resources/images/BookBlau-16.png'},
                     { leaf:true, text: 'Der Bettelstudent',
-                    icon: 'resources/images/BookBlau-15.png' }
+                    icon: 'resources/images/BookBlau-16.png' }
                 ]
             },
             	{
@@ -266,7 +266,7 @@ this.listeners = {
 				if(item.data.text === 'Aschenbrödel'){					
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Aschenbrödel</font>',
-						icon: 'resources/images/BookBlau-15.png'
+						icon: 'resources/images/BookBlau-16.png'
 					});
 				
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
@@ -275,7 +275,7 @@ this.listeners = {
 				else if(item.data.text === 'Des Teufels Anteil'){					
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Des Teufels Anteil</font>',
-						icon: 'resources/images/BookBlau-15.png'
+						icon: 'resources/images/BookBlau-16.png'
 					});
 				
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Des Teufels Anteil'});
@@ -284,7 +284,7 @@ this.listeners = {
 				else if(item.data.text === 'Der Bettelstudent'){					
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Der Bettelstudent</font>',
-						icon: 'resources/images/BookBlau-15.png'
+						icon: 'resources/images/BookBlau-16.png'
 					});
 				
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});

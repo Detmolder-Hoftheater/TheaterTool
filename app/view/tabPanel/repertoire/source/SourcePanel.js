@@ -52,9 +52,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
        
 			this.detailSection,
 			{
-        		html: '<img src="resources/images/Save-17.png" style="width:17px;height:17px;">',
+        		html: '<img src="resources/images/Download.png" style="width:11px;height:14px;">',
 				border: false,
-				margin: '0 0 -19 70'
+				margin: '0 0 -11 0'
 			},
 			this.detailSection_xml,
 			this.overviewSection,			

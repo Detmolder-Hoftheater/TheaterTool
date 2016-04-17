@@ -119,7 +119,7 @@ header: false,
 		
 		this.columns =[ {
 			xtype: 'treecolumn',
-			header: '<b style="color:gray;">Werk/Quelle/Facsimile/Incipits/RISM</b>',
+			header: '<b style="color:gray;">Werk -> Quelle -> Facsimile/Incipits/RISM</b>',
 			flex: 2,
 			sortable: true,
 			menuDisabled: true,

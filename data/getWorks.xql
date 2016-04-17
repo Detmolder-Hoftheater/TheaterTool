@@ -5,7 +5,7 @@
                 name: 'Aschenbrödel',
 				componist: 'Isouard',
 				extName: 'Aschenbrödel: Isouard',
-                icon: 'resources/images/BookBlau-15.png',
+                icon: 'resources/images/BookBlau-17.png',
                  expanded: true,
                 xml: true,               
                 incipits: false,
