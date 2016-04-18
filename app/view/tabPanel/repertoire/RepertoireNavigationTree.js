@@ -60,7 +60,7 @@ header: false,
 	
 	   var me = this;
 		
-		//this.xmlColumn = this.createColumn('XML', 'resources/images/Save-17.png');
+		//this.xmlColumn = this.createColumn('XML', 'resources/images/Download.png');
 		//this.incipitsColumn = this.createColumn('Incipits', 'resources/images/Door-24.png');
 		//this.detailsColumn = this.createColumn('Facsimile', 'resources/images/Door-24.png');
 		
@@ -101,7 +101,6 @@ header: false,
 						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> RISM</b>');	
 					}
 					else if(eOpts[0].data.name === 'Facsimile'){
-						// TODO
 						//me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
 						//me.repertoirePanel.add(me.beatPanel);
 						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Facsimile</b>');

@@ -1,14 +1,14 @@
 /**
- * Creates class TheaterTool.view.facsimileView.FacsimileView that extend from Ext.form.Panel.
+ * Creates class pmdCE.view.facsimileView.FacsimileView that extend from Ext.form.Panel.
  * @class
- * @classdesc TheaterTool.view.facsimileView.FacsimileView for show facsimile.
+ * @classdesc pmdCE.view.facsimileView.FacsimileView for show facsimile.
  */
-Ext.define('TheaterTool.view.facsimileView.FacsimileView', {
+Ext.define('TheaterTool.view.tabPanel.repertoire.beat.FacsimileView', {
 	extend: 'Ext.form.Panel',
 	requires:[
-	'TheaterTool.view.facsimileView.LeafletFacsimile'],
-	layout: 'vbox',
-	region: 'east',
+	'TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile'],
+	//layout: 'vbox',
+	//sregion: 'south',
 	flex: 1,
 	id: 'facsimileview',
 	autoScroll: true,
@@ -18,46 +18,19 @@ Ext.define('TheaterTool.view.facsimileView.FacsimileView', {
 	 * @overrides
 	 */
 	initComponent: function () {
-	
-	this.items =[ {
-					xtype: 'fieldset',
-					title: 'Öffentlichkeit'				
-				},
-				 {
-					xtype: 'fieldset',
-					title: 'Theaterleben'				
-				}
-				]
 		
-		/*var selectedPage = Ext.getCmp('pages').getText();
-		
-		var pageMeasuresMap = Ext.getCmp('cetoolbar').pageMeasuresMap;
-		var test = pageMeasuresMap[selectedPage];
-		var value = test[0];
-		var endValue = test[test.length -1];
-		
-		var pageStaffMap = Ext.getCmp('cetoolbar').staffNr;
-		var test = pageStaffMap[selectedPage];
-		var staffNr = test[test.length -1];
-		
-		this.title = selectedPage + ' (measures: ' + value + ' - ' + endValue + '; staffNr: ' + staffNr + ')';
 		
 		this.items =[ {
 			xtype: 'leafletmapview',
 			flex: 1,
-			width: '100%',
-			handler: this.click
-		}]*/
+			width: '100%'
+		}]
 		this.callParent()
-	},
-	
-	click: function () {		
-		console.log("Click");
 	}
 });
 
 
-/*Ext.define('TheaterTool.view.main.FacsimileView', {
+/*Ext.define('pmdCE.view.main.FacsimileView', {
 extend: 'Ext.form.Panel',
 layout:'absolute',
 region:'south',

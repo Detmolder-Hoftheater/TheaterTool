@@ -20,7 +20,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTable', {
 	
 	initComponent: function () {
 	
-	this.xmlColumn = this.createColumn('XML', 'resources/images/Save-17.png');
+	this.xmlColumn = this.createColumn('XML', 'resources/images/Download.png');
 		
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		

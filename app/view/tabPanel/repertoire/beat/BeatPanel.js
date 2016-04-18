@@ -26,11 +26,20 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 	
 	initComponent: function () {
 		
-	this.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.BeatXMLSection();
+	//this.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.BeatXMLSection();
+
+	this.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView();
 	
     this.items = [
        
 			this.detailSection
+
+		/*{
+			xtype: 'leafletmapview',
+			flex: 1,
+			width: '100%',
+			handler: this.click
+		}*/
 			
       
     ]

@@ -8,12 +8,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML'
    collapsed: true,
 
     title: '<b style="color:gray;">XML</b>',
-//+ '<img src="resources/images/Save-17.png" style="width:17px;height:17px;">',
+//+ '<img src="resources/images/Download.png" style="width:17px;height:17px;">',
 
 /*{
 				/\*xtype: 'label',
         		html: 'Load XML'*\/
-xtype: 'image', src: 'resources/images/Save-17.png', width: 26,
+xtype: 'image', src: 'resources/images/Download.png', width: 26,
 			height: 26
 
 				},*/
@@ -39,10 +39,10 @@ xtype: 'image', src: 'resources/images/Save-17.png', width: 26,
 
 	var me = this;
     
-    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork({sourceID: this.sourceID});
+    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork({sourceID: me.sourceID});
 	
 	me.items =[
-		this.repertoireTab
+		me.repertoireTab
 		],
 
  	me.listeners = {

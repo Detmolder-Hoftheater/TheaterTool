@@ -78,7 +78,7 @@ else{
        
 			this.detailSection,	
 			{
-        		html: '<img src="resources/images/Save-17.png" style="width:17px;height:17px;">',
+        		html: '<img src="resources/images/Download.png" style="width:17px;height:17px;">',
 				border: false,
 				margin: '0 0 -19 70'
 			},
