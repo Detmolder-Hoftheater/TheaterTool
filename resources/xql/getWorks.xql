@@ -86,17 +86,9 @@ let $strings := for $elem in $fileNames
 			then('resources/images/RismBlue.png')
 			else('resources/images/Literature-17.png')
 
-                    return 
-						if($fileName1 != '')then(
-                        concat('{name:"',$fileName,'",',
-							'details:"',"true",'",',                          
-                            'xml:"',"true",'",', 
-							'componist:"',$comp,'",',
-							'extName:"',$extName,'",',
-							'werkID:"',$fileID,'",', 
-							'icon:"',$iconWork,'",',
-							'incipits:"',"false",'",',							
-							'"children":[{',
+
+let $isSource := if($sourceFileName != '')
+			then(concat('"children":[{',
 								'name:"',$sourceName,'",',
 								'extName:"',$sourceName,'",',
 								'incipits:"',"true",'",',
@@ -125,7 +117,55 @@ let $strings := for $elem in $fileNames
 								'},',
 								$isExtend,
 								']',
-							'}]',
+							'}]')
+			)
+			else()
+
+let $isLeaf := if($sourceFileName )then()else('"leaf":"true",')
+
+                    return 
+						if($fileName1 != '')then(
+                        concat('{name:"',$fileName,'",',
+							'details:"',"true",'",',                          
+                            'xml:"',"true",'",', 
+							'componist:"',$comp,'",',
+							'extName:"',$extName,'",',
+							'werkID:"',$fileID,'",', 
+							'icon:"',$iconWork,'",',
+							'incipits:"',"false",'",',	
+							$isLeaf,
+							$isSource,
+													
+							(:'"children":[{',
+								'name:"',$sourceName,'",',
+								'extName:"',$sourceName,'",',
+								'incipits:"',"true",'",',
+								'sourceID:"',$sourceFileName,'",',
+								'icon:"',$iconSource,'",', 
+								'details:"',"true",'",',                          
+                            	'xml:"',"true",'",',
+								'"children":[',
+									'{',
+									'"leaf":"true",',
+									'"name":"RISM",',
+									'"extName":"RISM",',
+									'incipits:"',"false",'",',
+									'details:"',"false",'",', 
+									'icon:"',$iconRISM,'",',                         
+                            		'xml:"',"true",'",',
+								'},',
+								'{',
+									'"leaf":"true",',
+									'"name":"Incipits",',
+									'"extName":"Incipits",',
+									'incipits:"',"true",'",',
+									'details:"',"false",'",', 
+									'icon:"',$iconIncipits,'",',                         
+                            		'xml:"',"false",'",',
+								'},',
+								$isExtend,
+								']',
+							'}]',:)
                             '}'))
 else ()
     return 
