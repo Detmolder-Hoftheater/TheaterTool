@@ -465,9 +465,12 @@ this.listeners = {
 
 
 				if(repertoireTab !== null){
+ 					if (typeof Ext.getCmp('infoDialog') !== 'undefined') {
+							Ext.getCmp('infoDialog').close();
+					}
+
 					this.tabPanel.add(repertoireTab);
-					this.tabPanel.setActiveTab(repertoireTab);
-					//this.tabPanel.getTabBar().setVisible(true);					
+					this.tabPanel.setActiveTab(repertoireTab);					
 				}
 				
 			}
