@@ -2,45 +2,45 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatXMLSection', {
-    extend: 'Ext.panel.Panel',
-    //xtype: 'grouped-grid',
-    /*requires: [
-        'Ext.grid.feature.Grouping'
-    ],*/
+    extend: 'Ext.form.FieldSet',
+ 
     collapsible: true,
-   // iconCls: 'icon-grid',
-    
-   // frame: true,
-    
-    // Need a minHeight. Neptune resizable framed panels are overflow:visible so as to
-    // enable resizing handles to be embedded in the border lines.
-   // minHeight: 200,
-    title: '<b style="color:gray;">XML Ansicht</b>',
+   collapsed: true,
 
-style: {
-		//borderLeft: '3px solid #A80016',
-		borderTop: '5px solid #fff'
-		//borderBottom: '1px solid #fff'
-	},
-	bodyBorder: false,
-	border: false,
-   
-   // resizable: true,
+    title: '<b style="color:gray;">XML</b>',
     
-    
-   /* features: [{
-        ftype: 'grouping',
-        groupHeaderTpl: '{columnName}: {name} ({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
-        hideGroupedHeader: true,
-        startCollapsed: true,
-        id: 'restaurantGrouping'
-    }],*/
-    
-    repertoireTab:null,
+   flex:1,
 
     initComponent: function() {
     
+    var me = this;
     
+    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork({sourceID: this.sourceID});
+	
+	me.items =[
+		this.repertoireTab
+		],
+
+me.listeners = {
+        	expand: function (p, eOpts) {
+        	console.log("expand");
+			/*Ext.Ajax.request({           
+    			url:'resources/xql/getXML.xql', 
+				//url: 'data/H000001.xml' , 
+			method: 'GET',
+            params: {
+               uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
+                type: 'source'
+            },        
+    			success: function (response, options) {
+        			var object = response.responseText;
+					me.repertoireTab.setTextInfo(object);       			
+    			}
+			});
+*/
+         
+        }
+    },
 
         this.callParent();
         

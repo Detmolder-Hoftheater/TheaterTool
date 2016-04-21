@@ -11,15 +11,17 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";
 
-declare variable $path := request:get-parameter('path', '');
+declare variable $path := 'xmldb:exist:///apps/theater-data/vertaktung/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586.xml';
+(:request:get-parameter('path', '');:)
 declare variable $typeString := request:get-parameter('types', 'all');
+declare variable $file := doc($path);
 
-declare variable $surface := collection('/db/apps/controlevents-data/')//mei:surface[@xml:id = $path];
+declare variable $surface := $file//mei:surface[@n = 1];
              
 declare variable $graphic := $surface/mei:graphic[1];
 
-declare variable $imgSrc := $freidi-pmd:ce-imageURI || substring-before(substring-after($surface/mei:graphic/@target, 'sources/'),'.jpg') || '/{z}-{x}-{y}.jpg';
-
+(:declare variable $imgSrc := $freidi-pmd:ce-imageURI || substring-before(substring-after($surface/mei:graphic/@target, 'sources/'),'.jpg') || '/{z}-{x}-{y}.jpg';
+:)
 
 declare function local:getJson($surface,$types) {
 
@@ -29,6 +31,7 @@ declare function local:getJson($surface,$types) {
     let $pageJson := concat('"page":{',
                          '"id":"',$page/@xml:id,'",',
                          '"n":"',$page/@n,'",',
+'"test":"',$surface,'",',
                          '"width":"',$page/mei:graphic/@width,'",',
                          '"height":"',$page/mei:graphic/@height,'"',
                          '}'
@@ -55,8 +58,8 @@ declare function local:getJson($surface,$types) {
     return (
         '{',
             $pageJson,',',
-            '"zones":[',string-join($zonesJson,','),'],',
-            '"path":"',$imgSrc,'"',
+            '"zones":[',string-join($zonesJson,','),']',
+            (:'"path":"',$imgSrc,'"',:)
         '}'
     )
     
@@ -66,7 +69,8 @@ declare function local:getJson($surface,$types) {
 (:let $typeString := request:get-parameter('types', 'all'):)
 
 (:let $doc := doc('/db/apps/controlevents-data/' || $path):)
-let $doc := collection($freidi-pmd:ce-data)//mei:surface[@xml:id = $path]
+(:let $doc := collection($freidi-pmd:ce-data)//mei:surface[@xml:id = $path]:)
+let $doc := $file//mei:surface[@n = 1]
 
 let $types := tokenize($typeString,',')
 

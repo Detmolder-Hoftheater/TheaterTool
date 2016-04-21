@@ -4,14 +4,18 @@
  * @classdesc pmdCE.view.facsimileView.FacsimileView for show facsimile.
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.beat.FacsimileView', {
-	extend: 'Ext.form.Panel',
+	extend: 'Ext.panel.Panel',
 	requires:[
 	'TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile'],
-	//layout: 'vbox',
-	//sregion: 'south',
-	flex: 1,
-	id: 'facsimileview',
-	autoScroll: true,
+
+	// collapsible: false,
+   //collapsed: true,
+
+    //title: '<b style="color:gray;">Text</b>',
+//border: false,
+flex:1,
+ margin: '0 0 15 0',
+//bodyPadding: 15,
 	
 	/**
 	 * Set title for view and create leaflet component.
@@ -19,13 +23,31 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.FacsimileView', {
 	 */
 	initComponent: function () {
 		
-		
+		var me = this;
 		this.items =[ {
-			xtype: 'leafletmapview',
-			flex: 1,
-			width: '100%'
-		}]
+			xtype: 'leafletmapview'
+		}
+
+];
+
+this.bbar = Ext.create('Ext.PagingToolbar', {
+            //store: 'Interactions',
+            //displayInfo: false,
+			region: 'center',
+            //preprendButtons: false,
+           listeners: {
+                afterrender : function() {
+                    this.child('#refresh').hide();
+                }
+            }
+        });
+
+
 		this.callParent()
+	},
+	
+	click: function () {		
+		console.log("Click");
 	}
 });
 

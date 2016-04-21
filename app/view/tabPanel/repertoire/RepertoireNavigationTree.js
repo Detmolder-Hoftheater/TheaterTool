@@ -101,8 +101,8 @@ header: false,
 						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> RISM</b>');	
 					}
 					else if(eOpts[0].data.name === 'Facsimile'){
-						//me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
-						//me.repertoirePanel.add(me.beatPanel);
+						me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
+						me.repertoirePanel.add(me.beatPanel);
 						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Facsimile</b>');
 					}
 						

@@ -76,7 +76,20 @@ L.TileLayer.FacsimileLayer = L.TileLayer.extend({
 	      this._map.fitBounds(bounds);
 	        
 	    }
-       },     
+       }, 
+
+fitInImage: function () {
+		
+		var coord3 = L.point(0, 0);
+		var coord4 = L.point(this.facsimileWidth, this.facsimileHeight);
+		
+		var latLngLeft = this._map.unproject(coord3, this._map.getMaxZoom());
+		var latLngRight = this._map.unproject(coord4, this._map.getMaxZoom());
+		
+		var bounds = L.latLngBounds(latLngLeft, latLngRight);
+		
+		this._map.fitBounds(bounds);
+	},    
        
      /**
       * Remove rectanle and center from map.
