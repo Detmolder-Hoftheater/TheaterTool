@@ -268,8 +268,8 @@ this.listeners = {
 						title: '<font style="color:gray;">Aschenbrödel</font>',
 						icon: 'resources/images/BookBlau-16.png'
 					});
-				
-				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab();
+				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
 				repertoireTab.add(repertoireDetails);		
 				}
 				else if(item.data.text === 'Des Teufels Anteil'){					

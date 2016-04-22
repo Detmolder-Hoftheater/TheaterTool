@@ -11,7 +11,7 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 	},
 
 
-bodyPadding: 1,
+//bodyPadding: 5,
 	
 	//id: 'cetabpanel',
 	
