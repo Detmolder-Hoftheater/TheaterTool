@@ -2,8 +2,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireMenuItemTree', {
 	extend: 'Ext.tree.Panel',
 	
 	requires:[
-	/*'Ext.data.*',
-	'Ext.grid.*',*/
 	'Ext.tree.*',
 	'TheaterTool.model.Werk'
 	],
@@ -19,8 +17,8 @@ reserveScrollbar: true,
 	useArrows: true,
 	rootVisible: false,
 //lines: false,
-rowLines: true,
-columnLines: true,
+//rowLines: true,
+//columnLines: true,
 
 bodyPadding: 5,
 
@@ -28,17 +26,13 @@ header: false,
 	
 	title: '<b style="color:gray;">Werke</b>',
 	
-	xmlColumn: null,
-	incipitsColumn: null,
-	detailsColumn: null,
-	
 	// region:'west',
 	// region:'east',
      //       flex: 3.3,
             border: true,
 
 height: 200,
-width: 250,
+width: 270,
    /* style: {
       borderRight: 'px solid whote'
      // borderLeft: '3px solid #FFF',
@@ -58,6 +52,8 @@ width: 250,
 	repertoirePanel: null,
 	beatPanel: null,
 	workName: null,
+
+	navButton: null,
 	
 	initComponent: function () {
 	
@@ -80,13 +76,13 @@ width: 250,
 					me.repertoirePanel.removeAll(true);
 					me.workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails({workID: eOpts[0].data.werkID});
 					me.repertoirePanel.add(me.workPanel);			
-					me.workPanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].data.name+', '+eOpts[0].data.componist+'</b>');
+					me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].data.name+', '+eOpts[0].data.componist+'</b>');
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
 					me.repertoirePanel.removeAll(true);
 					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: eOpts[0].data.sourceID, werkTitle: eOpts[0].parentNode.data.name});
 					me.repertoirePanel.add(me.sourcePanel);	
-					me.sourcePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.data.name+', '+eOpts[0].parentNode.data.componist+' -> '+eOpts[0].data.name+'</b>');
+					me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].parentNode.data.name+', '+eOpts[0].parentNode.data.componist+' -> '+eOpts[0].data.name+'</b>');
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
 				//console.log(eOpts[0].data);
@@ -101,12 +97,12 @@ width: 250,
 					else if(eOpts[0].data.name === 'RISM'){
 						me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel();
 						me.repertoirePanel.add(me.rismPanel);
-						me.rismPanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> RISM</b>');	
+						me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> RISM</b>');	
 					}
 					else if(eOpts[0].data.name === 'Facsimile'){
 						me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
 						me.repertoirePanel.add(me.beatPanel);
-						me.beatPanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Facsimile</b>');
+						me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Facsimile</b>');
 					}
 						
 				
@@ -122,19 +118,10 @@ width: 250,
 		this.columns =[ {
 			xtype: 'treecolumn',
 			header: '<b style="color:gray;">Werk -> Quelle -> Facsimile/Incipits/RISM</b>',
-			flex: 2,
-			sortable: true,
+			flex: 1,
+			//sortable: true,
 			menuDisabled: true,
 			dataIndex: 'name'
-			
-		},
-		{
-			header: '<b style="color:gray;">Autor</b>',
-			flex: 1,
-			sortable: true,
-			menuDisabled: true,
-			align: 'center',
-			dataIndex: 'componist'
 			
 		}
 
@@ -163,6 +150,12 @@ width: 250,
 	setRepertoirePanel: function(repertoirePanel){
 	
 		this.repertoirePanel = repertoirePanel;
+		
+	},
+
+	setNavButton: function(navButton){
+	
+		this.navButton = navButton;
 		
 	},
 

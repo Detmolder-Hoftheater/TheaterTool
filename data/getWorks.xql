@@ -14,8 +14,8 @@
                     { name: 'Quelle: D-DT, Mus-n 120',
                     icon: 'resources/images/SourceBlue.png',
 					extName: 'Quelle: D-DT, Mus-n 120',
-                    expanded: true,
                     xml: true,
+ 					expanded: true,
                     details: true,
                     incipits: true,
                      children: [

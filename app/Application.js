@@ -74,6 +74,7 @@ Ext.define('TheaterTool.Application', {
 	'main.InformationDialog',
 'tabPanel.repertoire.RepertoirePanelInTab',
 'tabPanel.repertoire.RepertoireMenuItemTree',
+'tabPanel.repertoire.beat.FacsimileNavTree',
 	'tabPanel.repertoire.PersonTable'
 	],
 	

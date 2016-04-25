@@ -9,9 +9,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 	
 	detailSection: null,
 	xmlSection: null,
-	
+	navTree: null,	
+
 	layout: {
-					type: 'vbox',
+					type: 'hbox',
 					pack: 'start',
 					align: 'stretch'
 				},
@@ -35,10 +36,11 @@ this.items =[ {
 			width: '100%'
 		}]
 */
-	this.detailSection = 
-new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView();
+	this.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView();
 //Ext.create('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {flex: 1, width: '100%'});
 
+
+this.navTree = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileNavTree();
 
 this.xmlSection = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSectionXML();
 	
@@ -46,7 +48,8 @@ this.xmlSection = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSecti
 
        
 			this.detailSection,
-{
+this.navTree
+/*{
     xtype: 'component',
     autoEl: {
         tag: 'a',
@@ -63,7 +66,7 @@ this.xmlSection = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSecti
 				margin: '15 0 -11 0'
 			},
 
-			this.xmlSection
+			this.xmlSection*/
 
 		
 			

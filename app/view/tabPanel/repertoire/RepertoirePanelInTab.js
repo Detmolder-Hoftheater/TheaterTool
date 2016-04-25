@@ -30,7 +30,7 @@ border: false,
 		autoScroll: true,
 		split: true
 	},*/
-
+navButton: null,
 
 	initComponent: function () {
 var me = this;
@@ -41,15 +41,18 @@ var navTree = new TheaterTool.view.tabPanel.repertoire.RepertoireMenuItemTree();
 		
 								var navTreeStore = app.handleStoreForWorks('Aschenbrödel');
 								navTree.getView().bindStore(navTreeStore);
-navTree.setRepertoirePanel(me);
+				navTree.setRepertoirePanel(me);
 
- 	this.tbar = {
+me.navButton = me.createCEButton(navTree);
+
+navTree.setNavButton(me.navButton);
+
+ 	me.tbar = {
 		/*layout: {
             pack: 'center'
         },*/
-height: 33,
+	height: 33,
               // items: [{
-
                     //xtype: 'segmentedbutton',
 
 					
@@ -65,18 +68,9 @@ height: 33,
                             }
                     }, */
 
-{
-                        text: '<b style="color:gray;">Navigation<b>',
-						width: 90,
-expand: true,
-						menu:[
 
-	
-	navTree
-
-							
-						]
-                  }]
+me.navButton
+]
  //}]
 
  
@@ -131,5 +125,26 @@ expand: true,
        this.repertoirePanel
     ]*/
     	this.callParent();
+	},
+
+createCEButton: function (navTree) {
+		
+		var me = this;
+		var ceButton = Ext.create('Ext.button.Button', {
+			xtype: 'button',
+			 text: '<b style="color:gray;">Werk und Quellen<b>',
+//flex: 1,
+autoRender: true,
+						//width: 130,
+						menu:[	
+							navTree
+
+							
+						]
+                
+		});
+	
+		
+		return ceButton;
 	}
 });
