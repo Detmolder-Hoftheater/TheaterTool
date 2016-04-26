@@ -74,12 +74,16 @@ bodyPadding: 3,
     
     initComponent: function() {
 
-/*this.listeners = {
+this.listeners = {
 			
-			itemdblclick: function (record, item, index, e, eOpts) {
-				
+			itemclick: function (record, item, index, e, eOpts) {
+				console.log(record);
+console.log(item);
+console.log(index);
+console.log(e);
+console.log(eOpts);
 			}
-		};*/
+		};
 
         this.items = [
             {
