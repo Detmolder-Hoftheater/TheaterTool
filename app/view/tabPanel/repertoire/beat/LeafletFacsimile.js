@@ -7,7 +7,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {
 	extend: 'Ext.Component',
 	
 	alias: 'widget.leafletmapview',
-	id: 'leafletfacsimile',
+	//id: 'leafletfacsimile',
 	config: {
 		map: null
 	},

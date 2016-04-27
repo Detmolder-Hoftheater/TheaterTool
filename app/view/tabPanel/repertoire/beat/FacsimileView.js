@@ -12,11 +12,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.FacsimileView', {
    //collapsed: true,
 
     //title: '<b style="color:gray;">Text</b>',
-//border: false,
+border: true,
 flex:1,
  //margin: '0 0 15 0',
 bodyPadding: 5,
 pageSpinner: null,
+
 	
 	/**
 	 * Set title for view and create leaflet component.
@@ -30,6 +31,8 @@ pageSpinner: null,
 me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 			//width: 220,
 			//cls: 'pageSpinner'
+//margin: '0 0 0 50'
+
 		});	
 me.pageSpinner.setStore(25);	
 		
@@ -75,7 +78,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 	
 	layout: 'hbox',
 
-	
 	//pageBasedView: null,
 	
 	initComponent: function () {
@@ -122,7 +124,7 @@ test=25;
 		this.store = storeField;
 		
 		this.combo = Ext.create('Ext.form.ComboBox', {
-			//width: 150,
+			width: 40,
 //flex:1,
 			hideTrigger: true,
 			queryMode: 'local',
@@ -145,16 +147,16 @@ test=25;
 		});
 		
 		this.add([ 
-
 {
         xtype: 'label',
-        text: 'Seite'
-        //margins: '15 5 0 5'
+        text: 'Seite',
+        margin: '3 5 0 5'
     },
+
 {
 			xtype: 'button',
 			icon: 'resources/images/page-prev-disabled.gif',
-
+margin: '0 5 0 5',
 
  
 			//cls: 'prev toolButton',
@@ -163,21 +165,27 @@ test=25;
 				click: this.prev
 			}
 		},
+
 		this.combo, 
-		/*{
-        xtype: 'label',
-        text: 'von '+ test,
-        margins: '15 5 0 5'
-    },*/
+		
 		{
 			xtype: 'button',
 			icon: 'resources/images/page-next-disabled.gif',
+margin: '0 5 0 5',
 			//cls: 'next toolButton',
 			listeners: {
 				scope: this,
 				click: this.next
 			}
-		}]);
+		},
+{
+        xtype: 'label',
+        text: 'von '+ test,
+        margin: '3 5 0 5'
+    }
+
+
+]);
 	}
 });
 

@@ -82,7 +82,8 @@ Ext.define('TheaterTool.Application', {
 	'Werk',
 	'Plan',
 	'Person',
-	'Source'
+	'Source',
+	'FacsimileNavigation'
 	],
 	
 	stores:[
@@ -253,6 +254,42 @@ this.personenForWorkDataStore = Ext.create('Ext.data.Store', {
 		});
 
 return this.personenForWorkDataStore;
+},
+
+/*creteStoreForFacsimileNavigation: function(){
+
+	var workDataStore = Ext.create('Ext.data.Store', {
+			model: 'TheaterTool.model.FacsimileNavigation',
+			/\*extraParams: {
+				workName: ''
+			},*\/
+			proxy: {
+				type: 'ajax',
+				//url: 'resources/xql/getFacsimileViewNavigation.xql'				
+				url: 'data/getFacsimileViewNavigation.xql'
+			},
+			autoLoad: false
+		});
+workDataStore.load();
+return workDataStore;
+},*/
+
+creteStoreForFacsimileNavigation: function(){
+
+	var workDataStore = Ext.create('Ext.data.TreeStore', {
+			model: 'TheaterTool.model.FacsimileNavigation',
+			extraParams: {
+				workName: ''
+			},
+			proxy: {
+				type: 'ajax',
+				url: 'resources/xql/getFacsimileViewNavigation.xql'				
+				//url: 'data/getFacsimileViewNavigation.xql'
+			},
+			autoLoad: false
+		});
+workDataStore.load();
+return workDataStore;
 },
 	
 	launch: function () {

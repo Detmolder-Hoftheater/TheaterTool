@@ -1,42 +1,22 @@
-var store = Ext.create('Ext.data.TreeStore', {
-
- root: {
-        text: 'Start',
-		expanded: true,
-   		children: [{
-        	text: 'Bass-Violoncello',
-			//icon: 'resources/images/Library-17.png',
-        	leaf:true       	
-    	},
-{
-        	text: 'Chorstimme Sopran 1',
-			//icon: 'resources/images/Library-17.png',
-        	leaf:true       	
-    	},
-{
-        	text: 'Chorstimme Sopran 1=2',
-			//icon: 'resources/images/Library-17.png',
-        	leaf:true       	
-    	}
-]
-}
-})
-
-
 /**
  * Creates class TheaterTool.view.tabPanel.CEPanel that extend from Ext.panel.Panel.
  * @class
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.beat.FacsimileNavTree', {
 	 extend: 'Ext.tree.Panel',
+requires:[
+	'Ext.tree.*',
+	'TheaterTool.model.FacsimileNavigation'
+	],
    //xtype: 'basic-trees',
     width: 200,
    // flex: 0.23,
-   // autoScroll: true,
+    autoScroll: true,
   
 	rootVisible: false,
-	 store: store,
+	 //store: store,
 height: 200,
+
 	
  //  layout: {
   //      type: 'table'
@@ -55,6 +35,8 @@ height: 200,
 reserveScrollbar: true,
 	
 	useArrows: true,
+header: false,
+collapsible: true,
 	
 
 //	title: '<font style="color:#A87678;">Spielbetrieb</font>',
@@ -68,7 +50,7 @@ reserveScrollbar: true,
      // borderTop: '1px solid gray'
       //borderBottom: '1px solid #A80016'
    // },
-border:false,
+border:true,
 bodyborder: false,
 bodyPadding: 3,
     
@@ -85,12 +67,21 @@ console.log(eOpts);
 			}
 		};
 
-        this.items = [
-            {
-                title: 'Start',
-                useArrows: true
-            }
-        ];
+       this.columns =[ {
+			xtype: 'treecolumn',
+			header: '<b style="color:gray;">Stimmen</b>',
+			flex: 1,
+			//sortable: true,
+			menuDisabled: true,
+			dataIndex: 'name'
+			
+		}
+
+		//this.incipitsColumn,
+		//this.detailsColumn,
+		//this.xmlColumn
+		
+		];
 
         this.callParent();
     }

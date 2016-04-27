@@ -17,7 +17,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 					align: 'stretch'
 				},
 				
-				bodyPadding: 15,
+				bodyPadding: 5,
 				
 				/*defaults: {
 					frame: true
@@ -27,6 +27,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 
 	
 	initComponent: function () {
+
+
+
 		
 /*	this.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile();
 
@@ -41,6 +44,10 @@ this.items =[ {
 
 
 this.navTree = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileNavTree();
+
+
+
+
 
 this.xmlSection = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSectionXML();
 	
@@ -71,7 +78,13 @@ this.navTree
 		
 			
       
-    ]
+    ];
+
+var app = TheaterTool.getApplication();
+		
+								var navTreeStore = app.creteStoreForFacsimileNavigation();
+								this.navTree.getView().bindStore(navTreeStore);
+navTreeStore.sort('name');
     	this.callParent();
 	}
 });
