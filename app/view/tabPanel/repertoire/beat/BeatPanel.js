@@ -45,11 +45,13 @@ this.items =[ {
 
 this.navTree = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileNavTree();
 
-
-
-
-
 this.xmlSection = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSectionXML();
+
+var leafletFacsimile = this.detailSection.getLeafletFacsimile();
+var pageSpinner = this.detailSection.getPageSpinner();
+
+this.navTree.setLeafletFacsimile(leafletFacsimile);
+this.navTree.setPageSpinner(pageSpinner);
 	
     this.items = [
 

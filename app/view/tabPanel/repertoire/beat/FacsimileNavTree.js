@@ -37,7 +37,8 @@ reserveScrollbar: true,
 	useArrows: true,
 header: false,
 collapsible: true,
-	
+leafletFacsimile: null,
+	pageSpinner: null,
 
 //	title: '<font style="color:#A87678;">Spielbetrieb</font>',
 /*'<b style="color:gray;">Spielbetrieb</b>',*/
@@ -53,10 +54,14 @@ collapsible: true,
 border:true,
 bodyborder: false,
 bodyPadding: 3,
+
+pageNumber: null,
     
     initComponent: function() {
 
-this.listeners = {
+var me = this;
+
+me.listeners = {
 			
 			itemclick: function (record, item, index, e, eOpts) {
 				console.log(record);
@@ -64,10 +69,17 @@ console.log(item);
 console.log(index);
 console.log(e);
 console.log(eOpts);
+me.leafletFacsimile.clear();
+me.leafletFacsimile.loadFacsimile(item.data.xmlid, 1);
+var number = me.leafletFacsimile.getPageNumber();
+me.pageSpinner.setStore(number);
+me.pageSpinner.setPage(1);
+me.pageSpinner.setPageID(item.data.xmlid);
+
 			}
 		};
 
-       this.columns =[ {
+       me.columns =[ {
 			xtype: 'treecolumn',
 			header: '<b style="color:gray;">Stimmen</b>',
 			flex: 1,
@@ -83,8 +95,16 @@ console.log(eOpts);
 		
 		];
 
-        this.callParent();
-    }
+        me.callParent();
+    },
+
+setLeafletFacsimile: function(leafletFacsimile){
+	this.leafletFacsimile = leafletFacsimile;
+},
+
+setPageSpinner: function(pageSpinner){
+	this.pageSpinner = pageSpinner;
+}
 
 	
 });

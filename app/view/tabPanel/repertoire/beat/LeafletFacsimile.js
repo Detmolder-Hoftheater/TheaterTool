@@ -18,6 +18,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {
 
 autoScroll: true,
 reserveScrollbar: true,
+pageNumber: null,
 //border:false,
 
 
@@ -31,18 +32,19 @@ reserveScrollbar: true,
 	 * @overrides
 	 */
 	afterRender: function (t, eOpts) {
+
 		var me = this;
 		this.callParent(arguments);
 		
 		var leafletRef = window.L;
 		if (leafletRef == null) {
 			this.update('No leaflet library loaded');
-		} else {
+		}
 
-var selectedPage = 1;
-//Ext.getCmp('pages').getText();
-			
-			Ext.Ajax.request({
+
+		// else {
+
+			/*Ext.Ajax.request({
 				 url: 'resources/xql/getZones.xql',
 				//url: 'data/getZones.xql',
 				async: false,
@@ -96,11 +98,11 @@ var selectedPage = 1;
 					// console.log(json.path);
 					
 					me.facsimileTile = 
-					/*L.tileLayer.facsimileLayer('data/example/{z}-{x}-{y}.jpg', {
+					/\*L.tileLayer.facsimileLayer('data/example/{z}-{x}-{y}.jpg', {
 						minZoom: 0,
 						maxZoom: maxZoomLevel,
 						continuousWorld: true
-					});*/
+					});*\/
 					
 					
 					 L.tileLayer.facsimileLayer(path, {
@@ -120,11 +122,50 @@ var selectedPage = 1;
 					
 					
 				}
-			});
-			
-			
-					/*var facsimileHeight = 3456;
-					var facsimileWidth = 2304;
+			});*/
+		
+		//}
+	},
+	
+	/**
+	 * Get called anytime the size is changed in the layout
+	 * and call the ‘invalidateSize’ method on the map.
+	 * @overrides
+	 */
+	onResize: function (w, h, oW, oH) {
+		this.callParent(arguments);
+		var map = this.getMap();
+		if (map) {
+			map.invalidateSize();
+		}
+	},
+
+	loadFacsimile: function(voiceID, number){
+var me = this;
+Ext.Ajax.request({
+				 url: 'resources/xql/getZones.xql',
+				//url: 'data/getZones.xql',
+				async: false,
+				method: 'GET',
+				params: {
+					fileName: voiceID,
+					pageNr: number
+				},
+				success: function (result) {
+					
+					var json = jQuery.parseJSON(result.responseText);
+					
+					me.zones = json.zones;
+					var page = json.page;
+
+					me.pageNumber = page.pageAnzahl;
+					
+					facsimileHeight = 
+					//2992;
+					page.height;
+					facsimileWidth = 
+					//3991;
+					page.width;
 					
 					var originalMaxSize = null;
 					
@@ -147,22 +188,28 @@ var selectedPage = 1;
 					
 					me.setMap(map);
 					
-					 var path = 'http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/edition-HT_Isouard/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586/MUS-N_120_BASS-VIOLONCELLO_001/{z}-{x}-{y}.jpg';
-					//+json.path;
-					 
-					// console.log('facsimile path');
-					// console.log(json.path);
+					//var leaflet_prefix = getPreference('leaflet_prefix');
 
+					var fields = page.path.split('.');
+					var name = fields[0];
+					//leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
+					leaflet_path = "http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/" + name;
+					
+					 //var path = 'http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/edition-HT_Isouard/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586/MUS-N_120_BASS-VIOLONCELLO_001/{z}-{x}-{y}.jpg';
+
+					 
+					 console.log('facsimile path');
+					 console.log(page.path);
 					
 					me.facsimileTile = 
-					/\*L.tileLayer.facsimileLayer('data/example/{z}-{x}-{y}.JPG', {
+					/*L.tileLayer.facsimileLayer('data/example/{z}-{x}-{y}.jpg', {
 						minZoom: 0,
 						maxZoom: maxZoomLevel,
 						continuousWorld: true
-					});*\/
+					});*/
 					
 					
-					 L.tileLayer.facsimileLayer(path, {
+					 L.tileLayer.facsimileLayer(leaflet_path+'/{z}-{x}-{y}.jpg', {
 					minZoom: 0,
 					maxZoom: maxZoomLevel,
 					continuousWorld : true
@@ -173,24 +220,17 @@ var selectedPage = 1;
 					me.facsimileTile.setHeight(facsimileHeight);
 					
 					me.facsimileTile.addTo(map);
-					
-				me.facsimileTile.fitInImage();*/
-				
-		}
-	},
+
+					me.facsimileTile.fitInImage();
 	
-	/**
-	 * Get called anytime the size is changed in the layout
-	 * and call the ‘invalidateSize’ method on the map.
-	 * @overrides
-	 */
-	onResize: function (w, h, oW, oH) {
-		this.callParent(arguments);
-		var map = this.getMap();
-		if (map) {
-			map.invalidateSize();
-		}
+				}
+			});
+		
 	},
+
+getPageNumber: function(){
+	return this.pageNumber;
+},
 	
 	showMeasure: function(selectedObject){
 		//console.log('Show');
@@ -222,6 +262,17 @@ var selectedPage = 1;
 			}
 		}
 	
+	},
+
+	clear: function () {
+		
+			var map = this.getMap();
+if(map !== null){
+	map.remove();
+}
+			
+			
+		
 	}
 	
 	/* listeners: {

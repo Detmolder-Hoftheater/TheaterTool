@@ -18,6 +18,8 @@ flex:1,
 bodyPadding: 5,
 pageSpinner: null,
 
+leafletFacsimile: null,
+
 	
 	/**
 	 * Set title for view and create leaflet component.
@@ -28,19 +30,22 @@ pageSpinner: null,
 		var me = this;
 
 
+
+
+	
+		me.leafletFacsimile = new TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile({margin: '0 0 5 0'})
+
 me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
-			//width: 220,
-			//cls: 'pageSpinner'
-//margin: '0 0 0 50'
-
+			leafletFacsimile : me.leafletFacsimile
 		});	
-me.pageSpinner.setStore(25);	
-		
+//me.pageSpinner.setStore(25);
 
-		this.items =[ {
+		this.items =[ 
+me.leafletFacsimile,
+/*{
 			xtype: 'leafletmapview',
 margin: '0 0 5 0'
-		},
+		},*/
 
 
 me.pageSpinner
@@ -63,6 +68,14 @@ pageSize: 25,
 
 		this.callParent()
 	},
+
+	getLeafletFacsimile: function(){
+		return this.leafletFacsimile;
+	},
+
+getPageSpinner: function(){
+	return this.pageSpinner;
+},
 	
 	click: function () {		
 		console.log("Click");
@@ -78,7 +91,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 	
 	layout: 'hbox',
 
-	//pageBasedView: null,
+	pageID: null,
+
+	leafletFacsimile: null,
 	
 	initComponent: function () {
 		
@@ -89,7 +104,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 	next: function () {
 		var newValue = this.combo.getValue() + 1;
 		if (this.store.indexOf(newValue) != -1) {
+			
+
+			this.leafletFacsimile.clear();
+			this.leafletFacsimile.loadFacsimile(this.pageID, newValue);
+
 			this.setPage(newValue);
+
 			
 		}
 	},
@@ -97,12 +118,18 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 	prev: function () {
 		var newValue = this.combo.getValue() -1;
 		if (this.store.indexOf(newValue) != -1) {
+
+this.leafletFacsimile.clear();
+			this.leafletFacsimile.loadFacsimile(this.pageID, newValue);
 			this.setPage(newValue);
 			
 		}
 	},
 	
-	
+	setPageID: function(pageID){
+		this.pageID = pageID;
+	},
+
 	setPage: function (id) {
 		this.combo.setValue(id);
 	},
@@ -111,7 +138,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 		
 		var me = this;
 
-test=25;
+//test=25;
 		
 		this.removeAll();
 		
@@ -139,6 +166,9 @@ test=25;
 			listeners: {			
 				keydown:function (combo, e, eOpts) {
             		if (e.getKey() == 13) {
+
+						me.leafletFacsimile.clear();
+						me.leafletFacsimile.loadFacsimile(me.pageID, combo.getValue());
             			me.setPage(combo.getValue());
 						
             		}
