@@ -23,22 +23,24 @@ declare variable $fileNames := $file//mei:sourceDesc//mei:title;:)
 
 declare variable $path := 'xmldb:exist:///apps/theater-data/vertaktung/aschenbroedel/';
 declare variable $file := collection($path);
-declare variable $fileNames := $file//mei:sourceDesc//mei:title;
 
-declare function local:jsonifySlurs($fileNames) {
+(:declare variable $fileNames := $file//mei:sourceDesc//mei:title;
+:)
 
-let $strings := for $elem in $fileNames
+declare function local:jsonifySlurs($file) {
 
-		let $navItem := $elem
-		
+let $strings := for $elem in $file
+
+		let $navItem := $elem//mei:sourceDesc//mei:title
+		let $xmlid := $elem//mei:mei/@xml:id
                     return 
-						
+						if($navItem != '')then(
                         concat('{name:"',$navItem,'",',
 							'"leaf":"true",',
-							'"icon":"resources/images/Images-17.png"',
- 							
-							
-                            '}')
+							'xmlid:"',$xmlid,'",',
+							'"icon":"resources/images/Images-17.png"',							
+                            '}'))
+else()
     return 
         string-join($strings,',')
 
@@ -79,7 +81,7 @@ let $strings1 := for $elem1 in $local-doctypes
     ']':)
    
      '{"children":[',
-        local:jsonifySlurs($fileNames),
+        local:jsonifySlurs($file),
     ']}' 
    
 

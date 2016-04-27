@@ -59,6 +59,7 @@ let $strings := for $elem in $fileNames
 								'name:"',$sourceName,'",',
 								'extName:"',$sourceName,'",',
 								'incipits:"',"true",'",',
+								'expanded:"',"true",'",',
 								'sourceID:"',$sourceFileName,'",',
 								'details:"',"true",'",',  
 								'expanded:"',"true",'",',                         
