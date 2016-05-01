@@ -478,7 +478,7 @@ this.listeners = {
 						title: '<font style="color:gray;">Spielpläne: '+item.data.text+'</font>',
 						icon: 'resources/images/Calendar-17.png'
 					});
-				var scheduleDetails = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab();
+				var scheduleDetails = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab({year: item.data.text});
 				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
 				repertoireTab.add(scheduleDetails);
 			

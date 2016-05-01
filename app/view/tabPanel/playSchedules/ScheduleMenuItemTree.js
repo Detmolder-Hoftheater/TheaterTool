@@ -126,6 +126,7 @@ width: 270,
 	workName: null,
 
 	navButton: null,
+	year: null,
 	
 	initComponent: function () {
 	
@@ -139,7 +140,7 @@ console.log(selected);
 console.log(eOpts);		
 				if (typeof eOpts[0] !== 'undefined') {	
 					me.repertoirePanel.removeAll(true);
-					me.workPanel = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelDetails({workID: eOpts[0].data.werkID});
+					me.workPanel = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelDetails({month: eOpts[0].data.text, year:me.year});
 					me.repertoirePanel.add(me.workPanel);			
 					me.navButton.setText('<b style="color:gray;">'+eOpts[0].data.text+'</b>');
 				}

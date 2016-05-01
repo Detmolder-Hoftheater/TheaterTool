@@ -31,11 +31,12 @@ border: false,
 		split: true
 	},*/
 navButton: null,
+year: null,
 
 	initComponent: function () {
 var me = this;
 
-var navTree = new TheaterTool.view.tabPanel.playSchedules.ScheduleMenuItemTree();
+var navTree = new TheaterTool.view.tabPanel.playSchedules.ScheduleMenuItemTree({year: me.year});
 
 navTree.setRepertoirePanel(me);
 

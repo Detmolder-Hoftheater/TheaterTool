@@ -30,12 +30,15 @@ detailSection_1: null,
 				
 				border: false,
 
-	workID: null,
+	month: null,
+	year: null,
 	
 	
 	initComponent: function () {
 
-	this.detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({workID: this.workID});
+var me = this;
+
+	this.detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({month: me.month, year: me.year});
 
 	this.detailSection_1 = new TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule({workID: this.workID});
 	
