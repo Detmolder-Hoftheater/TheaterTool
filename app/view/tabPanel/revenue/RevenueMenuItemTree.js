@@ -67,7 +67,7 @@ var store = Ext.create('Ext.data.TreeStore', {
 }
 })
 
-Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleMenuItemTree', {
+Ext.define('TheaterTool.view.tabPanel.revenue.RevenueMenuItemTree', {
 	extend: 'Ext.tree.Panel',
 	
 	
@@ -130,11 +130,10 @@ width: 270,
 		
 		this.listeners = {
 			
-			selectionchange: function (selected, eOpts) {	
-	
+			selectionchange: function (selected, eOpts) {			
 				if (typeof eOpts[0] !== 'undefined') {	
 					me.repertoirePanel.removeAll(true);
-					me.workPanel = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelDetails({month: eOpts[0].data.text, year:me.year});
+					me.workPanel = new TheaterTool.view.tabPanel.revenue.RevenuePanelDetails({month: eOpts[0].data.text, year:me.year});
 					me.repertoirePanel.add(me.workPanel);			
 					me.navButton.setText('<b style="color:gray;">'+eOpts[0].data.text+'</b>');
 				}

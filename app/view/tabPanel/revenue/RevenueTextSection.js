@@ -1,7 +1,7 @@
 /**
  * This example illustrates how to use the grouping feature of the Grid.
  */
-Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
+Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
     extend: 'Ext.form.FieldSet',
  
     collapsible: true,
@@ -71,7 +71,7 @@ flex:1,
 
 			Ext.Ajax.request({
            // url: 'data/Output_Exist.xql',
- 			url: 'resources/xql/getSchedule.xql',
+ 			url: 'resources/xql/getRevenue.xql',
             method: 'GET',
             params: {
                 month: me.monthNumber,

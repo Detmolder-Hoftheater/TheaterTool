@@ -112,7 +112,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                 ]*/
             },
 {
-                text: 'Tiefenerschließung',
+                text: 'Tiefenerschloßene Werke',
                 
                 icon: 'resources/images/AddFolder-16.png',
 				children: [
@@ -179,7 +179,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                     	{ leaf:true, text: '1846',
                     	icon: 'resources/images/Calendar-17.png'},
                     	{ leaf:true, text: '1847',
-                    	icon: 'resources/images/Calendar-17.png'},
+                    	icon: 'resources/images/Calendar-17.png'}/*,
                     	{ leaf:true, text: '1848',
                     	icon: 'resources/images/Calendar-17.png'},
                     	{ leaf:true, text: '1849',
@@ -235,7 +235,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                     	{ leaf:true, text: '1874',
                     	icon: 'resources/images/Calendar-17.png'},
                     	{ leaf:true, text: '1875',
-                    	icon: 'resources/images/Calendar-17.png'}
+                    	icon: 'resources/images/Calendar-17.png'}*/
                 	]
 
 
@@ -302,8 +302,115 @@ var store = Ext.create('Ext.data.TreeStore', {
                     icon: 'resources/images/MoneyTransfer-17.png'
 
 },
-                    { leaf:true, text: 'Einnahmen',
-                    icon: 'resources/images/MoneyBox-17.png'
+                    { text: 'Einnahmen',
+                    icon: 'resources/images/MoneyBox-17.png',
+children: [
+                    	{ leaf:true, text: '1825',
+                    	icon: 'resources/images/MoneyBox-17.png'
+						},
+                    	{ leaf:true, text: '1826',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                   		{ leaf:true, text: '1827',
+                    	icon: 'resources/images/MoneyBox-17.png' },
+                    	{ leaf:true, text: '1828',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1829',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1830',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1831',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1832',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1833',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1834',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1835',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1836',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1837',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1838',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1839',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1840',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1841',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1842',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1843',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1844',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1845',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1846',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1847',
+                    	icon: 'resources/images/MoneyBox-17.png'}/*,
+                    	{ leaf:true, text: '1848',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1849',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1850',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1851',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1852',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1853',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1854',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1855',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1856',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1857',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1858',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1859',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1860',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1861',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1862',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1863',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1864',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1865',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1866',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1867',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1868',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1869',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1870',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1871',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1872',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1873',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1874',
+                    	icon: 'resources/images/MoneyBox-17.png'},
+                    	{ leaf:true, text: '1875',
+                    	icon: 'resources/images/MoneyBox-17.png'}*/
+                	]
+
+
 },
                     { leaf:true, text: 'Gagenbücher',
                     icon: 'resources/images/Gift-17.png'
@@ -560,11 +667,14 @@ this.listeners = {
 					});
 				
 				}
-			else if(item.data.text === 'Einnahmen'){
+			else if(item.parentNode.data.text === 'Einnahmen'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Einnahmen</font>',
+						title: '<font style="color:gray;">Einnahmen: '+item.data.text+'</font>',
 						icon: 'resources/images/MoneyBox-17.png'
 					});
+
+				var revenueDetails = new TheaterTool.view.tabPanel.revenue.RevenuePanelInTab({year: item.data.text});
+				repertoireTab.add(revenueDetails);
 				
 				}
 			else if(item.data.text === 'Gagenbücher'){

@@ -80,7 +80,12 @@ Ext.define('TheaterTool.Application', {
 'tabPanel.playSchedules.ScheduleMenuItemTree',
 'tabPanel.playSchedules.SchedulePanelDetails',
 'tabPanel.playSchedules.ScheduleTextSection',
-'tabPanel.playSchedules.XMLSectionSchedule'
+'tabPanel.playSchedules.XMLSectionSchedule',
+'tabPanel.revenue.XMLSectionRevenue',
+'tabPanel.revenue.RevenueTextSection',
+'tabPanel.revenue.RevenuePanelDetails',
+'tabPanel.revenue.RevenueMenuItemTree',
+'tabPanel.revenue.RevenuePanelInTab'
 	],
 	
 	models:[

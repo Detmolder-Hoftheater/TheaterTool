@@ -37,7 +37,7 @@ this.searchField = this.createTextField('Suche', 'Suche');
 			items:[ {
 
 				xtype: 'label',
-        		html: '<b style="color:#CC9FA7;">la vita di teatro</b>',
+        		html: '<b style="color:#CC9FA7;">Theatre Tool</b>',
         		margin: '0 10 0 10'
 
 			},

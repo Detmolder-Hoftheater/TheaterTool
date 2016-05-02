@@ -7,6 +7,12 @@ Ext.define('TheaterTool.view.main.InformationDialog', {
 	border: false,
 	
 	autoScroll: true,
+
+layout: {
+					type: 'vbox',
+					pack: 'start',
+					align: 'stretch'
+				},
 	
 	defaults: {
 		bodyPadding: 10
@@ -16,14 +22,26 @@ Ext.define('TheaterTool.view.main.InformationDialog', {
 	
 	initComponent: function () {
 	
-		this.text = '<p>Die Software la vita di teatro befindet sich noch in der Entwicklungsphase.</p>'+ 
-			'<p>Momentan werden die Text- und XML-Ansichten im Bereich “Details”'+ 
-			'<br>und die referenzierten Personendaten in den Bereichen “Werke” und “Quellen” '+ 
-			'<br>mit Informationen gefüllt.</p>'+ 
-			'<p>Die Darstellung der Informationstexte ist noch im Entwurfsstadium.</p>'+
-			'<p>Einzelne Werke können mit einem Doppelklick'+ 
-			'<br>auf die “Repertoire”-Items oder auf die "Tiefenerschließung"-Items'+
-			'<br>im Navigationsbaum angezeigt werden.</p>';
+		this.text = '<p>Die Software „Theatre Tool“ befindet sich erst in der Entwicklungsphase.</p><p></p>'+
+
+'<p>In einem ersten Schritt werden damit die erarbeiteten Informationen, die</p>'+ 
+'<p>als XML-Daten abgelegt und als solche weiterverwendbar sein sollen,</p>'+ 
+'<p>innerhalb einer katalogartigen Struktur zugänglich gemacht, visualisiert</p>'+ 
+'<p>und mit einander verknüpft. Andere, benutzerfreundlichere Zugangsformen</p>'+ 
+'<p>zu den Daten und Abbildungen sind erst nach Umsetzung dieser</p>'+ 
+'<p>Basisfunktionen vorgesehen.</p><p></p>'+ 
+'<p>Gegenwärtig werden die Text- und XML-Ansichten im Bereich des</p>'+ 
+'<p>Repertoires (Einzelansichten der Werke und Quellen) sowie die</p>'+ 
+'<p>referenzierten Personendaten bearbeitet und die entsprechenden Daten</p>'+ 
+'<p>sukzessive integriert.</p><p></p>'+ 
+
+'<p>Da sich die Darstellung der Texte noch in einem Entwurfsstadium</p>'+ 
+'<p>befindet, haben Sie bitte Verständnis dafür, dass erst Teile der</p>'+ 
+'<p>Informationen angezeigt werden können.</p><p></p>'+ 
+
+'<p>Einzelne Werke können durch einen Doppelklick auf die Items unter</p>'+ 
+'<p>„Repertoire“ bzw. auf die unter „Tiefenerschließung“ aufgelisteten Werke</p>'+ 
+'<p>im Navigationsbaum aufgerufen werden.</p><p></p>';
 		
 		this.items =[ {
 			html: this.text

@@ -1,4 +1,4 @@
-Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
+Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
 	extend: 'Ext.panel.Panel',
 
  /*xtype: 'layout-border',
@@ -32,7 +32,7 @@ year: null,
 	initComponent: function () {
 var me = this;
 
-var navTree = new TheaterTool.view.tabPanel.playSchedules.ScheduleMenuItemTree({year: me.year});
+var navTree = new TheaterTool.view.tabPanel.revenue.RevenueMenuItemTree({year: me.year});
 
 navTree.setRepertoirePanel(me);
 

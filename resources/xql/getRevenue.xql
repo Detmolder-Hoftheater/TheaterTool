@@ -12,13 +12,13 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 let $month := request:get-parameter('month', '')
 let $year := request:get-parameter('year', '')
 
-let $uri := concat('/db/apps/theater-data/spielplaene/', $year, '/', $year, '_', $month, '.xml')
+let $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/', $year, '_', $month, '.xml')
 
 let $file := doc($uri)
 
 let $headName := $file//tei:table/tei:head[not(@type)]
 
-let $schedule := if(contains($headName, 'Spiel'))then($file)else()
+let $revenue := if(contains($headName, 'Einnahme'))then($file)else()
 
 (:let $type := request:get-parameter('type', 'work')
 let $docUri := if(contains($uri, '#')) then(substring-before($uri, '#')) else($uri)
@@ -32,5 +32,5 @@ let $lang := request:get-parameter('lang', 'de'):)
 let $base := 'xmldb:exist:///db/apps/TheaterTool/resources/xslt/'
 
 return  
-        transform:transform($schedule, concat($base, 'test.xsl'), <parameters></parameters>)
+        transform:transform($revenue, concat($base, 'revenue.xsl'), <parameters></parameters>)
    
