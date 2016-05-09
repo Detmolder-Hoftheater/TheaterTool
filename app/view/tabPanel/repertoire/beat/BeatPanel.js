@@ -29,18 +29,17 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 
 	
 	initComponent: function () {
-
-
-
 		
-/*	this.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile();
+		//console.log(this.selectedWork);
+var selFolder = null;
+if(this.selectedWork === 'Aschenbrödel'){
+	selFolder = 'aschenbroedel';
+}
+else if(this.selectedWork === 'Der Bettelstudent'){
+	selFolder = 'bettelstudent';
+}
+var folderForEO = selFolder + '/';
 
-this.items =[ {
-			xtype: 'leafletmapview',
-			flex: 1,
-			width: '100%'
-		}]
-*/
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView({selectedWork: this.selectedWork});
 //Ext.create('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {flex: 1, width: '100%'});
 
@@ -80,7 +79,7 @@ this.navTree.setPageSpinner(pageSpinner);
     xtype: 'component',
     autoEl: {
         tag: 'a',
-        href: 'http://hoftheater-detmold.de/aschenbroedel/',
+        href: 'http://hoftheater-detmold.de/'+folderForEO,
         html: 'Vertaktung mit Edirom Online',
 		target: "_blank"
     }
@@ -100,14 +99,6 @@ this.navTree.setPageSpinner(pageSpinner);
     ];
 
 		var app = TheaterTool.getApplication();
-		console.log(this.selectedWork);
-var selFolder = null;
-if(this.selectedWork === 'Aschenbrödel'){
-	selFolder = 'aschenbroedel';
-}
-else if(this.selectedWork === 'Der Bettelstudent'){
-	selFolder = 'bettelstudent';
-}
 
 		var navTreeStore = app.creteStoreForFacsimileNavigation();
 		navTreeStore.getProxy().extraParams.selectedWork = selFolder;					

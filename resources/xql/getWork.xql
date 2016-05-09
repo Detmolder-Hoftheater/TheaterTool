@@ -36,6 +36,17 @@ let $strings := for $elem in $fileNames
 			else()
  
 		let $source := $file1//mei:relation[@rel ="hasEmbodiment"]/@target
+
+		(:let $path_1 := 'xmldb:exist:///apps/theater-data/expressions/H020149_expr1.xml'
+		let $file_1 := doc($path_1)
+		let $source_1 := $file_1//mei:relation[@rel ="hasEmbodiment"][1]/@target
+
+		let $source_end := if(contains($fileName1, 'Der Bettelstudent oder Das Donnerwetter'))
+		then(
+			$source_1
+		)else($source):)
+
+
 		let $sourceFileName := tokenize($source, "#")[last()]
 		let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
 		let $fileSource := doc($path2)
