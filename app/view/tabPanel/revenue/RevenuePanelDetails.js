@@ -43,12 +43,12 @@ var me = this;
 	this.detailSection_1 = new TheaterTool.view.tabPanel.revenue.XMLSectionRevenue({workID: this.workID});
 	
     this.items = [
-			{
+			/*{
 				xtype: 'label',
         		html: '<b style="color:gray;">Details</b>',
         		margin: '0 0 10 0'
 
-			},
+			},*/
 			this.detailSection,
 
 			{

@@ -268,8 +268,7 @@ return this.personenForWorkDataStore;
 
 
 creteStoreForFacsimileNavigation: function(){
-console.log('get F');
-console.log(selectedWork);
+
 	var workDataStore = Ext.create('Ext.data.TreeStore', {
 			model: 'TheaterTool.model.FacsimileNavigation',
 			extraParams: {

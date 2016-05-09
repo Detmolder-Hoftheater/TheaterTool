@@ -4,10 +4,10 @@
 Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     extend: 'Ext.form.FieldSet',
  
-    collapsible: true,
-   collapsed: true,
+   // collapsible: true,
+   //collapsed: true,
 
-    title: '<b style="color:gray;">Text</b>',
+    //title: '<b style="color:gray;">Text</b>',
 
 flex:1,
 
@@ -24,11 +24,73 @@ flex:1,
     
     me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel();
 	
+		if(me.month === 'Januar'){
+				me.monthNumber = '01';
+			}
+			else if(me.month === 'Februar'){
+				me.monthNumber = '02';
+			}
+			else if(me.month === 'März'){
+				me.monthNumber = '03';
+			}
+			else if(me.month === 'April'){
+				me.monthNumber = '04';
+			}
+			else if(me.month === 'Mai'){
+				me.monthNumber = '05';
+			}
+			else if(me.month === 'Juni'){
+				me.monthNumber = '06';
+			}
+			else if(me.month === 'Juli'){
+				me.monthNumber = '07';
+			}
+			else if(me.month === 'August'){
+				me.monthNumber = '08';
+			}
+			else if(me.month === 'September'){
+				me.monthNumber = '09';
+			}
+			else if(me.month === 'Oktober'){
+				me.monthNumber = '10';
+			}
+			else if(me.month === 'November'){
+				me.monthNumber = '11';
+			}
+			else if(me.month === 'Dezember'){
+				me.monthNumber = '12';
+			}
+
+			Ext.Ajax.request({
+           // url: 'data/Output_Exist.xql',
+ 			url: 'resources/xql/getSchedule.xql',
+            method: 'GET',
+            params: {
+                month: me.monthNumber,
+				year: me.year
+              
+            },
+            success: function(response){
+				//var idtemp = me.repertoireTab.getTextTab().id;
+
+				//$('#'+me.id).html(response.responseText);
+				
+ 				me.repertoireTab.setTextInfo(response.responseText);
+				//me.repertoireTab.setTextInfo1(response.responseText);
+			//$('#'+me.id+'-innerCt').html(response.responseText);
+
+     		}
+         
+        });
+
+
 	me.items =[
 		this.repertoireTab
 		],
 
- 	me.listeners = {
+
+
+ 	/*me.listeners = {
         	expand: function (p, eOpts) {
         	console.log("expand");
 
@@ -94,7 +156,7 @@ flex:1,
          
        }
     },
-    
+    */
         me.callParent();
         
         }

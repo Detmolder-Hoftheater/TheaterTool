@@ -40,6 +40,7 @@ me.navButton = me.createCEButton(navTree);
 
 navTree.setNavButton(me.navButton);
 
+
  	me.tbar = {
 		/*layout: {
             pack: 'center'
@@ -127,9 +128,21 @@ createCEButton: function (navTree) {
 			xtype: 'button',
 			 text: '<b style="color:gray;">Monat<b>',
 //flex: 1,
-autoRender: true,
+//autoRender: true,
+/*handler: function () {
+        ceButton.showMenu();
+    },*/
+
+/*listeners: {
+            afterrender: function (obj) {
+               //if(singleParamDynamicQuery &&docTypeCodeDynamciQuery.length>0){  
+                    ceButton.showMenu();
+               //}
+            }
+        },*/
 						//width: 130,
 						menu:[	
+
 							navTree
 
 							
