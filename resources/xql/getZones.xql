@@ -14,8 +14,10 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 
 declare variable $fileName := request:get-parameter('fileName', '');
 declare variable $pageToLoad := request:get-parameter('pageNr', '');
+declare variable $selectedWork := request:get-parameter('selectedWork', '');
+declare variable $workFolder := if(contains($selectedWork, 'Aschenbrödel'))then('aschenbroedel/')else(if(contains($selectedWork, 'Bettelstudent'))then('bettelstudent/')else());
 
-declare variable $path := concat('xmldb:exist:///apps/theater-data/vertaktung/aschenbroedel/', $fileName, '.xml');
+declare variable $path := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder, $fileName, '.xml');
 
 
 (:declare variable $path := 'xmldb:exist:///apps/theater-data/vertaktung/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586.xml';

@@ -140,7 +140,7 @@ pageNumber: null,
 		}
 	},
 
-	loadFacsimile: function(voiceID, number){
+	loadFacsimile: function(voiceID, number, selectedWork){
 var me = this;
 Ext.Ajax.request({
 				 url: 'resources/xql/getZones.xql',
@@ -149,7 +149,8 @@ Ext.Ajax.request({
 				method: 'GET',
 				params: {
 					fileName: voiceID,
-					pageNr: number
+					pageNr: number,
+					selectedWork: selectedWork
 				},
 				success: function (result) {
 					
@@ -193,7 +194,8 @@ Ext.Ajax.request({
 					var fields = page.path.split('.');
 					var name = fields[0];
 					//leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
-					leaflet_path = "http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/" + name;
+					leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/" + name;
+/*"http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/" + name;*/
 					
 					 //var path = 'http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/edition-HT_Isouard/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586/MUS-N_120_BASS-VIOLONCELLO_001/{z}-{x}-{y}.jpg';
 

@@ -20,6 +20,8 @@ pageSpinner: null,
 
 leafletFacsimile: null,
 
+selectedWork: null,
+
 	
 	/**
 	 * Set title for view and create leaflet component.
@@ -36,7 +38,8 @@ leafletFacsimile: null,
 		me.leafletFacsimile = new TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile({margin: '0 0 5 0'})
 
 me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
-			leafletFacsimile : me.leafletFacsimile
+			leafletFacsimile : me.leafletFacsimile,
+			selectedWork: me.selectedWork
 		});	
 //me.pageSpinner.setStore(25);
 
@@ -94,6 +97,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 	pageID: null,
 
 	leafletFacsimile: null,
+
+	selectedWork: null,
 	
 	initComponent: function () {
 		
@@ -107,7 +112,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 			
 
 			this.leafletFacsimile.clear();
-			this.leafletFacsimile.loadFacsimile(this.pageID, newValue);
+			this.leafletFacsimile.loadFacsimile(this.pageID, newValue, this.selectedWork);
 
 			this.setPage(newValue);
 
@@ -120,7 +125,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 		if (this.store.indexOf(newValue) != -1) {
 
 this.leafletFacsimile.clear();
-			this.leafletFacsimile.loadFacsimile(this.pageID, newValue);
+			this.leafletFacsimile.loadFacsimile(this.pageID, newValue, this.selectedWork);
 			this.setPage(newValue);
 			
 		}
@@ -168,7 +173,7 @@ this.leafletFacsimile.clear();
             		if (e.getKey() == 13) {
 
 						me.leafletFacsimile.clear();
-						me.leafletFacsimile.loadFacsimile(me.pageID, combo.getValue());
+						me.leafletFacsimile.loadFacsimile(me.pageID, combo.getValue(), this.selectedWork);
             			me.setPage(combo.getValue());
 						
             		}

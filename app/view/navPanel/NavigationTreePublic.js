@@ -179,63 +179,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                     	{ leaf:true, text: '1846',
                     	icon: 'resources/images/Calendar-17.png'},
                     	{ leaf:true, text: '1847',
-                    	icon: 'resources/images/Calendar-17.png'}/*,
-                    	{ leaf:true, text: '1848',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1849',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1850',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1851',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1852',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1853',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1854',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1855',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1856',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1857',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1858',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1859',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1860',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1861',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1862',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1863',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1864',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1865',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1866',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1867',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1868',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1869',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1870',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1871',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1872',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1873',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1874',
-                    	icon: 'resources/images/Calendar-17.png'},
-                    	{ leaf:true, text: '1875',
-                    	icon: 'resources/images/Calendar-17.png'}*/
+                    	icon: 'resources/images/Calendar-17.png'}
                 	]
 
 
@@ -351,63 +295,7 @@ children: [
                     	{ leaf:true, text: '1846',
                     	icon: 'resources/images/MoneyBox-17.png'},
                     	{ leaf:true, text: '1847',
-                    	icon: 'resources/images/MoneyBox-17.png'}/*,
-                    	{ leaf:true, text: '1848',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1849',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1850',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1851',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1852',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1853',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1854',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1855',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1856',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1857',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1858',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1859',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1860',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1861',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1862',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1863',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1864',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1865',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1866',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1867',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1868',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1869',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1870',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1871',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1872',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1873',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1874',
-                    	icon: 'resources/images/MoneyBox-17.png'},
-                    	{ leaf:true, text: '1875',
-                    	icon: 'resources/images/MoneyBox-17.png'}*/
+                    	icon: 'resources/images/MoneyBox-17.png'}
                 	]
 
 
@@ -484,7 +372,7 @@ this.listeners = {
 						title: '<font style="color:gray;">Aschenbrödel</font>',
 						icon: 'resources/images/BookBlau-16.png'
 					});
-				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab();
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: 'Aschenbrödel'});
 				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
 				repertoireTab.add(repertoireDetails);		
 				}
@@ -494,7 +382,8 @@ this.listeners = {
 						icon: 'resources/images/BookBlau-16.png'
 					});
 				
-				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Des Teufels Anteil'});
+				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Des Teufels Anteil'});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: 'Des Teufels Anteil'});
 				repertoireTab.add(repertoireDetails);		
 				}
 				else if(item.data.text === 'Der Bettelstudent'){					
@@ -502,8 +391,8 @@ this.listeners = {
 						title: '<font style="color:gray;">Der Bettelstudent</font>',
 						icon: 'resources/images/BookBlau-16.png'
 					});
-				
-				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: 'Der Bettelstudent'});
+				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
 				repertoireTab.add(repertoireDetails);		
 				}
 				else if(item.data.text === 'A-B-C'){					

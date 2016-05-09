@@ -12,7 +12,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 	navTree: null,	
 
 	layout: {
-					type: 'hbox',
+					type: 'vbox',
 					pack: 'start',
 					align: 'stretch'
 				},
@@ -24,6 +24,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 				},*/
 				
 				border: false,
+
+	selectedWork: null,
 
 	
 	initComponent: function () {
@@ -39,11 +41,11 @@ this.items =[ {
 			width: '100%'
 		}]
 */
-	this.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView();
+	this.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView({selectedWork: this.selectedWork});
 //Ext.create('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {flex: 1, width: '100%'});
 
 
-this.navTree = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileNavTree();
+this.navTree = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileNavTree({selectedWork: this.selectedWork});
 
 this.xmlSection = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSectionXML();
 
@@ -55,17 +57,32 @@ this.navTree.setPageSpinner(pageSpinner);
 	
     this.items = [
 
-       
-			this.detailSection,
-this.navTree
-/*{
+		{				
+				layout: {
+					type: 'hbox',
+					pack: 'start',
+					align: 'stretch'
+				},
+				
+				bodyPadding: 10,
+				
+				defaults: {
+					frame: true,
+					bodyPadding: 10
+				},
+				
+				border: false,
+				items: [this.detailSection,
+				this.navTree]
+},
+
+{
     xtype: 'component',
     autoEl: {
         tag: 'a',
-       // href: 'http://www.example.com/',
-        html: '<u style="color:blue;">Vertaktung mit Edirom Online</u>'
-
-
+        href: 'http://hoftheater-detmold.de/aschenbroedel/',
+        html: 'Vertaktung mit Edirom Online',
+		target: "_blank"
     }
 },
 
@@ -75,18 +92,29 @@ this.navTree
 				margin: '15 0 -11 0'
 			},
 
-			this.xmlSection*/
+			this.xmlSection
 
 		
 			
       
     ];
 
-var app = TheaterTool.getApplication();
-		
-								var navTreeStore = app.creteStoreForFacsimileNavigation();
-								this.navTree.getView().bindStore(navTreeStore);
-navTreeStore.sort('name');
+		var app = TheaterTool.getApplication();
+		console.log(this.selectedWork);
+var selFolder = null;
+if(this.selectedWork === 'Aschenbrödel'){
+	selFolder = 'aschenbroedel';
+}
+else if(this.selectedWork === 'Der Bettelstudent'){
+	selFolder = 'bettelstudent';
+}
+
+		var navTreeStore = app.creteStoreForFacsimileNavigation();
+		navTreeStore.getProxy().extraParams.selectedWork = selFolder;					
+		navTreeStore.load();
+
+		this.navTree.getView().bindStore(navTreeStore);
+		navTreeStore.sort('name');
     	this.callParent();
 	}
 });

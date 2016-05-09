@@ -56,6 +56,8 @@ bodyborder: false,
 bodyPadding: 3,
 
 pageNumber: null,
+
+selectedWork: null,
     
     initComponent: function() {
 
@@ -70,7 +72,7 @@ console.log(index);
 console.log(e);
 console.log(eOpts);
 me.leafletFacsimile.clear();
-me.leafletFacsimile.loadFacsimile(item.data.xmlid, 1);
+me.leafletFacsimile.loadFacsimile(item.data.xmlid, 1, me.selectedWork);
 var number = me.leafletFacsimile.getPageNumber();
 me.pageSpinner.setStore(number);
 me.pageSpinner.setPage(1);

@@ -53,6 +53,8 @@ width: 270,
 	beatPanel: null,
 	workName: null,
 
+	selectedWork: null,
+
 	navButton: null,
 	
 	initComponent: function () {
@@ -100,7 +102,7 @@ width: 270,
 						me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> RISM</b>');	
 					}
 					else if(eOpts[0].data.name === 'Facsimile'){
-						me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel();
+						me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel({selectedWork: me.selectedWork});
 						me.repertoirePanel.add(me.beatPanel);
 						me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Facsimile</b>');
 					}
@@ -157,6 +159,10 @@ width: 270,
 	
 		this.navButton = navButton;
 		
+	},
+
+	setWorkSelection: function(selectedWork){
+		this.selectedWork = selectedWork;
 	},
 
 	createColumn: function (headerName, path) {

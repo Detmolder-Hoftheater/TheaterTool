@@ -32,6 +32,8 @@ border: false,
 	},*/
 navButton: null,
 
+selection: null,
+
 	initComponent: function () {
 var me = this;
 
@@ -39,13 +41,14 @@ var navTree = new TheaterTool.view.tabPanel.repertoire.RepertoireMenuItemTree();
 
 								var app = TheaterTool.getApplication();
 		
-								var navTreeStore = app.handleStoreForWorks('Aschenbrödel');
+								var navTreeStore = app.handleStoreForWorks(me.selection);
 								navTree.getView().bindStore(navTreeStore);
 				navTree.setRepertoirePanel(me);
 
 me.navButton = me.createCEButton(navTree);
 
 navTree.setNavButton(me.navButton);
+navTree.setWorkSelection(me.selection);
 
  	me.tbar = {
 		/*layout: {

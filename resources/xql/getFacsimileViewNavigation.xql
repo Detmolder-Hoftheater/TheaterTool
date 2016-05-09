@@ -12,7 +12,7 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";:)
 declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";
 
-declare variable $selection1 := request:get-parameter('workName', '');
+(:declare variable $selection1 := request:get-parameter('selectedWork', '');:)
 
 
 (:declare variable $path := 'xmldb:exist:///apps/theater-data/vertaktung/aschenbroedel/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586.xml';
@@ -20,8 +20,11 @@ declare variable $selection1 := request:get-parameter('workName', '');
 declare variable $file := doc($path);
 declare variable $fileNames := $file//mei:sourceDesc//mei:title;:)
 
+declare variable $selectedWork := request:get-parameter('selectedWork', '');
+(:declare variable $workFolder := if(contains($selectedWork, 'Aschenbrödel'))then('aschenbroedel/')else('bettelstudent/');:)
+declare variable $path := concat('xmldb:exist:///apps/theater-data/vertaktung/', $selectedWork, '/');
 
-declare variable $path := 'xmldb:exist:///apps/theater-data/vertaktung/aschenbroedel/';
+(:declare variable $path := 'xmldb:exist:///apps/theater-data/vertaktung/aschenbroedel/';:)
 declare variable $file := collection($path);
 
 (:declare variable $fileNames := $file//mei:sourceDesc//mei:title;
