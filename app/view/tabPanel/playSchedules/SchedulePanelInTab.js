@@ -46,6 +46,11 @@ var app = TheaterTool.getApplication();
 navTree.setRepertoirePanel(me);
 
 me.navButton = me.createCEButton(navTree);
+//me.navButton.getMenu().show(me.navButton.menu, 'tr-bl?');
+//(me.navButton, 'tl-bl');
+//show(me.el);
+//show(me.navButton.el);
+
 
 navTree.setNavButton(me.navButton);
 
@@ -134,8 +139,9 @@ createCEButton: function (navTree) {
 		
 		var me = this;
 		var ceButton = Ext.create('Ext.button.Button', {
-			xtype: 'button',
+			//xtype: 'button',
 			 text: '<b style="color:gray;">Monat<b>',
+menuAlign: 'tr-bl?',
 //flex: 1,
 //autoRender: true,
 /*handler: function () {
@@ -150,12 +156,20 @@ createCEButton: function (navTree) {
             }
         },*/
 						//width: 130,
-						menu:[	
+
+menu: Ext.create('Ext.menu.Menu', {
+   
+    items: [navTree]
+})
+
+
+
+						/*menu:[	
 
 							navTree
 
 							
-						]
+						]*/
                 
 		});
 	

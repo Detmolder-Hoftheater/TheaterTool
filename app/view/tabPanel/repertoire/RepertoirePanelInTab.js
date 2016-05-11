@@ -134,10 +134,11 @@ createCEButton: function (navTree) {
 		
 		var me = this;
 		var ceButton = Ext.create('Ext.button.Button', {
-			xtype: 'button',
-			 text: '<b style="color:gray;">Werk und Quellen<b>',
+			//xtype: 'button',
+			 text: '<b style="color:gray;">Werk -> Quelle -> RISM/Facsimile/Incipits</b>',
+menuAlign: 'tr-bl?',
 //flex: 1,
-autoRender: true,
+//autoRender: true,
 						//width: 130,
 						menu:[	
 							navTree

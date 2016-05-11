@@ -23,6 +23,7 @@ reserveScrollbar: true,
 bodyPadding: 5,
 
 header: false,
+hideHeaders: true,
 	
 	title: '<b style="color:gray;">Werke</b>',
 	
@@ -31,8 +32,8 @@ header: false,
      //       flex: 3.3,
             border: true,
 
-height: 200,
-width: 270,
+flex:1,
+width: 200,
    /* style: {
       borderRight: 'px solid whote'
      // borderLeft: '3px solid #FFF',
@@ -119,11 +120,13 @@ width: 270,
 		
 		this.columns =[ {
 			xtype: 'treecolumn',
-			header: '<b style="color:gray;">Werk -> Quelle -> Facsimile/Incipits/RISM</b>',
+			//header: '<b style="color:gray;">Werk -> Quelle -> Facsimile/Incipits/RISM</b>',
 			flex: 1,
 			//sortable: true,
 			menuDisabled: true,
 			dataIndex: 'name'
+
+
 			
 		}
 
