@@ -12,13 +12,13 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 let $month := request:get-parameter('month', '')
 let $year := request:get-parameter('year', '')
 
-let $uri := concat('/db/apps/theater-data/spielplaene/', $year, '/', $year, '_', $month, '.xml')
+let $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/', $year, '_', $month, '.xml')
 
 let $file := doc($uri)
 
-let $headName := $file//tei:table/tei:head[not(@type)]
+let $headName := $file//tei:profileDesc//tei:keywords/tei:term['Spielplan']
 
-let $schedule := if(contains($headName, 'Spiel'))then($file)else()
+let $schedule := if($headName != '')then($file)else()
 
 (:let $type := request:get-parameter('type', 'work')
 let $docUri := if(contains($uri, '#')) then(substring-before($uri, '#')) else($uri)

@@ -1,4 +1,4 @@
-var store = Ext.create('Ext.data.TreeStore', {
+/*var store = Ext.create('Ext.data.TreeStore', {
 
  root: {
         text: 'Start',
@@ -65,11 +65,16 @@ var store = Ext.create('Ext.data.TreeStore', {
             }
 ]
 }
-})
+})*/
 
 Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleMenuItemTree', {
 	extend: 'Ext.tree.Panel',
-	
+	requires:[
+	/*'Ext.data.*',
+	'Ext.grid.*',*/
+	'Ext.tree.*',
+	'TheaterTool.model.MonthNumber'
+	],
 	
 	
 	//reserveScrollbar: true,
@@ -82,7 +87,7 @@ reserveScrollbar: true,
 	
 	useArrows: true,
 	rootVisible: false,
-store: store,
+//store: store,
 //lines: false,
 //rowLines: true,
 //columnLines: true,
@@ -90,6 +95,8 @@ store: store,
 bodyPadding: 5,
 
 header: false,
+
+hideHeaders: true,
 	
 	//title: '<b style="color:gray;">Werke</b>',
 	
@@ -98,8 +105,9 @@ header: false,
      //       flex: 3.3,
             border: true,
 
-height: 200,
-width: 270,
+//height: 200,
+flex:1,
+width: 200,
    /* style: {
       borderRight: 'px solid whote'
      // borderLeft: '3px solid #FFF',
@@ -131,21 +139,34 @@ width: 270,
 		this.listeners = {
 			
 			selectionchange: function (selected, eOpts) {	
-	
 				if (typeof eOpts[0] !== 'undefined') {	
 					me.repertoirePanel.removeAll(true);
-					me.workPanel = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelDetails({month: eOpts[0].data.text, year:me.year});
+					me.workPanel = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelDetails({month: eOpts[0].data.name, year:me.year});
 					me.repertoirePanel.add(me.workPanel);			
-					me.navButton.setText('<b style="color:gray;">'+eOpts[0].data.text+'</b>');
+					me.navButton.setText('<b style="color:gray;">'+eOpts[0].data.name+'</b>');
 				}
 			}
 		};
-	
 
-  this.items = [
+/*this.columns =[ {
+			xtype: 'treecolumn',
+			//header: '<b style="color:gray;">Werk -> Quelle -> Facsimile/Incipits/RISM</b>',
+			flex: 1,
+			//sortable: true,
+			menuDisabled: true,
+			dataIndex: 'name'
+
+			
+		}];*/
+
+
+  this.columns = [
             {
-               
-                useArrows: true
+               //xtype: 'treecolumn',
+                useArrows: true,
+				dataIndex: 'name',
+				flex: 1,
+				menuDisabled: true
             }
         ];
 

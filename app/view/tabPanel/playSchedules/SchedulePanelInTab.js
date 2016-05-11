@@ -34,6 +34,15 @@ var me = this;
 
 var navTree = new TheaterTool.view.tabPanel.playSchedules.ScheduleMenuItemTree({year: me.year});
 
+var app = TheaterTool.getApplication();
+		
+								var store = app.creteStoreForComboMonth();
+			store.getProxy().extraParams.selectedYear = me.year;
+			store.load();
+								navTree.getView().bindStore(store);
+	
+
+
 navTree.setRepertoirePanel(me);
 
 me.navButton = me.createCEButton(navTree);

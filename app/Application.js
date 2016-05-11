@@ -93,7 +93,8 @@ Ext.define('TheaterTool.Application', {
 	'Plan',
 	'Person',
 	'Source',
-	'FacsimileNavigation'
+	'FacsimileNavigation',
+	'MonthNumber'
 	],
 	
 	stores:[
@@ -268,7 +269,6 @@ return this.personenForWorkDataStore;
 
 
 creteStoreForFacsimileNavigation: function(){
-
 	var workDataStore = Ext.create('Ext.data.TreeStore', {
 			model: 'TheaterTool.model.FacsimileNavigation',
 			extraParams: {
@@ -281,7 +281,22 @@ creteStoreForFacsimileNavigation: function(){
 			},
 			autoLoad: false
 		});
-//workDataStore.load();
+return workDataStore;
+},
+
+creteStoreForComboMonth: function(){
+	var workDataStore = Ext.create('Ext.data.TreeStore', {
+			model: 'TheaterTool.model.MonthNumber',
+			extraParams: {
+				selectedYear: ''
+			},
+			proxy: {
+				type: 'ajax',
+				url: 'resources/xql/getMonthsForSelectedYear.xql'				
+				//url: 'data/getFacsimileViewNavigation.xql'
+			},
+			autoLoad: false
+		});
 return workDataStore;
 },
 
