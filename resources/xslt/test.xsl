@@ -4,7 +4,7 @@
 		<h3 style="text-align:center">
 			<xsl:value-of select="tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/tei:date"/>
 		</h3>
-		<table border="1">
+		<table BORDER="1" CELLPADDING="0" CELLSPACING="0" style="width:100%">
 			<xsl:for-each select="tei:TEI/tei:text/tei:body/tei:table/tei:row">
 				<tr>
 					<xsl:for-each select="tei:cell">

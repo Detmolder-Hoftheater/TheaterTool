@@ -1,75 +1,11 @@
-var store = Ext.create('Ext.data.TreeStore', {
-
- root: {
-        text: 'Start',
-   		children: [
-            	{
-                text: 'Januar',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true              
-            },
-{
-                text: 'Februar',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true                            
-            },
-{
-                text: 'März',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true                            
-            },
-{
-                text: 'April',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true                            
-            },
-{
-                text: 'Mai',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true                            
-            },
-{
-                text: 'Juni',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true                            
-            },
-{
-                text: 'Juli',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true                            
-            },
-{
-                text: 'August',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true                            
-            },
-{
-                text: 'September',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true                            
-            },
-{
-                text: 'Oktober',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true                            
-            },
-{
-                text: 'November',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true                            
-            },
-{
-                text: 'Dezember',
-                icon: 'resources/images/Calendar-17.png',
-				leaf:true                            
-            }
-]
-}
-})
-
 Ext.define('TheaterTool.view.tabPanel.revenue.RevenueMenuItemTree', {
 	extend: 'Ext.tree.Panel',
-	
+	requires:[
+	/*'Ext.data.*',
+	'Ext.grid.*',*/
+	'Ext.tree.*',
+	'TheaterTool.model.MonthNumber'
+	],
 	
 	
 	//reserveScrollbar: true,
@@ -82,7 +18,7 @@ reserveScrollbar: true,
 	
 	useArrows: true,
 	rootVisible: false,
-store: store,
+
 //lines: false,
 //rowLines: true,
 //columnLines: true,
@@ -90,6 +26,7 @@ store: store,
 bodyPadding: 5,
 
 header: false,
+hideHeaders: true,
 	
 	//title: '<b style="color:gray;">Werke</b>',
 	
@@ -98,8 +35,8 @@ header: false,
      //       flex: 3.3,
             border: true,
 
-height: 200,
-width: 270,
+flex:1,
+width: 200,
    /* style: {
       borderRight: 'px solid whote'
      // borderLeft: '3px solid #FFF',
@@ -133,18 +70,21 @@ width: 270,
 			selectionchange: function (selected, eOpts) {			
 				if (typeof eOpts[0] !== 'undefined') {	
 					me.repertoirePanel.removeAll(true);
-					me.workPanel = new TheaterTool.view.tabPanel.revenue.RevenuePanelDetails({month: eOpts[0].data.text, year:me.year});
+					me.workPanel = new TheaterTool.view.tabPanel.revenue.RevenuePanelDetails({month: eOpts[0].data.name, year:me.year});
 					me.repertoirePanel.add(me.workPanel);			
-					me.navButton.setText('<b style="color:gray;">'+eOpts[0].data.text+'</b>');
+					me.navButton.setText('<b style="color:gray;">'+eOpts[0].data.name+'</b>');
 				}
 			}
 		};
 	
 
-  this.items = [
+  this.columns = [
             {
-               
-                useArrows: true
+               //xtype: 'treecolumn',
+                useArrows: true,
+				dataIndex: 'name',
+				flex: 1,
+				menuDisabled: true
             }
         ];
 

@@ -25,7 +25,7 @@ declare variable $selectedYear := request:get-parameter('selectedYear', '');
 declare variable $path := concat('xmldb:exist:///apps/theater-data/einnahmen/', $selectedYear, '/');
 declare variable $file := collection($path);
 (:declare variable $fileNames := $file//mei:work/@xml:id;:)
-declare variable $headName := $file//tei:profileDesc//tei:keywords/tei:term['Spielplan'];
+declare variable $headName := $file//tei:profileDesc//tei:keywords/tei:term['Einnahmebeleg'];
 declare variable $oneFile := $file//tei:teiHeader;
 
 
@@ -35,13 +35,13 @@ let $strings := for $elem in $oneFile
 
                     let $monthName := if($headName != '')then(
 
-					$elem//tei:fileDesc//tei:title['Spielplan']/tei:date
+					$elem//tei:fileDesc//tei:title['Einnahmebeleg']/tei:date
 					)else()
 
 					let $month := if($headName != '')then(substring-before($monthName, " "))else()
 
-                    return 
-						if($month != '')then(
+                    return
+						if($month != '')then( 
                         concat('{name:"',$month,'",',
 							'leaf:"',"true",'"', 
                             '}')

@@ -300,6 +300,22 @@ creteStoreForComboMonth: function(){
 return workDataStore;
 },
 
+creteStoreForComboMonthRevenue: function(){
+	var workDataStore = Ext.create('Ext.data.TreeStore', {
+			model: 'TheaterTool.model.MonthNumber',
+			extraParams: {
+				selectedYear: ''
+			},
+			proxy: {
+				type: 'ajax',
+				url: 'resources/xql/getRevenueMonth.xql'				
+				//url: 'data/getFacsimileViewNavigation.xql'
+			},
+			autoLoad: false
+		});
+return workDataStore;
+},
+
 	launch: function () {
 		
 		this.renderer = new verovio.toolkit();
