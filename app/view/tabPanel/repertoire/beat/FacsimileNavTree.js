@@ -83,7 +83,7 @@ me.pageSpinner.setPageID(item.data.xmlid);
 
        me.columns =[ {
 			xtype: 'treecolumn',
-			header: '<b style="color:gray;">Stimmen</b>',
+			header: '<b style="color:gray;">Partituren und Stimmen</b>',
 			flex: 1,
 			//sortable: true,
 			menuDisabled: true,

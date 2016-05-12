@@ -72,6 +72,7 @@ Ext.define('TheaterTool.Application', {
 	'navPanel.NavigationTreeTheaterLife',
 	'tabPanel.repertoire.RepertoireNavigationTree',
 	'main.InformationDialog',
+'toolbar.DatenRelationWindow',
 'tabPanel.repertoire.RepertoirePanelInTab',
 'tabPanel.repertoire.RepertoireMenuItemTree',
 'tabPanel.repertoire.beat.FacsimileNavTree',

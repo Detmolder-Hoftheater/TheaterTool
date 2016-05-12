@@ -112,7 +112,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                 ]*/
             },
 {
-                text: 'Tiefenerschloßene Werke',
+                text: 'Tiefenerschlossene Werke',
                 
                 icon: 'resources/images/AddFolder-16.png',
 				children: [

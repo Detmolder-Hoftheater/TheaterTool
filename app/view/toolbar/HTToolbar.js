@@ -41,7 +41,7 @@ this.searchField = this.createTextField('Suche', 'Suche');
         		margin: '0 10 0 10'
 
 			},
-			/*{
+			{
 				xtype: 'tbseparator',
 				style: {
 					borderRight: '1px solid #CC9FA7',
@@ -50,8 +50,22 @@ this.searchField = this.createTextField('Suche', 'Suche');
 					// borderBottom: '1px solid black'
 				}
 			}, 
+{
+				xtype: 'button',
+				text: '<font size = "1"><b style="color:#CC9FA7;">Daten Relationen</b></font>',
+				listeners: {
+					
+					click: function (item, e, eOpts) {
+
+					var win = new TheaterTool.view.toolbar.DatenRelationWindow();
+					win.show();
+					}
+				}
+
+			},	
+
 			
-			this.extendWorkButton, */
+			/*this.extendWorkButton, */
 {
 				xtype: 'tbseparator',
 				style: {
