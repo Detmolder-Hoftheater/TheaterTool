@@ -9,8 +9,8 @@ requires:[
 	'TheaterTool.model.FacsimileNavigation'
 	],
    //xtype: 'basic-trees',
-    width: 200,
-   // flex: 0.23,
+   // width: 200,
+    flex: 0.23,
     autoScroll: true,
   
 	rootVisible: false,
@@ -36,7 +36,7 @@ reserveScrollbar: true,
 	
 	useArrows: true,
 header: false,
-collapsible: true,
+//collapsible: true,
 leafletFacsimile: null,
 	pageSpinner: null,
 

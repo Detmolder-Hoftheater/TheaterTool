@@ -71,9 +71,10 @@ this.navTree.setPageSpinner(pageSpinner);
 				},
 				
 				border: false,
-				items: [this.detailSection,
-				this.navTree]
-},
+				items: [
+					this.navTree,
+					this.detailSection]
+				},
 
 {
     xtype: 'component',

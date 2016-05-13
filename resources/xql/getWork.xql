@@ -35,7 +35,13 @@ let $strings := for $elem in $fileNames
 			then($fileName)
 			else()
  
-		let $source := $file1//mei:relation[@rel ="hasEmbodiment"]/@target
+		let $expression := $file1//mei:relation[@rel ="hasRealization"]/@target
+		let $expressionFileName := tokenize($expression, "#")[last()]
+		let $path_1 := concat('xmldb:exist:///apps/theater-data/expressions/', $expressionFileName, '.xml')
+		let $file_1 := doc($path_1)
+
+		let $source := $file_1//mei:relation[@rel ="hasEmbodiment"]/@target
+		
 
 		(:let $path_1 := 'xmldb:exist:///apps/theater-data/expressions/H020149_expr1.xml'
 		let $file_1 := doc($path_1)
@@ -45,6 +51,8 @@ let $strings := for $elem in $fileNames
 		then(
 			$source_1
 		)else($source):)
+
+		(:let $source := $file1//mei:relation[@rel ="hasEmbodiment"]/@target:)
 
 
 		let $sourceFileName := tokenize($source, "#")[last()]

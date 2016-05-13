@@ -48,8 +48,20 @@ let $strings := for $elem in $fileNames
 								or $selection5 != '' and contains(substring($fileNameFiltered, 1,1), $selection5))
 			then($fileName)
 			else()
+
+
+		let $expression := $file1//mei:relation[@rel ="hasRealization"]/@target
+		let $expressionFileName := tokenize($expression, "#")[last()]
+		let $path_1 := concat('xmldb:exist:///apps/theater-data/expressions/', $expressionFileName, '.xml')
+		let $file_1 := doc($path_1)
+
+
+		let $source := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then($file_1//mei:relation[@rel ="hasEmbodiment"]/@target)
+			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target)
+
  
-		let $source := $file1//mei:relation[@rel ="hasEmbodiment"]/@target
+		(:let $source := $file1//mei:relation[@rel ="hasEmbodiment"]/@target:)
 		let $sourceFileName := tokenize($source, "#")[last()]
 		let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
 		let $fileSource := doc($path2)
