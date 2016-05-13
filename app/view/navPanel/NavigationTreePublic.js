@@ -242,11 +242,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                 icon: 'resources/images/Coins-17.png',
                // expanded: true,
                 children: [
-                    { leaf:true, text: 'Ausgaben',
-                    icon: 'resources/images/MoneyTransfer-17.png'
-
-},
-                    { text: 'Einnahmen',
+ { text: 'Einnahmen',
                     icon: 'resources/images/MoneyBox-17.png',
 children: [
                     	{ leaf:true, text: '1825',
@@ -300,9 +296,64 @@ children: [
 
 
 },
-                    { leaf:true, text: 'Gagenbücher',
+                    { text: 'Gesamte Ausgaben',
+                    icon: 'resources/images/MoneyTransfer-17.png',
+children: [
+                    	{ leaf:true, text: '1825',
+                    	icon: 'resources/images/MoneyTransfer-17.png'
+						},
+                    	{ leaf:true, text: '1826',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                   		{ leaf:true, text: '1827',
+                    	icon: 'resources/images/MoneyTransfer-17.png' },
+                    	{ leaf:true, text: '1828',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1829',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1830',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1831',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1832',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1833',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1834',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1835',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1836',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1837',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1838',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1839',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1840',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1841',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1842',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1843',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1844',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1845',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1846',
+                    	icon: 'resources/images/MoneyTransfer-17.png'},
+                    	{ leaf:true, text: '1847',
+                    	icon: 'resources/images/MoneyTransfer-17.png'}
+                	]
+
+},
+{ leaf:true, text: 'Gagenbücher',
                     icon: 'resources/images/Gift-17.png'
 }
+                   
+                    
                 ]
             }
         ]
@@ -549,11 +600,13 @@ this.listeners = {
 					});
 				
 				}
-			else if(item.data.text === 'Ausgaben'){
+			else if(item.parentNode.data.text === 'Gesamte Ausgaben'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Ausgaben</font>',
+						title: '<font style="color:gray;">Gesamte Ausgaben</font>',
 						icon: 'resources/images/MoneyTransfer-17.png'
 					});
+				var issueDetails = new TheaterTool.view.tabPanel.issue.IssuePanelInTab({year: item.data.text});
+				repertoireTab.add(issueDetails);
 				
 				}
 			else if(item.parentNode.data.text === 'Einnahmen'){

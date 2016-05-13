@@ -86,7 +86,12 @@ Ext.define('TheaterTool.Application', {
 'tabPanel.revenue.RevenueTextSection',
 'tabPanel.revenue.RevenuePanelDetails',
 'tabPanel.revenue.RevenueMenuItemTree',
-'tabPanel.revenue.RevenuePanelInTab'
+'tabPanel.revenue.RevenuePanelInTab',
+'tabPanel.issue.IssuePanelInTab',
+'tabPanel.issue.IssueMenuItemTree',
+'tabPanel.issue.IssuePanelDetails',
+'tabPanel.issue.IssueTextSection',
+'tabPanel.issue.XMLSectionIssue'
 	],
 	
 	models:[
@@ -310,6 +315,22 @@ creteStoreForComboMonthRevenue: function(){
 			proxy: {
 				type: 'ajax',
 				url: 'resources/xql/getRevenueMonth.xql'				
+				//url: 'data/getFacsimileViewNavigation.xql'
+			},
+			autoLoad: false
+		});
+return workDataStore;
+},
+
+creteStoreForComboMonthIssue: function(){
+	var workDataStore = Ext.create('Ext.data.TreeStore', {
+			model: 'TheaterTool.model.IssueName',
+			extraParams: {
+				selectedYear: ''
+			},
+			proxy: {
+				type: 'ajax',
+				url: 'resources/xql/getIssueNames.xql'				
 				//url: 'data/getFacsimileViewNavigation.xql'
 			},
 			autoLoad: false
