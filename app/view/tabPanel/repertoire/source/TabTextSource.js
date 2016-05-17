@@ -41,7 +41,7 @@ var me = this;
 
 Ext.Ajax.request({
            // url: 'data/Output_Exist.xql',
- 			url: 'resources/xql/test_Exist.xql',
+ 			url: 'resources/xql/getSourceText.xql',
             method: 'GET',
             params: {
                 uri: '/db/apps/theater-data/sources/'+this.sourceID+'.xml',

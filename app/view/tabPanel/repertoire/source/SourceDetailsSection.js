@@ -5,7 +5,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
     extend: 'Ext.form.FieldSet',
     
     collapsible: true,
-    collapsed: true,
+    collapsed: false,
    
     title: '<b style="color:gray;">Text</b>',
 
@@ -37,18 +37,32 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
 
 	var me = this;
     
-    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel({sourceID: this.sourceID});
+    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel({sourceID: me.sourceID});
+
+	Ext.Ajax.request({
+           // url: 'data/Output_Exist.xql',
+ 			url: 'resources/xql/getSourceText.xql',
+            method: 'GET',
+            params: {
+               uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
+                type: 'source'
+            },
+            success: function(response){
+ 				me.repertoireTab.setTextInfo(response.responseText);
+     		}
+         
+        });
 	
 	me.items =[
 		me.repertoireTab
 		],
 
-	me.listeners = {
+	/*me.listeners = {
         	expand: function (p, eOpts) {
         	console.log("expand");
 			Ext.Ajax.request({
            // url: 'data/Output_Exist.xql',
- 			url: 'resources/xql/test_Exist.xql',
+ 			url: 'resources/xql/getSourceText.xql',
             method: 'GET',
             params: {
                uri: '/db/apps/theater-data/sources/'+this.sourceID+'.xml',
@@ -62,7 +76,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
 
          
        }
-    },
+    },*/
     
         this.callParent();
         

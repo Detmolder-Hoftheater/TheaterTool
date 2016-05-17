@@ -25,6 +25,15 @@
 				</tr>		
 			</xsl:for-each>				
 		</table>
+
+		<h3 style="text-align:center">
+			Vorhandene Sprache
+		</h3>
+		<p>
+			<xsl:value-of select="mei:work//mei:language"/>
+		</p>
+		
+
 		<h3 style="text-align:center">
 			Geschichte
 		</h3>

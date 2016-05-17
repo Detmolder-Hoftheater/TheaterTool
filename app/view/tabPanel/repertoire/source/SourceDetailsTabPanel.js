@@ -5,7 +5,7 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', {
 	extend: 'Ext.panel.Panel',
 	
- minHeight: 200,
+ minHeight: 300,
    
     resizable: true,
 

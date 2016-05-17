@@ -43,12 +43,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 
 	if(this.overviewSection !== null){
 		this.items = [
-			{
+			/*{
 				xtype: 'label',
         		html: '<b style="color:gray;">Details</b>',
         		margin: '0 0 10 0'
 
-			},
+			},*/
        
 			this.detailSection,
 			{
@@ -60,7 +60,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 			this.overviewSection,			
 			{
 				xtype: 'label',
-        		html: '<b style="color:gray;">Referenzen</b>',
+        		html: '<b style="color:gray;">Sources</b>',
         		margin: '10 0 10 0'
 
 			},
@@ -69,12 +69,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 	}
 else{
     this.items = [
-			{
+			/*{
 				xtype: 'label',
         		html: '<b style="color:gray;">Details</b>',
         		margin: '0 0 10 0'
 
-			},
+			},*/
        
 			this.detailSection,	
 			{
@@ -85,7 +85,7 @@ else{
 			this.detailSection_xml,
 			{
 				xtype: 'label',
-        		html: '<b style="color:gray;">Referenzen</b>',
+        		html: '<b style="color:gray;">Sources</b>',
         		margin: '10 0 10 0'
 
 			},
