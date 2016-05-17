@@ -5,7 +5,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
     extend: 'Ext.form.FieldSet',
  
     collapsible: true,
-   collapsed: true,
+   collapsed: false,
 
     title: '<b style="color:gray;">Text</b>',
 
@@ -41,17 +41,43 @@ flex:1,
 	var me = this;
     
     me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel({workID: this.workID});
+
+
+Ext.Ajax.request({
+           // url: 'data/Output_Exist.xql',
+ 			//url: 'resources/xql/test_Exist.xql',
+			url: 'resources/xql/getWorkText.xql',
+
+            method: 'GET',
+            params: {
+                uri: '/db/apps/theater-data/works/'+me.workID+'.xml',
+                type: 'work'
+            },
+            success: function(response){
+				//var idtemp = me.repertoireTab.getTextTab().id;
+
+				//$('#'+me.id).html(response.responseText);
+				
+ 				me.repertoireTab.setTextInfo(response.responseText);
+				//me.repertoireTab.setTextInfo1(response.responseText);
+			//$('#'+me.id+'-innerCt').html(response.responseText);
+
+     		}
+         
+        });
 	
 	me.items =[
 		this.repertoireTab
 		],
 
- 	me.listeners = {
+ 	/*me.listeners = {
         	expand: function (p, eOpts) {
         	console.log("expand");
 			Ext.Ajax.request({
            // url: 'data/Output_Exist.xql',
- 			url: 'resources/xql/test_Exist.xql',
+ 			//url: 'resources/xql/test_Exist.xql',
+			url: 'resources/xql/getWorkText.xql',
+
             method: 'GET',
             params: {
                 uri: '/db/apps/theater-data/works/'+me.workID+'.xml',
@@ -72,7 +98,7 @@ flex:1,
 
          
        }
-    },
+    },*/
     
         me.callParent();
         

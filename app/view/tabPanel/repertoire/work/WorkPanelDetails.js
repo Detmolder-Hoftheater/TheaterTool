@@ -55,12 +55,12 @@ detailSection_1: null,
 
 	
     this.items = [
-			{
+			/*{
 				xtype: 'label',
         		html: '<b style="color:gray;">Details</b>',
         		margin: '0 0 10 0'
 
-			},
+			},*/
 			this.detailSection,
 
 			{

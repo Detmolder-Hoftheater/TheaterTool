@@ -7,7 +7,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
 	
 	//bodyPadding: 10,
 
-   minHeight: 200,
+   minHeight: 300,
    
     resizable: true,
 
