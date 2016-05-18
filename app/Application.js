@@ -18,6 +18,7 @@ Ext.define('TheaterTool.Application', {
 	'tabPanel.repertoire.GNDTab',
 	'tabPanel.repertoire.VIAFTab',
 	'tabPanel.repertoire.work.WorkDetailsTabPanel',
+	'tabPanel.repertoire.work.WorkDetailsTabPanelTest',
 	'tabPanel.repertoire.PersonDetailsTabPanel',
 	'tabPanel.repertoire.work.PlanDetailsTabPanel',
 	'tabPanel.repertoire.RepertoirePanel',
@@ -100,7 +101,9 @@ Ext.define('TheaterTool.Application', {
 	'Person',
 	'Source',
 	'FacsimileNavigation',
-	'MonthNumber'
+	'MonthNumber',
+	'Contact',
+'FieldError'
 	],
 	
 	stores:[
