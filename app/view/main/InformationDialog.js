@@ -39,7 +39,7 @@ layout: {
 '„Repertoire“ bzw. auf die unter „Tiefenerschlossene Werke“ aufgelisteten Werke '+ 
 'im Navigationsbaum aufgerufen werden.</p><p></p>'+ 
 
-'<p>Die Vertaktete Partituren und Stimmen für die tierenerschlossene Werke werden mit Edirom Online, momentan nur für "Bettelstudent", dargestellt. '+  
+'<p>Die Vertaktete Partituren und Stimmen für die tiefenerschlossene Werke werden mit Edirom Online, momentan nur für "Bettelstudent", dargestellt. '+  
 'Dies kann mit einem Link von der Faksimilie-Ansicht in Quellen gestartet werden.</p><p></p>'+
 
 '<p>Die Spielpläne sind im Navigationsbaum unter Programm und die Einnahmen unter Finanzwesen abrufbar.</p><p></p>';
