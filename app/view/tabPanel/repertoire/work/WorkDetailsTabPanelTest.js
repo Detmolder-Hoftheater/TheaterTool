@@ -50,25 +50,25 @@ initComponent: function () {
              return title[1];
         }*/
         }, {
-            fieldLabel: 'Title',
+            fieldLabel: 'Titel (de)',
 			width: 400,
 			xtype: 'textfield',
             //name: 'title',
-			value: 'Der Bettelstudent oder Das Donnerwetter (de)'
+			value: 'Der Bettelstudent oder Das Donnerwetter'
         },
 		{
-            fieldLabel: 'Altenativtitel',
+            fieldLabel: 'Altenativtitel (de)',
 			width: 400,
 			xtype: 'textfield',
             //name: 'alternativ',
-			value: 'Der reisende Student (de)'
+			value: 'Der reisende Student'
         },
 		{
-            fieldLabel: 'Untertitel',
+            fieldLabel: 'Untertitel (de)',
 			width: 400,
 			xtype: 'textfield',
             //name: 'untertitel',
-			value: 'Operette in 2 Akten (de)'
+			value: 'Operette in 2 Akten'
         },
 {
             xtype: 'label',
@@ -113,7 +113,7 @@ initComponent: function () {
 				border: false,
 				items: [
 			{
-            fieldLabel: 'Vorhandene Sprache',
+            fieldLabel: 'Sprache',
 			width: 400,
 			xtype: 'textfield',
             //name: 'untertitel',
@@ -130,7 +130,7 @@ initComponent: function () {
         },		
 
 {
-            fieldLabel: 'Instrumentierung',
+            fieldLabel: 'Besetzung',
 			width: 400,
 			xtype: 'textarea',
 			grow: true,			
