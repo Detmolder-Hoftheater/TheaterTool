@@ -39,7 +39,7 @@ layout: {
 '„Repertoire“ bzw. auf die unter „Tiefenerschlossene Werke“ aufgelisteten Werke '+ 
 'im Navigationsbaum aufgerufen werden.</p><p></p>'+ 
 
-'<p>Die Vertaktete Partituren und Stimmen für die tiefenerschlossenen Werke werden mit Edirom Online dargestellt. '+ 
+'<p>Die vertakteten Partituren und Stimmen für die tiefenerschlossenen Werke werden mit Edirom Online dargestellt. '+ 
 'Vorerst ist dies nur für Peter von Winters “Der Bettelstudent” umgesetzt. '+ 
 'Die Edirom Online kann über einen Link in der Faksimilie-Ansicht der Quelle geöffnet werden.</p><p></p>'+
 
