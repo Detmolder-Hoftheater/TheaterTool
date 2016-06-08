@@ -3,8 +3,8 @@
 	<entries>
 		<entry key="name" value="Detmolder Hoftheater"/> 
 		<entry key="years" value="1825-1875"/> 
-		<entry key="H020149" value="Isouard: Aschenbrödel"/> 
-		<entry key="H020048" value="Auber: Des Teufels Anteil"/> 
-		<entry key="H020263" value="von Winter: Der Bettelstudent"/> 		
+		<entry key="work" value="H020149"/> 
+		<entry key="work" value="H020048"/> 
+		<entry key="work" value="H020263"/> 		
 	</entries>
 </prefs>

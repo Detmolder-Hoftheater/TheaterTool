@@ -445,6 +445,33 @@ return workDataStore;
 		
 		this.renderer = new verovio.toolkit();
 
+		var workPath;
+
+
+		Ext.Ajax.request({           
+    			url:'resources/xql/getDBStructure.xql', 
+			method: 'GET',      
+    			success: function (response, options) {
+					console.log(response);
+					console.log(options);
+
+    			}
+			});
+      
+
+		Ext.Ajax.request({           
+    			url:'resources/xql/getTheaterData.xql', 
+			method: 'GET',
+            params: {
+                uri: workPath
+            },      
+    			success: function (response, options) {
+					console.log(response);
+					console.log(options);
+
+    			}
+			});
+
 		storeField = new Array("Aschenbrödel", "Der Bettelstudent", 'Des Teufels Anteil');
 
 		/*this.personenForWorkDataStore = Ext.create('Ext.data.Store', {

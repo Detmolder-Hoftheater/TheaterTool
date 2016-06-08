@@ -6,7 +6,7 @@
 		<entry key="leafletimages" value="theater-data/leafletimages"/> 
 		<entry key="einnahmen" value="theater-data/einnahmen"/> 
 		<entry key="persons" value="theater-data/persons"/>
-		<entry key="spielplane" value="theater-data/spielplaene"/>
+		<entry key="spielplaene" value="theater-data/spielplaene"/>
 		<entry key="vertaktung" value="theater-data/vertaktung"/>
 	</entries>
 </prefs>
