@@ -1,0 +1,49 @@
+<mei xmlns:xmldb="http://exist-db.org/xquery/xmldb" xmlns="http://www.music-encoding.org/ns/mei" meiversion="2013">
+    <meiHead>
+        <fileDesc>
+            <titleStmt>
+                <title>excerpted staff</title>
+            </titleStmt>
+            <pubStmt/>
+        </fileDesc>
+    </meiHead>
+    <music>
+        <body>
+            <mdiv>
+                <score>
+                    <scoreDef meter.count="6" meter.unit="8" key.sig="3s" key.mode="major">
+                        <staffGrp>
+                            <staffDef n="5" lines="5" clef.line="2" clef.shape="G"/>
+                        </staffGrp>
+                    </scoreDef>
+                    <section>
+                        <measure right="single" facs="#A_zoneOf_mov6_measure122" n="122" sameas="../core.xml#core_mov6_measure122">
+                            <staff xmlns:xlink="http://www.w3.org/1999/xlink" facs="#A_zoneOf_mov6_measure122_s5" xml:id="hairpinStart___A_mov6_measure122_s5" n="5">
+                                <layer xml:id="hairpinStart___xa7804bf9-2f87-4543-a953-46b22a0f40af" n="1">
+                                    <note grace="unknown" stem.mod="1slash" pname="b" oct="4" dur="8" xml:id="hairpinStart___A_mov6_measure122_s5l1_e1" sameas="../core.xml#core_mov6_measure122_s5l1_e1" stem.dir="up"/>
+                                    <beam xml:id="hairpinStart___x8ac41c0d-b4ea-42ef-abf4-9757d40db50b">
+                                        <note pname="a" oct="4" dur="16" xml:id="hairpinStart___A_mov6_measure122_s5l1_e2" sameas="../core.xml#core_mov6_measure122_s5l1_e2" stem.dir="down" tstamp="1"/>
+                                        <note pname="g" oct="4" dur="16" accid.ges="s" xml:id="hairpinStart___A_mov6_measure122_s5l1_e3" sameas="../core.xml#core_mov6_measure122_s5l1_e3" stem.dir="down" tstamp="1.5"/>
+                                        <note pname="a" oct="4" dur="16" xml:id="hairpinStart___A_mov6_measure122_s5l1_e4" sameas="../core.xml#core_mov6_measure122_s5l1_e4" stem.dir="down" tstamp="2"/>
+                                        <note pname="b" oct="4" dur="16" xml:id="hairpinStart___A_mov6_measure122_s5l1_e5" sameas="../core.xml#core_mov6_measure122_s5l1_e5" stem.dir="down" tstamp="2.5"/>
+                                        <note pname="c" oct="5" dur="16" accid.ges="s" xml:id="hairpinStart___A_mov6_measure122_s5l1_e6" sameas="../core.xml#core_mov6_measure122_s5l1_e6" stem.dir="down" tstamp="3"/>
+                                        <note pname="d" oct="5" dur="16" xml:id="hairpinStart___A_mov6_measure122_s5l1_e7" sameas="../core.xml#core_mov6_measure122_s5l1_e7" stem.dir="down" tstamp="3.5"/>
+                                    </beam>
+                                    <note pname="e" oct="5" dur="4" xml:id="hairpinStart___A_mov6_measure122_s5l1_e8" sameas="../core.xml#core_mov6_measure122_s5l1_e8" stem.dir="down" tstamp="4"/>
+                                    <note pname="a" oct="4" dur="8" xml:id="hairpinStart___A_mov6_measure122_s5l1_e9" sameas="../core.xml#core_mov6_measure122_s5l1_e9" stem.dir="down" tstamp="6"/>
+                                </layer>
+                            </staff>
+                        </measure>
+                        <measure right="single" facs="#A_zoneOf_mov6_measure123" n="123" sameas="../core.xml#core_mov6_measure123">
+                            <staff facs="#A_zoneOf_mov6_measure123_s5" xml:id="hairpinStart___A_mov6_measure123_s5" n="5">
+                                <layer xml:id="hairpinStart___x659ca7af-f436-4953-b18d-4a62f0ea17d0" n="1">
+                                    <note pname="g" accid="n" oct="5" dur="2" dots="1" xml:id="hairpinStart___A_mov6_measure123_s5l1_e1" sameas="../core.xml#core_mov6_measure123_s5l1_e1" stem.dir="down" tstamp="1"/>
+                                </layer>
+                            </staff>
+                        </measure>
+                    </section>
+                </score>
+            </mdiv>
+        </body>
+    </music>
+</mei>

@@ -52,6 +52,7 @@ width: 200,
 	rismPanel: null,
 	repertoirePanel: null,
 	beatPanel: null,
+	incipitsPanel: null,
 	workName: null,
 
 	selectedWork: null,
@@ -91,11 +92,9 @@ width: 200,
 				//console.log(eOpts[0].data);
 					me.repertoirePanel.removeAll(true);
 					if(eOpts[0].data.name === 'Incipits'){
-						// TODO
-						//me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
-						//me.repertoirePanel.add(me.sourcePanel);	
-
-						//me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');
+						me.incipitsPanel = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel();
+						me.repertoirePanel.add(me.incipitsPanel);
+						me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');	
 					}
 					else if(eOpts[0].data.name === 'RISM'){
 						me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel();

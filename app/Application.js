@@ -92,7 +92,8 @@ Ext.define('TheaterTool.Application', {
 'tabPanel.issue.IssueMenuItemTree',
 'tabPanel.issue.IssuePanelDetails',
 'tabPanel.issue.IssueTextSection',
-'tabPanel.issue.XMLSectionIssue'
+'tabPanel.issue.XMLSectionIssue',
+'tabPanel.repertoire.incipits.IncipitsPanel'
 	],
 	
 	models:[
@@ -114,7 +115,7 @@ Ext.define('TheaterTool.Application', {
 	//movementsStore: null,
 	//pagesStore: null,
 	//slursStore: null,
-	renderer: null,
+	
 	hairpinDataStore: null,
 	dynamDataStore: null,
 	dirDataStore: null,
@@ -156,8 +157,8 @@ createStoreForWork: function(){
 			},
 			proxy: {
 				type: 'ajax',
-				url: 'resources/xql/getWork.xql'				
-				//url: 'data/getWorks.xql'
+				//url: 'resources/xql/getWork.xql'				
+				url: 'data/getWorks.xql'
 			},
 			autoLoad: false
 		});
@@ -443,7 +444,7 @@ return workDataStore;
 
 	launch: function () {
 		
-		this.renderer = new verovio.toolkit();
+		renderer = new verovio.toolkit();
 
 		var workPath;
 
