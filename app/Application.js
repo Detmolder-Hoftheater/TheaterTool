@@ -94,7 +94,8 @@ Ext.define('TheaterTool.Application', {
 'tabPanel.issue.IssueTextSection',
 'tabPanel.issue.XMLSectionIssue',
 'tabPanel.repertoire.incipits.IncipitsPanel',
-'tabPanel.repertoire.incipits.IncipitSection'
+'tabPanel.repertoire.incipits.IncipitSection',
+'tabPanel.repertoire.incipits.IncipitWindow'
 	],
 	
 	models:[
@@ -158,8 +159,8 @@ createStoreForWork: function(){
 			},
 			proxy: {
 				type: 'ajax',
-				//url: 'resources/xql/getWork.xql'				
-				url: 'data/getWorks.xql'
+				url: 'resources/xql/getWork.xql'				
+				//url: 'data/getWorks.xql'
 			},
 			autoLoad: false
 		});
