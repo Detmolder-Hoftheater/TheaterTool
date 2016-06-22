@@ -56,13 +56,13 @@ var text = response.responseText;
 
 
 var meiE = splittest[1];
-var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">1. Ouverture. Allegro</b>'});
+var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">1. Ouverture. Allegro </b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
  me.add(incipitSection);
 incipitSection.setTextInfo(meiE);
 //}
 
 var meiE_2 = splittest[2];
-var incipitSection_2 = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">2. Poco moderato, Incipit Nr. 1-2-1, Incipit Text: "Wir rudern immerfort"</b>'});
+var incipitSection_2 = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">2. Poco moderato, Incipit Nr. 1-2-1, Incipit Text: "Wir rudern immerfort" </b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
  me.add(incipitSection_2);
 incipitSection_2.setTextInfo(meiE_2);
 

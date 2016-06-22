@@ -32,11 +32,22 @@ initComponent: function () {
 		
 		var me = this;
 
+/*me.listeners ={
+        click: {
+            element: 'el', //bind to the underlying el property on the panel
+            fn: function(){ console.log('click el'); }
+        },
+        dblclick: {
+            element: 'body', //bind to the underlying body property on the panel
+            fn: function(){ console.log('dblclick body'); }
+        }
+    }*/
+
 	me.listeners = {
    		'render': function(panel) {
-       panel.body.on('click', function() {
+       panel.body.on('dblclick', function() {
            console.log('dbclick');
-var win = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitWindow();
+var win = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitWindow({bodyStyle:{"background-color":"white"}});
 					win.show();
 
 win.showNoten(me.meiE);
