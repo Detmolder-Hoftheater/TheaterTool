@@ -10,7 +10,7 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 	//region: 'east',
 	region: 'west',
 	flex: 0.21,
-	//id: 'facsimileview',
+	id: 'htNavigationPanel',
 	//autoScroll: true,
 	
 	//width: 255,
@@ -21,7 +21,7 @@ Ext.define('TheaterTool.view.navPanel.HTNavigationPanel', {
 		align: 'stretch'
 	},*/
 	
-	title: '<b style="color:#A87678;">Detmolder Hoftheater 1825-1875</b>',
+	//title: '<b style="color:#A87678;">'+TheaterTool.getApplication().getProjectName()+' 1825-1875</b>',
 
 	//defaultListenerScope: true,
 	//border: true,

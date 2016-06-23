@@ -24,8 +24,8 @@ let $strings := for $elem in $entry
 					let $entryvalue := $elem//@value
 
                     return 
-						concat('{', $entrykey, ':',$entryvalue,
-                            '}')
+						concat('{"', $entrykey, '":"',$entryvalue,
+                            '"}')
                        
 						
     return 
@@ -35,10 +35,13 @@ let $strings := for $elem in $entry
     
  (
 
+  '{',
+'"dbkeys":',
   '[',
         local:jsonifySlurs($entry),
+']',
 
-    ']'
+    '}'
    
       
    

@@ -127,6 +127,11 @@ Ext.define('TheaterTool.Application', {
 	plansForWorkDataStore: null,
 
 	worksStoreMap: null,
+
+	projectName: null,
+	projectYears: null,
+	extWorkKeys: null,
+	dbPaths: null,
 	
 createStore: function(){
 
@@ -445,7 +450,9 @@ return workDataStore;
 },
 
 	launch: function () {
-		
+
+		//var me = this;
+		// global
 		renderer = new verovio.toolkit();
 
 		var workPath;
@@ -455,9 +462,8 @@ return workDataStore;
     			url:'resources/xql/getDBStructure.xql', 
 			method: 'GET',      
     			success: function (response, options) {
-					console.log(response);
-					console.log(options);
-
+					var json = jQuery.parseJSON(response.responseText);
+					this.dbPaths = json.dbPaths;
     			}
 			});
       
@@ -469,9 +475,11 @@ return workDataStore;
                 uri: workPath
             },      
     			success: function (response, options) {
-					console.log(response);
-					console.log(options);
-
+					var json = jQuery.parseJSON(response.responseText);
+					this.extWorkKeys = json.dbkeys;
+					this.projectName = json.name;
+					this.projectYears = json.years;
+					Ext.getCmp('htNavigationPanel').setTitle('<b style="color:#A87678;">'+this.projectName+' '+ this.projectYears+'</b>');
     			}
 			});
 
@@ -593,23 +601,22 @@ return workDataStore;
 	getRenderer: function () {
 		return this.renderer;
 	},
-	
-	getHairpinDataStore: function () {
-		return this.hairpinDataStore;
+
+	getProjectName: function () {
+		return this.projectName;
 	},
-	
-	getDynamDataStore: function () {
-		return this.dynamDataStore;
+
+	getProjectYears: function () {
+		return this.projectYears;
 	},
-	
-	getSlurDataStore: function () {
-		return this.slurDataStore;
+
+	getExtWorkKeys: function () {
+		return this.extWorkKeys;
 	},
-	
-	getDirDataStore: function () {
-		return this.dirDataStore;
+
+	getDBPaths: function () {
+		return this.dbPaths;
 	},
-	
 	
 	getPersonenForWorkDataStore: function () {
 		return this.personenForWorkDataStore;
