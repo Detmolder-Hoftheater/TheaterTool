@@ -43,7 +43,9 @@ layout: {
 'Vorerst ist dies nur für Peter von Winters “Der Bettelstudent” umgesetzt. '+ 
 'Die Edirom Online kann über einen Link in der Faksimilie-Ansicht der Quelle geöffnet werden.</p><p></p>'+
 
-'<p>Die einige Incipits sind unter „Tiefenerschlossene Werke“ für Peter von Winters “Der Bettelstudent” mit der Itemselektion "Incipits" zu sehen.</p><p></p>'+
+'<p>Erste Incipits sind unter „Tiefenerschlossene Werke“ für Peter von Winters “Der Bettelstudent” '+
+'mit der Itemselektion "Incipits" bereits in einer vorläufigen Darstellung zu sehen. '+
+'Ein Dppelklick in das Einzelincipit öffnet eine größere Darstellung.</p><p></p>'+
 
 '<p>Die Spielpläne sind im Navigationsbaum unter "Programm" und die Einnahmen unter "Finanzwesen" abrufbar.</p><p></p>';
 
