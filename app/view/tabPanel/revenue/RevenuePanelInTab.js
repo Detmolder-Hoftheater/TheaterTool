@@ -133,16 +133,19 @@ createCEButton: function (navTree) {
 		var ceButton = Ext.create('Ext.button.Button', {
 			//xtype: 'button',
 			 text: '<b style="color:gray;">Monat<b>',
-menuAlign: 'tr-bl?',
-//flex: 1,
-//autoRender: true,
-						//width: 130,
+		menuAlign: 'tr-bl?',
 						menu:[	
 							navTree
 
 							
-						]
-                
+						],
+		listeners: {
+          afterrender: function() {                       
+			me.navButton.menu.show(); 
+			me.navButton.menu.setPosition(35,100);
+                    }
+                }     
+		      
 		});
 	
 		

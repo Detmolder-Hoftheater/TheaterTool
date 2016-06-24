@@ -142,35 +142,18 @@ createCEButton: function (navTree) {
 			//xtype: 'button',
 			 text: '<b style="color:gray;">Monat<b>',
 menuAlign: 'tr-bl?',
-//flex: 1,
-//autoRender: true,
-/*handler: function () {
-        ceButton.showMenu();
-    },*/
-
-/*listeners: {
-            afterrender: function (obj) {
-               //if(singleParamDynamicQuery &&docTypeCodeDynamciQuery.length>0){  
-                    ceButton.showMenu();
-               //}
-            }
-        },*/
-						//width: 130,
 
 menu: Ext.create('Ext.menu.Menu', {
    
     items: [navTree]
-})
 
-
-
-						/*menu:[	
-
-							navTree
-
-							
-						]*/
-                
+}),
+listeners: {
+          afterrender: function() {                       
+			me.navButton.menu.show(); 
+			me.navButton.menu.setPosition(35,100);
+                    }
+                }     
 		});
 	
 		

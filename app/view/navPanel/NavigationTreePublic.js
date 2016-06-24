@@ -227,14 +227,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                 icon: 'resources/images/Audience-17.png',
                 expanded: true,
                 children: [*/
-                    { leaf:true, text: 'Dekoration',
-                    icon: 'resources/images/theatre.png' },
-                    { leaf:true, text: 'Regiebücher',
-                    icon: 'resources/images/Crown-17.png'},
-                    { leaf:true, text: 'Rollen- & Kostümbücher',
-                     icon: 'resources/images/carnival.png'},
-                    { leaf:true, text: 'Theaterberufe',
-                    icon: 'resources/images/theatreB.png'},
+                   
                 //]
           //  },
             {
@@ -296,7 +289,7 @@ children: [
 
 
 },
-                    { text: 'Gesamte Ausgaben',
+                    { text: 'Jährliche Ausgaben',
                     icon: 'resources/images/MoneyTransfer-17.png',
 children: [
                     	{ leaf:true, text: '1825',
@@ -355,7 +348,15 @@ children: [
                    
                     
                 ]
-            }
+            },
+ { leaf:true, text: 'Dekoration',
+                    icon: 'resources/images/theatre.png' },
+                    { leaf:true, text: 'Regiebücher',
+                    icon: 'resources/images/Crown-17.png'},
+                    { leaf:true, text: 'Rollen- & Kostümbücher',
+                     icon: 'resources/images/carnival.png'},
+                    { leaf:true, text: 'Theaterberufe',
+                    icon: 'resources/images/theatreB.png'}
         ]
 
 }
