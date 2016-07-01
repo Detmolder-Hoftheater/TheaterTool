@@ -40,7 +40,7 @@ var me = this;
 
 	this.detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({month: me.month, year: me.year});
 
-	this.detailSection_1 = new TheaterTool.view.tabPanel.revenue.XMLSectionRevenue({workID: this.workID});
+	this.detailSection_1 = new TheaterTool.view.tabPanel.revenue.XMLSectionRevenue({month: me.month, year: me.year});
 	
     this.items = [
 			/*{

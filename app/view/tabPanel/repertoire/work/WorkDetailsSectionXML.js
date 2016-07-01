@@ -58,28 +58,10 @@ xtype: 'image', src: 'resources/images/Download.png', width: 26,
             },        
     			success: function (response, options) {
         			var object = response.responseText;
-					me.repertoireTab.setTextInfo(object);       			
+					me.repertoireTab.setTextInfo(object);			
     			}
 			});
 
-
-/*Ext.Ajax.request({
-            url: 'data/Output_Exist.xql',
- 			//url: 'resources/xql/test_Exist.xql',
-            method: 'GET',
-            params: {
-                uri: '/db/apps/theater-data/works/'+this.workID+'.xml',
-                type: 'work'
-            },
-            success: function(response){
-				
- 				me.repertoireTab.setTextInfo1(response.responseText);
-			//$('#'+me.id+'-innerCt').html(response.responseText);
-
-     		}
-         
-        });*/
-         
         }
     },
     

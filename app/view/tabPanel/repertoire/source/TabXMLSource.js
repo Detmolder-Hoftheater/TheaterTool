@@ -53,9 +53,9 @@ console.log(infoText);
 
 
 
- 		var tmp = hljs.highlightAuto($(tempDiv.innerHTML).html()).value;
+ 		var tmp = hljs.highlightAuto($(tempDiv).html()).value;
  
-	$('#'+this.id+'-innerCt').html(tmp);
+	$('#'+me.id+'-innerCt').html('<pre>' + tmp + '</pre>');
 
 	}
 });

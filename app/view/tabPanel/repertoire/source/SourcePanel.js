@@ -80,7 +80,7 @@ else{
 			{
         		html: '<img src="resources/images/Download.png" style="width:17px;height:17px;">',
 				border: false,
-				margin: '0 0 -19 70'
+				margin: '0 0 -11 0'
 			},
 			this.detailSection_xml,
 			{
