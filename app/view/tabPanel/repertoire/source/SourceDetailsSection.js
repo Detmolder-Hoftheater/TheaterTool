@@ -55,7 +55,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
 	
 	me.items =[
 		me.repertoireTab
-		],
+		];
+
+		var app = TheaterTool.getApplication();
+        		var store = app.createStoreForSource();
+				store.getProxy().extraParams.sourceID = me.sourceID;				
+				store.load();
+			console.log(store);
 
 	/*me.listeners = {
         	expand: function (p, eOpts) {

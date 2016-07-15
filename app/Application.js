@@ -173,6 +173,24 @@ createStoreForWork: function(){
 return workDataStore;
 },
 
+createStoreForSource: function(){
+
+	var sourceDataStore = Ext.create('Ext.data.Store', {
+			model: 'TheaterTool.model.Source',
+			extraParams: {
+				sourceID: ''
+			},
+			proxy: {
+				type: 'ajax',
+				url: 'resources/xql/getSource.xql'				
+			},
+			autoLoad: false
+		});
+
+return sourceDataStore;
+
+},
+
 handleStoreForWorks: function(selection){
 		var navTreeStore = null;
 		if(this.worksStoreMap === null){
