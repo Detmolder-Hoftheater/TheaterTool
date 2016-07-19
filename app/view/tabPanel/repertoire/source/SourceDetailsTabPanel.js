@@ -14,31 +14,40 @@ reserveScrollbar: true,
 
 border: false,
 
+titel: null,
+
 	setTextInfo: function(infoText){
 		$('#'+this.id+'-innerCt').html(infoText);
 
-	}
-	/*initComponent: function () {
+	},
+
+
+	initComponent: function () {
 	
-	this.textTab = new TheaterTool.view.tabPanel.repertoire.source.TabTextSource({
-			title: 'Text',
-			sourceID: this.sourceID
-		});
-		
-		this.xmlTab = new TheaterTool.view.tabPanel.repertoire.source.TabXMLSource({
-			title: 'XML',
-			sourceID: this.sourceID
-		});
-	
-	this.items =[
-		//this.slursItem,
-		this.textTab,
-		this.xmlTab
-		//this.dynamsItems,
-		//this.dirsItems
-		
-		],
+	this.titel = this.createTextArea('Titel');
+
+	this.items = [
+		this.titel
+	];
 		
 		this.callParent();
-	}*/
+	},
+
+
+	setTitelValue: function(value){
+		this.titel.setValue(value);
+
+	},
+
+
+	createTextArea: function (fieldName) {
+		var me = this;
+		var textArea = Ext.create('Ext.form.field.TextArea', {
+			name      : fieldName,
+        	fieldLabel: fieldName,
+        	anchor    : '100%'			
+		});
+		
+		return textArea;
+	}
 });

@@ -234,7 +234,7 @@ let $strings := for $elem_1 in $desc
 			let $page := normalize-space($elem_1)
 
 				return 
-if($page != '')then(concat('"',$page, '"'))else()
+if($page != '')then(concat('"',replace($page, '"', '\\"' ), '"'))else()
 
 
     return 
@@ -246,10 +246,10 @@ declare function local:jsonifyInhalt($items) {
 
 let $strings := for $elem_1 in $items
 
-			let $item := replace($elem_1, '"', '\\"' )
+			let $item := normalize-space($elem_1)
 
 				return 
-if($item != '')then(concat('"',$item, '"'))else()
+if($item != '')then(concat('"',replace($item, '"', '\\"' ), '"'))else()
 
 
     return 
@@ -272,17 +272,34 @@ if($item != '')then(concat('"',replace($item, '"', '\\"' ), '"'))else()
 
 };
 
+declare function local:jsonifyTitleArray($s_title_array) {
+
+let $strings := for $elem_1 in $s_title_array
+
+			let $item := $elem_1
+
+				return 
+if($item != '')then(concat('"',$item, '"'))else()
+
+
+    return 
+        string-join($strings,',')
+
+};
+
 declare function local:jsonifyContenSource($elem) {
 
 let $strings := for $elem_1 in $elem
 
-			let $s_title :=$elem_1/mei:titleStmt[1]/mei:title[not(@type)]
+			let $s_title_array :=$elem_1/mei:titleStmt[1]/mei:title[not(@type)]
+
+			let $s_title := local:jsonifyTitleArray($s_title_array)
 
 			let $subtitle :=$elem_1/mei:titleStmt[1]/mei:title[@type ='sub']
 
 			let $pages :=$elem_1/mei:physDesc[1]/mei:extent[1]
 
-			let $dimension :=$elem_1/mei:physDesc[1]/mei:dimensions
+			let $dimension :=$elem_1/mei:physDesc[1]/mei:dimensions[1]
 
 			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
 
@@ -306,11 +323,12 @@ let $strings := for $elem_1 in $elem
 					
                    
 				return 
-concat('"s_title":','"',$s_title, '",',
+concat(
+'"s_title":[',if($s_title != '')then($s_title)else(), '],',
 '"subtitle":','"',$subtitle, '",',
 '"seitenzahl":','"',$pages, '",',
 '"groesse":','"',$dimension, '",',
-'"signatur":','"',$signatur, '",',
+'"signatur":','"',normalize-space($signatur), '",',
 '"beschreibung":','"',$beschreibung, '",',
 '"inscription":[',if($inscription != '')then($inscription)else(), '],',
 '"titlePages":[',if($titlePages != '')then($titlePages)else(), '],',
