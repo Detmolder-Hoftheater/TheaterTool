@@ -61,8 +61,17 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
         var store = app.createStoreForSource();
 		store.getProxy().extraParams.sourceID = me.sourceID;				
 		store.load();
+
+//var json = jQuery.parseJSON(store.responseText);
+					
+					/*me.zones = json.zones;
+					var page = json.page;
+
+					me.pageNumber = page.pageAnzahl;*/
+
+console.log(store);
 me.repertoireTab.setTitelValue('Test');
-		console.log(store);
+		
 
 	/*me.listeners = {
         	expand: function (p, eOpts) {

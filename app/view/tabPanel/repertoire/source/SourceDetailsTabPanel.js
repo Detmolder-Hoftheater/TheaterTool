@@ -15,6 +15,11 @@ reserveScrollbar: true,
 border: false,
 
 titel: null,
+annot: null,
+abs: null,
+language: null,
+sign: null,
+prov: null,
 
 	setTextInfo: function(infoText){
 		$('#'+this.id+'-innerCt').html(infoText);
@@ -25,9 +30,20 @@ titel: null,
 	initComponent: function () {
 	
 	this.titel = this.createTextArea('Titel');
+	this.annot = this.createTextArea('Bemerkungen');
+	this.abs = this.createTextArea('Abschriften');
+	this.language = this.createTextArea('Sprachen');
+	this.sign = this.createTextArea('Bibliotheken');
+	this.prov = this.createTextArea('Provienzen');
+
 
 	this.items = [
-		this.titel
+		this.titel,
+		this.annot,
+		this.abs,
+		this.language,
+		this.sign,
+		this.prov
 	];
 		
 		this.callParent();

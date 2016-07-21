@@ -12,6 +12,7 @@ declare option exist:serialize "method=text media-type=text/plain omit-xml-decla
 
 
 declare variable $sourceID := request:get-parameter('sourceID', '');
+declare variable $workPath := request:get-parameter('workPath', '/db/apps/theater-data/works/');
 declare variable $uri := concat('/db/apps/theater-data/sources/', $sourceID, '.xml');
 declare variable $file := doc($uri);
 declare variable $content := $file//mei:source;
@@ -345,24 +346,47 @@ declare function local:jsonifySources($content) {
 let $strings := for $elem in $content/mei:componentGrp/mei:source
 
 	let $content_source := local:jsonifyContenSource($elem)
-	(:let $s_title :=$elem/mei:titleStmt[1]/mei:title[not(@type)]:)
-
-	(:let $content_source := local:jsonifyContenSource($content, $source_id):)
-
+	
                     return 
 concat('[{',$content_source,'}]')
-(:concat('[', if(count($s_title) gt 0) then(concat('"',string-join($s_title,'","'),'"')) else(),
-							']'):)
-                     
-				(:concat('["', if($title != '')then('s_title:"',$title,'"')else(),'",',
-							'"',if($subtitle != '')then('subtitle:"',$subtitle,'"')else(),'"]'):)
     return 
         string-join($strings,',')
+ 
+};
+
+declare function local:jsonifyWorkTitel($content) {
+
+let $strings := for $elem in $content/mei:relationList/mei:relation
+
+	let $targetWork := $elem[@rel = 'isEmbodimentOf']/@target
+	let $origId := substring-after($targetWork, '#')
+	let $uriWork := concat($workPath, $origId, '.xml')
+	let $fileWork := doc($uriWork)
+	let $titles := $fileWork//mei:titleStmt[1]/mei:title
+	let $content_title := local:jsonifyTitleInformation($titles)
+	
+                    return 
+if($content_title != '')then($content_title)else()
+
+    return 
+        string-join($strings,',')
+ 
+};
 
 
+declare function local:jsonifyTitleInformation($titles) {
 
-   
-    
+let $strings := for $elem in $titles
+
+	let $title := $elem
+	let $type := $elem/@type
+	let $language := $elem/@xml:lang
+	
+                    return 
+concat('["',$title, '","', $type, '","', $language,'"]')
+    return 
+        string-join($strings,',')
+ 
 };
 
 
@@ -384,6 +408,8 @@ concat('[{',$content_source,'}]')
         local:jsonifyBemerkungen($content),
 	'],"sources":[',
         local:jsonifySources($content),
+	'],"workTitel":[',
+        local:jsonifyWorkTitel($content),
     ']}'
 
 )
