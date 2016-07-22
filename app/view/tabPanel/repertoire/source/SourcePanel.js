@@ -31,7 +31,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 	
 	initComponent: function () {
 	
-	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
+	//this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
 		
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID});
 
@@ -57,14 +57,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 				margin: '0 0 -11 0'
 			},
 			this.detailSection_xml,
-			this.overviewSection,			
+			this.overviewSection/*,			
 			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Sources</b>',
         		margin: '10 0 10 0'
 
 			},
-			this.personSection
+			this.personSection*/
     ]
 	}
 else{
@@ -82,14 +82,14 @@ else{
 				border: false,
 				margin: '0 0 -11 0'
 			},
-			this.detailSection_xml,
+			this.detailSection_xml/*,
 			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Sources</b>',
         		margin: '10 0 10 0'
 
 			},
-			this.personSection
+			this.personSection*/
     ]
 }
     	this.callParent();
