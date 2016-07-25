@@ -7,6 +7,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML'
     collapsible: true,
    collapsed: true,
 
+
+
+//flex:1,
+
     title: '<b style="color:gray;">XML</b>',
 //+ '<img src="resources/images/Download.png" style="width:17px;height:17px;">',
 
@@ -18,7 +22,7 @@ xtype: 'image', src: 'resources/images/Download.png', width: 26,
 
 				},*/
 
-	flex:1,
+	//flex:1,
 
 
 //style: {
@@ -39,7 +43,7 @@ xtype: 'image', src: 'resources/images/Download.png', width: 26,
 
 	var me = this;
     
-    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork({sourceID: me.sourceID});
+    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.TabXMLSource({sourceID: me.sourceID});
 	
 	me.items =[
 		me.repertoireTab

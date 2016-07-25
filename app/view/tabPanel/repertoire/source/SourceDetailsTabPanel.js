@@ -5,11 +5,11 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', {
 	extend: 'Ext.panel.Panel',
 	
-	minHeight: 300,
+	//minHeight: 300,
 	resizable: true,
-	
+	//flex:1,
 	autoScroll: true,
-	reserveScrollbar: true,
+	//reserveScrollbar: true,
 	
 	border: false,
 	
@@ -26,10 +26,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 	w_unter_titel: null,
 	
 	
-	setTextInfo: function (infoText) {
+	/*setTextInfo: function (infoText) {
 		$('#' + this.id + '-innerCt').html(infoText);
 	},
-	
+	*/
 	
 	initComponent: function () {
 		
@@ -45,16 +45,16 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 		
 		
 		var panel_0 = null;
-		for (i = 0; i <= 2; i++) {		
+/*		for (i = 0; i <= 2; i++) {		
 			if (i / 2 === 0 || i / 2 === 1) {
 				panel_0 = Ext.create('Ext.panel.Panel', {					
 					bodyPadding: 10,
 					width: 1000,
 					height: 150,
-					/* layout: {
+					/\* layout: {
 					type: 'hbox'
 					//align: 'stretch'
-					},*/
+					},*\/
 					layout: {
 						type: 'table',
 						columns: 2
@@ -78,10 +78,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 					align: 'stretch'
 				},
 				colspan: 1,
-				/*defaults: {
+				/\*defaults: {
 				frame: true,
 				bodyPadding: 10
-				},*/
+				},*\/
 				// height: 300,
 				width: 400,
 				border: false,
@@ -95,21 +95,22 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 			});
 			
 			panel_0.items.add(panel_1);
-		}
+		}*/
 		
-		var panel_00 = Ext.create('Ext.panel.Panel', {
+	var panel_00 = Ext.create('Ext.panel.Panel', {
 			
 			bodyPadding: 10,
-			width: 1000,
-			height: 150,
+			//width: 1000,
+			//height: 150,
 			/* layout: {
 			type: 'hbox'
 			//align: 'stretch'
 			},*/
 			layout: {
 				type: 'table',
-				columns: 2
+				columns: 1
 			},
+
 			border: false,
 			//height: 300,
 			
@@ -127,12 +128,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 				type: 'hbox',
 				align: 'stretch'
 			},
+
 			colspan: 1,
 			/*defaults: {
 			frame: true,
 			bodyPadding: 10
 			},*/
-			// height: 300,
+			 height: 100,
 			width: 1000,
 			border: false,
 			bodyPadding: 10,
@@ -159,7 +161,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 		this.items.add(this.sign);
 		this.items.add(this.prov);
 		
-		this.titel.setValue(value);
+		//this.titel.setValue(value);
 	},
 	
 	

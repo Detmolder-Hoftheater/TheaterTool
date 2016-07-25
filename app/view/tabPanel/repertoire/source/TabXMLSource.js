@@ -8,12 +8,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.TabXMLSource', {
 
 	bodyPadding: 10,
 
+border:false,
+//flex:1,
+
  minHeight: 200,
    
     resizable: true,
 
 autoScroll: true,
-reserveScrollbar: true,
+//reserveScrollbar: true,
 
 //infoText: null,
 
@@ -40,11 +43,11 @@ me.listeners = {
 
 setTextInfo: function(infoText){
 
-console.log(infoText);
+//console.log(infoText);
 
 //$('#'+this.id+'-innerCt').html(infoText);
 
-
+var me = this;
 
  var fragment = document.createDocumentFragment('div');
 		var tempDiv = document.createElement('div');

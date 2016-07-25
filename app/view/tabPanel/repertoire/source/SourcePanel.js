@@ -9,12 +9,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 	detailSection: null,
 	overviewSection: null,
 	detailSection_xml: null,
+//flex:1,
 	
-	layout: {
+	/*layout: {
 					type: 'vbox',
 					pack: 'start',
 					align: 'stretch'
-				},
+				},*/
 				
 				bodyPadding: 15,
 				
@@ -31,7 +32,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 	
 	initComponent: function () {
 	
-	//this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
+	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
 		
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID});
 
@@ -57,25 +58,19 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 				margin: '0 0 -11 0'
 			},
 			this.detailSection_xml,
-			this.overviewSection/*,			
+			this.overviewSection,			
 			{
 				xtype: 'label',
         		html: '<b style="color:gray;">Sources</b>',
         		margin: '10 0 10 0'
 
 			},
-			this.personSection*/
+			this.personSection
     ]
 	}
 else{
     this.items = [
-			/*{
-				xtype: 'label',
-        		html: '<b style="color:gray;">Details</b>',
-        		margin: '0 0 10 0'
-
-			},*/
-       
+			
 			this.detailSection,	
 			{
         		html: '<img src="resources/images/Download.png" style="width:17px;height:17px;">',

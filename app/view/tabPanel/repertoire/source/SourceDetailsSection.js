@@ -9,7 +9,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
    
     title: '<b style="color:gray;">Details</b>',
 
-	flex:1,
+	//flex:1,
+
 
 /*style: {
 		//borderLeft: '3px solid #A80016',
@@ -39,7 +40,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
     
     me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel({sourceID: me.sourceID});
 
-	Ext.Ajax.request({
+/*	Ext.Ajax.request({
            // url: 'data/Output_Exist.xql',
  			url: 'resources/xql/getSourceText.xql',
             method: 'GET',
@@ -51,7 +52,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
  				me.repertoireTab.setTextInfo(response.responseText);
      		}
          
-        });
+        });*/
 	
 	me.items =[
 		me.repertoireTab
