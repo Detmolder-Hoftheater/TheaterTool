@@ -4,9 +4,17 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', {
 	extend: 'Ext.panel.Panel',
+
+layout: {
+		type: 'vbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+
+bodyPadding: 5,
 	
 	//minHeight: 300,
-	resizable: true,
+	//resizable: true,
 	//flex:1,
 	autoScroll: true,
 	//reserveScrollbar: true,
@@ -31,12 +39,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 	},
 	*/
 	
-	initComponent: function () {
+/*	initComponent: function () {
 		
 		this.items =[];
 		
 		this.callParent();
-	},
+	},*/
 	
 	
 	setTitelValue: function (value) {
@@ -45,121 +53,113 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 		
 		
 		var panel_0 = null;
-		for (i = 0; i <= 2; i++) {		
-			if (i / 2 === 0 || i / 2 === 1) {
-				panel_0 = Ext.create('Ext.panel.Panel', {					
-					bodyPadding: 10,
-					width: 1000,
-					height: 150,
-					/* layout: {
-					type: 'hbox'
-					//align: 'stretch'
-					},*/
+
+		panel_0 = Ext.create('Ext.panel.Panel', {					
 					layout: {
 						type: 'table',
 						columns: 2
+						/*tableAttrs: {
+            			style: {
+                			width: '100%'
+            			}
+        				}*/
 					},
+					autoScroll: true,
 					border: false,
-					//height: 300,
 					
-					
-					items:[]
+					items:[
+				
+					]
 				});
 				me.items.add(panel_0);
-			}
-			
+
+		for (i = 0; i <= 2; i++) {		
+
 			me.w_ein_titel = this.createTextField('Einheitstitel');
 			me.w_titel = this.createTextField('Titel');
 			me.w_alt_titel = this.createTextField('Alternativtitel');
-			me.w_unter_titel = this.createTextField('Untertitel');			
-			var panel_1 = Ext.create('Ext.Panel', {
-				layout: {
-					type: 'vbox',
-					align: 'stretch'
-				},
-				colspan: 1,
-				/*defaults: {
-				frame: true,
-				bodyPadding: 10
-				},*/
-				// height: 300,
-				width: 400,
-				border: false,
-				bodyPadding: 10,
+			me.w_unter_titel = this.createTextField('Untertitel');
+
+				panel_10 = Ext.create('Ext.panel.Panel', {					
+					colspan: 1,
+					type: 'hbox',
+					border:false,
+
+					items:[
 				
-				items:[
-				me.w_ein_titel,
-				me.w_titel,
-				me.w_alt_titel,
-				me.w_unter_titel]
-			});
+					]
+				});
+				panel_0.add(panel_10);
 			
-			panel_0.items.add(panel_1);
+panel_10.items.add(me.w_ein_titel);
+panel_10.items.add(me.w_titel);
+panel_10.items.add(me.w_alt_titel);
+panel_10.items.add(me.w_unter_titel);
+
 		}
 		
-	var panel_00 = Ext.create('Ext.panel.Panel', {
+this.titel = this.createTextArea('Titel (Quelle)');
+		this.language = this.createTextArea('Sprache(n)');
+var panel_00 = Ext.create('Ext.panel.Panel', {
 			
-			bodyPadding: 10,
-			//width: 1000,
-			//height: 150,
-			/* layout: {
-			type: 'hbox'
-			//align: 'stretch'
-			},*/
 			layout: {
 				type: 'table',
-				columns: 1
+				columns: 2
+			/*tableAttrs: {
+            style: {
+                width: '100%'
+            }
+        }*/
 			},
-
+			autoScroll: true,
 			border: false,
 			//height: 300,
 			
 			
-			items:[]
-		});
-		me.items.add(panel_00);
-		
-		
-		me.titel = this.createTextArea('Titel (Quelle)');
-		me.language = this.createTextArea('Sprache(n)');
-		
-		var panel_11 = Ext.create('Ext.Panel', {
-			layout: {
-				type: 'hbox',
-				align: 'stretch'
-			},
-
-			colspan: 1,
-			/*defaults: {
-			frame: true,
-			bodyPadding: 10
-			},*/
-			 height: 100,
-			width: 1000,
-			border: false,
-			bodyPadding: 10,
-			
 			items:[
-			me.titel,
-			me.language]
+			this.titel,
+			this.language]
 		});
 		
-		panel_00.items.add(panel_11);
+		this.items.add(panel_00);
 		
 		this.annot = this.createTextArea('Bemerkungen');
-		this.abs = this.createTextArea('Abschriften');
+		/*this.abs = this.createTextArea('Abschriften');*/
 		
 		this.sign = this.createTextArea('Bibliotheken');
 		this.prov = this.createTextArea('Provienzen');
+
+var panel_01 = Ext.create('Ext.panel.Panel', {
+			
+			layout: {
+				type: 'table',
+				columns: 2
+			/*tableAttrs: {
+            style: {
+                width: '100%'
+            }
+        }*/
+			},
+			autoScroll: true,
+			border: false,
+			//height: 300,
+			
+			
+			items:[
+			this.sign,
+			this.prov]
+		});
+		
+		this.items.add(panel_01);
 		
 		
 		
 		//this.items.add(this.titel);
 		this.items.add(this.annot);
-		this.items.add(this.abs);
+		//this.items.add(this.abs);
 		//this.items.add(this.language);
-		this.items.add(this.sign);
-		this.items.add(this.prov);
+		//this.items.add(this.sign);
+		//this.items.add(this.prov);
 		
 		//this.titel.setValue(value);
 	},
@@ -170,8 +170,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 		var textArea = Ext.create('Ext.form.field.TextArea', {
 			name: fieldName,
 			fieldLabel: fieldName,
-			readOnly: true
-			//anchor    : '100%'
+
+//width: 235,
+			readOnly: true,
+			anchor    : '100%',
+style: {
+                width: '100%'
+            }
 		});
 		
 		return textArea;
@@ -182,8 +187,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 		var textArea = Ext.create('Ext.form.field.Text', {
 			name: fieldName,
 			readOnly: true,
-			fieldLabel: fieldName
-			//anchor    : '100%'
+style: {
+                width: '100%'
+            },
+//width: 235,
+			fieldLabel: fieldName,
+			anchor    : '100%'
 		});
 		
 		return textArea;
