@@ -16,6 +16,9 @@ requires:[
 		align: 'stretch'
 	},
 
+
+bodyPadding: 10,
+
 border:false,
 bodyBorder: false,
 	

@@ -2,10 +2,10 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
-    extend: 'Ext.form.FieldSet',
-    
-    collapsible: true,
-    collapsed: false,
+    //extend: 'Ext.form.FieldSet',
+    extend: 'Ext.panel.Panel',
+   // collapsible: true,
+    //collapsed: false,
    
     title: '<b style="color:gray;">Details</b>',
 

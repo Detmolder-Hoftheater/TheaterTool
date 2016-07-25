@@ -16,7 +16,7 @@ autoScroll: true,
 
     bodyBorder: false,
    // border: false,
-    bodyPadding: 5,
+   // bodyPadding: 5,
 border: false,
  /*style: {
       borderRight: '7px solid white',
@@ -51,10 +51,13 @@ navTree.setNavButton(me.navButton);
 navTree.setWorkSelection(me.selection);
 
 
- 	me.tbar = {
+ 	me.tbar =  new Ext.Toolbar({
 		/*layout: {
             pack: 'center'
         },*/
+/*style: {
+				background: '#FFFFFF'
+			},*/
 	height: 33,
               // items: [{
                     //xtype: 'segmentedbutton',
@@ -79,7 +82,7 @@ me.navButton
 
  
                 
-            };
+           });
 
 
 /*{

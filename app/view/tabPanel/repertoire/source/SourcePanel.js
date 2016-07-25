@@ -3,7 +3,14 @@
  * @class
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
-	extend: 'Ext.panel.Panel',
+	//extend: 'Ext.panel.Panel',
+
+extend: 'Ext.tab.Panel',
+	
+	defaults: {
+		autoScroll: true
+		
+	},
     
 	personSection: null,
 	detailSection: null,
@@ -17,7 +24,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 					align: 'stretch'
 				},*/
 				
-				bodyPadding: 15,
+				//bodyPadding: 15,
 				
 				/*defaults: {
 					frame: true
@@ -25,14 +32,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 				},*/
 				
 				border: false,
-
+//bodyPadding: 15,
 	sourceID: null,
 	werkTitle: null,
 	
 	
 	initComponent: function () {
 	
-	this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
+	//this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
 		
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID});
 
@@ -52,39 +59,26 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 			},*/
        
 			this.detailSection,
-			{
+			/*{
         		html: '<img src="resources/images/Download.png" style="width:11px;height:14px;">',
 				border: false,
 				margin: '0 0 -11 0'
-			},
+			},*/
 			this.detailSection_xml,
-			this.overviewSection,			
-			{
-				xtype: 'label',
-        		html: '<b style="color:gray;">Sources</b>',
-        		margin: '10 0 10 0'
-
-			},
-			this.personSection
+			this.overviewSection
     ]
 	}
 else{
     this.items = [
 			
 			this.detailSection,	
-			{
+			/*{
         		html: '<img src="resources/images/Download.png" style="width:17px;height:17px;">',
 				border: false,
 				margin: '0 0 -11 0'
-			},
-			this.detailSection_xml/*,
-			{
-				xtype: 'label',
-        		html: '<b style="color:gray;">Sources</b>',
-        		margin: '10 0 10 0'
-
-			},
-			this.personSection*/
+			},*/
+			this.detailSection_xml
+			
     ]
 }
     	this.callParent();
