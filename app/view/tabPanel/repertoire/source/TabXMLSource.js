@@ -8,46 +8,42 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.TabXMLSource', {
 
 	bodyPadding: 10,
 
-border:false,
-//flex:1,
-
- minHeight: 200,
-   
-    resizable: true,
+	//height: 300,				
+					
+border:true,
 
 autoScroll: true,
+		
+
+ minHeight: 500,
+   
+    //resizable: true,
+
+//autoScroll: true,
 //reserveScrollbar: true,
 
 //infoText: null,
 
 
 	//workID: null,
+
+initComponent: function() {
+this.callParent();
+        
+        },
 	
-/*	initComponent: function () {
-var me = this;
-
-me.listeners = {
-        	activate: function (eOpts) {
-        	console.log("activate");
-
-			$('#'+me.id).html(me.infoText);
-
-
-  }
-    },
-	
-//$('#'+me.id+'innerCt').html('My content was added during construction.');	
-	this.callParent();
-	},*/
-
 
 setTextInfo: function(infoText){
 
 //console.log(infoText);
 
+
 //$('#'+this.id+'-innerCt').html(infoText);
 
 var me = this;
+console.log(me.id);
+
+//$('#'+this.id+'-body').html('My content was added during construction.');
 
  var fragment = document.createDocumentFragment('div');
 		var tempDiv = document.createElement('div');
@@ -58,7 +54,7 @@ var me = this;
 
  		var tmp = hljs.highlightAuto($(tempDiv).html()).value;
  
-	$('#'+me.id+'-innerCt').html('<pre>' + tmp + '</pre>');
+	$('#'+me.id+'-body').html('<pre>' + tmp + '</pre>');
 
 	}
 });

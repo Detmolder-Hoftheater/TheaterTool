@@ -7,9 +7,18 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML'
     //collapsible: true,
    //collapsed: true,
 
-
+/*layout: {
+		type: 'vbox',
+		pack: 'start',
+		align: 'stretch'
+	},*/
+					//autoScroll: true,
+					border: true,
+//height: 400,
 
 //flex:1,
+//minHeight: 200,
+
 
     title: '<b style="color:gray;">XML</b>',
 //+ '<img src="resources/images/Download.png" style="width:17px;height:17px;">',
@@ -42,14 +51,46 @@ xtype: 'image', src: 'resources/images/Download.png', width: 26,
     initComponent: function() {
 
 	var me = this;
-    
-    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.TabXMLSource({sourceID: me.sourceID});
-	
-	me.items =[
-		me.repertoireTab
-		],
 
- 	me.listeners = {
+me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.TabXMLSource({sourceID: me.sourceID});
+	
+					me.items =[
+							me.repertoireTab
+					];
+
+me.listeners = {
+        	activate: function (eOpts) {
+        	console.log("activate");
+
+			//$('#'+me.id).html(me.infoText);
+
+Ext.Ajax.request({           
+    			url:'resources/xql/getXML.xql', 
+				//url: 'data/H000001.xml' , 
+			method: 'GET',
+            params: {
+               uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
+                type: 'source'
+            },        
+    			success: function (response, options) {
+ 					
+        			var object = response.responseText;
+					me.repertoireTab.setTextInfo(object);       			
+    			}
+			});
+
+
+  }
+    },
+
+
+
+
+
+    
+   
+
+ 	/*me.listeners = {
         	expand: function (p, eOpts) {
         	console.log("expand");
 			Ext.Ajax.request({           
@@ -68,7 +109,7 @@ xtype: 'image', src: 'resources/images/Download.png', width: 26,
 
          
         }
-    },
+    },*/
     
         me.callParent();
         

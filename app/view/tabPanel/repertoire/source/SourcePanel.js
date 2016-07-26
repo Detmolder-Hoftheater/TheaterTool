@@ -7,11 +7,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 
 extend: 'Ext.tab.Panel',
 	
-	defaults: {
+	/*defaults: {
 		autoScroll: true
 		
 	},
-    
+    */
 	personSection: null,
 	detailSection: null,
 	overviewSection: null,
@@ -71,13 +71,14 @@ extend: 'Ext.tab.Panel',
 else{
     this.items = [
 			
-			this.detailSection,	
+			this.detailSection,
+this.detailSection_xml
 			/*{
         		html: '<img src="resources/images/Download.png" style="width:17px;height:17px;">',
 				border: false,
 				margin: '0 0 -11 0'
 			},*/
-			this.detailSection_xml
+			
 			
     ]
 }
