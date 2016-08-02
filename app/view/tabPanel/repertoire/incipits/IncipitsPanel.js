@@ -71,9 +71,37 @@ console.log(meiE);
 			var svg_1 = renderer.renderData(meiE, options);
 			$('#' + me.id + '-body').html(svg_1);	*/
 
-/*for(i = 1; i < splittest.length; i++){
-	var shoe = splittest[1];
-var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection();
+/*var meiE_3 = splittest[12];
+var incipitSection_3 = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">'+3+'</b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
+me.add(incipitSection_3);
+incipitSection_3.setTextInfo(meiE_3);*/
+//console.log(splittest.length);
+for(i = 6; i < 12; i++){
+	var shoe = splittest[i];
+var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">'+i+'</b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
+me.add(incipitSection);
+incipitSection.setTextInfo(shoe);
+
+}
+for(i = 13; i < 15; i++){
+	var shoe = splittest[i];
+var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">'+i+'</b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
+me.add(incipitSection);
+incipitSection.setTextInfo(shoe);
+
+}
+
+
+var meiE_3 = splittest[17];
+var incipitSection_3 = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">'+17+'</b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
+me.add(incipitSection_3);
+incipitSection_3.setTextInfo(meiE_3);
+
+
+/*for(i = 16; i < splittest.length; i++){
+	var shoe = splittest[i];
+var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">'+i+'</b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
+me.add(incipitSection);
 incipitSection.setTextInfo(shoe);
 
 }*/
