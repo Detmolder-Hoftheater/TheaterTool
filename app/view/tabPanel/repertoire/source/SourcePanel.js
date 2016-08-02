@@ -14,6 +14,7 @@ extend: 'Ext.tab.Panel',
     */
 	personSection: null,
 	detailSection: null,
+	sourcesSection: null,
 	overviewSection: null,
 	detailSection_xml: null,
 //flex:1,
@@ -38,12 +39,19 @@ extend: 'Ext.tab.Panel',
 	
 	
 	initComponent: function () {
+
+		var app = TheaterTool.getApplication();
+        var store = app.createStoreForSource();
+		store.getProxy().extraParams.sourceID = this.sourceID;				
+		store.load();
 	
 	//this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
 		
-	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID});
+	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID, store: store});
 
-	this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({sourceID: this.sourceID});
+	this.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({sourceID: this.sourceID, store: store});
+
+this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({sourceID: this.sourceID});
 
 	if(storeField.indexOf(this.werkTitle) > -1){
 		this.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
@@ -59,6 +67,7 @@ extend: 'Ext.tab.Panel',
 			},*/
        
 			this.detailSection,
+this.sourcesSection,
 			/*{
         		html: '<img src="resources/images/Download.png" style="width:11px;height:14px;">',
 				border: false,
@@ -72,6 +81,7 @@ else{
     this.items = [
 			
 			this.detailSection,
+this.sourcesSection,
 this.detailSection_xml
 			/*{
         		html: '<img src="resources/images/Download.png" style="width:17px;height:17px;">',

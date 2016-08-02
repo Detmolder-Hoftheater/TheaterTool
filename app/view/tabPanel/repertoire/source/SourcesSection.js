@@ -1,13 +1,13 @@
 /**
  * This example illustrates how to use the grouping feature of the Grid.
  */
-Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
+Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
     //extend: 'Ext.form.FieldSet',
     extend: 'Ext.panel.Panel',
    // collapsible: true,
     //collapsed: false,
    
-    title: '<b style="color:gray;">Details</b>',
+    title: '<b style="color:gray;">Sources</b>',
 border: false,
 	//flex:1,
 
@@ -39,7 +39,7 @@ store: null,
 
 	var me = this;
     
-    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel({sourceID: me.sourceID});
+    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel({sourceID: me.sourceID});
 
 /*	Ext.Ajax.request({
            // url: 'data/Output_Exist.xql',
