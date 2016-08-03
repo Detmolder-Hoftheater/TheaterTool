@@ -61,12 +61,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 			
 			layout: {
 				type: 'table',
-				columns: 2
+				columns: 2,
+tdAttrs: {
+        			valign: 'top'
+   				 }
 			},
 			autoScroll: true,
 			border: false,
 			//height: 300,
-			bodyPadding: 17,
+			bodyPadding: 10,
 			items:[
 			me.titel,			
 			me.rism]
@@ -90,16 +93,16 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 		panel_0 = Ext.create('Ext.panel.Panel', {
 			layout: {
 				type: 'table',
-				columns: 2
-				/*tableAttrs: {
-				style: {
-				width: '100%'
-				}
-				}*/
+				columns: 2,
+				tdAttrs: {
+        			valign: 'top'
+   				 }
 			},
+
+
 			autoScroll: true,
 			border: false,
-			bodyPadding: 10,
+			//bodyPadding: 10,
 			items:[]
 		});
 		titel_group.add(panel_0);
@@ -144,9 +147,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 						colspan: 1,
 						type: 'hbox',
 						border: false,
-						style: {
+						/*style: {
 							borderBottom: '15px solid #FFFFFF'
-						},
+						},*/
 						items:[]
 					});
 					panel_0.add(panel_10);
@@ -182,7 +185,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 		me.pers.setValue(autorText);
 		var pers_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
-			bodyPadding: 17,
+			bodyPadding: 10,
 			items:[]
 		});
 		
@@ -192,7 +195,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 		me.abs = me.createTextField('Entstehung');
 		var ents_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
-			bodyPadding: 17,
+			bodyPadding: 10,
 			items:[]
 		});
 		
@@ -203,7 +206,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 		me.annot = me.createTextArea('Aufführungen');
 		var annot_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
-			bodyPadding: 17,
+			bodyPadding: 10,
 			items:[]
 		});
 		
@@ -227,7 +230,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 			
 			layout: {
 				type: 'table',
-				columns: 2
+				columns: 2,
+			tdAttrs: {
+        			valign: 'top'
+   				 }
 				/*tableAttrs: {
 				style: {
 				width: '100%'
@@ -237,7 +243,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 			autoScroll: true,
 			border: false,
 			//height: 300,
-			bodyPadding: 17,
+			bodyPadding: 10,
 			
 			items:[
 			me.prov,
