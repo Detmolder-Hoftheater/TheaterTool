@@ -376,7 +376,8 @@ declare function local:jsonifyWorkTitel($content) {
 let $strings := for $elem in $content/mei:relationList/mei:relation
 
 	let $targetWork := $elem[@rel = 'isEmbodimentOf']/@target
-	let $origId := substring-after($targetWork, '#')
+	let $origId_1 := substring-after($targetWork, '#')
+	let $origId := substring-before($origId_1, '_')
 	let $uriWork := concat($workPath, $origId, '.xml')
 	let $fileWork := doc($uriWork)
 	let $titles := $fileWork//mei:titleStmt[1]/mei:title
