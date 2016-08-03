@@ -20,7 +20,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 	//reserveScrollbar: true,
 	
 	border: false,
-	
+	sourceID: null,
 	titel: null,
 	rism: null,
 	annot: null,
@@ -28,13 +28,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 	language: null,
 	sign: null,
 	prov: null,
+	pers: null,
 	
 	w_ein_titel: null,
 	w_titel: null,
 	w_alt_titel: null,
 	w_unter_titel: null,
-	
-	
+
 	/*setTextInfo: function (infoText) {
 	$('#' + this.id + '-innerCt').html(infoText);
 	},
@@ -48,12 +48,29 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 	},*/
 	
 	
-	setTitelValue: function (value) {
-		
+	setTitelValue: function (sourceStore) {
+
 		var me = this;
-		
-		this.titel = this.createTextField('Einheitstitel');
-		this.rism = this.createTextField('RISM ID');
+
+		Ext.Ajax.request({
+				 url: 'resources/xql/getSource.xql',
+				//url: 'data/getZones.xql',
+				async: false,
+				method: 'GET',
+				params: {
+					sourceID: me.sourceID
+				},
+				success: function (result) {
+					
+					var json = jQuery.parseJSON(result.responseText);
+					
+					console.log(json);	
+
+		me.titel = me.createTextField('Einheitstitel');
+		me.titel.setValue(json.titel[0]);
+
+		me.rism = me.createTextField('RISM ID');
+		me.rism.setValue(json.rism[0]);
 		var headpanel_1 = Ext.create('Ext.panel.Panel', {
 			
 			layout: {
@@ -65,12 +82,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 			//height: 300,
 			bodyPadding: 17,
 			items:[
-			this.titel,
-			
-			this.rism]
+			me.titel,			
+			me.rism]
 		});
 		
-		this.items.add(headpanel_1);
+		me.items.add(headpanel_1);
 		
 		var titel_group = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Titel Varianten</b>',
@@ -104,10 +120,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 		
 		for (i = 0; i <= 2; i++) {
 			
-			me.w_ein_titel = this.createTextField('Einheitstitel');
-			me.w_titel = this.createTextField('Titel');
-			me.w_alt_titel = this.createTextField('Alternativtitel');
-			me.w_unter_titel = this.createTextField('Untertitel');
+			me.w_ein_titel = me.createTextField('Einheitstitel');
+			me.w_titel = me.createTextField('Titel');
+			me.w_alt_titel = me.createTextField('Alternativtitel');
+			me.w_unter_titel =  me.createTextField('Untertitel');
 			
 			panel_10 = Ext.create('Ext.panel.Panel', {
 				colspan: 1,
@@ -125,24 +141,60 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 			panel_10.items.add(me.w_alt_titel);
 			panel_10.items.add(me.w_unter_titel);
 		}
+
+		me.pers = me.createTextArea('Personen');
+		var autorText = '';
+		for(i = 0; i < json.autoren.length; i++){
+			var autor = json.autoren[i];
+			for(j = 0; j < autor.length; j++){
+				autorText += autor[j] + ', ';
+			}
+			autorText += '\n';
+		}
+		me.pers.setValue(autorText);
+		var pers_panel = Ext.create('Ext.panel.Panel', {
+			border: false,
+			bodyPadding: 17,
+			items:[]
+		});
 		
-		this.abs = this.createTextField('Entstehung');
+		pers_panel.add(me.pers);
+		me.items.add(pers_panel);
+		
+		me.abs = me.createTextField('Entstehung');
 		var ents_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
 			bodyPadding: 17,
 			items:[]
 		});
 		
-		ents_panel.add(this.abs);
-		this.items.add(ents_panel);
+		ents_panel.add(me.abs);
+		me.items.add(ents_panel);
 		
 		
-		this.annot = this.createTextArea('Bemerkungen');
+		me.annot = me.createTextArea('Aufführungen');
+		var annot_panel = Ext.create('Ext.panel.Panel', {
+			border: false,
+			bodyPadding: 17,
+			items:[]
+		});
+		
+		annot_panel.add(me.annot);
+		me.items.add(annot_panel);
 		
 		
-		this.sign = this.createTextArea('Bibliotheken');
-		this.prov = this.createTextArea('Provienzen');
-		
+		me.sign = me.createTextArea('Bibliotheken');
+		var bibText = '';
+		for(i = 0; i < json.bibliotheken.length; i++){
+			bibText += json.bibliotheken[i] + '\n';
+		}
+		me.sign.setValue(bibText);
+		me.prov = me.createTextArea('Provenienz');
+		var provText = '';
+		for(i = 0; i < json.abschriften.length; i++){
+			provText += json.abschriften[i] + '\n';
+		}
+		me.prov.setValue(provText);
 		var panel_01 = Ext.create('Ext.panel.Panel', {
 			
 			layout: {
@@ -160,22 +212,20 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 			bodyPadding: 17,
 			
 			items:[
-			this.prov,
-			this.sign]
+			me.prov,
+			me.sign]
 		});
 		
-		this.items.add(panel_01);
+		me.items.add(panel_01);
 		
-		var annot_panel = Ext.create('Ext.panel.Panel', {
-			border: false,
-			bodyPadding: 17,
-			items:[]
-		});
 		
-		annot_panel.add(this.annot);
-		this.items.add(annot_panel);
 		
 		//this.titel.setValue(value);
+//this.titel.setValue(sourceStore.data[0].item[0].data.row.titel[0]);
+}
+			});
+
+
 	},
 	
 	

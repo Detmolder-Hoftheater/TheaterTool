@@ -51,7 +51,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
 	},*/
 	
 	
-	setTitelValue: function (value) {
+	setTitelValue: function () {
 		
 		var me = this;
 

@@ -33,7 +33,6 @@ border: false,
     repertoireTab:null,
 
 	sourceID: null,
-store: null,
 
     initComponent: function() {
 
@@ -68,8 +67,8 @@ store: null,
 
 					me.pageNumber = page.pageAnzahl;*/
 
-console.log(me.store);
-me.repertoireTab.setTitelValue('Test');
+
+me.repertoireTab.setTitelValue();
 		
 
 	/*me.listeners = {

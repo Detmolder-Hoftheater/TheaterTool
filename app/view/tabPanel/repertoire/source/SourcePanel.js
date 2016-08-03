@@ -40,16 +40,16 @@ extend: 'Ext.tab.Panel',
 	
 	initComponent: function () {
 
-		var app = TheaterTool.getApplication();
-        var store = app.createStoreForSource();
-		store.getProxy().extraParams.sourceID = this.sourceID;				
-		store.load();
+		/*var app = TheaterTool.getApplication();
+        var sourceStore = app.createStoreForSource();
+		sourceStore.getProxy().extraParams.sourceID = this.sourceID;				
+		sourceStore.load();*/
 	
 	//this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
 		
-	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID, store: store});
+	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID});
 
-	this.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({sourceID: this.sourceID, store: store});
+	this.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({sourceID: this.sourceID});
 
 this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({sourceID: this.sourceID});
 

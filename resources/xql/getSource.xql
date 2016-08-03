@@ -35,6 +35,23 @@ if(count($id) gt 0) then(concat('"',string-join($id,'","'),'"')) else()
     
 };
 
+declare function local:jsonifyRISM($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem/mei:identifier[not(ancestor::mei:componentGrp)][1]
+                   
+                    return 
+                       
+if(contains($id, '_'))then(substring-after($id, '_'))else($id)
+    
+    return 
+        string-join($strings,',')
+
+   
+    
+};
+
 declare function local:jsonifyRoles($id) {
 
 let $strings := for $elem in $id
@@ -396,16 +413,18 @@ concat('["',$title, '","', $type, '","', $language,'"]')
         local:jsonifyTitel($content),
     '],"autoren":[',
         local:jsonifyAutoren($content),
+	'],"rism":[',
+        local:jsonifyRISM($content),
 	'],"abschriften":[',
         local:jsonifyAbschriften($content),
 	'],"abschriften":[',
         local:jsonifyProvenienzen($content),
-	'],"sprachen":[',
-        local:jsonifySprachen($content),
+	(:'],"sprachen":[',
+        local:jsonifySprachen($content),:)
 	'],"bibliotheken":[',
         local:jsonifyBib($content),
-	'],"bemerkungen":[',
-        local:jsonifyBemerkungen($content),
+	(:'],"bemerkungen":[',
+        local:jsonifyBemerkungen($content),:)
 	'],"sources":[',
         local:jsonifySources($content),
 	'],"workTitel":[',
