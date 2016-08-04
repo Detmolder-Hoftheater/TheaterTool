@@ -55,7 +55,18 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
 		
 		var me = this;
 
-
+Ext.Ajax.request({
+				 url: 'resources/xql/getSourceDetails.xql',
+				async: false,
+				method: 'GET',
+				params: {
+					sourceID: me.sourceID
+				},
+				success: function (result) {
+					
+					var json = jQuery.parseJSON(result.responseText);
+					
+					console.log(json);	
 
 var source_group = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Sources Titel</b>',
@@ -227,6 +238,8 @@ source_group.add(this.prov);
 		source_group.add(this.annot);
 		
 		//this.titel.setValue(value);
+}
+			});
 	},
 	
 	

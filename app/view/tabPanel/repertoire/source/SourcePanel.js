@@ -3,9 +3,9 @@
  * @class
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
-	//extend: 'Ext.panel.Panel',
-
 extend: 'Ext.tab.Panel',
+
+   
 	
 	/*defaults: {
 		autoScroll: true
@@ -91,7 +91,39 @@ this.detailSection_xml
 			
 			
     ]
-}
+};
+
+/*this.on({
+    delegate: 'tab',
+    tap: function(tab) {
+        console.log(tab.getText());
+    }
+});*/
+
+
+
+ /*this.listeners = {
+        render: function() {
+            this.items.each(function(i){
+                i.tab.on('itemclick', function(){
+                    console.log(i.title);
+                });
+            });
+        }
+    }*/
+
+/*this.listeners = {
+    render: function() {
+     this.items.each(function(panel){
+         // Added tabclick event for tabpanel                                                                        
+         panel.tab.on('click', function(){
+console.log(panel.title);
+      // panel.addEvents('tabclick');  // addded event to panel 
+      // panel.fireEvent('tabclick', panel);
+      });
+       });
+      }
+    }*/
     	this.callParent();
 	}
 });

@@ -184,7 +184,7 @@ createStoreForSource: function(){
 			},
 			proxy: {
 				type: 'ajax',
-				url: 'resources/xql/getSource.xql'				
+				url: 'resources/xql/getSourceDetails.xql'				
 			},
 			autoLoad: false
 		});
