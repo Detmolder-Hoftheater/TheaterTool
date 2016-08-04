@@ -66,7 +66,59 @@ Ext.Ajax.request({
 					
 					var json = jQuery.parseJSON(result.responseText);
 					
-					console.log(json);	
+					console.log(json.sources);	
+
+
+var store = Ext.create('Ext.data.TreeStore', {
+	model: 'TheaterTool.model.Source',
+    root: {
+        expanded: true,
+        children: [
+            { 
+				"titel": "Test_1",
+				"autoren": "Mus11",
+				"abschriften": "1703",
+				leaf: true 
+			}
+            /*{ text: "homework", expanded: true, 
+				children: [
+                	{ text: "book report", leaf: true },
+               		 { text: "alegrbra", leaf: true}
+           		 ] 
+			},*/
+           
+        ]
+    }
+});
+
+var tableTest = Ext.create('Ext.tree.Panel', {
+    //title: 'Simple Tree',
+xtype: 'tree-grid',
+useArrows: true,
+flex:1,
+   // width: 200,
+   // height: 150,
+    store: store,
+    rootVisible: false,
+columns: [{
+                xtype: 'treecolumn', //this is so we know which column will show the tree
+                text: 'Titel',
+                flex: 2,
+                
+                dataIndex: 'titel'
+            },{
+                text: 'Signatur',
+                flex: 1,
+                dataIndex: 'autoren'
+                
+            },{
+                text: 'Inventarnummer',
+                flex: 1,
+                dataIndex: 'abschriften'
+            }
+            ]
+});
+me.items.add(tableTest);
 
 var source_group = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Sources Titel</b>',
@@ -78,15 +130,15 @@ var source_group = Ext.create('Ext.form.FieldSet', {
 		});
 		me.items.add(source_group);
 		
-		this.titel = this.createTextArea('Titelseite(n)');
-		this.rism = this.createTextArea('Medium');
-this.zustand = this.createTextArea('Zustand');
-this.personen = this.createTextArea('Personen');
-this.schreiber = this.createTextArea('Schreiber');
+		me.titel = me.createTextArea('Titelseite(n)');
+		me.rism = me.createTextArea('Medium');
+me.zustand = me.createTextArea('Zustand');
+me.personen = me.createTextArea('Personen');
+me.schreiber = me.createTextArea('Schreiber');
 
-me.w_ein_titel = this.createTextField('Umfang');
-			me.w_titel = this.createTextField('Größe');
-			me.w_alt_titel = this.createTextField('Stamp');
+me.w_ein_titel = me.createTextField('Umfang');
+			me.w_titel = me.createTextField('Größe');
+			me.w_alt_titel = me.createTextField('Stamp');
 			
 			var panel_10 = Ext.create('Ext.panel.Panel', {
 				//colspan: 1,
@@ -112,11 +164,11 @@ me.w_ein_titel = this.createTextField('Umfang');
 			//height: 300,
 			//bodyPadding: 17,
 			items:[
-			this.titel,
-			this.rism,
-			this.zustand,
-this.personen,
-this.schreiber,
+			me.titel,
+			me.rism,
+			me.zustand,
+me.personen,
+me.schreiber,
 panel_10]
 		});
 		
@@ -176,7 +228,7 @@ panel_10]
 			panel_10.items.add(me.w_unter_titel);
 		}*/
 		
-		this.abs = this.createTextField('Entstehung');
+		me.abs = me.createTextField('Entstehung');
 		/*var ents_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
 			//bodyPadding: 17,
@@ -184,9 +236,9 @@ panel_10]
 		});
 		
 		ents_panel.add(this.abs);*/
-		source_group.add(this.abs);
+		source_group.add(me.abs);
 
-		this.language = this.createTextField('Sprache(n)');
+		me.language = me.createTextField('Sprache(n)');
 		/*var language_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
 			//bodyPadding: 17,
@@ -194,14 +246,14 @@ panel_10]
 		});*/
 		
 		//language_panel.add(this.language);
-		source_group.add(this.language);
+		source_group.add(me.language);
 		
 		
-		this.annot = this.createTextArea('Bemerkungen');
+		me.annot = me.createTextArea('Bemerkungen');
 		
 		
-		this.sign = this.createTextArea('Aufführungen');
-		this.prov = this.createTextArea('Inhalt');
+		me.sign = me.createTextArea('Aufführungen');
+		me.prov = me.createTextArea('Inhalt');
 		
 		/*var panel_01 = Ext.create('Ext.panel.Panel', {
 			
@@ -233,9 +285,9 @@ panel_10]
 		});
 		
 		annot_panel.add(this.annot);*/
-source_group.add(this.sign);
-source_group.add(this.prov);
-		source_group.add(this.annot);
+source_group.add(me.sign);
+source_group.add(me.prov);
+		source_group.add(me.annot);
 		
 		//this.titel.setValue(value);
 }

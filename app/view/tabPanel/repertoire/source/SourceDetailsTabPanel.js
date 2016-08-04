@@ -52,37 +52,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 					
 					console.log(json);	
 
-		me.titel = me.createTextField('Einheitstitel');
-		me.titel.setValue(json.titel[0]);
-
-		me.rism = me.createTextField('RISM ID');
-		me.rism.setValue(json.rism[0]);
-		var headpanel_1 = Ext.create('Ext.panel.Panel', {
-			
-			layout: {
-				type: 'table',
-				columns: 2,
-tdAttrs: {
-        			valign: 'top'
-   				 }
-			},
-			autoScroll: true,
-			border: false,
-			//height: 300,
-			bodyPadding: 10,
-			items:[
-			me.titel,			
-			me.rism]
-		});
 		
-		me.items.add(headpanel_1);
 		
 		var titel_group = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Titel Varianten</b>',
 			bodyBorder: false,
 			
 			collapsible: true,
-			collapsed: false,
+			collapsed: true,
 			items:[]
 		});
 		me.items.add(titel_group);
@@ -173,6 +150,69 @@ tdAttrs: {
 
 		}
 
+		me.titel = me.createTextField('Einheitstitel');
+		me.titel.setValue(json.titel[0]);
+
+		me.rism = me.createTextField('RISM ID');
+		me.rism.setValue(json.rism[0]);
+		var headpanel_1 = Ext.create('Ext.panel.Panel', {
+			
+			layout: {
+				type: 'table',
+				columns: 2,
+			tdAttrs: {
+        			valign: 'top'
+   				 }
+			},
+			autoScroll: true,
+			border: false,
+			//height: 300,
+			bodyPadding: 10,
+			items:[
+			me.titel,			
+			me.rism]
+		});
+		
+		me.items.add(headpanel_1);
+
+me.sign = me.createTextArea('Bibliotheken');
+		var bibText = '';
+		for(i = 0; i < json.bibliotheken.length; i++){
+			bibText += json.bibliotheken[i] + '\n';
+		}
+		me.sign.setValue(bibText);
+		me.prov = me.createTextArea('Provenienz');
+		var provText = '';
+		for(i = 0; i < json.abschriften.length; i++){
+			provText += json.abschriften[i] + '\n';
+		}
+		me.prov.setValue(provText);
+		var panel_01 = Ext.create('Ext.panel.Panel', {
+			
+			layout: {
+				type: 'table',
+				columns: 2,
+			tdAttrs: {
+        			valign: 'top'
+   				 }
+				/*tableAttrs: {
+				style: {
+				width: '100%'
+				}
+				}*/
+			},
+			autoScroll: true,
+			border: false,
+			//height: 300,
+			bodyPadding: 10,
+			
+			items:[
+			me.prov,
+			me.sign]
+		});
+		
+		me.items.add(panel_01);
+
 		me.pers = me.createTextArea('Personen');
 		var autorText = '';
 		for(i = 0; i < json.autoren.length; i++){
@@ -214,43 +254,7 @@ tdAttrs: {
 		me.items.add(annot_panel);
 		
 		
-		me.sign = me.createTextArea('Bibliotheken');
-		var bibText = '';
-		for(i = 0; i < json.bibliotheken.length; i++){
-			bibText += json.bibliotheken[i] + '\n';
-		}
-		me.sign.setValue(bibText);
-		me.prov = me.createTextArea('Provenienz');
-		var provText = '';
-		for(i = 0; i < json.abschriften.length; i++){
-			provText += json.abschriften[i] + '\n';
-		}
-		me.prov.setValue(provText);
-		var panel_01 = Ext.create('Ext.panel.Panel', {
-			
-			layout: {
-				type: 'table',
-				columns: 2,
-			tdAttrs: {
-        			valign: 'top'
-   				 }
-				/*tableAttrs: {
-				style: {
-				width: '100%'
-				}
-				}*/
-			},
-			autoScroll: true,
-			border: false,
-			//height: 300,
-			bodyPadding: 10,
-			
-			items:[
-			me.prov,
-			me.sign]
-		});
 		
-		me.items.add(panel_01);
 		
 		
 		
