@@ -305,10 +305,11 @@ if($item != '')then(concat('"',$item, '"'))else()
 
 };
 
-declare function local:jsonifySourceHier($source_el) {
+declare function local:jsonifySourceHier($s_list) {
 
-let $strings := for $elem_1 in $source_el//mei:source
+let $strings := for $elem_1 in $s_list
 
+			
 			let $s_title :=$elem_1/mei:titleStmt[1]/mei:title[1]
 
 			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
@@ -335,11 +336,11 @@ let $strings := for $elem_1 in $source_el//mei:source
 					
                    
 				return 
-if($s_title != '')then(
-concat(
+
+
 (:'"s_title":[',if($s_title != '')then($s_title)else(), '],',:)
 
-'"source_in_source":[{',
+concat('[{',
 
 '"s_title":','"',$s_title, '",',
 '"signatur":','"',normalize-space($signatur), '",',
@@ -348,8 +349,9 @@ concat(
 '"inscription":[',if($inscription != '')then($inscription)else(), '],',
 
 '"inhalt":[',if($inhalt != '')then($inhalt)else(), '],',
-'"s_bemerkungen":[',if($s_bemerkungen != '')then($s_bemerkungen)else(), 
-']',
+'"seitenzahl":','"',$pages, '",',
+'"groesse":','"',$dimension, '",',
+'"s_bemerkungen":[',if($s_bemerkungen != '')then($s_bemerkungen)else(),']',
 '}]'
 (:'"seitenzahl":','"',$pages, '",',
 '"groesse":','"',$dimension, '",',
@@ -360,7 +362,7 @@ concat(
 '"inhalt":[',if($inhalt != '')then($inhalt)else(), '],',
 '"s_bemerkungen":[',if($s_bemerkungen != '')then($s_bemerkungen)else(), 
 ']':)
-))else()
+)
 
     return 
         string-join($strings,',')
@@ -395,7 +397,8 @@ let $strings := for $elem_1 in $source_el
 
 			let $s_bemerkungen := local:jsonifyAnnots($annots)
 
-			let $source_hier := local:jsonifySourceHier($source_el)
+			let $s_list := $elem_1/mei:componentGrp/mei:source
+			let $source_hier := local:jsonifySourceHier($s_list)
 					
                    
 				return 
@@ -406,7 +409,7 @@ concat(
 '"signatur":','"',normalize-space($signatur), '",',
 '"titlePages":[',if($titlePages != '')then($titlePages)else(), '],',
 '"medium":','"',$medium, '",',
-if($source_hier != '')then(concat('"source_hier":[{',$source_hier,'}],'))else(),
+'"source_hier":[',if($source_hier != '')then(concat('{"sources_1":[',$source_hier,']}'))else(), '],',
 '"inscription":[',if($inscription != '')then($inscription)else(), '],',
 
 '"inhalt":[',if($inhalt != '')then($inhalt)else(), '],',
