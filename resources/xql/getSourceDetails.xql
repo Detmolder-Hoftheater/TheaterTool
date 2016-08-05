@@ -345,12 +345,14 @@ let $strings := for $elem_1 in $s_list
 
 			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
 
+			let $inventarnummer :=$elem_1/mei:identifier[1][@label="Inventarnummer"]
+
 			let $desc := $elem_1/mei:physDesc[1]/mei:titlePage			
 			let $titlePages := local:jsonifyTitlePages($desc)
 
 			let $medium := $elem_1/mei:physDesc[1]/mei:physMedium
 
-			let $condition :=$elem_1/mei:physDesc[1]/mei:condition[1]
+			let $condition :=$elem_1/mei:physDesc[1]/mei:condition
 
 			let $persNames := $elem_1/mei:physDesc[1]/mei:inscription/mei:persName
 			let $inscription := local:jsonifyInscription($persNames)
@@ -385,13 +387,14 @@ concat('[{',
 '"signatur":','"',normalize-space($signatur), '",',
 '"titlePages":[',if($titlePages != '')then($titlePages)else(), '],',
 '"medium":','"',$medium, '",',
+(:'"inventarnummer":','"',$inventarnummer, '",',:)
 '"inscription":[',if($inscription != '')then($inscription)else(), '],',
 '"schreiber":[',if($hand != '')then($hand)else(), '],',
 '"sprache":[',if($language != '')then($language)else(), '],',
 '"inhalt":[',if($inhalt != '')then($inhalt)else(), '],',
 '"seitenzahl":','"',$pages, '",',
 '"groesse":','"',$dimension, '",',
-'"condition":','"',$condition, '",',
+(:'"condition":','"',$condition, '",',:)
 '"s_bemerkungen":[',if($s_bemerkungen != '')then($s_bemerkungen)else(),']',
 '}]'
 (:'"seitenzahl":','"',$pages, '",',
@@ -418,13 +421,23 @@ let $strings := for $elem_1 in $source_el
 
 			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
 
+			let $inventarnummer :=$elem_1/mei:identifier[@label="Inventarnummer"]
+
 			let $desc := $elem_1/mei:physDesc[1]/mei:titlePage			
 			let $titlePages := local:jsonifyTitlePages($desc)
 
 			let $medium := $elem_1/mei:physDesc[1]/mei:physMedium
 
+			let $condition :=$elem_1/mei:physDesc[1]/mei:condition
+
 			let $persNames := $elem_1/mei:physDesc[1]/mei:inscription/mei:persName
 			let $inscription := local:jsonifyInscription($persNames)
+
+			let $handList := $elem_1/mei:physDesc[1]/mei:handList/mei:hand
+			let $hand := local:jsonifyHandList($handList)
+
+			let $langList := $elem_1/mei:physDesc[1]/mei:langUsage/mei:language
+			let $language := local:jsonifyLanguage($langList)
 
 			let $pages :=$elem_1/mei:physDesc[1]/mei:extent[1]
 
@@ -447,13 +460,17 @@ let $strings := for $elem_1 in $source_el
 concat(
 (:'"s_title":[',if($s_title != '')then($s_title)else(), '],',:)
 '"s_title":','"',$s_title, '",',
+(:'"inventarnummer":','"',$inventarnummer, '",',:)
 '"signatur":','"',normalize-space($signatur), '",',
 '"titlePages":[',if($titlePages != '')then($titlePages)else(), '],',
 '"medium":','"',$medium, '",',
 '"source_hier":[',if($source_hier != '')then(concat('{"sources_1":[',$source_hier,']}'))else(), '],',
 '"inscription":[',if($inscription != '')then($inscription)else(), '],',
+'"schreiber":[',if($hand != '')then($hand)else(), '],',
+'"sprache":[',if($language != '')then($language)else(), '],',
 '"seitenzahl":','"',$pages, '",',
 '"groesse":','"',$dimension, '",',
+(:'"condition":','"',$condition, '",',:)
 '"inhalt":[',if($inhalt != '')then($inhalt)else(), '],',
 '"s_bemerkungen":[',if($s_bemerkungen != '')then($s_bemerkungen)else(), 
 ']'

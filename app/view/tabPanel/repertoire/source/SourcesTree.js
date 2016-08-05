@@ -107,32 +107,61 @@ createContentForSources: function(source_list){
 		//var selected_node = null;
 		for(i = 0; i < source_list.length; i++){
 			var source_details = source_list[i];
+var isLeaf = true;
+if(source_details[0].source_hierlength > 0){
+	isLeaf = false
+}
+
 			var source = Ext.create('TheaterTool.model.SourceDetails', {
-"titel": source_details[0].s_title,
- 'icon': 'resources/images/SourceBlue.png',
+				"titel": source_details[0].s_title,
+ 				'icon': 'resources/images/SourceBlue.png',
 				"signatur": source_details[0].signatur,
 				"inventarnummer": source_details[0].inventarnummer,
 				'titlePages': source_details[0].titlePages,
 				'medium': source_details[0].medium,
-			'source_hier': source_details[0].source_hier,
-			'inscription': source_details[0].inscription,
-		's_bemerkungen': source_details[0].s_bemerkungen,
-	'seitenzahl': source_details[0].seitenzahl,
-	'groesse': source_details[0].groesse,
-'condition': source_details[0].condition,
-'schreiber': source_details[0].schreiber,
-'sprache': source_details[0].sprache,
-'entstehung': source_details[0].entstehung,
-'auffuehrungen': source_details[0].auffuehrungen,
-'inhalt': source_details[0].inhalt,
-				leaf: true 
+				'source_hier': source_details[0].source_hier,
+				'inscription': source_details[0].inscription,
+				's_bemerkungen': source_details[0].s_bemerkungen,
+				'seitenzahl': source_details[0].seitenzahl,
+				'groesse': source_details[0].groesse,
+				//'condition': source_details[0].condition,
+				'schreiber': source_details[0].schreiber,
+				'sprache': source_details[0].sprache,
+				'entstehung': source_details[0].entstehung,
+				'auffuehrungen': source_details[0].auffuehrungen,
+				'inhalt': source_details[0].inhalt,
+				leaf: isLeaf 
 			});
 //console.log(source);
 			rootNode.appendChild(source);
-			/*if(i===0){
-				selected_node = source;
-				console.log(selected_node);	
-			}*/
+
+for(j = 0; j < source_details[0].source_hier.length; j++){
+	var child = source_details[0].source_hier[j];
+var child_source = Ext.create('TheaterTool.model.SourceDetails', {
+				"titel": child.s_title,
+ 				'icon': 'resources/images/SourceBlue.png',
+				"signatur": child.signatur,
+				"inventarnummer": child.inventarnummer,
+				'titlePages': child.titlePages,
+				'medium': child.medium,
+				'source_hier': child.source_hier,
+				'inscription': child.inscription,
+				's_bemerkungen': child.s_bemerkungen,
+				'seitenzahl': child.seitenzahl,
+				'groesse': child.groesse,
+				//'condition': child.condition,
+				'schreiber': child.schreiber,
+				'sprache': child.sprache,
+				'entstehung': child.entstehung,
+				'auffuehrungen': child.auffuehrungen,
+				'inhalt': child.inhalt,
+				leaf: true 
+			});
+source.appendChild(child_source);
+
+
+}
+
 		}
 
 }

@@ -215,26 +215,61 @@ setValues: function(selectedSource){
 //console.log(selectedSource.selected[0]);
 	this.medium.setValue(selectedSource[0].data.medium);
 
+	
+if(typeof selectedSource[0].data.titlePages !== 'undefined'){
 	var pages = '';
 	for(i = 0; i < selectedSource[0].data.titlePages.length; i++){
 	  pages += selectedSource[0].data.titlePages[i]+'\n'
 
 	}
 	this.titel.setValue(pages);
-
+}
+	
+if(typeof selectedSource[0].data.inhalt !== 'undefined'){
 	var inhaltText = '';
 	for(i = 0; i < selectedSource[0].data.inhalt.length; i++){
 	  inhaltText += selectedSource[0].data.inhalt[i]+'\n'
 
 	}
 	this.prov.setValue(inhaltText);
+}
 
+if(typeof selectedSource[0].data.s_bemerkungen !== 'undefined'){
 	var bem = '';
 	for(i = 0; i < selectedSource[0].data.s_bemerkungen.length; i++){
 	  bem += selectedSource[0].data.s_bemerkungen[i]+'\n'
 
 	}
 	this.annot.setValue(bem);
+}
+	//this.zustand.setValue(selectedSource[0].data.condition);
+
+if(typeof selectedSource[0].data.schreiber !== 'undefined'){
+	var schr = '';
+	for(i = 0; i < selectedSource[0].data.schreiber.length; i++){
+	  schr += selectedSource[0].data.schreiber[i]+'\n'
+
+	}
+	this.schreiber.setValue(schr);
+}
+
+if(typeof selectedSource[0].data.sprache !== 'undefined'){
+	var spr = '';
+	for(i = 0; i < selectedSource[0].data.sprache.length; i++){
+	  spr += selectedSource[0].data.sprache[i]+'\n'
+
+	}
+	this.language.setValue(spr);
+}
+
+if(typeof selectedSource[0].data.inscription !== 'undefined'){
+	var pers = '';
+	for(i = 0; i < selectedSource[0].data.inscription.length; i++){
+	  pers += selectedSource[0].data.inscription[i]+'\n'
+
+	}
+	this.personen.setValue(pers);
+}
 }
 				
 });
