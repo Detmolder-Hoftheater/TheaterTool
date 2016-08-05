@@ -411,7 +411,8 @@ concat(
 '"medium":','"',$medium, '",',
 '"source_hier":[',if($source_hier != '')then(concat('{"sources_1":[',$source_hier,']}'))else(), '],',
 '"inscription":[',if($inscription != '')then($inscription)else(), '],',
-
+'"seitenzahl":','"',$pages, '",',
+'"groesse":','"',$dimension, '",',
 '"inhalt":[',if($inhalt != '')then($inhalt)else(), '],',
 '"s_bemerkungen":[',if($s_bemerkungen != '')then($s_bemerkungen)else(), 
 ']'

@@ -53,6 +53,7 @@ Ext.define('TheaterTool.Application', {
 	'tabPanel.repertoire.source.SourceDetailsSection',
 	'tabPanel.repertoire.source.SourcesSection',
 	'tabPanel.repertoire.source.TabTextSource',
+	'tabPanel.repertoire.source.SourcesTree',
 	'tabPanel.repertoire.work.WorkDetailsSectionXML',
 	'tabPanel.repertoire.source.TabXMLSource',
 	'tabPanel.repertoire.source.SourceDetailsSectionXML',
@@ -108,7 +109,8 @@ Ext.define('TheaterTool.Application', {
 	'FacsimileNavigation',
 	'MonthNumber',
 	'Contact',
-'FieldError'
+	'FieldError',
+	'SourceDetails'
 	],
 	
 	stores:[
