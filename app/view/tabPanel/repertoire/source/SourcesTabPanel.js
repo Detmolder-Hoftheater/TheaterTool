@@ -61,101 +61,13 @@ Ext.Ajax.request({
 					var source_list = json.sources;
 					console.log(source_list);
 
-/*var store = Ext.create('Ext.data.TreeStore', {
-	model: 'TheaterTool.model.SourceDetails',
-    root: {
-       
-        children: [
-           
-        ]
-    }
-});*/
-
-/*var rootNode = store.getRootNode();
-var selected_node = null;
-for(i = 0; i < source_list.length; i++){
-	var source_details = source_list[i];
-
-	var source = Ext.create('TheaterTool.model.SourceDetails', {
-				"s_titel": source_details[0].s_title,
-				"signatur": source_details[0].signatur,
-				"inventarnummer": source_details[0].inventarnummer,
-				'titlePages': source_details[0].titlePages,
-				'medium': source_details[0].medium,
-			'source_hier': source_details[0].source_hier,
-			'inscription': source_details[0].inscription,
-		's_bemerkungen': source_details[0].s_bemerkungen,
-	'seitenzahl': source_details[0].seitenzahl,
-	'groesse': source_details[0].groesse,
-'condition': source_details[0].condition,
-'schreiber': source_details[0].schreiber,
-'entstehung': source_details[0].entstehung,
-'auffuehrungen': source_details[0].auffuehrungen,
-'inhalt': source_details[0].auffuehrungen,
-				leaf: true 
-			});
-	rootNode.appendChild(source);
-if(i===0){
-	selected_node = source;
-console.log(selected_node);	
-}
-}*/
-
-/*var tableTest = Ext.create('Ext.tree.Panel', {
-   selectedSource:null,
-sourcesTabPanel: null,
-xtype: 'tree-grid',
-useArrows: true,
-flex:1,
-    height: 200,
-    store: store,
-    rootVisible: false,
 
 
-columns : [{
-                xtype: 'treecolumn', 
-                text: 'Titel',
-                flex: 2,
-                
-                dataIndex: 's_titel'
-            },{
-                text: 'Signatur',
-                flex: 1,
-                dataIndex: 'signatur'
-                
-            },{
-                text: 'Inventarnummer',
-                flex: 1,
-                dataIndex: 'inventarnummer'
-            }
-            ],
-
-		listeners :{
-			selectionchange: function (selected, eOpts) {
-				console.log(selected);
-				//this.setValues(selected);
-console.log(this.owner);
-				//this.medium.setValue(selected.selected[0].items[0].data.medium);
-		}
-	},
-
-setValues: function(selected){
-    //this.selectedSource = selected;
-	//this.sourcesTabPanel.setValues(selected);
-this.sourcesTabPanel.setValue(selected.selected[0].items[0].data.medium);
-},
-
-setSourcesTabPanel: function(sourcesTabPanel){
-	this.sourcesTabPanel = sourcesTabPanel;
-}
-
-});*/
 
 var tableTest = new TheaterTool.view.tabPanel.repertoire.source.SourcesTree();
 tableTest.createContentForSources(source_list);
+tableTest.setTablePanel(me);
 me.items.add(tableTest);
-
-//tableTest.setSelection(selected_node);
 
 
 var source_group = Ext.create('Ext.form.FieldSet', {
@@ -165,15 +77,25 @@ var source_group = Ext.create('Ext.form.FieldSet', {
 		});
 		me.items.add(source_group);
 		
-		me.titel = me.createTextArea('Titelseite(n)');
-		me.medium = me.createTextArea('Medium');
-		me.zustand = me.createTextArea('Zustand');
+		
 		me.personen = me.createTextArea('Personen');
 		me.schreiber = me.createTextArea('Schreiber');
+
+me.abs = me.createTextField('Entstehung');
+		
+		//source_group.add(me.abs);
+
+		me.language = me.createTextField('Sprache(n)');
+		
+		//source_group.add(me.language);
 
 		me.w_ein_titel = me.createTextField('Umfang');
 			me.w_titel = me.createTextField('Größe');
 			me.w_alt_titel = me.createTextField('Stamp');
+me.titel = me.createTextArea('Titelseite(n)');
+		me.medium = me.createTextArea('Medium');
+		me.zustand = me.createTextArea('Zustand');
+
 			
 			var panel_10 = Ext.create('Ext.panel.Panel', {
 				
@@ -181,55 +103,72 @@ var source_group = Ext.create('Ext.form.FieldSet', {
 				border: false,
 				items:[]
 			});
-			
-			
-			panel_10.items.add(me.w_ein_titel);
+			panel_10.items.add(me.language);
+			panel_10.items.add(me.abs);
+
+			/*panel_10.items.add(me.w_ein_titel);
 			panel_10.items.add(me.w_titel);
-			panel_10.items.add(me.w_alt_titel);
+			panel_10.items.add(me.w_alt_titel);*/
 			
 
 		var headpanel_1 = Ext.create('Ext.panel.Panel', {
 			
 			layout: {
 				type: 'table',
-				columns: 3
+				columns: 2
 			},
 			autoScroll: true,
 			border: false,
 			
 			items:[
+me.medium,
+me.zustand,
 			me.titel,
-			me.medium,
-			me.zustand,
-me.personen,
 me.schreiber,
-panel_10]
+panel_10,
+me.personen
+			
+//me.abs,
+			//me.language
+//
+
+//
+]
 		});
 		
 		source_group.add(headpanel_1);
 		
 		
 		
-		me.abs = me.createTextField('Entstehung');
 		
-		source_group.add(me.abs);
-
-		me.language = me.createTextField('Sprache(n)');
-		
-		source_group.add(me.language);
 		
 		
 		me.annot = me.createTextArea('Bemerkungen');
-		
+		me.annot.setHeight(150);
 		
 		me.sign = me.createTextArea('Aufführungen');
+		me.sign.setHeight(150);
 		me.prov = me.createTextArea('Inhalt');
+		me.prov.setHeight(150);
 		
-		
+		//source_group.add(me.personen);
 source_group.add(me.sign);
-source_group.add(me.prov);
-		source_group.add(me.annot);
-		
+//source_group.add(me.prov);
+		//source_group.add(me.annot);
+
+var panel_101 = Ext.create('Ext.panel.Panel', {
+				layout: {
+				type: 'table',
+				columns: 2
+			},
+			autoScroll: true,
+			border: false,
+				items:[
+me.prov,
+me.annot
+]
+			});
+source_group.add(panel_101);	
 		
 }
 			});
@@ -273,9 +212,29 @@ source_group.add(me.prov);
 	},
 
 setValues: function(selectedSource){
-	this.medium.setValue(selectedSource.selected[0].items[0].data.medium);
+//console.log(selectedSource.selected[0]);
+	this.medium.setValue(selectedSource[0].data.medium);
 
+	var pages = '';
+	for(i = 0; i < selectedSource[0].data.titlePages.length; i++){
+	  pages += selectedSource[0].data.titlePages[i]+'\n'
 
+	}
+	this.titel.setValue(pages);
+
+	var inhaltText = '';
+	for(i = 0; i < selectedSource[0].data.inhalt.length; i++){
+	  inhaltText += selectedSource[0].data.inhalt[i]+'\n'
+
+	}
+	this.prov.setValue(inhaltText);
+
+	var bem = '';
+	for(i = 0; i < selectedSource[0].data.s_bemerkungen.length; i++){
+	  bem += selectedSource[0].data.s_bemerkungen[i]+'\n'
+
+	}
+	this.annot.setValue(bem);
 }
 				
 });

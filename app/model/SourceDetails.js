@@ -16,6 +16,7 @@ Ext.define('TheaterTool.model.SourceDetails', {
 		{name: 'entstehung',  type: 'auto'},
 		{name: 'auffuehrungen',  type: 'auto'},
 		{name: 'stamp',  type: 'auto'},
+		{name: 'sprache',  type: 'auto'},
 		{name: 'inhalt',  type: 'auto'}       
     ]
 });

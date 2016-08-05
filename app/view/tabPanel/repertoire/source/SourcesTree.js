@@ -30,7 +30,7 @@ xtype: 'tree-grid',
     reserveScrollbar: true,
     
     //title: 'Core Team Projects',
-flex:1,
+//flex:1,
     height: 200,
     useArrows: true,
     rootVisible: false,
@@ -40,6 +40,7 @@ store: null,
 
 selected_node: null,
 source_list: null,
+tablePanel: null,
 
 initComponent: function() {
 var me = this;
@@ -69,12 +70,36 @@ me.columns = [{
                 text: 'Inventarnummer',
                 flex: 1,
                 dataIndex: 'inventarnummer'
+            },{
+                text: 'Umfang',
+                flex: 0.5,
+                dataIndex: 'seitenzahl'
+            },{
+                text: 'Größe',
+                flex: 0.5,
+                dataIndex: 'groesse'
+            },{
+                text: 'Stamp',
+                flex: 0.5
             }
             ]
 
+me.listeners = {
+			selectionchange: function (selected, eOpts) {
+				console.log(selected);
+				//this.setValues(selected);
+				me.tablePanel.setValues(eOpts);
+console.log(eOpts);
+				//this.medium.setValue(selected.selected[0].items[0].data.medium);
+		}
+}
 
         me.callParent();
  },
+
+setTablePanel: function(tablePanel){
+	this.tablePanel=tablePanel;
+},
 
 createContentForSources: function(source_list){
 
@@ -83,12 +108,26 @@ createContentForSources: function(source_list){
 		for(i = 0; i < source_list.length; i++){
 			var source_details = source_list[i];
 			var source = Ext.create('TheaterTool.model.SourceDetails', {
-				"titel": source_details[0].s_title,
+"titel": source_details[0].s_title,
+ 'icon': 'resources/images/SourceBlue.png',
 				"signatur": source_details[0].signatur,
 				"inventarnummer": source_details[0].inventarnummer,
+				'titlePages': source_details[0].titlePages,
+				'medium': source_details[0].medium,
+			'source_hier': source_details[0].source_hier,
+			'inscription': source_details[0].inscription,
+		's_bemerkungen': source_details[0].s_bemerkungen,
+	'seitenzahl': source_details[0].seitenzahl,
+	'groesse': source_details[0].groesse,
+'condition': source_details[0].condition,
+'schreiber': source_details[0].schreiber,
+'sprache': source_details[0].sprache,
+'entstehung': source_details[0].entstehung,
+'auffuehrungen': source_details[0].auffuehrungen,
+'inhalt': source_details[0].inhalt,
 				leaf: true 
 			});
-console.log(source);
+//console.log(source);
 			rootNode.appendChild(source);
 			/*if(i===0){
 				selected_node = source;
@@ -98,6 +137,16 @@ console.log(source);
 
 }
 
+/*setValues: function(selected){
+    //this.selectedSource = selected;
+	//this.sourcesTabPanel.setValues(selected);
+this.sourcesTabPanel.setValue(selected.selected[0].items[0].data.medium);
+},
+
+setSourcesTabPanel: function(sourcesTabPanel){
+	this.sourcesTabPanel = sourcesTabPanel;
+}
+*/
 	/*initComponent: function() {
 		var me = this;
 		me.columns = [{

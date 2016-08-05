@@ -245,6 +245,37 @@ if($persName != '')then(concat('"',$persName, '",','"',$dbkey, '"'))else()
 
 };
 
+declare function local:jsonifyHandList($handList) {
+
+let $strings := for $elem_1 in $handList
+
+			let $persName :=$elem_1
+
+				return 
+if($persName != '')then(concat('"',$persName, '"'))else()
+
+
+    return 
+        string-join($strings,',')
+
+};
+
+declare function local:jsonifyLanguage($langList) {
+
+let $strings := for $elem_1 in $langList
+
+			let $persName :=$elem_1
+
+				return 
+if($persName != '')then(concat('"',$persName, '"'))else()
+
+
+    return 
+        string-join($strings,',')
+
+};
+
+
 declare function local:jsonifyTitlePages($desc) {
 
 let $strings := for $elem_1 in $desc
@@ -319,8 +350,16 @@ let $strings := for $elem_1 in $s_list
 
 			let $medium := $elem_1/mei:physDesc[1]/mei:physMedium
 
+			let $condition :=$elem_1/mei:physDesc[1]/mei:condition[1]
+
 			let $persNames := $elem_1/mei:physDesc[1]/mei:inscription/mei:persName
 			let $inscription := local:jsonifyInscription($persNames)
+
+			let $handList := $elem_1/mei:physDesc[1]/mei:handList/mei:hand
+			let $hand := local:jsonifyHandList($handList)
+
+			let $langList := $elem_1/mei:physDesc[1]/mei:langUsage/mei:language
+			let $language := local:jsonifyLanguage($langList)
 
 			let $pages :=$elem_1/mei:physDesc[1]/mei:extent[1]
 
@@ -347,10 +386,12 @@ concat('[{',
 '"titlePages":[',if($titlePages != '')then($titlePages)else(), '],',
 '"medium":','"',$medium, '",',
 '"inscription":[',if($inscription != '')then($inscription)else(), '],',
-
+'"schreiber":[',if($hand != '')then($hand)else(), '],',
+'"sprache":[',if($language != '')then($language)else(), '],',
 '"inhalt":[',if($inhalt != '')then($inhalt)else(), '],',
 '"seitenzahl":','"',$pages, '",',
 '"groesse":','"',$dimension, '",',
+'"condition":','"',$condition, '",',
 '"s_bemerkungen":[',if($s_bemerkungen != '')then($s_bemerkungen)else(),']',
 '}]'
 (:'"seitenzahl":','"',$pages, '",',
