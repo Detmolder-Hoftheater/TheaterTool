@@ -10,8 +10,8 @@ extend: 'Ext.tab.Panel',
 	/*defaults: {
 		autoScroll: true
 		
-	},
-    */
+	},*/
+    autoScroll: true,
 	personSection: null,
 	detailSection: null,
 	sourcesSection: null,

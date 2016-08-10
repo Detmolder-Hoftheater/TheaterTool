@@ -9,8 +9,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
    
     title: '<b style="color:gray;">Details</b>',
 border: false,
+bodyPadding: 10,
 	//flex:1,
-
+autoScroll: true,
 
 /*style: {
 		//borderLeft: '3px solid #A80016',

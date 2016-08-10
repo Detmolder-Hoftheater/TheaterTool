@@ -30,8 +30,9 @@ xtype: 'tree-grid',
     reserveScrollbar: true,
     
     //title: 'Core Team Projects',
-//flex:1,
-    height: 200,
+flex:1,
+autoScroll: true,
+    height: 100,
     useArrows: true,
     rootVisible: false,
    // multiSelect: true,
@@ -55,6 +56,87 @@ me.store = Ext.create('Ext.data.TreeStore', {
     }
 });
 
+var rootNode = me.store.getRootNode();
+		//var selected_node = null;
+		for(i = 0; i < me.source_list.length; i++){
+			var source_details = me.source_list[i];
+var isLeaf = true;
+if(source_details[0].source_hier.length > 0){
+	isLeaf = false
+}
+
+			var source = Ext.create('TheaterTool.model.SourceDetails', {
+				"titel": source_details[0].s_title,
+ 				'icon': 'resources/images/SourceBlue.png',
+				"signatur": source_details[0].signatur,
+				"inventarnummer": source_details[0].inventarnummer,
+				'titlePages': source_details[0].titlePages,
+				'medium': source_details[0].medium,
+				'source_hier': source_details[0].source_hier,
+				'inscription': source_details[0].inscription,
+				's_bemerkungen': source_details[0].s_bemerkungen,
+				'seitenzahl': source_details[0].seitenzahl,
+				'groesse': source_details[0].groesse,
+				//'condition': source_details[0].condition,
+				'schreiber': source_details[0].schreiber,
+				'sprache': source_details[0].sprache,
+				'entstehung': source_details[0].entstehung,
+				'auffuehrungen': source_details[0].auffuehrungen,
+				'inhalt': source_details[0].inhalt,
+				leaf: isLeaf 
+			});
+		
+if(!isLeaf){
+for(j = 0; j < source_details[0].source_hier[0].sources_1.length; j++){
+	var child = source_details[0].source_hier[0].sources_1[j];
+
+source.appendChild({
+					"titel": child[0].s_title,
+ 				'icon': 'resources/images/SourceBlue.png',
+				"signatur": child[0].signatur,
+				"inventarnummer": child[0].inventarnummer,
+				'titlePages': child[0].titlePages,
+				'medium': child[0].medium,
+				'source_hier': child[0].source_hier,
+				'inscription': child[0].inscription,
+				's_bemerkungen': child[0].s_bemerkungen,
+				'seitenzahl': child[0].seitenzahl,
+				'groesse': child[0].groesse,
+				//'condition': child.condition,
+				'schreiber': child[0].schreiber,
+				'sprache': child[0].sprache,
+				'entstehung': child[0].entstehung,
+				'auffuehrungen': child[0].auffuehrungen,
+				'inhalt': child[0].inhalt,
+				leaf: true 
+				});
+
+
+/*var child_source = Ext.create('TheaterTool.model.SourceDetails', {
+				"titel": child.s_title,
+ 				'icon': 'resources/images/SourceBlue.png',
+				"signatur": child.signatur,
+				"inventarnummer": child.inventarnummer,
+				'titlePages': child.titlePages,
+				'medium': child.medium,
+				'source_hier': child.source_hier,
+				'inscription': child.inscription,
+				's_bemerkungen': child.s_bemerkungen,
+				'seitenzahl': child.seitenzahl,
+				'groesse': child.groesse,
+				//'condition': child.condition,
+				'schreiber': child.schreiber,
+				'sprache': child.sprache,
+				'entstehung': child.entstehung,
+				'auffuehrungen': child.auffuehrungen,
+				'inhalt': child.inhalt,
+				leaf: true 
+			});
+source.appendChild(child_source);*/
+}
+}
+rootNode.appendChild(source);
+}
 me.columns = [{
                 xtype: 'treecolumn', //this is so we know which column will show the tree
                 text: 'Titel',
@@ -66,7 +148,7 @@ me.columns = [{
                 flex: 1,
                 dataIndex: 'signatur'
                 
-            },{
+            }/*,{
                 text: 'Inventarnummer',
                 flex: 1,
                 dataIndex: 'inventarnummer'
@@ -81,16 +163,12 @@ me.columns = [{
             },{
                 text: 'Stamp',
                 flex: 0.5
-            }
+            }*/
             ]
 
 me.listeners = {
 			selectionchange: function (selected, eOpts) {
-				console.log(selected);
-				//this.setValues(selected);
 				me.tablePanel.setValues(eOpts);
-console.log(eOpts);
-				//this.medium.setValue(selected.selected[0].items[0].data.medium);
 		}
 }
 
@@ -107,10 +185,10 @@ createContentForSources: function(source_list){
 		//var selected_node = null;
 		for(i = 0; i < source_list.length; i++){
 			var source_details = source_list[i];
-var isLeaf = true;
-if(source_details[0].source_hierlength > 0){
-	isLeaf = false
-}
+			var isLeaf = true;
+			if(source_details[0].source_hier.length > 0){
+				isLeaf = false
+			}
 
 			var source = Ext.create('TheaterTool.model.SourceDetails', {
 				"titel": source_details[0].s_title,
@@ -135,6 +213,10 @@ if(source_details[0].source_hierlength > 0){
 //console.log(source);
 			rootNode.appendChild(source);
 
+if(!isLeaf){
+	
+
+
 for(j = 0; j < source_details[0].source_hier.length; j++){
 	var child = source_details[0].source_hier[j];
 var child_source = Ext.create('TheaterTool.model.SourceDetails', {
@@ -158,7 +240,7 @@ var child_source = Ext.create('TheaterTool.model.SourceDetails', {
 				leaf: true 
 			});
 source.appendChild(child_source);
-
+}
 
 }
 

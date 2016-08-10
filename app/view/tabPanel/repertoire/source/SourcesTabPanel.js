@@ -4,18 +4,20 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
 	extend: 'Ext.panel.Panel',
-	
-	layout: {
-		type: 'vbox',
+
+layout: {
+		type: 'hbox',
 		pack: 'start',
 		align: 'stretch'
 	},
+
+
 	
-	bodyPadding: 10,
+	//bodyPadding: 10,
 	
 	autoScroll: true,
 	
-	border: false,
+	border: true,
 	
 	titel: null,
 	medium: null,
@@ -32,10 +34,31 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
 	w_titel: null,
 	w_alt_titel: null,
 	w_unter_titel: null,
+	inventar: null,
 
 /*initComponent: function () {
-var tableTest = new TheaterTool.view.tabPanel.repertoire.source.SourcesTree();
+//var tableTest = new TheaterTool.view.tabPanel.repertoire.source.SourcesTree();
+this.items = [
 
+		{				
+				layout: {
+					type: 'hbox',
+					pack: 'start',
+					align: 'stretch'
+				},
+				
+				bodyPadding: 10,
+				
+				defaults: {
+					frame: true,
+					bodyPadding: 10
+				},
+				
+				border: false,
+				items: [
+					]
+				}
+ ]
 
  this.callParent();
     
@@ -64,52 +87,85 @@ Ext.Ajax.request({
 
 
 
-var tableTest = new TheaterTool.view.tabPanel.repertoire.source.SourcesTree();
-tableTest.createContentForSources(source_list);
+var tableTest = new TheaterTool.view.tabPanel.repertoire.source.SourcesTree({source_list: source_list});
+//tableTest.createContentForSources(source_list);
 tableTest.setTablePanel(me);
-me.items.add(tableTest);
+me.add(tableTest);
+
+/*me.add({xtype: 'label',
+        		html: '<b style="color:#CC9FA7;"></b>',
+        		margin: '0 10 0 10'});*/
 
 
-var source_group = Ext.create('Ext.form.FieldSet', {
-			title: '<b style="color:gray;">Sources Titel</b>',
-			
+var source_group = Ext.create('Ext.panel.Panel', {
+			//title: '<b style="color:gray;">Sources Titel</b>',
+			flex:2,
+border:false,
+bodyPadding:15,
 			items:[]
 		});
-		me.items.add(source_group);
-		
-		
-		me.personen = me.createTextArea('Personen');
-		me.schreiber = me.createTextArea('Schreiber');
+		me.add(source_group);
 
-me.abs = me.createTextField('Entstehung');
-		
-		//source_group.add(me.abs);
+var phys_group = Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Physikalische Daten</b>',
+			flex:2,
+		//border:false,
+		//bodyPadding:15,
+collapsible: true,
+			collapsed: false,
+			items:[]
+		});
+		source_group.add(phys_group);
 
-		me.language = me.createTextField('Sprache(n)');
-		
-		//source_group.add(me.language);
-
-		me.w_ein_titel = me.createTextField('Umfang');
-			me.w_titel = me.createTextField('Größe');
-			me.w_alt_titel = me.createTextField('Stamp');
 me.titel = me.createTextArea('Titelseite(n)');
-		me.medium = me.createTextArea('Medium');
-		me.zustand = me.createTextArea('Zustand');
+phys_group.add(me.titel);
 
+me.medium = me.createTextArea('Umschlag');
+me.zustand = me.createTextArea('Zustand');
+me.personen = me.createTextArea('Personen');
+me.personen.setHeight(170);
+
+
+	me.inventar = me.createTextField('Inverntarnummer');
+me.w_ein_titel = me.createTextField('Umfang');
+me.w_titel = me.createTextField('Format');
+me.w_alt_titel = me.createTextField('Stempel');
+		
+		me.schreiber = me.createTextArea('Schreiber');	
+		
 			
+			
+
 			var panel_10 = Ext.create('Ext.panel.Panel', {
 				
 				type: 'hbox',
 				border: false,
 				items:[]
 			});
-			panel_10.items.add(me.language);
-			panel_10.items.add(me.abs);
+panel_10.items.add(me.medium);
+panel_10.items.add(me.zustand);
+panel_10.items.add(me.inventar);
+panel_10.items.add(me.w_ein_titel);
+panel_10.items.add(me.w_titel);
+panel_10.items.add(me.w_alt_titel);
 
-			/*panel_10.items.add(me.w_ein_titel);
-			panel_10.items.add(me.w_titel);
-			panel_10.items.add(me.w_alt_titel);*/
+
+
 			
+			//panel_10.items.add(me.titel);
+
+
+var panel_110 = Ext.create('Ext.panel.Panel', {
+				
+				type: 'hbox',
+				border: false,
+				items:[]
+			});
+
+			panel_110.items.add(me.schreiber);
+			panel_110.items.add(me.personen);
+
+
 
 		var headpanel_1 = Ext.create('Ext.panel.Panel', {
 			
@@ -121,42 +177,33 @@ me.titel = me.createTextArea('Titelseite(n)');
 			border: false,
 			
 			items:[
-me.medium,
-me.zustand,
-			me.titel,
-me.schreiber,
 panel_10,
-me.personen
-			
-//me.abs,
-			//me.language
-//
-
-//
+panel_110
 ]
+
+
 		});
 		
-		source_group.add(headpanel_1);
-		
-		
-		
-		
-		
-		
-		me.annot = me.createTextArea('Bemerkungen');
-		me.annot.setHeight(150);
-		
-		me.sign = me.createTextArea('Aufführungen');
-		me.sign.setHeight(150);
+		phys_group.add(headpanel_1);
+
+var panel_source = Ext.create('Ext.panel.Panel', {
+				bodyPadding: 8,
+				type: 'hbox',
+				border: false,
+				items:[]
+			});
+source_group.add(panel_source);
+
 		me.prov = me.createTextArea('Inhalt');
 		me.prov.setHeight(150);
-		
-		//source_group.add(me.personen);
-source_group.add(me.sign);
-//source_group.add(me.prov);
-		//source_group.add(me.annot);
+		panel_source.add(me.prov);
+		me.annot = me.createTextArea('Anmerkungen');
+		me.annot.setHeight(150);
+		panel_source.add(me.annot);
 
-var panel_101 = Ext.create('Ext.panel.Panel', {
+me.abs = me.createTextField('Entstehung');		
+		me.language = me.createTextField('Sprache(n)');
+		var panel_101 = Ext.create('Ext.panel.Panel', {
 				layout: {
 				type: 'table',
 				columns: 2
@@ -164,12 +211,17 @@ var panel_101 = Ext.create('Ext.panel.Panel', {
 			autoScroll: true,
 			border: false,
 				items:[
-me.prov,
-me.annot
-]
+					me.abs,
+					me.language
+					]
 			});
-source_group.add(panel_101);	
+		panel_source.add(panel_101);
 		
+		me.sign = me.createTextArea('Aufführungen');
+		me.sign.setHeight(150);
+		panel_source.add(me.sign);
+	
+
 }
 			});
 	},
@@ -237,7 +289,7 @@ if(typeof selectedSource[0].data.inhalt !== 'undefined'){
 if(typeof selectedSource[0].data.s_bemerkungen !== 'undefined'){
 	var bem = '';
 	for(i = 0; i < selectedSource[0].data.s_bemerkungen.length; i++){
-	  bem += selectedSource[0].data.s_bemerkungen[i]+'\n'
+	  bem += selectedSource[0].data.s_bemerkungen[i]+'\n\n'
 
 	}
 	this.annot.setValue(bem);
@@ -270,6 +322,12 @@ if(typeof selectedSource[0].data.inscription !== 'undefined'){
 	}
 	this.personen.setValue(pers);
 }
+
+this.w_ein_titel.setValue(selectedSource[0].data.seitenzahl);
+this.w_titel.setValue(selectedSource[0].data.groesse);
+this.inventar.setValue(selectedSource[0].data.inventarnummer);
+
+
 }
 				
 });

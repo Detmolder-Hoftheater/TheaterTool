@@ -21,8 +21,8 @@ declare variable $file := doc($path);
 declare variable $fileNames := $file//mei:sourceDesc//mei:title;:)
 
 declare variable $selectedWork := request:get-parameter('selectedWork', '');
-(:declare variable $workFolder := if(contains($selectedWork, 'Aschenbrödel'))then('aschenbroedel/')else('bettelstudent/');:)
-declare variable $path := concat('xmldb:exist:///apps/theater-data/vertaktung/', $selectedWork, '/');
+declare variable $workFolder := if(contains($selectedWork, 'Aschenbrödel'))then('aschenbroedel/')else('bettelstudent/');
+declare variable $path := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder, '/');
 
 (:declare variable $path := 'xmldb:exist:///apps/theater-data/vertaktung/aschenbroedel/';:)
 declare variable $file := collection($path);

@@ -59,7 +59,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 			bodyBorder: false,
 			
 			collapsible: true,
-			collapsed: true,
+			collapsed: false,
 			items:[]
 		});
 		me.items.add(titel_group);

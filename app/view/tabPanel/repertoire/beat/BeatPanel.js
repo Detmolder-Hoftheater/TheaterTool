@@ -102,7 +102,7 @@ this.navTree.setPageSpinner(pageSpinner);
 		var app = TheaterTool.getApplication();
 
 		var navTreeStore = app.creteStoreForFacsimileNavigation();
-		navTreeStore.getProxy().extraParams.selectedWork = selFolder;					
+		navTreeStore.getProxy().extraParams.selectedWork = this.selectedWork;					
 		navTreeStore.load();
 
 		this.navTree.getView().bindStore(navTreeStore);

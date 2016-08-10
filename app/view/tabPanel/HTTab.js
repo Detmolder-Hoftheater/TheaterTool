@@ -17,10 +17,10 @@ requires:[
 	},
 
 
-bodyPadding: 10,
+//bodyPadding: 10,
 
 border:false,
-bodyBorder: false,
+bodyBorder: true,
 	
 	closable: true,
 

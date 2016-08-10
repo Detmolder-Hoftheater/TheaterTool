@@ -11,12 +11,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab', {
     ],
     layout: 'border',*/
   
-	flex: 1,
+	//flex: 1,
 autoScroll: true,
+border: false,
 
   //  bodyBorder: false,
    // border: false,
-   // bodyPadding: 5,
+  //  bodyPadding: 5,
 //border: false,
  /*style: {
       borderRight: '7px solid white',
