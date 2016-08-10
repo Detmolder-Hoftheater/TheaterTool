@@ -14,10 +14,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab', {
 	//flex: 1,
 autoScroll: true,
 border: false,
-
+bodyBorder: false,
   //  bodyBorder: false,
    // border: false,
-  //  bodyPadding: 5,
+    //bodyPadding: 3,
 //border: false,
  /*style: {
       borderRight: '7px solid white',
@@ -52,14 +52,18 @@ navTree.setNavButton(me.navButton);
 navTree.setWorkSelection(me.selection);
 
 
+
  	me.tbar =  new Ext.Toolbar({
 		/*layout: {
             pack: 'center'
         },*/
-/*style: {
-				background: '#FFFFFF'
-			},*/
+style: {
+				//background: '#dadada'
+background: '#dcdcdc'
+			},
 	height: 33,
+border:false,
+bodyBorder: false,
               // items: [{
                     //xtype: 'segmentedbutton',
 
@@ -76,7 +80,14 @@ navTree.setWorkSelection(me.selection);
                             }
                     }, */
 
+ /*{
 
+				xtype: 'label',
+        		html: /\*'<b style="color:gray;">Auswahl</b>',*\/
+'<font size = "1"><b style="color:gray;">Auswahl</b></font>',
+        		margin: '0 10 0 10'
+
+			},*/
 me.navButton
 ]
  //}]
@@ -141,16 +152,47 @@ createCEButton: function (navTree) {
 			//xtype: 'button',
 			 text: '<b style="color:gray;">Werk -> Quelle -> RISM/Facsimile/Incipits</b>',
 		menuAlign: 'tr-bl?',
-						menu:[	
+margin: '0 0 0 7',
+
+/*style: {
+				background: 'white'
+
+			},*/
+//border:true,
+menu: Ext.create('Ext.menu.Menu', {
+
+
+//title: '<b style="color:gray;">Werk -> Quelle -> RISM/Facsimile/Incipits</b>',
+//collapsed: false,
+//collapsible:true,
+
+    //width: 100,
+
+   // height: 100,
+
+   // margin: '0 0 10 0',
+
+    //floating: false,  // usually you want this set to True (default)
+
+   // renderTo: Ext.getBody(),  // usually rendered by it's containing component
+
+    items: [navTree]
+
+}),
+
+
+
+						/*menu:[	
 							navTree
 
 							
-						],
+						],*/
 
 	listeners: {
           afterrender: function() {                       
 			me.navButton.menu.show(); 
 			me.navButton.menu.setPosition(35,100);
+
                     }
                 }
                 

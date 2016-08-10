@@ -17,7 +17,7 @@ layout: {
 	
 	autoScroll: true,
 	
-	border: true,
+	border: false,
 	
 	titel: null,
 	medium: null,
