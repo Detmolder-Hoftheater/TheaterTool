@@ -197,19 +197,91 @@ me.pers =Ext.create('Ext.grid.Panel', {
     columns: [
         { header: 'Name',  dataIndex: 'name', flex:2 },
         { header: 'Role', dataIndex: 'role', flex:1},
-        { header: 'Details', dataIndex: 'dbkey', flex:0.5 }
+Ext.create('Ext.grid.column.Action', {			
+			xtype: 'actioncolumn',
+			header: 'Details',
+			flex:0.5,
+			align: 'center',
+			menuDisabled: true,
+			renderer: function (val, metadata, record) {
+					if(record.data.dbkey !== ''){
+					this.items[0].icon = 'resources/images/Door-24.png';					
+				}				
+				else {					
+					this.items[0].icon = '';
+				}
+				
+				
+				metadata.style = 'cursor: pointer;';
+				return val;
+			}
+			//handler: this.changeElementDialog
+		})
+
+
+
+       // { header: 'Details', dataIndex: 'dbkey', flex:0.5 }
     ],
 margin: '0 0 0 50'
 });
 
 for(i = 0; i < json.autoren.length; i++){
 			var autor = json.autoren[i];
-			var user = Ext.create('TheaterTool.model.Person', {
+			var persRole = '';
+			if(autor[1] === 'arr'){
+				persRole = 'arranger';
+			}
+			else if(autor[1] === 'aut'){
+				persRole = 'author';
+			}
+			else if(autor[1] === 'cmp'){
+				persRole = 'composer';
+			}
+			else if(autor[1] === 'cre'){
+				persRole = 'creator';
+			}
+			else if(autor[1] === 'lbt'){
+				persRole = 'librettist';
+			}
+			else if(autor[1] === 'edt'){
+				persRole = 'editor';
+			}
+			else if(autor[1] === 'lyr'){
+				persRole = 'lyricist';
+			}
+			else if(autor[1] === 'trl'){
+				persRole = 'translator';
+			}
+			else if(autor[1] === 'scr'){
+				persRole = 'scribe';
+			}
+			else if(autor[1] === 'fmo'){
+				persRole = 'former owner';
+			}
+			else if(autor[1] === 'asn'){
+				persRole = 'associated name';
+			}
+			else if(autor[1] === 'prf'){
+				persRole = 'performer';
+			}
+			else if(autor[1] === 'clb'){
+				persRole = 'collaborator';
+			}
+			else{
+				persRole = autor[1];
+			}
+//act = actor
+//dte = dedicatee
+//egr = engraver
+//editorial_assistant = editorial assistant
+//mcp = music copyist
+
+			var person = Ext.create('TheaterTool.model.Person', {
     			name : autor[0],
-    			role  : autor[1],
-    			dbkey: ''
+    			role  : persRole,
+    			dbkey: autor[2]
 			});
-			persStore.add(user);
+			persStore.add(person);
 		}
 
 var pers_panel = Ext.create('Ext.panel.Panel', {

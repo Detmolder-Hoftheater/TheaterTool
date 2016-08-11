@@ -35,6 +35,7 @@ layout: {
 	w_alt_titel: null,
 	w_unter_titel: null,
 	inventar: null,
+	persStore: null,
 
 /*initComponent: function () {
 //var tableTest = new TheaterTool.view.tabPanel.repertoire.source.SourcesTree();
@@ -122,8 +123,78 @@ phys_group.add(me.titel);
 
 me.medium = me.createTextArea('Umschlag');
 me.zustand = me.createTextArea('Zustand');
-me.personen = me.createTextArea('Personen');
-me.personen.setHeight(170);
+
+me.persStore = Ext.create('Ext.data.Store', {
+	model: 'TheaterTool.model.Person',
+    data:[]
+});
+me.personen =Ext.create('Ext.grid.Panel', {
+    store: me.persStore,
+    columns: [
+        { header: 'Name',  dataIndex: 'name', flex:2 },
+Ext.create('Ext.grid.column.Action', {			
+			xtype: 'actioncolumn',
+			header: 'Details',
+			flex:0.5,
+			align: 'center',
+			menuDisabled: true,
+			renderer: function (val, metadata, record) {
+					if(record.data.dbkey !== ''){
+					this.items[0].icon = 'resources/images/Door-24.png';					
+				}				
+				else {					
+					this.items[0].icon = '';
+				}
+				
+				
+				metadata.style = 'cursor: pointer;';
+				return val;
+			}
+			//handler: this.changeElementDialog
+		})
+
+
+
+       // { header: 'Details', dataIndex: 'dbkey', flex:0.5 }
+    ],
+margin: '0 0 0 50',
+height: 150,
+width: 200
+});
+var pers_panel = Ext.create('Ext.panel.Panel', {
+colspan: 1,
+			layout: {
+				type: 'table',
+				columns: 2,
+			tdAttrs: {
+        			valign: 'top'
+   				 },
+				tableAttrs: {
+				style: {
+				width: '100%'
+				}
+				}
+			},
+height: 150,
+width: 330,
+			autoScroll: true,
+			border: false,
+						items:[
+{
+
+				xtype: 'label',
+        		html: 'Personen',
+        		margin: '0 0 0 7'
+			},
+me.personen
+
+]
+		});
+
+
+
+//me.personen = me.createTextArea('Personen');
+//me.personen.setHeight(170);
 
 
 	me.inventar = me.createTextField('Inverntarnummer');
@@ -163,7 +234,7 @@ var panel_110 = Ext.create('Ext.panel.Panel', {
 			});
 
 			panel_110.items.add(me.schreiber);
-			panel_110.items.add(me.personen);
+			panel_110.items.add(pers_panel);
 
 
 
@@ -314,13 +385,27 @@ if(typeof selectedSource[0].data.sprache !== 'undefined'){
 	this.language.setValue(spr);
 }
 
-if(typeof selectedSource[0].data.inscription !== 'undefined'){
+/*if(typeof selectedSource[0].data.inscription !== 'undefined'){
 	var pers = '';
 	for(i = 0; i < selectedSource[0].data.inscription.length; i++){
 	  pers += selectedSource[0].data.inscription[i]+'\n'
 
 	}
 	this.personen.setValue(pers);
+}*/
+
+this.persStore.removeAll();
+
+if(typeof selectedSource[0].data.inscription !== 'undefined'){
+for(i = 0; i < selectedSource[0].data.inscription.length; i++){
+			var autor = selectedSource[0].data.inscription[i];
+			
+			var person = Ext.create('TheaterTool.model.Person', {
+    			name : autor[0],
+    			dbkey: autor[1]
+			});
+			this.persStore.add(person);
+		}
 }
 
 this.w_ein_titel.setValue(selectedSource[0].data.seitenzahl);
