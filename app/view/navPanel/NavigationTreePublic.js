@@ -550,6 +550,9 @@ this.listeners = {
 						title: '<font style="color:gray;">Personen</font>',
 						icon: 'resources/images/Mask-19.png'
 					});
+				var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({year: item.data.text});
+				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
+				repertoireTab.add(personDetails);
 				
 				}
 			else if(item.data.text === 'Karten & Abos'){

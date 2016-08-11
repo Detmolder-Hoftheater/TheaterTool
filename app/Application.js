@@ -98,7 +98,10 @@ Ext.define('TheaterTool.Application', {
 'tabPanel.issue.XMLSectionIssue',
 'tabPanel.repertoire.incipits.IncipitsPanel',
 'tabPanel.repertoire.incipits.IncipitSection',
-'tabPanel.repertoire.incipits.IncipitWindow'
+'tabPanel.repertoire.incipits.IncipitWindow',
+'tabPanel.persons.PersonPanelInTab',
+'tabPanel.persons.PersonPanelDetails',
+'tabPanel.persons.PersonTabXML'
 	],
 	
 	models:[
