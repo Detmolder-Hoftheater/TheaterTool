@@ -187,6 +187,60 @@ me.sign = me.createTextArea('Bibliotheken');
 			provText += json.abschriften[i] + '\n';
 		}
 		me.prov.setValue(provText);
+
+var persStore = Ext.create('Ext.data.Store', {
+	model: 'TheaterTool.model.Person',
+    data:[]
+});
+me.pers =Ext.create('Ext.grid.Panel', {
+    store: persStore,
+    columns: [
+        { header: 'Name',  dataIndex: 'name', flex:2 },
+        { header: 'Role', dataIndex: 'role', flex:1},
+        { header: 'Details', dataIndex: 'dbkey', flex:0.5 }
+    ],
+margin: '0 0 0 50'
+});
+
+for(i = 0; i < json.autoren.length; i++){
+			var autor = json.autoren[i];
+			var user = Ext.create('TheaterTool.model.Person', {
+    			name : autor[0],
+    			role  : autor[1],
+    			dbkey: ''
+			});
+			persStore.add(user);
+		}
+
+var pers_panel = Ext.create('Ext.panel.Panel', {
+colspan: 1,
+			layout: {
+				type: 'table',
+				columns: 2,
+			tdAttrs: {
+        			valign: 'top'
+   				 },
+				tableAttrs: {
+				style: {
+				width: '100%'
+				}
+				}
+			},
+			autoScroll: true,
+			border: false,
+						items:[
+{
+
+				xtype: 'label',
+        		html: 'Personen',
+        		margin: '0 0 0 7'
+			},
+me.pers
+
+]
+		});
+		
+		me.abs = me.createTextArea('Entstehung');
 		var panel_01 = Ext.create('Ext.panel.Panel', {
 			
 			layout: {
@@ -208,39 +262,33 @@ me.sign = me.createTextArea('Bibliotheken');
 			
 			items:[
 			me.prov,
-			me.sign]
+			me.sign,
+			me.abs,
+			pers_panel
+			]
 		});
 		
 		me.items.add(panel_01);
 
-		me.pers = me.createTextArea('Personen');
-		var autorText = '';
-		for(i = 0; i < json.autoren.length; i++){
-			var autor = json.autoren[i];
-			for(j = 0; j < autor.length; j++){
-				autorText += autor[j] + ', ';
-			}
-			autorText += '\n';
-		}
-		me.pers.setValue(autorText);
-		var pers_panel = Ext.create('Ext.panel.Panel', {
+		
+		/*var pers_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
 			bodyPadding: 10,
 			items:[]
 		});
 		
 		pers_panel.add(me.pers);
-		me.items.add(pers_panel);
+		me.items.add(pers_panel);*/
 		
-		me.abs = me.createTextField('Entstehung');
-		var ents_panel = Ext.create('Ext.panel.Panel', {
+		
+		/*var ents_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
 			bodyPadding: 10,
 			items:[]
 		});
 		
 		ents_panel.add(me.abs);
-		me.items.add(ents_panel);
+		me.items.add(ents_panel);*/
 		
 		
 		me.annot = me.createTextArea('Aufführungen');

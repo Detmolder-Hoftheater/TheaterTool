@@ -58,11 +58,11 @@ let $strings := for $elem in $id
 
 					let $id_1 :=$elem
 					let $role := $elem/@role
+					let $dbkey :=$elem/@dbkey
                    
                     return 
                      if($id_1 != '')then(  
-				concat('["',$id_1,'",',
-							'"',$role,'"]'))
+				concat('["',$id_1, '",', '"',$role, '",', '"',$dbkey,'"]'))
 else()
     return 
         string-join($strings,',')

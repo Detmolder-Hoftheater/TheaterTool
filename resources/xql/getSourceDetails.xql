@@ -237,7 +237,7 @@ let $strings := for $elem_1 in $persNames
 			let $dbkey :=$elem_1/@dbkey
 
 				return 
-if($persName != '')then(concat('"',$persName, '",','"',$dbkey, '"'))else()
+if($persName != '')then(concat('["',$persName, '",','"',$dbkey, '"]'))else()
 
 
     return 
