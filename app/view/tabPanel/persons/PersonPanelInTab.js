@@ -1,45 +1,51 @@
 Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
-	extend: 'Ext.panel.Panel',
+	extend: 'Ext.tab.Panel',
 
- /*xtype: 'layout-border',
-    requires: [
-        'Ext.layout.container.Border'
-    ],
-    layout: 'border',*/
-  
-	//flex: 1,
-
-
-    bodyBorder: false,
-   // border: false,
-    bodyPadding: 5,
-border: false,
- /*style: {
-      borderRight: '7px solid white',
-      borderLeft: '7px solid white',
-      borderTop: '7px solid white',
-     borderBottom: '7px solid white'
-    },*/
-    
-   
- /*  defaults: {
-		autoScroll: true,
-		split: true
+ /*defaults: {
+		autoScroll: true
+		
 	},*/
-navButton: null,
-year: null,
-workPanel: null,
-
-	initComponent: function () {
-var me = this;
-
-
-	me.workPanel = new TheaterTool.view.tabPanel.persons.PersonPanelDetails({year:me.year});
+    autoScroll: true,
 	
-    me.items = [
-       me.workPanel
+	section_xml: null,
+//flex:1,
+	
+	/*layout: {
+					type: 'vbox',
+					pack: 'start',
+					align: 'stretch'
+				},*/
+				
+				//bodyPadding: 15,
+				
+				/*defaults: {
+					frame: true
+					
+				},*/
+				
+				border: false,
+//bodyPadding: 15,
+	sourceID: null,
+	werkTitle: null,
+	
+	
+	initComponent: function () {
+
+		
+	//this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID});
+
+	//this.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({sourceID: this.sourceID});
+
+this.section_xml = new TheaterTool.view.tabPanel.persons.PersonTabXML({sourceID: this.sourceID});
+this.items = [
+			
+			//this.detailSection,
+//this.sourcesSection,
+this.section_xml
+			
+			
     ]
+
     	this.callParent();
 	}
-
 });

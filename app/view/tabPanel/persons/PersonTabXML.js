@@ -52,29 +52,14 @@ xtype: 'image', src: 'resources/images/Download.png', width: 26,
 
 	var me = this;
 
-
-
-
-Ext.Ajax.request({           
-    			url:'resources/xql/getPersonXML.xql', 
-				//url: 'data/H000001.xml' , 
-			method: 'GET',
-            params: {
-               /*uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
-                type: 'source'*/
-            },        
-    			success: function (response, options) {
-
-me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.TabXMLSource({sourceID: me.sourceID});
+me.repertoireTab = new TheaterTool.view.tabPanel.persons.XMLContent({sourceID: me.sourceID});
 	
 					me.items =[
 							me.repertoireTab
 					];
- 					console.log(response.responseText);
-        			var object = response.responseText;
-					me.repertoireTab.setTextInfo(object);       			
-    			}
-			});
+
+
+
 
 me.listeners = {
         	activate: function (eOpts) {
