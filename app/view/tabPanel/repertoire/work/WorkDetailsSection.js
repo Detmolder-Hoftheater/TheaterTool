@@ -86,6 +86,13 @@ items: [{
 	flex:1,
     
     repertoireTab:null,
+personSection: null,
+	planSection: null,
+journalSection: null,
+	regieSection: null,
+	roleSection: null,
+	revenueSection: null,
+	issueSection: null,
 
 	workID: null,
 
@@ -115,6 +122,20 @@ else{
         });
 
 }
+
+this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.workID, type:'work'});
+	
+	this.planSection = new TheaterTool.view.tabPanel.repertoire.work.WorkPlanSection();
+
+this.journalSection = new TheaterTool.view.tabPanel.repertoire.work.WorkJournalSection();
+
+ 	this.regieSection  = new TheaterTool.view.tabPanel.repertoire.work.WorkRegieSection();
+
+	this.roleSection = new TheaterTool.view.tabPanel.repertoire.work.WorkRoleSection();
+
+	this.revenueSection = new TheaterTool.view.tabPanel.repertoire.work.WorkRevenueSection();
+
+	this.issueSection = new TheaterTool.view.tabPanel.repertoire.work.WorkIssueSection();
     
    // me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest({workID: me.workID});
 
@@ -133,7 +154,20 @@ else{
         });*/
 	
 	me.items =[
-		me.repertoireTab
+		me.repertoireTab,
+{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Referenzen</b>'
+        		//margin: '15 0 15 0'
+
+			},
+			this.personSection,		
+			this.planSection,			
+			this.journalSection,
+     		this.regieSection,
+			this.roleSection,
+			this.issueSection,
+			this.revenueSection
 		],
 
         me.callParent();

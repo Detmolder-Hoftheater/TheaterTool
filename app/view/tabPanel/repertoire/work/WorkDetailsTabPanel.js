@@ -5,7 +5,7 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
 	extend: 'Ext.panel.Panel',
 	
-	//bodyPadding: 10,
+	bodyPadding: 10,
 
    minHeight: 300,
    
@@ -14,7 +14,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
 autoScroll: true,
 reserveScrollbar: true,
 
-border: false,
+border: true,
 
 
 	

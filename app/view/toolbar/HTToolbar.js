@@ -41,30 +41,6 @@ this.searchField = this.createTextField('Suche', 'Suche');
         		margin: '0 10 0 10'
 
 			},
-			{
-				xtype: 'tbseparator',
-				style: {
-					borderRight: '1px solid #CC9FA7',
-					borderLeft: '1px solid #CC9FA7'
-					// borderTop: '1px solid black',
-					// borderBottom: '1px solid black'
-				}
-			}, 
-{
-				xtype: 'button',
-				text: '<font size = "1"><b style="color:#CC9FA7;">Daten Relationen</b></font>',
-				listeners: {
-					
-					click: function (item, e, eOpts) {
-
-					var win = new TheaterTool.view.toolbar.DatenRelationWindow();
-					win.show();
-					}
-				}
-
-			},	
-
-			
 			/*this.extendWorkButton, */
 {
 				xtype: 'tbseparator',
@@ -92,11 +68,46 @@ this.searchField = this.createTextField('Suche', 'Suche');
 					icon: 'resources/images/Sheets-17.png'
 				}]
 				//Desktop 173
+			},
+{
+				xtype: 'tbseparator',
+				style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7'
+					// borderTop: '1px solid black',
+					// borderBottom: '1px solid black'
+				}
+			}, 	
+{
+				xtype: 'button',
+				text: '<font size = "1"><b style="color:#CC9FA7;">Tab duplizieren</b></font>'
 			},		
+	
 
 			
 '->',
+{
+				xtype: 'button',
+				text: '<font size = "1"><b style="color:#CC9FA7;">Daten Relationen</b></font>',
+				listeners: {
+					
+					click: function (item, e, eOpts) {
 
+					var win = new TheaterTool.view.toolbar.DatenRelationWindow();
+					win.show();
+					}
+				}
+
+			},	
+{
+				xtype: 'tbseparator',
+				style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7'
+					// borderTop: '1px solid black',
+					// borderBottom: '1px solid black'
+				}
+			}, 	
 {
 				xtype: 'component',
 margin: '0 10 0 10',
