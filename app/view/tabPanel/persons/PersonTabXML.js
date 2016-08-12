@@ -3,15 +3,10 @@
  */
 Ext.define('TheaterTool.view.tabPanel.persons.PersonTabXML', {
  extend: 'Ext.panel.Panel',
-	//border: true,
-
-//bodyPadding:15,
-
-//flex:1,
+	
 border: false,
 
 flex:1,
-//bodyPadding:15,
 
 autoScroll: true,
 
@@ -24,6 +19,31 @@ autoScroll: true,
     initComponent: function() {
 
 	var me = this;
+/*Ext.Ajax.request({           
+    			url:'resources/xql/getPersonXML.xql', 
+				//url: 'data/H000001.xml' , 
+			method: 'GET',
+            params: {
+               /\*uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
+                type: 'source'*\/
+            },        
+    			success: function (response, options) {
+ 					
+        			var object = response.responseText;
+					me.setTextInfo(object);       			
+    			}
+			});*/
+/*me.repertoireTab = new TheaterTool.view.tabPanel.persons.XMLContent({sourceID: me.sourceID});
+	
+					me.items =[
+							me.repertoireTab
+					];*/
+
+
+me.listeners = {
+        	activate: function (eOpts) {
+        	console.log("activate");
+
 Ext.Ajax.request({           
     			url:'resources/xql/getPersonXML.xql', 
 				//url: 'data/H000001.xml' , 
@@ -38,35 +58,10 @@ Ext.Ajax.request({
 					me.setTextInfo(object);       			
     			}
 			});
-/*me.repertoireTab = new TheaterTool.view.tabPanel.persons.XMLContent({sourceID: me.sourceID});
-	
-					me.items =[
-							me.repertoireTab
-					];*/
-
-
-/*me.listeners = {
-        	activate: function (eOpts) {
-        	console.log("activate");
-
-Ext.Ajax.request({           
-    			url:'resources/xql/getPersonXML.xql', 
-				//url: 'data/H000001.xml' , 
-			method: 'GET',
-            params: {
-               /\*uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
-                type: 'source'*\/
-            },        
-    			success: function (response, options) {
- 					
-        			var object = response.responseText;
-					me.repertoireTab.setTextInfo(object);       			
-    			}
-			});
 
 
   }
-    },*/
+    },
 
  	/*me.listeners = {
         	expand: function (p, eOpts) {
@@ -107,7 +102,7 @@ var me = this;
 
  		var tmp = hljs.highlightAuto($(tempDiv).html()).value;
  
-	$('#'+me.id+'-body').html('<pre>' + tmp + '</pre>');
+	$('#'+me.id+'-innerCt').html('<pre>' + tmp + '</pre>');
 
 	}
 

@@ -8,7 +8,7 @@ Ext.define('TheaterTool.view.tabPanel.HTTab', {
 
 requires:[
 	'Ext.layout.container.VBox'],
-	xtype: 'layout-vertical-box',
+	//xtype: 'layout-vertical-box',
 	flex: 1,
 	
 	layout: {

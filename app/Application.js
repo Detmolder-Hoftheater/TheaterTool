@@ -100,7 +100,8 @@ Ext.define('TheaterTool.Application', {
 'tabPanel.repertoire.incipits.IncipitSection',
 'tabPanel.repertoire.incipits.IncipitWindow',
 'tabPanel.persons.PersonPanelInTab',
-'tabPanel.persons.PersonTabXML'
+'tabPanel.persons.PersonTabXML',
+'tabPanel.persons.PersonTabDetails'
 	],
 	
 	models:[
