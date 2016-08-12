@@ -3,7 +3,7 @@
  * @class
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
-	extend: 'Ext.panel.Panel',
+	extend: 'Ext.tab.Panel',
     requires:[
 	'TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile'],
 	
@@ -11,19 +11,20 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 	xmlSection: null,
 	navTree: null,	
 
-	layout: {
+	/*layout: {
 					type: 'vbox',
 					pack: 'start',
 					align: 'stretch'
-				},
+				},*/
 				
-				bodyPadding: 5,
+				//bodyPadding: 5,
 				
 				/*defaults: {
 					frame: true
 				},*/
 				
 				border: false,
+autoScroll: true,
 
 	selectedWork: null,
 
@@ -64,7 +65,7 @@ this.navTree.setPageSpinner(pageSpinner);
 				},
 				
 				bodyPadding: 10,
-				
+				title: '<b style="color:gray;">Details</b>',
 				defaults: {
 					frame: true,
 					bodyPadding: 10
@@ -76,7 +77,7 @@ this.navTree.setPageSpinner(pageSpinner);
 					this.detailSection]
 				},
 
-{
+/*{
     xtype: 'component',
     autoEl: {
         tag: 'a',
@@ -84,13 +85,13 @@ this.navTree.setPageSpinner(pageSpinner);
         html: 'Vertaktung mit Edirom Online',
 		target: "_blank"
     }
-},
+},*/
 
-{
+/*{
         		html: '<img src="resources/images/Download.png" style="width:11px;height:14px;">',
 				border: false,
 				margin: '15 0 -11 0'
-			},
+			},*/
 
 			this.xmlSection
 

@@ -22,7 +22,6 @@ leafletFacsimile: null,
 
 selectedWork: null,
 
-	
 	/**
 	 * Set title for view and create leaflet component.
 	 * @overrides
@@ -31,7 +30,14 @@ selectedWork: null,
 		
 		var me = this;
 
-
+var selFolder = null;
+if(me.selectedWork === 'Aschenbrödel'){
+	selFolder = 'aschenbroedel';
+}
+else if(me.selectedWork === 'Der Bettelstudent'){
+	selFolder = 'bettelstudent';
+}
+var folderForEO = selFolder + '/';
 
 
 	
@@ -45,13 +51,26 @@ me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.repertoire.beat.PageSpinn
 
 		this.items =[ 
 me.leafletFacsimile,
+
+
 /*{
 			xtype: 'leafletmapview',
 margin: '0 0 5 0'
 		},*/
 
 
-me.pageSpinner
+me.pageSpinner,
+{
+    xtype: 'component',
+    autoEl: {
+        tag: 'a',
+        href: 'http://hoftheater-detmold.de/'+folderForEO,
+        html: 'Vertaktung mit Edirom Online',
+		target: "_blank"
+    }
+}
+
+
 ];
 
 /*var Interactions = new Array(1, 2, 3);

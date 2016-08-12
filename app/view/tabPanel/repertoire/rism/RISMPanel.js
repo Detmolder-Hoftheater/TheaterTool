@@ -3,19 +3,19 @@
  * @class
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
-	extend: 'Ext.panel.Panel',
+	extend: 'Ext.tab.Panel',
     
 	
 	detailSection: null,
 	detailSection_xml: null,
 	
-	layout: {
+	/*layout: {
 					type: 'vbox',
 					pack: 'start',
 					align: 'stretch'
-				},
+				},*/
 				
-				bodyPadding: 15,
+				//bodyPadding: 15,
 				
 				/*defaults: {
 					frame: true
@@ -24,6 +24,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
 	
 /*bodyBorder: false,*/
 	border: false,
+autoScroll: true,
 	
 	initComponent: function () {
 		
@@ -32,19 +33,19 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
 	this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSectionXML({sourceID: this.sourceID});
 	
     this.items = [
-			{
+			/*{
 				xtype: 'label',
         		html: '<b style="color:gray;">Details</b>',
         		margin: '0 0 10 0'
 
-			},
+			},*/
        
 			this.detailSection,
-			{
+			/*{
         		html: '<img src="resources/images/Download.png" style="width:11px;height:14px;">',
 				border: false,
 				margin: '0 0 -11 0'
-			},
+			},*/
 			this.detailSection_xml
 			
        

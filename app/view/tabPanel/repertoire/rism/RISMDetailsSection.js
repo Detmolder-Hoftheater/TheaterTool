@@ -7,7 +7,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSection', {
     collapsible: true,
     collapsed: true,
    
-    title: '<b style="color:gray;">Text</b>',
+    title: '<b style="color:gray;">Details</b>',
 	flex: 1,
 
 /*style: {
