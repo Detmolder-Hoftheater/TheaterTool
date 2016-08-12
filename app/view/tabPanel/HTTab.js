@@ -5,9 +5,10 @@
  */
 Ext.define('TheaterTool.view.tabPanel.HTTab', {
 	extend: 'Ext.panel.Panel',
+
 requires:[
 	'Ext.layout.container.VBox'],
-	//xtype: 'layout-vertical-box',
+	xtype: 'layout-vertical-box',
 	flex: 1,
 	
 	layout: {
@@ -15,32 +16,32 @@ requires:[
 		pack: 'start',
 		align: 'stretch'
 	},
-
-
-bodyPadding: 10,
-
-border:false,
-bodyBorder: true,
 	
-	closable: true,
-
-	/*defaults: {
+	defaults: {
 		frame: true,
 		autoScroll: true
-	},*/
-	
-	/* style: {
-     // borderRight: '5px solid #A80016'
-      borderLeft: '1px solid #FFF',
-      borderTop: '1px solid #FFF',
-      borderBottom: '1px solid #FFF'
-    },*/
-	
-	
-	//bodyPadding: 5,
-	//border: false,
-	
+	},
+	bodyPadding: 10,
 	autoScroll: true,
+/*requires:[
+	'Ext.layout.container.VBox'],
+	flex: 1,
+	
+	layout: {
+		type: 'vbox',
+		pack: 'start',
+		align: 'stretch'
+	},*/
+
+
+//bodyPadding: 10,
+
+//border:false,
+//bodyBorder: true,
+	
+	closable: true,
+	
+	//autoScroll: true,
 	
 	repertoireNavigation: null,
 	repertoireDetails: null,

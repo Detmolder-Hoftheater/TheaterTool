@@ -9,24 +9,15 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 		autoScroll: true
 		
 	},
-
-
-//bodyPadding: 5,
-	
-	//id: 'cetabpanel',
-	
-	//flex: 4,
 	
 	collapsible: false,
 	region: 'center',
 	
-	
-border:false,
+	flex: 1,
+/*border:false,
 bodyBorder: false,
    
-	//bodyPadding: 3,
-
- split: false,
+ split: false,*/
 	
 
 	/**

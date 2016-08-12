@@ -1,33 +1,16 @@
 Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
 	extend: 'Ext.tab.Panel',
 
- /*defaults: {
-		autoScroll: true
-		
-	},*/
-    autoScroll: true,
+    //autoScroll: true,
 	
-	section_xml: null,
-//flex:1,
-	
-	/*layout: {
-					type: 'vbox',
-					pack: 'start',
-					align: 'stretch'
-				},*/
-				
-				//bodyPadding: 15,
-				
-				/*defaults: {
-					frame: true
-					
-				},*/
-				
-				border: false,
-//bodyPadding: 15,
+	border: true,
+
+	flex:1,
+	bodyPadding:3,
+
 	sourceID: null,
-	werkTitle: null,
-	
+
+	section_xml: null,
 	
 	initComponent: function () {
 
