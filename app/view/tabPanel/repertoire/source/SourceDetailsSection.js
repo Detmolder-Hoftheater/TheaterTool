@@ -9,27 +9,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
    
     title: '<b style="color:gray;">Übersicht</b>',
 border: true,
-	//flex:1,
-
-
-/*style: {
-		//borderLeft: '3px solid #A80016',
-		borderTop: '2px solid #fff'
-		//borderBottom: '1px solid #fff'
-	},
-	bodyBorder: false,
-	border: false,*/
-
-   // resizable: true,
-   
-   /* features: [{
-        ftype: 'grouping',
-        groupHeaderTpl: '{columnName}: {name} ({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
-        hideGroupedHeader: true,
-        startCollapsed: true,
-        id: 'restaurantGrouping'
-    }],*/
-    
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,
     repertoireTab:null,
 
 	sourceID: null,

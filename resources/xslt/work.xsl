@@ -41,7 +41,7 @@
 			<xsl:value-of select="mei:work/mei:history"/>
 		</p>
 		<h3 style="text-align:center">
-			Instumentierung
+			Instrumentierung
 		</h3>
 		<table BORDER="0" CELLPADDING="4" CELLSPACING="0" style="width:100%">			
 			<xsl:for-each select="mei:work/mei:perfMedium/mei:instrumentation/mei:instrVoice">	

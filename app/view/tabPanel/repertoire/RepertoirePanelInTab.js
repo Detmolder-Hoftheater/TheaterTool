@@ -5,15 +5,17 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab', {
 	extend: 'Ext.panel.Panel',
 
-	/*defaults: {
-		autoScroll: true
-		
+
+layout: {
+		type: 'vbox',
+		pack: 'start',
+		align: 'stretch'
 	},
-	flex: 1,
-	border: false,
-	bodyBorder: false,*/
+		
+	bodyPadding: 1,
+	
   flex: 1,
-//bodyPadding:10,
+border: true,
 navButton: null,
 
 selection: null,
@@ -37,94 +39,23 @@ navTree.setWorkSelection(me.selection);
 
 
  	me.tbar =  new Ext.Toolbar({
-		/*layout: {
-            pack: 'center'
-        },*/
-style: {
+		style: {
 				//background: '#dadada'
-background: '#dcdcdc'
+		background: '#dcdcdc'
 			},
-	height: 33,
-border:false,
-bodyBorder: false,
+		height: 33,
+		border:false,
+		bodyBorder: false,
               // items: [{
                     //xtype: 'segmentedbutton',
 
 					
-                    items: [/*{
-                        text: '<b style="color:gray;">Werk<b>',
-
-							handler: function() {
-                                console.log("Picked #1");
-								me.removeAll(true);
-								var workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails();
-								me.add(workPanel);
-                        
-                            }
-                    }, */
-
- /*{
-
-				xtype: 'label',
-        		html: /\*'<b style="color:gray;">Auswahl</b>',*\/
-'<font size = "1"><b style="color:gray;">Auswahl</b></font>',
-        		margin: '0 10 0 10'
-
-			},*/
+                    items: [
 me.navButton
 ]
- //}]
-
- 
-                
+      
            });
 
-
-/*{
-        text: 'Werk Details'
-        
-    }, 
-'-',
-{
-        text: 'Quellen',
-		menu:[{
-                text:'Paste Menu Item'
-            }]
-       
-    }*/
-
-
-/*this.tbar = [{
-            text:'Werk Details'
-        },
-'-',
-{
-            text:'Quellen',
-            menu:[{
-                text:'Paste Menu Item'
-            }]
-        }
-
-  ]*/
-	
-	/*this.navTree = new TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree();
-
-	var app = TheaterTool.getApplication();
-		
-	this.navTreeStore = app.handleStoreForWorks(this.selection);
-
-				this.navTree.getView().bindStore(this.navTreeStore);
-				this.navTreeStore.sort('name');
-	
-	
-	this.repertoirePanel = new TheaterTool.view.tabPanel.repertoire.RepertoirePanel();
-	
-	this.navTree.setRepertoirePanel(this.repertoirePanel);
-	
-    this.items = [
-       this.navTree,
-       this.repertoirePanel
-    ]*/
     	this.callParent();
 	},
 

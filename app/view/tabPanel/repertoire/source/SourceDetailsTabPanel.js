@@ -16,7 +16,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel', 
 	//minHeight: 300,
 	//resizable: true,
 	//flex:1,
-	autoScroll: true,
+	//autoScroll: true,
 	//reserveScrollbar: true,
 	
 	border: false,

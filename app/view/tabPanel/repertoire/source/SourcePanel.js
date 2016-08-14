@@ -5,35 +5,20 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
 extend: 'Ext.tab.Panel',
 
-   
+//autoScroll: true,
 	
-	/*defaults: {
-		autoScroll: true
-		
-	},*/
-    autoScroll: true,
+	flex: 1,
+border: true,
+bodyPadding:15,
+
 	personSection: null,
 	detailSection: null,
 	sourcesSection: null,
 	overviewSection: null,
 	detailSection_xml: null,
-//flex:1,
-	
-	/*layout: {
-					type: 'vbox',
-					pack: 'start',
-					align: 'stretch'
-				},*/
+
+			
 				
-				//bodyPadding: 15,
-				
-				/*defaults: {
-					frame: true
-					
-				},*/
-				
-				border: false,
-//bodyPadding: 15,
 	sourceID: null,
 	werkTitle: null,
 	
@@ -49,49 +34,34 @@ extend: 'Ext.tab.Panel',
 		
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID});
 
-	this.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({sourceID: this.sourceID});
+	//this.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({sourceID: this.sourceID});
 
-this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({sourceID: this.sourceID});
+//this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({sourceID: this.sourceID});
 
-	if(storeField.indexOf(this.werkTitle) > -1){
+	/*if(storeField.indexOf(this.werkTitle) > -1){
 		this.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
 	}
 
 	if(this.overviewSection !== null){
 		this.items = [
-			/*{
-				xtype: 'label',
-        		html: '<b style="color:gray;">Details</b>',
-        		margin: '0 0 10 0'
-
-			},*/
-       
-			this.detailSection,
+			
+		/\*	this.detailSection,
 this.sourcesSection,
-			/*{
-        		html: '<img src="resources/images/Download.png" style="width:11px;height:14px;">',
-				border: false,
-				margin: '0 0 -11 0'
-			},*/
+			
 			this.detailSection_xml,
-			this.overviewSection
+			this.overviewSection*\/
     ]
 	}
-else{
+else{*/
     this.items = [
 			
-			this.detailSection,
-this.sourcesSection,
-this.detailSection_xml
-			/*{
-        		html: '<img src="resources/images/Download.png" style="width:17px;height:17px;">',
-				border: false,
-				margin: '0 0 -11 0'
-			},*/
+			this.detailSection
+/*this.sourcesSection,
+this.detailSection_xml*/
 			
 			
     ]
-};
+//};
 
 /*this.on({
     delegate: 'tab',

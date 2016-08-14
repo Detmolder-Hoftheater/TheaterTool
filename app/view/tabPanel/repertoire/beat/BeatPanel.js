@@ -108,6 +108,8 @@ this.navTree.setPageSpinner(pageSpinner);
 
 		this.navTree.getView().bindStore(navTreeStore);
 		navTreeStore.sort('name');
+
+this.xmlSection.setDisabled(true);
     	this.callParent();
 	}
 });
