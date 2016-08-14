@@ -27,6 +27,12 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 		this.extendWorkButton = this.createCEButton('<font size = "1"><b style="color:#CC9FA7;">Tiefenerschließung</b></font>');
 
 this.searchField = this.createTextField('Suche', 'Suche');
+
+var homeButton = this.createCEBox({
+			tag: 'img', src: 'resources/images/freidi_icon_57.png', width: 26,
+			height: 26
+		},
+		this.homeOnItemToggle, true);
 		
 		this.tbar = new Ext.Toolbar({
 			
@@ -41,8 +47,7 @@ this.searchField = this.createTextField('Suche', 'Suche');
         		margin: '0 10 0 10'
 
 			},
-			/*this.extendWorkButton, */
-{
+/*{
 				xtype: 'tbseparator',
 				style: {
 					borderRight: '1px solid #CC9FA7',
@@ -50,11 +55,12 @@ this.searchField = this.createTextField('Suche', 'Suche');
 					// borderTop: '1px solid black',
 					// borderBottom: '1px solid black'
 				}
-			}, 
+			},*/ 
 
 	{
 				xtype: 'button',
 				text: '<font size = "1"><b style="color:#CC9FA7;">Tabs anordnen</b></font>',
+				disabled: true,
 				menu:[ {
 					text: 'Horizontal verteilen',
 					icon: 'resources/images/Horizontal-17.png'
@@ -69,7 +75,7 @@ this.searchField = this.createTextField('Suche', 'Suche');
 				}]
 				//Desktop 173
 			},
-{
+/*{
 				xtype: 'tbseparator',
 				style: {
 					borderRight: '1px solid #CC9FA7',
@@ -77,9 +83,10 @@ this.searchField = this.createTextField('Suche', 'Suche');
 					// borderTop: '1px solid black',
 					// borderBottom: '1px solid black'
 				}
-			}, 	
+			}, 	*/
 {
 				xtype: 'button',
+disabled: true,
 				text: '<font size = "1"><b style="color:#CC9FA7;">Tab duplizieren</b></font>'
 			},		
 	
@@ -111,12 +118,60 @@ this.searchField = this.createTextField('Suche', 'Suche');
 {
 				xtype: 'component',
 margin: '0 10 0 10',
-    autoEl: {
+autoEl: {
+        tag: 'a',
+        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
+        html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
+		target: "_blank"
+    },
+style:{color: '#CC9FA7'}
+/*html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
+handler: function() {
+        console.log('You clicked the button!')
+new Ext.Component({ 
+xtype: 'component',
+   autoEl: {
         tag: 'a',
         href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
         html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
 		target: "_blank"
     }
+});
+    }*/
+/*listeners: {
+              render: function(component){
+                   component.getEl().on('click', function(e){
+console.log(component);
+new Ext.Component({ 
+xtype: 'component',
+   autoEl: {
+        tag: 'a',
+        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
+        //html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
+		target: "_blank"
+    }
+});
+                  
+                     });    
+               }
+            }*/
+/*handler: function () {
+new Ext.Component({ 
+   autoEl: {
+        tag: 'a',
+        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
+        //html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
+		target: "_blank"
+    }
+})
+		//window.location.href = 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu';
+	}*/
+   /*autoEl: {
+        tag: 'a',
+        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
+        //html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
+		target: "_blank"
+    }*/
 
 			},	
 {
@@ -134,24 +189,35 @@ margin: '0 10 0 10',
 				xtype: 'label',
         		html: '<font size = "1"><b style="color:#CC9FA7;">Suche</b></font>',
         		margin: '0 10 0 10'
-
 			},
 this.searchField,
 
 {
 
-				xtype: 'label',
+				xtype: 'button',
         		html: '<font size = "1"><b style="color:#CC9FA7;">Erweitert</b></font>',
-        		margin: '0 10 0 10'
+        		margin: '0 10 0 10',
+disabled: true
 
 			}
 
 ]
 		});
-		
-		
-		
+		this.searchField.setDisabled(true);
 		this.callParent()
+	},
+
+homeOnItemToggle: function () {
+		window.location.href = "http://freischuetz-digital.de";
+	},
+
+	createCEBox: function (ceAutoEl, ceOnItemToggle, ceEnableToggle) {
+		var ceBox = Ext.create('Ext.button.Button', {
+			autoEl: ceAutoEl,
+			enableToggle: ceEnableToggle,
+			toggleHandler: ceOnItemToggle
+		});
+		return ceBox;
 	},
 		
 	setViewPanel: function (htPanel) {

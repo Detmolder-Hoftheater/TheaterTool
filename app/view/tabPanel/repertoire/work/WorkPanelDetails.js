@@ -5,22 +5,16 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 	extend: 'Ext.tab.Panel',
     
-
+	border: true,
+	flex:1,
+autoScroll: true,
+	bodyPadding:3,
 	
 	detailSection: null,
-detailSection_1: null,
+	detailSection_1: null,
 	
-	
-	/*layout: {
-					type: 'vbox',
-					pack: 'start',
-					align: 'stretch'
-				},
-				
-				bodyPadding: 15,*/
-				
-				border: false,
-	autoScroll: true,
+	/*border: false,
+	autoScroll: true,*/
 
 	workID: null,
 	
@@ -29,9 +23,9 @@ detailSection_1: null,
 	
 	
 	
-	this.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: this.workID});
+	//this.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: this.workID});
 
-	this.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: this.workID});
+	//this.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: this.workID});
 	
 	
 
@@ -43,14 +37,14 @@ detailSection_1: null,
         		margin: '0 0 10 0'
 
 			},*/
-			this.detailSection,
+			//this.detailSection,
 
 			/*{
         		html: '<img src="resources/images/Download.png" style="width:11px;height:14px;">',
 				border: false,
 				margin: '0 0 -11 0'
 			},*/
-			this.detailSection_1
+			//this.detailSection_1
 
 			/*{
 				xtype: 'label',

@@ -1,14 +1,3 @@
-/*Ext.define('TheaterTool.view.tabPanel.repertoire.work.XmlFormController', {
-    extend: 'Ext.app.ViewController',
-    alias: 'controller.form-xml',
-    
-    onLoadClick: function() {
-        this.getView().getForm().load({
-            url: 'data/xml-form-data.xml',
-            waitMsg: 'Loading...'
-        });
-    }
-});*/
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
  /*extend: 'Ext.form.Panel',
     xtype: 'form-xml',
@@ -76,10 +65,10 @@ items: [{
 
 ]*\/*/
 
-    extend: 'Ext.form.FieldSet',
- 
-    collapsible: true,
-   	collapsed: false,
+    extend: 'Ext.panel.Panel',
+ bodyPadding: 5,
+   // collapsible: true,
+   //	collapsed: false,
 
     title: '<b style="color:gray;">Details</b>',
 

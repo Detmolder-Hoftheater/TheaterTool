@@ -5,32 +5,15 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab', {
 	extend: 'Ext.panel.Panel',
 
- /*xtype: 'layout-border',
-    requires: [
-        'Ext.layout.container.Border'
-    ],
-    layout: 'border',*/
-  
-	//flex: 1,
-autoScroll: true,
-border: false,
-bodyBorder: false,
-  //  bodyBorder: false,
-   // border: false,
-    //bodyPadding: 3,
-//border: false,
- /*style: {
-      borderRight: '7px solid white',
-      borderLeft: '7px solid white',
-      borderTop: '7px solid white',
-     borderBottom: '7px solid white'
-    },*/
-    
-   
-   /*defaults: {
-		autoScroll: true,
-		split: true
-	},*/
+	/*defaults: {
+		autoScroll: true
+		
+	},
+	flex: 1,
+	border: false,
+	bodyBorder: false,*/
+  flex: 1,
+bodyPadding:10,
 navButton: null,
 
 selection: null,

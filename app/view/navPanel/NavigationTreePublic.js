@@ -416,7 +416,6 @@ bodyPadding: 3,
     initComponent: function() {
 
 this.listeners = {
-			
 			itemdblclick: function (record, item, index, e, eOpts) {
 				var repertoireTab = null;
 				if(item.data.text === 'Aschenbrödel'){					
@@ -532,85 +531,85 @@ this.listeners = {
 			
 				}
 			else if(item.data.text === 'Aufführungen'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Aufführungen</font>',
 						icon: 'resources/images/Time-17.png'
-					});
+					});*/
 				
 				}
 			else if(item.data.text === 'Theaterzettel'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Theaterzettel</font>',
 						icon: 'resources/images/Day-17.png'
-					});
+					});*/
 				
 				}
 			else if(item.data.text === 'Personen'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Personen</font>',
 						icon: 'resources/images/Mask-19.png'
-					});
-				var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({year: item.data.text});
+					});*/
+				//var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({year: item.data.text});
 				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
-				repertoireTab.add(personDetails);
+				//repertoireTab.add(personDetails);
 				
 				}
 			else if(item.data.text === 'Karten & Abos'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Karten & Abos</font>',
 						icon: 'resources/images/Ticket-14.png'
-					});
+					});*/
 				
 				}
 			else if(item.data.text === 'Linksammlung'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Linksammlung</font>',
 						icon: 'resources/images/Presse-16.png'
-					});
+					});*/
 				
 				}
 			else if(item.data.text === 'Theaterjournal'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Theaterjournal</font>',
 						icon: 'resources/images/Presse-16.png'
-					});
+					});*/
 				
 				}
 			else if(item.data.text === 'Dekoration'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Dekoration</font>',
 						icon: 'resources/images/theatre.png'
-					});
+					});*/
 				
 				}
 			else if(item.data.text === 'Regiebücher'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Regiebücher</font>',
 						icon: 'resources/images/Crown-17.png'
-					});
+					});*/
 				
 				}
 			else if(item.data.text === 'Rollen- & Kostümbücher'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Rollen- & Kostümbücher</font>',
 						icon: 'resources/images/carnival.png'
-					});
+					});*/
 				
 				}
 			else if(item.data.text === 'Theaterberufe'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Theaterberufe</font>',
 						icon: 'resources/images/theatreB.png'
-					});
+					});*/
 				
 				}
 			else if(item.parentNode.data.text === 'Gesamte Ausgaben'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Gesamte Ausgaben</font>',
 						icon: 'resources/images/MoneyTransfer-17.png'
 					});
 				var issueDetails = new TheaterTool.view.tabPanel.issue.IssuePanelInTab({year: item.data.text});
-				repertoireTab.add(issueDetails);
+				repertoireTab.add(issueDetails);*/
 				
 				}
 			else if(item.parentNode.data.text === 'Einnahmen'){
@@ -624,10 +623,10 @@ this.listeners = {
 				
 				}
 			else if(item.data.text === 'Gagenbücher'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Gagenbücher</font>',
 						icon: 'resources/images/Gift-17.png'
-					});
+					});*/
 				
 				}
 
@@ -636,9 +635,11 @@ this.listeners = {
  					if (typeof Ext.getCmp('infoDialog') !== 'undefined') {
 							Ext.getCmp('infoDialog').close();
 					}
-
+				if(repertoireTab !== null){
 					this.tabPanel.add(repertoireTab);
-					this.tabPanel.setActiveTab(repertoireTab);					
+					this.tabPanel.setActiveTab(repertoireTab);	
+				}
+									
 				}
 				
 			}
