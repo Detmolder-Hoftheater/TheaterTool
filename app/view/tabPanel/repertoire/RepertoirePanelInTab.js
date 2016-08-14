@@ -13,7 +13,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab', {
 	border: false,
 	bodyBorder: false,*/
   flex: 1,
-bodyPadding:10,
+//bodyPadding:10,
 navButton: null,
 
 selection: null,

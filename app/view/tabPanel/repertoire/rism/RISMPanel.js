@@ -50,6 +50,9 @@ autoScroll: true,
 			
        
     ]
+
+this.detailSection.setDisabled(true);
+this.detailSection_xml.setDisabled(true);
     	this.callParent();
 	}
 });

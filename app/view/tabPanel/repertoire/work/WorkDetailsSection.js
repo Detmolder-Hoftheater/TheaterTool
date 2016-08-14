@@ -2,7 +2,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
  /*extend: 'Ext.form.Panel',
     xtype: 'form-xml',
     //controller: 'form-xml',
-    
+   
     
     title:'XML Form',
     frame: true,
@@ -66,13 +66,13 @@ items: [{
 ]*\/*/
 
     extend: 'Ext.panel.Panel',
- bodyPadding: 5,
+ //bodyPadding: 5,
    // collapsible: true,
    //	collapsed: false,
-
+border:true,
     title: '<b style="color:gray;">Details</b>',
 
-	flex:1,
+	//flex:1,
     
     repertoireTab:null,
 personSection: null,
@@ -150,14 +150,17 @@ this.journalSection = new TheaterTool.view.tabPanel.repertoire.work.WorkJournalS
         		//margin: '15 0 15 0'
 
 			},
-			this.personSection,		
-			this.planSection,			
+			this.personSection
+	
+			/*this.planSection,			
 			this.journalSection,
      		this.regieSection,
 			this.roleSection,
 			this.issueSection,
-			this.revenueSection
+			this.revenueSection*/
 		],
+
+
 
         me.callParent();
         

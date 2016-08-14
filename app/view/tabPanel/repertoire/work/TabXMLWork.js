@@ -6,14 +6,37 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.TabXMLWork', {
 	extend: 'Ext.panel.Panel',
 
- minHeight: 200,
+ /*minHeight: 200,
 
     resizable: true,
 
 autoScroll: true,
 reserveScrollbar: true,
 border:false,
-xmlText: null,
+xmlText: null,*/
+
+bodyPadding: 10,
+
+	height: 500,
+
+//flex: 1,				
+					
+border:true,
+
+autoScroll: true,
+		
+
+ minHeight: 100,
+   
+    //resizable: true,
+
+//autoScroll: true,
+reserveScrollbar: true,
+
+initComponent: function() {
+this.callParent();
+        
+        },
 
 setTextInfo: function(infoText){
 var me = this;
@@ -24,7 +47,7 @@ var me = this;
 		tempDiv.innerHTML = infoText; 
 
 var tmp = hljs.highlightAuto($(tempDiv).html()).value;
-$('#'+me.id+'-innerCt').html('<pre>' + tmp + '</pre>');
+$('#'+me.id+'-body').html('<pre>' + tmp + '</pre>');
 
 	}
 });

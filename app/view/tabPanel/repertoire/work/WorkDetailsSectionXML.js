@@ -1,11 +1,14 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML', {
     extend: 'Ext.panel.Panel',
- border: false,
+ border: true,
 
-flex:1,
+//flex:1,
 
-autoScroll: true,
+//autoScroll: true,
 
+//height: 400,
+
+   // resizable: true,
     title: '<b style="color:gray;">XML</b>',
     
     repertoireTab:null,
@@ -16,13 +19,13 @@ autoScroll: true,
 
 	var me = this;
     
-    /*me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork({workID: this.workID});
+    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork({workID: this.workID});
 	
 	me.items =[
 		me.repertoireTab
-		],*/
+		],
 
-Ext.Ajax.request({           
+/*Ext.Ajax.request({           
     			url:'resources/xql/getXML.xql', 
 				//url: 'data/H000001.xml' , 
 			method: 'GET',
@@ -35,9 +38,9 @@ Ext.Ajax.request({
         			var object = response.responseText;
 					me.setTextInfo(object);       			
     			}
-			});
+			});*/
 
-/*me.listeners = {
+me.listeners = {
         	activate: function (eOpts) {
         	console.log("activate");
 
@@ -52,13 +55,13 @@ Ext.Ajax.request({
     			success: function (response, options) {
  					
         			var object = response.responseText;
-					me.setTextInfo(object);       			
+					me.repertoireTab.setTextInfo(object);       			
     			}
 			});
 
 
   }
-    },*/
+    },
 
  	/*me.listeners = {
         	expand: function (p, eOpts) {
@@ -96,8 +99,8 @@ var me = this;
 
 
  		var tmp = hljs.highlightAuto($(tempDiv).html()).value;
- 
-	$('#'+me.id+'-body').html('<pre>' + tmp + '</pre>');
+
+	$('#'+me.id+'-innerCt').html('<pre>' + tmp + '</pre>');
 
 	}
 

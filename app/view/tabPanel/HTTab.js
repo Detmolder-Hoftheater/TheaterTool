@@ -48,7 +48,7 @@ requires:[
 	},
 
 
-//bodyPadding: 10,
+bodyPadding: 10,
 
 border:false,
 bodyBorder: true,

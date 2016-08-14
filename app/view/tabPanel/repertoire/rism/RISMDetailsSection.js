@@ -2,41 +2,23 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSection', {
-    extend: 'Ext.form.FieldSet',
-    
-    collapsible: true,
-    collapsed: true,
+    //extend: 'Ext.form.FieldSet',
+    extend: 'Ext.panel.Panel',
+    //collapsible: true,
+    //collapsed: true,
    
     title: '<b style="color:gray;">Details</b>',
 	flex: 1,
-
-/*style: {
-		//borderLeft: '3px solid #A80016',
-		borderTop: '3px solid #fff'
-		//borderBottom: '1px solid #fff'
-	},
-	bodyBorder: false,
-	border: false,*/
-
-    //resizable: true,
-   
-   /* features: [{
-        ftype: 'grouping',
-        groupHeaderTpl: '{columnName}: {name} ({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
-        hideGroupedHeader: true,
-        startCollapsed: true,
-        id: 'restaurantGrouping'
-    }],*/
     
     repertoireTab:null,
 
     initComponent: function() {
     
-    this.repertoireTab = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsTabPanel();
+   // this.repertoireTab = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsTabPanel();
 	
-	this.items =[
+	/*this.items =[
 		this.repertoireTab
-		],
+		],*/
     
         this.listeners = {
         	expand: function (p, eOpts) {

@@ -6,6 +6,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection', {
    
     collapsible: true,
 	collapsed: true,
+border: false,
    
     title: '<b style="color:gray;">Personen</b>',
 
