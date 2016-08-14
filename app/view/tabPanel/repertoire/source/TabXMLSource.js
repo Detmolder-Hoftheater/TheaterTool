@@ -6,7 +6,16 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.TabXMLSource', {
 	extend: 'Ext.panel.Panel',
 
+
+
+	
 	bodyPadding: 10,
+	
+	autoScroll: true,
+	
+	border: true,
+
+	/*bodyPadding: 10,
 
 	height: 500,				
 					
@@ -15,12 +24,12 @@ border:true,
 autoScroll: true,
 		
 
- minHeight: 300,
+ minHeight: 300,*/
    
     //resizable: true,
 
 //autoScroll: true,
-reserveScrollbar: true,
+//reserveScrollbar: true,
 
 //infoText: null,
 

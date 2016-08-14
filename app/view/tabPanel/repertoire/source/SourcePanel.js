@@ -34,9 +34,9 @@ bodyPadding:15,
 		
 	this.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({sourceID: this.sourceID});
 
-	//this.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({sourceID: this.sourceID});
+	this.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({sourceID: this.sourceID});
 
-//this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({sourceID: this.sourceID});
+this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({sourceID: this.sourceID});
 
 	/*if(storeField.indexOf(this.werkTitle) > -1){
 		this.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
@@ -55,9 +55,9 @@ this.sourcesSection,
 else{*/
     this.items = [
 			
-			this.detailSection
-/*this.sourcesSection,
-this.detailSection_xml*/
+			this.detailSection,
+this.sourcesSection,
+this.detailSection_xml
 			
 			
     ]

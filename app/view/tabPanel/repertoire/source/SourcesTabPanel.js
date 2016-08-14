@@ -13,7 +13,7 @@ layout: {
 
 
 	
-	//bodyPadding: 10,
+	bodyPadding: 10,
 	
 	autoScroll: true,
 	

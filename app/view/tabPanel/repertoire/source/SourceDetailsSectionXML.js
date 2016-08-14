@@ -13,11 +13,17 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML'
 		align: 'stretch'
 	},*/
 					//autoScroll: true,
-					border: true,
+					//border: true,
 //height: 400,
 
 //flex:1,
 //minHeight: 200,
+
+border: true,
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,
 
 
     title: '<b style="color:gray;">XML</b>',
@@ -52,11 +58,11 @@ xtype: 'image', src: 'resources/images/Download.png', width: 26,
 
 	var me = this;
 
-me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.TabXMLSource({sourceID: me.sourceID});
+/*me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.TabXMLSource({sourceID: me.sourceID});
 	
 					me.items =[
 							me.repertoireTab
-					];
+					];*/
 
 me.listeners = {
         	activate: function (eOpts) {
@@ -75,7 +81,8 @@ Ext.Ajax.request({
     			success: function (response, options) {
  					
         			var object = response.responseText;
-					me.repertoireTab.setTextInfo(object);       			
+					//me.repertoireTab.setTextInfo(object); 
+me.setTextInfo(object);       			
     			}
 			});
 
@@ -113,7 +120,25 @@ Ext.Ajax.request({
     
         me.callParent();
         
-        }
+        },
+
+setTextInfo: function(infoText){
+
+var me = this;
+
+ var fragment = document.createDocumentFragment('div');
+		var tempDiv = document.createElement('div');
+		fragment.appendChild(tempDiv);
+		tempDiv.innerHTML = infoText;
+
+
+
+ 		var tmp = hljs.highlightAuto($(tempDiv).html()).value;
+ 
+	$('#'+me.id+'-innerCt').html('<pre>' + tmp + '</pre>');
+
+	}
+
 
 
 });

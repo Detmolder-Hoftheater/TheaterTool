@@ -3,34 +3,23 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
     //extend: 'Ext.form.FieldSet',
-    extend: 'Ext.panel.Panel',
+
+ extend: 'Ext.panel.Panel',
    // collapsible: true,
     //collapsed: false,
    
-    title: '<b style="color:gray;">Details</b>',
 border: true,
-bodyPadding: 10,
-	//flex:1,
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
 autoScroll: true,
 
-/*style: {
-		//borderLeft: '3px solid #A80016',
-		borderTop: '2px solid #fff'
-		//borderBottom: '1px solid #fff'
-	},
-	bodyBorder: false,
-	border: false,*/
+    title: '<b style="color:gray;">Details</b>',
+/*border: true,
+bodyPadding: 10,
+	
+autoScroll: true,*/
 
-   // resizable: true,
-   
-   /* features: [{
-        ftype: 'grouping',
-        groupHeaderTpl: '{columnName}: {name} ({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
-        hideGroupedHeader: true,
-        startCollapsed: true,
-        id: 'restaurantGrouping'
-    }],*/
-    
     repertoireTab:null,
 
 	sourceID: null,
