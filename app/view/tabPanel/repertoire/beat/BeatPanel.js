@@ -11,20 +11,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 	xmlSection: null,
 	navTree: null,	
 
-	/*layout: {
-					type: 'vbox',
-					pack: 'start',
-					align: 'stretch'
-				},*/
-				
-				//bodyPadding: 5,
-				
-				/*defaults: {
-					frame: true
-				},*/
-				
-				border: false,
+flex: 1,
+border: true,
+bodyPadding:15,
 autoScroll: true,
+/*border: false,
+autoScroll: true,*/
 
 	selectedWork: null,
 

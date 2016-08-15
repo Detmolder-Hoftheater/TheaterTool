@@ -66,7 +66,7 @@ items: [{
 ]*\/*/
 
     extend: 'Ext.panel.Panel',
- //bodyPadding: 5,
+ bodyPadding: 10,
    // collapsible: true,
    //	collapsed: false,
 border:true,
@@ -146,18 +146,19 @@ this.journalSection = new TheaterTool.view.tabPanel.repertoire.work.WorkJournalS
 		me.repertoireTab,
 {
 				xtype: 'label',
-        		html: '<b style="color:gray;">Referenzen</b>'
-        		//margin: '15 0 15 0'
+        		html: '<b style="color:gray;">Referenzen</b>',
+        		margin: '15 0 15 0'
 
 			},
-			this.personSection
+
+			this.personSection,
 	
-			/*this.planSection,			
+			this.planSection,			
 			this.journalSection,
      		this.regieSection,
 			this.roleSection,
 			this.issueSection,
-			this.revenueSection*/
+			this.revenueSection
 		],
 
 

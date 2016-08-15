@@ -8,14 +8,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.FacsimileView', {
 	requires:[
 	'TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile'],
 
-	// collapsible: false,
-   //collapsed: true,
-
-    //title: '<b style="color:gray;">Text</b>',
 border: true,
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,
+	
+/*border: true,
 flex:1,
- //margin: '0 0 15 0',
-bodyPadding: 5,
+bodyPadding: 5,*/
 pageSpinner: null,
 
 leafletFacsimile: null,
