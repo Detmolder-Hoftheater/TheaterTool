@@ -7,8 +7,8 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelDetails', {
     extend: 'Ext.tab.Panel',
     
 	flex: 1,
-border: true,
-bodyPadding:15,
+border: false,
+//bodyPadding:15,
 
 	personSection: null,
 	planSection: null,
@@ -20,19 +20,6 @@ detailSection_1: null,
 	revenueSection: null,
 	issueSection: null,
 	
-	layout: {
-					type: 'vbox',
-					pack: 'start',
-					align: 'stretch'
-				},
-				
-				bodyPadding: 15,
-				
-				/*defaults: {
-					frame: true
-				},*/
-				
-				border: false,
 
 	month: null,
 	year: null,

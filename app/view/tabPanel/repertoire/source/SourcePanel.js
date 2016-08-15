@@ -8,8 +8,8 @@ extend: 'Ext.tab.Panel',
 //autoScroll: true,
 	
 	flex: 1,
-border: true,
-bodyPadding:15,
+border: false,
+//bodyPadding:15,
 
 	personSection: null,
 	detailSection: null,

@@ -7,8 +7,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
     
     
 	flex: 1,
-border: true,
-bodyPadding:15,
+border: false,
+//bodyPadding:15,
 	
 	detailSection: null,
 	detailSection_1: null,

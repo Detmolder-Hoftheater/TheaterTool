@@ -7,10 +7,10 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
 		align: 'stretch'
 	},
 		
-	bodyPadding: 1,
+	//bodyPadding: 1,
 	
   flex: 1,
-border: true,
+border: false,
 navButton: null,
 year: null,
 
@@ -36,6 +36,10 @@ navTree.setNavButton(me.navButton);
 		/*layout: {
             pack: 'center'
         },*/
+style: {
+				//background: '#dadada'
+		background: '#dcdcdc'
+			},
 	height: 33,
               // items: [{
                     //xtype: 'segmentedbutton',

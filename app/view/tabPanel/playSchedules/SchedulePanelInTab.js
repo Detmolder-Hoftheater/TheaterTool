@@ -7,10 +7,10 @@ layout: {
 		align: 'stretch'
 	},
 		
-	bodyPadding: 1,
+	//bodyPadding: 1,
 	
   flex: 1,
-border: true,
+border: false,
 
    /* bodyBorder: false,
     bodyPadding: 5,
@@ -46,6 +46,10 @@ navTree.setNavButton(me.navButton);
 
 
  	me.tbar = {
+style: {
+				//background: '#dadada'
+		background: '#dcdcdc'
+			},
 		/*layout: {
             pack: 'center'
         },*/
