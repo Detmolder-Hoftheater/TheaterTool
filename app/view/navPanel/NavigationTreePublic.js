@@ -351,8 +351,9 @@ children: [
             },
  { leaf:true, text: 'Dekoration',
                     icon: 'resources/images/theatre.png' },
-                    { leaf:true, text: 'Regiebücher',
-                    icon: 'resources/images/Crown-17.png'},
+                    { text: 'Regiebücher',
+                    icon: 'resources/images/Crown-17.png',
+children: []},
                     { leaf:true, text: 'Rollen- & Kostümbücher',
                      icon: 'resources/images/carnival.png'},
                     { leaf:true, text: 'Theaterberufe',
@@ -396,7 +397,7 @@ reserveScrollbar: true,
 	id: 'NavigationTreeGlobal',
 	useArrows: true,
 	rootVisible: false,
-	store: store ,
+	store: store,
 
 //	title: '<font style="color:#A87678;">Spielbetrieb</font>',
 /*'<b style="color:gray;">Spielbetrieb</b>',*/
@@ -414,6 +415,25 @@ bodyborder: false,
 bodyPadding: 3,
     
     initComponent: function() {
+		var me = this;
+
+Ext.Ajax.request({           
+    			url:'resources/xql/getRegieMenu.xql', 
+			method: 'GET',     
+    			success: function (response, options) {
+ 					var json = jQuery.parseJSON(response.responseText);	
+				var navTreeStoreRoot = me.store.getRootNode();
+				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[2];
+
+				for(i = 0; i < json.names.length; i++){
+					var regName = json.names[i];
+						regieMenu.appendChild({
+					 leaf:true, text: regName,
+                    icon: 'resources/images/Crown-17.png'
+				}); 
+				}					   			
+    			}
+			});
 
 this.listeners = {
 			itemdblclick: function (record, item, index, e, eOpts) {
