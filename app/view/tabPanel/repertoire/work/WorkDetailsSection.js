@@ -66,13 +66,19 @@ items: [{
 ]*\/*/
 
     extend: 'Ext.panel.Panel',
- bodyPadding: 10,
+// bodyPadding: 10,
    // collapsible: true,
    //	collapsed: false,
-border:true,
+//border:true,
     title: '<b style="color:gray;">Details</b>',
 
 	//flex:1,
+
+border: true,
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,
     
     repertoireTab:null,
 personSection: null,
@@ -90,27 +96,6 @@ journalSection: null,
 	var me = this;
 
 if(me.workID === 'H020263'){
-	me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest({workID: me.workID});
-
-}
-else{
-	me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel({workID: me.workID});
-
-	Ext.Ajax.request({
-           // url: 'data/Output_Exist.xql',
- 			//url: 'resources/xql/test_Exist.xql',
-			url: 'resources/xql/getWorkText.xql',
-            method: 'GET',
-            params: {
-                uri: '/db/apps/theater-data/works/'+me.workID+'.xml',
-                type: 'work'
-            },
-            success: function(response){
- 				me.repertoireTab.setTextInfo(response.responseText);				
-     		}        
-        });
-
-}
 
 this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.workID, type:'work'});
 	
@@ -125,24 +110,8 @@ this.journalSection = new TheaterTool.view.tabPanel.repertoire.work.WorkJournalS
 	this.revenueSection = new TheaterTool.view.tabPanel.repertoire.work.WorkRevenueSection();
 
 	this.issueSection = new TheaterTool.view.tabPanel.repertoire.work.WorkIssueSection();
-    
-   // me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest({workID: me.workID});
-
-	/*Ext.Ajax.request({
-           // url: 'data/Output_Exist.xql',
- 			//url: 'resources/xql/test_Exist.xql',
-			url: 'resources/xql/getWorkText.xql',
-            method: 'GET',
-            params: {
-                uri: '/db/apps/theater-data/works/'+me.workID+'.xml',
-                type: 'work'
-            },
-            success: function(response){
- 				me.repertoireTab.setTextInfo(response.responseText);				
-     		}        
-        });*/
-	
-	me.items =[
+	me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest({workID: me.workID});
+me.items =[
 		me.repertoireTab,
 {
 				xtype: 'label',
@@ -159,13 +128,47 @@ this.journalSection = new TheaterTool.view.tabPanel.repertoire.work.WorkJournalS
 			this.roleSection,
 			this.issueSection,
 			this.revenueSection
-		],
+		]
+
+}
+else{
+	//me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel({workID: me.workID});
+
+	Ext.Ajax.request({
+           // url: 'data/Output_Exist.xql',
+ 			//url: 'resources/xql/test_Exist.xql',
+			url: 'resources/xql/getWorkText.xql',
+            method: 'GET',
+            params: {
+                uri: '/db/apps/theater-data/works/'+me.workID+'.xml',
+                type: 'work'
+            },
+            success: function(response){
+ 				me.setTextInfo(response.responseText);				
+     		}        
+        });
+
+}
+
+
+    
+   
+	
+		
+	
+	
 
 
 
         me.callParent();
         
-        }
+        },
+
+
+setTextInfo: function(infoText){
+		$('#'+this.id+'-innerCt').html(infoText);
+
+	}
 
 
 });

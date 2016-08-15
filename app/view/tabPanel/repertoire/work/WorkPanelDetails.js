@@ -5,10 +5,10 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 	extend: 'Ext.tab.Panel',
     
-	border: false,
-	//flex:1,
-autoScroll: true,
-	bodyPadding:5,
+    
+	flex: 1,
+border: true,
+bodyPadding:15,
 	
 	detailSection: null,
 	detailSection_1: null,
