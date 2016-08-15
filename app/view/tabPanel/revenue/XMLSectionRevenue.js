@@ -2,14 +2,19 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.revenue.XMLSectionRevenue', {
-    extend: 'Ext.form.FieldSet',
+   // extend: 'Ext.form.FieldSet',
  
-    collapsible: true,
-   collapsed: true,
+    extend: 'Ext.panel.Panel',
+    /*collapsible: true,
+   collapsed: true,*/
 
     title: '<b style="color:gray;">XML</b>',
 
+border: true,
 	flex:1,
+bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,
 
 
     repertoireTab:null,
@@ -22,14 +27,14 @@ Ext.define('TheaterTool.view.tabPanel.revenue.XMLSectionRevenue', {
 
 	var me = this;
     
-    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork();
+   /* me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork();
 	
 	me.items =[
 		me.repertoireTab
 		],
-
+*/
  	me.listeners = {
-        	expand: function (p, eOpts) {
+        	activate: function (eOpts) {
         	if(me.month === 'Januar'){
 				me.monthNumber = '01';
 			}
@@ -81,7 +86,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.XMLSectionRevenue', {
 
 				//$('#'+me.id).html(response.responseText);
 				
- 				me.repertoireTab.setTextInfo(response.responseText);
+ 				me.setTextInfo(response.responseText);
 				//me.repertoireTab.setTextInfo1(response.responseText);
 			//$('#'+me.id+'-innerCt').html(response.responseText);
 
@@ -94,7 +99,24 @@ Ext.define('TheaterTool.view.tabPanel.revenue.XMLSectionRevenue', {
     
         me.callParent();
         
-        }
+        },
+
+setTextInfo: function(infoText){
+
+var me = this;
+
+ var fragment = document.createDocumentFragment('div');
+		var tempDiv = document.createElement('div');
+		fragment.appendChild(tempDiv);
+		tempDiv.innerHTML = infoText;
+
+
+
+ 		var tmp = hljs.highlightAuto($(tempDiv).html()).value;
+ 
+	$('#'+me.id+'-innerCt').html('<pre>' + tmp + '</pre>');
+
+	}
 
 
 });

@@ -2,14 +2,26 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
-    extend: 'Ext.form.FieldSet',
+    //extend: 'Ext.form.FieldSet',
  
     //collapsible: true,
    //collapsed: true,
 
     //title: '<b style="color:gray;">Text</b>',
 
-flex:1,
+extend: 'Ext.panel.Panel',
+ title: '<b style="color:gray;">Details</b>',
+/*border: true,
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,*/
+
+border: true,
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,
 
 
     repertoireTab:null,
@@ -22,7 +34,7 @@ flex:1,
 
 	var me = this;
     
-    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel();
+    //me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel();
 if(me.month === 'Januar'){
 				me.monthNumber = '01';
 			}
@@ -74,7 +86,7 @@ if(me.month === 'Januar'){
 
 				//$('#'+me.id).html(response.responseText);
 				
- 				me.repertoireTab.setTextInfo(response.responseText);
+ 				me.setTextInfo(response.responseText);
 				//me.repertoireTab.setTextInfo1(response.responseText);
 			//$('#'+me.id+'-innerCt').html(response.responseText);
 
@@ -82,10 +94,10 @@ if(me.month === 'Januar'){
          
         });
 	
-	me.items =[
+	/*me.items =[
 		this.repertoireTab
 		],
-
+*/
  	/*me.listeners = {
         	expand: function (p, eOpts) {
         	console.log("expand");
@@ -155,7 +167,12 @@ if(me.month === 'Januar'){
     */
         me.callParent();
         
-        }
+        },
+
+setTextInfo: function(infoText){
+		$('#'+this.id+'-innerCt').html(infoText);
+
+	}
 
 
 });

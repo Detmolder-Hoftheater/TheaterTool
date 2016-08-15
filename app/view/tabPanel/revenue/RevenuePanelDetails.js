@@ -3,8 +3,12 @@
  * @class
  */
 Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelDetails', {
-	extend: 'Ext.panel.Panel',
+	//extend: 'Ext.panel.Panel',
+    extend: 'Ext.tab.Panel',
     
+	flex: 1,
+border: true,
+bodyPadding:15,
 
 	personSection: null,
 	planSection: null,
@@ -51,19 +55,19 @@ var me = this;
 			},*/
 			this.detailSection,
 
-			{
+			/*{
         		html: '<img src="resources/images/Download.png" style="width:11px;height:14px;">',
 				border: false,
 				margin: '0 0 -11 0'
-			},
-			this.detailSection_1,
+			},*/
+			this.detailSection_1
 
-			{
+			/*{
 				xtype: 'label',
         		html: '<b style="color:gray;">Referenzen</b>',
         		margin: '10 0 10 0'
 
-			}
+			}*/
 			
     ]
     	this.callParent();
