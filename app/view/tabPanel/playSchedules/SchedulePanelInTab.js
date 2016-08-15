@@ -1,31 +1,21 @@
 Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
 	extend: 'Ext.panel.Panel',
 
- /*xtype: 'layout-border',
-    requires: [
-        'Ext.layout.container.Border'
-    ],
-    layout: 'border',*/
-  
-	//flex: 1,
+layout: {
+		type: 'vbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+		
+	bodyPadding: 1,
+	
+  flex: 1,
+border: true,
 
-
-    bodyBorder: false,
-   // border: false,
+   /* bodyBorder: false,
     bodyPadding: 5,
-border: false,
- /*style: {
-      borderRight: '7px solid white',
-      borderLeft: '7px solid white',
-      borderTop: '7px solid white',
-     borderBottom: '7px solid white'
-    },*/
-    
-   
- /*  defaults: {
-		autoScroll: true,
-		split: true
-	},*/
+	border: false,*/
+
 navButton: null,
 year: null,
 
