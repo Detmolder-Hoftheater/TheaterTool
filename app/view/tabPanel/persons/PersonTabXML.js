@@ -14,8 +14,8 @@ autoScroll: true,
 
     repertoireTab:null,
 
-	sourceID: null,
-
+	dbkey: null, 
+	
     initComponent: function() {
 
 	var me = this;
@@ -49,6 +49,7 @@ Ext.Ajax.request({
 				//url: 'data/H000001.xml' , 
 			method: 'GET',
             params: {
+				dbkey: me.dbkey
                /*uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
                 type: 'source'*/
             },        

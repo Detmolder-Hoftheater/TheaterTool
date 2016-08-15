@@ -6,8 +6,8 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
 	flex:1,
 	bodyPadding:3,
 
-	sourceID: null,
-
+	dbkey: null, 
+	
 	section_xml: null,
 	section_details: null,
 	
@@ -18,7 +18,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
 
 	//this.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({sourceID: this.sourceID});
 
-	this.section_xml = new TheaterTool.view.tabPanel.persons.PersonTabXML({sourceID: this.sourceID});
+	this.section_xml = new TheaterTool.view.tabPanel.persons.PersonTabXML({dbkey: this.dbkey});
 	this.items = [
 			
 			this.section_details,

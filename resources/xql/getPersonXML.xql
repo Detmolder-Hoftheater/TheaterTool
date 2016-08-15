@@ -10,10 +10,11 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";
 
-let $month := request:get-parameter('month', '')
-let $year := request:get-parameter('year', '')
+let $dbkey := request:get-parameter('dbkey', '')
+(:let $year := request:get-parameter('year', ''):)
 
-let $uri := '/db/apps/theater-data/persons/H0000xx/H000001.xml'
+let $uri := concat('/db/apps/theater-data/persons/', $dbkey, '.xml')
+
 (:, $year, '/', $year, '_', $month, '.xml'):)
 
 let $doc := eutil:getDoc($uri)/tei:person
