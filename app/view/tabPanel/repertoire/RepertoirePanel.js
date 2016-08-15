@@ -8,16 +8,16 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePanel', {
 	region: 'center',
             flex: 6,
 
-
-	layout: {
+layout: {
 		type: 'vbox',
 		pack: 'start',
 		align: 'stretch'
 	},
 		
-	bodyPadding: 1,
+	//bodyPadding: 1,
 	
-border: true
+border: false
+	
 
 
 /*	initComponent: function () {

@@ -1,6 +1,10 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML', {
     extend: 'Ext.panel.Panel',
  border: true,
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,
 
 //flex:1,
 
@@ -19,12 +23,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML', {
 
 	var me = this;
     
-    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork({workID: this.workID});
+  //  me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork({workID: this.workID});
 	
-	me.items =[
+	/*me.items =[
 		me.repertoireTab
 		],
-
+*/
 /*Ext.Ajax.request({           
     			url:'resources/xql/getXML.xql', 
 				//url: 'data/H000001.xml' , 
@@ -55,7 +59,7 @@ Ext.Ajax.request({
     			success: function (response, options) {
  					
         			var object = response.responseText;
-					me.repertoireTab.setTextInfo(object);       			
+					me.setTextInfo(object);       			
     			}
 			});
 

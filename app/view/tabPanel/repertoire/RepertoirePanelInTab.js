@@ -12,10 +12,10 @@ layout: {
 		align: 'stretch'
 	},
 		
-	bodyPadding: 1,
+	//bodyPadding: 1,
 	
   flex: 1,
-border: true,
+border: false,
 navButton: null,
 
 selection: null,
