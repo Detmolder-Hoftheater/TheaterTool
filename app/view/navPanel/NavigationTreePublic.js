@@ -393,7 +393,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
     },*/
 
 reserveScrollbar: true,
-	
+	id: 'NavigationTreeGlobal',
 	useArrows: true,
 	rootVisible: false,
 	store: store ,
@@ -657,5 +657,9 @@ this.listeners = {
 
 	setHTTabPanel: function(tabPanel){
 		this.tabPanel = tabPanel;
+	},
+
+	getHTTabPanel: function(){
+		return this.tabPanel;
 	}
 });
