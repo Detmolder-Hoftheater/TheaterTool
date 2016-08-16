@@ -1,31 +1,21 @@
 Ext.define('TheaterTool.view.tabPanel.issue.IssuePanelInTab', {
 	extend: 'Ext.panel.Panel',
 
- /*xtype: 'layout-border',
-    requires: [
-        'Ext.layout.container.Border'
-    ],
-    layout: 'border',*/
-  
-	//flex: 1,
-
-
-    bodyBorder: false,
-   // border: false,
-    bodyPadding: 5,
+ layout: {
+		type: 'vbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+		
+	//bodyPadding: 1,
+	
+  flex: 1,
 border: false,
- /*style: {
-      borderRight: '7px solid white',
-      borderLeft: '7px solid white',
-      borderTop: '7px solid white',
-     borderBottom: '7px solid white'
-    },*/
-    
-   
- /*  defaults: {
-		autoScroll: true,
-		split: true
-	},*/
+
+   /* bodyBorder: false,
+    bodyPadding: 5,
+	border: false,*/
+
 navButton: null,
 year: null,
 

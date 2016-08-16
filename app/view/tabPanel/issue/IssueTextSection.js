@@ -2,14 +2,26 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.issue.IssueTextSection', {
-    extend: 'Ext.form.FieldSet',
+   // extend: 'Ext.form.FieldSet',
  
     //collapsible: true,
    //collapsed: true,
 
     //title: '<b style="color:gray;">Text</b>',
 
-flex:1,
+ extend: 'Ext.panel.Panel',
+ title: '<b style="color:gray;">Details</b>',
+/*border: true,
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,*/
+
+border: true,
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,
 
 
     repertoireTab:null,
