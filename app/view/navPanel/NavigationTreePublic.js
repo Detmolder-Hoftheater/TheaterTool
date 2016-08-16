@@ -419,18 +419,11 @@ bodyPadding: 3,
 
 Ext.Ajax.request({           
     			url:'resources/xql/getRegieMenu.xql', 
-				//url: 'data/H000001.xml' , 
-			method: 'GET',
-           /* params: {
-               uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
-                type: 'source'
-            },  */      
+			method: 'GET',    
     			success: function (response, options) {
  					var json = jQuery.parseJSON(response.responseText);
 					
 					console.log(json);	
-        			//var object = response.responseText;
-					//me.repertoireTab.setTextInfo(object);
 				var navTreeStoreRoot = me.store.getRootNode();
 				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[2];
 
@@ -440,9 +433,45 @@ for(i = 0; i < json.names.length; i++){
 					 leaf:true, text: regName,
                     icon: 'resources/images/Crown-17.png'
 				}); 
-}
-		 
-					   			
+}				   			
+    			}
+			});
+
+Ext.Ajax.request({           
+    			url:'resources/xql/getRollenKostuemMenu.xql', 
+			method: 'GET',    
+    			success: function (response, options) {
+ 					var json = jQuery.parseJSON(response.responseText);
+					
+					console.log(json);	
+				var navTreeStoreRoot = me.store.getRootNode();
+				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[3];
+				for(i = 0; i < json.names.length; i++){
+					var regName = json.names[i];
+					regieMenu.appendChild({
+					 leaf:true, text: regName,
+                    icon: 'resources/images/carnival.png'
+				}); 
+				}				   			
+    			}
+			});
+
+Ext.Ajax.request({           
+    			url:'resources/xql/getGagenMenu.xql', 
+			method: 'GET',    
+    			success: function (response, options) {
+ 					var json = jQuery.parseJSON(response.responseText);
+					
+					console.log(json);	
+				var navTreeStoreRoot = me.store.getRootNode();
+				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[0].childNodes[2];
+				for(i = 0; i < json.names.length; i++){
+					var regName = json.names[i];
+					regieMenu.appendChild({
+					 leaf:true, text: regName,
+                    icon: 'resources/images/Gift-17.png'
+				}); 
+				}				   			
     			}
 			});
 
@@ -622,11 +651,13 @@ this.listeners = {
 				repertoireTab.add(regieDetails);
 				
 				}
-			else if(item.data.text === 'Rollen- & Kostümbücher'){
-					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Rollen- & Kostümbücher</font>',
+			else if(item.parentNode.data.text === 'Rollen- & Kostümbücher'){
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+item.data.text+'</font>',
 						icon: 'resources/images/carnival.png'
-					});*/
+					});
+				var regieDetails = new TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab({regieName: item.data.text});
+				repertoireTab.add(regieDetails);
 				
 				}
 			else if(item.data.text === 'Theaterberufe'){
@@ -655,12 +686,13 @@ this.listeners = {
 				repertoireTab.add(revenueDetails);
 				
 				}
-			else if(item.data.text === 'Gagenbücher'){
-					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Gagenbücher</font>',
+			else if(item.parentNode.data.text === 'Gagenbücher'){
+				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+item.data.text+'</font>',
 						icon: 'resources/images/Gift-17.png'
-					});*/
-				
+					});
+				var regieDetails = new TheaterTool.view.tabPanel.gagebooks.GageBookPanelInTab({regieName: item.data.text});
+				repertoireTab.add(regieDetails);
 				}
 
 

@@ -104,7 +104,13 @@ Ext.define('TheaterTool.Application', {
 'tabPanel.persons.PersonTabDetails',
 'tabPanel.regiebooks.RegiePanelInTab',
 'tabPanel.regiebooks.RegieTabDetails',
-'tabPanel.regiebooks.RegieTabXML'
+'tabPanel.regiebooks.RegieTabXML',
+'tabPanel.rolebooks.RoleKostuemPanelInTab',
+'tabPanel.rolebooks.RoleTabDetails',
+'tabPanel.rolebooks.RoleTabXML',
+'tabPanel.gagebooks.GageBookPanelInTab',
+'tabPanel.gagebooks.GageBookTabDetails',
+'tabPanel.gagebooks.GageBookTabXML'
 	],
 	
 	models:[
