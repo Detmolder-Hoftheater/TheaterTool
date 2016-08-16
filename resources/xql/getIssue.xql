@@ -17,9 +17,8 @@ let $uri := concat('/db/apps/theater-data/ausgaben/', $year, '/')
 (:let $file := doc($uri):)
 let $file := collection($uri)
 
-let $headName := $file//tei:profileDesc//tei:keywords/tei:term['Einnahmebeleg']
-
-let $schedule := if($headName != '')then($file)else()
+let $headName := $file//tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title[$month]
+let $schedule := if($headName != '')then($file//tei:TEI)else()
 
 (:let $type := request:get-parameter('type', 'work')
 let $docUri := if(contains($uri, '#')) then(substring-before($uri, '#')) else($uri)
@@ -32,6 +31,5 @@ let $lang := request:get-parameter('lang', 'de'):)
 
 let $base := 'xmldb:exist:///db/apps/TheaterTool/resources/xslt/'
 
-return  
-        transform:transform($schedule, concat($base, 'issue.xsl'), <parameters></parameters>)
+return transform:transform($schedule, concat($base, 'issue.xsl'), <parameters></parameters>)
    

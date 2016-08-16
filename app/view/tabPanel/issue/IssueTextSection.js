@@ -33,7 +33,7 @@ autoScroll: true,
 
 	var me = this;
     
-    me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel();
+   // me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel();
 
 			Ext.Ajax.request({
            // url: 'data/Output_Exist.xql',
@@ -49,7 +49,7 @@ autoScroll: true,
 
 				//$('#'+me.id).html(response.responseText);
 				
- 				me.repertoireTab.setTextInfo(response.responseText);
+ 				me.setTextInfo(response.responseText);
 				//me.repertoireTab.setTextInfo1(response.responseText);
 			//$('#'+me.id+'-innerCt').html(response.responseText);
 
@@ -57,9 +57,9 @@ autoScroll: true,
          
         });
 	
-	me.items =[
+	/*me.items =[
 		this.repertoireTab
-		],
+		],*/
 
  	/*me.listeners = {
         	expand: function (p, eOpts) {
@@ -130,7 +130,12 @@ autoScroll: true,
     */
         me.callParent();
         
-        }
+        },
+
+setTextInfo: function(infoText){
+		$('#'+this.id+'-innerCt').html(infoText);
+
+	}
 
 
 });

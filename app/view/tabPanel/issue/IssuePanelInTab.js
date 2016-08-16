@@ -38,6 +38,10 @@ me.navButton = me.createCEButton(navTree);
 navTree.setNavButton(me.navButton);
 
  	me.tbar = {
+style: {
+				//background: '#dadada'
+		background: '#dcdcdc'
+			},
 		/*layout: {
             pack: 'center'
         },*/

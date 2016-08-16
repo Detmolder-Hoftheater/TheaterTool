@@ -44,7 +44,7 @@ var me = this;
 
 	this.detailSection = new TheaterTool.view.tabPanel.issue.IssueTextSection({issueName: me.issueName, year: me.year});
 
-	this.detailSection_1 = new TheaterTool.view.tabPanel.issue.XMLSectionIssue({workID: this.workID});
+	this.detailSection_1 = new TheaterTool.view.tabPanel.issue.XMLSectionIssue({issueName: me.issueName, year: me.year});
 	
     this.items = [
 			/*{

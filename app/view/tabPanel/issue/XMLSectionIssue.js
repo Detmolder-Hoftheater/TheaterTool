@@ -17,9 +17,8 @@ bodyPadding:10,
 autoScroll: true,
 
 
-    repertoireTab:null,
-
-	workID: null,
+    issueName: null,
+	year: null,
 
     initComponent: function() {
 
@@ -33,20 +32,20 @@ autoScroll: true,
 
  	me.listeners = {
         	activate: function (eOpts) {
-        	//console.log("expand");
-			/*Ext.Ajax.request({           
-    			url:'resources/xql/getXML.xql', 
-				//url: 'data/H000001.xml' , 
-			method: 'GET',
+        	Ext.Ajax.request({
+ 			url: 'resources/xql/getIssueXML.xql',
+            method: 'GET',
             params: {
-                uri: '/db/apps/theater-data/works/'+me.workID+'.xml',
-                type: 'work'
-            },        
-    			success: function (response, options) {
-        			var object = response.responseText;
-					me.repertoireTab.setTextInfo(object);       			
-    			}
-			});*/
+                issueName: me.issueName,
+				year: me.year
+              
+            },
+            success: function(response){
+				me.setTextInfo(response.responseText);
+ 				//me.repertoireTab.setTextInfo(response.responseText);
+     		}
+         
+        });
 
 
         }
