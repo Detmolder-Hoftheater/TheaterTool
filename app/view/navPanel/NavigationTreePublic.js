@@ -419,19 +419,30 @@ bodyPadding: 3,
 
 Ext.Ajax.request({           
     			url:'resources/xql/getRegieMenu.xql', 
-			method: 'GET',     
+				//url: 'data/H000001.xml' , 
+			method: 'GET',
+           /* params: {
+               uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
+                type: 'source'
+            },  */      
     			success: function (response, options) {
- 					var json = jQuery.parseJSON(response.responseText);	
+ 					var json = jQuery.parseJSON(response.responseText);
+					
+					console.log(json);	
+        			//var object = response.responseText;
+					//me.repertoireTab.setTextInfo(object);
 				var navTreeStoreRoot = me.store.getRootNode();
 				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[2];
 
-				for(i = 0; i < json.names.length; i++){
-					var regName = json.names[i];
-						regieMenu.appendChild({
+for(i = 0; i < json.names.length; i++){
+	var regName = json.names[i];
+	regieMenu.appendChild({
 					 leaf:true, text: regName,
                     icon: 'resources/images/Crown-17.png'
 				}); 
-				}					   			
+}
+		 
+					   			
     			}
 			});
 
@@ -602,11 +613,13 @@ this.listeners = {
 					});*/
 				
 				}
-			else if(item.data.text === 'Regiebücher'){
-					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Regiebücher</font>',
+			else if(item.parentNode.data.text === 'Regiebücher'){
+				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+item.data.text+'</font>',
 						icon: 'resources/images/Crown-17.png'
-					});*/
+					});
+				var regieDetails = new TheaterTool.view.tabPanel.regiebooks.RegiePanelInTab({regieName: item.data.text});
+				repertoireTab.add(regieDetails);
 				
 				}
 			else if(item.data.text === 'Rollen- & Kostümbücher'){
