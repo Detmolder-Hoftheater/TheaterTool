@@ -185,9 +185,9 @@ var store = Ext.create('Ext.data.TreeStore', {
 
 
 					},
-                    { leaf:true, text: 'Aufführungen',
+                    { leaf:true, text: '<font style="color:gray;">Aufführungen</font>',
                     icon: 'resources/images/Time-17.png'},
-                    { leaf:true, text: 'Theaterzettel',
+                    { leaf:true, text: '<font style="color:gray;">Theaterzettel</font>',
                     icon: 'resources/images/Day-17.png' }
                 ]
             },
@@ -205,7 +205,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                 text: 'Presse',
                 icon: 'resources/images/Presse-16.png',
                 children: [
-                    { leaf:true, text: 'Linksammlung',
+                    { leaf:true, text: '<font style="color:gray;">Linksammlung</font>',
                     icon: 'resources/images/Presse-16.png' 
  /*icon: 'resources/images/Link-15.png'*/ 
  },

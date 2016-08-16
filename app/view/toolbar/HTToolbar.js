@@ -94,6 +94,28 @@ disabled: true,
 			
 '->',
 {
+				xtype: 'component',
+margin: '0 10 0 10',
+autoEl: {
+        tag: 'a',
+        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu/Info_Hoftheaterdaten2.pdf',
+        html: '<font size = "1"><b style="color:#CC9FA7;">Hilfe</b></font>',
+		target: "_blank"
+    },
+style:{color: '#CC9FA7'}
+			},
+{
+				xtype: 'tbseparator',
+				style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7'
+					// borderTop: '1px solid black',
+					// borderBottom: '1px solid black'
+				}
+			},
+
+
+{
 				xtype: 'button',
 				text: '<font size = "1"><b style="color:#CC9FA7;">Daten Relationen</b></font>',
 				listeners: {
@@ -125,54 +147,6 @@ autoEl: {
 		target: "_blank"
     },
 style:{color: '#CC9FA7'}
-/*html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
-handler: function() {
-        console.log('You clicked the button!')
-new Ext.Component({ 
-xtype: 'component',
-   autoEl: {
-        tag: 'a',
-        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
-        html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
-		target: "_blank"
-    }
-});
-    }*/
-/*listeners: {
-              render: function(component){
-                   component.getEl().on('click', function(e){
-console.log(component);
-new Ext.Component({ 
-xtype: 'component',
-   autoEl: {
-        tag: 'a',
-        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
-        //html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
-		target: "_blank"
-    }
-});
-                  
-                     });    
-               }
-            }*/
-/*handler: function () {
-new Ext.Component({ 
-   autoEl: {
-        tag: 'a',
-        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
-        //html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
-		target: "_blank"
-    }
-})
-		//window.location.href = 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu';
-	}*/
-   /*autoEl: {
-        tag: 'a',
-        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
-        //html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
-		target: "_blank"
-    }*/
-
 			},	
 {
 				xtype: 'tbseparator',
