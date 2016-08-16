@@ -292,9 +292,9 @@ children: [
                     { text: 'Jährliche Ausgaben',
                     icon: 'resources/images/MoneyTransfer-17.png',
 children: [
-                    	{ leaf:true, text: '1825',
+                    	/*{ leaf:true, text: '1825',
                     	icon: 'resources/images/MoneyTransfer-17.png'
-						},
+						},*/
                     	{ leaf:true, text: '1826',
                     	icon: 'resources/images/MoneyTransfer-17.png'},
                    		{ leaf:true, text: '1827',
@@ -349,14 +349,14 @@ children: [
                     
                 ]
             },
- { leaf:true, text: 'Dekoration',
+ { leaf:true, text: '<font style="color:gray;">Dekoration</font>',
                     icon: 'resources/images/theatre.png' },
                     { text: 'Regiebücher',
                     icon: 'resources/images/Crown-17.png',
 children: []},
                     { leaf:true, text: 'Rollen- & Kostümbücher',
                      icon: 'resources/images/carnival.png'},
-                    { leaf:true, text: 'Theaterberufe',
+                    { leaf:true, text: '<font style="color:gray;">Theaterberufe</font>',
                     icon: 'resources/images/theatreB.png'}
         ]
 
@@ -474,6 +474,45 @@ Ext.Ajax.request({
 				}				   			
     			}
 			});
+
+Ext.Ajax.request({           
+    			url:'resources/xql/getAboMenu.xql', 
+			method: 'GET',    
+    			success: function (response, options) {
+ 					var json = jQuery.parseJSON(response.responseText);
+					
+					console.log(json);	
+				var navTreeStoreRoot = me.store.getRootNode();
+				var regieMenu = navTreeStoreRoot.childNodes[0].childNodes[4];
+				for(i = 0; i < json.names.length; i++){
+					var regName = json.names[i];
+					regieMenu.appendChild({
+					 leaf:true, text: regName,
+                    icon: 'resources/images/Ticket-14.png'
+				}); 
+				}				   			
+    			}
+			});
+
+Ext.Ajax.request({           
+    			url:'resources/xql/getJournalMenu.xql', 
+			method: 'GET',    
+    			success: function (response, options) {
+ 					var json = jQuery.parseJSON(response.responseText);
+					
+					console.log(json);	
+				var navTreeStoreRoot = me.store.getRootNode();
+				var regieMenu = navTreeStoreRoot.childNodes[0].childNodes[5].childNodes[1];
+				for(i = 0; i < json.names.length; i++){
+					var regName = json.names[i];
+					regieMenu.appendChild({
+					 leaf:true, text: regName,
+                    icon: 'resources/images/Presse-16.png'
+				}); 
+				}				   			
+    			}
+			});
+
 
 this.listeners = {
 			itemdblclick: function (record, item, index, e, eOpts) {
@@ -614,12 +653,13 @@ this.listeners = {
 				//repertoireTab.add(personDetails);
 				
 				}
-			else if(item.data.text === 'Karten & Abos'){
-					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Karten & Abos</font>',
+			else if(item.parentNode.data.text === 'Karten & Abos'){
+				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+item.data.text+'</font>',
 						icon: 'resources/images/Ticket-14.png'
-					});*/
-				
+					});
+				var regieDetails = new TheaterTool.view.tabPanel.abo.AboPanelInTab({regieName: item.data.text});
+				repertoireTab.add(regieDetails);
 				}
 			else if(item.data.text === 'Linksammlung'){
 					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
@@ -628,11 +668,13 @@ this.listeners = {
 					});*/
 				
 				}
-			else if(item.data.text === 'Theaterjournal'){
-					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Theaterjournal</font>',
+			else if(item.parentNode.data.text === 'Theaterjournal'){
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+item.data.text+'</font>',
 						icon: 'resources/images/Presse-16.png'
-					});*/
+					});
+				var regieDetails = new TheaterTool.view.tabPanel.journal.JournalPanelInTab({regieName: item.data.text});
+				repertoireTab.add(regieDetails);
 				
 				}
 			else if(item.data.text === 'Dekoration'){
@@ -667,14 +709,13 @@ this.listeners = {
 					});*/
 				
 				}
-			else if(item.parentNode.data.text === 'Gesamte Ausgaben'){
-					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+			else if(item.parentNode.data.text === 'Jährliche Ausgaben'){
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Gesamte Ausgaben</font>',
 						icon: 'resources/images/MoneyTransfer-17.png'
 					});
 				var issueDetails = new TheaterTool.view.tabPanel.issue.IssuePanelInTab({year: item.data.text});
-				repertoireTab.add(issueDetails);*/
-				
+				repertoireTab.add(issueDetails);				
 				}
 			else if(item.parentNode.data.text === 'Einnahmen'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({

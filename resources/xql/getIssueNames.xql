@@ -24,28 +24,20 @@ declare variable $schedule := if($headName != '')then($file)else();:)
 declare variable $selectedYear := request:get-parameter('selectedYear', '');
 declare variable $path := concat('xmldb:exist:///apps/theater-data/ausgaben/', $selectedYear, '/');
 declare variable $file := collection($path);
-(:declare variable $fileNames := $file//mei:work/@xml:id;:)
-declare variable $headName := $file//tei:profileDesc//tei:keywords/tei:term['Einnahmebeleg'];
-declare variable $oneFile := $file//tei:teiHeader;
+declare variable $oneFile := $file//tei:TEI/tei:teiHeader;
 
 
 declare function local:jsonifySlurs($oneFile) {
 
 let $strings := for $elem in $oneFile
 
-                    let $monthName := if($headName != '')then(
-
-					$elem//tei:fileDesc//tei:title['Einnahmebeleg']/tei:date
-					)else()
-
-					let $month := if($headName != '')then(substring-before($monthName, " "))else()
-
+					let $month := $elem/tei:fileDesc/tei:titleStmt[1]/tei:title
                     return
-						if($month != '')then( 
+						(:if($month != '')then( :)
                         concat('{name:"',$month,'",',
 							'leaf:"',"true",'"', 
                             '}')
-						)else()
+						(:)else():)
     return 
         string-join($strings,',')   
 };
