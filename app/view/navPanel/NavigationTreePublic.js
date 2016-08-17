@@ -192,9 +192,33 @@ var store = Ext.create('Ext.data.TreeStore', {
                 ]
             },
             	{ 
-            	leaf:true, 
             	text: 'Personen',
-            	icon: 'resources/images/Mask-19.png'
+            	icon: 'resources/images/Mask-19.png',
+children: [
+                    { leaf:true, text: 'A-B-C',
+                    icon: 'resources/images/Mask-19.png'},
+                       { leaf:true, text: 'D-E-F',
+                    icon: 'resources/images/Mask-19.png'},
+                        
+                          { leaf:true, text: 'G-H-I',
+                    icon: 'resources/images/Mask-19.png'},
+                          
+                             { leaf:true, text: 'J-K-L',
+                    icon: 'resources/images/Mask-19.png'},
+                             
+                                { leaf:true, text: 'M-N-O',
+                    icon: 'resources/images/Mask-19.png'},
+                                 
+                                   { leaf:true, text: 'P-Q-R',
+                    icon: 'resources/images/Mask-19.png'},
+                                   
+                                      { leaf:true, text: 'S-T-U',
+                    icon: 'resources/images/Mask-19.png'},
+                                      
+                                         { leaf:true, text: 'V-W-X-Y-Z',
+                    icon: 'resources/images/Mask-19.png'}
+                                         
+                ]
             	},
             	{ 
             	leaf:true, 
@@ -371,28 +395,7 @@ children: []},
 
 Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
     extend: 'Ext.tree.Panel',
-   //xtype: 'basic-trees',
-   // width: 200,
-   // flex: 0.23,
-   // autoScroll: true,
-  
-	//rootVisible: false,
-	// store: store,
-	
- //  layout: {
-  //      type: 'table'
-        //columns: 4
-       // tdAttrs: { style: 'padding: 10px;' }
- //   },
    
-  /* defaults: {
-        xtype: 'treepanel',
-      	//width: 260,
-      	
-        rootVisible: false,
-        store: store
-    },*/
-
 reserveScrollbar: true,
 	id: 'NavigationTreeGlobal',
 	useArrows: true,
@@ -403,13 +406,7 @@ reserveScrollbar: true,
 /*'<b style="color:gray;">Spielbetrieb</b>',*/
 
 	tabPanel: null,
-    // style: {
-     
-     /* borderRight: '1px solid #A80016',
-      borderLeft: '1px solid #A80016',*/
-     // borderTop: '1px solid gray'
-      //borderBottom: '1px solid #A80016'
-   // },
+    
 border:false,
 bodyborder: false,
 bodyPadding: 3,
@@ -545,18 +542,16 @@ this.listeners = {
 				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
 				repertoireTab.add(repertoireDetails);		
 				}
-				else if(item.data.text === 'A-B-C'){					
+				else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'A-B-C'){					
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">A-B-C</font>',
 						icon: 'resources/images/Books1-17.png'
 					});
 				
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 1});
-				repertoireTab.add(repertoireDetails);
-
-		
+				repertoireTab.add(repertoireDetails);		
 				}
-			else  if(item.data.text === 'D-E-F'){
+			else  if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'D-E-F'){
 				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">D-E-F</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -565,7 +560,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 				
 				}
-			else if(item.data.text === 'G-H-I'){
+			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'G-H-I'){
 				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">G-H-I</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -574,7 +569,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 				
 				}
-			else if(item.data.text === 'J-K-L'){
+			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'J-K-L'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">J-K-L</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -583,7 +578,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 				
 				}
-			else if(item.data.text === 'M-N-O'){
+			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'M-N-O'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">M-N-O</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -592,7 +587,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 				
 				}
-			else if(item.data.text === 'P-Q-R'){
+			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'P-Q-R'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">P-Q-R</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -601,7 +596,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 			
 				}
-			else if(item.data.text === 'S-T-U'){
+			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'S-T-U'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">S-T-U</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -610,7 +605,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 				
 				}
-			else if(item.data.text === 'V-W-X-Y-Z'){
+			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'V-W-X-Y-Z'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">V-W-X-Y-Z</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -643,11 +638,11 @@ this.listeners = {
 					});*/
 				
 				}
-			else if(item.data.text === 'Personen'){
-					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Personen</font>',
+			else if(item.parentNode.data.text === 'Personen'){
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+item.data.text+'</font>',
 						icon: 'resources/images/Mask-19.png'
-					});*/
+					});
 				//var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({year: item.data.text});
 				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
 				//repertoireTab.add(personDetails);
