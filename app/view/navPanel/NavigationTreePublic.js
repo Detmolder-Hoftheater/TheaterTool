@@ -181,9 +181,6 @@ var store = Ext.create('Ext.data.TreeStore', {
                     	{ leaf:true, text: '1847',
                     	icon: 'resources/images/Calendar-17.png'}
                 	]
-
-
-
 					},
                     { leaf:true, text: '<font style="color:gray;">Aufführungen</font>',
                     icon: 'resources/images/Time-17.png'},
@@ -420,7 +417,7 @@ Ext.Ajax.request({
     			success: function (response, options) {
  					var json = jQuery.parseJSON(response.responseText);
 					
-					console.log(json);	
+					//console.log(json);	
 				var navTreeStoreRoot = me.store.getRootNode();
 				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[2];
 
@@ -440,7 +437,7 @@ Ext.Ajax.request({
     			success: function (response, options) {
  					var json = jQuery.parseJSON(response.responseText);
 					
-					console.log(json);	
+					//console.log(json);	
 				var navTreeStoreRoot = me.store.getRootNode();
 				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[3];
 				for(i = 0; i < json.names.length; i++){
@@ -459,7 +456,7 @@ Ext.Ajax.request({
     			success: function (response, options) {
  					var json = jQuery.parseJSON(response.responseText);
 					
-					console.log(json);	
+					//console.log(json);	
 				var navTreeStoreRoot = me.store.getRootNode();
 				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[0].childNodes[2];
 				for(i = 0; i < json.names.length; i++){
@@ -478,7 +475,7 @@ Ext.Ajax.request({
     			success: function (response, options) {
  					var json = jQuery.parseJSON(response.responseText);
 					
-					console.log(json);	
+					//console.log(json);	
 				var navTreeStoreRoot = me.store.getRootNode();
 				var regieMenu = navTreeStoreRoot.childNodes[0].childNodes[4];
 				for(i = 0; i < json.names.length; i++){
@@ -497,7 +494,7 @@ Ext.Ajax.request({
     			success: function (response, options) {
  					var json = jQuery.parseJSON(response.responseText);
 					
-					console.log(json);	
+					//console.log(json);	
 				var navTreeStoreRoot = me.store.getRootNode();
 				var regieMenu = navTreeStoreRoot.childNodes[0].childNodes[5].childNodes[1];
 				for(i = 0; i < json.names.length; i++){
@@ -639,14 +636,20 @@ this.listeners = {
 				
 				}
 			else if(item.parentNode.data.text === 'Personen'){
-					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+					var win = new TheaterTool.view.tabPanel.persons.PersonSelectionDialog({selection: item.data.text, tabPanel : this.tabPanel});
+					win.show();
+					if (typeof Ext.getCmp('infoDialog') !== 'undefined') {
+							Ext.getCmp('infoDialog').close();
+					}
+
+
+				/*	repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+item.data.text+'</font>',
 						icon: 'resources/images/Mask-19.png'
 					});
 				//var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({year: item.data.text});
-				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
-				//repertoireTab.add(personDetails);
-				
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: item.data.text});
+				repertoireTab.add(repertoireDetails);	*/
 				}
 			else if(item.parentNode.data.text === 'Karten & Abos'){
 				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
