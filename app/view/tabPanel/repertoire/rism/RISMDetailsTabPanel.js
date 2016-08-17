@@ -4,21 +4,25 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsTabPanel', {
 	extend: 'Ext.panel.Panel',
-
-minHeight: 200,
-   
-    resizable: true,
-
-autoScroll: true,
-reserveScrollbar: true,
-
-border: false,
+	
+	layout: {
+		type: 'vbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+	
+	bodyPadding: 10,
+	
+	//minHeight: 300,
+	//resizable: true,
+	//flex:1,
+	autoScroll: true,
+	//reserveScrollbar: true,
+	
+	border: false,
 
 	setTextInfo: function(infoText){
 		$('#'+this.id+'-innerCt').html(infoText);
 
 	}
-	
-	
-	
 });

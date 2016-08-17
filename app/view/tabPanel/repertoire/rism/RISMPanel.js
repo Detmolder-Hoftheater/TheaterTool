@@ -4,7 +4,13 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
 	extend: 'Ext.tab.Panel',
-    
+
+//autoScroll: true,
+	
+	flex: 1,
+border: false,
+//bodyPadding:15,
+
 	
 	detailSection: null,
 	detailSection_xml: null,
@@ -23,8 +29,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
 				
 	
 /*bodyBorder: false,*/
-	border: false,
-autoScroll: true,
+	/*border: false,
+autoScroll: true,*/
 	
 	initComponent: function () {
 		
@@ -51,8 +57,6 @@ autoScroll: true,
        
     ]
 
-this.detailSection.setDisabled(true);
-this.detailSection_xml.setDisabled(true);
     	this.callParent();
 	}
 });

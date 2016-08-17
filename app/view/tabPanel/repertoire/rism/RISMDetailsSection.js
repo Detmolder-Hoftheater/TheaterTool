@@ -2,28 +2,31 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSection', {
-    //extend: 'Ext.form.FieldSet',
     extend: 'Ext.panel.Panel',
-    //collapsible: true,
-    //collapsed: true,
+   // collapsible: true,
+    //collapsed: false,
    
     title: '<b style="color:gray;">Details</b>',
-	flex: 1,
+border: true,
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,
     
     repertoireTab:null,
 
     initComponent: function() {
     
-   // this.repertoireTab = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsTabPanel();
+    this.repertoireTab = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsTabPanel();
 	
-	/*this.items =[
+	this.items =[
 		this.repertoireTab
-		],*/
+		],
     
-        this.listeners = {
+        /*this.listeners = {
         	expand: function (p, eOpts) {
         	console.log("expand");
-			/*Ext.Ajax.request({
+			/\*Ext.Ajax.request({
            // url: 'data/Output_Exist.xql',
  			url: 'resources/xql/test_Exist.xql',
             method: 'GET',
@@ -35,11 +38,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSection', {
  				me.repertoireTab.setTextInfo(response.responseText);
      		}
          
-        });*/
+        });*\/
 
          
        }
-    },
+    },*/
 
         this.callParent();
         
