@@ -7,7 +7,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
    // collapsible: true,
     //collapsed: false,
    
-    title: '<b style="color:gray;">Übersicht</b>',
+    title: '<b style="color:gray;">Details</b>',
 border: true,
 	flex:1,
 bodyBorder: true,

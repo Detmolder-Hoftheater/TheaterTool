@@ -37,22 +37,21 @@ border: false,
 	this.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({sourceID: this.sourceID});
 
 this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({sourceID: this.sourceID});
-
-	/*if(storeField.indexOf(this.werkTitle) > -1){
+console.log(this.werkTitle);
+	if(storeField.indexOf(this.werkTitle) > -1){
 		this.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
 	}
 
 	if(this.overviewSection !== null){
 		this.items = [
+			this.overviewSection,	
+			this.detailSection,
+			this.sourcesSection,					
+			this.detailSection_xml
 			
-		/\*	this.detailSection,
-this.sourcesSection,
-			
-			this.detailSection_xml,
-			this.overviewSection*\/
     ]
 	}
-else{*/
+else{
     this.items = [
 			
 			this.detailSection,
@@ -61,7 +60,7 @@ this.detailSection_xml
 			
 			
     ]
-//};
+};
 
 /*this.on({
     delegate: 'tab',
