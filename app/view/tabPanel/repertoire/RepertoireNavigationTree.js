@@ -56,7 +56,8 @@ header: false,
 	beatPanel: null,
 	workName: null,
 selectedWork: null,
-	
+	incipitsPanel: null,
+
 	initComponent: function () {
 	
 	   var me = this;
@@ -89,12 +90,15 @@ selectedWork: null,
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
 				//console.log(eOpts[0].data);
 					me.repertoirePanel.removeAll(true);
-					if(eOpts[0].data.name === 'Incipits'){
-						// TODO
-						//me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel();
-						//me.repertoirePanel.add(me.sourcePanel);	
-
-						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');
+					if(eOpts[0].data.name === 'Incipits' && name.indexOf('Bettelstudent') > -1){
+						me.incipitsPanel = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel();
+						me.repertoirePanel.add(me.incipitsPanel);
+						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');	
+					}
+					else if(eOpts[0].data.name === 'Incipits'){
+						me.incipitsPanel = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel({sourceID: eOpts[0].parentNode.parentNode.data.werkID});
+						me.repertoirePanel.add(me.incipitsPanel);
+						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');	
 					}
 					else if(eOpts[0].data.name === 'RISM'){
 						me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel({sourceID: eOpts[0].parentNode.data.sourceID});
