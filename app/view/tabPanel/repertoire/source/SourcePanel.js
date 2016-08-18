@@ -38,7 +38,7 @@ border: false,
 
 this.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({sourceID: this.sourceID});
 console.log(this.werkTitle);
-	if(storeField.indexOf(this.werkTitle) > -1){
+	if(storeField.indexOf(this.werkTitle) > -1 && this.werkTitle === 'Aschenbrödel'){
 		this.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
 	}
 

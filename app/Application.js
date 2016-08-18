@@ -117,9 +117,11 @@ Ext.define('TheaterTool.Application', {
 'tabPanel.abo.AboTabXML',
 'tabPanel.journal.JournalPanelInTab',
 'tabPanel.journal.JournalTabDetails',
-'tabPanel.journal.JournalTabXML'
+'tabPanel.journal.JournalTabXML',
+'tabPanel.repertoire.incipits.IncipitsTabPanel',
+'tabPanel.repertoire.incipits.IncipitDetailsSection',
+'tabPanel.repertoire.incipits.IncipitDetailsSectionXML'
 	],
-	
 	models:[
 	'Werk',
 	'Plan',

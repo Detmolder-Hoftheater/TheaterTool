@@ -11,10 +11,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 	xmlSection: null,
 	navTree: null,	
 
-flex: 1,
 border: true,
-bodyPadding:15,
+	flex:1,
+bodyBorder: true,
+bodyPadding:10,
 autoScroll: true,
+
+
 /*border: false,
 autoScroll: true,*/
 
@@ -39,7 +42,7 @@ var folderForEO = selFolder + '/';
 
 this.navTree = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileNavTree({selectedWork: this.selectedWork});
 
-this.xmlSection = new TheaterTool.view.tabPanel.repertoire.rism.RISMDetailsSectionXML();
+//this.xmlSection = new TheaterTool.view.tabPanel.repertoire.beat.BeatXMLSection({selectedWork: this.selectedWork});
 
 var leafletFacsimile = this.detailSection.getLeafletFacsimile();
 var pageSpinner = this.detailSection.getPageSpinner();
@@ -67,7 +70,7 @@ this.navTree.setPageSpinner(pageSpinner);
 				items: [
 					this.navTree,
 					this.detailSection]
-				},
+				} 
 
 /*{
     xtype: 'component',
@@ -85,7 +88,7 @@ this.navTree.setPageSpinner(pageSpinner);
 				margin: '15 0 -11 0'
 			},*/
 
-			this.xmlSection
+			//this.xmlSection
 
 		
 			
@@ -101,7 +104,7 @@ this.navTree.setPageSpinner(pageSpinner);
 		this.navTree.getView().bindStore(navTreeStore);
 		navTreeStore.sort('name');
 
-this.xmlSection.setDisabled(true);
+//this.xmlSection.setDisabled(true);
     	this.callParent();
 	}
 });
