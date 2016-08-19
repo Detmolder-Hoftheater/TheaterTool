@@ -37,7 +37,6 @@ border: false,
     this.items = [
 			
 		this.detailSection,
-		this.sourcesSection,
 		this.detailSection_xml
 			
 			

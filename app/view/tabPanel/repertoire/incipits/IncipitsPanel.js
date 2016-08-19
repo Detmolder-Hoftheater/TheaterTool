@@ -6,7 +6,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
 	extend: 'Ext.panel.Panel',
     
 	autoScroll: true,
-
+reserveScrollbar: true,
+flex:1,
 /*
 width: 850,
 height:450,*/

@@ -7,7 +7,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection', {
 
 //minHeight: 50,
    
-    resizable: true,
+   // resizable: true,
 
 /*autoScroll: true,
 reserveScrollbar: true,
