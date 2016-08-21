@@ -20,7 +20,7 @@ let $doc := if(contains($type, 'work'))then(eutil:getDoc($docUri)/mei:work)else(
 let $workID := request:get-parameter('sourceID', '')
 let $path := concat('/db/apps/theater-data/expressions/', $workID, '_expr1.xml')
 (:let $path := 'xmldb:exist:///apps/theater-data/expressions/H020263_expr1.xml':)
-let $doc :=  doc($path)//mei:score
+let $doc :=  doc($path)//mei:expression[child::mei:incip]
 
 let $snippet := 
 for $elem in $doc return
@@ -29,7 +29,7 @@ for $elem in $doc return
     <meiHead>
         <fileDesc>
             <titleStmt>
-                <title>excerpted staff</title>
+                <title>{$elem/@label}</title>
             </titleStmt>
             <pubStmt/>
         </fileDesc>
@@ -38,7 +38,7 @@ for $elem in $doc return
         <body>
             <mdiv>{
                                
-                                $elem
+                                $elem//mei:score
 
                              } </mdiv>
         </body>

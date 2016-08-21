@@ -50,18 +50,22 @@ var initHeight = $(document).height()* 100 / 33;
 			success: function (response) {
 
 var text = response.responseText;
-				var splittest = text.split('<html>');
-console.log('get');
-console.log(me.sourceID);
-console.log(splittest);
+var splittest = text.split('<html>');
 
 for(i = 0; i < splittest.length; i++){
 
 
-var meiE = splittest[i];
-var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">1. Ouverture. Allegro </b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
+var meiE_tmp = splittest[i];
+var meiE = meiE_tmp.replace('</html>', '');
+if(meiE !== ''){
+	var xmlFile = jQuery.parseXML(meiE);
+  var meiElements = xmlFile.getElementsByTagName('title');
+
+var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">'+meiElements[0].getAttribute('label')+'</b>'});
  me.add(incipitSection);
 incipitSection.setTextInfo(meiE);
+}
+
 }
 
 

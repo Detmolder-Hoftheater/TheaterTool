@@ -75,7 +75,10 @@ var options = JSON.stringify({
 renderer.loadData(meiE);
 
 			var svg_1 = renderer.renderData(meiE, options);
-			$('#'+this.id+'-innerCt').html(svg_1);	
+			$('#'+this.id+'-innerCt').html(svg_1);
+
+
+	
 //var me = this;
 		/*var options = JSON.stringify({
 					//pageHeight: 450,
