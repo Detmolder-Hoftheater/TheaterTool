@@ -17,7 +17,9 @@ let $type := request:get-parameter('type', 'work')
 let $docUri := if(contains($uri, '#')) then(substring-before($uri, '#')) else($uri)
 let $doc := if(contains($type, 'work'))then(eutil:getDoc($docUri)/mei:work)else(eutil:getDoc($docUri)/mei:source)
 :)
-let $path := 'xmldb:exist:///apps/theater-data/expressions/H020263_expr1.xml'
+let $workID := request:get-parameter('sourceID', '')
+let $path := concat('/db/apps/theater-data/expressions/', $workID, '_expr1.xml')
+(:let $path := 'xmldb:exist:///apps/theater-data/expressions/H020263_expr1.xml':)
 let $doc :=  doc($path)//mei:score
 
 let $snippet := 

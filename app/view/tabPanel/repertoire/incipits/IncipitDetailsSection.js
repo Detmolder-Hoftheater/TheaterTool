@@ -20,7 +20,9 @@ autoScroll: true,
     initComponent: function() {
 
 	var me = this;
-    
+
+me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel({sourceID: me.sourceID});
+						
     //me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel({sourceID: me.sourceID});
 
 /*	Ext.Ajax.request({
@@ -37,9 +39,9 @@ autoScroll: true,
          
         });*/
 	
-	/*me.items =[
+	me.items =[
 		me.repertoireTab
-		];*/
+		];
 
 
 
