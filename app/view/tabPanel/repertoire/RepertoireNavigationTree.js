@@ -90,12 +90,13 @@ selectedWork: null,
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
 				//console.log(eOpts[0].data);
 					me.repertoirePanel.removeAll(true);
-					if(eOpts[0].data.name === 'Incipits' && name.indexOf('Bettelstudent') > -1){
+					/*if(eOpts[0].data.name === 'Incipits' && name.indexOf('Bettelstudent') > -1){
 						me.incipitsPanel = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel();
 						me.repertoirePanel.add(me.incipitsPanel);
 						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');	
-					}
-					else if(eOpts[0].data.name === 'Incipits'){
+					}*/
+					//else 
+					if(eOpts[0].data.name === 'Incipits'){
 						me.incipitsPanel = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel({sourceID: eOpts[0].parentNode.parentNode.data.werkID});
 						me.repertoirePanel.add(me.incipitsPanel);
 						me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');	

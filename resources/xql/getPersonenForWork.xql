@@ -39,10 +39,13 @@ let $strings := for $elem in $persName
 					let $xml := if($elem[not(@dbkey)])then('false')else('true')
 
 					let $details := if($elem[not(@dbkey)])then('false')else('true')
+
+					let $dbkey := $elem/@dbkey
 					
                     return 
                         concat('{name:"',$surname,'",',
-							'details:"',$details,'",',                          
+							'details:"',$details,'",',  
+							'dbkey:"',$dbkey,'",',                          
                             'xml:"',$xml,'"',
                             '}')
     return 

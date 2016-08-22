@@ -20,21 +20,18 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTable', {
 	
 	initComponent: function () {
 	
-	this.xmlColumn = this.createColumn('XML', 'resources/images/Download.png');
-		
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
 		
 		this.columns =[ {
-			//xtype: 'treecolumn',
 			text: 'Name',
 			flex: 2,
 			sortable: true,
 			dataIndex: 'name'
 			
 		},
-		this.detailsColumn,
-		this.xmlColumn
+		this.detailsColumn
+		
 		];
 		
 		
@@ -63,15 +60,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTable', {
 			menuDisabled: true,
 			renderer: function (val, metadata, record) {
 			
-			if(headerName == 'XML'){
-				if(record.data.xml === true){
-					this.items[0].icon = path;					
-				}
-				else {					
-					this.items[0].icon = '';
-				}				
-			}
-				else if(headerName == 'Details'){
+			if(headerName == 'Details'){
 					if(record.data.details === true){
 					this.items[0].icon = path;					
 				}				
@@ -82,8 +71,23 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTable', {
 				
 				metadata.style = 'cursor: pointer;';
 				return val;
-			}
-			//handler: this.changeElementDialog
+			},
+			handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+					console.log(rec);
+					var dbkey = rec.data.dbkey;
+					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+rec.data.name+'</font>',
+						icon: 'resources/images/Mask-19.png'
+					});
+					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: dbkey});
+					repertoireTab.add(personDetails);
+
+					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					navTreeGlobal.add(repertoireTab);
+					navTreeGlobal.setActiveTab(repertoireTab);	
+
+                }
 		});
 		return eColumn;
 	}
