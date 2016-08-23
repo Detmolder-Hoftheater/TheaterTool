@@ -10,7 +10,7 @@ Ext.define('TheaterTool.view.tabPanel.gagebooks.GageBookTabDetails', {
 
 	autoScroll: true,
 
-    title: '<b style="color:gray;">Details</b>',
+    title: '<b style="color:gray;">Übersicht</b>',
 
 	sourceID: null,
 

@@ -10,7 +10,7 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTextSection', {
     //title: '<b style="color:gray;">Text</b>',
 
  extend: 'Ext.panel.Panel',
- title: '<b style="color:gray;">Details</b>',
+ title: '<b style="color:gray;">Übersicht</b>',
 /*border: true,
 	flex:1,
 bodyBorder: true,

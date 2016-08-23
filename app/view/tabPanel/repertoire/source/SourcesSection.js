@@ -14,7 +14,7 @@ bodyBorder: true,
 bodyPadding:10,
 autoScroll: true,
 
-    title: '<b style="color:gray;">Einzelheiten</b>',
+    title: '<b style="color:gray;">Details</b>',
 /*border: true,
 bodyPadding: 10,
 	

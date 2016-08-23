@@ -10,7 +10,7 @@ Ext.define('TheaterTool.view.tabPanel.journal.JournalTabDetails', {
 
 	autoScroll: true,
 
-    title: '<b style="color:gray;">Details</b>',
+    title: '<b style="color:gray;">Übersichr</b>',
 
 	sourceID: null,
 

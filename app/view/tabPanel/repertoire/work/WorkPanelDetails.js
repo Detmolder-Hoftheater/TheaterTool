@@ -33,7 +33,7 @@ border: false,
     this.items = [
 			/*{
 				xtype: 'label',
-        		html: '<b style="color:gray;">Details</b>',
+        		html: '<b style="color:gray;">Übersicht</b>',
         		margin: '0 0 10 0'
 
 			},*/

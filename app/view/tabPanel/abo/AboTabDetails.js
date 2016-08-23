@@ -10,7 +10,7 @@ Ext.define('TheaterTool.view.tabPanel.abo.AboTabDetails', {
 
 	autoScroll: true,
 
-    title: '<b style="color:gray;">Details</b>',
+    title: '<b style="color:gray;">Übersich</b>',
 
 	sourceID: null,
 

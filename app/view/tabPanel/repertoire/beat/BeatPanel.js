@@ -60,7 +60,7 @@ this.navTree.setPageSpinner(pageSpinner);
 				},
 				
 				bodyPadding: 10,
-				title: '<b style="color:gray;">Details</b>',
+				title: '<b style="color:gray;">Übersicht</b>',
 				defaults: {
 					frame: true,
 					bodyPadding: 10

@@ -70,7 +70,7 @@ items: [{
    // collapsible: true,
    //	collapsed: false,
 //border:true,
-    title: '<b style="color:gray;">Details</b>',
+    title: '<b style="color:gray;">Übersicht</b>',
 
 	//flex:1,
 

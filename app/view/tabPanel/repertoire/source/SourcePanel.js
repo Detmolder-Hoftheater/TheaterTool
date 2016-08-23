@@ -219,7 +219,7 @@ me.detailSection_xml.setDisabled(false);
 		this.items = [
 			/\*{
 				xtype: 'label',
-        		html: '<b style="color:gray;">Details</b>',
+        		html: '<b style="color:gray;">Übericht</b>',
         		margin: '0 0 10 0'
 
 			},*\/

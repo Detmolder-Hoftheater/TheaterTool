@@ -4,11 +4,11 @@
 		<h3 style="text-align:center">
 			<xsl:value-of select="tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/tei:date"/>
 		</h3>
-		<table BORDER="1" CELLPADDING="0" CELLSPACING="0" style="width:100%">
+		<table BORDER="1" CELLPADDING="10" CELLSPACING="0" style="width:100%">
 			<xsl:for-each select="tei:TEI/tei:text/tei:body/tei:table/tei:row">
 				<tr>
 					<xsl:for-each select="tei:cell">
-						<td style="text-align:center">
+						<td style="text-align:left">
 							<xsl:value-of select="tei:date"/>
 							<xsl:value-of select="tei:rs"/>
 						</td>

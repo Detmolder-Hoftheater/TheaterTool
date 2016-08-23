@@ -10,7 +10,7 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
 
 	autoScroll: true,
 
-    title: '<b style="color:gray;">Details</b>',
+    title: '<b style="color:gray;">Übersicht</b>',
 
 	sourceID: null,
 
