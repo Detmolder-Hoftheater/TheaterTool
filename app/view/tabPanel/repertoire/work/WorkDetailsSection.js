@@ -130,6 +130,8 @@ me.items =[
 			this.revenueSection
 		]
 
+me.repertoireTab.setTitelValue();
+
 }
 else{
 	//me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel({workID: me.workID});

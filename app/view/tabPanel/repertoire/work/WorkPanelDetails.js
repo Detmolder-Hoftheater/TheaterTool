@@ -20,31 +20,47 @@ border: false,
 	
 	
 	initComponent: function () {
-	
-	
-	
-	this.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: this.workID});
 
-	this.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: this.workID});
+var me = this;
+
+/*Ext.Ajax.request({
+           // url: 'data/Output_Exist.xql',
+ 			//url: 'resources/xql/test_Exist.xql',
+			url: 'resources/xql/getWorkOverview.xql',
+            method: 'GET',
+            params: {
+                workID: me.workID
+            },
+            success: function(response){
+
+					var json = jQuery.parseJSON(response.responseText);
+					
+					console.log(json);	*/
+	
+	
+	
+	me.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: me.workID});
+
+	me.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: me.workID});
 	
 	
 
 	
-    this.items = [
+    me.items = [
 			/*{
 				xtype: 'label',
         		html: '<b style="color:gray;">Übersicht</b>',
         		margin: '0 0 10 0'
 
 			},*/
-			this.detailSection,
+			me.detailSection,
 
 			/*{
         		html: '<img src="resources/images/Download.png" style="width:11px;height:14px;">',
 				border: false,
 				margin: '0 0 -11 0'
 			},*/
-			this.detailSection_1
+			me.detailSection_1
 
 			/*{
 				xtype: 'label',
@@ -61,6 +77,8 @@ border: false,
 			this.revenueSection*/
 			
     ]
-    	this.callParent();
+/*}        
+        })*/
+    	me.callParent();
 	}
 });
