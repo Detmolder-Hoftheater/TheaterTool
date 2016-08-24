@@ -111,23 +111,68 @@ this.journalSection = new TheaterTool.view.tabPanel.repertoire.work.WorkJournalS
 
 	this.issueSection = new TheaterTool.view.tabPanel.repertoire.work.WorkIssueSection();
 	me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest({workID: me.workID});
+
+	var app = TheaterTool.getApplication();
+
 me.items =[
 		me.repertoireTab,
-{
+
+Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Referenzen im '+ projectName+'</b>',
+			bodyBorder: false,			
+			collapsible: true,
+			collapsed: false,
+layout: {
+		type: 'vbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+			items:[
+			{
 				xtype: 'label',
-        		html: '<b style="color:gray;">Referenzen</b>',
+        		html: '<b style="color:gray;">Programm</b>',
         		margin: '15 0 15 0'
-
 			},
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Theaterjournal</b>',
+        		margin: '15 0 15 0'
+			},
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Regiebücher</b>',
+        		margin: '15 0 15 0'
+			},
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Rollen- & Kostümbücher</b>',
+        		margin: '15 0 15 0'
+			},
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Ausgaben</b>',
+        		margin: '15 0 15 0'
+			},
+			{
+				xtype: 'label',
+        		html: '<b style="color:gray;">Einnahmen</b>',
+        		margin: '15 0 15 0'
+			}
 
-			this.personSection,
-	
-			this.planSection,			
-			this.journalSection,
-     		this.regieSection,
-			this.roleSection,
-			this.issueSection,
-			this.revenueSection
+			/*me.planSection,			
+			me.journalSection,
+     		me.regieSection,
+			me.roleSection,
+			me.issueSection,
+			me.revenueSection*/
+
+
+]
+		})
+
+
+
+
 		]
 
 me.repertoireTab.setTitelValue();

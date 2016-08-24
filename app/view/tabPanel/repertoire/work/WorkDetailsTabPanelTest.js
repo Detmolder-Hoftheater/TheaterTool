@@ -11,7 +11,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', 
 		align: 'stretch'
 	},
 	
-	bodyPadding: 10,
+	bodyPadding: 5,
 	
 	//minHeight: 300,
 	//resizable: true,
@@ -21,15 +21,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', 
 	
 	border: false,
 
-sourceID: null,
-	titel: null,
-	rism: null,
-	annot: null,
+	sourceID: null,
 	abs: null,
 	language: null,
-	sign: null,
-	prov: null,
 	pers: null,
+	overview: null,
+	instr: null,
 	
 	w_ein_titel: null,
 	w_titel: null,
@@ -59,8 +56,8 @@ setTitelValue: function (sourceStore) {
 			title: '<b style="color:gray;">Titel Varianten</b>',
 			bodyBorder: false,
 			
-			collapsible: true,
-			collapsed: false,
+			collapsible: false,
+			//collapsed: false,
 			items:[]
 		});
 		me.items.add(titel_group);
@@ -77,7 +74,11 @@ setTitelValue: function (sourceStore) {
    				 }
 			},
 
-
+style: {
+				//width: '100%',
+				borderTop: '5px solid #FFFFFF',
+				borderBottom: '5px solid #FFFFFF'
+			},
 			autoScroll: true,
 			border: false,
 			//bodyPadding: 10,
@@ -99,23 +100,28 @@ setTitelValue: function (sourceStore) {
 			var titleKeyLang = titelLangArray[i];
 			for(j = 0; j < json.workTitel.length; j++){
 				var el = json.workTitel[j];
-				var titelKey  = el[2]; 
+				var titelKey_tmp  = el[2];
 
-				if(titelKey === titleKeyLang){
+				var titelKey = '';
+				if(titelKey_tmp !== ''){
+					titelKey = ' ('+ titelKey_tmp + ')';
+				}
+
+				if(titelKey_tmp === titleKeyLang){
 					if(el[1] === 'uniform'){
-						me.w_ein_titel = me.createTextField('Einheitstitel ('+titelKey+')');
+						me.w_ein_titel = me.createTextField('Einheitstitel'+titelKey);
 						me.w_ein_titel.setValue(el[0]);
 					}
 					else if(el[1] === ''){
-						me.w_titel = me.createTextField('Titel ('+titelKey+')');
+						me.w_titel = me.createTextField('Titel'+titelKey);
 						me.w_titel.setValue(el[0]);
 					}
 					else if(el[1] === 'alt'){
-						me.w_alt_titel = me.createTextField('Alternativtitel ('+titelKey+')');
+						me.w_alt_titel = me.createTextField('Alternativtitel'+titelKey);
 						me.w_alt_titel.setValue(el[0]);
 					}
 					else if(el[1] === 'sub'){
-						me.w_unter_titel =  me.createTextField('Untertitel ('+titelKey+')');
+						me.w_unter_titel =  me.createTextField('Untertitel'+titelKey);
 						me.w_unter_titel.setValue(el[0]);
 					}
 }
@@ -158,6 +164,10 @@ var persStore = Ext.create('Ext.data.Store', {
 });
 me.pers =Ext.create('Ext.grid.Panel', {
     store: persStore,
+flex:1,
+/*style: {
+				width: '100%'
+				},*/
     columns: [
         { header: 'Name',  dataIndex: 'name', flex:2 },
         { header: 'Role', dataIndex: 'role', flex:1},
@@ -201,7 +211,7 @@ Ext.create('Ext.grid.column.Action', {
 
        // { header: 'Details', dataIndex: 'dbkey', flex:0.5 }
     ],
-margin: '0 0 0 50'
+margin: '0 0 10 55'
 });
 
 for(i = 0; i < json.autoren.length; i++){
@@ -264,7 +274,7 @@ for(i = 0; i < json.autoren.length; i++){
 		}
 
 var pers_panel = Ext.create('Ext.panel.Panel', {
-colspan: 1,
+//colspan: 1,
 			layout: {
 				type: 'table',
 				columns: 2,
@@ -283,8 +293,8 @@ colspan: 1,
 {
 
 				xtype: 'label',
-        		html: 'Personen',
-        		margin: '0 0 0 7'
+        		html: 'Personen'
+        		//margin: '0 5 0 0'
 			},
 me.pers
 
@@ -295,6 +305,23 @@ me.pers
 
 		me.language = me.createTextArea('Sprache(n)');
 
+		me.overview = me.createTextArea('Beschreibung');
+
+		me.instr = me.createTextArea('Besetzung');
+		me.instr.setHeight(260);
+
+		var ov_panel_left = Ext.create('Ext.panel.Panel', {
+			border: false,
+			//bodyPadding: 10,
+			items:[
+				pers_panel,
+				me.language,
+				me.abs,
+				me.overview
+				
+				]
+		});
+	
 		var panel_01 = Ext.create('Ext.panel.Panel', {
 			
 			layout: {
@@ -313,11 +340,12 @@ me.pers
 			border: false,
 			//height: 300,
 			bodyPadding: 10,
+			//magrin: '0 0 0 15',
 			
 			items:[
-pers_panel,
-me.language,
-			me.abs
+ov_panel_left,
+me.instr
+			
 			
 			]
 		});

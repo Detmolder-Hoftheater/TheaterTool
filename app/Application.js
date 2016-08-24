@@ -153,7 +153,7 @@ Ext.define('TheaterTool.Application', {
 
 	worksStoreMap: null,
 
-	projectName: null,
+	//projectName: null,
 	projectYears: null,
 	extWorkKeys: null,
 	dbPaths: null,
@@ -520,9 +520,9 @@ return workDataStore;
     			success: function (response, options) {
 					var json = jQuery.parseJSON(response.responseText);
 					this.extWorkKeys = json.dbkeys;
-					this.projectName = json.name;
+					projectName = json.name;
 					this.projectYears = json.years;
-					Ext.getCmp('htNavigationPanel').setTitle('<b style="color:#A87678;">'+this.projectName+' '+ this.projectYears+'</b>');
+					Ext.getCmp('htNavigationPanel').setTitle('<b style="color:#A87678;">'+projectName+' '+ this.projectYears+'</b>');
     			}
 			});
 
@@ -667,6 +667,10 @@ return workDataStore;
 	
 	getPlansForWorkDataStore: function () {
 		return this.plansForWorkDataStore;
+	},
+
+	getProjektName: function(){
+		return projectName;
 	}
 	
 });
