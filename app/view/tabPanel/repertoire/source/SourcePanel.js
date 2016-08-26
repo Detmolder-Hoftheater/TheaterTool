@@ -62,6 +62,8 @@ this.detailSection_xml
     ]
 };
 
+this.detailSection.setTitelValue();
+
 /*this.on({
     delegate: 'tab',
     tap: function(tab) {
