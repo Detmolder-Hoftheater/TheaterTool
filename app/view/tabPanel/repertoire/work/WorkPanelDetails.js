@@ -3,50 +3,25 @@
  * @class
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
-	extend: 'Ext.tab.Panel',
-    
-    
-	flex: 1,
-border: false,
-//bodyPadding:15,
+	extend: 'Ext.tab.Panel',  
 	
+	flex: 1,
+    border: false,
+    
 	detailSection: null,
 	detailSection_1: null,
 	
-	/*border: false,
-	autoScroll: true,*/
-
 	workID: null,
-	
 	
 	initComponent: function () {
 
-var me = this;
+        var me = this;
 
-/*Ext.Ajax.request({
-           // url: 'data/Output_Exist.xql',
- 			//url: 'resources/xql/test_Exist.xql',
-			url: 'resources/xql/getWorkOverview.xql',
-            method: 'GET',
-            params: {
-                workID: me.workID
-            },
-            success: function(response){
+	   me.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: me.workID});
 
-					var json = jQuery.parseJSON(response.responseText);
-					
-					console.log(json);	*/
-	
-	
-	
-	me.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: me.workID});
+	   me.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: me.workID});
 
-	me.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: me.workID});
-	
-	
-
-	
-    me.items = [
+        me.items = [
 			/*{
 				xtype: 'label',
         		html: '<b style="color:gray;">Übersicht</b>',
@@ -77,8 +52,8 @@ var me = this;
 			this.revenueSection*/
 			
     ]
-/*}        
-        })*/
+    
+        me.detailSection.createComponents();
     	me.callParent();
 	}
 });

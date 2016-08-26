@@ -119,23 +119,29 @@ flex:1,
 			var titleKeyLang = titelLangArray[i];
 			for(j = 0; j < json.workTitel.length; j++){
 				var el = json.workTitel[j];
+				
 				var titelKey  = el[2]; 
-
-				if(titelKey === titleKeyLang){
+                var titelKey_tmp = el[2];                      
+                var titelKey = '';
+                        if (titelKey_tmp !== '') {
+                            titelKey = ' (' + titelKey_tmp + ')';
+                        }
+                        
+				if(titelKey_tmp === titleKeyLang){
 					if(el[1] === 'uniform'){
-						me.w_ein_titel = me.createTextField('Einheitstitel ('+titelKey+')');
+						me.w_ein_titel = me.createTextField('Einheitstitel'+titelKey);
 						me.w_ein_titel.setValue(el[0]);
 					}
 					else if(el[1] === ''){
-						me.w_titel = me.createTextField('Titel ('+titelKey+')');
+						me.w_titel = me.createTextField('Titel'+titelKey);
 						me.w_titel.setValue(el[0]);
 					}
 					else if(el[1] === 'alt'){
-						me.w_alt_titel = me.createTextField('Alternativtitel ('+titelKey+')');
+						me.w_alt_titel = me.createTextField('Alternativtitel'+titelKey);
 						me.w_alt_titel.setValue(el[0]);
 					}
 					else if(el[1] === 'sub'){
-						me.w_unter_titel =  me.createTextField('Untertitel ('+titelKey+')');
+						me.w_unter_titel =  me.createTextField('Untertitel'+titelKey);
 						me.w_unter_titel.setValue(el[0]);
 					}
 }
@@ -232,7 +238,7 @@ me.pers =Ext.create('Ext.grid.Panel', {
 			}
 		}),
         { header: 'Name',  dataIndex: 'name', flex:2},
-        { header: 'Role', dataIndex: 'role', flex:1},
+        { header: 'Rolle', dataIndex: 'role', flex:1},
 Ext.create('Ext.grid.column.Action', {			
 			xtype: 'actioncolumn',
 			header: 'Details',
@@ -273,7 +279,7 @@ Ext.create('Ext.grid.column.Action', {
 
        // { header: 'Details', dataIndex: 'dbkey', flex:0.5 }
     ],
-margin: '0 0 15 0'
+margin: '0 0 15 110'
 });
 
 for(i = 0; i < json.autoren.length; i++){
@@ -342,6 +348,7 @@ for(i = 0; i < json.autoren.length; i++){
 						colspan: 1,
 						//type: 'hbox',
 						border: false,
+						margin: '0 10 0 0',
 			//bodyPadding: 10,
 						items:[
 						me.rism,
@@ -414,7 +421,7 @@ for(i = 0; i < json.autoren.length; i++){
 		var annot_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
 			//bodyPadding: 10,
-			margin: '0 0 0 10',
+			margin: '0 10 0 10',
 			items:[]
 		});
 		
