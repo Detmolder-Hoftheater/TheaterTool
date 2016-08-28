@@ -32,6 +32,7 @@ flex:1,
 	sign: null,
 	prov: null,
 	pers: null,
+	overview: null,
 	
 	w_ein_titel: null,
 	w_titel: null,
@@ -73,12 +74,21 @@ flex:1,
 					
 					console.log(json);	
 
-		var titel_group = Ext.create('Ext.form.FieldSet', {
+		/*var titel_group = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Titel Varianten</b>',
 			bodyBorder: false,
 			collapsible: false,
 			collapsed: false,
 			items:[]
+		});
+		me.add(titel_group);*/
+		
+		var titel_group = Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Titel Varianten</b>',
+			bodyBorder: false,
+			collapsible: false,
+			collapsed: true
+			//margin: '10 0 0 0'
 		});
 		me.add(titel_group);
 		
@@ -103,7 +113,7 @@ flex:1,
 			border: false,
 			items:[]
 		});
-		titel_group.add(panel_0);
+		me.add(panel_0);
 
 		var titelLangArray = [];
 		var titelLangArraytemp = [];
@@ -152,6 +162,7 @@ flex:1,
 						//type: 'hbox',
 						border: false,
 						bodyBorder: false,
+						margin: '0 10 0 10',
 						items:[]
 					});
 					panel_0.add(panel_10);
@@ -177,6 +188,15 @@ flex:1,
 
 		/*me.titel = me.createTextField('Einheitstitel');
 		me.titel.setValue(json.titel[0]);*/
+		
+		var info_group = Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Allgemeine Information</b>',
+			bodyBorder: false,
+			collapsible: false,
+			collapsed: true,
+			margin: '10 0 0 0'
+		});
+		me.add(info_group);
 
 		me.rism = me.createTextField('RISM ID');
 		me.rism.setValue(json.rism[0]);
@@ -222,8 +242,15 @@ var persStore = Ext.create('Ext.data.Store', {
 });
 me.pers =Ext.create('Ext.grid.Panel', {
     store: persStore,
-    title: '<b style="color:gray;">Personen</b>',
     columnLines: true,
+   layout: {
+		type: 'hbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+	flex:1,
+	
+    title: '<b style="color:gray;">Personen</b>',
     columns: [
     Ext.create('Ext.grid.column.Action', {			
 			xtype: 'actioncolumn',
@@ -341,17 +368,16 @@ for(i = 0; i < json.autoren.length; i++){
 			persStore.add(person);
 		}
 		
-		me.abs = me.createTextField('Entstehung');
 		
 		
 		var right_panel = Ext.create('Ext.panel.Panel', {
 						colspan: 1,
 						//type: 'hbox',
 						border: false,
-						margin: '0 10 0 0',
+						margin: '0 10 0 10',
 			//bodyPadding: 10,
 						items:[
-						me.rism,
+						//me.rism,
 			             me.prov,
 			             me.sign
 						
@@ -362,11 +388,14 @@ for(i = 0; i < json.autoren.length; i++){
 						colspan: 1,
 						//type: 'hbox',
 						border: false,
-						margin: '0 0 0 10',
+						margin: '0 10 0 10',
+						
 			//bodyPadding: 10,
 						items:[
-						me.pers,
-						me.abs
+						me.rism,
+						me.pers
+						
+						//me.abs
 						]
 					});
 					
@@ -380,6 +409,7 @@ for(i = 0; i < json.autoren.length; i++){
    				 }
 				
 			},
+			margin: '10 0 0 0',
 			/*defaults: {
                 bodyStyle: 'padding:10px'
             },*/
@@ -416,15 +446,28 @@ for(i = 0; i < json.autoren.length; i++){
 		ents_panel.add(me.abs);
 		me.items.add(ents_panel);*/
 		
+		var info_group = Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Geschichte</b>',
+			bodyBorder: false,
+			collapsible: false,
+			collapsed: true,
+			margin: '10 0 0 0'
+		});
+		me.add(info_group);
+		
+		me.abs = me.createTextField('Entstehung');
+		
+		me.overview = me.createTextArea('Beschreibung');
 		
 		me.annot = me.createTextArea('Aufführungen');
 		var annot_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
 			//bodyPadding: 10,
-			margin: '0 10 0 10',
+			margin: '10 10 0 10',
 			items:[]
 		});
-		
+		annot_panel.add(me.abs);
+		annot_panel.add(me.overview);
 		annot_panel.add(me.annot);
 		me.add(annot_panel);
 		
