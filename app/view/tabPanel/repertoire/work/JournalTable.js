@@ -7,13 +7,24 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.JournalTable', {
 	'TheaterTool.model.Plan'
 	],
 	
+	layout: {
+		type: 'hbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+	flex:1,
+	
+	title: '<b style="color:gray;">Theaterjournal</b>',
+	
 	//xtype: 'array-grid',
 	//rootVisible: false,
 	//store: store ,
 	xmlColumn: null,
+	columnLines: true,
 	
 	detailsColumn: null,
-	
+	//bodyPadding: 10,
+	margin: '0 10 0 120',
             
            // bodyStyle:{"grid-row-cell-background-color":"#ffc"},
     
@@ -21,12 +32,25 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.JournalTable', {
 	
 	initComponent: function () {
 	
-	this.xmlColumn = this.createColumn('XML', 'resources/images/Download.png');
+	//this.xmlColumn = this.createColumn('XML', 'resources/images/Download.png');
 		
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
 		// TODO
-		this.columns =[ {
+		this.columns =[ 
+		Ext.create('Ext.grid.column.Action', {			
+			xtype: 'actioncolumn',
+			//header: 'Details',
+			flex:0.3,
+			align: 'center',
+			menuDisabled: true,
+			renderer: function (val, metadata, record) {
+			    this.items[0].icon = 'resources/images/Presse-16.png';
+				metadata.style = 'cursor: pointer;';
+				return val;
+			}
+		}),
+		{
 			//xtype: 'treecolumn',
 			text: 'Jahr',
 			flex: 2,
@@ -40,8 +64,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.JournalTable', {
 			sortable: true,
 			dataIndex: 'monat'
 		},
-		this.detailsColumn,
-		this.xmlColumn
+		this.detailsColumn
+		//this.xmlColumn
 		];
 		
 		
@@ -72,15 +96,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.JournalTable', {
 			
 			console.log(record.data);
 			
-			if(headerName == 'XML'){
-				if(record.data.xml === true){
-					this.items[0].icon = path;					
-				}
-				else {					
-					this.items[0].icon = '';
-				}				
-			}
-				else if(headerName == 'Details'){
+			if(headerName == 'Details'){
 					if(record.data.details === true){
 					this.items[0].icon = path;					
 				}				

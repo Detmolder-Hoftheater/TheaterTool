@@ -67,12 +67,21 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
 					
 					console.log(json);	
 
-		var titel_group = Ext.create('Ext.form.FieldSet', {
+		/*var titel_group = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Titel Varianten</b>',
 			bodyBorder: false,
 			collapsible: false,
 			collapsed: false,
 			items:[]
+		});
+		me.add(titel_group);*/
+		
+		var titel_group = Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Titel Varianten</b>',
+			bodyBorder: false,
+			collapsible: false,
+			collapsed: true
+			//margin: '10 0 0 0'
 		});
 		me.add(titel_group);
 		
@@ -93,11 +102,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         }
                         
 			},
+			//bodyPadding: 10,
 			bodyBorder: false,
 			border: false,
 			items:[]
 		});
-		titel_group.add(panel_0);
+		//titel_group.add(panel_0);
+		me.add(panel_0);
 
 		var titelLangArray = [];
 		var titelLangArraytemp = [];
@@ -146,6 +157,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
 						//type: 'hbox',
 						border: false,
 						bodyBorder: false,
+						margin: '0 10 0 10',
+						//margin: '0 0 0 5',
 						items:[]
 					});
 					panel_0.add(panel_10);
@@ -209,6 +222,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
 			provText += json.abschriften[i] + '\n';
 		}
 		me.prov.setValue(provText);*/
+		
+		var info_group = Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Allgemeine Information</b>',
+			bodyBorder: false,
+			collapsible: false,
+			collapsed: true,
+			margin: '10 0 0 0'
+		});
+		me.add(info_group);
 
 var persStore = Ext.create('Ext.data.Store', {
 	model: 'TheaterTool.model.Person',
@@ -218,6 +240,19 @@ me.pers =Ext.create('Ext.grid.Panel', {
     store: persStore,
     title: '<b style="color:gray;">Personen</b>',
     columnLines: true,
+   layout: {
+		type: 'hbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+	flex:1,
+   /*viewConfig: {
+    forceFit: true
+},*/
+                            /*style: {
+                                width: '100%'
+                            },*/
+                        
     columns: [
     Ext.create('Ext.grid.column.Action', {			
 			xtype: 'actioncolumn',
@@ -335,7 +370,7 @@ for(i = 0; i < json.autoren.length; i++){
 			persStore.add(person);
 		}
 		
-		me.abs = me.createTextField('Entstehung');
+		
 		me.language = me.createTextField('Sprache(n)');
                 
                 
@@ -343,10 +378,15 @@ for(i = 0; i < json.autoren.length; i++){
 		
 		
 		var right_panel = Ext.create('Ext.panel.Panel', {
-						colspan: 1,
+						//colspan: 1,
 						//type: 'hbox',
 						border: false,
-						margin: '0 10 0 0',
+						//type: 'fit',
+						//margin: '0 10 0 10',
+						margin: '0 10 0 10',
+						 /*viewConfig: {
+    forceFit: true
+},*/
 			//bodyPadding: 10,
 						items:[
 						me.instr
@@ -355,15 +395,16 @@ for(i = 0; i < json.autoren.length; i++){
 					});
 					
 					var left_panel = Ext.create('Ext.panel.Panel', {
-						colspan: 1,
+						//colspan: 1,
 						//type: 'hbox',
 						border: false,
-						margin: '0 0 0 10',
+						margin: '0 10 0 10',
+						//type: 'fit',
 			//bodyPadding: 10,
 						items:[
 						me.pers,
-						me.language,
-						me.abs
+						me.language
+						
 						]
 					});
 					
@@ -377,6 +418,7 @@ for(i = 0; i < json.autoren.length; i++){
    				 }
 				
 			},
+			margin: '10 0 0 0',
 			/*defaults: {
                 bodyStyle: 'padding:10px'
             },*/
@@ -413,23 +455,67 @@ for(i = 0; i < json.autoren.length; i++){
 		ents_panel.add(me.abs);
 		me.items.add(ents_panel);*/
 		
+		var info_group = Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Geschichte</b>',
+			bodyBorder: false,
+			collapsible: false,
+			collapsed: true,
+			margin: '10 0 0 0'
+		});
+		me.add(info_group);
+		
+		me.abs = me.createTextField('Entstehung');
+		
 		me.overview = me.createTextArea('Beschreibung');
                 
 		me.annot = me.createTextArea('Aufführungen');
 		var annot_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
 			//bodyPadding: 10,
-			margin: '0 10 0 10',
+			margin: '10 10 0 10',
 			items:[]
 		});
+		annot_panel.add(me.abs);
 		annot_panel.add(me.overview);
-		annot_panel.add(me.annot);
+		annot_panel.add(me.annot);		
 		me.add(annot_panel);
 		
+		var refGroup = Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Referenzen</b>',
+			bodyBorder: false,
+			collapsible: false,
+			collapsed: true,
+			margin: '10 0 0 0'
+		});
+		me.add(refGroup);
 		
+		var ref_layout = Ext.create('Ext.panel.Panel', {
+			layout: {
+				type: 'table',
+				columns: 2,
+				tdAttrs: {
+        			valign: 'top'
+   				 },
+   				  tableAttrs: {
+                            style: {
+                                width: '100%'
+                            }
+                        }
+                        
+			},
+			
+    //bodyPadding: 10,
+			bodyBorder: false,
+			border: false,
+			items:[]
+		});
+		me.add(ref_layout);
+				
+		var playscheduleTable = new TheaterTool.view.tabPanel.repertoire.work.PlanTable();
+		ref_layout.add(playscheduleTable);
 		
-		
-		
+		var journalTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable();
+		ref_layout.add(journalTable);
 		
 		//this.titel.setValue(value);
 //this.titel.setValue(sourceStore.data[0].item[0].data.row.titel[0]);
@@ -454,6 +540,7 @@ for(i = 0; i < json.autoren.length; i++){
 			style: {
 			//autoWidth: true,
 				width: '100%',
+				//height: '100%',
 				borderLeft: '5px solid #FFFFFF'
 			}
 		});
