@@ -24,7 +24,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.JournalTable', {
 	
 	detailsColumn: null,
 	//bodyPadding: 10,
-	margin: '0 10 0 120',
+	margin: '0 10 10 120',
             
            // bodyStyle:{"grid-row-cell-background-color":"#ffc"},
     
@@ -58,12 +58,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.JournalTable', {
 			dataIndex: 'jahr'
 			
 		},
-		{
+		/*{
 			text: 'Monat',
 			flex: 2,
 			sortable: true,
 			dataIndex: 'monat'
-		},
+		},*/
 		this.detailsColumn
 		//this.xmlColumn
 		];

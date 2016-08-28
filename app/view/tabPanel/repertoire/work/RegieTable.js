@@ -7,6 +7,17 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 	'TheaterTool.model.Plan'
 	],
 	
+	layout: {
+		type: 'hbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+	flex:1,
+	
+	title: '<b style="color:gray;">Regiebücher</b>',
+	
+	margin: '0 7 10 120',
+	
 	//xtype: 'array-grid',
 	//rootVisible: false,
 	//store: store ,
@@ -21,27 +32,39 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 	
 	initComponent: function () {
 	
-	this.xmlColumn = this.createColumn('XML', 'resources/images/Download.png');
+	//this.xmlColumn = this.createColumn('XML', 'resources/images/Download.png');
 		
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
-		// TODO
-		this.columns =[ {
+		this.columns =[ 
+		Ext.create('Ext.grid.column.Action', {			
+			xtype: 'actioncolumn',
+			//header: 'Details',
+			flex:0.3,
+			align: 'center',
+			menuDisabled: true,
+			renderer: function (val, metadata, record) {
+			    this.items[0].icon = 'resources/images/Crown-17.png';
+				metadata.style = 'cursor: pointer;';
+				return val;
+			}
+		}),
+		{
 			//xtype: 'treecolumn',
-			text: 'Jahr',
+			text: 'Name',
 			flex: 2,
 			sortable: true,
-			dataIndex: 'jahr'
+			dataIndex: 'name'
 			
 		},
-		{
+		/*{
 			text: 'Monat',
 			flex: 2,
 			sortable: true,
 			dataIndex: 'monat'
-		},
-		this.detailsColumn,
-		this.xmlColumn
+		},*/
+		this.detailsColumn
+		//this.xmlColumn
 		];
 		
 		
@@ -72,15 +95,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 			
 			console.log(record.data);
 			
-			if(headerName == 'XML'){
-				if(record.data.xml === true){
-					this.items[0].icon = path;					
-				}
-				else {					
-					this.items[0].icon = '';
-				}				
-			}
-				else if(headerName == 'Details'){
+			if(headerName == 'Details'){
 					if(record.data.details === true){
 					this.items[0].icon = path;					
 				}				
@@ -99,5 +114,3 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 
 
 });
-
-

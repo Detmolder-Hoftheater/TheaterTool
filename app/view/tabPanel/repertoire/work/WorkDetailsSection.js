@@ -485,7 +485,7 @@ for(i = 0; i < json.autoren.length; i++){
 			bodyBorder: false,
 			collapsible: false,
 			collapsed: true,
-			margin: '10 0 0 0'
+			margin: '10 0 10 0'
 		});
 		me.add(refGroup);
 		
@@ -517,13 +517,20 @@ for(i = 0; i < json.autoren.length; i++){
 		var journalTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable();
 		ref_layout.add(journalTable);
 		
-		//this.titel.setValue(value);
-//this.titel.setValue(sourceStore.data[0].item[0].data.row.titel[0]);
+		var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable();
+		ref_layout.add(regieTable);
+		
+		var roleTable = new TheaterTool.view.tabPanel.repertoire.work.RoleTable();
+		ref_layout.add(roleTable);
+		
+		var revenueTable = new TheaterTool.view.tabPanel.repertoire.work.RevenueTable();
+		ref_layout.add(revenueTable);
+		
+		var issueTable = new TheaterTool.view.tabPanel.repertoire.work.IssueTable();
+		ref_layout.add(issueTable);
+				
 }
 			});
-//me.callParent();
-        
-       // }
 
 	},
 	

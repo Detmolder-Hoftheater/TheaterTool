@@ -23,7 +23,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
 	
 	detailsColumn: null,
 	//bodyPadding: 10,
-	margin: '0 7 0 120',
+	margin: '0 7 10 120',
 	
             
            // bodyStyle:{"grid-row-cell-background-color":"#ffc"},
