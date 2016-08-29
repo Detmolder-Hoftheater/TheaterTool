@@ -133,7 +133,8 @@ Ext.define('TheaterTool.Application', {
 	'Contact',
 	'FieldError',
 	'SourceDetails',
-	'Event'
+	'Event',
+	'RefData'
 	],
 	
 	stores:[

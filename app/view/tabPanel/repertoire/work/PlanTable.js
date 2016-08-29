@@ -3,7 +3,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
 	
 	requires:[
 	 'Ext.grid.column.Action',
-	'TheaterTool.model.Plan'
+	'TheaterTool.model.RefData'
 	],
 	
 	layout: {
@@ -15,30 +15,34 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
 	sortableColumns: false,
 	title: '<b style="color:gray;">Spielpläne</b>',
 	icon: 'resources/images/Calendar-17.png',
-	//xtype: 'array-grid',
-	//rootVisible: false,
-	//store: store ,
-	xmlColumn: null,
-	columnLines: true,
-	
+	margin: '0 10 10 120',	
+	store: null,	
 	detailsColumn: null,
-	//bodyPadding: 10,
-	margin: '0 7 10 120',
-	
-            
-           // bodyStyle:{"grid-row-cell-background-color":"#ffc"},
-    
-	
+	columnLines: true,
+	scheduleList: null,
 	
 	initComponent: function () {
 	
-	//this.xmlColumn = this.createColumn('', 'resources/images/Download.png');
-		
+	var me = this;
+	
+	me.store = Ext.create('Ext.data.Store', {
+	model: 'TheaterTool.model.RefData',
+    data:[]
+});
+
+for(i = 0; i < me.scheduleList.length; i++){
+            var datum = me.scheduleList[i];
+            var split_array = datum.split(' ');
+			var role = Ext.create('TheaterTool.model.RefData', {
+    			jahr : split_array[1],
+    			monat: split_array[0]
+			});
+			me.store.add(role);
+			}
+	
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
-		
 		this.columns =[ 
-		
 		{
 			//xtype: 'treecolumn',
 			text: 'Jahr',
@@ -56,19 +60,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
 		this.detailsColumn
 		];
 		
-		
-		/*this.viewConfig = {
-        getRowClass: function(record, index) {
-            var c = record.get('change');
-            if (c < 0) {
-                return 'price-fall';
-                console.log(index);
-            } else if (c > 0) {
-                return 'price-rise';
-            }
-        }
-    }*/
-	
 		this.callParent();
 	},
 	
@@ -80,15 +71,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
 			flex:1,
 			align: 'center',
 			menuDisabled: true,
-			renderer: function (val, metadata, record) {
-			
-				if(headerName == 'Details'){
-					if(record.data.details === true){
+			renderer: function (val, metadata, record) {				
+			     if(headerName == 'Details'){					
 					this.items[0].icon = path;					
-				}				
-				else {					
-					this.items[0].icon = '';
-				}
 				}
 				
 				metadata.style = 'cursor: pointer;';

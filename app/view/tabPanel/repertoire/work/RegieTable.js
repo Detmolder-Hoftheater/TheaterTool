@@ -3,8 +3,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 	
 	requires:[
 	 'Ext.grid.column.Action',
-	 // TODO
-	'TheaterTool.model.Plan'
+	'TheaterTool.model.RefData'
 	],
 	
 	layout: {
@@ -17,58 +16,41 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 	title: '<b style="color:gray;">Regiebücher</b>',
 	icon: 'resources/images/Crown-17.png',
 	margin: '0 7 10 120',
-	
-	//xtype: 'array-grid',
-	//rootVisible: false,
-	//store: store ,
-	xmlColumn: null,
+	store: null,
 	
 	detailsColumn: null,
-	
-            
-           // bodyStyle:{"grid-row-cell-background-color":"#ffc"},
-    
-	
-	
+	regieList: null,
+   
 	initComponent: function () {
 	
-	//this.xmlColumn = this.createColumn('XML', 'resources/images/Download.png');
-		
+	   var me = this;
+	
+	me.store = Ext.create('Ext.data.Store', {
+	model: 'TheaterTool.model.RefData',
+    data:[]
+});
+
+for(i = 0; i < me.regieList.length; i++){
+			var role = Ext.create('TheaterTool.model.RefData', {
+    			name : me.regieList
+			});
+			me.store.add(role);
+			}
+	
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
 		this.columns =[ 
 		
 		{
-			//xtype: 'treecolumn',
 			text: 'Name',
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'name'
 			
 		},
-		/*{
-			text: 'Monat',
-			flex: 2,
-			sortable: true,
-			dataIndex: 'monat'
-		},*/
 		this.detailsColumn
-		//this.xmlColumn
 		];
 		
-		
-		/*this.viewConfig = {
-        getRowClass: function(record, index) {
-            var c = record.get('change');
-            if (c < 0) {
-                return 'price-fall';
-                console.log(index);
-            } else if (c > 0) {
-                return 'price-rise';
-            }
-        }
-    }*/
-	
 		this.callParent();
 	},
 	
@@ -82,15 +64,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 			menuDisabled: true,
 			renderer: function (val, metadata, record) {
 			
-			console.log(record.data);
-			
 			if(headerName == 'Details'){
-					if(record.data.details === true){
 					this.items[0].icon = path;					
-				}				
-				else {					
-					this.items[0].icon = '';
-				}
 				}
 				
 				metadata.style = 'cursor: pointer;';

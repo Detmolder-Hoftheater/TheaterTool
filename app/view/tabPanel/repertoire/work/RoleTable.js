@@ -3,8 +3,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RoleTable', {
 	
 	requires:[
 	 'Ext.grid.column.Action',
-	 // TODO
-	'TheaterTool.model.Plan'
+	'TheaterTool.model.RefData'
 	],
 	
 	layout: {
@@ -16,59 +15,41 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RoleTable', {
 	sortableColumns: false,
 	title: '<b style="color:gray;">Rollen- & Kostümbücher</b>',
 	icon: 'resources/images/carnival.png',
-	margin: '0 10 10 120',
-	
-	//xtype: 'array-grid',
-	//rootVisible: false,
-	//store: store ,
-	xmlColumn: null,
-	
+	margin: '0 10 10 120',	
+	store: null,	
 	detailsColumn: null,
-	
-            
-           // bodyStyle:{"grid-row-cell-background-color":"#ffc"},
-    
-	
+	columnLines: true,
+	roleList: null,
 	
 	initComponent: function () {
 	
-	//this.xmlColumn = this.createColumn('XML', 'resources/images/Download.png');
-		
+	var me = this;
+	
+	me.store = Ext.create('Ext.data.Store', {
+	model: 'TheaterTool.model.RefData',
+    data:[]
+});
+
+for(i = 0; i < me.roleList.length; i++){
+			var role = Ext.create('TheaterTool.model.RefData', {
+    			name : me.roleList
+			});
+			me.store.add(role);
+			}
+	
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
-		// TODO
 		this.columns =[ 
 		{
-			//xtype: 'treecolumn',
 			text: 'Name',
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'name'
 			
 		},
-		/*{
-			text: 'Monat',
-			flex: 2,
-			sortable: true,
-			dataIndex: 'monat'
-		},*/
 		this.detailsColumn
-		//this.xmlColumn
 		];
 		
-		
-		/*this.viewConfig = {
-        getRowClass: function(record, index) {
-            var c = record.get('change');
-            if (c < 0) {
-                return 'price-fall';
-                console.log(index);
-            } else if (c > 0) {
-                return 'price-rise';
-            }
-        }
-    }*/
-	
 		this.callParent();
 	},
 	
@@ -82,15 +63,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RoleTable', {
 			menuDisabled: true,
 			renderer: function (val, metadata, record) {
 			
-			console.log(record.data);
-			
-			if(headerName == 'Details'){
-					if(record.data.details === true){
+			if(headerName == 'Details'){					
 					this.items[0].icon = path;					
-				}				
-				else {					
-					this.items[0].icon = '';
-				}
 				}
 				
 				metadata.style = 'cursor: pointer;';

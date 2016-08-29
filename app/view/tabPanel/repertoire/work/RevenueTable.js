@@ -3,8 +3,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 	
 	requires:[
 	 'Ext.grid.column.Action',
-	 // TODO
-	'TheaterTool.model.Plan'
+	'TheaterTool.model.RefData'
 	],
 	
 	layout: {
@@ -16,31 +15,35 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 	sortableColumns: false,
 	title: '<b style="color:gray;">Einnahmen</b>',
 	icon: 'resources/images/MoneyBox-17.png',
-	margin: '0 7 10 120',
-	
-	//xtype: 'array-grid',
-	//rootVisible: false,
-	//store: store ,
-	xmlColumn: null,
-	
+	margin: '0 10 10 120',
+	store: null,
+	columnLines: true,
 	detailsColumn: null,
-	
-            
-           // bodyStyle:{"grid-row-cell-background-color":"#ffc"},
-    
-	
-	
+	revenueList: null,
+     
 	initComponent: function () {
 	
-	//this.xmlColumn = this.createColumn('XML', 'resources/images/Download.png');
-		
+	   var me = this;
+	
+	   me.store = Ext.create('Ext.data.Store', {
+	       model: 'TheaterTool.model.RefData',
+         data:[]
+        });
+
+        for(i = 0; i < me.revenueList.length; i++){
+            var datum = me.revenueList[i];
+            var split_array = datum.split(' ');
+			var role = Ext.create('TheaterTool.model.RefData', {
+    			jahr : split_array[1],
+    			monat: split_array[0]
+			});
+			me.store.add(role);
+			}
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
-		
-		// TODO
+	
 		this.columns =[ 
 		
 		{
-			//xtype: 'treecolumn',
 			text: 'Jahr',
 			flex: 2,
 			menuDisabled: true,
@@ -54,22 +57,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 			dataIndex: 'monat'
 		},
 		this.detailsColumn
-		//this.xmlColumn
 		];
 		
-		
-		/*this.viewConfig = {
-        getRowClass: function(record, index) {
-            var c = record.get('change');
-            if (c < 0) {
-                return 'price-fall';
-                console.log(index);
-            } else if (c > 0) {
-                return 'price-rise';
-            }
-        }
-    }*/
-	
 		this.callParent();
 	},
 	
@@ -83,15 +72,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 			menuDisabled: true,
 			renderer: function (val, metadata, record) {
 			
-			console.log(record.data);
-			
 			if(headerName == 'Details'){
-					if(record.data.details === true){
 					this.items[0].icon = path;					
-				}				
-				else {					
-					this.items[0].icon = '';
-				}
 				}
 				
 				metadata.style = 'cursor: pointer;';

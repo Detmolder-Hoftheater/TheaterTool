@@ -529,23 +529,27 @@ for(i = 0; i < json.autoren.length; i++){
 		});
 		me.add(ref_layout);
 				
-		var playscheduleTable = new TheaterTool.view.tabPanel.repertoire.work.PlanTable();
+		var playscheduleTable = new TheaterTool.view.tabPanel.repertoire.work.PlanTable({scheduleList: json.scheduleRef});
 		ref_layout.add(playscheduleTable);
 		
-		var journalTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable();
-		ref_layout.add(journalTable);
-		
-		var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable();
-		ref_layout.add(regieTable);
-		
-		var roleTable = new TheaterTool.view.tabPanel.repertoire.work.RoleTable();
-		ref_layout.add(roleTable);
-		
-		var revenueTable = new TheaterTool.view.tabPanel.repertoire.work.RevenueTable();
+		var revenueTable = new TheaterTool.view.tabPanel.repertoire.work.RevenueTable({revenueList: json.revenueRef});
 		ref_layout.add(revenueTable);
 		
-		var issueTable = new TheaterTool.view.tabPanel.repertoire.work.IssueTable();
+		var journalTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable({journalList: json.journalRef});
+		ref_layout.add(journalTable);
+		
+		var issueTable = new TheaterTool.view.tabPanel.repertoire.work.IssueTable({issueList: json.issueRef});
 		ref_layout.add(issueTable);
+		
+		var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable({regieList: json.regieRef});
+		ref_layout.add(regieTable);
+		
+		var roleTable = new TheaterTool.view.tabPanel.repertoire.work.RoleTable({roleList: json.roleRef});
+		ref_layout.add(roleTable);
+		
+		
+		
+		
 				
 }
 			});

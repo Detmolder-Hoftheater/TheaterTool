@@ -208,6 +208,123 @@ $names
     
 };
 
+declare function local:jsonifyRoleReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/rollen_kostuem/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+(:if($rolefiles//tei:TEI//tei:rs[@key=$workID])then($rolefiles//tei:TEI)else():)
+(:let $rolefileTest := if($rolefile[@key=$workID != ''])then($rolefile)else():)
+(:let $refData := local:jsonifyRefDataRoles($rolefile):)
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyScheduleReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/einnahmen/'
+let $rolefiles := collection($rolepath)
+let $rolefile := if($rolefiles//tei:profileDesc//tei:keywords/tei:term['Spielplan'])then($rolefiles//tei:TEI)else()
+(:$rolefiles//tei:TEI:)
+(:if($rolefiles//tei:TEI//tei:rs[@key=$workID])then($rolefiles//tei:TEI)else():)
+(:let $rolefileTest := if($rolefile[@key=$workID != ''])then($rolefile)else():)
+(:let $refData := local:jsonifyRefDataRoles($rolefile):)
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title/tei:date)else()
+		(:let $dates := if($names != '')then(tokenize($names, " "))else()
+		let $datum := if($dates != '')then($dates[0])else()
+		let $jahr := if($dates != '')then($dates[1])else():)
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyRevenueReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/einnahmen/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title/tei:date)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyJournalReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/theaterjournal/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title/tei:date)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyRegieReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyIssueReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/ausgaben/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
 
 
  (
@@ -223,6 +340,18 @@ $names
         local:jsonifyEvents($content),
     '],"instr":[',
         local:jsonifyInstr($content),
+     '],"roleRef":[',
+        local:jsonifyRoleReferences($workID),
+     '],"scheduleRef":[',
+        local:jsonifyScheduleReferences($workID),
+      '],"revenueRef":[',
+        local:jsonifyRevenueReferences($workID), 
+     '],"journalRef":[',
+        local:jsonifyJournalReferences($workID), 
+     '],"regieRef":[',
+        local:jsonifyRegieReferences($workID), 
+     '],"issueRef":[',
+        local:jsonifyIssueReferences($workID), 
 	'],"workTitel":[',
         local:jsonifyWorkTitel($content),
     ']}'
