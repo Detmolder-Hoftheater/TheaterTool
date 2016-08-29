@@ -84,7 +84,7 @@ flex:1,
 		me.add(titel_group);*/
 		
 		var titel_group = Ext.create('Ext.form.FieldSet', {
-			title: '<b style="color:gray;">Titel Varianten</b>',
+			title: '<b style="color:gray;">Titel Varianten (Werk)</b>',
 			bodyBorder: false,
 			collapsible: false,
 			collapsed: true
@@ -186,8 +186,8 @@ flex:1,
 
 		}
 
-		/*me.titel = me.createTextField('Einheitstitel');
-		me.titel.setValue(json.titel[0]);*/
+		me.titel = me.createTextField('Titel (Quelle)');
+		me.titel.setValue(json.titel[0]);
 		
 		var info_group = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Allgemeine Information</b>',
@@ -242,6 +242,7 @@ var persStore = Ext.create('Ext.data.Store', {
 });
 me.pers =Ext.create('Ext.grid.Panel', {
     store: persStore,
+    sortableColumns: false,
     columnLines: true,
    layout: {
 		type: 'hbox',
@@ -251,21 +252,10 @@ me.pers =Ext.create('Ext.grid.Panel', {
 	flex:1,
 	
     title: '<b style="color:gray;">Personen</b>',
+    icon: 'resources/images/Mask-19.png',
     columns: [
-    Ext.create('Ext.grid.column.Action', {			
-			xtype: 'actioncolumn',
-			//header: 'Details',
-			flex:0.3,
-			align: 'center',
-			menuDisabled: true,
-			renderer: function (val, metadata, record) {
-			    this.items[0].icon = 'resources/images/Mask-19.png';
-				metadata.style = 'cursor: pointer;';
-				return val;
-			}
-		}),
-        { header: 'Name',  dataIndex: 'name', flex:2},
-        { header: 'Rolle', dataIndex: 'role', flex:1},
+        { header: 'Name',  dataIndex: 'name', menuDisabled: true, flex:2},
+        { header: 'Rolle', dataIndex: 'role', menuDisabled: true, flex:1},
 Ext.create('Ext.grid.column.Action', {			
 			xtype: 'actioncolumn',
 			header: 'Details',
@@ -377,7 +367,7 @@ for(i = 0; i < json.autoren.length; i++){
 						margin: '0 10 0 10',
 			//bodyPadding: 10,
 						items:[
-						//me.rism,
+						me.rism,
 			             me.prov,
 			             me.sign
 						
@@ -392,7 +382,7 @@ for(i = 0; i < json.autoren.length; i++){
 						
 			//bodyPadding: 10,
 						items:[
-						me.rism,
+						me.titel,						
 						me.pers
 						
 						//me.abs

@@ -13,10 +13,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 		align: 'stretch'
 	},
 	flex:1,
-	
+	sortableColumns: false,
 	title: '<b style="color:gray;">Einnahmen</b>',
-	
-	margin: '0 7 0 120',
+	icon: 'resources/images/MoneyBox-17.png',
+	margin: '0 7 10 120',
 	
 	//xtype: 'array-grid',
 	//rootVisible: false,
@@ -38,30 +38,19 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 		
 		// TODO
 		this.columns =[ 
-		Ext.create('Ext.grid.column.Action', {			
-			xtype: 'actioncolumn',
-			//header: 'Details',
-			flex:0.3,
-			align: 'center',
-			menuDisabled: true,
-			renderer: function (val, metadata, record) {
-			    this.items[0].icon = 'resources/images/MoneyBox-17.png';
-				metadata.style = 'cursor: pointer;';
-				return val;
-			}
-		}),
+		
 		{
 			//xtype: 'treecolumn',
 			text: 'Jahr',
 			flex: 2,
-			sortable: true,
+			menuDisabled: true,
 			dataIndex: 'jahr'
 			
 		},
 		{
 			text: 'Monat',
 			flex: 2,
-			sortable: true,
+			menuDisabled: true,
 			dataIndex: 'monat'
 		},
 		this.detailsColumn

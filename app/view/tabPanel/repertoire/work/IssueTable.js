@@ -13,9 +13,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.IssueTable', {
 		align: 'stretch'
 	},
 	flex:1,
-	
+	sortableColumns: false,
 	title: '<b style="color:gray;">Jährliche Ausgaben</b>',
-	
+	icon: 'resources/images/MoneyTransfer-17.png',
 	margin: '0 10 10 120',
 	
 	//xtype: 'array-grid',
@@ -38,30 +38,19 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.IssueTable', {
 		
 		// TODO
 		this.columns =[ 
-		Ext.create('Ext.grid.column.Action', {			
-			xtype: 'actioncolumn',
-			//header: 'Details',
-			flex:0.3,
-			align: 'center',
-			menuDisabled: true,
-			renderer: function (val, metadata, record) {
-			    this.items[0].icon = 'resources/images/MoneyTransfer-17.png';
-				metadata.style = 'cursor: pointer;';
-				return val;
-			}
-		}),
+		
 		{
 			//xtype: 'treecolumn',
 			text: 'Jahr',
 			flex: 2,
-			sortable: true,
+			menuDisabled: true,
 			dataIndex: 'jahr'
 			
 		},
 		{
 			text: 'Name',
 			flex: 2,
-			sortable: true,
+			menuDisabled: true,
 			dataIndex: 'name'
 		},
 		this.detailsColumn

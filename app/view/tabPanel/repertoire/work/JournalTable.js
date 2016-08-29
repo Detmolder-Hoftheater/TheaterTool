@@ -13,9 +13,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.JournalTable', {
 		align: 'stretch'
 	},
 	flex:1,
-	
+	sortableColumns: false,
 	title: '<b style="color:gray;">Theaterjournal</b>',
-	
+	icon: 'resources/images/Presse-16.png',
 	//xtype: 'array-grid',
 	//rootVisible: false,
 	//store: store ,
@@ -38,23 +38,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.JournalTable', {
 		
 		// TODO
 		this.columns =[ 
-		Ext.create('Ext.grid.column.Action', {			
-			xtype: 'actioncolumn',
-			//header: 'Details',
-			flex:0.3,
-			align: 'center',
-			menuDisabled: true,
-			renderer: function (val, metadata, record) {
-			    this.items[0].icon = 'resources/images/Presse-16.png';
-				metadata.style = 'cursor: pointer;';
-				return val;
-			}
-		}),
+		
 		{
 			//xtype: 'treecolumn',
 			text: 'Jahr',
 			flex: 2,
-			sortable: true,
+			menuDisabled: true,
 			dataIndex: 'jahr'
 			
 		},

@@ -68,6 +68,39 @@ concat(
         string-join($strings,',') 
 };
 
+declare function local:jsonifyInstr($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem//mei:instrumentation//mei:instrVoice
+
+					let $names := local:jsonifyInstrVoice($id)
+ return 
+    if($names != '')then(                     
+$names
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+
+declare function local:jsonifyInstrVoice($id) {
+
+let $strings := for $elem in $id
+
+					let $id_1 :=$elem
+					
+                    return 
+                     if($id_1 != '')then(  
+				concat('"',$id_1, '"'))
+else()
+    return 
+        string-join($strings,',')
+  
+};
+
 
 declare function local:jsonifyWorkTitel($content) {
 
@@ -101,12 +134,95 @@ concat('["',$title, '","', $type, '","', $language,'"]')
 };
 
 
+declare function local:jsonifyHOverview($content) {
+
+let $strings := for $elem in $content
+
+					let $id_1 :=$elem//mei:history/mei:p
+					
+					let $id :=normalize-space($id_1)
+					                  
+                    return 
+                      if($id != '')then(        
+concat(
+							'["',replace($id, '"', '\\"' ),'"]'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyCreation($content) {
+
+let $strings := for $elem in $content
+
+					let $date :=$elem//mei:history/mei:creation/mei:date
+					
+					let $place :=$elem//mei:history/mei:creation/mei:geogName
+					
+					let $data := if($date != '')
+					       then(if($place != '')
+					           then(concat($date, ', ', $place))else($date))
+					       else(if($place != '')then($place)else())
+					                  
+                    return 
+                            
+concat(
+							'["', $data,'"]')
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyEventDetails($events) {
+
+let $strings := for $elem in $events
+
+					let $over :=$elem/mei:p
+					let $date := $elem/mei:date
+					let $geogNamesOrt :=$elem/mei:geogName[@type='venue']
+					let $geogNamesStadt := $elem/mei:geogName[@type='place']
+                   
+                    return 
+                      
+				concat('["',$over, '",', '"',$date, '",', '"',$geogNamesOrt,'",','"',$geogNamesStadt,'"]')
+    return 
+        string-join($strings,',')
+  
+};
+
+
+declare function local:jsonifyEvents($content) {
+
+let $strings := for $elem in $content
+
+					let $events :=$elem//mei:eventList//mei:event
+
+					let $names := local:jsonifyEventDetails($events)
+ return 
+    if($names != '')then(                     
+$names
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+
 
  (
     '{"autoren":[',
         local:jsonifyAutoren($content),
 	'],"sprachen":[',
         local:jsonifySprachen($content),
+    '],"hoverview":[',
+        local:jsonifyHOverview($content),
+    '],"creation":[',
+        local:jsonifyCreation($content),
+    '],"events":[',
+        local:jsonifyEvents($content),
+    '],"instr":[',
+        local:jsonifyInstr($content),
 	'],"workTitel":[',
         local:jsonifyWorkTitel($content),
     ']}'

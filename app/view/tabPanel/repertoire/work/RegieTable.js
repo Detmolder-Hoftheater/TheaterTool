@@ -13,9 +13,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 		align: 'stretch'
 	},
 	flex:1,
-	
+	sortableColumns: false,
 	title: '<b style="color:gray;">Regiebücher</b>',
-	
+	icon: 'resources/images/Crown-17.png',
 	margin: '0 7 10 120',
 	
 	//xtype: 'array-grid',
@@ -37,23 +37,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
 		this.columns =[ 
-		Ext.create('Ext.grid.column.Action', {			
-			xtype: 'actioncolumn',
-			//header: 'Details',
-			flex:0.3,
-			align: 'center',
-			menuDisabled: true,
-			renderer: function (val, metadata, record) {
-			    this.items[0].icon = 'resources/images/Crown-17.png';
-				metadata.style = 'cursor: pointer;';
-				return val;
-			}
-		}),
+		
 		{
 			//xtype: 'treecolumn',
 			text: 'Name',
 			flex: 2,
-			sortable: true,
+			menuDisabled: true,
 			dataIndex: 'name'
 			
 		},

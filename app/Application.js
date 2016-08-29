@@ -120,7 +120,8 @@ Ext.define('TheaterTool.Application', {
 'tabPanel.journal.JournalTabXML',
 'tabPanel.repertoire.incipits.IncipitsTabPanel',
 'tabPanel.repertoire.incipits.IncipitDetailsSection',
-'tabPanel.repertoire.incipits.IncipitDetailsSectionXML'
+'tabPanel.repertoire.incipits.IncipitDetailsSectionXML',
+'tabPanel.repertoire.EventsTable'
 	],
 	models:[
 	'Werk',
@@ -131,7 +132,8 @@ Ext.define('TheaterTool.Application', {
 	'MonthNumber',
 	'Contact',
 	'FieldError',
-	'SourceDetails'
+	'SourceDetails',
+	'Event'
 	],
 	
 	stores:[

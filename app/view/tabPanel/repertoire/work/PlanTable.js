@@ -12,9 +12,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
 		align: 'stretch'
 	},
 	flex:1,
-	
+	sortableColumns: false,
 	title: '<b style="color:gray;">Spielpläne</b>',
-	
+	icon: 'resources/images/Calendar-17.png',
 	//xtype: 'array-grid',
 	//rootVisible: false,
 	//store: store ,
@@ -38,30 +38,19 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
 		
 		
 		this.columns =[ 
-		Ext.create('Ext.grid.column.Action', {			
-			xtype: 'actioncolumn',
-			//header: 'Details',
-			flex:0.3,
-			align: 'center',
-			menuDisabled: true,
-			renderer: function (val, metadata, record) {
-			    this.items[0].icon = 'resources/images/Calendar-17.png';
-				metadata.style = 'cursor: pointer;';
-				return val;
-			}
-		}),
+		
 		{
 			//xtype: 'treecolumn',
 			text: 'Jahr',
 			flex: 2,
-			sortable: true,
+			menuDisabled: true,
 			dataIndex: 'jahr'
 			
 		},
 		{
 			text: 'Monat',
 			flex: 2,
-			sortable: true,
+			menuDisabled: true,
 			dataIndex: 'monat'
 		},
 		this.detailsColumn

@@ -13,9 +13,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RoleTable', {
 		align: 'stretch'
 	},
 	flex:1,
-	
+	sortableColumns: false,
 	title: '<b style="color:gray;">Rollen- & Kostümbücher</b>',
-	
+	icon: 'resources/images/carnival.png',
 	margin: '0 10 10 120',
 	
 	//xtype: 'array-grid',
@@ -38,23 +38,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RoleTable', {
 		
 		// TODO
 		this.columns =[ 
-		Ext.create('Ext.grid.column.Action', {			
-			xtype: 'actioncolumn',
-			//header: 'Details',
-			flex:0.3,
-			align: 'center',
-			menuDisabled: true,
-			renderer: function (val, metadata, record) {
-			    this.items[0].icon = 'resources/images/carnival.png';
-				metadata.style = 'cursor: pointer;';
-				return val;
-			}
-		}),
 		{
 			//xtype: 'treecolumn',
 			text: 'Name',
 			flex: 2,
-			sortable: true,
+			menuDisabled: true,
 			dataIndex: 'name'
 			
 		},
