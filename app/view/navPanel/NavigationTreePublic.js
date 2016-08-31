@@ -709,7 +709,7 @@ this.listeners = {
 				}
 			else if(item.parentNode.data.text === 'Jährliche Ausgaben'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Gesamte Ausgaben</font>',
+						title: '<font style="color:gray;">Jährliche Ausgaben</font>',
 						icon: 'resources/images/MoneyTransfer-17.png'
 					});
 				var issueDetails = new TheaterTool.view.tabPanel.issue.IssuePanelInTab({year: item.data.text});

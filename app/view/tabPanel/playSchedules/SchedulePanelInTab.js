@@ -19,6 +19,9 @@ border: false,
 navButton: null,
 year: null,
 
+monat: null,
+workPanel: null,
+
 	initComponent: function () {
 var me = this;
 
@@ -29,6 +32,7 @@ var app = TheaterTool.getApplication();
 								var store = app.creteStoreForComboMonth();
 			store.getProxy().extraParams.selectedYear = me.year;
 			store.load();
+			
 								navTree.getView().bindStore(store);
 	
 
@@ -42,7 +46,19 @@ me.navButton = me.createCEButton(navTree);
 //show(me.navButton.el);
 
 
+
 navTree.setNavButton(me.navButton);
+
+
+if(me.monat !== null){
+
+me.workPanel = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelDetails({month: me.monat, year:me.year});
+me.items = [
+       me.workPanel
+    ]		
+					me.navButton.setText('<b style="color:gray;">'+me.monat+'</b>');
+					
+}
 
 
  	me.tbar = {

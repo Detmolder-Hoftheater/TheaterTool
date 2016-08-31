@@ -32,7 +32,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RoleTable', {
 
 for(i = 0; i < me.roleList.length; i++){
 			var role = Ext.create('TheaterTool.model.RefData', {
-    			name : me.roleList
+    			name : me.roleList[i]
 			});
 			me.store.add(role);
 			}
@@ -69,8 +69,23 @@ for(i = 0; i < me.roleList.length; i++){
 				
 				metadata.style = 'cursor: pointer;';
 				return val;
-			}
-			//handler: this.changeElementDialog
+			},
+			handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+					console.log(rec);
+					var dbkey = rec.data.name;
+					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+rec.data.name+'</font>',
+						icon: 'resources/images/carnival.png'
+					});
+					var personDetails = new TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab({regieName: dbkey});
+					repertoireTab.add(personDetails);
+
+					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					navTreeGlobal.add(repertoireTab);
+					navTreeGlobal.setActiveTab(repertoireTab);	
+					
+                }
 		});
 		return eColumn;
 	}

@@ -70,8 +70,24 @@ for(i = 0; i < me.regieList.length; i++){
 				
 				metadata.style = 'cursor: pointer;';
 				return val;
-			}
-			//handler: this.changeElementDialog
+			},
+			handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+					console.log(rec);
+					var dbkey = rec.data.name;
+					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+rec.data.name+'</font>',
+						icon: 'resources/images/Crown-17.png'
+					});
+					var personDetails = new TheaterTool.view.tabPanel.regiebooks.RegiePanelInTab({regieName: dbkey});
+					repertoireTab.add(personDetails);
+
+					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					navTreeGlobal.add(repertoireTab);
+					navTreeGlobal.setActiveTab(repertoireTab);	
+
+                }
+          
 		});
 		return eColumn;
 	}

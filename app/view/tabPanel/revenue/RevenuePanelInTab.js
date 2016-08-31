@@ -13,6 +13,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
 border: false,
 navButton: null,
 year: null,
+monat: null,
 
 	initComponent: function () {
 var me = this;
@@ -31,6 +32,16 @@ navTree.setRepertoirePanel(me);
 me.navButton = me.createCEButton(navTree);
 
 navTree.setNavButton(me.navButton);
+
+if(me.monat !== null){
+
+me.workPanel = new TheaterTool.view.tabPanel.revenue.RevenuePanelDetails({month: me.monat, year:me.year});
+me.items = [
+       me.workPanel
+    ]		
+					me.navButton.setText('<b style="color:gray;">'+me.monat+'</b>');
+					
+}
 
  	me.tbar = {
 		/*layout: {

@@ -27,7 +27,24 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 	
 	   me.store = Ext.create('Ext.data.Store', {
 	       model: 'TheaterTool.model.RefData',
-         data:[]
+         data:[],
+         sorters: [{
+        sorterFn: function(o1, o2){
+            var getRank = function(o){
+                var name = o.get('jahr');
+                var numberJahr = parseInt(name);               
+                return numberJahr;
+            },
+            rank1 = getRank(o1),
+            rank2 = getRank(o2);
+
+            if (rank1 === rank2) {
+                return 0;
+            }
+
+            return rank1 < rank2 ? -1 : 1;
+        }
+    }]
         });
 
         for(i = 0; i < me.revenueList.length; i++){
@@ -78,8 +95,23 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 				
 				metadata.style = 'cursor: pointer;';
 				return val;
-			}
-			//handler: this.changeElementDialog
+			},
+			handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+					console.log(rec);
+					var dbkey = rec.data.jahr;
+					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">Einnahmen: '+rec.data.jahr+'</font>',
+						icon: 'resources/images/MoneyBox-17.png'
+					});
+					var personDetails = new TheaterTool.view.tabPanel.revenue.RevenuePanelInTab({year: dbkey, monat: rec.data.monat});
+					repertoireTab.add(personDetails);
+
+					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					navTreeGlobal.add(repertoireTab);
+					navTreeGlobal.setActiveTab(repertoireTab);	
+					
+                }
 		});
 		return eColumn;
 	}

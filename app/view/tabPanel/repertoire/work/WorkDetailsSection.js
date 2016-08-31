@@ -440,7 +440,6 @@ for(i = 0; i < json.autoren.length; i++){
 			right_panel
 			]
 		});
-		console.log(left_panel);
 		me.add(panel_01);
 
 		me.instr.setHeight(150);

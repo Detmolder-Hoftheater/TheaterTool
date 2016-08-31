@@ -32,7 +32,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.IssueTable', {
 
 for(i = 0; i < me.issueList.length; i++){
 			var role = Ext.create('TheaterTool.model.RefData', {
-    			name : me.issueList
+    			name : me.issueList[i]
 			});
 			me.store.add(role);
 			}
@@ -43,14 +43,14 @@ for(i = 0; i < me.issueList.length; i++){
 		
 		{
 			text: 'Jahr',
-			flex: 2,
+			flex: 1,
 			menuDisabled: true,
 			dataIndex: 'jahr'
 			
 		},
 		{
 			text: 'Name',
-			flex: 2,
+			flex: 3,
 			menuDisabled: true,
 			dataIndex: 'name'
 		},
@@ -68,10 +68,9 @@ for(i = 0; i < me.issueList.length; i++){
 			header: headerName,
 			flex:1,
 			align: 'center',
+			disabled: true,
 			menuDisabled: true,
 			renderer: function (val, metadata, record) {
-			
-			console.log(record.data);
 			
 			if(headerName == 'Details'){
 					this.items[0].icon = path;					
@@ -80,7 +79,22 @@ for(i = 0; i < me.issueList.length; i++){
 				metadata.style = 'cursor: pointer;';
 				return val;
 			}
-			//handler: this.changeElementDialog
+			/*handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+					console.log(rec);
+					var dbkey = rec.data.name;
+					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">Jährliche Ausgaben</font>',
+						icon: 'resources/images/MoneyTransfer-17.png'
+					});
+					var personDetails = new TheaterTool.view.tabPanel.issue.IssuePanelInTab({year: dbkey});
+					repertoireTab.add(personDetails);
+
+					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					navTreeGlobal.add(repertoireTab);
+					navTreeGlobal.setActiveTab(repertoireTab);	
+				
+                }*/
 		});
 		return eColumn;
 	}
