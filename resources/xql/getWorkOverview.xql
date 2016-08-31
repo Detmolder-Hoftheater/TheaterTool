@@ -326,12 +326,46 @@ concat('"',$names, '"')
     
 };
 
+declare function local:jsonifyGND($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem//mei:identifier[@type='gnd']
+                   
+                    return 
+                      if($id != '')then(        
+concat(
+							'"',$id,'"'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyWega($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem//mei:identifier[@type='WeGA']
+                   
+                    return 
+                      if($id != '')then(        
+concat(
+							'"',$id,'"'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
 
  (
     '{"autoren":[',
         local:jsonifyAutoren($content),
 	'],"sprachen":[',
         local:jsonifySprachen($content),
+    '],"gnd":[',
+        local:jsonifyGND($content),
+    '],"wega":[',
+        local:jsonifyWega($content),
     '],"hoverview":[',
         local:jsonifyHOverview($content),
     '],"creation":[',

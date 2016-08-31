@@ -78,11 +78,14 @@ createCEButton: function (navTree) {
 			//xtype: 'button',
 			 text: '<b style="color:gray;">Ausgabe<b>',
 		menuAlign: 'tr-bl?',
-						menu:[	
-							navTree
+						menu: Ext.create('Ext.menu.Menu', {
+   closable: true,
+		style: {
+		background: '#dcdcdc'
+			},
+    items: [navTree]
 
-							
-						],
+}),
 		listeners: {
           	afterrender: function() {                       
 			me.navButton.menu.show(); 

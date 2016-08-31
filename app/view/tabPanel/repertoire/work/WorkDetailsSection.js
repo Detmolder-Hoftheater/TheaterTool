@@ -34,25 +34,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
     w_alt_titel: null,
     w_unter_titel: null,
     
-     createComponents: function() {
+   
+     createComponents: function(workPanel) {
 
 	var me = this;
-    
-    /*me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel({sourceID: me.sourceID});*/
-
-	//me.items =[
-		//me.repertoireTab
-	//	];
-
-//me.setTitelValue(me);
-	
-       /* me.callParent();
-        
-        },
-        
-        setTitelValue: function (me) {*/
-
-		//var me = this;
 
 		Ext.Ajax.request({
 				 url: 'resources/xql/getWorkOverview.xql',
@@ -66,15 +51,94 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
 					var json = jQuery.parseJSON(result.responseText);
 					
 					console.log(json);	
-
-		/*var titel_group = Ext.create('Ext.form.FieldSet', {
-			title: '<b style="color:gray;">Titel Varianten</b>',
+					
+					var ext_panel = null;
+					if(json.gnd.length > 0 || json.wega.length > 0){
+					
+					 ext_panel = Ext.create('Ext.panel.Panel', {
+			layout: {
+				type: 'table',
+				columns: 4,
+				tdAttrs: {
+        			valign: 'top'
+   				 },
+   				  tableAttrs: {
+                            style: {
+                                width: '100%'
+                            }
+                        }
+                        
+			},
+			
+			//margin: '0 10 0 10',
+			bodyPadding: 10,
 			bodyBorder: false,
-			collapsible: false,
-			collapsed: false,
+			border: false,
 			items:[]
 		});
-		me.add(titel_group);*/
+					me.add(ext_panel);
+					}
+					
+					if(json.gnd.length > 0){
+					 var   gndId = json.gnd[0];
+					  
+					   var textArea = Ext.create('Ext.form.field.Text', {
+					   colspan: 1,
+			                 name: 'GND ID',
+			                 readOnly: true,
+			                // icon: 'resources/images/carnival.png',
+			             style: {
+				                width: '100%',
+				                //autoWidth: true,
+				        borderLeft: '3px solid #FFFFFF'
+				        
+			         },
+			        
+			             fieldLabel: 'GND ID'
+			             
+		                  });
+		                  textArea.setValue(gndId);
+		                ext_panel.add(textArea);  
+		                ext_panel.add({html: '<img src="resources/images/Door-24.png" style="width:15px;height:16px;">',
+				border: false,
+				colspan: 1,
+				bodyPadding: 3,
+				autoEl: {
+        tag: 'a',
+        href: 'https://portal.dnb.de/opac.htm?method=simpleSearch&query='+gndId,
+		target: "_blank"
+    }
+				
+				});
+		                
+				}
+					if(json.wega.length > 0){
+					    var wegaId = json.wega[0];
+					   
+				var textArea_1 = Ext.create('Ext.form.field.Text', {
+				colspan: 1,
+			                 name: 'WeGA ID',
+			                 readOnly: true,
+			           
+			             style: {
+				                width: '100%',
+				                
+				        borderLeft: '8px solid #FFFFFF'
+			         },
+			        
+			             fieldLabel: 'WeGA ID'
+			             
+		                  });
+		       
+			textArea_1.setValue(wegaId);
+			 ext_panel.add(textArea_1); 
+			/*ext_panel.add({html: '<img src="resources/images/Door-24.png" style="width:15px;height:16px;">',
+				border: false,
+				colspan: 1,
+				bodyPadding: 3
+				
+				});  */
+		}
 		
 		var titel_group = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Titel Varianten</b>',
@@ -84,7 +148,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
 			//margin: '10 0 0 0'
 		});
 		me.add(titel_group);
-		
 		
 		var panel_0 = null;
 		

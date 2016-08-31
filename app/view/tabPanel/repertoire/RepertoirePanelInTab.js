@@ -17,7 +17,6 @@ layout: {
   flex: 1,
 border: false,
 navButton: null,
-
 selection: null,
 
 	initComponent: function () {
@@ -65,42 +64,18 @@ createCEButton: function (navTree) {
 		var ceButton = Ext.create('Ext.button.Button', {
 			//xtype: 'button',
 			 text: '<b style="color:gray;">Werk -> Quelle -> RISM/Facsimile/Incipits</b>',
-		menuAlign: 'tr-bl?',
+	
+	menuAlign: 'tr-bl?',
 margin: '0 0 0 7',
 
-/*style: {
-				background: 'white'
-
-			},*/
-//border:true,
 menu: Ext.create('Ext.menu.Menu', {
-
-
-//title: '<b style="color:gray;">Werk -> Quelle -> RISM/Facsimile/Incipits</b>',
-//collapsed: false,
-//collapsible:true,
-
-    //width: 100,
-
-   // height: 100,
-
-   // margin: '0 0 10 0',
-
-    //floating: false,  // usually you want this set to True (default)
-
-   // renderTo: Ext.getBody(),  // usually rendered by it's containing component
-
+closable: true,
+		style: {
+		background: '#dcdcdc'
+			},
     items: [navTree]
 
 }),
-
-
-
-						/*menu:[	
-							navTree
-
-							
-						],*/
 
 	listeners: {
           afterrender: function() {                       
