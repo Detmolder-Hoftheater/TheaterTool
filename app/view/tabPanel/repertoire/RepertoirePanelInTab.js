@@ -69,7 +69,7 @@ createCEButton: function (navTree) {
 margin: '0 0 0 7',
 
 menu: Ext.create('Ext.menu.Menu', {
-closable: true,
+//closable: true,
 		style: {
 		background: '#dcdcdc'
 			},

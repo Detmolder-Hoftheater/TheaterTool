@@ -154,7 +154,7 @@ createCEButton: function (navTree) {
 menuAlign: 'tr-bl?',
 
 menu: Ext.create('Ext.menu.Menu', {
-   closable: true,
+   //closable: true,
 		style: {
 		background: '#dcdcdc'
 			},
