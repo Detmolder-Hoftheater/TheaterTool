@@ -407,6 +407,80 @@ concat('["',$title, '","', $type, '","', $language,'"]')
  
 };
 
+declare function local:jsonifyHOverview($content) {
+
+let $strings := for $elem in $content
+
+					let $id_1 :=$elem//mei:history[not(ancestor::mei:componentGrp)]/mei:p
+					
+					let $id :=normalize-space($id_1)
+					                  
+                    return 
+                      if($id != '')then(        
+concat(
+							'["',replace($id, '"', '\\"' ),'"]'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyCreation($content) {
+
+let $strings := for $elem in $content
+
+					let $date :=$elem//mei:history[not(ancestor::mei:componentGrp)]/mei:creation/mei:date
+					
+					let $place :=$elem//mei:history[not(ancestor::mei:componentGrp)]/mei:creation/mei:geogName
+					
+					let $data := if($date != '')
+					       then(if($place != '')
+					           then(concat($date, ', ', $place))else($date))
+					       else(if($place != '')then($place)else())
+					                  
+                    return 
+                 if($data != '')then(                  
+concat(
+							'["', $data,'"]'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyEventDetails($events) {
+
+let $strings := for $elem in $events
+
+					let $over :=$elem/mei:p
+					let $date := $elem/mei:date
+					let $geogNamesOrt :=''
+					let $geogNamesStadt := $elem/mei:geogName
+					
+                    return 
+                      
+				concat('["',$over, '",', '"',$date, '",', '"',$geogNamesOrt,'",','"',$geogNamesStadt,'"]')
+    return 
+        string-join($strings,',')
+  
+};
+
+
+declare function local:jsonifyEvents($content) {
+
+let $strings := for $elem in $content
+
+					let $events :=$elem//mei:eventList[not(ancestor::mei:componentGrp)]//mei:event
+
+					let $names := local:jsonifyEventDetails($events)
+ return 
+    if($names != '')then(                     
+$names
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
 
 
  (
@@ -416,10 +490,16 @@ concat('["',$title, '","', $type, '","', $language,'"]')
         local:jsonifyAutoren($content),
 	'],"rism":[',
         local:jsonifyRISM($content),
-	'],"abschriften":[',
-        local:jsonifyAbschriften($content),
+	(:'],"abschriften":[',
+        local:jsonifyAbschriften($content),:)
 	'],"abschriften":[',
         local:jsonifyProvenienzen($content),
+     '],"hoverview":[',
+        local:jsonifyHOverview($content),
+    '],"creation":[',
+        local:jsonifyCreation($content),
+    '],"events":[',
+        local:jsonifyEvents($content),
 	(:'],"sprachen":[',
         local:jsonifySprachen($content),:)
 	'],"bibliotheken":[',

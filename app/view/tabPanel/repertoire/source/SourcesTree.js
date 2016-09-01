@@ -24,7 +24,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
 	
 	selected_node: null,
 source_list: null,*/
-
 xtype: 'tree-grid',
     //bodyPadding:5,
     reserveScrollbar: true,
@@ -84,7 +83,7 @@ if(source_details[0].source_hier.length > 0){
 				's_bemerkungen': source_details[0].s_bemerkungen,
 				'seitenzahl': source_details[0].seitenzahl,
 				'groesse': source_details[0].groesse,
-				//'condition': source_details[0].condition,
+				'condition': source_details[0].condition,
 				'schreiber': source_details[0].schreiber,
 				'sprache': source_details[0].sprache,
 				'entstehung': source_details[0].entstehung,
@@ -109,7 +108,7 @@ source.appendChild({
 				's_bemerkungen': child[0].s_bemerkungen,
 				'seitenzahl': child[0].seitenzahl,
 				'groesse': child[0].groesse,
-				//'condition': child.condition,
+				'condition': child.condition,
 				'schreiber': child[0].schreiber,
 				'sprache': child[0].sprache,
 				'entstehung': child[0].entstehung,

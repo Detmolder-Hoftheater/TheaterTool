@@ -345,14 +345,16 @@ let $strings := for $elem_1 in $s_list
 
 			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
 
-			let $inventarnummer :=$elem_1/mei:identifier[1][@label="Inventarnummer"]
+			let $inventarnummer :=$elem_1/mei:identifier[@label="Inventarnummer"]
 
 			let $desc := $elem_1/mei:physDesc[1]/mei:titlePage			
 			let $titlePages := local:jsonifyTitlePages($desc)
 
 			let $medium := $elem_1/mei:physDesc[1]/mei:physMedium
 
-			let $condition :=$elem_1/mei:physDesc[1]/mei:condition
+			(:let $condition :=$elem_1/mei:physDesc[1]/mei:condition:)
+			 let $condition_space :=normalize-space($elem_1/mei:physDesc[1]/mei:condition)
+            let $condition :=replace($condition_space, '"', '\\"' )
 
 			let $persNames := $elem_1/mei:physDesc[1]/mei:inscription/mei:persName
 			let $inscription := local:jsonifyInscription($persNames)
@@ -374,8 +376,20 @@ let $strings := for $elem_1 in $s_list
 			let $annots := $elem_1/mei:notesStmt[1]/mei:annot
 
 			let $s_bemerkungen := local:jsonifyAnnots($annots)
-					
-                   
+			
+			let $p_list := $elem_1/mei:history/mei:p
+			let $hover := local:jsonifyHOverview($p_list) 
+			
+			let $creat_date := $elem_1/mei:history/creation/mei:date
+			let $creat_place := $elem_1/mei:history/creation/mei:geogName
+			let $creation := if($creat_date != '')
+					       then(if($creat_place != '')
+					           then(concat($creat_date, ', ', $creat_place))else($creat_date))
+					       else(if($creat_place != '')then($creat_place)else())
+				
+			let $event_list := $elem_1/mei:history/mei:eventList/mei:event
+			let $events := local:jsonifyEventDetails($event_list)	
+					                  
 				return 
 
 
@@ -386,15 +400,18 @@ concat('[{',
 '"s_title":','"',$s_title, '",',
 '"signatur":','"',normalize-space($signatur), '",',
 '"titlePages":[',if($titlePages != '')then($titlePages)else(), '],',
+'"hoverview":','"',$hover, '",',
+'"creation":','"',$creation, '",',
+'"events":[',if($events != '')then($events)else(), '],',
 '"medium":','"',$medium, '",',
-(:'"inventarnummer":','"',$inventarnummer, '",',:)
+'"inventarnummer":','"',$inventarnummer, '",',
 '"inscription":[',if($inscription != '')then($inscription)else(), '],',
 '"schreiber":[',if($hand != '')then($hand)else(), '],',
 '"sprache":[',if($language != '')then($language)else(), '],',
 '"inhalt":[',if($inhalt != '')then($inhalt)else(), '],',
 '"seitenzahl":','"',$pages, '",',
 '"groesse":','"',$dimension, '",',
-(:'"condition":','"',$condition, '",',:)
+'"condition":','"',$condition, '",',
 '"s_bemerkungen":[',if($s_bemerkungen != '')then($s_bemerkungen)else(),']',
 '}]'
 (:'"seitenzahl":','"',$pages, '",',
@@ -413,6 +430,40 @@ concat('[{',
 
 };
 
+declare function local:jsonifyHOverview($p_list) {
+
+let $strings := for $elem in $p_list
+
+					let $id_1 :=$elem
+					
+					let $id :=normalize-space($id_1)
+					                  
+                    return 
+                      if($id != '')then(        
+concat(
+							'["',replace($id, '"', '\\"' ),'"]'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyEventDetails($event_list) {
+
+let $strings := for $elem in $event_list
+
+					let $over :=$elem/mei:p
+					let $date := $elem/mei:date
+					let $geogNamesOrt :=''
+					let $geogNamesStadt := $elem/mei:geogName
+					
+                    return 
+                      
+				concat('"',$over, '",', '"',$date, '",', '"',$geogNamesOrt,'",','"',$geogNamesStadt,'"')
+    return 
+        string-join($strings,',')
+  
+};
+
 declare function local:jsonifyContenSource($source_el) {
 
 let $strings := for $elem_1 in $source_el
@@ -428,7 +479,10 @@ let $strings := for $elem_1 in $source_el
 
 			let $medium := $elem_1/mei:physDesc[1]/mei:physMedium
 
-			let $condition :=$elem_1/mei:physDesc[1]/mei:condition
+            let $condition_space :=normalize-space($elem_1/mei:physDesc[1]/mei:condition)
+            let $condition :=replace($condition_space, '"', '\\"' )
+
+			(:let $condition :=$elem_1/mei:physDesc[1]/mei:condition:)
 
 			let $persNames := $elem_1/mei:physDesc[1]/mei:inscription/mei:persName
 			let $inscription := local:jsonifyInscription($persNames)
@@ -453,16 +507,31 @@ let $strings := for $elem_1 in $source_el
 
 			let $s_list := $elem_1/mei:componentGrp/mei:source
 			let $source_hier := local:jsonifySourceHier($s_list)
-					
+			
+			let $p_list := $elem_1/mei:history/mei:p
+			let $hover := local:jsonifyHOverview($p_list) 
+			
+			let $creat_date := $elem_1/mei:history/creation/mei:date
+			let $creat_place := $elem_1/mei:history/creation/mei:geogName
+			let $creation := if($creat_date != '')
+					       then(if($creat_place != '')
+					           then(concat($creat_date, ', ', $creat_place))else($creat_date))
+					       else(if($creat_place != '')then($creat_place)else())
+				
+			let $event_list := $elem_1/mei:history/mei:eventList/mei:event
+			let $events := local:jsonifyEventDetails($event_list)	
                    
 				return 
 
 concat(
 (:'"s_title":[',if($s_title != '')then($s_title)else(), '],',:)
 '"s_title":','"',$s_title, '",',
-(:'"inventarnummer":','"',$inventarnummer, '",',:)
+'"inventarnummer":','"',$inventarnummer, '",',
 '"signatur":','"',normalize-space($signatur), '",',
 '"titlePages":[',if($titlePages != '')then($titlePages)else(), '],',
+'"hoverview":','"',$hover, '",',
+'"creation":','"',$creation, '",',
+'"events":[',if($events != '')then($events)else(), '],',
 '"medium":','"',$medium, '",',
 '"source_hier":[',if($source_hier != '')then(concat('{"sources_1":[',$source_hier,']}'))else(), '],',
 '"inscription":[',if($inscription != '')then($inscription)else(), '],',
@@ -470,7 +539,7 @@ concat(
 '"sprache":[',if($language != '')then($language)else(), '],',
 '"seitenzahl":','"',$pages, '",',
 '"groesse":','"',$dimension, '",',
-(:'"condition":','"',$condition, '",',:)
+'"condition":','"',$condition, '",',
 '"inhalt":[',if($inhalt != '')then($inhalt)else(), '],',
 '"s_bemerkungen":[',if($s_bemerkungen != '')then($s_bemerkungen)else(), 
 ']'

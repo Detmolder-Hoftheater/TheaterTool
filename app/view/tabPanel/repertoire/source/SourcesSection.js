@@ -327,7 +327,7 @@ if(typeof selectedSource[0].data.s_bemerkungen !== 'undefined'){
 	}
 	this.annot.setValue(bem);
 }
-	//this.zustand.setValue(selectedSource[0].data.condition);
+	this.zustand.setValue(selectedSource[0].data.condition);
 
 if(typeof selectedSource[0].data.schreiber !== 'undefined'){
 	var schr = '';

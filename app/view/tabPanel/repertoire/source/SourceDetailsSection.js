@@ -442,10 +442,19 @@ for(i = 0; i < json.autoren.length; i++){
 		me.add(info_group);
 		
 		me.abs = me.createTextField('Entstehung');
+		if(typeof json.creation !== 'undefined'){
+	       me.abs.setValue(json.creation);
+	       
+        }
 		
 		me.overview = me.createTextArea('Beschreibung');
+		if(typeof json.hoverview !== 'undefined'){
+	       me.overview.setValue(json.hoverview);
+	       
+        }
 		
-		me.annot = me.createTextArea('Aufführungen');
+		me.annot = new TheaterTool.view.tabPanel.repertoire.EventsTable({eventList: json.events});
+		//me.createTextArea('Aufführungen');
 		var annot_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
 			//bodyPadding: 10,
