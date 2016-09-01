@@ -63,6 +63,7 @@ this.detailSection_xml
 };
 
 this.detailSection.setTitelValue();
+this.sourcesSection.createContent();
 
 /*this.on({
     delegate: 'tab',

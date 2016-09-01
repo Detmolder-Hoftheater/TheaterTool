@@ -5,12 +5,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
     extend: 'Ext.panel.Panel',
    
     title: '<b style="color:gray;">Übersicht</b>',
-/*border: true,
-	flex:1,
-//bodyBorder: true,
-bodyPadding:10,
-autoScroll: true,*/
-
 
 layout: {
 		type: 'vbox',
@@ -45,22 +39,6 @@ flex:1,
 
 	var me = this;
     
-    /*me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel({sourceID: me.sourceID});*/
-
-	//me.items =[
-		//me.repertoireTab
-	//	];
-
-//me.setTitelValue(me);
-	
-       /* me.callParent();
-        
-        },
-        
-        setTitelValue: function (me) {*/
-
-		//var me = this;
-
 		Ext.Ajax.request({
 				 url: 'resources/xql/getSource.xql',
 				async: false,
@@ -197,32 +175,49 @@ flex:1,
 			margin: '10 0 0 0'
 		});
 		me.add(info_group);
-
-		me.rism = me.createTextField('RISM ID');
-		me.rism.setValue(json.rism[0]);
-		/*var headpanel_1 = Ext.create('Ext.panel.Panel', {
-			
+	
+		me.rism = me.createTextField('RISM ID'+
+		'<img src="resources/images/Info.png"  title="Répertoire International des Sources Musicales" style="float:right;width:13px;height:13px;">');
+		var rismValue = json.rism[0]
+		me.rism.setValue(rismValue);
+		
+		 var ext_panel = Ext.create('Ext.panel.Panel', {
 			layout: {
 				type: 'table',
 				columns: 2,
-			tdAttrs: {
+				tdAttrs: {
         			valign: 'top'
-   				 }
+   				 },
+   				  tableAttrs: {
+                            style: {
+                                width: '100%'
+                            }
+                        }
+                        
 			},
-			/\*defaults: {
-                bodyStyle: 'padding:10px'
-            },*\/
-			autoScroll: true,
+			
+			//margin: '0 10 0 10',
+			//bodyPadding: 10,
+			bodyBorder: false,
 			border: false,
-			//height: 300,
-			bodyPadding: 10,
-			items:[
-			me.titel,			
-			me.rism]
+			items:[]
 		});
+		//me.add(ext_panel);
+		ext_panel.add(me.rism);
 		
-		me.add(headpanel_1);*/
-
+		ext_panel.add({html: '<img src="resources/images/Link.png" style="width:17px;height:18px;">',
+				border: false,
+				colspan: 1,
+				bodyPadding: 3,
+				autoEl: {
+        tag: 'a',
+        href: 'https://opac.rism.info/metaopac/search.do?methodToCall=submitButtonCall&CSId=17066N81S904617bda45e83d2599e1970de7ae20da9635235&methodToCallParameter=submitSearch&refine=false&View=rism&searchCategories%5B0%5D=-1&speedy=on&searchString%5B0%5D='+rismValue+'&submitButtonCall_submitSearch=Suchen',
+		target: "_blank"
+    }
+				
+				});
+		
+		
 me.sign = me.createTextArea('Bibliotheken');
 		var bibText = '';
 		for(i = 0; i < json.bibliotheken.length; i++){
@@ -367,7 +362,8 @@ for(i = 0; i < json.autoren.length; i++){
 						margin: '0 10 0 10',
 			//bodyPadding: 10,
 						items:[
-						me.rism,
+						ext_panel,
+						//me.rism,
 			             me.prov,
 			             me.sign
 						
@@ -499,9 +495,8 @@ for(i = 0; i < json.autoren.length; i++){
 	createTextField: function (fieldName) {
 		var me = this;
 		var textArea = Ext.create('Ext.form.field.Text', {
-			name: fieldName,
+			//name: fieldName,
 			readOnly: true,
-			
 			style: {
 				width: '100%',
 				//autoWidth: true,

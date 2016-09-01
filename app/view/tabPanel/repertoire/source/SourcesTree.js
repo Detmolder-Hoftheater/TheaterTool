@@ -26,11 +26,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
 source_list: null,*/
 
 xtype: 'tree-grid',
-    
+    //bodyPadding:5,
     reserveScrollbar: true,
     
     //title: 'Core Team Projects',
 flex:1,
+style: {
+				borderRight: '5px solid #f4f4f4'
+			},
+border: false,			
 autoScroll: true,
     height: 100,
     useArrows: true,
@@ -39,6 +43,9 @@ autoScroll: true,
    // singleExpand: true,
 store: null,
 
+sortableColumns: false,
+    columnLines: true,
+rowLines: true,
 selected_node: null,
 source_list: null,
 tablePanel: null,
@@ -141,11 +148,12 @@ me.columns = [{
                 xtype: 'treecolumn', //this is so we know which column will show the tree
                 text: 'Titel',
                 flex: 2,
-                
+                menuDisabled: true,
                 dataIndex: 'titel'
             },{
                 text: 'Signatur',
-                flex: 1,
+                flex: 1.2,
+                menuDisabled: true,
                 dataIndex: 'signatur'
                 
             }/*,{
