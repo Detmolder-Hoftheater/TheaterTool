@@ -345,7 +345,7 @@ let $strings := for $elem_1 in $s_list
 
 			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
 
-			let $inventarnummer :=$elem_1/mei:identifier[@label="Inventarnummer"]
+			let $inventarnummer :=normalize-space($elem_1/mei:identifier[@label="Inventarnummer"])
 
 			let $desc := $elem_1/mei:physDesc[1]/mei:titlePage			
 			let $titlePages := local:jsonifyTitlePages($desc)
@@ -458,7 +458,7 @@ let $strings := for $elem in $event_list
 					
                     return 
                       
-				concat('"',$over, '",', '"',$date, '",', '"',$geogNamesOrt,'",','"',$geogNamesStadt,'"')
+				concat('["',$over, '",', '"',$date, '",', '"',$geogNamesOrt,'",','"',$geogNamesStadt,'"]')
     return 
         string-join($strings,',')
   
@@ -472,7 +472,7 @@ let $strings := for $elem_1 in $source_el
 
 			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
 
-			let $inventarnummer :=$elem_1/mei:identifier[@label="Inventarnummer"]
+			let $inventarnummer :=normalize-space($elem_1/mei:identifier[@label="Inventarnummer"])
 
 			let $desc := $elem_1/mei:physDesc[1]/mei:titlePage			
 			let $titlePages := local:jsonifyTitlePages($desc)

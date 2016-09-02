@@ -120,7 +120,8 @@ autoScroll: true,
 		hist_panel.add(me.abs);
 		me.overview = me.createTextArea('Beschreibung');
         hist_panel.add(me.overview);
-		me.sign = me.createTextArea('Aufführungen');
+		me.sign = new TheaterTool.view.tabPanel.repertoire.EventsTable({eventList: json.events});
+		//me.createTextArea('Aufführungen');
 		hist_panel.add(me.sign);
 	
         var phys_group = Ext.create('Ext.form.FieldSet', {
@@ -347,17 +348,8 @@ if(typeof selectedSource[0].data.sprache !== 'undefined'){
 	this.language.setValue(spr);
 }
 
-/*if(typeof selectedSource[0].data.inscription !== 'undefined'){
-	var pers = '';
-	for(i = 0; i < selectedSource[0].data.inscription.length; i++){
-	  pers += selectedSource[0].data.inscription[i]+'\n'
-
-	}
-	this.personen.setValue(pers);
-}*/
 
 this.persStore.removeAll();
-
 if(typeof selectedSource[0].data.inscription !== 'undefined'){
 for(i = 0; i < selectedSource[0].data.inscription.length; i++){
 			var autor = selectedSource[0].data.inscription[i];
@@ -374,6 +366,24 @@ this.w_ein_titel.setValue(selectedSource[0].data.seitenzahl);
 this.w_titel.setValue(selectedSource[0].data.groesse);
 this.inventar.setValue(selectedSource[0].data.inventarnummer);
 
+this.abs.setValue(selectedSource[0].data.creation);
+this.overview.setValue(selectedSource[0].data.hoverview);
+
+var eventStore = this.sign.getEventStore();
+eventStore.removeAll();
+if(typeof selectedSource[0].data.events !== 'undefined'){
+for(i = 0; i < selectedSource[0].data.events.length; i++){
+			var eventObj = selectedSource[0].data.events[i];
+			var event = Ext.create('TheaterTool.model.Event', {
+    			event : eventObj[0],
+    			datum  : eventObj[1],
+    			ort: eventObj[2],
+    			stadt: eventObj[3]
+			});
+			eventStore.add(event);
+			}
+			
+		}		
 
 }
 

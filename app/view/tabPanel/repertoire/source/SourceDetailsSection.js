@@ -211,7 +211,7 @@ flex:1,
 				bodyPadding: 3,
 				autoEl: {
         tag: 'a',
-        href: 'https://opac.rism.info/metaopac/search.do?methodToCall=submitButtonCall&CSId=17066N81S904617bda45e83d2599e1970de7ae20da9635235&methodToCallParameter=submitSearch&refine=false&View=rism&searchCategories%5B0%5D=-1&speedy=on&searchString%5B0%5D='+rismValue+'&submitButtonCall_submitSearch=Suchen',
+        href: 'https://opac.rism.info/metaopac/start.do?View=rism&Language=en&searchString[0]='+rismValue,
 		target: "_blank"
     }
 				

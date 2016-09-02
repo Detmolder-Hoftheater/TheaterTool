@@ -87,7 +87,9 @@ if(source_details[0].source_hier.length > 0){
 				'schreiber': source_details[0].schreiber,
 				'sprache': source_details[0].sprache,
 				'entstehung': source_details[0].entstehung,
-				'auffuehrungen': source_details[0].auffuehrungen,
+				'events': source_details[0].events,
+				'hoverview': source_details[0].hoverview,
+				'creation': source_details[0].creation,
 				'inhalt': source_details[0].inhalt,
 				leaf: isLeaf 
 			});
@@ -112,7 +114,9 @@ source.appendChild({
 				'schreiber': child[0].schreiber,
 				'sprache': child[0].sprache,
 				'entstehung': child[0].entstehung,
-				'auffuehrungen': child[0].auffuehrungen,
+				'events': source_details[0].events,
+				'hoverview': source_details[0].hoverview,
+				'creation': source_details[0].creation,
 				'inhalt': child[0].inhalt,
 				leaf: true 
 				});

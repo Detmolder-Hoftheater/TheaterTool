@@ -31,6 +31,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.EventsTable', {
     data:[]
 });
 
+if(typeof me.eventList !== 'undefined'){
 for(i = 0; i < me.eventList.length; i++){
 			var eventObj = me.eventList[i];
 			var event = Ext.create('TheaterTool.model.Event', {
@@ -40,6 +41,7 @@ for(i = 0; i < me.eventList.length; i++){
     			stadt: eventObj[3]
 			});
 			me.store.add(event);
+			}
 			}
 	
 		this.columns =[ 
@@ -71,6 +73,10 @@ for(i = 0; i < me.eventList.length; i++){
 		];
 		
 		this.callParent();
+	},
+	
+	getEventStore: function(){
+	    return this.store;
 	}
 	
 
