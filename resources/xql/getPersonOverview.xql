@@ -68,13 +68,13 @@ concat(
         string-join($strings,',') 
 };
 
-declare function local:jsonifyInstr($content) {
+declare function local:jsonifySummary($content) {
 
 let $strings := for $elem in $content
 
-					let $id :=$elem//mei:instrumentation//mei:instrVoice
-
-					let $names := local:jsonifyInstrVoice($id)
+					let $id :=$elem//tei:note//tei:list//tei:item
+					
+					let $names := local:jsonifyNotes($id)
  return 
     if($names != '')then(                     
 $names
@@ -86,15 +86,30 @@ $names
 };
 
 
-declare function local:jsonifyInstrVoice($id) {
+declare function local:jsonifyNotes($id) {
 
 let $strings := for $elem in $id
 
-					let $id_1 :=$elem
+					let $id_1 :=normalize-space($elem)
 					
                     return 
                      if($id_1 != '')then(  
-				concat('"',$id_1, '"'))
+				concat('"',replace($id_1, '"', '\\"' ), '"'))
+else()
+    return 
+        string-join($strings,',')
+  
+};
+
+declare function local:jsonifySummaryText($content) {
+
+let $strings := for $elem in $content
+
+					let $id_1 :=normalize-space($elem//tei:note)
+					
+                    return 
+                     if($id_1 != '')then(  
+				concat('"',replace($id_1, '"', '\\"' ), '"'))
 else()
     return 
         string-join($strings,',')
@@ -430,8 +445,10 @@ concat(
         local:jsonifyDeath($content),
     '],"events":[',
         local:jsonifyEvents($content),
-    '],"instr":[',
-        local:jsonifyInstr($content),
+     '],"summaryText":[',
+        local:jsonifySummaryText($content),
+   (: '],"summary":[',
+        local:jsonifySummary($content),:)
      '],"roleRef":[',
         local:jsonifyRoleReferences($workID),
      '],"scheduleRef":[',

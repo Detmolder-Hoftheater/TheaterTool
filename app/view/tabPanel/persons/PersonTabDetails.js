@@ -179,7 +179,7 @@ Ext.Ajax.request({
         }
         
        
-        var left_panel_1 = Ext.create('Ext.panel.Panel', {
+        var left_panel = Ext.create('Ext.panel.Panel', {
 						layout: {
 				type: 'table',
 				columns: 2,
@@ -188,12 +188,12 @@ Ext.Ajax.request({
    				 },
    				  tableAttrs: {
                             style: {
-                                width: '100%'
+                                width: '50%'
                             }
                         }
                         
 			},
-			margin: '0 0 0 85',
+			margin: '10 0 0 80',
 			//bodyPadding: 10,
 			bodyBorder: false,
 			border: false,
@@ -221,41 +221,64 @@ Ext.Ajax.request({
 					
 	   // var occupationTable = new TheaterTool.view.tabPanel.persons.OccupationTable({eventList: json.occupation});
 					
-		var left_panel = Ext.create('Ext.panel.Panel', {
+		/*var left_panel = Ext.create('Ext.panel.Panel', {
 						border: false,
 						margin: '10 0 0 0',
 						items:[
                             left_panel_1
                             //occupationTable
 						]
-					});
+					});*/
 		
 		var summary = me.createTextArea('Zusammenfassung');
+		
+		var notes = '';
+		if(typeof json.summaryText !== 'undefined'){
+	       notes = json.summaryText[0];
+	       
+	       
+        }
+		/*if(typeof json.summary[0] !== 'undefined'){
+		  if(notes !== ''){
+		      notes += '\n\n'+json.summary[0];
+		  }
+		  else{
+		      notes = json.summary[0];
+		  }
+	       for(i = 1; i < json.summary.length; i++){
+	           notes += '\n\n'+json.summary[i];
+
+	       }
+        }*/
+        if(notes !== ''){
+            summary.setValue(notes);
+            summary.setHeight(150);
+        }
 		/*if(typeof json.death !== 'undefined'){
 		     death.setValue(json.death[0]);       
         }*/
         
         // var residenceTable = new TheaterTool.view.tabPanel.persons.ResidenceTable({eventList: json.residence});
 		
-		var right_panel = Ext.create('Ext.panel.Panel', {
+		/*var right_panel = Ext.create('Ext.panel.Panel', {
 						border: false,
 						margin: '10 10 0 10',
 						items:[
                             summary	
                             //residenceTable
 						]
-					});
+					});*/
 					       
-        var lifeData_panel = Ext.create('Ext.panel.Panel', {
+       /* var lifeData_panel = Ext.create('Ext.panel.Panel', {
 			layout: {
 				type: 'table',
-				columns: 2,
+				columns: 1,
 				tdAttrs: {
         			valign: 'top'
    				 },
    				  tableAttrs: {
                             style: {
-                                width: '100%'
+                                width: '50%'
                             }
                         }
                         
@@ -264,14 +287,12 @@ Ext.Ajax.request({
 			bodyBorder: false,
 			border: false,
 			items:[
-			 left_panel,
-			 right_panel
+			 left_panel
 			]
-		});
-		me.add(lifeData_panel);
+		});*/
+		me.add(left_panel);
 		
-		
-
+		me.add(summary);
 /*var persStore = Ext.create('Ext.data.Store', {
 	model: 'TheaterTool.model.Person',
     data:[]
@@ -489,7 +510,7 @@ for(i = 0; i < json.autoren.length; i++){
 		*/
 		
 		var ext_panel = null;
-					if(json.gnd.length > 0 || json.wega.length > 0 || json.viaf.length > 0){
+					if(json.gnd[0].length > 0 || json.wega.length > 0 || json.viaf.length > 0){
 		var extGroup = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Referenzen extern</b>',
 			bodyBorder: false,

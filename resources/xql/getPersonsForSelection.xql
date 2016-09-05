@@ -25,6 +25,7 @@ let $strings := for $elem in $fileNames
 		(:let $path1 := concat($path, $elem, '.xml')
 		let $file1 := doc($path1):)
 		let $fileName :=  $elem//tei:persName[1][@type="reg"]/tei:surname[1]
+		
 		let $subName := substring($fileName, 1,1)
 		let $fileName1 := if(contains($selection, $subName))
 			then($fileName)
@@ -33,11 +34,16 @@ let $strings := for $elem in $fileNames
 let $personId := if($fileName1 != '')
 			then($elem/@xml:id)
 			else()
+			
+	let $foreName := 	if($fileName1 != '')
+			then($elem//tei:persName[1][@type="reg"]/tei:forename[1])
+			else()	
 
                     return 
       if($fileName1 != '')then(                
  concat('["',$fileName1,'",',
-							'"',$personId,'"',						
+							'"',$personId,'",',	
+							'"',$foreName,'"',
                             ']'))
 else ()
     return 

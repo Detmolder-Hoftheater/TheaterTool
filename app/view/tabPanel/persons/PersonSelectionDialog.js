@@ -1,6 +1,6 @@
 Ext.define('TheaterTool.view.tabPanel.persons.PersonSelectionDialog', {
 	extend: 'Ext.window.Window',
-	title: '<b style="color:#A87678;">Personen Selection</b>',
+	title: '<b style="color:#A87678;">Personen Auswahl</b>',
 
 	selection: null,
 	tabPanel: null,
@@ -9,7 +9,8 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonSelectionDialog', {
 
 	modal: true,
 	border: false,
-	width: 200,
+	width: 400,
+	height: 500,
 	//flex: 1,
 //layout: 'vbox',
 	autoScroll: true,
@@ -59,27 +60,44 @@ var rootNode = me.persStore.getRootNode();
 		for(i = 0; i < persons_list.length; i++){
 			var person_details = persons_list[i];
 				rootNode.appendChild({
-					"text": person_details[0],
+					"name": person_details[0],
  				'icon': 'resources/images/Mask-19.png',
 				"persId": person_details[1],
+				"forename": person_details[2],
 				leaf: true 
 				});
 
 
 }
-me.persStore.sort('text');
+me.persStore.sort('name');
 
 me.personen =Ext.create('Ext.tree.Panel', {
     store: me.persStore,
 	reserveScrollbar: true,
 	useArrows: true,
 	rootVisible: false,
+	sortableColumns: false,
+    columnLines: true,
+rowLines: true,
 autoScroll: true,
-    height: 300,
-	items: [
+    //height: 300,
+    flex:1,
+	columns: [
             {
-                title: 'Personen',
-                useArrows: true
+            xtype: 'treecolumn', //this is so we know which column will show the tree
+                text: 'Nachname',
+                flex: 2,
+                menuDisabled: true,
+                dataIndex: 'name'
+               /* title: 'Personen',
+                useArrows: true*/
+            },
+            {
+                text: 'Vorname',
+                flex: 2,
+                menuDisabled: true,
+                dataIndex: 'forename'
+                
             }
         ]
 //flex:1
@@ -96,7 +114,7 @@ autoScroll: true,
 			handler: function () {
 				var personSelected = me.personen.getSelectionModel().getSelection()[0];
 				var selectedId = personSelected.data.persId;
-				var selectedName = personSelected.data.text;
+				var selectedName = personSelected.data.name + ', '+personSelected.data.forename;
 				var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+selectedName+'</font>',
 						icon: 'resources/images/Mask-19.png'
