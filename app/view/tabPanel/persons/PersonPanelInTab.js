@@ -1,10 +1,10 @@
 Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
 	extend: 'Ext.tab.Panel',
 
-	border: true,
+	border: false,
 
 	flex:1,
-	bodyPadding:3,
+	//bodyPadding:3,
 
 	dbkey: null, 
 	
@@ -14,7 +14,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
 	initComponent: function () {
 
 		
-	this.section_details = new TheaterTool.view.tabPanel.persons.PersonTabDetails({sourceID: this.sourceID});
+	this.section_details = new TheaterTool.view.tabPanel.persons.PersonTabDetails({dbkey: this.dbkey});
 
 	//this.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({sourceID: this.sourceID});
 
@@ -26,7 +26,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
 		this.section_xml
 			
 			
-    ]
+    ];
+    
+    this.section_details.createContent();
 
     	this.callParent();
 	}

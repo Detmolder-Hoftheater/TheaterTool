@@ -1,0 +1,451 @@
+xquery version "3.0";
+
+
+declare namespace request="http://exist-db.org/xquery/request";
+declare namespace mei="http://www.music-encoding.org/ns/mei";
+declare namespace tei="http://www.tei-c.org/ns/1.0";
+declare namespace xmldb="http://exist-db.org/xquery/xmldb";
+declare namespace system="http://exist-db.org/xquery/system";
+declare namespace transform="http://exist-db.org/xquery/transform";
+
+declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";
+
+
+declare variable $workID := request:get-parameter('dbkey', '');
+declare variable $uri := concat('/db/apps/theater-data/persons/', $workID, '.xml');
+declare variable $file := doc($uri);
+declare variable $content := $file//tei:person;
+
+
+declare function local:jsonifyRoles($id) {
+
+let $strings := for $elem in $id
+
+					let $id_1 :=$elem
+					let $role := $elem/@role
+					let $dbkey :=$elem/@dbkey
+                   
+                    return 
+                     if($id_1 != '')then(  
+				concat('["',$id_1, '",', '"',$role, '",', '"',$dbkey,'"]'))
+else()
+    return 
+        string-join($strings,',')
+  
+};
+
+
+declare function local:jsonifyAutoren($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem//mei:persName
+
+					let $names := local:jsonifyRoles($id)
+ return 
+    if($names != '')then(                     
+$names
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+
+declare function local:jsonifyGender($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem//tei:sex
+                   
+                    return 
+                      if($id != '')then(        
+concat(
+							'"',$id,'"'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyInstr($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem//mei:instrumentation//mei:instrVoice
+
+					let $names := local:jsonifyInstrVoice($id)
+ return 
+    if($names != '')then(                     
+$names
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+
+declare function local:jsonifyInstrVoice($id) {
+
+let $strings := for $elem in $id
+
+					let $id_1 :=$elem
+					
+                    return 
+                     if($id_1 != '')then(  
+				concat('"',$id_1, '"'))
+else()
+    return 
+        string-join($strings,',')
+  
+};
+
+
+declare function local:jsonifyWorkTitel($content) {
+
+let $strings := for $elem in $content
+
+	let $titles := $elem//mei:titleStmt[1]/mei:title
+	let $content_title := local:jsonifyTitleInformation($titles)
+	
+                    return 
+if($content_title != '')then($content_title)else()
+
+    return 
+        string-join($strings,',')
+ 
+};
+
+
+declare function local:jsonifyTitleInformation($titles) {
+
+let $strings := for $elem in $titles
+
+	let $title := normalize-space($elem)
+	let $type := $elem/@type
+	let $language := $elem/@xml:lang
+	
+                    return 
+concat('["',$title, '","', $type, '","', $language,'"]')
+    return 
+        string-join($strings,',')
+ 
+};
+
+
+declare function local:jsonifyHOverview($content) {
+
+let $strings := for $elem in $content
+
+					let $id_1 :=$elem//mei:history/mei:p
+					
+					let $id :=normalize-space($id_1)
+					                  
+                    return 
+                      if($id != '')then(        
+concat(
+							'["',replace($id, '"', '\\"' ),'"]'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyBirth($content) {
+
+let $strings := for $elem in $content
+
+					let $date :=$elem//tei:birth/tei:date/@when
+					
+					let $place :=$elem//tei:birth/tei:placeName/tei:settlement
+					
+					let $data := if($date != '')
+					       then(if($place != '')
+					           then(concat($date, ', ', $place))else($date))
+					       else(if($place != '')then($place)else())
+					                  
+                    return 
+                            
+concat(
+							'["', $data,'"]')
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyDeath($content) {
+
+let $strings := for $elem in $content
+
+					let $date :=$elem//tei:death/tei:date/@when
+					
+					let $place :=$elem//tei:death/tei:placeName/tei:settlement
+					
+					let $data := if($date != '')
+					       then(if($place != '')
+					           then(concat($date, ', ', $place))else($date))
+					       else(if($place != '')then($place)else())
+					                  
+                    return 
+                            
+concat(
+							'["', $data,'"]')
+    
+    return 
+        string-join($strings,',') 
+};
+
+
+declare function local:jsonifyEventDetails($events) {
+
+let $strings := for $elem in $events
+
+					let $over :=$elem/mei:p
+					let $date := $elem/mei:date
+					let $geogNamesOrt :=$elem/mei:geogName[@type='venue']
+					let $geogNamesStadt := $elem/mei:geogName[@type='place']
+                   
+                    return 
+                      
+				concat('["',$over, '",', '"',$date, '",', '"',$geogNamesOrt,'",','"',$geogNamesStadt,'"]')
+    return 
+        string-join($strings,',')
+  
+};
+
+
+declare function local:jsonifyEvents($content) {
+
+let $strings := for $elem in $content
+
+					let $events :=$elem//mei:eventList//mei:event
+
+					let $names := local:jsonifyEventDetails($events)
+ return 
+    if($names != '')then(                     
+$names
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyRoleReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/rollen_kostuem/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+(:if($rolefiles//tei:TEI//tei:rs[@key=$workID])then($rolefiles//tei:TEI)else():)
+(:let $rolefileTest := if($rolefile[@key=$workID != ''])then($rolefile)else():)
+(:let $refData := local:jsonifyRefDataRoles($rolefile):)
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyScheduleReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/einnahmen/'
+let $rolefiles := collection($rolepath)
+let $rolefile := if($rolefiles//tei:profileDesc//tei:keywords/tei:term['Spielplan'])then($rolefiles//tei:TEI)else()
+(:$rolefiles//tei:TEI:)
+(:if($rolefiles//tei:TEI//tei:rs[@key=$workID])then($rolefiles//tei:TEI)else():)
+(:let $rolefileTest := if($rolefile[@key=$workID != ''])then($rolefile)else():)
+(:let $refData := local:jsonifyRefDataRoles($rolefile):)
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title/tei:date)else()
+		(:let $dates := if($names != '')then(tokenize($names, " "))else()
+		let $datum := if($dates != '')then($dates[0])else()
+		let $jahr := if($dates != '')then($dates[1])else():)
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyRevenueReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/einnahmen/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title/tei:date)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyJournalReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/theaterjournal/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title/tei:date)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyRegieReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyIssueReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/ausgaben/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyGNDList($id) {
+
+let $strings := for $elem in $id
+
+					let $id :=$elem
+                   
+                    return 
+                      if($id != '')then(        
+concat(
+							'"',$id,'"'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyGND($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem//tei:idno[@type='gnd']
+					
+					let $gndList := local:jsonifyGNDList($id)
+                   
+                    return 
+                        
+concat('[',$gndList,']')
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyWega($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem//tei:idno[@type='wega']
+                   
+                    return 
+                      if($id != '')then(        
+concat(
+							'"',$id,'"'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyVIAF($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem//tei:idno[@type='viaf']
+                   
+                    return 
+                      if($id != '')then(        
+concat(
+							'"',$id,'"'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+
+ (
+    '{"autoren":[',
+        local:jsonifyAutoren($content),
+	'],"geschlecht":[',
+        local:jsonifyGender($content),
+    '],"gnd":[',
+        local:jsonifyGND($content),
+    '],"wega":[',
+         local:jsonifyWega($content),
+    '],"viaf":[',
+        local:jsonifyVIAF($content),
+    '],"hoverview":[',
+        local:jsonifyHOverview($content),
+    '],"birth":[',
+        local:jsonifyBirth($content),
+     '],"death":[',
+        local:jsonifyDeath($content),
+    '],"events":[',
+        local:jsonifyEvents($content),
+    '],"instr":[',
+        local:jsonifyInstr($content),
+     '],"roleRef":[',
+        local:jsonifyRoleReferences($workID),
+     '],"scheduleRef":[',
+        local:jsonifyScheduleReferences($workID),
+      '],"revenueRef":[',
+        local:jsonifyRevenueReferences($workID), 
+     '],"journalRef":[',
+        local:jsonifyJournalReferences($workID), 
+     '],"regieRef":[',
+        local:jsonifyRegieReferences($workID), 
+     '],"issueRef":[',
+        local:jsonifyIssueReferences($workID), 
+	'],"workTitel":[',
+        local:jsonifyWorkTitel($content),
+    ']}'
+
+)

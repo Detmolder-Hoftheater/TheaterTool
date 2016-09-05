@@ -539,7 +539,7 @@ this.listeners = {
 				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
 				repertoireTab.add(repertoireDetails);		
 				}
-				else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'A-B-C'){					
+				else if(item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'A-B-C'){					
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">A-B-C</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -548,7 +548,7 @@ this.listeners = {
 				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 1});
 				repertoireTab.add(repertoireDetails);		
 				}
-			else  if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'D-E-F'){
+			else  if(item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'D-E-F'){
 				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">D-E-F</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -557,7 +557,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 				
 				}
-			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'G-H-I'){
+			else if(item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'G-H-I'){
 				repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">G-H-I</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -566,7 +566,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 				
 				}
-			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'J-K-L'){
+			else if(item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'J-K-L'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">J-K-L</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -575,7 +575,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 				
 				}
-			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'M-N-O'){
+			else if(item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'M-N-O'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">M-N-O</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -584,7 +584,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 				
 				}
-			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'P-Q-R'){
+			else if(item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'P-Q-R'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">P-Q-R</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -593,7 +593,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 			
 				}
-			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'S-T-U'){
+			else if(item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'S-T-U'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">S-T-U</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -602,7 +602,7 @@ this.listeners = {
 				repertoireTab.add(repertoireDetails);
 				
 				}
-			else if(item.parentNode.data.text === 'Repertoire' && item.data.text === 'V-W-X-Y-Z'){
+			else if(item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'V-W-X-Y-Z'){
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">V-W-X-Y-Z</font>',
 						icon: 'resources/images/Books1-17.png'
@@ -635,7 +635,7 @@ this.listeners = {
 					});*/
 				
 				}
-			else if(item.parentNode.data.text === 'Personen'){
+			else if(item.parentNode.data.text === 'Personen (1.106)'){
 					var win = new TheaterTool.view.tabPanel.persons.PersonSelectionDialog({selection: item.data.text, tabPanel : this.tabPanel});
 					win.show();
 					if (typeof Ext.getCmp('infoDialog') !== 'undefined') {

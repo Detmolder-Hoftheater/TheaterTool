@@ -475,7 +475,7 @@ for(i = 0; i < json.autoren.length; i++){
 		me.add(annot_panel);
 		
 		var ext_panel = null;
-					if(json.gnd.length > 0 || json.wega.length > 0){
+					if(json.gnd[0].length > 0 || json.wega.length > 0){
 					var extGroup = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Referenzen extern</b>',
 			bodyBorder: false,
@@ -508,7 +508,7 @@ for(i = 0; i < json.autoren.length; i++){
 					me.add(ext_panel);
 					}
 					
-					if(json.gnd.length > 0){
+					if(json.gnd[0].length > 0){
 					var gndList = json.gnd[0];
 					for(i = 0; i < gndList.length; i++){
 					 var   gndId = gndList[i];
