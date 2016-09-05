@@ -52,96 +52,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
 					
 					console.log(json);	
 					
-					var ext_panel = null;
-					if(json.gnd.length > 0 || json.wega.length > 0){
 					
-					 ext_panel = Ext.create('Ext.panel.Panel', {
-			layout: {
-				type: 'table',
-				columns: 4,
-				tdAttrs: {
-        			valign: 'top'
-   				 },
-   				  tableAttrs: {
-                            style: {
-                                width: '100%'
-                            }
-                        }
-                        
-			},
-			
-			//margin: '0 10 0 10',
-			bodyPadding: 10,
-			bodyBorder: false,
-			border: false,
-			items:[]
-		});
-					me.add(ext_panel);
-					}
-					
-					if(json.gnd.length > 0){
-					 var   gndId = json.gnd[0];
-					  
-					   var textArea = Ext.create('Ext.form.field.Text', {
-					   colspan: 1,
-			                 //html: 'GND ID'+'<img src="resources/images/info.png" style="width:13px;height:13px;">',
-			                 readOnly: true,
-			                // icon: 'resources/images/carnival.png',
-			             style: {
-				                width: '100%',
-				                //autoWidth: true,
-				        borderLeft: '3px solid #FFFFFF'
-				        
-			         },
-			             fieldLabel: 'GND ID '+'<img src="resources/images/Info.png"  title="Die Gemeinsame Normdatei (GND) ist eine Normdatei für Personen, Körperschaften, Konferenzen, Geografika, Sachschlagwörter und Werktitel." style="float:right;width:13px;height:13px;">'
-			            
-			             
-		                  });
-		                  textArea.setValue(gndId);
-		                  
-		                ext_panel.add(textArea);  
-		                ext_panel.add({html: '<img src="resources/images/Link.png" style="width:17px;height:18px;">',
-				border: false,
-				colspan: 1,
-				bodyPadding: 3,
-				autoEl: {
-        tag: 'a',
-        href: 'https://portal.dnb.de/opac.htm?method=simpleSearch&query='+gndId,
-		target: "_blank"
-    }
-				
-				});
-		                
-				}
-					if(json.wega.length > 0){
-					    var wegaId = json.wega[0];
-					   
-				var textArea_1 = Ext.create('Ext.form.field.Text', {
-				colspan: 1,
-			                 name: 'WeGA ID',
-			                 readOnly: true,
-			           
-			             style: {
-				                width: '100%',
-				                
-				        borderLeft: '8px solid #FFFFFF'
-			         },
-			        
-			             fieldLabel: 'WeGA ID '+'<img src="resources/images/Info.png" title="Carl-Maria-von-Weber-Gesamtausgabe" style="float:right;width:13px;height:13px;">'
-			             
-		                  });
-		       
-			textArea_1.setValue(wegaId);
-			 
-			 ext_panel.add(textArea_1); 
-			ext_panel.add({html: '<img src="resources/images/Link.png" style="width:17px;height:18px;">',
-				border: false,
-				colspan: 1,
-				bodyPadding: 3,
-				// TODO
-				disabled: true
-				});  
-		}
 		
 		var titel_group = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Titel Varianten</b>',
@@ -563,8 +474,115 @@ for(i = 0; i < json.autoren.length; i++){
 		annot_panel.add(eventsTable);		
 		me.add(annot_panel);
 		
+		var ext_panel = null;
+					if(json.gnd.length > 0 || json.wega.length > 0){
+					var extGroup = Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Referenzen extern</b>',
+			bodyBorder: false,
+			collapsible: false,
+			collapsed: true,
+			margin: '10 0 10 0'
+		});
+		me.add(extGroup);
+					 ext_panel = Ext.create('Ext.panel.Panel', {
+			layout: {
+				type: 'table',
+				columns: 4,
+				tdAttrs: {
+        			valign: 'top'
+   				 },
+   				  tableAttrs: {
+                            style: {
+                                width: '100%'
+                            }
+                        }
+                        
+			},
+			
+			//margin: '0 10 0 10',
+			bodyPadding: 10,
+			bodyBorder: false,
+			border: false,
+			items:[]
+		});
+					me.add(ext_panel);
+					}
+					
+					if(json.gnd.length > 0){
+					var gndList = json.gnd[0];
+					for(i = 0; i < gndList.length; i++){
+					 var   gndId = gndList[i];
+					  
+					   var textArea = Ext.create('Ext.form.field.Text', {
+					   colspan: 1,
+			                 //html: 'GND ID'+'<img src="resources/images/info.png" style="width:13px;height:13px;">',
+			                 readOnly: true,
+			                // icon: 'resources/images/carnival.png',
+			             style: {
+				                width: '100%',
+				                //autoWidth: true,
+				        borderLeft: '3px solid #FFFFFF'
+				        
+			         },
+			             fieldLabel: 'GND ID '+'<img src="resources/images/Info.png"  title="Die Gemeinsame Normdatei (GND) ist eine Normdatei für Personen, Körperschaften, Konferenzen, Geografika, Sachschlagwörter und Werktitel." style="float:right;width:13px;height:13px;">'
+			            
+			             
+		                  });
+		                  textArea.setValue(gndId);
+		                  
+		                ext_panel.add(textArea);  
+		                ext_panel.add({html: '<img src="resources/images/Link.png" style="width:17px;height:18px;">',
+				border: false,
+				colspan: 1,
+				bodyPadding: 3,
+				autoEl: {
+        tag: 'a',
+        href: 'https://portal.dnb.de/opac.htm?method=simpleSearch&query='+gndId,
+		target: "_blank"
+    }
+				
+				});
+				
+				}
+				
+		                
+				}
+					if(json.wega.length > 0){
+					    var wegaId = json.wega[0];
+					   
+				var textArea_1 = Ext.create('Ext.form.field.Text', {
+				colspan: 1,
+			                 name: 'WeGA ID',
+			                 readOnly: true,
+			           
+			             style: {
+				                width: '100%',
+				                
+				        borderLeft: '8px solid #FFFFFF'
+			         },
+			        
+			             fieldLabel: 'WeGA ID '+'<img src="resources/images/Info.png" title="Carl-Maria-von-Weber-Gesamtausgabe" style="float:right;width:13px;height:13px;">'
+			             
+		                  });
+		       
+			textArea_1.setValue(wegaId);
+			 
+			 ext_panel.add(textArea_1); 
+			 var searchTitel = json.workTitel[0];
+			ext_panel.add({html: '<img src="resources/images/Link.png" style="width:17px;height:18px;">',
+				border: false,
+				colspan: 1,
+				bodyPadding: 3,
+				autoEl: {
+        tag: 'a',
+        href: 'http://weber-gesamtausgabe.de/de/Suche?d=works&q='+searchTitel[0],
+		target: "_blank"
+    }
+				});  
+		}
+		
 		var refGroup = Ext.create('Ext.form.FieldSet', {
-			title: '<b style="color:gray;">Daten Relation</b>',
+			title: '<b style="color:gray;">Daten Relationen (Referenzen intern)</b>',
 			bodyBorder: false,
 			collapsible: false,
 			collapsed: true,

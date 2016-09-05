@@ -80,13 +80,13 @@ width: 200,
 					me.repertoirePanel.removeAll(true);
 					me.workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails({workID: eOpts[0].data.werkID});
 					me.repertoirePanel.add(me.workPanel);			
-					me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].data.name+', '+eOpts[0].data.componist+'</b>');
+					me.navButton.setText('<b style="color:#A87678;">Werk: '+eOpts[0].data.name+'; '+eOpts[0].data.componist+'</b>');
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
 					me.repertoirePanel.removeAll(true);
 					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: eOpts[0].data.sourceID, werkTitle: eOpts[0].parentNode.data.name});
 					me.repertoirePanel.add(me.sourcePanel);	
-					me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].parentNode.data.name+', '+eOpts[0].parentNode.data.componist+' -> '+eOpts[0].data.name+'</b>');
+					me.navButton.setText('<b style="color:#A87678;">'+eOpts[0].data.name+' (Werk: '+eOpts[0].parentNode.data.name+'; '+eOpts[0].parentNode.data.componist+')</b>');
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
 				//console.log(eOpts[0].data);
@@ -101,17 +101,17 @@ width: 200,
 					if(eOpts[0].data.name === 'Incipits'){
 						me.incipitsPanel = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel({sourceID: eOpts[0].parentNode.parentNode.data.werkID});
 						me.repertoirePanel.add(me.incipitsPanel);
-						me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');	
+						me.navButton.setText('<b style="color:#A87678;">Incipits für '+eOpts[0].parentNode.data.name+' (Werk: '+eOpts[0].parentNode.parentNode.data.name+'; '+eOpts[0].parentNode.parentNode.data.componist+')</b>');	
 					}
 					else if(eOpts[0].data.name === 'RISM'){
 						me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel({sourceID: eOpts[0].parentNode.data.sourceID});
 						me.repertoirePanel.add(me.rismPanel);
-						me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> RISM</b>');	
+						me.navButton.setText('<b style="color:#A87678;">RISM für '+eOpts[0].parentNode.data.name+' (Werk: '+eOpts[0].parentNode.parentNode.data.name+'; '+eOpts[0].parentNode.parentNode.data.componist+')</b>');	
 					}
-					else if(eOpts[0].data.name === 'Facsimile'){
+					else if(eOpts[0].data.name === 'Faksimiles'){
 						me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel({selectedWork: me.selectedWork});
 						me.repertoirePanel.add(me.beatPanel);
-						me.navButton.setText('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Facsimile</b>');
+						me.navButton.setText('<b style="color:#A87678;">Faksimiles für '+eOpts[0].parentNode.data.name+' (Werk: '+eOpts[0].parentNode.parentNode.data.name+'; '+eOpts[0].parentNode.parentNode.data.componist+')</b>');
 					}
 						
 				

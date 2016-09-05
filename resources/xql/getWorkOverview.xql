@@ -122,7 +122,7 @@ declare function local:jsonifyTitleInformation($titles) {
 
 let $strings := for $elem in $titles
 
-	let $title := $elem
+	let $title := normalize-space($elem)
 	let $type := $elem/@type
 	let $language := $elem/@xml:lang
 	
@@ -326,16 +326,32 @@ concat('"',$names, '"')
     
 };
 
-declare function local:jsonifyGND($content) {
+declare function local:jsonifyGNDList($id) {
 
-let $strings := for $elem in $content
+let $strings := for $elem in $id
 
-					let $id :=$elem//mei:identifier[@type='gnd']
+					let $id :=$elem
                    
                     return 
                       if($id != '')then(        
 concat(
 							'"',$id,'"'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyGND($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem//mei:identifier[@type='gnd']
+					
+					let $gndList := local:jsonifyGNDList($id)
+                   
+                    return 
+                        
+concat('[',$gndList,']')
     
     return 
         string-join($strings,',') 

@@ -8,7 +8,7 @@ var store = Ext.create('Ext.data.TreeStore', {
         	expanded: true,
         	children: [
             	{
-                text: 'Repertoire',
+                text: 'Repertoire (977 Werke)',
                 icon: 'resources/images/Folder-17.png',
                  children: [
                     { leaf:true, text: 'A-B-C',
@@ -189,7 +189,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                 ]
             },
             	{ 
-            	text: 'Personen',
+            	text: 'Personen (1.106)',
             	icon: 'resources/images/Mask-19.png',
 children: [
                     { leaf:true, text: 'A-B-C',

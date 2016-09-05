@@ -72,8 +72,8 @@ let $strings := for $elem in $fileNames
 		let $isExtend := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
 			then(concat('{',
 									'"leaf":"true",',
-									'"name":"Facsimile",',
-									'"extName":"Facsimile",',
+									'"name":"Faksimiles",',
+									'"extName":"Faksimiles",',
 									'incipits:"',"false",'",',
 									'details:"',"false",'",',                          
                             		'xml:"',"true",'",',
