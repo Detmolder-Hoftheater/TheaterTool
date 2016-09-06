@@ -219,16 +219,32 @@ Ext.Ajax.request({
 						]
 					});
 					
-	   // var occupationTable = new TheaterTool.view.tabPanel.persons.OccupationTable({eventList: json.occupation});
-					
-		/*var left_panel = Ext.create('Ext.panel.Panel', {
-						border: false,
-						margin: '10 0 0 0',
-						items:[
-                            left_panel_1
-                            //occupationTable
-						]
-					});*/
+					var table_layout = Ext.create('Ext.panel.Panel', {
+			layout: {
+				type: 'table',
+				columns: 2,
+				tdAttrs: {
+        			valign: 'top'
+   				 },
+   				  tableAttrs: {
+                            style: {
+                                width: '100%'
+                            }
+                        }
+                        
+			},
+			
+    //bodyPadding: 10,
+			bodyBorder: false,
+			border: false,
+			items:[]
+		});
+		me.add(table_layout);
+	    var occupationTable = new TheaterTool.view.tabPanel.persons.OccupationTable({ocupationList: json.occupation});
+	      table_layout.add(occupationTable);
+		
+		 var residenceTable = new TheaterTool.view.tabPanel.persons.ResidenceTable({residenseList: json.residence});
+		table_layout.add(residenceTable);
 		
 		var summary = me.createTextArea('Zusammenfassung');
 		
@@ -258,16 +274,7 @@ Ext.Ajax.request({
 		     death.setValue(json.death[0]);       
         }*/
         
-        // var residenceTable = new TheaterTool.view.tabPanel.persons.ResidenceTable({eventList: json.residence});
-		
-		/*var right_panel = Ext.create('Ext.panel.Panel', {
-						border: false,
-						margin: '10 10 0 10',
-						items:[
-                            summary	
-                            //residenceTable
-						]
-					});*/
+        
 					       
        /* var lifeData_panel = Ext.create('Ext.panel.Panel', {
 			layout: {
@@ -690,6 +697,15 @@ for(i = 0; i < json.autoren.length; i++){
 		
 		var roleTable = new TheaterTool.view.tabPanel.repertoire.work.RoleTable({roleList: json.roleRef});
 		ref_layout.add(roleTable);
+		
+		var gagenTable = new TheaterTool.view.tabPanel.GagenTable({gagenList: json.gagenRef});
+		ref_layout.add(gagenTable);
+		
+		var sourcesTable = new TheaterTool.view.tabPanel.SourcesTable({sourcesList: json.isourcesRef});
+		ref_layout.add(sourcesTable);
+		
+		var worksTable = new TheaterTool.view.tabPanel.WorksTable({worksList: json.worksRef});
+		ref_layout.add(worksTable);
 		
 		
 		

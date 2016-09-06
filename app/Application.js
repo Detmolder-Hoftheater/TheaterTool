@@ -121,7 +121,12 @@ Ext.define('TheaterTool.Application', {
 'tabPanel.repertoire.incipits.IncipitsTabPanel',
 'tabPanel.repertoire.incipits.IncipitDetailsSection',
 'tabPanel.repertoire.incipits.IncipitDetailsSectionXML',
-'tabPanel.repertoire.EventsTable'
+'tabPanel.repertoire.EventsTable',
+'tabPanel.persons.OccupationTable',
+'tabPanel.persons.ResidenceTable',
+'tabPanel.GagenTable',
+'tabPanel.SourcesTable',
+'tabPanel.WorksTable'
 	],
 	models:[
 	'Werk',
@@ -134,7 +139,8 @@ Ext.define('TheaterTool.Application', {
 	'FieldError',
 	'SourceDetails',
 	'Event',
-	'RefData'
+	'RefData',
+	'PersonData'
 	],
 	
 	stores:[
