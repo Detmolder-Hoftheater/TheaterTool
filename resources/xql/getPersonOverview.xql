@@ -198,7 +198,7 @@ declare function local:jsonifyResidenceDetails($events) {
 
 let $strings := for $elem in $events
 
-					let $over :=$elem/settlement
+					let $over :=$elem/tei:settlement
 					let $date_from := $elem/@from
 					let $date_to := $elem/@to
 					let $date_when := $elem/@when
@@ -218,7 +218,7 @@ declare function local:jsonifyResidence($content) {
 
 let $strings := for $elem in $content
 
-					let $events :=$elem//mei:residence
+					let $events :=$elem//tei:residence
 
 					let $names := local:jsonifyResidenceDetails($events)
  return 
@@ -254,6 +254,9 @@ let $strings := for $elem in $events
 
 					let $occ :=$elem
 					let $type := $elem/@type
+					let $date_from := $elem/@from
+					let $date_to := $elem/@to
+					let $date_when := $elem/@when
 					(:let $geogNamesOrt :=$elem/mei:geogName[@type='venue']
 					let $geogNamesStadt := $elem/mei:geogName[@type='place']:)
                    

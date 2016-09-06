@@ -15,7 +15,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.ResidenceTable', {
 	
 	title: '<b style="color:gray;">Wohnsitze</b>',
 	//icon: 'resources/images/Time-17.png',
-	margin: '0 0 10 110',
+	margin: '0 10 10 120',
 	sortableColumns: false,
 	
 	residenseList: null,
@@ -35,10 +35,8 @@ if(typeof me.residenseList !== 'undefined'){
 for(i = 0; i < me.residenseList.length; i++){
 			var eventObj = me.residenseList[i];
 			var event = Ext.create('TheaterTool.model.PersonData', {
-    			event : eventObj[0],
-    			datum  : eventObj[1],
-    			ort: eventObj[2],
-    			stadt: eventObj[3]
+    			stadt : eventObj[0],
+    			datum  : eventObj[1]
 			});
 			me.store.add(event);
 			}
@@ -46,18 +44,19 @@ for(i = 0; i < me.residenseList.length; i++){
 	
 		this.columns =[ 
 		{
+			text: 'Datum',
+			flex: 1,
+			menuDisabled: true,
+			dataIndex: 'datum'
+		},
+		{
 			text: 'Stadt',
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'stadt'
 			
-		},
-		{
-			text: 'Datum',
-			flex: 1,
-			menuDisabled: true,
-			dataIndex: 'datum'
 		}
+		
 		];
 		
 		this.callParent();

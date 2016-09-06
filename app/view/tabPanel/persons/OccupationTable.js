@@ -13,9 +13,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.OccupationTable', {
 	},
 	flex:1,
 	
-	title: '<b style="color:gray;">Tätigkeiten</b>',
+	title: '<b style="color:gray;">Berufliche Werdegang</b>',
 	//icon: 'resources/images/Time-17.png',
-	margin: '0 0 10 110',
+	margin: '0 10 10 120',
 	sortableColumns: false,
 	
 	ocupationList: null,
@@ -35,10 +35,9 @@ if(typeof me.ocupationList !== 'undefined'){
 for(i = 0; i < me.ocupationList.length; i++){
 			var eventObj = me.ocupationList[i];
 			var event = Ext.create('TheaterTool.model.PersonData', {
-    			event : eventObj[0],
-    			datum  : eventObj[1],
-    			ort: eventObj[2],
-    			stadt: eventObj[3]
+    			occup : eventObj[0],
+    			beruf : eventObj[1]
+    			//datum  : eventObj[1]
 			});
 			me.store.add(event);
 			}
@@ -46,18 +45,26 @@ for(i = 0; i < me.ocupationList.length; i++){
 	
 		this.columns =[ 
 		{
-			text: 'Beschäftigung',
+			text: 'Datum',
+			flex: 1,
+			menuDisabled: true,
+			dataIndex: 'datum'
+		},
+		{
+			text: 'Beruf',
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'beruf'
 			
 		},
 		{
-			text: 'Datum',
-			flex: 1,
+			text: 'Tätigkeit',
+			flex: 2,
 			menuDisabled: true,
-			dataIndex: 'datum'
+			dataIndex: 'occup'
+			
 		}
+		
 		];
 		
 		this.callParent();

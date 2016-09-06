@@ -193,7 +193,7 @@ Ext.Ajax.request({
                         }
                         
 			},
-			margin: '10 0 0 80',
+			margin: '10 105 0 90',
 			//bodyPadding: 10,
 			bodyBorder: false,
 			border: false,
@@ -218,6 +218,8 @@ Ext.Ajax.request({
 						  death
 						]
 					});
+					
+					me.add(left_panel);
 					
 					var table_layout = Ext.create('Ext.panel.Panel', {
 			layout: {
@@ -270,12 +272,16 @@ Ext.Ajax.request({
             summary.setValue(notes);
             summary.setHeight(150);
         }
-		/*if(typeof json.death !== 'undefined'){
-		     death.setValue(json.death[0]);       
-        }*/
         
-        
-					       
+        var annot_panel = Ext.create('Ext.panel.Panel', {
+			border: false,
+			//bodyPadding: 10,
+			margin: '0 10 0 10',
+			items:[]
+		});
+		me.add(annot_panel);
+		annot_panel.add(summary);
+				       
        /* var lifeData_panel = Ext.create('Ext.panel.Panel', {
 			layout: {
 				type: 'table',
@@ -297,224 +303,6 @@ Ext.Ajax.request({
 			 left_panel
 			]
 		});*/
-		me.add(left_panel);
-		
-		me.add(summary);
-/*var persStore = Ext.create('Ext.data.Store', {
-	model: 'TheaterTool.model.Person',
-    data:[]
-});
-me.pers =Ext.create('Ext.grid.Panel', {
-    store: persStore,
-    sortableColumns: false,
-    title: '<b style="color:gray;">Personen</b>',
-    icon: 'resources/images/Mask-19.png',
-    columnLines: true,
-   layout: {
-		type: 'hbox',
-		pack: 'start',
-		align: 'stretch'
-	},
-	flex:1,
-   /\*viewConfig: {
-    forceFit: true
-},*\/
-                            /\*style: {
-                                width: '100%'
-                            },*\/
-                        
-    columns: [
-        { header: 'Name',  dataIndex: 'name', menuDisabled: true, flex:2},
-        { header: 'Rolle', dataIndex: 'role', menuDisabled: true, flex:1},
-Ext.create('Ext.grid.column.Action', {			
-			xtype: 'actioncolumn',
-			header: 'Details',
-			flex:1,
-			align: 'center',
-			menuDisabled: true,
-			renderer: function (val, metadata, record) {
-					if(record.data.dbkey !== ''){
-					this.items[0].icon = 'resources/images/Door-24.png';					
-				}				
-				else {					
-					this.items[0].icon = '';
-				}
-				
-				
-				metadata.style = 'cursor: pointer;';
-				return val;
-			},
-			handler: function(grid, rowIndex, colIndex) {
-                    var rec = grid.getStore().getAt(rowIndex);
-					console.log(rec);
-					var dbkey = rec.data.dbkey;
-					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">'+rec.data.name+'</font>',
-						icon: 'resources/images/Mask-19.png'
-					});
-					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: dbkey});
-					repertoireTab.add(personDetails);
-
-					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
-					navTreeGlobal.add(repertoireTab);
-					navTreeGlobal.setActiveTab(repertoireTab);	
-
-                }
-		})
-
-
-
-       // { header: 'Details', dataIndex: 'dbkey', flex:0.5 }
-    ],
-margin: '0 0 15 110'
-});
-
-for(i = 0; i < json.autoren.length; i++){
-			var autor = json.autoren[i];
-			var persRole = '';
-			if(autor[1] === 'arr'){
-				persRole = 'arranger';
-			}
-			else if(autor[1] === 'aut'){
-				persRole = 'author';
-			}
-			else if(autor[1] === 'cmp'){
-				persRole = 'composer';
-			}
-			else if(autor[1] === 'cre'){
-				persRole = 'creator';
-			}
-			else if(autor[1] === 'lbt'){
-				persRole = 'librettist';
-			}
-			else if(autor[1] === 'edt'){
-				persRole = 'editor';
-			}
-			else if(autor[1] === 'lyr'){
-				persRole = 'lyricist';
-			}
-			else if(autor[1] === 'trl'){
-				persRole = 'translator';
-			}
-			else if(autor[1] === 'scr'){
-				persRole = 'scribe';
-			}
-			else if(autor[1] === 'fmo'){
-				persRole = 'former owner';
-			}
-			else if(autor[1] === 'asn'){
-				persRole = 'associated name';
-			}
-			else if(autor[1] === 'prf'){
-				persRole = 'performer';
-			}
-			else if(autor[1] === 'clb'){
-				persRole = 'collaborator';
-			}
-			else{
-				persRole = autor[1];
-			}
-//act = actor
-//dte = dedicatee
-//egr = engraver
-//editorial_assistant = editorial assistant
-//mcp = music copyist
-
-			var person = Ext.create('TheaterTool.model.Person', {
-    			name : autor[0],
-    			role  : persRole,
-    			dbkey: autor[2]
-			});
-			persStore.add(person);
-		}
-*/		
-		
-		/*me.language = me.createTextField('Sprache(n)');
-		if(typeof json.sprachen !== 'undefined'){
-	       var spr = json.sprachen[0];
-	       for(i = 1; i < json.sprachen.length; i++){
-	           spr += ', '+json.sprachen[i];
-
-	       }
-	       me.language.setValue(spr);
-        }
-		    
-        me.instr = me.createTextArea('Besetzung');
-		if(typeof json.instr !== 'undefined'){
-	       var spr = json.instr[0];
-	       for(i = 1; i < json.instr.length; i++){
-	           spr += '\n'+json.instr[i];
-
-	       }
-	       me.instr.setValue(spr);
-	       
-        }
-              
-		var right_panel = Ext.create('Ext.panel.Panel', {
-						border: false,
-						margin: '0 10 0 10',
-						items:[
-						me.instr
-						
-						]
-					});
-					
-					var left_panel = Ext.create('Ext.panel.Panel', {
-						border: false,
-						margin: '0 10 0 10',
-						items:[
-						me.pers,
-						me.language
-						
-						]
-					});
-					
-		var panel_01 = Ext.create('Ext.panel.Panel', {
-			
-			layout: {
-				type: 'table',
-				columns: 2,
-			tdAttrs: {
-        			valign: 'top'
-   				 }				
-			},
-			margin: '10 0 0 0',
-			autoScroll: true,
-			border: false,
-			items:[
-			left_panel,
-			right_panel
-			]
-		});
-		me.add(panel_01);
-
-		me.instr.setHeight(150);
-		*/
-		
-		/*me.abs = me.createTextField('Entstehung');
-		if(typeof json.creation !== 'undefined'){
-	       me.abs.setValue(json.creation);
-	       
-        }
-		
-		me.overview = me.createTextArea('Beschreibung');
-		if(typeof json.hoverview !== 'undefined'){
-	       me.overview.setValue(json.hoverview);
-	       
-        }
-        
-        var eventsTable = new TheaterTool.view.tabPanel.repertoire.EventsTable({eventList: json.events});
-      
-		var annot_panel = Ext.create('Ext.panel.Panel', {
-			border: false,
-			margin: '10 10 0 10',
-			items:[]
-		});
-		annot_panel.add(me.abs);
-		annot_panel.add(me.overview);
-		annot_panel.add(eventsTable);		
-		me.add(annot_panel);
-		*/
 		
 		var ext_panel = null;
 					if(json.gnd[0].length > 0 || json.wega.length > 0 || json.viaf.length > 0){
@@ -688,12 +476,15 @@ for(i = 0; i < json.autoren.length; i++){
 			items:[]
 		});
 		me.add(ref_layout);
+		
+		var worksTable = new TheaterTool.view.tabPanel.WorksTable({worksList: json.worksRef});
+		ref_layout.add(worksTable);
+		
+		var sourcesTable = new TheaterTool.view.tabPanel.SourcesTable({sourcesList: json.isourcesRef});
+		ref_layout.add(sourcesTable);
 				
 		var journalTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable({journalList: json.journalRef});
 		ref_layout.add(journalTable);
-		
-		var issueTable = new TheaterTool.view.tabPanel.repertoire.work.IssueTable({issueList: json.issueRef});
-		ref_layout.add(issueTable);
 		
 		var roleTable = new TheaterTool.view.tabPanel.repertoire.work.RoleTable({roleList: json.roleRef});
 		ref_layout.add(roleTable);
@@ -701,16 +492,9 @@ for(i = 0; i < json.autoren.length; i++){
 		var gagenTable = new TheaterTool.view.tabPanel.GagenTable({gagenList: json.gagenRef});
 		ref_layout.add(gagenTable);
 		
-		var sourcesTable = new TheaterTool.view.tabPanel.SourcesTable({sourcesList: json.isourcesRef});
-		ref_layout.add(sourcesTable);
+		var issueTable = new TheaterTool.view.tabPanel.repertoire.work.IssueTable({issueList: json.issueRef});
+		ref_layout.add(issueTable);
 		
-		var worksTable = new TheaterTool.view.tabPanel.WorksTable({worksList: json.worksRef});
-		ref_layout.add(worksTable);
-		
-		
-		
-		
-				
 }
 			});
 
