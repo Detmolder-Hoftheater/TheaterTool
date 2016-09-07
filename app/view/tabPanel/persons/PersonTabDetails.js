@@ -50,6 +50,143 @@ Ext.Ajax.request({
 		});
 		me.add(titel_group);
 		
+		var regular = me.createTextArea('Regulär');
+		if(typeof json.regs[0] !== 'undefined'){
+		 var regText = '';
+		  for (i = 0; i < json.regs.length; i++) {
+			var regs = json.regs[i];
+			for(j = 0; j < regs.length; j++){
+			     if(regs[j] !== ''){
+			         if(regText !== ''){
+			         regText += ', '+regs[j];
+			         if(j === 2){
+			             regText += '\n';
+			         }
+			     }
+			     else{
+			         regText = regs[j];
+			     }	         
+			     }		     
+			}
+			}
+		 regular.setValue(regText);
+        }
+		
+		var full = me.createTextArea('Vollständig');
+		if(typeof json.fulls[0] !== 'undefined'){
+		 var regText = '';
+		  for (i = 0; i < json.fulls.length; i++) {
+			var regs = json.fulls[i];
+			for(j = 0; j < regs.length; j++){
+			     if(regs[j] !== ''){
+			         if(regText !== ''){
+			         regText += ', '+regs[j];
+			         if(j === 2){
+			             regText += '\n';
+			         }
+			     }
+			     else{
+			         regText = regs[j];
+			     }	         
+			     }		     
+			}
+			}
+		 full.setValue(regText);
+        }
+        
+        
+		var alt = me.createTextArea('Alternativ');
+		if(typeof json.alts[0] !== 'undefined'){
+		 var regText = '';
+		  for (i = 0; i < json.alts.length; i++) {
+			var regs = json.alts[i];
+			     if(regs[0] != 'undefined'){
+			         if(regText !== ''){
+			         regText += '\n'+regs[0];
+			     }
+			     else{
+			         regText = regs[0];
+			     }
+			     }
+			}
+		 alt.setValue(regText);
+        }
+		
+		
+		var pseudo = me.createTextArea('Künstlername(n)');
+		if(typeof json.pseuds[0] !== 'undefined'){
+		 var regText = '';
+		  for (i = 0; i < json.pseuds.length; i++) {
+			var regs = json.pseuds[i];
+			if(regs[0]!== 'undefined'){
+			    if(regText !== ''){
+			         regText += '\n'+regs[0];
+			    }
+			    else{
+			        regText = regs[0];
+			    }
+			}
+			else{
+			
+			for(j = 1; j < regs.length; j++){
+			     if(regs[j] !== ''){
+			         if(regText !== ''){
+			         regText += ', '+regs[j];
+			         if(j === 3){
+			             regText += '\n';
+			         }
+			     }
+			     else{
+			         regText = regs[j];
+			     }	         
+			     }		     
+			}
+			}
+			}
+		 pseudo.setValue(regText);
+        }
+		
+		var name_panel = Ext.create('Ext.panel.Panel', {
+			layout: {
+				type: 'table',
+				columns: 2,
+				tdAttrs: {
+        			valign: 'top'
+   				 },
+   				  tableAttrs: {
+                            style: {
+                                width: '100%'
+                            }
+                        }
+                        
+			},
+			margin: '0 20 0 10',
+			//bodyPadding: 10,
+			bodyBorder: false,
+			border: false,
+			items:[
+			regular,
+			alt,
+			full,
+			pseudo			
+			]
+		});
+		
+		me.add(name_panel);
+		
+		/*Ext.create('Ext.panel.Panel', {
+			border: false,
+			//bodyPadding: 10,
+			margin: '0 10 0 10',
+			items:[
+			]
+		});
+		me.add(name_panel);
+		name_panel.add(regular);
+		name_panel.add(full);
+		name_panel.add(alt);
+		name_panel.add(pseudo);*/
+		
 		/*var panel_0 = null;
 		
 		panel_0 = Ext.create('Ext.panel.Panel', {
@@ -163,9 +300,12 @@ Ext.Ajax.request({
 		 if(json.geschlecht[0] === 'm'){
 		      gender.setValue('männlich');
 		 }
-		 else{
+		 else if(json.geschlecht[0] === 'f'){
 		      gender.setValue('weiblich');
-		 }	       
+		 }
+		 else{
+		     gender.setValue('unbekannt');
+		 }
         }
               
 		var birth = me.createTextField('');
@@ -328,8 +468,8 @@ Ext.Ajax.request({
                         }
                         
 			},
-			
-			bodyPadding: 10,
+			margin: '0 10 0 10',
+			//bodyPadding: 10,
 			bodyBorder: false,
 			border: false,
 			items:[]

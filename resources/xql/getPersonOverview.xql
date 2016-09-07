@@ -117,12 +117,57 @@ else()
 };
 
 
-declare function local:jsonifyWorkTitel($content) {
+declare function local:jsonifyRegs($content) {
 
 let $strings := for $elem in $content
 
-	let $titles := $elem//mei:titleStmt[1]/mei:title
-	let $content_title := local:jsonifyTitleInformation($titles)
+	let $titles := $elem//tei:persName[@type = 'reg']
+	let $content_title := local:jsonifyRegNames($titles)
+	
+                    return 
+if($content_title != '')then($content_title)else()
+
+    return 
+        string-join($strings,',')
+ 
+};
+
+declare function local:jsonifyFulls($content) {
+
+let $strings := for $elem in $content
+
+	let $titles := $elem//tei:persName[@type = 'full']
+	let $content_title := local:jsonifyRegNames($titles)
+	
+                    return 
+if($content_title != '')then($content_title)else()
+
+    return 
+        string-join($strings,',')
+ 
+};
+
+declare function local:jsonifyAlts($content) {
+
+let $strings := for $elem in $content
+
+	let $titles := $elem//tei:persName[@type = 'alt']
+	let $content_title := local:jsonifyAltNames($titles)
+	
+                    return 
+if($content_title != '')then($content_title)else()
+
+    return 
+        string-join($strings,',')
+ 
+};
+
+declare function local:jsonifyPseuds($content) {
+
+let $strings := for $elem in $content
+
+	let $titles := $elem//tei:persName[@type = 'pseud']
+	let $content_title := local:jsonifyPseudNames($titles)
 	
                     return 
 if($content_title != '')then($content_title)else()
@@ -133,20 +178,68 @@ if($content_title != '')then($content_title)else()
 };
 
 
-declare function local:jsonifyTitleInformation($titles) {
+declare function local:jsonifyPseudNames($titles) {
 
 let $strings := for $elem in $titles
-
-	let $title := normalize-space($elem)
-	let $type := $elem/@type
-	let $language := $elem/@xml:lang
+    let $name := $elem
+	let $title := $elem/tei:surname
+	let $foreNameList := $elem/tei:forename
+	let $foreNames := local:jsonifyForename($foreNameList)	               
+	let $language := $elem/tei:nameLink
 	
                     return 
-concat('["',$title, '","', $type, '","', $language,'"]')
+concat('["',$name, '","',   $title,  '","',   $foreNames, '","', $language,'"]')
     return 
         string-join($strings,',')
  
 };
+
+
+declare function local:jsonifyAltNames($titles) {
+
+let $strings := for $elem in $titles
+
+	let $title := $elem
+	
+                    return 
+concat('["',$title,'"]')
+    return 
+        string-join($strings,',')
+ 
+};
+
+
+declare function local:jsonifyRegNames($titles) {
+
+let $strings := for $elem in $titles
+
+	let $title := $elem/tei:surname
+	let $foreNameList := $elem/tei:forename
+	let $foreNames := local:jsonifyForename($foreNameList)	               
+	let $language := $elem/tei:nameLink
+	
+                    return 
+concat('["',$title, '","', $foreNames, '","', $language,'"]')
+    return 
+        string-join($strings,',')
+ 
+};
+
+
+declare function local:jsonifyForename($foreNameList) {
+
+let $strings := for $elem in $foreNameList
+
+	let $forename := $elem
+	
+                    return 
+                       $forename
+
+    return 
+        string-join($strings,', ')
+ 
+};
+
 
 
 declare function local:jsonifyBirth($content) {
@@ -262,7 +355,7 @@ let $strings := for $elem in $events
                    
                     return 
                       
-				concat('["',$occ, '",' ,'"',$type,'"]')
+				concat('["',$occ, '",', '"',$type, '",',   '"',$date_from, '",', '"',$date_to,'",','"',$date_when,'"]')
     return 
         string-join($strings,',')
   
@@ -480,8 +573,14 @@ concat(
         local:jsonifyGagenRefReferences($workID), 
      '],"issueRef":[',
         local:jsonifyIssueReferences($workID), 
-	'],"workTitel":[',
-        local:jsonifyWorkTitel($content),
+        '],"pseuds":[',
+        local:jsonifyPseuds($content), 
+     '],"alts":[',
+        local:jsonifyAlts($content), 
+    '],"fulls":[',
+        local:jsonifyFulls($content), 
+	'],"regs":[',
+        local:jsonifyRegs($content),
     ']}'
 
 )

@@ -34,10 +34,17 @@ Ext.define('TheaterTool.view.tabPanel.persons.OccupationTable', {
 if(typeof me.ocupationList !== 'undefined'){
 for(i = 0; i < me.ocupationList.length; i++){
 			var eventObj = me.ocupationList[i];
+			var datumObj = '';
+			if(eventObj[2] !== ''){
+			    datumObj = eventObj[2] + '-' + eventObj[3];
+			}
+			else if(eventObj[4] !== ''){
+			    datumObj = eventObj[4];
+			}
 			var event = Ext.create('TheaterTool.model.PersonData', {
     			occup : eventObj[0],
-    			beruf : eventObj[1]
-    			//datum  : eventObj[1]
+    			beruf : eventObj[1],
+    			datum  : datumObj
 			});
 			me.store.add(event);
 			}

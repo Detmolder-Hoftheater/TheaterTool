@@ -13,7 +13,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.ResidenceTable', {
 	},
 	flex:1,
 	
-	title: '<b style="color:gray;">Wohnsitze</b>',
+	title: '<b style="color:gray;">Wohnsitz(e)</b>',
 	//icon: 'resources/images/Time-17.png',
 	margin: '0 10 10 120',
 	sortableColumns: false,
@@ -34,9 +34,16 @@ Ext.define('TheaterTool.view.tabPanel.persons.ResidenceTable', {
 if(typeof me.residenseList !== 'undefined'){
 for(i = 0; i < me.residenseList.length; i++){
 			var eventObj = me.residenseList[i];
+			var datumObj = '';
+			if(eventObj[1] !== ''){
+			    datumObj = eventObj[1] + '-' + eventObj[2];
+			}
+			else if(eventObj[2] !== ''){
+			    datumObj = eventObj[2];
+			}
 			var event = Ext.create('TheaterTool.model.PersonData', {
     			stadt : eventObj[0],
-    			datum  : eventObj[1]
+    			datum  : datumObj
 			});
 			me.store.add(event);
 			}
