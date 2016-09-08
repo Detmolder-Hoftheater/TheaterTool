@@ -120,6 +120,7 @@ autoScroll: true,
 						icon: 'resources/images/Mask-19.png'
 					});
 					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: selectedId});
+					personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">'+selectedName+'</font>');
 					repertoireTab.add(personDetails);
 					me.tabPanel.add(repertoireTab);
 					me.tabPanel.setActiveTab(repertoireTab);

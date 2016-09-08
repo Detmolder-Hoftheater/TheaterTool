@@ -4,7 +4,9 @@
 Ext.define('TheaterTool.view.tabPanel.persons.PersonTabXML', {
  extend: 'Ext.panel.Panel',
 	
-border: false,
+border: true,
+
+bodyPadding:10,
 
 flex:1,
 

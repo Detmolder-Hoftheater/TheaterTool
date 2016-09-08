@@ -18,13 +18,26 @@ declare variable $path := 'xmldb:exist:///apps/theater-data/persons/';
 declare variable $file := collection($path);
 declare variable $fileNames := $file//tei:person;
 
-declare function local:jsonifySlurs($fileNames) {
+declare function local:jsonifyRegs($fileNames) {
 
-let $strings := for $elem in $fileNames
+let $strings := for $elem_1 in $fileNames
 
-		(:let $path1 := concat($path, $elem, '.xml')
-		let $file1 := doc($path1):)
-		let $fileName :=  $elem//tei:persName[1][@type="reg"]/tei:surname[1]
+	let $titles := $elem_1//tei:persName[@type = 'reg']
+	let $content_title := local:jsonifyPersons($titles, $elem_1)
+	
+                    return 
+if($content_title != '')then($content_title)else()
+
+    return 
+        string-join($strings,',')
+ 
+};
+
+declare function local:jsonifyPersons($titles, $elem_1) {
+
+let $strings := for $elem in $titles
+
+		let $fileName :=  $elem//tei:surname[1]
 		
 		let $subName := substring($fileName, 1,1)
 		let $fileName1 := if(contains($selection, $subName))
@@ -32,13 +45,17 @@ let $strings := for $elem in $fileNames
 			else()
 
 let $personId := if($fileName1 != '')
-			then($elem/@xml:id)
+			then($elem_1/@xml:id)
 			else()
 			
+			
 	let $foreName := 	if($fileName1 != '')
-			then($elem//tei:persName[1][@type="reg"]/tei:forename[1])
-			else()	
-
+			then(
+			local:jsonifyForename($elem//tei:forename)
+			
+			)
+			else()
+			
                     return 
       if($fileName1 != '')then(                
  concat('["',$fileName1,'",',
@@ -52,11 +69,27 @@ else ()
 };
 
 
+declare function local:jsonifyForename($foreNameList) {
+
+let $strings := for $elem in $foreNameList
+
+	let $forename := $elem
+	
+                    return 
+                       $forename
+
+    return 
+        string-join($strings,', ')
+ 
+};
+
+
+
     
  (
 
      '{"persons":[',
-        local:jsonifySlurs($fileNames),
+        local:jsonifyRegs($fileNames),
     ']}' 
    
 )

@@ -278,6 +278,7 @@ Ext.create('Ext.grid.column.Action', {
 						icon: 'resources/images/Mask-19.png'
 					});
 					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: dbkey});
+					personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">'+rec.data.name+'</font>');
 					repertoireTab.add(personDetails);
 
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();

@@ -26,30 +26,12 @@ Ext.define('TheaterTool.view.tabPanel.GagenTable', {
 	
 	me.store = Ext.create('Ext.data.Store', {
 	model: 'TheaterTool.model.RefData',
-    data:[],
-    sorters: [{
-        sorterFn: function(o1, o2){
-            var getRank = function(o){
-                var name = o.get('jahr');
-                var numberJahr = parseInt(name);               
-                return numberJahr;
-            },
-            rank1 = getRank(o1),
-            rank2 = getRank(o2);
-
-            if (rank1 === rank2) {
-                return 0;
-            }
-
-            return rank1 < rank2 ? -1 : 1;
-        }
-    }]
+    data:[]
 });
 
 for(i = 0; i < me.gagenList.length; i++){
-            var datum = me.gagenList[i];
-			var role = Ext.create('TheaterTool.model.RefData', {
-    			jahr : datum
+            var role = Ext.create('TheaterTool.model.RefData', {
+    			name : me.gagenList[i]
 			});
 			me.store.add(role);
 			}
@@ -59,10 +41,10 @@ for(i = 0; i < me.gagenList.length; i++){
 		this.columns =[ 
 		
 		{
-			text: 'Jahr',
+			text: 'Name',
 			flex: 2,
 			menuDisabled: true,
-			dataIndex: 'jahr'
+			dataIndex: 'name'
 			
 		},
 		this.detailsColumn
@@ -87,23 +69,22 @@ for(i = 0; i < me.gagenList.length; i++){
 				
 				metadata.style = 'cursor: pointer;';
 				return val;
-			}
-			/*handler: function(grid, rowIndex, colIndex) {
+			},
+			handler: function(grid, rowIndex, colIndex) {
                     var rec = grid.getStore().getAt(rowIndex);
 					console.log(rec);
-					var dbkey = rec.data.jahr;
+					var dbkey = rec.data.name;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">'+rec.data.jahr+'</font>',
-						icon: 'resources/images/Presse-16.png'
+						title: '<font style="color:gray;">'+rec.data.name+'</font>',
+						icon: 'resources/images/Gift-17.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.journal.JournalPanelInTab({regieName: dbkey});
+					var personDetails = new TheaterTool.view.tabPanel.gagebooks.GageBookPanelInTab({regieName: dbkey});
 					repertoireTab.add(personDetails);
 
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
-
-                }*/
+                }
 		});
 		return eColumn;
 	}

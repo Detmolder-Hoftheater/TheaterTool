@@ -160,7 +160,7 @@ Ext.Ajax.request({
                         }
                         
 			},
-			margin: '0 20 0 10',
+			margin: '0 23 0 10',
 			//bodyPadding: 10,
 			bodyBorder: false,
 			border: false,
@@ -333,7 +333,7 @@ Ext.Ajax.request({
                         }
                         
 			},
-			margin: '10 105 0 90',
+			margin: '10 107 0 90',
 			//bodyPadding: 10,
 			bodyBorder: false,
 			border: false,
@@ -445,7 +445,7 @@ Ext.Ajax.request({
 		});*/
 		
 		var ext_panel = null;
-					if(json.gnd[0].length > 0 || json.wega.length > 0 || json.viaf.length > 0){
+					if(json.gnd.length > 0  || json.wega.length > 0 || json.viaf.length > 0){
 		var extGroup = Ext.create('Ext.form.FieldSet', {
 			title: '<b style="color:gray;">Referenzen extern</b>',
 			bodyBorder: false,
