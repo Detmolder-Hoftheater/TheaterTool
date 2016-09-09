@@ -451,7 +451,7 @@ declare function local:jsonifyPersNamesForSources($names, $file1) {
 
 let $strings := for $elem in $names
 
-					let $name :=if($elem[@dbkey=$workID])then($file1//mei:titleStmt[not(ancestor::mei:componentGrp)][1]/mei:title)else()
+					let $name :=if($elem[@dbkey=$workID])then($file1//mei:titleStmt[not(ancestor::mei:componentGrp)][1]/mei:title[1])else()
 					let $dbId :=if($elem[@dbkey=$workID])then($file1/mei:source[not(ancestor::mei:componentGrp)]/@xml:id)else()
 
  return 

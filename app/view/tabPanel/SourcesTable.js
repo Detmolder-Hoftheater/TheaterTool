@@ -82,6 +82,7 @@ for(i = 0; i < me.sourcesList.length; i++){
 			flex:1,
 			align: 'center',
 			menuDisabled: true,
+			disabled: true,
 			renderer: function (val, metadata, record) {
 			
 			if(headerName == 'Details'){
