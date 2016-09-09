@@ -42,19 +42,10 @@ let $strings := for $elem in $fileNames
 
 		let $source := $file_1//mei:relation[@rel ="hasEmbodiment"]/@target
 		
-
-		(:let $path_1 := 'xmldb:exist:///apps/theater-data/expressions/H020149_expr1.xml'
-		let $file_1 := doc($path_1)
-		let $source_1 := $file_1//mei:relation[@rel ="hasEmbodiment"][1]/@target
-
-		let $source_end := if(contains($fileName1, 'Der Bettelstudent oder Das Donnerwetter'))
-		then(
-			$source_1
-		)else($source):)
-
-		(:let $source := $file1//mei:relation[@rel ="hasEmbodiment"]/@target:)
-
-
+		let $source := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then($file_1//mei:relation[@rel ="hasEmbodiment"]/@target)
+			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target)
+		
 		let $sourceFileName := tokenize($source, "#")[last()]
 		let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
 		let $fileSource := doc($path2)
@@ -62,8 +53,125 @@ let $strings := for $elem in $fileNames
 		let $physLoc := $fileSource//mei:identifier[@type ="shelfLocation"][1]
 		let $sourceName := concat('Quelle: ', $rismLabel, ' , ' ,$physLoc)
 		let $extName := concat($fileName1, ': ',  $comp)
+		
+		let $isExtend := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then(concat('{',
+									'"leaf":"true",',
+									'"name":"Faksimiles",',
+									'"extName":"Faksimiles",',
+									'incipits:"',"false",'",',
+									'details:"',"false",'",',                          
+                            		'xml:"',"true",'",',
+									'"icon":"resources/images/Images-17.png",', 
+								'}')
+			)
+			else()
+			
+			let $iconWork := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then('resources/images/BookBlau-17.png')
+			else('resources/images/Books1-17.png')
 
-                    return 
+			let $iconSource := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then('resources/images/SourceBlue.png')
+			else('resources/images/SourceRed.png')
+
+			let $iconIncipits := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then('resources/images/IncBlue.png')
+			else('resources/images/IncRed.png')
+
+			let $iconRISM := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			then('resources/images/RismBlue.png')
+			else('resources/images/Literature-17.png')
+			
+			let $isSource := if($sourceFileName != '')
+			then(concat('"children":[{',
+								'name:"',$sourceName,'",',
+								'extName:"',$sourceName,'",',
+								'incipits:"',"true",'",',
+								'sourceID:"',$sourceFileName,'",',
+								'expanded:"',"true",'",',
+								'icon:"',$iconSource,'",', 
+								'details:"',"true",'",',                          
+                            	'xml:"',"true",'",',
+								'"children":[',
+									'{',
+									'"leaf":"true",',
+									'"name":"RISM",',
+									'"extName":"RISM",',
+									'incipits:"',"false",'",',
+									'details:"',"false",'",', 
+									'icon:"',$iconRISM,'",',                         
+                            		'xml:"',"true",'",',
+								'},',
+								'{',
+									'"leaf":"true",',
+									'"name":"Incipits",',
+									'"extName":"Incipits",',
+									'incipits:"',"true",'",',
+									'details:"',"false",'",', 
+									'icon:"',$iconIncipits,'",',                         
+                            		'xml:"',"false",'",',
+								'},',
+								$isExtend,
+								']',
+							'}]')
+			)
+			else()
+			
+			let $isLeaf := if($sourceFileName )then()else('"leaf":"true",')
+			
+			return 
+						if($fileName1 != '')then(
+                        concat('{name:"',$fileName,'",',
+							'details:"',"true",'",',                          
+                            'xml:"',"true",'",', 
+							'componist:"',$comp,'",',
+							'expanded:"',"true",'",',
+							'extName:"',$extName,'",',
+							'werkID:"',$fileID,'",', 
+							'icon:"',$iconWork,'",',
+							'incipits:"',"false",'",',	
+							$isLeaf,
+							$isSource,
+													
+							(:'"children":[{',
+								'name:"',$sourceName,'",',
+								'extName:"',$sourceName,'",',
+								'incipits:"',"true",'",',
+								'sourceID:"',$sourceFileName,'",',
+								'icon:"',$iconSource,'",', 
+								'details:"',"true",'",',                          
+                            	'xml:"',"true",'",',
+								'"children":[',
+									'{',
+									'"leaf":"true",',
+									'"name":"RISM",',
+									'"extName":"RISM",',
+									'incipits:"',"false",'",',
+									'details:"',"false",'",', 
+									'icon:"',$iconRISM,'",',                         
+                            		'xml:"',"true",'",',
+								'},',
+								'{',
+									'"leaf":"true",',
+									'"name":"Incipits",',
+									'"extName":"Incipits",',
+									'incipits:"',"true",'",',
+									'details:"',"false",'",', 
+									'icon:"',$iconIncipits,'",',                         
+                            		'xml:"',"false",'",',
+								'},',
+								$isExtend,
+								']',
+							'}]',:)
+                            '}'))
+else ()
+    return 
+        string-join($strings,',')
+
+			
+
+                   (: return 
 						if($fileName1 != '')then(
                         concat('{name:"',$fileName1,'",',
 							'details:"',"true",'",',                          
@@ -119,7 +227,7 @@ let $strings := for $elem in $fileNames
 else ()
     return 
         string-join($strings,',')
-
+:)
    
     
 };

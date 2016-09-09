@@ -46,13 +46,16 @@ Ext.define('TheaterTool.view.tabPanel.SourcesTable', {
     }]*/
 });
 
-/*for(i = 0; i < me.sourcesList.length; i++){
-            var datum = me.sourcesList[i];
-			var role = Ext.create('TheaterTool.model.RefData', {
-    			jahr : datum
+if(me.sourcesList != 'undefined'){
+for(i = 0; i < me.sourcesList.length; i++){
+            var source = me.sourcesList[i];
+			var sourceRow = Ext.create('TheaterTool.model.RefData', {
+    			name : source[0],
+    			id : source[1]
 			});
-			me.store.add(role);
-			}*/
+			me.store.add(sourceRow);
+			}
+			}
 	
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		

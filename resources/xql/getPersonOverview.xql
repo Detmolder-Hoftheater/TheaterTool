@@ -388,13 +388,17 @@ declare function local:jsonifySourcesReferences($workID) {
 
 let $rolepath := 'xmldb:exist:///apps/theater-data/sources/'
 let $rolefiles := collection($rolepath)
-let $rolefile := $rolefiles//mei:source
+let $rolefile := $rolefiles//mei:source/@xml:id
 
 let $strings := for $elem in $rolefile
-		let $names := if($elem//mei:source//mei:persName[@key=$workID])then($elem//mei:titleStmt/mei:title[1])else()
+         let $path1 := concat($rolepath, $elem, '.xml')
+		let $file1 := doc($path1)
+		let $names :=  $file1//mei:persName
+		let $listNames := local:jsonifyPersNamesForSources($names, $file1)
+		(:let $names := if($elem//mei:source//mei:persname[@dbkey=$workID])then($elem//mei:titlestmt/mei:title[1])else():)
  return 
-    if($names != '')then(                     
-concat('"',$names, '"')
+    if($listNames != '')then(                     
+$listNames
     )else()
     return 
         string-join($strings,',')
@@ -407,13 +411,53 @@ declare function local:jsonifyWorksReferences($workID) {
 
 let $rolepath := 'xmldb:exist:///apps/theater-data/works/'
 let $rolefiles := collection($rolepath)
-let $rolefile := $rolefiles//mei:work
+let $rolefile := $rolefiles//mei:work/@xml:id
 
 let $strings := for $elem in $rolefile
-		let $names := if($elem//mei:work//mei:persName[@key=$workID])then($elem//mei:titleStmt/mei:title[1])else()
+
+        let $path1 := concat($rolepath, $elem, '.xml')
+		let $file1 := doc($path1)
+		let $names :=  $file1//mei:persName
+		let $listNames := local:jsonifyPersNames($names, $file1)
+       (: let $names := $elem/mei:work//mei:titlestmt[1]/mei:title[1]:)
+		(:let $names := if($elem/mei:work//mei:persname[@dbkey=$workID])then($elem//mei:titlestmt[1]/mei:title[1])else():)
  return 
-    if($names != '')then(                     
-concat('"',$names, '"')
+    if($listNames != '')then(                     
+$listNames
+    )else()
+    return 
+        string-join($strings,',')
+};
+
+
+declare function local:jsonifyPersNames($names, $file1) {
+
+let $strings := for $elem in $names
+
+					let $name :=if($elem[@dbkey=$workID])then($file1//mei:title[1])else()
+					let $dbId :=if($elem[@dbkey=$workID])then($file1//mei:work/@xml:id)else()
+
+ return 
+    if($name != '')then(                     
+concat('["',$name, '",', '"',$dbId, '"]')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
+declare function local:jsonifyPersNamesForSources($names, $file1) {
+
+let $strings := for $elem in $names
+
+					let $name :=if($elem[@dbkey=$workID])then($file1//mei:titleStmt[not(ancestor::mei:componentGrp)][1]/mei:title)else()
+					let $dbId :=if($elem[@dbkey=$workID])then($file1/mei:source[not(ancestor::mei:componentGrp)]/@xml:id)else()
+
+ return 
+    if($name != '')then(   
+    
+concat('["',$name, '",', '"',$dbId, '"]')
     )else()
     return 
         string-join($strings,',')

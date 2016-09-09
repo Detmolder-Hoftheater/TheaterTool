@@ -225,7 +225,7 @@ return sourceDataStore;
 
 },
 
-handleStoreForWorks: function(selection){
+handleStoreForWorks: function(selection, isSelected){
 		var navTreeStore = null;
 		if(this.worksStoreMap === null){
 			this.worksStoreMap = new Map();
@@ -247,6 +247,20 @@ handleStoreForWorks: function(selection){
 				
 					//}
 			}
+			else if(isSelected){
+			    // one work was selected				
+				    var workName = selection;
+						if(this.worksStoreMap.has(selection)){
+							navTreeStore = this.worksStoreMap.get(selection);
+						}
+						else{
+							navTreeStore = this.createStoreForWork();
+							navTreeStore.getProxy().extraParams.workName = selection;					
+							navTreeStore.load();
+							var key = selection;
+							this.worksStoreMap.set(key, navTreeStore);
+						}
+			}
 			else {
 				if(this.worksStoreMap.has(selection)){
 					navTreeStore = this.worksStoreMap.get(selection);
@@ -255,7 +269,7 @@ handleStoreForWorks: function(selection){
 				else{
 					navTreeStore = this.createStore();
 
-if(selection === 1){
+                   if(selection === 1){
 					navTreeStore.getProxy().extraParams.selection1 = 'A';
 					navTreeStore.getProxy().extraParams.selection2 = 'B';
 					navTreeStore.getProxy().extraParams.selection3 = 'C';
@@ -305,6 +319,7 @@ if(selection === 1){
 					navTreeStore.getProxy().extraParams.selection3 = 'Z';
 					
 				}
+				
 				
 				navTreeStore.load();
 					var key = selection;

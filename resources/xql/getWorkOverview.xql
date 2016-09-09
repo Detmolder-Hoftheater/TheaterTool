@@ -140,15 +140,31 @@ let $strings := for $elem in $content
 
 					let $id_1 :=$elem//mei:history/mei:p
 					
-					let $id :=normalize-space($id_1)
+					let $id:= local:jsonifyPs($id_1)
+					
+					
 					                  
                     return 
                       if($id != '')then(        
 concat(
-							'["',replace($id, '"', '\\"' ),'"]'))else()
+							'["',$id,'"]'))else()
     
     return 
         string-join($strings,',') 
+};
+
+declare function local:jsonifyPs($id_1) {
+
+let $strings := for $elem in $id_1
+
+    let $id :=normalize-space($elem)
+
+                    return 
+if($id != '')then(replace($id, '"', '\\"' ))else()
+
+    return 
+        string-join($strings,', ')
+ 
 };
 
 declare function local:jsonifyCreation($content) {

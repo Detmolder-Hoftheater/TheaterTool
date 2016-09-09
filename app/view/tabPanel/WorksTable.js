@@ -46,17 +46,31 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
     }]*/
 });
 
-/*for(i = 0; i < me.worksList.length; i++){
-            var datum = me.worksList[i];
-			var role = Ext.create('TheaterTool.model.RefData', {
-    			jahr : datum
+if(me.worksList != 'undefined'){
+for(i = 0; i < me.worksList.length; i++){
+            var work = me.worksList[i];
+            var iconExtend = '';
+            if(work[1] === 'H020149' || work[1] === 'H020048' || work[1] === 'H020263'){
+                iconExtend = 'resources/images/BookBlau-17.png';
+            }
+            else{
+                iconExtend = 'resources/images/Books1-17.png';
+            }
+            
+			var workRow = Ext.create('TheaterTool.model.RefData', {
+    			name : work[0],
+    			iconExtend: iconExtend,
+    			id : work[1]
 			});
-			me.store.add(role);
-			}*/
-	
+			me.store.add(workRow);
+			}
+	}
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
+		var extendColumn = this.createColumn('', '');
+		
 		this.columns =[ 
+		extendColumn,
 		
 		{
 			text: 'Name',
@@ -84,26 +98,32 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
 			if(headerName == 'Details'){
 					this.items[0].icon = path;					
 				}
+								
+				if(headerName == ''){
+				  
+					this.items[0].icon = record.data.iconExtend;					
+				}
 				
 				metadata.style = 'cursor: pointer;';
 				return val;
-			}
-			/*handler: function(grid, rowIndex, colIndex) {
+			},
+			
+			handler: function(grid, rowIndex, colIndex) {
                     var rec = grid.getStore().getAt(rowIndex);
 					console.log(rec);
-					var dbkey = rec.data.jahr;
+					var dbkey = rec.data.id;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">'+rec.data.jahr+'</font>',
-						icon: 'resources/images/Presse-16.png'
+						title: '<font style="color:gray;">'+rec.data.name+'</font>',
+						icon: 'resources/images/BookBlau-16.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.journal.JournalPanelInTab({regieName: dbkey});
+					var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: rec.data.name, isSelected: true});
 					repertoireTab.add(personDetails);
 
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
-
-                }*/
+					
+                }
 		});
 		return eColumn;
 	}

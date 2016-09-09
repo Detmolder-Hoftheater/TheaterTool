@@ -18,6 +18,7 @@ layout: {
 border: false,
 navButton: null,
 selection: null,
+isSelected: null,
 
 	initComponent: function () {
 var me = this;
@@ -26,7 +27,7 @@ var navTree = new TheaterTool.view.tabPanel.repertoire.RepertoireMenuItemTree();
 
 								var app = TheaterTool.getApplication();
 		
-								var navTreeStore = app.handleStoreForWorks(me.selection);
+								var navTreeStore = app.handleStoreForWorks(me.selection, me.isSelected);
 								navTree.getView().bindStore(navTreeStore);
 				navTree.setRepertoirePanel(me);
 

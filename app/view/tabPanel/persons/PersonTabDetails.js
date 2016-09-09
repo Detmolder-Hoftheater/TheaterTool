@@ -620,7 +620,7 @@ Ext.Ajax.request({
 		var worksTable = new TheaterTool.view.tabPanel.WorksTable({worksList: json.worksRef});
 		ref_layout.add(worksTable);
 		
-		var sourcesTable = new TheaterTool.view.tabPanel.SourcesTable({sourcesList: json.isourcesRef});
+		var sourcesTable = new TheaterTool.view.tabPanel.SourcesTable({sourcesList: json.sourcesRef});
 		ref_layout.add(sourcesTable);
 				
 		var journalTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable({journalList: json.journalRef});
