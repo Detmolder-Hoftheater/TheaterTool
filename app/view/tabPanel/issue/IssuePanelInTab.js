@@ -18,6 +18,7 @@ border: false,
 
 navButton: null,
 year: null,
+issueName: null,
 
 	initComponent: function () {
 var me = this;
@@ -36,6 +37,16 @@ navTree.setRepertoirePanel(me);
 me.navButton = me.createCEButton(navTree);
 
 navTree.setNavButton(me.navButton);
+
+if(me.issueName !== null){
+
+var issuePanel = new TheaterTool.view.tabPanel.issue.IssuePanelDetails({issueName: me.issueName, year:me.year});
+me.items = [
+       issuePanel
+    ]		
+					me.navButton.setText('<b style="color:gray;">'+me.issueName+'</b>');
+					
+}
 
  	me.tbar = {
 style: {

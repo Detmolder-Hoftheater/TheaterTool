@@ -31,8 +31,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.IssueTable', {
 });
 
 for(i = 0; i < me.issueList.length; i++){
+            var data = me.issueList[i];
 			var role = Ext.create('TheaterTool.model.RefData', {
-    			name : me.issueList[i]
+    			name : data[0],
+    			jahr : data[1]
 			});
 			me.store.add(role);
 			}
@@ -68,7 +70,6 @@ for(i = 0; i < me.issueList.length; i++){
 			header: headerName,
 			flex:1,
 			align: 'center',
-			disabled: true,
 			menuDisabled: true,
 			renderer: function (val, metadata, record) {
 			
@@ -78,8 +79,8 @@ for(i = 0; i < me.issueList.length; i++){
 				
 				metadata.style = 'cursor: pointer;';
 				return val;
-			}
-			/*handler: function(grid, rowIndex, colIndex) {
+			},
+			handler: function(grid, rowIndex, colIndex) {
                     var rec = grid.getStore().getAt(rowIndex);
 					console.log(rec);
 					var dbkey = rec.data.name;
@@ -87,14 +88,14 @@ for(i = 0; i < me.issueList.length; i++){
 						title: '<font style="color:gray;">Jährliche Ausgaben</font>',
 						icon: 'resources/images/MoneyTransfer-17.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.issue.IssuePanelInTab({year: dbkey});
+					var personDetails = new TheaterTool.view.tabPanel.issue.IssuePanelInTab({issueName: dbkey, year: rec.data.jahr});
 					repertoireTab.add(personDetails);
 
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
 				
-                }*/
+                }
 		});
 		return eColumn;
 	}

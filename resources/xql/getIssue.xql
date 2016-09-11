@@ -14,20 +14,16 @@ let $year := request:get-parameter('year', '')
 
 let $uri := concat('/db/apps/theater-data/ausgaben/', $year, '/')
 
-(:let $file := doc($uri):)
 let $file := collection($uri)
 
-let $headName := $file//tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title[$month]
-let $schedule := if($headName != '')then($file//tei:TEI)else()
+let $allFiles := $file//tei:TEI
 
-(:let $type := request:get-parameter('type', 'work')
-let $docUri := if(contains($uri, '#')) then(substring-before($uri, '#')) else($uri)
-let $doc := if(contains($type, 'work'))then(eutil:getDoc($docUri)/mei:work)else(eutil:getDoc($docUri)/mei:source)
-(\:let $doc := eutil:getDoc($docUri)/mei:work:\)
-let $lang := request:get-parameter('lang', 'de'):)
+let $allNames := $file//tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title
 
-(:let $base := concat(replace(system:get-module-load-path(), 'embedded-eXist-server', ''), '/../xslt/') :)
-(: TODO: Pr\'fcfen, wie wir an dem replace vorbei kommen:)
+let $schedule := for $elem in $allFiles
+                    return
+                    
+                 if($elem/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title = $month)then($elem)else()
 
 let $base := 'xmldb:exist:///db/apps/TheaterTool/resources/xslt/'
 

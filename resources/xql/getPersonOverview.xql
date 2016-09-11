@@ -202,7 +202,7 @@ let $strings := for $elem in $titles
 	let $title := $elem
 	
                     return 
-concat('["',$title,'"]')
+concat('["',normalize-space($title),'"]')
     return 
         string-join($strings,',')
  
@@ -509,10 +509,13 @@ let $rolefiles := collection($rolepath)
 let $rolefile := $rolefiles//tei:TEI
 
 let $strings := for $elem in $rolefile
+        return
+        let $date := if($elem//tei:TEI//tei:persName[@key=$workID])then($elem//tei:titleStmt/tei:title/tei:date)else()
 		let $names := if($elem//tei:TEI//tei:persName[@key=$workID])then($elem//tei:titleStmt/tei:title)else()
+		
  return 
     if($names != '')then(                     
-concat('"',$names, '"')
+concat('["',$names, '",', '"', $date, '"]')
     )else()
     return 
         string-join($strings,',')
