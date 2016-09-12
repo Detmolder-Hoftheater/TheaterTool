@@ -181,14 +181,18 @@ if($content_title != '')then($content_title)else()
 declare function local:jsonifyPseudNames($titles) {
 
 let $strings := for $elem in $titles
+    
     let $name := $elem
-	let $title := $elem/tei:surname
+    
+	(:let $title := $elem/tei:surname
 	let $foreNameList := $elem/tei:forename
 	let $foreNames := local:jsonifyForename($foreNameList)	               
-	let $language := $elem/tei:nameLink
+	let $language := $elem/tei:nameLink:)
 	
                     return 
-concat('["',$name, '","',   $title,  '","',   $foreNames, '","', $language,'"]')
+                  (: concat('["',$name, '","',   $title,  '","',   $foreNames, '","', $language,'"]'):)
+                  concat('["',normalize-space($name),'"]')
+
     return 
         string-join($strings,',')
  
