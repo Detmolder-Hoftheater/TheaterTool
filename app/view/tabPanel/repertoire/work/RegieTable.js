@@ -32,7 +32,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 
 for(i = 0; i < me.regieList.length; i++){
 			var role = Ext.create('TheaterTool.model.RefData', {
-    			name : me.regieList
+    			name : me.regieList[i]
 			});
 			me.store.add(role);
 			}

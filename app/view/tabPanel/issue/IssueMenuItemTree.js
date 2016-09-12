@@ -72,7 +72,7 @@ width: 200,
 					me.repertoirePanel.removeAll(true);
 					me.workPanel = new TheaterTool.view.tabPanel.issue.IssuePanelDetails({issueName: eOpts[0].data.name, year:me.year});
 					me.repertoirePanel.add(me.workPanel);			
-					me.navButton.setText('<b style="color:gray;">'+eOpts[0].data.name+'</b>');
+					me.navButton.setText('<font size="2" face="Arial" style="color:#A87678;"><b>'+eOpts[0].data.name+'</b></font>');
 				}
 			}
 		};

@@ -44,7 +44,7 @@ var issuePanel = new TheaterTool.view.tabPanel.issue.IssuePanelDetails({issueNam
 me.items = [
        issuePanel
     ]		
-					me.navButton.setText('<b style="color:gray;">'+me.issueName+'</b>');
+					me.navButton.setText('<font size="2" face="Arial" style="color:#A87678;"><b>'+me.issueName+'</b></font>');
 					
 }
 
@@ -87,7 +87,7 @@ createCEButton: function (navTree) {
 		var me = this;
 		var ceButton = Ext.create('Ext.button.Button', {
 			//xtype: 'button',
-			 text: '<b style="color:gray;">Ausgabe<b>',
+			 text: '<font size="2" face="Arial" style="color:#A87678;"><b>Ausgabe</b></font>',
 		menuAlign: 'tr-bl?',
 						menu: Ext.create('Ext.menu.Menu', {
    //closable: true,
