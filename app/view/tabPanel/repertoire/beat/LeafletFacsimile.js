@@ -12,9 +12,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {
 		map: null
 	},
 
- minHeight: 400,
-   //flex:1,
-    resizable: true,
+ //minHeight: 400,
+   flex:1,
+    //resizable: true,
 
 //autoScroll: true,
 //reserveScrollbar: true,

@@ -7,15 +7,18 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
     requires:[
 	'TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile'],
 	
+	flex: 1,
+border: false,
+	
 	detailSection: null,
 	xmlSection: null,
 	navTree: null,	
 
-border: true,
+/*border: true,
 	flex:1,
 bodyBorder: true,
 bodyPadding:10,
-autoScroll: true,
+autoScroll: true,*/
 
 
 /*border: false,

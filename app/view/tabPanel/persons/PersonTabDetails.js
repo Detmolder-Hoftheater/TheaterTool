@@ -113,7 +113,7 @@ Ext.Ajax.request({
         }
 		
 		
-		var pseudo = me.createTextArea('Künstlername(n)');
+		var pseudo = me.createTextArea('Pseudonym(e)');
 		if(typeof json.pseuds[0] !== 'undefined'){
 		 var regText = '';
 		  for (i = 0; i < json.pseuds.length; i++) {

@@ -252,7 +252,7 @@ let $strings := for $elem_1 in $handList
 			let $persName :=$elem_1
 
 				return 
-if($persName != '')then(concat('"',$persName, '"'))else()
+if($persName != '')then(concat('"',normalize-space($persName), '"'))else()
 
 
     return 

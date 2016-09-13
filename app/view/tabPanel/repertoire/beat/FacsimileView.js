@@ -7,12 +7,24 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.FacsimileView', {
 	extend: 'Ext.panel.Panel',
 	requires:[
 	'TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile'],
+	
+	flex: 6,
 
+layout: {
+		type: 'vbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+		
+	//bodyPadding: 1,
+	
 border: true,
+
+/*border: true,
 	flex:1,
 bodyBorder: true,
 bodyPadding:10,
-autoScroll: true,
+autoScroll: true,*/
 	
 /*border: true,
 flex:1,

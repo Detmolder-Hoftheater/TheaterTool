@@ -8,34 +8,41 @@ requires:[
 	'Ext.tree.*',
 	'TheaterTool.model.FacsimileNavigation'
 	],
-   //xtype: 'basic-trees',
-   // width: 200,
-    flex: 0.23,
+	
+	reserveScrollbar: true,
+	
+	useArrows: true,
+	rootVisible: false,
+//lines: false,
+//rowLines: true,
+//columnLines: true,
+
+bodyPadding: 5,
+
+header: false,
+	
+	// region:'west',
+	 //region:'east',
+            flex: 1,
+            border: true,
+            
+   //collapsible: true,         
+            
+            
+	
+	
+  
+    /*flex: 0.23,
     autoScroll: true,
   
 	rootVisible: false,
-	 //store: store,
+	 
 height: 200,
-
-	
- //  layout: {
-  //      type: 'table'
-        //columns: 4
-       // tdAttrs: { style: 'padding: 10px;' }
- //   },
-   
-  /* defaults: {
-        xtype: 'treepanel',
-      	//width: 260,
-      	
-        rootVisible: false,
-        store: store
-    },*/
 
 reserveScrollbar: true,
 	
 	useArrows: true,
-header: false,
+header: false,*/
 //collapsible: true,
 leafletFacsimile: null,
 	pageSpinner: null,
