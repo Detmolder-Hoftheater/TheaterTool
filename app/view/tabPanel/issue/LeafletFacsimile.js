@@ -12,16 +12,16 @@ Ext.define('TheaterTool.view.tabPanel.issue.LeafletFacsimile', {
 		map: null
 	},
 
- minHeight: 400,
-   //flex:1,
-    resizable: true,
+ //minHeight: 400,
+   flex:1,
+  //  resizable: true,
 
 //autoScroll: true,
 //reserveScrollbar: true,
 pageNumber: null,
 //border:false,
 
-
+imagePath: null,
 
 	zones: null,
 	facsimileTile: null,
@@ -42,89 +42,12 @@ pageNumber: null,
 		}
 
 
-		// else {
+		 else {
 
-			/*Ext.Ajax.request({
-				 url: 'resources/xql/getZones.xql',
-				//url: 'data/getZones.xql',
-				async: false,
-				method: 'GET',
-				params: {
-					path: selectedPage
-				},
-				success: function (result) {
-					
-					var json = jQuery.parseJSON(result.responseText);
-					
-					this.zones = json.zones;
-					var page = json.page;
-					
-					facsimileHeight = 
-					//2992;
-					page.height;
-					facsimileWidth = 
-					//3991;
-					page.width;
-					
-					var originalMaxSize = null;
-					
-					if (facsimileHeight > facsimileWidth) {
-						originalMaxSize = facsimileHeight;
-					} else {
-						originalMaxSize = facsimileWidth;
-					}
-					
-					var maxZoomLevel = 0;
-					while (originalMaxSize > 256) {
-						originalMaxSize = originalMaxSize / 2;
-						maxZoomLevel++;
-					}
-					console.log("maxZoomLevel :" + maxZoomLevel);
-					
-					var map = L.map(me.getId());
-					
-					map.setView([0, 0], Math.round(maxZoomLevel / 2));
-					
-					me.setMap(map);
-					
-					//var sourceName = Ext.getCmp('source').getText();
-					
-					//var pageName = Ext.getCmp('pages').getText();
-					
-					 var path = 'http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/edition-HT_Isouard/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586/MUS-N_120_BASS-VIOLONCELLO_001/{z}-{x}-{y}.jpg';
-
-					 
-					// console.log('facsimile path');
-					// console.log(json.path);
-					
-					me.facsimileTile = 
-					/\*L.tileLayer.facsimileLayer('data/example/{z}-{x}-{y}.jpg', {
-						minZoom: 0,
-						maxZoom: maxZoomLevel,
-						continuousWorld: true
-					});*\/
-					
-					
-					 L.tileLayer.facsimileLayer(path, {
-					minZoom: 0,
-					maxZoom: maxZoomLevel,
-					continuousWorld : true
-					});
-					
-					me.facsimileTile.setWidth(facsimileWidth);
-					
-					me.facsimileTile.setHeight(facsimileHeight);
-					
-					me.facsimileTile.addTo(map);
-
-					me.facsimileTile.fitInImage();
-					
-					
-					
-				}
-			});*/
+			me.loadFacsimile();
 		
-		//}
+		}
+		
 	},
 	
 	/**
@@ -140,33 +63,17 @@ pageNumber: null,
 		}
 	},
 
-	loadFacsimile: function(voiceID, number, selectedWork){
-var me = this;
-Ext.Ajax.request({
-				 url: 'resources/xql/getZones.xql',
-				//url: 'data/getZones.xql',
-				async: false,
-				method: 'GET',
-				params: {
-					fileName: voiceID,
-					pageNr: number,
-					selectedWork: selectedWork
-				},
-				success: function (result) {
-					
-					var json = jQuery.parseJSON(result.responseText);
-					
-					me.zones = json.zones;
-					var page = json.page;
+	loadFacsimile: function(){
+            var me = this;
 
-					me.pageNumber = page.pageAnzahl;
+					me.pageNumber = 1;
 					
-					facsimileHeight = 
+					facsimileHeight = 4764;
 					//2992;
-					page.height;
-					facsimileWidth = 
+					
+					facsimileWidth = 3398;
 					//3991;
-					page.width;
+					
 					
 					var originalMaxSize = null;
 					
@@ -189,20 +96,13 @@ Ext.Ajax.request({
 					
 					me.setMap(map);
 					
-					//var leaflet_prefix = getPreference('leaflet_prefix');
-
-					var fields = page.path.split('.');
-					var name = fields[0];
 					//leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
-					leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/" + name;
+					leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/TA_30/TA_30_066";
+					//leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/TA_23/TA_23_003";
 /*"http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/" + name;*/
 					
 					 //var path = 'http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/edition-HT_Isouard/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586/MUS-N_120_BASS-VIOLONCELLO_001/{z}-{x}-{y}.jpg';
 
-					 
-					 console.log('facsimile path');
-					 console.log(page.path);
-					
 					me.facsimileTile = 
 					/*L.tileLayer.facsimileLayer('data/example/{z}-{x}-{y}.jpg', {
 						minZoom: 0,
@@ -224,9 +124,9 @@ Ext.Ajax.request({
 					me.facsimileTile.addTo(map);
 
 					me.facsimileTile.fitInImage();
+					map.setZoom(2);
 	
-				}
-			});
+				
 		
 	},
 

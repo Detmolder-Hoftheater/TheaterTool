@@ -7,13 +7,26 @@ Ext.define('TheaterTool.view.tabPanel.issue.FacsimileView', {
 	extend: 'Ext.panel.Panel',
 	requires:[
 	'TheaterTool.view.tabPanel.issue.LeafletFacsimile'],
+	
+	flex: 1,
 
+layout: {
+		type: 'vbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+	region: 'east',
+		
+	//bodyPadding: 1,
+	
 border: true,
+
+/*border: true,
 	flex:1,
 bodyBorder: true,
 bodyPadding:10,
 autoScroll: true,
-region: 'east',
+region: 'east',*/
 	
 /*border: true,
 flex:1,
@@ -23,6 +36,7 @@ pageSpinner: null,
 leafletFacsimile: null,
 
 selectedWork: null,
+imagePath: null,
 
 	/**
 	 * Set title for view and create leaflet component.
@@ -33,7 +47,7 @@ selectedWork: null,
 		var me = this;
 
 	
-		me.leafletFacsimile = new TheaterTool.view.tabPanel.issue.LeafletFacsimile({margin: '0 0 5 0'})
+		me.leafletFacsimile = new TheaterTool.view.tabPanel.issue.LeafletFacsimile({margin: '0 0 5 0', imagePath: me.imagePath})
 
 /*me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 			leafletFacsimile : me.leafletFacsimile,

@@ -25,7 +25,7 @@ layout: {
 'als XML-Daten abgelegt und als solche weiterverwendbar sein sollen, '+ 
 'innerhalb einer katalogartigen Struktur zugänglich gemacht, visualisiert '+ 
 'und mit einander verknüpft. Andere, benutzerfreundlichere Zugangsformen '+ 
-'zu den Daten und Abbildungen sind erst nach Umsetzung dieser'+ 
+'zu den Daten und Abbildungen sind erst nach Umsetzung dieser '+ 
 'Basisfunktionen vorgesehen. '+ 
 'Gegenwärtig werden die Text- und XML-Ansichten im Bereich des '+ 
 'Repertoires (Einzelansichten der Werke und Quellen) sowie die '+ 
@@ -34,6 +34,8 @@ layout: {
 'Da sich die Darstellung der Texte noch in einem Entwurfsstadium '+ 
 'befindet, haben Sie bitte Verständnis dafür, dass erst Teile der '+ 
 'Informationen angezeigt werden können.</p><p></p>'+
+
+'<p><b style="color:#A87678;">Navigation</b></p>'+
 
 '<p>Einzelne Werke können durch einen Doppelklick auf die Items unter '+ 
 '„Repertoire“ bzw. auf die unter „Tiefenerschlossene Werke“ aufgelisteten Werke '+ 
@@ -47,7 +49,13 @@ layout: {
 'mit der Itemselektion "Incipits" bereits in einer vorläufigen Darstellung zu sehen. '+
 'Ein Dppelklick in das Einzelincipit öffnet eine größere Darstellung.</p><p></p>'+
 
-'<p>Die Spielpläne sind im Navigationsbaum unter "Programm" und die Einnahmen unter "Finanzwesen" abrufbar.</p><p></p>';
+'<p>Die Spielpläne sind im Navigationsbaum unter "Programm", '+
+'die Einnahmen und die Ausgaben unter "Finanzwesen" abrufbar.</p><p></p>'+
+
+'<p>Die Informationen zu einer Person werden durch einen Doppelklick auf die Items unter '+ 
+'„Personen“ im Navigationsbaum angezeigt.</p><p></p>'+
+
+'<p>Die XML-Ansichten sind für alle Daten-Objekte im XML-Tab verfügbar.</p><p></p>';
 
 		
 		this.items =[ {

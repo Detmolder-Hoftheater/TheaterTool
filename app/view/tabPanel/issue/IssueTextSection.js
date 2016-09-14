@@ -37,6 +37,8 @@ detailSection: null,
 
 	issueName: null,
 	year: null,
+	
+	imagePath: null,
 
     initComponent: function() {
 
@@ -71,8 +73,11 @@ detailSection: null,
 				me.add(tableView);
  				tableView.setTextInfo(response.responseText);
  				
- 				me.detailSection = new TheaterTool.view.tabPanel.issue.FacsimileView();
- 				me.add(me.detailSection);
+ 				if( me.issueName === 'Außerordentliche Ausgaben 1840 (Auszug 1)'){
+ 				    me.detailSection = new TheaterTool.view.tabPanel.issue.FacsimileView({imagePath: me.imagePath});
+ 				    me.add(me.detailSection);
+ 				}
+ 				
               
      		}
          
