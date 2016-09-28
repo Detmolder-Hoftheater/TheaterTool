@@ -14,7 +14,7 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab', {
 	initComponent: function () {
 
 		
-	this.section_details = new TheaterTool.view.tabPanel.rolebooks.RoleTabDetails({sourceID: this.sourceID});
+	this.section_details = new TheaterTool.view.tabPanel.rolebooks.RoleTabDetails({regieName: this.regieName});
 
 	this.section_xml = new TheaterTool.view.tabPanel.rolebooks.RoleTabXML({regieName: this.regieName});
 	this.items = [

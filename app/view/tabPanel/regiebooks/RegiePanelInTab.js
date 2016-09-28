@@ -14,7 +14,7 @@ Ext.define('TheaterTool.view.tabPanel.regiebooks.RegiePanelInTab', {
 	initComponent: function () {
 
 		
-	this.section_details = new TheaterTool.view.tabPanel.regiebooks.RegieTabDetails({sourceID: this.sourceID});
+	this.section_details = new TheaterTool.view.tabPanel.regiebooks.RegieTabDetails({regieName: this.regieName});
 
 	this.section_xml = new TheaterTool.view.tabPanel.regiebooks.RegieTabXML({regieName: this.regieName});
 	this.items = [
