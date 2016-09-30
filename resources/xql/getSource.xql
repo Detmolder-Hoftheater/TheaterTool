@@ -26,7 +26,7 @@ let $strings := for $elem in $content
                    
                     return 
                        
-if(count($id) gt 0) then(concat('"',string-join($id,'","'),'"')) else()
+if(count($id) gt 0) then(concat('"',string-join(normalize-space($id),'","'),'"')) else()
     
     return 
         string-join($strings,',')
@@ -115,7 +115,7 @@ let $strings := for $elem in $id
                    
 				return 
 					concat(
-							'"',$repository,'"')
+							'"',normalize-space($repository),'"')
 
 
     return 
@@ -164,7 +164,7 @@ let $strings := for $elem in $content
                     return 
                       if($id != '')then(        
 concat(
-							'"',$id, '/',
+							'"',normalize-space($id), '/',
 $sign,
 '"'))else()
     

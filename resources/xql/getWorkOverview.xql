@@ -21,7 +21,7 @@ declare function local:jsonifyRoles($id) {
 
 let $strings := for $elem in $id
 
-					let $id_1 :=$elem
+					let $id_1 :=normalize-space($elem)
 					let $role := $elem/@role
 					let $dbkey :=$elem/@dbkey
                    
@@ -127,7 +127,7 @@ let $strings := for $elem in $titles
 	let $language := $elem/@xml:lang
 	
                     return 
-concat('["',$title, '","', $type, '","', $language,'"]')
+concat('["',replace($title, '"', '\\"' ), '","', $type, '","', $language,'"]')
     return 
         string-join($strings,',')
  
@@ -194,7 +194,7 @@ declare function local:jsonifyEventDetails($events) {
 let $strings := for $elem in $events
 
 					let $over :=$elem/mei:p
-					let $date := $elem/mei:date
+					let $date := normalize-space($elem/mei:date)
 					let $geogNamesOrt :=$elem/mei:geogName[@type='venue']
 					let $geogNamesStadt := $elem/mei:geogName[@type='place']
                    
