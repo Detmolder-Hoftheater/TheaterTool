@@ -5,7 +5,7 @@
             <xsl:value-of select="tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title"/>
         </h3>
         <table BORDER="1" CELLPADDING="10" CELLSPACING="0" style="width:100%">
-            <xsl:for-each select="tei:TEI/tei:text/tei:body/tei:table/tei:row">
+            <xsl:for-each select="tei:TEI/tei:text/tei:body//tei:table//tei:row">
                 <tr>
                     <xsl:for-each select="tei:cell">
                         <td style="text-align:left">
