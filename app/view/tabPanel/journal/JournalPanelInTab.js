@@ -14,7 +14,7 @@ Ext.define('TheaterTool.view.tabPanel.journal.JournalPanelInTab', {
 	initComponent: function () {
 
 		
-	this.section_details = new TheaterTool.view.tabPanel.journal.JournalTabDetails({sourceID: this.sourceID});
+	this.section_details = new TheaterTool.view.tabPanel.journal.JournalTabDetails({regieName: this.regieName});
 
 	this.section_xml = new TheaterTool.view.tabPanel.journal.JournalTabXML({regieName: this.regieName});
 	this.items = [
