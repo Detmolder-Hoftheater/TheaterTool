@@ -49,13 +49,8 @@ layout: {
 'mit der Itemselektion "Incipits" bereits in einer vorläufigen Darstellung zu sehen. '+
 'Ein Dppelklick in das Einzelincipit öffnet eine größere Darstellung.</p><p></p>'+
 
-'<p>Die Spielpläne sind im Navigationsbaum unter "Programm", '+
-'die Einnahmen und die Ausgaben unter "Finanzwesen" abrufbar.</p><p></p>'+
-
-'<p>Die Informationen zu einer Person werden durch einen Doppelklick auf die Items unter '+ 
-'„Personen“ im Navigationsbaum angezeigt.</p><p></p>'+
-
-'<p>Die XML-Ansichten sind für alle Daten-Objekte im XML-Tab verfügbar.</p><p></p>';
+'<p>Allgemeine Informationen und XML-Ansichten sind für alle Daten-Objekte verfügbar und'+ 
+'können durch einen Doppelklick auf die Items im Navigationsbaum angezeigt werden.</p><p></p>';
 
 		
 		this.items =[ {
