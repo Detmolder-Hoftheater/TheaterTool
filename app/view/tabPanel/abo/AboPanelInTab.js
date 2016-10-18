@@ -14,7 +14,7 @@ Ext.define('TheaterTool.view.tabPanel.abo.AboPanelInTab', {
 	initComponent: function () {
 
 		
-	this.section_details = new TheaterTool.view.tabPanel.abo.AboTabDetails({sourceID: this.sourceID});
+	this.section_details = new TheaterTool.view.tabPanel.abo.AboTabDetails({regieName: this.regieName});
 
 	this.section_xml = new TheaterTool.view.tabPanel.abo.AboTabXML({regieName: this.regieName});
 	this.items = [
