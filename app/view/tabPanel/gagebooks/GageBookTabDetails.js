@@ -4,22 +4,54 @@
 Ext.define('TheaterTool.view.tabPanel.gagebooks.GageBookTabDetails', {
  extend: 'Ext.panel.Panel',
 	
-	border: false,
+	/*border: false,
 
 	flex:1,
 
-	autoScroll: true,
+	autoScroll: true,*/
 
     title: '<b style="color:gray;">Übersicht</b>',
 
-	sourceID: null,
+	border: false,
+	flex:1,
+//bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,
+
+regieName: null,
 
     initComponent: function() {
 
 	var me = this;
+	
+	Ext.Ajax.request({
+           // url: 'data/Output_Exist.xql',
+ 			url: 'resources/xql/getGageBook.xql',
+            method: 'GET',
+            params: {
+                regieName: me.regieName
+              
+            },
+            success: function(response){
+				//var idtemp = me.repertoireTab.getTextTab().id;
+
+				//$('#'+me.id).html(response.responseText);
+				me.setTextInfo(response.responseText);
+ 				//me.repertoireTab.setTextInfo(response.responseText);
+				//me.repertoireTab.setTextInfo1(response.responseText);
+			//$('#'+me.id+'-innerCt').html(response.responseText);
+
+     		}
+         
+        });
 
         me.callParent();
         
-        }
+        },
+        
+          setTextInfo: function(infoText){
+		$('#'+this.id+'-innerCt').html(infoText);
+
+	}
 
 });

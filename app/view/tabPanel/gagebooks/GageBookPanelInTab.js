@@ -14,7 +14,7 @@ Ext.define('TheaterTool.view.tabPanel.gagebooks.GageBookPanelInTab', {
 	initComponent: function () {
 
 		
-	this.section_details = new TheaterTool.view.tabPanel.gagebooks.GageBookTabDetails({sourceID: this.sourceID});
+	this.section_details = new TheaterTool.view.tabPanel.gagebooks.GageBookTabDetails({regieName: this.regieName});
 
 	this.section_xml = new TheaterTool.view.tabPanel.gagebooks.GageBookTabXML({regieName: this.regieName});
 	this.items = [
