@@ -226,7 +226,7 @@ children: [
                 text: 'Presse',
                 icon: 'resources/images/Presse-16.png',
                 children: [
-                    { leaf:true, text: '<font style="color:gray;">Linksammlung</font>',
+                    { leaf:true, text: 'Linksammlung',
                     icon: 'resources/images/Presse-16.png' 
  /*icon: 'resources/images/Link-15.png'*/ 
  },
@@ -660,10 +660,12 @@ this.listeners = {
 				repertoireTab.add(regieDetails);
 				}
 			else if(item.data.text === 'Linksammlung'){
-					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Linksammlung</font>',
+					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+item.data.text+'</font>',
 						icon: 'resources/images/Presse-16.png'
-					});*/
+					});
+					var regieDetails = new TheaterTool.view.tabPanel.link.LinkPanelInTab({regieName: item.data.text});
+				repertoireTab.add(regieDetails);
 				
 				}
 			else if(item.parentNode.data.text === 'Theaterjournal'){
