@@ -184,7 +184,7 @@ var store = Ext.create('Ext.data.TreeStore', {
 					},
                     { leaf:true, text: '<font style="color:gray;">Aufführungen</font>',
                     icon: 'resources/images/Time-17.png'},
-                    { leaf:true, text: '<font style="color:gray;">Theaterzettel</font>',
+                    { leaf:true, text: 'Theaterzettel',
                     icon: 'resources/images/Day-17.png' }
                 ]
             },
@@ -370,8 +370,8 @@ children: [
                     
                 ]
             },
- { leaf:true, text: '<font style="color:gray;">Dekoration</font>',
-                    icon: 'resources/images/theatre.png' },
+ /*{ leaf:true, text: '<font style="color:gray;">Dekoration</font>',
+                    icon: 'resources/images/theatre.png' },*/
                     { text: 'Regiebücher',
                     icon: 'resources/images/Crown-17.png',
 children: []},
@@ -419,7 +419,7 @@ Ext.Ajax.request({
 					
 					//console.log(json);	
 				var navTreeStoreRoot = me.store.getRootNode();
-				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[2];
+				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[1];
 
 for(i = 0; i < json.names.length; i++){
 	var regName = json.names[i];
@@ -439,7 +439,7 @@ Ext.Ajax.request({
 					
 					//console.log(json);	
 				var navTreeStoreRoot = me.store.getRootNode();
-				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[3];
+				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[2];
 				for(i = 0; i < json.names.length; i++){
 					var regName = json.names[i];
 					regieMenu.appendChild({
@@ -629,11 +629,12 @@ this.listeners = {
 				
 				}
 			else if(item.data.text === 'Theaterzettel'){
-					/*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Theaterzettel</font>',
+			     repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+item.data.text+'</font>',
 						icon: 'resources/images/Day-17.png'
-					});*/
-				
+					});
+					var regieDetails = new TheaterTool.view.tabPanel.zettel.TheaterZettelPanelInTab({regieName: item.data.text});
+				    repertoireTab.add(regieDetails);				
 				}
 			else if(item.parentNode.data.text === 'Personen (1.106)'){
 					var win = new TheaterTool.view.tabPanel.persons.PersonSelectionDialog({selection: item.data.text, tabPanel : this.tabPanel});

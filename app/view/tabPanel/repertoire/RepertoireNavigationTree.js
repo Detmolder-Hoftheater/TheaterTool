@@ -124,19 +124,19 @@ selectedWork: null,
 		
 		this.columns =[ {
 			xtype: 'treecolumn',
-			header: '<b style="color:gray;">Werk -> Quelle -> Facsimile/Incipits/RISM</b>',
-			flex: 2,
+			header: '<b style="color:gray;">Werk -> Quelle -> Faksimiles/Incipits/RISM</b>',
+			flex: 1,
 			sortable: true,
 			menuDisabled: true,
 			dataIndex: 'name'
 			
 		},
 		{
-			header: '<b style="color:gray;">Autor</b>',
+			header: '<b style="color:gray;">Personen</b>',
 			flex: 1,
 			sortable: true,
 			menuDisabled: true,
-			align: 'center',
+			//align: 'center',
 			dataIndex: 'componist'
 			
 		}
