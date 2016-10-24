@@ -637,11 +637,19 @@ this.listeners = {
 				    repertoireTab.add(regieDetails);				
 				}
 			else if(item.parentNode.data.text === 'Personen (1.106)'){
-					var win = new TheaterTool.view.tabPanel.persons.PersonSelectionDialog({selection: item.data.text, tabPanel : this.tabPanel});
+			     repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+ item.data.text+'</font>',
+						icon: 'resources/images/Mask-19.png'
+					});
+				var repertoireDetails = new TheaterTool.view.tabPanel.persons.PersonDetailsPanel({selection: item.data.text});
+				repertoireTab.add(repertoireDetails);
+				
+			
+					/*var win = new TheaterTool.view.tabPanel.persons.PersonSelectionDialog({selection: item.data.text, tabPanel : this.tabPanel});
 					win.show();
 					if (typeof Ext.getCmp('infoDialog') !== 'undefined') {
 							Ext.getCmp('infoDialog').close();
-					}
+					}*/
 
 
 				/*	repertoireTab = new TheaterTool.view.tabPanel.HTTab({

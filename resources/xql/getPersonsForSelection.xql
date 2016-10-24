@@ -22,7 +22,7 @@ declare function local:jsonifyRegs($fileNames) {
 
 let $strings := for $elem_1 in $fileNames
 
-	let $titles := $elem_1//tei:persName[@type = 'reg']
+	let $titles := $elem_1//tei:persName
 	let $content_title := local:jsonifyPersons($titles, $elem_1)
 	
                     return 
@@ -56,11 +56,19 @@ let $personId := if($fileName1 != '')
 			)
 			else()
 			
+	let $type := 	if($fileName1 != '')
+			then(
+			$elem/@type
+			)
+			else()	
+			
+			
                     return 
       if($fileName1 != '')then(                
  concat('["',$fileName1,'",',
 							'"',$personId,'",',	
-							'"',$foreName,'"',
+							'"',$foreName,'",',
+							'"',$type,'"',
                             ']'))
 else ()
     return 

@@ -43,7 +43,7 @@ Ext.Ajax.request({
 					
 		
 		var titel_group = Ext.create('Ext.form.FieldSet', {
-			title: '<b style="color:gray;">Namen Varianten</b>',
+			title: '<b style="color:gray;">Name Varianten</b>',
 			bodyBorder: false,
 			collapsible: false,
 			collapsed: true

@@ -130,7 +130,9 @@ Ext.define('TheaterTool.Application', {
 'tabPanel.issue.FacsimileView',
 'tabPanel.issue.LeafletFacsimile',
 'tabPanel.link.LinkPanelInTab',
-'tabPanel.zettel.TheaterZettelPanelInTab'
+'tabPanel.zettel.TheaterZettelPanelInTab',
+'tabPanel.persons.PersonDetailsPanel',
+'tabPanel.persons.PersonNavigationTree'
 	],
 	models:[
 	'Werk',
