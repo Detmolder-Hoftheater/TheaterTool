@@ -29,8 +29,10 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 this.searchField = this.createTextField('Suche', 'Suche');
 
 var homeButton = this.createCEBox({
-			tag: 'img', src: 'resources/images/freidi_icon_57.png', width: 26,
-			height: 26
+			tag: 'img', 
+			src: 'resources/images/TheaterBild.tif', 
+			width: 28,
+			height: 28
 		},
 		this.homeOnItemToggle, true);
 		
@@ -40,11 +42,34 @@ var homeButton = this.createCEBox({
 				background: '#A80016'
 			},
 			
-			items:[ {
+			items:[ 
+			
+			//homeButton,
+		
+		{
+				xtype: 'component',
+				 
+margin: '0 0 0 5',
+style: {
+					borderRight: '2px solid #CC9FA7',
+					borderLeft: '2px solid #CC9FA7',
+					 borderTop: '2px solid CC9FA7',
+					 borderBottom: '2px solid CC9FA7'
+				},
+autoEl: {
+        tag: 'a',
+        href: 'http://hoftheater-detmold.de',
+        html: '<img src="resources/images/TheaterBild.tif" style="width:21px;height:21px;" title="http://hoftheater-detmold.de">',
+		target: "_blank"
+    }
+//style:{color: '#CC9FA7'}
+			},
+			
+			{
 
 				xtype: 'label',
         		html: '<b style="color:#CC9FA7;">Theatre Tool</b>',
-        		margin: '0 10 0 10'
+        		margin: '0 5 0 10'
 
 			},
 /*{
@@ -61,6 +86,7 @@ var homeButton = this.createCEBox({
 				xtype: 'button',
 				text: '<font size = "1"><b style="color:#CC9FA7;">Tabs anordnen</b></font>',
 				disabled: true,
+				margin: '0 0 0 10',
 				menu:[ {
 					text: 'Horizontal verteilen',
 					icon: 'resources/images/Horizontal-17.png'
@@ -87,13 +113,119 @@ var homeButton = this.createCEBox({
 {
 				xtype: 'button',
 disabled: true,
+margin: '0 0 0 5',
 				text: '<font size = "1"><b style="color:#CC9FA7;">Tab duplizieren</b></font>'
 			},		
 	
 
 			
 '->',
+
+ {
+
+				xtype: 'label',				
+        		html: '<b style="color:#CC9FA7;">Suche:</b>',
+        		margin: '0 10 0 10'
+			},
+			
+			{
+				xtype: 'button',
+				text: '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>',
+				style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7',
+					 borderTop: '1px solid CC9FA7',
+					 borderBottom: '1px solid CC9FA7'
+				},
+				menu:[ {
+					text: 'Werke',
+					icon: 'resources/images/BooksVert-17.png'
+				},
+				{
+					text: 'Personen',
+					icon: 'resources/images/Mask-19.png'
+				}]
+				//Desktop 173
+			},
+			
+			
+this.searchField,
+
 {
+
+				xtype: 'button',
+        		html: '<font size = "1"><b style="color:#CC9FA7;">Erweitert</b></font>',
+        		margin: '0 10 0 10',
+disabled: true
+
+			},
+
+{
+				xtype: 'tbseparator',
+				style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7'
+					// borderTop: '1px solid black',
+					// borderBottom: '1px solid black'
+				}
+			},
+			
+			
+			{
+				xtype: 'button',
+				text: '<font size = "1"><b style="color:#CC9FA7;">Hilfe</b></font>',
+				margin: '0 10 0 10',
+				style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7',
+					 borderTop: '1px solid CC9FA7',
+					 borderBottom: '1px solid CC9FA7'
+				},
+				menu:[ 
+				
+				{
+				xtype: 'component',
+//margin: '0 10 0 10',
+autoEl: {
+        tag: 'a',
+        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu/Info_Hoftheaterdaten2.pdf',
+        html: 'Navigation Hilfe',
+		target: "_blank"
+    }
+    //style:{color: '#CC9FA7'}
+    },
+				{
+					text: 'Daten Relation',
+					
+					listeners: {
+					
+					click: function (item, e, eOpts) {
+
+					var win = new TheaterTool.view.toolbar.DatenRelationWindow();
+					win.show();
+					}
+				}
+				},
+				{
+				xtype: 'component',
+//margin: '0 10 0 10',
+autoEl: {
+        tag: 'a',
+        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
+        html: 'Dokumentation',
+		target: "_blank"
+    }
+//style:{color: '#CC9FA7'}
+			}
+			]
+				//Desktop 173
+			}
+			
+			
+			
+			
+
+/*{
 				xtype: 'component',
 margin: '0 10 0 10',
 autoEl: {
@@ -112,10 +244,10 @@ style:{color: '#CC9FA7'}
 					// borderTop: '1px solid black',
 					// borderBottom: '1px solid black'
 				}
-			},
+			},*/
 
 
-{
+/*{
 				xtype: 'button',
 				text: '<font size = "1"><b style="color:#CC9FA7;">Daten Relationen</b></font>',
 				listeners: {
@@ -136,8 +268,8 @@ style:{color: '#CC9FA7'}
 					// borderTop: '1px solid black',
 					// borderBottom: '1px solid black'
 				}
-			}, 	
-{
+			}, 	*/
+/*{
 				xtype: 'component',
 margin: '0 10 0 10',
 autoEl: {
@@ -147,49 +279,48 @@ autoEl: {
 		target: "_blank"
     },
 style:{color: '#CC9FA7'}
-			},	
-{
-				xtype: 'tbseparator',
-				style: {
-					borderRight: '1px solid #CC9FA7',
-					borderLeft: '1px solid #CC9FA7'
-					// borderTop: '1px solid black',
-					// borderBottom: '1px solid black'
-				}
-			}, 
+			}*/
 
-{
 
-				xtype: 'label',
-        		html: '<font size = "1"><b style="color:#CC9FA7;">Suche</b></font>',
-        		margin: '0 10 0 10'
-			},
-this.searchField,
-
-{
-
-				xtype: 'button',
-        		html: '<font size = "1"><b style="color:#CC9FA7;">Erweitert</b></font>',
-        		margin: '0 10 0 10',
-disabled: true
-
-			}
+           
 
 ]
 		});
-		this.searchField.setDisabled(true);
+		//this.searchField.setDisabled(true);
 		this.callParent()
 	},
 
 homeOnItemToggle: function () {
-		window.location.href = "http://freischuetz-digital.de";
+
+		window.location.href = {
+				xtype: 'component',
+margin: '0 10 0 10',
+autoEl: {
+        tag: 'a',
+        href: 'http://hoftheater-detmold.de',
+        //html: '<font size = "1"><b style="color:#CC9FA7;">Dokumentation</b></font>',
+		target: "_blank"
+    },
+style:{color: '#CC9FA7'}
+			}
+		
+		
+		
+		
 	},
 
 	createCEBox: function (ceAutoEl, ceOnItemToggle, ceEnableToggle) {
 		var ceBox = Ext.create('Ext.button.Button', {
 			autoEl: ceAutoEl,
 			enableToggle: ceEnableToggle,
-			toggleHandler: ceOnItemToggle
+			toggleHandler: ceOnItemToggle,
+			margin: '0 0 0 5',
+			style:{
+			borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7',
+					 borderTop: '1px solid #CC9FA7',
+					 borderBottom: '1px solid #CC9FA7'
+					 }
 		});
 		return ceBox;
 	},

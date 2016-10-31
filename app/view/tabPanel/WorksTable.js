@@ -96,7 +96,7 @@ for(i = 0; i < me.worksList.length; i++){
 			renderer: function (val, metadata, record) {
 			
 			if(headerName == 'Details'){
-					this.items[0].icon = path;					
+					this.items[0].icon = path;	
 				}
 								
 				if(headerName == ''){
@@ -105,7 +105,16 @@ for(i = 0; i < me.worksList.length; i++){
 				}
 				
 				metadata.style = 'cursor: pointer;';
-				return val;
+				
+				/*if(headerName == 'Details'){
+					return '<div style="float:right; font-size: 13px; line-height: 1em;">'
+                + 'Hey!' 
+            + '</div>';
+				}
+				else{*/
+				    return val;
+			//	}
+				
 			},
 			
 			handler: function(grid, rowIndex, colIndex) {

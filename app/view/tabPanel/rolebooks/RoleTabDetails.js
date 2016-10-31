@@ -1,20 +1,10 @@
-/**
- * This example illustrates how to use the grouping feature of the Grid.
- */
 Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
  extend: 'Ext.panel.Panel',
-	
-//	border: false,
-//
-//	flex:1,
-//
-//	autoScroll: true,
 
     title: '<b style="color:gray;">Übersicht</b>',
 
 		border: false,
 	flex:1,
-//bodyBorder: true,
 bodyPadding:10,
 autoScroll: true,
 
@@ -23,7 +13,6 @@ autoScroll: true,
 	var me = this;
 	
 	Ext.Ajax.request({
-           // url: 'data/Output_Exist.xql',
  			url: 'resources/xql/getRoleCostum.xql',
             method: 'GET',
             params: {
@@ -31,25 +20,35 @@ autoScroll: true,
               
             },
             success: function(response){
-				//var idtemp = me.repertoireTab.getTextTab().id;
-
-				//$('#'+me.id).html(response.responseText);
-				me.setTextInfo(response.responseText);
- 				//me.repertoireTab.setTextInfo(response.responseText);
-				//me.repertoireTab.setTextInfo1(response.responseText);
-			//$('#'+me.id+'-innerCt').html(response.responseText);
-
+				
+				
+			/*var titel_group = Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Daten Relationen (Referenzen intern)</b>',
+			bodyBorder: false,
+			collapsible: false,
+			collapsed: true
+		});
+		me.add(titel_group);
+				
+		var titel_group = Ext.create('Ext.form.FieldSet', {
+			title: '<b style="color:gray;">Inhalt</b>',
+			bodyBorder: false,
+			collapsible: false,
+			collapsed: true
+		});
+		me.add(titel_group);*/
+		
+		
+		
+		me.add({
+			html: response.responseText,
+            border: false
+		});
      		}
          
         });
 
         me.callParent();
         
-        },
-        
-         setTextInfo: function(infoText){
-		$('#'+this.id+'-innerCt').html(infoText);
-
-	}
-
+        }
 });
