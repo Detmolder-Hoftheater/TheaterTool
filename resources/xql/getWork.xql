@@ -79,9 +79,9 @@ let $strings := for $elem in $fileNames
 			then('resources/images/IncBlue.png')
 			else('resources/images/IncRed.png')
 
-			let $iconRISM := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+			(:let $iconRISM := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
 			then('resources/images/RismBlue.png')
-			else('resources/images/Literature-17.png')
+			else('resources/images/Literature-17.png'):)
 			
 			let $isSource := if($sourceFileName != '')
 			then(concat('"children":[{',
@@ -94,7 +94,7 @@ let $strings := for $elem in $fileNames
 								'details:"',"true",'",',                          
                             	'xml:"',"true",'",',
 								'"children":[',
-									'{',
+									(:'{',
 									'"leaf":"true",',
 									'"name":"RISM",',
 									'"extName":"RISM",',
@@ -102,7 +102,7 @@ let $strings := for $elem in $fileNames
 									'details:"',"false",'",', 
 									'icon:"',$iconRISM,'",',                         
                             		'xml:"',"true",'",',
-								'},',
+								'},',:)
 								'{',
 									'"leaf":"true",',
 									'"name":"Incipits",',

@@ -143,9 +143,9 @@ let $strings := for $elem in $titles
 			then('resources/images/IncBlue.png')
 			else('resources/images/IncRed.png')
 
-			let $iconRISM := if(contains($fileID, 'H020149') or contains($fileID, 'H020048')  or contains($fileID, 'H020263'))
+			(:let $iconRISM := if(contains($fileID, 'H020149') or contains($fileID, 'H020048')  or contains($fileID, 'H020263'))
 			then('resources/images/RismBlue.png')
-			else('resources/images/Literature-17.png')
+			else('resources/images/Literature-17.png'):)
 
 
 let $isSource := if($sourceFileName != '')
@@ -158,7 +158,7 @@ let $isSource := if($sourceFileName != '')
 								'details:"',"true",'",',                          
                             	'xml:"',"true",'",',
 								'"children":[',
-									'{',
+									(:'{',
 									'"leaf":"true",',
 									'"name":"RISM",',
 									'"extName":"RISM",',
@@ -166,7 +166,7 @@ let $isSource := if($sourceFileName != '')
 									'details:"',"false",'",', 
 									'icon:"',$iconRISM,'",',                         
                             		'xml:"',"true",'",',
-								'},',
+								'},',:)
 								'{',
 									'"leaf":"true",',
 									'"name":"Incipits",',

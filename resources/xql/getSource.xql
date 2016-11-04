@@ -22,7 +22,7 @@ declare function local:jsonifyTitel($content) {
 
 let $strings := for $elem in $content
 
-					let $id :=$elem/mei:titleStmt[not(ancestor::mei:componentGrp)][1]/mei:title
+					let $id :=$elem/mei:titleStmt[not(ancestor::mei:componentGrp)][1]/mei:title[1]
                    
                     return 
                        
