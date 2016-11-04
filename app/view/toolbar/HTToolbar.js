@@ -26,7 +26,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 		
 		this.extendWorkButton = this.createCEButton('<font size = "1"><b style="color:#CC9FA7;">Tiefenerschließung</b></font>');
 
-this.searchField = this.createTextField('Suche', 'Suche');
+this.searchField = this.createSearchField();
 
 var homeButton = this.createCEBox({
 			tag: 'img', 
@@ -120,22 +120,26 @@ margin: '0 0 0 5',
 
 			
 '->',
-
  {
 
 				xtype: 'label',				
-        		html: '<b style="color:#CC9FA7;">Suche:</b>',
+        		html: 
+        		'<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>',
+        		//'<b style="color:#CC9FA7;">Filter:</b>',
         		margin: '0 10 0 10'
 			},
 			
 			{
-				xtype: 'button',
-				text: '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>',
+				xtype: 'splitbutton',
+				width: 110,
+				
+				//text: '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>',
 				style: {
-					borderRight: '1px solid #CC9FA7',
-					borderLeft: '1px solid #CC9FA7',
-					 borderTop: '1px solid CC9FA7',
-					 borderBottom: '1px solid CC9FA7'
+					borderRight: '2px solid #A80016',
+					borderLeft: '2px solid #A80016',
+					 borderTop: '2px solid #A80016',
+					 borderBottom: '2px solid #A80016',
+					 background: 'white'
 				},
 				menu:[ {
 					text: 'Werke',
@@ -145,10 +149,10 @@ margin: '0 0 0 5',
 					text: 'Personen',
 					icon: 'resources/images/Mask-19.png'
 				}]
-				//Desktop 173
+				
 			},
 			
-			
+		
 this.searchField,
 
 {
@@ -391,6 +395,73 @@ createTextField: function (fieldName, fieldLabel) {
 		});
 		
 		return ceTextField;
+	},
+	
+	createSearchField: function () {
+		
+		var searchField = Ext.create('Ext.form.field.Text', {
+    labelWidth: 0,
+    
+    triggers: {
+        clear: {
+            weight: 0,
+            cls: Ext.baseCSSPrefix + 'form-clear-trigger',
+            hidden: true,
+            handler: 'onClearClick',
+            scope: 'this'
+        },
+        search: {
+            weight: 1,
+            cls: Ext.baseCSSPrefix + 'form-search-trigger',
+            handler: 'onSearchClick',
+            scope: 'this'
+        }
+    },
+
+    hasSearch : false,
+    paramName : 'query',
+
+    initComponent: function() {
+        var me = this;
+        me.callParent(arguments);
+        me.on('specialkey', function(f, e){
+            if (e.getKey() == e.ENTER) {
+                me.onSearchClick();
+            }
+        });
+    },
+
+    onClearClick : function(){
+        var me = this,
+            activeFilter = me.activeFilter;
+
+        if (activeFilter) {
+            me.setValue('');
+            //me.store.getFilters().remove(activeFilter);
+            me.activeFilter = null;
+            me.getTrigger('clear').hide();
+            me.updateLayout();
+        }
+    },
+
+    onSearchClick : function(){
+        var me = this,
+            value = me.getValue();
+console.log(value);
+        if (value.length > 0) {
+            // Param name is ignored here since we use custom encoding in the proxy.
+            // id is used by the Store to replace any previous filter
+            me.activeFilter = new Ext.util.Filter({
+                property: me.paramName,
+                value: value
+            });
+            me.getTrigger('clear').show();
+            me.updateLayout();
+        }
+    }
+});
+		
+		return searchField;
 	}
 
 });
