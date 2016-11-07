@@ -21,12 +21,15 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	htPanel: null,
 	extendWorkButton: null,
 	searchField: null,
+	serchFilterButton: null,
 	
 	initComponent: function () {
 		
 		this.extendWorkButton = this.createCEButton('<font size = "1"><b style="color:#CC9FA7;">Tiefenerschließung</b></font>');
 
 this.searchField = this.createSearchField();
+
+this.serchFilterButton = this.creatButtonWithMenu();
 
 var homeButton = this.createCEBox({
 			tag: 'img', 
@@ -124,33 +127,13 @@ margin: '0 0 0 5',
 
 				xtype: 'label',				
         		html: 
-        		'<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>',
+        		'<font size = "1"><b style="color:#CC9FA7;">Suchefilter</b></font>',
         		//'<b style="color:#CC9FA7;">Filter:</b>',
         		margin: '0 10 0 10'
 			},
+			serchFilterButton,
 			
-			{
-				xtype: 'splitbutton',
-				width: 110,
-				
-				//text: '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>',
-				style: {
-					borderRight: '2px solid #A80016',
-					borderLeft: '2px solid #A80016',
-					 borderTop: '2px solid #A80016',
-					 borderBottom: '2px solid #A80016',
-					 background: 'white'
-				},
-				menu:[ {
-					text: 'Werke',
-					icon: 'resources/images/BooksVert-17.png'
-				},
-				{
-					text: 'Personen',
-					icon: 'resources/images/Mask-19.png'
-				}]
-				
-			},
+			
 			
 		
 this.searchField,
@@ -397,6 +380,49 @@ createTextField: function (fieldName, fieldLabel) {
 		return ceTextField;
 	},
 	
+	creatButtonWithMenu: function () {
+		var me = this;
+		var menuButton = Ext.create('Ext.button.Button', {
+			xtype: 'button',
+				width: 110,
+				
+				//text: '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>',
+				style: {
+					borderRight: '3px solid #A80016',
+					borderLeft: '3px solid #A80016',
+					 borderTop: '3px solid #A80016',
+					 borderBottom: '3px solid #A80016',
+					 background: 'white'
+				},
+				menu:[ {
+					text: 'Werke',
+					icon: 'resources/images/BooksVert-17.png',
+					listeners: {
+					
+					click: function (item, e, eOpts) {
+                        
+                        menuButton.setText(item.text);
+					
+					}
+				}
+				},
+				{
+					text: 'Personen',
+					icon: 'resources/images/Mask-19.png',
+					listeners: {
+					
+					click: function (item, e, eOpts) {
+
+					
+					menuButton.setText(item.text);
+					}
+				}
+				}]
+		});
+		
+		return menuButton;
+	},
+	
 	createSearchField: function () {
 		
 		var searchField = Ext.create('Ext.form.field.Text', {
@@ -447,7 +473,19 @@ createTextField: function (fieldName, fieldLabel) {
     onSearchClick : function(){
         var me = this,
             value = me.getValue();
-console.log(value);
+
+        Ext.Ajax.request({
+            url: 'resources/xql/searchWorks.xql',
+            method: 'GET',
+            params: {
+					searchValue: value,
+					type: me.serchFilterButton.getText()
+				},
+            success: function (response, options) {
+                var json = jQuery.parseJSON(response.responseText);
+            }
+        });
+
         if (value.length > 0) {
             // Param name is ignored here since we use custom encoding in the proxy.
             // id is used by the Store to replace any previous filter
