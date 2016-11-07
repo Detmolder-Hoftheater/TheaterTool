@@ -399,25 +399,23 @@ reserveScrollbar: true,
 	rootVisible: false,
 	store: store,
 
-//	title: '<font style="color:#A87678;">Spielbetrieb</font>',
-/*'<b style="color:gray;">Spielbetrieb</b>',*/
-
 	tabPanel: null,
     
 border:false,
 bodyborder: false,
 bodyPadding: 3,
-    
-    initComponent: function() {
-		var me = this;
 
-Ext.Ajax.request({           
+getNavigationItems: function(){
+var me = this;
+    Ext.Ajax.request({           
     			url:'resources/xql/getRegieMenu.xql', 
-			method: 'GET',    
+			method: 'GET', 
+			params: {
+					path: dbPathsMap.get('regie')
+				},
     			success: function (response, options) {
  					var json = jQuery.parseJSON(response.responseText);
-					
-					//console.log(json);	
+						
 				var navTreeStoreRoot = me.store.getRootNode();
 				var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[1];
 
@@ -433,7 +431,10 @@ for(i = 0; i < json.names.length; i++){
 
 Ext.Ajax.request({           
     			url:'resources/xql/getRollenKostuemMenu.xql', 
-			method: 'GET',    
+			method: 'GET',
+			params: {
+					path: dbPathsMap.get('role')
+				},
     			success: function (response, options) {
  					var json = jQuery.parseJSON(response.responseText);
 					
@@ -452,7 +453,10 @@ Ext.Ajax.request({
 
 Ext.Ajax.request({           
     			url:'resources/xql/getGagenMenu.xql', 
-			method: 'GET',    
+			method: 'GET', 
+			params: {
+					path: dbPathsMap.get('gage')
+				},
     			success: function (response, options) {
  					var json = jQuery.parseJSON(response.responseText);
 					
@@ -471,7 +475,10 @@ Ext.Ajax.request({
 
 Ext.Ajax.request({           
     			url:'resources/xql/getAboMenu.xql', 
-			method: 'GET',    
+			method: 'GET', 
+			params: {
+					path: dbPathsMap.get('abo')
+				},
     			success: function (response, options) {
  					var json = jQuery.parseJSON(response.responseText);
 					
@@ -490,7 +497,10 @@ Ext.Ajax.request({
 
 Ext.Ajax.request({           
     			url:'resources/xql/getJournalMenu.xql', 
-			method: 'GET',    
+			method: 'GET', 
+			params: {
+					path: dbPathsMap.get('journal')
+				},
     			success: function (response, options) {
  					var json = jQuery.parseJSON(response.responseText);
 					
@@ -507,6 +517,11 @@ Ext.Ajax.request({
     			}
 			});
 
+    
+},
+    
+    initComponent: function() {
+		var me = this;
 
 this.listeners = {
 			itemdblclick: function (record, item, index, e, eOpts) {

@@ -157,21 +157,27 @@ Ext.define('TheaterTool.Application', {
     
     projectYears: null,
     extWorkKeys: null,
-    dbPaths: null,
     
     launch: function () {
         
-        // global
         renderer = new verovio.toolkit();
         
         var workPath;
-        
+      
+       
         Ext.Ajax.request({
             url: 'resources/xql/getDBStructure.xql',
             method: 'GET',
             success: function (response, options) {
                 var json = jQuery.parseJSON(response.responseText);
-                this.dbPaths = json.dbPaths;
+                var dbPaths = json.dbPaths;
+                dbPathsMap = new Map();
+                for(var i = 0; i < dbPaths.length; i++){
+                    dbPathsMap.set(dbPaths[i].dbName, dbPaths[i].dbValue);                   
+                }
+               
+                Ext.getCmp('NavigationTreeGlobal').getNavigationItems();
+
             }
         });
         

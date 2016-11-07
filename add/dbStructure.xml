@@ -8,5 +8,10 @@
 		<entry key="persons" value="theater-data/persons"/>
 		<entry key="spielplaene" value="theater-data/spielplaene"/>
 		<entry key="vertaktung" value="theater-data/vertaktung"/>
+		<entry key="regie" value="theater-data/regiebuecher"/>
+		<entry key="role" value="theater-data/rollen_kostuem"/>
+		<entry key="gage" value="theater-data/gagenbuecher"/>
+		<entry key="abo" value="theater-data/abonnement"/>
+		<entry key="journal" value="theater-data/theaterjournal"/>
 	</entries>
 </prefs>
