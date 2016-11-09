@@ -21,15 +21,17 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	htPanel: null,
 	extendWorkButton: null,
 	searchField: null,
-	serchFilterButton: null,
+	searchFilterButton: null,
 	
 	initComponent: function () {
 		
 		this.extendWorkButton = this.createCEButton('<font size = "1"><b style="color:#CC9FA7;">Tiefenerschließung</b></font>');
 
-this.searchField = this.createSearchField();
 
-this.serchFilterButton = this.creatButtonWithMenu();
+this.searchFilterButton = this.creatButtonWithMenu();
+
+this.searchField = this.createSearchField(this.searchFilterButton);
+
 
 var homeButton = this.createCEBox({
 			tag: 'img', 
@@ -131,12 +133,9 @@ margin: '0 0 0 5',
         		//'<b style="color:#CC9FA7;">Filter:</b>',
         		margin: '0 10 0 10'
 			},
-			serchFilterButton,
-			
-			
-			
-		
-this.searchField,
+			this.searchFilterButton,
+	
+            this.searchField,
 
 {
 
@@ -423,7 +422,7 @@ createTextField: function (fieldName, fieldLabel) {
 		return menuButton;
 	},
 	
-	createSearchField: function () {
+	createSearchField: function (searchFilterButton) {
 		
 		var searchField = Ext.create('Ext.form.field.Text', {
     labelWidth: 0,
@@ -472,19 +471,24 @@ createTextField: function (fieldName, fieldLabel) {
 
     onSearchClick : function(){
         var me = this,
-            value = me.getValue();
+        value = me.getValue();
+        searchType = searchFilterButton.getText();
+        
+         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+value+'</font>',
+						icon: 'resources/images/Search-16.png'
+					});
+					var regieDetails = new TheaterTool.view.tabPanel.search.SearchPanelInTab({searchValue: value, type: searchType});
+				    repertoireTab.add(regieDetails);
+               
+                 Ext.getCmp('tabpanel').add(repertoireTab);
+                 Ext.getCmp('tabpanel').setActiveTab(repertoireTab);
+                 
+                 if (typeof Ext.getCmp('infoDialog') !== 'undefined') {
+							Ext.getCmp('infoDialog').close();
+					}
+        
 
-        Ext.Ajax.request({
-            url: 'resources/xql/searchWorks.xql',
-            method: 'GET',
-            params: {
-					searchValue: value,
-					type: me.serchFilterButton.getText()
-				},
-            success: function (response, options) {
-                var json = jQuery.parseJSON(response.responseText);
-            }
-        });
 
         if (value.length > 0) {
             // Param name is ignored here since we use custom encoding in the proxy.

@@ -5,6 +5,8 @@
 Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 	extend: 'Ext.tab.Panel',
 	
+	id: 'tabpanel',
+	
 	defaults: {
 		autoScroll: true
 		

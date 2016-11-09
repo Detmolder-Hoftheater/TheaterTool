@@ -20,254 +20,83 @@ declare variable $path := 'xmldb:exist:///apps/theater-data/works/';
 declare variable $file := collection($path);
 declare variable $fileNames := $file//mei:work/@xml:id;
 
-declare function local:jsonifySlurs($fileNames) {
+declare function local:jsonifyRoles($names) {
+
+let $strings := for $elem in $names
+
+					let $id_1 :=normalize-space($elem)
+					(:let $role := $elem/@role
+					let $dbkey :=$elem/@dbkey:)
+                   
+                    return 
+                     if($id_1 != '')then( 
+                     $id_1
+				(:concat('["',$id_1, '",', '"',$role, '",', '"',$dbkey,'"]'):)
+				)
+else()
+    return 
+        string-join($strings,',')
+  
+};
+
+declare function local:jsonifyNormalizeCharacter($titles, $fileID, $names) {
+
+let $strings := for $elem in $titles
+
+    (:let $title_tmp := substring($elem, 2):)
+    let $serchvalue_tmp := substring($searchValue, 1, 1)
+    let $serchvalue_uppercase_tmp := upper-case($serchvalue_tmp)
+    let $serchvalue_uppercase := concat($serchvalue_uppercase_tmp, substring($searchValue, 2)) 
+
+	let $title := if(contains($elem, $searchValue) or contains($elem, lower-case($searchValue)) or contains($elem, $serchvalue_uppercase))
+			then($elem)
+			else()
+			
+	let $comp := local:jsonifyRoles($names)	
+                    return 
+                    
+                    if($title  != '')then(concat('["',normalize-space($title), '","', $fileID, '","', $comp,'"]'))else()
+                    
+
+    return 
+        string-join($strings,',')
+ 
+};
+
+
+declare function local:jsonifyTitels($fileNames) {
 
 let $strings := for $elem in $fileNames
 
 		let $path1 := concat($path, $elem, '.xml')
 		let $file1 := doc($path1)
-		let $fileName :=  $file1//mei:title[not(@type)][1]
-
+		
 		let $fileID :=  $file1//mei:work/@xml:id
-
-		let $comp := $file1//mei:persName[@role ="cmp"]
-
-		let $fileName1 := if(contains($fileName, $searchValue))
-			then($fileName)
-			else()
- 
-		let $expression := $file1//mei:relation[@rel ="hasRealization"]/@target
-		let $expressionFileName := tokenize($expression, "#")[last()]
-		let $path_1 := concat('xmldb:exist:///apps/theater-data/expressions/', $expressionFileName, '.xml')
-		let $file_1 := doc($path_1)
-
-		let $source := $file_1//mei:relation[@rel ="hasEmbodiment"]/@target
 		
-		let $source := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
-			then($file_1//mei:relation[@rel ="hasEmbodiment"]/@target)
-			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target)
+		let $names :=$file1//mei:persName
+
 		
-		let $sourceFileName := tokenize($source, "#")[last()]
-		let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
-		let $fileSource := doc($path2)
-		let $rismLabel := $fileSource//mei:identifier[@label ="RISM-label"][1]
-		let $physLoc := $fileSource//mei:identifier[@type ="shelfLocation"][1]
-		let $sourceName := concat('Quelle: ', $rismLabel, ' , ' ,$physLoc)
-		let $extName := concat($fileName1, ': ',  $comp)
-		
-		let $isExtend := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
-			then(concat('{',
-									'"leaf":"true",',
-									'"name":"Faksimiles",',
-									'"extName":"Faksimiles",',
-									'incipits:"',"false",'",',
-									'details:"',"false",'",',                          
-                            		'xml:"',"true",'",',
-									'"icon":"resources/images/Images-17.png",', 
-								'}')
-			)
-			else()
-			
-			let $iconWork := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
-			then('resources/images/BookBlau-17.png')
-			else('resources/images/Books1-17.png')
-
-			let $iconSource := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
-			then('resources/images/SourceBlue.png')
-			else('resources/images/SourceRed.png')
-
-			let $iconIncipits := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
-			then('resources/images/IncBlue.png')
-			else('resources/images/IncRed.png')
-
-			(:let $iconRISM := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
-			then('resources/images/RismBlue.png')
-			else('resources/images/Literature-17.png'):)
-			
-			let $isSource := if($sourceFileName != '')
-			then(concat('"children":[{',
-								'name:"',$sourceName,'",',
-								'extName:"',$sourceName,'",',
-								'incipits:"',"true",'",',
-								'sourceID:"',$sourceFileName,'",',
-								'expanded:"',"true",'",',
-								'icon:"',$iconSource,'",', 
-								'details:"',"true",'",',                          
-                            	'xml:"',"true",'",',
-								'"children":[',
-									(:'{',
-									'"leaf":"true",',
-									'"name":"RISM",',
-									'"extName":"RISM",',
-									'incipits:"',"false",'",',
-									'details:"',"false",'",', 
-									'icon:"',$iconRISM,'",',                         
-                            		'xml:"',"true",'",',
-								'},',:)
-								'{',
-									'"leaf":"true",',
-									'"name":"Incipits",',
-									'"extName":"Incipits",',
-									'incipits:"',"true",'",',
-									'details:"',"false",'",', 
-									'icon:"',$iconIncipits,'",',                         
-                            		'xml:"',"false",'",',
-								'},',
-								$isExtend,
-								']',
-							'}]')
-			)
-			else()
-			
-			let $isLeaf := if($sourceFileName )then()else('"leaf":"true",')
-			
+		let $titles := $file1//mei:titleStmt[1]/mei:title
+	    let $fileName_1 := local:jsonifyNormalizeCharacter($titles, $fileID, $names)
+	  
 			return 
-						if($fileName1 != '')then(
-                        concat('{name:"',$fileName,'",',
-							'details:"',"true",'",',                          
-                            'xml:"',"true",'",', 
-							'componist:"',$comp,'",',
-							'expanded:"',"true",'",',
-							'extName:"',$extName,'",',
-							'werkID:"',$fileID,'",', 
-							'icon:"',$iconWork,'",',
-							'incipits:"',"false",'",',	
-							$isLeaf,
-							$isSource,
-													
-							(:'"children":[{',
-								'name:"',$sourceName,'",',
-								'extName:"',$sourceName,'",',
-								'incipits:"',"true",'",',
-								'sourceID:"',$sourceFileName,'",',
-								'icon:"',$iconSource,'",', 
-								'details:"',"true",'",',                          
-                            	'xml:"',"true",'",',
-								'"children":[',
-									'{',
-									'"leaf":"true",',
-									'"name":"RISM",',
-									'"extName":"RISM",',
-									'incipits:"',"false",'",',
-									'details:"',"false",'",', 
-									'icon:"',$iconRISM,'",',                         
-                            		'xml:"',"true",'",',
-								'},',
-								'{',
-									'"leaf":"true",',
-									'"name":"Incipits",',
-									'"extName":"Incipits",',
-									'incipits:"',"true",'",',
-									'details:"',"false",'",', 
-									'icon:"',$iconIncipits,'",',                         
-                            		'xml:"',"false",'",',
-								'},',
-								$isExtend,
-								']',
-							'}]',:)
-                            '}'))
-else ()
+			if($fileName_1 != '')then($fileName_1)else()
+						
     return 
         string-join($strings,',')
-
-			
-
-                   (: return 
-						if($fileName1 != '')then(
-                        concat('{name:"',$fileName1,'",',
-							'details:"',"true",'",',                          
-                            'xml:"',"true",'",',
-							'componist:"',$comp,'",',
-							'expanded:"',"true",'",',
-							'extName:"',$extName,'",',
-							'werkID:"',$fileID,'",',   
-							'incipits:"',"false",'",',
-							'"icon":"resources/images/BookBlau-17.png",',
- 							
-							'"children":[{',
-								'name:"',$sourceName,'",',
-								'extName:"',$sourceName,'",',
-								'incipits:"',"true",'",',
-								'expanded:"',"true",'",',
-								'sourceID:"',$sourceFileName,'",',
-								'details:"',"true",'",',  
-								'expanded:"',"true",'",',                         
-                            	'xml:"',"true",'",',
-								'"icon":"resources/images/SourceBlue.png",', 
-								'"children":[',
-									'{',
-									'"leaf":"true",',
-									'"name":"RISM",',
-									'"extName":"RISM",',
-									'incipits:"',"false",'",',
-									'details:"',"false",'",',                          
-                            		'xml:"',"true",'",',
-									'"icon":"resources/images/RismBlue.png",', 
-								'},',
-								'{',
-									'"leaf":"true",',
-									'"name":"Incipits",',
-									'"extName":"Incipits",',
-									'incipits:"',"true",'",',
-									'details:"',"false",'",',                          
-                            		'xml:"',"false",'",',
-									'"icon":"resources/images/IncBlue.png",', 
-								'},',
-								'{',
-									'"leaf":"true",',
-									'"name":"Faksimiles",',
-									'"extName":"Faksimiles",',
-									'incipits:"',"false",'",',
-									'details:"',"false",'",',                          
-                            		'xml:"',"true",'",',
-									'"icon":"resources/images/Images-17.png",', 
-								'}',
-								']',
-							'}]',
-                            '}'))
-else ()
-    return 
-        string-join($strings,',')
-:)
-   
     
 };
-
-(:declare function local:jsonifySlurs($path) {
-
-let $local-doctypes := collection($path)
-
-let $strings1 := for $elem1 in $local-doctypes
-					(\:let $fileTest := doc($elem1):\)
-				let $surname := $elem1
-                   (\: let $strings := for $elem in $elem1
-                    	let $surname := $elem//mei:persName:\)
-					
-                    	return 
-                        	concat('{name:"',$surname,'",',
-							'details:"',"true",'",',                          
-                            'xml:"',"true",'"',
-                            '}')
-   (\: return 
-        string-join($strings,','):\)
-    return 
-        string-join($strings1,',')
-
-};:)
-
-
-       
-    
+  
  (
 
- (: '[',
-        local:jsonifySlurs($persName),
+  '[',
+        local:jsonifyTitels($fileNames),
 
-    ']':)
+    ']'
    
-     '{"children":[',
-        local:jsonifySlurs($fileNames),
-    ']}' 
+    (: '{"children":[',
+        local:jsonifyTitels($fileNames),
+    ']}' :)
    
 
 )

@@ -131,7 +131,9 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.link.LinkPanelInTab',
     'tabPanel.zettel.TheaterZettelPanelInTab',
     'tabPanel.persons.PersonDetailsPanel',
-    'tabPanel.persons.PersonNavigationTree'],
+    'tabPanel.persons.PersonNavigationTree',
+    'tabPanel.search.SearchPanelInTab',
+    'tabPanel.search.WorkResultTable'],
     
     models:[
     'Werk',
@@ -145,7 +147,8 @@ Ext.define('TheaterTool.Application', {
     'SourceDetails',
     'Event',
     'RefData',
-    'PersonData'],
+    'PersonData',
+    'SearchWork'],
     
     stores:[
     'issue.IssueNames',
