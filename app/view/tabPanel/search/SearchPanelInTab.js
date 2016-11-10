@@ -55,8 +55,16 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
 		});
 		me.add(ref_layout);
 		
+		var tableTitle = '';
+		if(me.searchValue === '*'){
+		    tableTitle = '<b style="color:gray;">Alle Werke</b>';
+		}
+		else{
+		    tableTitle = '<b style="color:gray;">Werke mit "'+me.searchValue+'"</b>';
+		}
+		
 		var worksTable = new TheaterTool.view.tabPanel.search.WorkResultTable({worksList: json, 
-		  title: '<b style="color:gray;">Werke mit "'+me.searchValue+'"</b>'});
+		  title: tableTitle});
 		ref_layout.add(worksTable);
                 
                

@@ -49,9 +49,9 @@ let $strings := for $elem in $titles
     let $serchvalue_uppercase := concat($serchvalue_uppercase_tmp, substring($searchValue, 2)) 
 
 	let $title := if(contains($elem, $searchValue) or contains($elem, lower-case($searchValue)) or contains($elem, $serchvalue_uppercase))
-			then($elem)
-			else()
-			
+			then(normalize-space($elem))
+			else(if($searchValue ='*')then(normalize-space($elem))else())
+					
 	let $comp := local:jsonifyRoles($names)	
 	
 	let $type := $elem/@type
@@ -59,7 +59,7 @@ let $strings := for $elem in $titles
 
                     return 
                     
-                    if($title  != '')then(concat('["',normalize-space($title), '","', $fileID, '","', $comp, '","', $type, '","', $language, '"]'))else()
+                    if($title  != '')then(concat('["',replace($title, '"', '\\"'), '","', $fileID, '","', $comp, '","', $type, '","', $language, '"]'))else()
                     
     return 
         string-join($strings,',')
