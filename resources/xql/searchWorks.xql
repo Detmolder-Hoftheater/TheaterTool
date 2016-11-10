@@ -53,11 +53,14 @@ let $strings := for $elem in $titles
 			else()
 			
 	let $comp := local:jsonifyRoles($names)	
+	
+	let $type := $elem/@type
+	let $language := $elem/@xml:lang
+
                     return 
                     
-                    if($title  != '')then(concat('["',normalize-space($title), '","', $fileID, '","', $comp,'"]'))else()
+                    if($title  != '')then(concat('["',normalize-space($title), '","', $fileID, '","', $comp, '","', $type, '","', $language, '"]'))else()
                     
-
     return 
         string-join($strings,',')
  

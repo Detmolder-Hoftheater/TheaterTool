@@ -2,7 +2,7 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
 	extend: 'Ext.grid.Panel',	
 	requires:[
 	 'Ext.grid.column.Action',
-	'TheaterTool.model.RefData'
+	'TheaterTool.model.SearchWork'
 	],
 	
 	layout: {
@@ -12,12 +12,13 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
 	},
 	flex:1,
 	sortableColumns: false,
-	title: '<b style="color:gray;">Werke</b>',
-	//icon: 'resources/images/Presse-16.png',
+	border: false,
+	//title: '<b style="color:gray;">Suchergebnisse: Werke</b>',
+	icon: 'resources/images/BooksVert-17.png',
 	store: null,
 	columnLines: true,	
 	detailsColumn: null,
-	margin: '0 10 10 120',
+	//margin: '0 10 10 120',
 	worksList: null,
    
 	initComponent: function () {
@@ -25,7 +26,7 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
 	   var me = this;
 	
 	me.store = Ext.create('Ext.data.Store', {
-	model: 'TheaterTool.model.RefData',
+	model: 'TheaterTool.model.SearchWork',
     data:[]
     /*sorters: [{
         sorterFn: function(o1, o2){
@@ -57,27 +58,61 @@ for(i = 0; i < me.worksList.length; i++){
                 iconExtend = 'resources/images/Books1-17.png';
             }
             
-			var workRow = Ext.create('TheaterTool.model.RefData', {
+            var nameTypeLong = '';
+            var nameTypeShort = work[3];
+            if(nameTypeShort === 'uniform'){
+                    nameTypeLong = 'Einheitstitel';
+					}
+					else if(nameTypeShort === 'alt'){
+					nameTypeLong = 'Alternativtitel';
+					}
+					else if(nameTypeShort === 'sub'){
+					nameTypeLong = 'Untertitel';
+					}
+            
+			var workRow = Ext.create('TheaterTool.model.SearchWork', {
     			name : work[0],
     			iconExtend: iconExtend,
     			personen: work[2],
-    			workid : work[1]
+    			workid : work[1],
+    			language: work[4],
+    			nametype: nameTypeLong
 			});
 			me.store.add(workRow);
 			}
 	}
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
-		var extendColumn = this.createColumn('', '');
+		var extendColumn = this.createColumn('Tiefenerschliessung', '');
 		
 		this.columns =[ 
+		{
+                xtype: 'rownumberer',
+                text: 'Nr.',
+                flex: 0.2,
+                align: 'center'
+            },
 		extendColumn,
 		
 		{
-			text: 'Name',
+			text: 'Titel',
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'name'
+			
+		},
+		{
+			text: 'Titel Type',
+			flex: 0.7,
+			menuDisabled: true,
+			dataIndex: 'nametype'
+			
+		},
+		{
+			text: 'Sprache',
+			flex: 0.7,
+			menuDisabled: true,
+			dataIndex: 'language'
 			
 		},
 		{
@@ -107,7 +142,7 @@ for(i = 0; i < me.worksList.length; i++){
 					this.items[0].icon = path;	
 				}
 								
-				if(headerName == ''){
+				if(headerName == 'Tiefenerschliessung'){
 				  
 					this.items[0].icon = record.data.iconExtend;					
 				}
@@ -126,7 +161,9 @@ for(i = 0; i < me.worksList.length; i++){
 			},
 			
 			handler: function(grid, rowIndex, colIndex) {
-                    var rec = grid.getStore().getAt(rowIndex);
+			 if(colIndex === 4){
+			     var rec = grid.getStore().getAt(rowIndex);
+                    console.log(colIndex);
 					console.log(rec);
 					var dbkey = rec.data.workid;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
@@ -139,7 +176,9 @@ for(i = 0; i < me.worksList.length; i++){
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
-					
+							     
+			 }
+                    
                 }
 		});
 		return eColumn;

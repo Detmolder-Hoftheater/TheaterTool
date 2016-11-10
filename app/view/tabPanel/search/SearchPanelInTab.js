@@ -13,7 +13,7 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
 	bodyPadding:7,*/
 	autoScroll: true,
 	border: true,
-    bodyPadding:10,
+    padding:10,
     flex:1,
 	
 	searchValue: null,
@@ -55,7 +55,8 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
 		});
 		me.add(ref_layout);
 		
-		var worksTable = new TheaterTool.view.tabPanel.search.WorkResultTable({worksList: json});
+		var worksTable = new TheaterTool.view.tabPanel.search.WorkResultTable({worksList: json, 
+		  title: '<b style="color:gray;">Werke mit "'+me.searchValue+'"</b>'});
 		ref_layout.add(worksTable);
                 
                
