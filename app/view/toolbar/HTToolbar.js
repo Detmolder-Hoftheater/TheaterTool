@@ -473,6 +473,30 @@ createTextField: function (fieldName, fieldLabel) {
         var me = this,
         value = me.getValue();
         searchType = searchFilterButton.getText();
+        if(!value.trim()){        
+            Ext.MessageBox.show({
+            title: 'Suche',
+            msg: 'Bitte tragen Sie das Suchwort oder den Suchtext ein!',
+            buttons: Ext.MessageBox.OK
+        });
+            return;
+        }
+        else if(value.length < 3){
+         Ext.MessageBox.show({
+            title: 'Suche',
+            msg: 'Das Suchwiort oder der Suchtext sollte länder als drei Zeichen sein!',
+            buttons: Ext.MessageBox.OK
+        });
+            return;
+        }
+        else if(searchType === null){
+        Ext.MessageBox.show({
+            title: 'Suche',
+            msg: 'Bitte wählen Sie den Suchfilter aus!',
+            buttons: Ext.MessageBox.OK
+        });
+            return;
+        }
         
          var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+value+'</font>',

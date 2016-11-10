@@ -50,7 +50,9 @@ let $strings := for $elem in $titles
 
 	let $title := if(contains($elem, $searchValue) or contains($elem, lower-case($searchValue)) or contains($elem, $serchvalue_uppercase))
 			then(normalize-space($elem))
-			else(if($searchValue ='*')then(normalize-space($elem))else())
+			else(if($searchValue ='*')
+			     then(normalize-space($elem))
+			     else())
 					
 	let $comp := local:jsonifyRoles($names)	
 	
