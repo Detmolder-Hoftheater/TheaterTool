@@ -161,10 +161,8 @@ for(i = 0; i < me.worksList.length; i++){
 			},
 			
 			handler: function(grid, rowIndex, colIndex) {
-			 if(colIndex === 4){
+			 if(colIndex === 6){
 			     var rec = grid.getStore().getAt(rowIndex);
-                    console.log(colIndex);
-					console.log(rec);
 					var dbkey = rec.data.workid;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',

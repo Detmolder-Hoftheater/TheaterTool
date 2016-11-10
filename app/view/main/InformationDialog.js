@@ -50,7 +50,7 @@ layout: {
 'Ein Dppelklick in das Einzelincipit öffnet eine größere Darstellung.</p><p></p>'+
 
 '<p>Allgemeine Informationen und XML-Ansichten sind für alle Daten-Objekte verfügbar und'+ 
-'können durch einen Doppelklick auf die Items im Navigationsbaum angezeigt werden.</p><p></p>'
+'können durch einen Doppelklick auf die Items im Navigationsbaum angezeigt werden.</p><p></p>'+
 
 '<p>Eine einfache Suche nach den Werken ist in Toolbar vorhanden.</p><p></p>';
 
