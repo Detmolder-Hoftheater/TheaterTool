@@ -481,7 +481,7 @@ createTextField: function (fieldName, fieldLabel) {
         });
             return;
         }
-        else if(value.length < 3){
+        else if(value.length < 3 && value !== '*'){
          Ext.MessageBox.show({
             title: 'Suche',
             msg: 'Das Suchwiort oder der Suchtext sollte länder als drei Zeichen sein!',
