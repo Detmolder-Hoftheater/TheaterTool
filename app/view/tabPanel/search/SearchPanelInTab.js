@@ -23,17 +23,17 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
 	
 	var me = this;
 	
-	
-	 Ext.Ajax.request({
+	if(me.type === 'Werke'){
+	    Ext.Ajax.request({
             url: 'resources/xql/searchWorks.xql',
             method: 'GET',
             params: {
 					searchValue: me.searchValue,
-					type: me.type
+					type: me.type,
+					path: dbPathsMap.get('works')
 				},
             success: function (response, options) {
                 var json = jQuery.parseJSON(response.responseText);
-                 console.log(json);
                 var ref_layout = Ext.create('Ext.panel.Panel', {
 			layout: {
 				type: 'table',
@@ -48,7 +48,6 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
                         }
                         
 			},
-//bodyPadding: 10,
 			bodyBorder: false,
 			border: false,
 			items:[]
@@ -70,6 +69,55 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
                
             }
         });
+	}
+	else if(me.type === 'Personen'){
+	    Ext.Ajax.request({
+            url: 'resources/xql/searchPersons.xql',
+            method: 'GET',
+            params: {
+					searchValue: me.searchValue,
+					path: dbPathsMap.get('persons')
+				},
+            success: function (response, options) {
+                var json = jQuery.parseJSON(response.responseText);
+                var ref_layout = Ext.create('Ext.panel.Panel', {
+			layout: {
+				type: 'table',
+				columns: 1,
+				tdAttrs: {
+        			valign: 'top'
+   				 },
+   				  tableAttrs: {
+                            style: {
+                                width: '100%'
+                            }
+                        }
+                        
+			},
+			bodyBorder: false,
+			border: false,
+			items:[]
+		});
+		me.add(ref_layout);
+		
+		/*var tableTitle = '';
+		if(me.searchValue === '*'){
+		    tableTitle = '<b style="color:gray;">Alle Werke</b>';
+		}
+		else{
+		    tableTitle = '<b style="color:gray;">Werke mit "'+me.searchValue+'"</b>';
+		}
+		
+		var worksTable = new TheaterTool.view.tabPanel.search.WorkResultTable({worksList: json, 
+		  title: tableTitle});
+		ref_layout.add(worksTable);*/
+                
+               
+            }
+        });
+	    
+	}
+	 
 
 	
 	

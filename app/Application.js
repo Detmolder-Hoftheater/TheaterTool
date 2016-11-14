@@ -133,7 +133,8 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.persons.PersonDetailsPanel',
     'tabPanel.persons.PersonNavigationTree',
     'tabPanel.search.SearchPanelInTab',
-    'tabPanel.search.WorkResultTable'],
+    'tabPanel.search.WorkResultTable',
+    'tabPanel.search.PersonResultTable'],
     
     models:[
     'Werk',

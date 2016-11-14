@@ -13,14 +13,12 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";
 
 declare variable $searchValue := request:get-parameter('searchValue', '');
-(:declare variable $type := request:get-parameter('type', '');:)
 
 declare variable $db_path := request:get-parameter('path', '');
-declare variable $path := concat('xmldb:exist:///apps/', $db_path , '/');
+declare variable $path := concat('xmldb:exist:///apps/', $db_path, '/');
 
-(:declare variable $path := 'xmldb:exist:///apps/theater-data/works/';:)
 declare variable $file := collection($path);
-declare variable $fileNames := $file//mei:work/@xml:id;
+declare variable $fileNames := $file//tei:person;
 
 declare function local:jsonifyRoles($names) {
 
@@ -75,16 +73,9 @@ declare function local:jsonifyTitels($fileNames) {
 
 let $strings := for $elem in $fileNames
 
-		let $path1 := concat($path, $elem, '.xml')
-		let $file1 := doc($path1)
-		
-		let $fileID :=  $file1//mei:work/@xml:id
-		
-		let $names :=$file1//mei:persName
+		let $names :=$elem//tei:persName
 
-		
-		let $titles := $file1//mei:titleStmt[1]/mei:title
-	    let $fileName_1 := local:jsonifyNormalizeCharacter($titles, $fileID, $names)
+	    let $fileName_1 := local:jsonifyNormalizeCharacter($elem, $names)
 	  
 			return 
 			if($fileName_1 != '')then($fileName_1)else()
