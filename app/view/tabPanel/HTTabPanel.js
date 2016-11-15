@@ -1,7 +1,3 @@
-/**
- * Creates class TheaterTool.view.tabPanel.CETabPanel that extend from TheaterTool.view.tabPanel.CETabPanel.
- * @class
- */
 Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 	extend: 'Ext.tab.Panel',
 	
@@ -27,14 +23,29 @@ bodyBorder: false,
 	 * @overrides
 	 */
 	initComponent: function () {
+	
+	   var me = this;
 
 		var win = new TheaterTool.view.main.InformationDialog();
 				win.show();
 	
-		this.items =[
+		me.items =[
 		win
 		],
 		
-		this.callParent()
+		me.listeners = {
+            render: function () {
+                //if (Ext.browser.is('Firefox')) {
+                me.items.each(function (itm, idx) {
+                    itm.tab.on('focus', function (tab) {
+                        var tabpanel = tab.up('tabpanel');
+                        tabpanel.setActiveTab(idx);
+                    });
+                });
+                //}
+            }
+        }
+		
+		me.callParent()
 	}
 });

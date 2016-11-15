@@ -23,32 +23,16 @@ Ext.define('TheaterTool.view.main.Main', {
 		border: false
 	},*/
 	
-//border: false,
+    //border: false,
 	htToolbar: null,
 	htPanel: null,
 	
-	ceToolbar: null,
-	cePanel: null,
-	
-	startMeasure: null,
-	endMeasure: null,
-	staffNr: null,
-	measureid: null,
-	verStartId: null,
-	verEndId: null,
-	card: null,
-	elementName: null,
-	afterSaveText: null,
-	
 	initComponent: function () {
 		
-		//this.ceToolbar = new TheaterTool.view.toolbar.CEToolbar(),
 		this.htToolbar = new TheaterTool.view.toolbar.HTToolbar(
 		{bodyStyle:{"background-color":"#A80016"}}
 		);
 		
-		
-		//this.cePanel = new TheaterTool.view.tabPanel.CEPanel(),
 		this.htPanel = new TheaterTool.view.panel.ViewPanel(),
 
 		this.htToolbar.setViewPanel(this.htPanel);

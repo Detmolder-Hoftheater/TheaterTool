@@ -1,7 +1,3 @@
-/**
- * Creates class TheaterTool.view.tabPanel.CEPanel that extend from Ext.panel.Panel.
- * @class
- */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 	extend: 'Ext.tab.Panel',  
 	
@@ -15,11 +11,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 	
 	initComponent: function () {
 
-        var me = this;
+       var me = this;
 
 	   me.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: me.workID});
 
 	   me.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: me.workID});
+	   
+	    me.detailSection.createComponents();
 
         me.items = [
 			/*{
@@ -53,7 +51,20 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 			
     ]
     
-        me.detailSection.createComponents();
+    me.listeners = {
+            render: function () {
+                //if (Ext.browser.is('Firefox')) {
+                me.items.each(function (itm, idx) {
+                    itm.tab.on('focus', function (tab) {
+                        var tabpanel = tab.up('tabpanel');
+                        tabpanel.setActiveTab(idx);
+                    });
+                });
+                //}
+            }
+        }
+    
+       
     	me.callParent();
 	}
 });

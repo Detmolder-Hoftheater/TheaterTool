@@ -766,8 +766,9 @@ this.listeners = {
 							Ext.getCmp('infoDialog').close();
 					}
 				if(repertoireTab !== null){
-					this.tabPanel.add(repertoireTab);
-					this.tabPanel.setActiveTab(repertoireTab);	
+				this.tabPanel.add(repertoireTab);
+				this.tabPanel.setActiveTab(repertoireTab);				
+				this.tabPanel.fireEvent('render', this.tabPanel);
 				}
 									
 				}

@@ -163,13 +163,12 @@ Ext.define('TheaterTool.Application', {
     extWorkKeys: null,
     
     launch: function () {
-        
+    
         renderer = new verovio.toolkit();
         
         var workPath;
-      
-       
-        Ext.Ajax.request({
+        
+      Ext.Ajax.request({
             url: 'resources/xql/getDBStructure.xql',
             method: 'GET',
             success: function (response, options) {

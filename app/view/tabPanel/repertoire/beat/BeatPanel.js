@@ -1,40 +1,42 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
     extend: 'Ext.tab.Panel',
-    requires:['TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile'],
+    requires:[ 'TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile'],
     
     flex: 1,
     border: false,
     
     detailSection: null,
     xmlSection: null,
-    navTree: null,    
+    navTree: null,
     selectedWork: null,
-       
+    
     initComponent: function () {
+    
+        var me = this;
         
         var selFolder = null;
-        if (this.selectedWork === 'Aschenbrödel') {
+        if (me.selectedWork === 'Aschenbrödel') {
             selFolder = 'aschenbroedel';
-        } else if (this.selectedWork === 'Der Bettelstudent') {
+        } else if (me.selectedWork === 'Der Bettelstudent') {
             selFolder = 'bettelstudent';
         }
         var folderForEO = selFolder + '/';
         
-        this.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView({
-            selectedWork: this.selectedWork
+        me.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView({
+            selectedWork: me.selectedWork
         });
         
-        this.navTree = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileNavTree({
-            selectedWork: this.selectedWork
+        me.navTree = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileNavTree({
+            selectedWork: me.selectedWork
         });
         
-        var leafletFacsimile = this.detailSection.getLeafletFacsimile();
-        var pageSpinner = this.detailSection.getPageSpinner();
+        var leafletFacsimile = me.detailSection.getLeafletFacsimile();
+        var pageSpinner = me.detailSection.getPageSpinner();
         
-        this.navTree.setLeafletFacsimile(leafletFacsimile);
-        this.navTree.setPageSpinner(pageSpinner);
+        me.navTree.setLeafletFacsimile(leafletFacsimile);
+        me.navTree.setPageSpinner(pageSpinner);
         
-        this.items =[ {
+        me.items =[ {
             layout: {
                 type: 'hbox',
                 pack: 'start',
@@ -50,16 +52,28 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
             
             border: false,
             items:[
-                this.navTree,
-                this.detailSection
-            ]
+            me.navTree,
+            me.detailSection]
         }];
         var navTreeStore = new TheaterTool.store.facsimile.FacsimileNames();
-        navTreeStore.getProxy().extraParams.selectedWork = this.selectedWork;
+        navTreeStore.getProxy().extraParams.selectedWork = me.selectedWork;
         navTreeStore.load();
-        this.navTree.getView().bindStore(navTreeStore);
+        me.navTree.getView().bindStore(navTreeStore);
         //navTreeStore.sort('name');
         
-        this.callParent();
+        me.listeners = {
+            render: function () {
+                //if (Ext.browser.is('Firefox')) {
+                me.items.each(function (itm, idx) {
+                    itm.tab.on('focus', function (tab) {
+                        var tabpanel = tab.up('tabpanel');
+                        tabpanel.setActiveTab(idx);
+                    });
+                });
+                //}
+            }
+        }
+        
+        me.callParent();
     }
 });
