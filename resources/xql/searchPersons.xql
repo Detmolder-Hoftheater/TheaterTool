@@ -20,26 +20,7 @@ declare variable $path := concat('xmldb:exist:///apps/', $db_path, '/');
 declare variable $file := collection($path);
 declare variable $fileNames := $file//tei:person;
 
-declare function local:jsonifyRoles($names) {
-
-let $strings := for $elem in $names
-
-					let $id_1 :=normalize-space($elem)
-					(:let $role := $elem/@role
-					let $dbkey :=$elem/@dbkey:)
-                   
-                    return 
-                     if($id_1 != '')then( 
-                     $id_1
-				(:concat('["',$id_1, '",', '"',$role, '",', '"',$dbkey,'"]'):)
-				)
-else()
-    return 
-        string-join($strings,',')
-  
-};
-
-declare function local:jsonifyNormalizeCharacter($titles, $fileID, $names) {
+declare function local:jsonifyNormalizeCharacter($titles, $fileID) {
 
 let $strings := for $elem in $titles
 
@@ -54,14 +35,12 @@ let $strings := for $elem in $titles
 			     then(normalize-space($elem))
 			     else())
 					
-	let $comp := local:jsonifyRoles($names)	
 	
 	let $type := $elem/@type
-	let $language := $elem/@xml:lang
-
+	
                     return 
                     
-                    if($title  != '')then(concat('["',replace($title, '"', '\\"'), '","', $fileID, '","', $comp, '","', $type, '","', $language, '"]'))else()
+                    if($title  != '')then(concat('["',replace($title, '"', '\\"'), '","', $fileID, '","', $type,  '"]'))else()
                     
     return 
         string-join($strings,',')
@@ -69,17 +48,21 @@ let $strings := for $elem in $titles
 };
 
 
+
+
 declare function local:jsonifyTitels($fileNames) {
 
-let $strings := for $elem in $fileNames
+let $strings := for $elem_1 in $fileNames
 
-		let $names :=$elem//tei:persName
+let $titles := $elem_1//tei:persName
 
-	    let $fileName_1 := local:jsonifyNormalizeCharacter($elem, $names)
-	  
-			return 
-			if($fileName_1 != '')then($fileName_1)else()
-						
+let $fileID :=  $elem_1/@xml:id
+
+	let $content_title := local:jsonifyNormalizeCharacter($titles, $fileID)
+	
+                    return 
+if($content_title != '')then($content_title)else()
+
     return 
         string-join($strings,',')
     

@@ -27,13 +27,18 @@ let $strings := for $elem in $fileNames
 		let $file1 := doc($path1)
 		let $fileName :=  $file1//mei:title[not(@type)][1]
 
-		let $fileID :=  $file1//mei:work/@xml:id
+		let $fileID :=  if(contains($file1//mei:work/@xml:id, $selection1))
+			then($file1//mei:work/@xml:id)
+			else()
+		
+		(:$file1//mei:work/@xml:id:)
 
 		let $comp := $file1//mei:persName[@role ="cmp"]
 
-		let $fileName1 := if(contains($fileName, $selection1))
+		let $fileName1 := $fileName
+		(:if(contains($fileName, $selection1))
 			then($fileName)
-			else()
+			else():)
  
 		let $expression := $file1//mei:relation[@rel ="hasRealization"]/@target
 		let $expressionFileName := tokenize($expression, "#")[last()]
@@ -121,7 +126,7 @@ let $strings := for $elem in $fileNames
 			let $isLeaf := if($sourceFileName )then()else('"leaf":"true",')
 			
 			return 
-						if($fileName1 != '')then(
+						if($fileID != '')then(
                         concat('{name:"',$fileName,'",',
 							'details:"',"true",'",',                          
                             'xml:"',"true",'",', 

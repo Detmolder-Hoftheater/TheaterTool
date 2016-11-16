@@ -2,7 +2,7 @@ Ext.define('TheaterTool.view.tabPanel.search.PersonResultTable', {
 	extend: 'Ext.grid.Panel',	
 	requires:[
 	 'Ext.grid.column.Action',
-	'TheaterTool.model.SearchWork'
+	'TheaterTool.model.Person'
 	],
 	
 	layout: {
@@ -14,19 +14,19 @@ Ext.define('TheaterTool.view.tabPanel.search.PersonResultTable', {
 	sortableColumns: false,
 	border: false,
 	//title: '<b style="color:gray;">Suchergebnisse: Werke</b>',
-	icon: 'resources/images/BooksVert-17.png',
+	icon: 'resources/images/Mask-19.png',
 	store: null,
 	columnLines: true,	
 	detailsColumn: null,
 	//margin: '0 10 10 120',
-	worksList: null,
+	personList: null,
    
 	initComponent: function () {
 	
 	   var me = this;
 	
 	me.store = Ext.create('Ext.data.Store', {
-	model: 'TheaterTool.model.SearchWork',
+	model: 'TheaterTool.model.Person',
     data:[]
     /*sorters: [{
         sorterFn: function(o1, o2){
@@ -47,19 +47,12 @@ Ext.define('TheaterTool.view.tabPanel.search.PersonResultTable', {
     }]*/
 });
 
-if(me.worksList != 'undefined'){
-for(i = 0; i < me.worksList.length; i++){
-            var work = me.worksList[i];
-            var iconExtend = '';
-            if(work[1] === 'H020149' || work[1] === 'H020048' || work[1] === 'H020263'){
-                iconExtend = 'resources/images/BookBlau-17.png';
-            }
-            else{
-                iconExtend = 'resources/images/Books1-17.png';
-            }
+if(me.personList != 'undefined'){
+for(i = 0; i < me.personList.length; i++){
+            var work = me.personList[i];
             
             var nameTypeLong = '';
-            var nameTypeShort = work[3];
+            var nameTypeShort = work[2];
             if(nameTypeShort === 'uniform'){
                     nameTypeLong = 'Einheitstitel';
 					}
@@ -70,20 +63,16 @@ for(i = 0; i < me.worksList.length; i++){
 					nameTypeLong = 'Untertitel';
 					}
             
-			var workRow = Ext.create('TheaterTool.model.SearchWork', {
+			var workRow = Ext.create('TheaterTool.model.Person', {
     			name : work[0],
-    			iconExtend: iconExtend,
-    			personen: work[2],
-    			workid : work[1],
-    			language: work[4],
-    			nametype: nameTypeLong
+    			dbkey : work[1],
+    			type: work[2]
 			});
 			me.store.add(workRow);
 			}
 	}
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
-		var extendColumn = this.createColumn('Tiefenerschliessung', '');
 		
 		this.columns =[ 
 		{
@@ -92,36 +81,22 @@ for(i = 0; i < me.worksList.length; i++){
                 flex: 0.2,
                 align: 'center'
             },
-		extendColumn,
 		
 		{
-			text: 'Titel',
+			text: 'Name',
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'name'
 			
 		},
 		{
-			text: 'Titel Type',
+			text: 'Name Type',
 			flex: 0.7,
 			menuDisabled: true,
-			dataIndex: 'nametype'
+			dataIndex: 'type'
 			
 		},
-		{
-			text: 'Sprache',
-			flex: 0.7,
-			menuDisabled: true,
-			dataIndex: 'language'
-			
-		},
-		{
-			text: 'Personen',
-			flex: 2,
-			menuDisabled: true,
-			dataIndex: 'personen'
-			
-		},
+		
 		this.detailsColumn
 		];
 		
@@ -161,19 +136,21 @@ for(i = 0; i < me.worksList.length; i++){
 			},
 			
 			handler: function(grid, rowIndex, colIndex) {
-			 if(colIndex === 6){
-			     var rec = grid.getStore().getAt(rowIndex);
-					var dbkey = rec.data.workid;
+			 if(colIndex === 3){
+					var rec = grid.getStore().getAt(rowIndex);
+					console.log(rec);
+					var dbkey = rec.data.dbkey;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',
-						icon: 'resources/images/BookBlau-16.png'
+						icon: 'resources/images/Mask-19.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: rec.data.name, isSelected: true});
+					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: dbkey});
 					repertoireTab.add(personDetails);
 
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 					navTreeGlobal.add(repertoireTab);
-					navTreeGlobal.setActiveTab(repertoireTab);	
+					navTreeGlobal.setActiveTab(repertoireTab);
+					navTreeGlobal.fireEvent('render', Ext.getCmp('tabpanel'));
 							     
 			 }
                     

@@ -100,30 +100,22 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
 		});
 		me.add(ref_layout);
 		
-		/*var tableTitle = '';
+		var tableTitle = '';
 		if(me.searchValue === '*'){
-		    tableTitle = '<b style="color:gray;">Alle Werke</b>';
+		    tableTitle = '<b style="color:gray;">Alle Personen</b>';
 		}
 		else{
-		    tableTitle = '<b style="color:gray;">Werke mit "'+me.searchValue+'"</b>';
+		    tableTitle = '<b style="color:gray;">Personnamen mit "'+me.searchValue+'"</b>';
 		}
 		
-		var worksTable = new TheaterTool.view.tabPanel.search.WorkResultTable({worksList: json, 
+		var personTable = new TheaterTool.view.tabPanel.search.PersonResultTable({personList: json, 
 		  title: tableTitle});
-		ref_layout.add(worksTable);*/
-                
-               
+		ref_layout.add(personTable);
+                            
             }
         });
 	    
 	}
-	 
-
-	
-	
-	
-		
-		
 	
     	me.callParent();
 	}
