@@ -507,6 +507,7 @@ createTextField: function (fieldName, fieldLabel) {
                
                  Ext.getCmp('tabpanel').add(repertoireTab);
                  Ext.getCmp('tabpanel').setActiveTab(repertoireTab);
+                 Ext.getCmp('tabpanel').fireEvent('render', Ext.getCmp('tabpanel'));
                  
                  if (typeof Ext.getCmp('infoDialog') !== 'undefined') {
 							Ext.getCmp('infoDialog').close();
