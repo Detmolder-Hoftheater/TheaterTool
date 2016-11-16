@@ -7,6 +7,8 @@ Ext.define('TheaterTool.model.Werk', {
 		{name: 'werkID',   type: 'string'},       
         {name: 'xml',   type: 'boolean'},
         {name: 'details',   type: 'boolean'},
-        {name: 'incipits',   type: 'boolean'}
+        {name: 'incipits',   type: 'boolean'},
+        {name: 'language',   type: 'string'},
+          {name: 'nametype',   type: 'string'}
     ]
 });

@@ -34,7 +34,7 @@ header: false,
 	
 	// region:'west',
 	 region:'east',
-            flex: 3.3,
+            flex: 4,
             border: true,
    /* style: {
       borderRight: 'px solid whote'
@@ -124,16 +124,34 @@ selectedWork: null,
 		
 		this.columns =[ {
 			xtype: 'treecolumn',
-			header: '<b style="color:gray;">Werk -> Quelle -> Faksimiles/Incipits/RISM</b>',
-			flex: 1,
+			header: '<b style="color:gray;">Werk -> Quelle -> Faksimiles/Incipits</b>',
+			flex: 2,
 			sortable: true,
 			menuDisabled: true,
 			dataIndex: 'name'
 			
 		},
 		{
+			header: '<b style="color:gray;">Type</b>',
+			flex: 0.3,
+			sortable: true,
+			menuDisabled: true,
+			//align: 'center',
+			dataIndex: 'nametype'
+			
+		},
+		/*{
+			header: '<b style="color:gray;">Sprache</b>',
+			flex: 0.3,
+			sortable: true,
+			menuDisabled: true,
+			//align: 'center',
+			dataIndex: 'language'
+			
+		},*/
+		{
 			header: '<b style="color:gray;">Personen</b>',
-			flex: 1,
+			flex: 1.5,
 			sortable: true,
 			menuDisabled: true,
 			//align: 'center',

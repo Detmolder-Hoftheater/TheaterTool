@@ -74,6 +74,9 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
 let $strings := for $elem in $titles
 
 		let $fileName := normalize-space($elem)
+		
+		let $nametype := $elem/@type
+	    let $language := $elem/@xml:lang
 
 		let $fileID :=  $file1//mei:work/@xml:id
 		
@@ -187,6 +190,8 @@ let $isLeaf := if($sourceFileName )then()else('"leaf":"true",')
                     return 
 						if($fileName1 != '')then(
                         concat('{name:"',$fileName,'",',
+                            'nametype:"',$nametype,'",',
+							'language:"',$language,'",',
 							'details:"',"true",'",',                          
                             'xml:"',"true",'",', 
 							'componist:"',$comp,'",',
