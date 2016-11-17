@@ -125,12 +125,14 @@ for(i = 0; i < me.worksList.length; i++){
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',
 						icon: 'resources/images/BookBlau-16.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: rec.data.name, isSelected: true});
+					var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: dbkey, isSelected: true});
 					repertoireTab.add(personDetails);
 
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 					navTreeGlobal.add(repertoireTab);
-					navTreeGlobal.setActiveTab(repertoireTab);	
+					navTreeGlobal.setActiveTab(repertoireTab);
+					navTreeGlobal.fireEvent('render', navTreeGlobal);
+
 					
                 }
 		});

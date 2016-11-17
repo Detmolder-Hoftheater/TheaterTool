@@ -268,7 +268,7 @@ Ext.create('Ext.grid.column.Action', {
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
-
+                    navTreeGlobal.fireEvent('render', navTreeGlobal);
                 }
 		})
 

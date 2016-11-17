@@ -52,7 +52,7 @@ layout: {
 '<p>Allgemeine Informationen und XML-Ansichten sind für alle Daten-Objekte verfügbar und'+ 
 'können durch einen Doppelklick auf die Items im Navigationsbaum angezeigt werden.</p><p></p>'+
 
-'<p>Eine einfache Suche nach den Werken ist in Toolbar vorhanden.</p><p></p>';
+'<p>Eine einfache Suche nach Werken oder nach Personen ist in Toolbar vorhanden.</p><p></p>';
 
 		
 		this.items =[ {

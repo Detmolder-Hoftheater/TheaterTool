@@ -84,7 +84,7 @@ for(i = 0; i < me.roleList.length; i++){
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
-					
+					navTreeGlobal.fireEvent('render', navTreeGlobal);
                 }
 		});
 		return eColumn;

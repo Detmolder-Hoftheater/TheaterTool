@@ -85,7 +85,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTable', {
 
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 					navTreeGlobal.add(repertoireTab);
-					navTreeGlobal.setActiveTab(repertoireTab);	
+					navTreeGlobal.setActiveTab(repertoireTab);
+					navTreeGlobal.fireEvent('render', navTreeGlobal);
 
                 }
 		});

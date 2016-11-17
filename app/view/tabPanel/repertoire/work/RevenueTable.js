@@ -110,7 +110,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
-					
+					navTreeGlobal.fireEvent('render', navTreeGlobal);
                 }
 		});
 		return eColumn;

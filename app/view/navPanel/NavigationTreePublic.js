@@ -526,12 +526,13 @@ Ext.Ajax.request({
 this.listeners = {
 			itemdblclick: function (record, item, index, e, eOpts) {
 				var repertoireTab = null;
-				if(item.data.text === 'Aschenbrödel'){					
+				if(item.data.text === 'Aschenbrödel'){
+				console.log(item.data);
 					repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Aschenbrödel</font>',
 						icon: 'resources/images/BookBlau-16.png'
 					});
-				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: 'Aschenbrödel'});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: 'H020149'});
 				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
 				repertoireTab.add(repertoireDetails);		
 				}
@@ -542,7 +543,7 @@ this.listeners = {
 					});
 				
 				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Des Teufels Anteil'});
-				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: 'Des Teufels Anteil'});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: 'H020048'});
 				repertoireTab.add(repertoireDetails);		
 				}
 				else if(item.data.text === 'Der Bettelstudent'){					
@@ -550,7 +551,7 @@ this.listeners = {
 						title: '<font style="color:gray;">Der Bettelstudent</font>',
 						icon: 'resources/images/BookBlau-16.png'
 					});
-				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: 'Der Bettelstudent'});
+				var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: 'H020263'});
 				//var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
 				repertoireTab.add(repertoireDetails);		
 				}

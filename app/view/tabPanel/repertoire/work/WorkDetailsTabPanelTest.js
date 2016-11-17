@@ -192,6 +192,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', 
                             var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
                             navTreeGlobal.add(repertoireTab);
                             navTreeGlobal.setActiveTab(repertoireTab);
+                            navTreeGlobal.fireEvent('render', navTreeGlobal);
+                            
                         }
                     })],
                     margin: '0 0 10 55'
