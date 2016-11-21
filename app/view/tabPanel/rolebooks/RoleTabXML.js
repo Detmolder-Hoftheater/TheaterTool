@@ -7,6 +7,7 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabXML', {
 border: false,
 
 flex:1,
+bodyPadding: 10,
 
 autoScroll: true,
 

@@ -54,6 +54,24 @@ let $strings := for $elem in $rows
  
 };
 
+declare function local:getWork($works) {
+
+let $strings := for $elem in $works
+
+    let $work := if($elem/@type = 'work')then($elem)else()
+    
+    let $workId := if($work/@type = 'work')then($work/@key)else()
+    
+
+                    return 
+                    
+                    if($work  != '')then(concat('["', $work, '"', ', "', $workId, '"]'))else()
+                    
+    return 
+        string-join($strings,',')
+ 
+};
+
 
 declare function local:getTableCell($cells) {
 
@@ -61,10 +79,16 @@ let $strings := for $elem in $cells
 
     let $onecell := $elem
     
+    let $works := $onecell/tei:rs
+    
+    let $workArray := local:getWork($works)
+    
                     return 
                     
-                    if($onecell  != '')then(concat('["', normalize-space($onecell), '"]'))else()
+                    if($workArray  != '')then(concat('[', $workArray, ']'))else(
+                        if($onecell != '')then(concat('[["', normalize-space($onecell), '"]]'))else())
                     
+                                      
     return 
         string-join($strings,',')
  

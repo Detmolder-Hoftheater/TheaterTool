@@ -4,7 +4,7 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab', {
     border: true,
     
     flex: 1,
-    bodyPadding: 3,
+   // bodyPadding: 3,
     
     regieName: null,
     

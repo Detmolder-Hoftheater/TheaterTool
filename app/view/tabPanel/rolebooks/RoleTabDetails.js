@@ -3,7 +3,7 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
 
     title: '<b style="color:gray;">Übersicht</b>',
     
-    layout: {
+	layout: {
 		type: 'vbox',
 		pack: 'start',
 		align: 'stretch'
@@ -11,13 +11,8 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
 	autoScroll: true,
 	border: false,
 	bodyBorder: false,
-//bodyPadding:10,
-flex:1,
-
-		/*border: false,
-	flex:1,
-bodyPadding:10,
-autoScroll: true,*/
+    //bodyPadding:10,
+    flex:1,
 
 regieName: null,
 
@@ -38,7 +33,34 @@ regieName: null,
 				//console.log(json);
 				
 				
+				
 				var roleTable = new TheaterTool.view.tabPanel.rolebooks.RoleTable({lineList: json});
+				
+				
+				
+			/*	var table_layout = Ext.create('Ext.panel.Panel', {
+			layout: {
+				type: 'table',
+				columns: 1,
+				tdAttrs: {
+        			valign: 'top'
+   				 },
+   				  tableAttrs: {
+                            style: {
+                                width: '100%'
+                            }
+                        }
+                        
+			},
+			
+    //bodyPadding: 10,
+			bodyBorder: false,
+			border: false,
+			items:[]
+		});
+		me.add(table_layout);*/
+		//		table_layout.add(roleTable);
+				
                 
 		       /* var role_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
