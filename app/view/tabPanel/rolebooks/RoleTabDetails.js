@@ -32,16 +32,12 @@ regieName: null,
 				var json = jQuery.parseJSON(response.responseText);
 				//console.log(json);
 				
-				
-				
 				var roleTable = new TheaterTool.view.tabPanel.rolebooks.RoleTable({lineList: json});
 				
-				
-				
-			/*	var table_layout = Ext.create('Ext.panel.Panel', {
+				var table_layout = Ext.create('Ext.panel.Panel', {
 			layout: {
 				type: 'table',
-				columns: 1,
+				columns: 2,
 				tdAttrs: {
         			valign: 'top'
    				 },
@@ -58,19 +54,20 @@ regieName: null,
 			border: false,
 			items:[]
 		});
-		me.add(table_layout);*/
+		me.add(table_layout);
 		//		table_layout.add(roleTable);
 				
                 
-		       /* var role_panel = Ext.create('Ext.panel.Panel', {
+		        var role_panel = Ext.create('Ext.panel.Panel', {
 			border: false,
 			//bodyPadding: 10,
-			margin: '10 10 0 10',
+			//margin: '10 10 0 10',
 			items:[]
 		});
-		role_panel.add(me.roleTable);*/
+		table_layout.add(role_panel);
+		role_panel.add(roleTable);
 				
-		me.add(roleTable);
+	//	me.add(roleTable);
 				
 			
 		/*me.add({
