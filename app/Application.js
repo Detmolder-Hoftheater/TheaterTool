@@ -140,7 +140,7 @@ Ext.define('TheaterTool.Application', {
     'work.Works'],
     
     projectYears: null,
-    extWorkKeys: null,
+    //extWorkKeys: null,
     
     launch: function () {
     
@@ -173,7 +173,7 @@ Ext.define('TheaterTool.Application', {
             },
             success: function (response, options) {
                 var json = jQuery.parseJSON(response.responseText);
-                this.extWorkKeys = json.dbkeys;
+                extWorkKeys = json.dbkeys;
                 projectName = json.name;
                 this.projectYears = json.years;
                 Ext.getCmp('htNavigationPanel').setTitle('<b style="color:#A87678;">' + projectName + ' ' + this.projectYears + '</b>');

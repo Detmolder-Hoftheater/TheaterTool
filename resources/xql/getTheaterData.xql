@@ -25,7 +25,7 @@ let $strings := for $elem in $entry
 					let $dbkey := if($elem//@key = "work")then($elem//@value)else()
 
                     return 
-						if($dbkey != "")then( concat('{"dbkey":"',$dbkey, '"}'))else()
+						if($dbkey != "")then( concat('"',$dbkey, '"'))else()
                        
 						
     return 

@@ -15,6 +15,8 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab', {
         
         var me = this;
         
+        me.setTitle('<b style="color:#A87678;">'+me.regieName+'</b>');
+        
         me.section_details = new TheaterTool.view.tabPanel.rolebooks.RoleTabDetails({
             regieName: me.regieName
         });

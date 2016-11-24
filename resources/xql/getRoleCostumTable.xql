@@ -25,7 +25,7 @@ let $strings := for $elem in $allFiles
 
         let $name := if($elem/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title = $regiename)then($elem)else()
 
-        let $rows := if($name != '')then($elem//tei:text/tei:body//tei:table/tei:row)else()
+        let $rows := if($name != '')then($elem//tei:text/tei:body//tei:table[not(@n='details')]//tei:row)else()
         
         let $row := if($rows != '')then(local:getTableRow($rows))else()
 

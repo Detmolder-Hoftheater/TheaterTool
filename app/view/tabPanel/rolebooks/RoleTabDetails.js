@@ -4,7 +4,7 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
     title: '<b style="color:gray;">Übersicht</b>',
     
 	layout: {
-		type: 'vbox',
+		type: 'hbox',
 		pack: 'start',
 		align: 'stretch'
 	},
@@ -33,41 +33,27 @@ regieName: null,
 				//console.log(json);
 				
 				var roleTable = new TheaterTool.view.tabPanel.rolebooks.RoleTable({lineList: json});
-				
-				var table_layout = Ext.create('Ext.panel.Panel', {
-			layout: {
-				type: 'table',
-				columns: 2,
-				tdAttrs: {
-        			valign: 'top'
-   				 },
-   				  tableAttrs: {
-                            style: {
-                                width: '100%'
-                            }
-                        }
-                        
-			},
-			
-    //bodyPadding: 10,
-			bodyBorder: false,
-			border: false,
-			items:[]
-		});
-		me.add(table_layout);
-		//		table_layout.add(roleTable);
-				
+				roleTable.setTablePanel(me);
+                me.add(roleTable);
                 
-		        var role_panel = Ext.create('Ext.panel.Panel', {
-			border: false,
-			//bodyPadding: 10,
-			//margin: '10 10 0 10',
-			items:[]
-		});
-		table_layout.add(role_panel);
-		role_panel.add(roleTable);
+                var source_group = Ext.create('Ext.panel.Panel', {
+			         flex:1,
+                    border:false,
+                    bodyPadding:15,
+                    autoScroll: true,
+			         items:[]
+		      });
+		      me.add(source_group);
+		      
+		      var info_group = Ext.create('Ext.form.FieldSet', {
+			        title: '<b style="color:gray;">Allgemeine Information</b>',
+		            bodyBorder: false,
+			         collapsible: false,
+			         collapsed: true,
+			         margin: '0 0 10 0'
+		      });
+		      source_group.add(info_group);
 				
-	//	me.add(roleTable);
 				
 			
 		/*me.add({
