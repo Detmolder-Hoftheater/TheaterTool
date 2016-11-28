@@ -27,7 +27,7 @@ let $strings := for $elem in $allFiles
 
         let $rows := if($name != '')then($elem//tei:text/tei:body//tei:table[not(@n='details')]//tei:row)else()
         
-        let $row := if($rows != '')then(local:getTableRow($rows))else()
+        let $row := if($rows != '')then(local:getTableRow($rows, $elem))else()
 
 			return 
 			if($row != '')then($row)else()
@@ -37,9 +37,64 @@ let $strings := for $elem in $allFiles
     
 };
 
-declare function local:getTableRow($rows) {
+declare function local:getTableRow($rows, $elem) {
 
-let $strings := for $elem in $rows
+let $strings := for $elem_1 in $rows
+
+    let $cells := $elem_1/tei:cell
+    
+    let $cell := local:getTableCell($cells, $elem)
+
+                    return 
+                    
+                    if($cell  != '')then(concat('{"cells":[', $cell, ']}'))else()
+                    
+    return 
+        string-join($strings,',')
+ 
+};
+
+declare function local:getPerson($persons) {
+
+let $strings := for $elem in $persons
+
+    let $person := $elem
+    
+    let $personId := $person/@key
+    
+                    return 
+                    
+                    concat('["', $person, '"', ', "', $personId, '"]')
+                    
+    return 
+        string-join($strings,',')
+ 
+};
+
+declare function local:getTableCell($cells) {
+
+let $strings := for $elem in $cells
+
+    let $onecell := $elem
+    
+    let $persons := $onecell/tei:persName
+    
+    let $person := if($persons != '')then(local:getPerson($persons))else()
+    
+                    return 
+                    
+                    if($person  != '')then(normalize-space($person))else(
+                        if($onecell != '')then(concat('["', normalize-space($onecell), '"]'))else())
+                    
+                                      
+    return 
+        string-join($strings,',')
+ 
+};
+
+declare function local:getInhalt($inhaltTable) {
+
+let $strings := for $elem in $inhaltTable
 
     let $cells := $elem/tei:cell
     
@@ -54,18 +109,31 @@ let $strings := for $elem in $rows
  
 };
 
-declare function local:getWork($works) {
+declare function local:getWork($works, $elem) {
 
-let $strings := for $elem in $works
+let $strings := for $elem_3 in $works
 
-    let $work := if($elem/@type = 'work')then($elem)else()
+    let $work := if($elem_3/@type = 'work')then($elem_3)else()
     
-    let $workId := if($work/@type = 'work')then($work/@key)else()
+    let $workId := if($work  != '')then($work/@key)else()
     
-
+    let $refTable := if($work  != '')then($work/tei:ref/@target)else()
+    
+    let $tableId := if($refTable  != '')then(tokenize($refTable, "#")[last()])else()
+    
+    let $inhaltTable := $elem//tei:text/tei:body//tei:table[@xml:id=$tableId]//tei:row
+    
+    let $inhaltDetails := ''(:local:getInhalt($inhaltTable):)
+    
                     return 
                     
-                    if($work  != '')then(concat('["', $work, '"', ', "', $workId, '"]'))else()
+                    if($work  != '')then(
+                        if($inhaltDetails != '')
+                        then(concat('["', $work, '"', ', "', $workId, '",', $inhaltDetails,'"]'))
+                        else(concat('"', $work, '"', ', "', $workId, '"')))
+                        else()
+                    
+                    
                     
     return 
         string-join($strings,',')
@@ -73,20 +141,24 @@ let $strings := for $elem in $works
 };
 
 
-declare function local:getTableCell($cells) {
+declare function local:getTableCell($cells, $elem) {
 
-let $strings := for $elem in $cells
+let $strings := for $elem_2 in $cells
 
-    let $onecell := $elem
+    let $onecell := $elem_2
+    
+    let $date := $elem_2/tei:date
     
     let $works := $onecell/tei:rs
     
-    let $workArray := local:getWork($works)
+    let $workArray := local:getWork($works, $elem)
     
                     return 
                     
-                    if($workArray  != '')then(concat('[', $workArray, ']'))else(
-                        if($onecell != '')then(concat('[["', normalize-space($onecell), '"]]'))else())
+                    if($workArray  != '')then(concat('{"work":[', $workArray, ']}'))else(
+                    if($date != '')then(concat('{"date":["', $date, '"]}'))else(
+                        if($onecell != '')then(concat('["', normalize-space($onecell), '"]'))else())
+                        )
                     
                                       
     return 
@@ -98,9 +170,9 @@ let $strings := for $elem in $cells
 
 (
 
-  '[',
+  '{"rows":[',
         local:getTableInformation($allFiles),
 
-    ']'
+     ']}'
    
 )

@@ -46,31 +46,105 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTable', {
 if(me.lineList != 'undefined'){
 //console.log(me.lineList);
 
-
+var columnNumber = 0;
 for(i = 0; i < me.lineList.length; i++){
             var one_row = me.lineList[i]; 
-            var arrayTmp = one_row[0];
-           
-                for(j = 0; j < arrayTmp.length; j++){
-                    var nameResult = arrayTmp[j];
-                
-                      var one_line = Ext.create('TheaterTool.model.Theaterakte', {
-    			      name : nameResult[0],
-    			      workKey: nameResult[1],
-    			      details : one_row[1],
-    			      anmerkung: one_row[2] 
-			     });
-			    me.store.add(one_line);
-                 }
+            
+            if(columnNumber < one_row.length){
+                columnNumber = one_row.length;
+            }
+            
+            var workName = '';
+             var workKey = '';
+             var workDetails = '';
+             console.log(one_row);
+            for(j = 0; j < one_row.length; j++){
+                var oneColumn = one_row[j];
+                          
+             for(k = 0; k < oneColumn.length; k++){
+                    var nameResult = oneColumn[k];
+                    
+                    if(nameResult.length > 1){
+                      workName = nameResult[0];
+                      workKey = nameResult[1];
+                      workDetails = nameResult[3];
+                    }
+                    else{
+                        workDetails = nameResult[0];
+                    }
+                   } 
+                      
+            }
+             var one_line = Ext.create('TheaterTool.model.Theaterakte', {
+    			      name : workName,
+    			      workKey: workKey,
+    			      details : workDetails 
+    			      //anmerkung: one_row[2] 
+			             });
+			         me.store.add(one_line);
+            
+            
+            
             
 			
 			}
 	}
+	
+	
+	var objs = new Array();
+	
 		me.detailsColumn = this.createColumn('Werkdetails', 'resources/images/Door-24.png');
 		
 		//var extendColumn = this.createColumn('Tiefenerschliessung', '');
 		
-		me.columns =[ 
+		var col_date = Ext.create('Ext.grid.column.Column', {			
+			xtype: 'gridcolumn',
+			header: 'Datum',
+			flex: 0.7,			
+			menuDisabled: true,
+			dataIndex: 'date'			
+			//align: 'center'
+			
+			
+		});
+		objs[0] = col_date;
+		
+		var col_work = Ext.create('Ext.grid.column.Column', {			
+			xtype: 'gridcolumn',
+		    header: 'Werk',
+			flex: 2,			
+			menuDisabled: true,
+			dataIndex: 'name'			
+			//align: 'center'
+			
+			
+		});
+		objs[1] = col_work;
+		//me.headerCt.insert(me.columns.length, col_work);
+		//me.columns.add(col_work);
+		//me.headerCt.insert(me.columns.length, me.detailsColumn);
+		objs[2] = me.detailsColumn;
+		//me.columns.add(me.detailsColumn);
+		
+		for(i = 0; i < columnNumber-1; i++){
+		    var col = Ext.create('Ext.grid.column.Column', {			
+			xtype: 'gridcolumn',
+			//header: headerName,
+			flex: 0.7,			
+			menuDisabled: true,
+			dataIndex: 'details'			
+			//align: 'center'
+			
+			
+		});
+		objs[i+3] = col;
+		//me.headerCt.insert(me.columns.length, col);
+		//me.columns.add(col);
+		}
+		
+		me.columns = objs;
+		
+		/*me.columns =[ 
 		//extendColumn,
 		//me.detailsColumn,
 		{
@@ -89,14 +163,6 @@ for(i = 0; i < me.lineList.length; i++){
 			dataIndex: 'details'
 			
 		},
-		/*{
-			//text: 'Sprache',
-			flex: 2,
-			//width    : 80,
-			menuDisabled: true,
-			dataIndex: 'anmerkung'
-			
-		},*/
 		this.detailsColumn,
 		{
 			text: 'Inhaltdetails',
@@ -107,7 +173,7 @@ for(i = 0; i < me.lineList.length; i++){
 			
 		}
 
-		];
+		];*/
 		
 		me.callParent();
 	},
