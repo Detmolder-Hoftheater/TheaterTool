@@ -3,7 +3,8 @@ Ext.define('TheaterTool.model.Theaterakte', {
     fields: [
         {name: 'name',   type: 'string'}, 
         {name: 'date',   type: 'string'}, 
- 		{name: 'details',   type: 'string'}, 
+ 		{name: 'details1',   type: 'string'}, 
+ 		{name: 'details1',   type: 'string'}, 
  		{name: 'workKey',   type: 'string'}, 
  		{name: 'anmerkung',   type: 'string'}
     ]

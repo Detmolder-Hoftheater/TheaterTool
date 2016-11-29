@@ -47,38 +47,51 @@ if(me.lineList != 'undefined'){
 //console.log(me.lineList);
 
 var columnNumber = 0;
-for(i = 0; i < me.lineList.length; i++){
-            var one_row = me.lineList[i]; 
+for(i = 0; i < me.lineList.rows.length; i++){
+            var one_row = me.lineList.rows[i]; 
             
-            if(columnNumber < one_row.length){
-                columnNumber = one_row.length;
+            if(columnNumber < one_row.cells.length){
+                columnNumber = one_row.cells.length;
             }
             
             var workName = '';
              var workKey = '';
-             var workDetails = '';
-             console.log(one_row);
-            for(j = 0; j < one_row.length; j++){
-                var oneColumn = one_row[j];
-                          
-             for(k = 0; k < oneColumn.length; k++){
-                    var nameResult = oneColumn[k];
-                    
-                    if(nameResult.length > 1){
-                      workName = nameResult[0];
-                      workKey = nameResult[1];
-                      workDetails = nameResult[3];
-                    }
+             var workDetails_1 = '';
+             var workDetails_2 = '';
+             var workDate = '';
+             
+             
+            for(j = 0; j < one_row.cells.length; j++){
+                var oneColumn = one_row.cells[j];
+                //console.log(typeof oneColumn);
+                var workArray = oneColumn.work;
+                var dateObject = oneColumn.date;
+                if(typeof workArray !== 'undefined'){
+                    workName = workArray[0];
+                    workKey = workArray[1];
+                }
+                else if(typeof dateObject !== 'undefined'){
+                    workDate = dateObject[0];
+                }
+                else{   
+                    if(workDetails_1 === ''){
+                        workDetails_1  = oneColumn;  
+                    } 
                     else{
-                        workDetails = nameResult[0];
-                    }
-                   } 
-                      
+                        workDetails_2  = oneColumn; 
+                    }          
             }
+               
+            }
+            
+            
+            
              var one_line = Ext.create('TheaterTool.model.Theaterakte', {
     			      name : workName,
     			      workKey: workKey,
-    			      details : workDetails 
+    			      details1 : workDetails_1, 
+    			      details2 : workDetails_2,
+    			      date: workDate
     			      //anmerkung: one_row[2] 
 			             });
 			         me.store.add(one_line);
@@ -125,21 +138,17 @@ for(i = 0; i < me.lineList.length; i++){
 		//me.headerCt.insert(me.columns.length, me.detailsColumn);
 		objs[2] = me.detailsColumn;
 		//me.columns.add(me.detailsColumn);
-		
-		for(i = 0; i < columnNumber-1; i++){
+		//console.log(columnNumber);
+		for(i = 1; i < columnNumber; i++){
 		    var col = Ext.create('Ext.grid.column.Column', {			
 			xtype: 'gridcolumn',
 			//header: headerName,
 			flex: 0.7,			
 			menuDisabled: true,
-			dataIndex: 'details'			
-			//align: 'center'
-			
-			
+			dataIndex: 'details'+i
 		});
-		objs[i+3] = col;
-		//me.headerCt.insert(me.columns.length, col);
-		//me.columns.add(col);
+		objs[i+2] = col;
+		
 		}
 		
 		me.columns = objs;
@@ -205,6 +214,7 @@ for(i = 0; i < me.lineList.length; i++){
 			 if(colIndex === 2){
 			     var rec = grid.getStore().getAt(rowIndex);
 					var dbkey = rec.data.workKey;
+					if(dbkey != ''){
 					var workIcon = '';
 					if(extWorkKeys.indexOf('dbkey') > -1){
 					    workIcon = 'resources/images/BookBlau-16.png';
@@ -222,7 +232,8 @@ for(i = 0; i < me.lineList.length; i++){
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
-					navTreeGlobal.fireEvent('render', Ext.getCmp('tabpanel'));		     
+					navTreeGlobal.fireEvent('render', Ext.getCmp('tabpanel'));	
+					}
 			 }
                     
                 }
