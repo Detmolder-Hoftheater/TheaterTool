@@ -13,25 +13,15 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTable', {
 				borderRight: '5px solid #f4f4f4'
 			},
 	flex:1,
-	//xtype: 'grouped-header-grid',
 	sortableColumns: false,
 	
 	border:false,
-    //useArrows: true,
-    //rootVisible: false,
-    //flex:1,
-	
-	
-	//title: '<b style="color:gray;">Suchergebnisse: Werke</b>',
-	//icon: 'resources/images/BooksVert-17.png',
 	store: null,
 	rowLines: true,
     columnLines: true,
     tablePanel: null,
-   // reserveScrollbar: true,
-	
+   
 	detailsColumn: null,
-	//margin: '0 10 10 120',
 	lineList: null,
 	
 	initComponent: function () {
@@ -59,16 +49,27 @@ for(i = 0; i < me.lineList.rows.length; i++){
              var workDetails_1 = '';
              var workDetails_2 = '';
              var workDate = '';
-             
+             var isContent = false;
+             var personObject = '';
              
             for(j = 0; j < one_row.cells.length; j++){
                 var oneColumn = one_row.cells[j];
                 //console.log(typeof oneColumn);
                 var workArray = oneColumn.work;
                 var dateObject = oneColumn.date;
+                
                 if(typeof workArray !== 'undefined'){
                     workName = workArray[0];
                     workKey = workArray[1];
+                    
+                    if(typeof workArray[2] !== 'undefined'){
+                    //console.log(workArray[2]);
+                        isContent = true;
+                    }
+                }
+                else if(typeof oneColumn.workpersons !== 'undefined' && oneColumn.workpersons.length > 0){
+                    personObject = oneColumn;
+                    //console.log(personObject);
                 }
                 else if(typeof dateObject !== 'undefined'){
                     workDate = dateObject[0];
@@ -91,7 +92,9 @@ for(i = 0; i < me.lineList.rows.length; i++){
     			      workKey: workKey,
     			      details1 : workDetails_1, 
     			      details2 : workDetails_2,
-    			      date: workDate
+    			      date: workDate,
+    			      createContent: isContent,
+    			      persons: personObject
     			      //anmerkung: one_row[2] 
 			             });
 			         me.store.add(one_line);
@@ -106,14 +109,14 @@ for(i = 0; i < me.lineList.rows.length; i++){
 	
 	var objs = new Array();
 	
-		me.detailsColumn = this.createColumn('Werkdetails', 'resources/images/Door-24.png');
+		me.detailsColumn = this.createColumn('Werk', 'resources/images/Door-24.png', 'name');
 		
 		//var extendColumn = this.createColumn('Tiefenerschliessung', '');
 		
 		var col_date = Ext.create('Ext.grid.column.Column', {			
 			xtype: 'gridcolumn',
 			header: 'Datum',
-			flex: 0.7,			
+			flex: 1,			
 			menuDisabled: true,
 			dataIndex: 'date'			
 			//align: 'center'
@@ -122,7 +125,7 @@ for(i = 0; i < me.lineList.rows.length; i++){
 		});
 		objs[0] = col_date;
 		
-		var col_work = Ext.create('Ext.grid.column.Column', {			
+		/*var col_work = Ext.create('Ext.grid.column.Column', {			
 			xtype: 'gridcolumn',
 		    header: 'Werk',
 			flex: 2,			
@@ -132,86 +135,160 @@ for(i = 0; i < me.lineList.rows.length; i++){
 			
 			
 		});
-		objs[1] = col_work;
-		//me.headerCt.insert(me.columns.length, col_work);
-		//me.columns.add(col_work);
-		//me.headerCt.insert(me.columns.length, me.detailsColumn);
-		objs[2] = me.detailsColumn;
-		//me.columns.add(me.detailsColumn);
+		objs[1] = col_work;*/
+		
+		objs[1] = me.detailsColumn;
+		
+		var index = 1;
 		//console.log(columnNumber);
 		for(i = 1; i < columnNumber; i++){
 		    var col = Ext.create('Ext.grid.column.Column', {			
 			xtype: 'gridcolumn',
 			//header: headerName,
-			flex: 0.7,			
+			flex: 1,			
 			menuDisabled: true,
 			dataIndex: 'details'+i
 		});
-		objs[i+2] = col;
+		index = i+1;
+		objs[index] = col;
 		
 		}
+		
+		var col_person = this.createColumn('Personen', 'resources/images/Door-24.png', 'persons');
+		/*var col_person = Ext.create('Ext.grid.column.Action', {			
+			xtype: 'actioncolumn',
+		    header: 'Personen',
+			flex: 1,			
+			menuDisabled: true,
+			dataIndex: 'persons',
+            renderer: function(val, metadata, record) {
+            console.log(metadata);
+            if(this.header === 'Personen'){
+			         if(typeof record.data.persons.workpersons !== 'undefined'){
+					   this.items[0].icon = 'resources/images/Door-24.png';
+					   return '<div style="float: right; clear: left; font-size: 11px; line-height: 1em;">'
+                            + record.data.persons.workpersons[0]+'</div>';
+				    }				
+				    else {					
+					   this.items[0].icon = '';
+					   return '<font style="right; font-size: 11px; line-height: 1em;">'
+                + record.data.persons.workpersons[0] 
+            + '</font>';
+				    }
+			     
+					
+				}
+				else{
+				
+				    return val;
+				}
+            
+            
+      
+                    }			
+		});*/
+		objs[index+1] = col_person;
+		var col_inhalt = Ext.create('Ext.grid.column.Column', {			
+			xtype: 'gridcolumn',
+		    header: 'Inhaltdetails',
+			flex: 1,			
+			menuDisabled: true,
+			dataIndex: 'createContent'			
+		});
+		objs[index+2] = col_inhalt;
 		
 		me.columns = objs;
-		
-		/*me.columns =[ 
-		//extendColumn,
-		//me.detailsColumn,
-		{
-		
-			//text: 'Werk',
-			flex: 2,
-			menuDisabled: true,
-			dataIndex: 'name'
-			
-		},
-		{
-			//text: 'Seite',
-			flex: 1,
-			//width    : 75,
-			menuDisabled: true,
-			dataIndex: 'details'
-			
-		},
-		this.detailsColumn,
-		{
-			text: 'Inhaltdetails',
-			flex: 0.7,
-			//width    : 75,
-			menuDisabled: true
-			//dataIndex: 'anmerkung'
-			
-		}
-
-		];*/
 		
 		me.callParent();
 	},
 	
-	createColumn: function (headerName, path) {		
+	createColumn: function (headerName, path, dataind) {		
 		var eColumn = Ext.create('Ext.grid.column.Action', {			
 			xtype: 'actioncolumn',
 			header: headerName,
-			flex: 0.7,			
+			flex: 2.5,			
 			menuDisabled: true,
-			//dataIndex: 'name',			
-			align: 'center',
+			dataIndex: dataind,			
+			//align: 'center',
 			renderer: function (val, metadata, record) {
-				if(headerName == 'Werkdetails'){
+			     if(headerName === 'Werk'){
+			         if(record.data.workKey !== ''){
+					   this.items[0].icon = path;
+					   return '<div style="float: right; font-size: 11px; line-height: 1em;">'
+                            + record.data.name+'</div>';
+				    }				
+				    else {					
+					   this.items[0].icon = '';
+					   return '<font style="right; font-size: 11px; line-height: 1em;">'
+                + record.data.name 
+            + '</font>';
+				    }
+			     
+					
+				}
+				else if(headerName === 'Personen'){
+				console.log(record.data.persons);
+			         if(record.data.persons !== ''){
+			             if(record.data.persons.workpersons.lenght > 2){
+			                 
+			             }
+			             
+			             
+			            /* items: [{
+                icon: 'resources/images/Door-24.png',  // Use a URL in the icon config
+                tooltip: 'Edit',
+                handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+                    alert("Edit " + rec.get('firstname'));
+                }
+            },{
+                icon: 'resources/images/Door-24.png',
+                tooltip: 'Delete',
+                handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+                    alert("Terminate " + rec.get('firstname'));
+                }                
+            }]*/
+			         
+			         
+					   this.items[0].icon = 'resources/images/Door-24.png';
+					   return '<div style="float: right; font-size: 11px; line-height: 1em;">'
+                            + record.data.persons.workpersons[0]+'</div>'+'<div style="float: right; font-size: 11px; line-height: 1em;">'
+                            + record.data.persons.workpersons[0]+'</div>';
+				    }				
+				    else {					
+					   this.items[0].icon = '';
+					   /*return '<font style="right; font-size: 11px; line-height: 1em;">'
+                + record.data.persons.workpersons
+            + '</font>';*/
+				    }
+			     
+					
+				}
+				
+				else{
+				
+				    return val;
+				}
+			
+			
+			
+				/*if(headerName == 'Werkdetails'){
 					if(record.data.workKey !== ''){
 					this.items[0].icon = path;					
 				}				
 				else {					
 					this.items[0].icon = '';
 				}
-				}
+				}*/
 				
-				metadata.style = 'cursor: pointer;';			
-				return val;
+				/*metadata.style = 'cursor: pointer;';			
+				return val;*/
 			},
 			
 			handler: function(grid, rowIndex, colIndex) {
 			
-			 if(colIndex === 2){
+			 if(colIndex === 1){
 			     var rec = grid.getStore().getAt(rowIndex);
 					var dbkey = rec.data.workKey;
 					if(dbkey != ''){

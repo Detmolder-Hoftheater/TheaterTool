@@ -6,6 +6,8 @@ Ext.define('TheaterTool.model.Theaterakte', {
  		{name: 'details1',   type: 'string'}, 
  		{name: 'details1',   type: 'string'}, 
  		{name: 'workKey',   type: 'string'}, 
+ 		{name: 'createContent',   type: 'auto'},
+ 		{name: 'persons',   type: 'auto'},
  		{name: 'anmerkung',   type: 'string'}
     ]
 });

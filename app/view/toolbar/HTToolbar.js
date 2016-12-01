@@ -125,14 +125,14 @@ margin: '0 0 0 5',
 
 			
 '->',
- {
+ /*{
 
 				xtype: 'label',				
         		html: 
         		'<font size = "1"><b style="color:#CC9FA7;">Suchefilter</b></font>',
         		//'<b style="color:#CC9FA7;">Filter:</b>',
         		margin: '0 10 0 10'
-			},
+			},*/
 			this.searchFilterButton,
 	
             this.searchField,
@@ -382,7 +382,22 @@ createTextField: function (fieldName, fieldLabel) {
 	creatButtonWithMenu: function () {
 		var me = this;
 		var menuButton = Ext.create('Ext.button.Button', {
-			xtype: 'button',
+		
+		
+		xtype: 'button',
+				text: '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>',
+				margin: '0 0 0 10',
+				
+				style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7',
+					 borderTop: '1px solid CC9FA7',
+					 borderBottom: '1px solid CC9FA7'
+					 
+				},
+		
+		
+			/*xtype: 'button',
 				width: 110,
 				
 				//text: '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>',
@@ -392,7 +407,7 @@ createTextField: function (fieldName, fieldLabel) {
 					 borderTop: '3px solid #A80016',
 					 borderBottom: '3px solid #A80016',
 					 background: 'white'
-				},
+				},*/
 				menu:[ {
 					text: 'Werke',
 					icon: 'resources/images/BooksVert-17.png',
@@ -400,7 +415,7 @@ createTextField: function (fieldName, fieldLabel) {
 					
 					click: function (item, e, eOpts) {
                         
-                        menuButton.setText(item.text);
+                        menuButton.setText('<font size = "1"><b style="color:#CC9FA7;">'+item.text+'</b></font>');
 					
 					}
 				}
@@ -413,7 +428,7 @@ createTextField: function (fieldName, fieldLabel) {
 					click: function (item, e, eOpts) {
 
 					
-					menuButton.setText(item.text);
+					menuButton.setText('<font size = "1"><b style="color:#CC9FA7;">'+item.text+'</b></font>');
 					}
 				}
 				}]

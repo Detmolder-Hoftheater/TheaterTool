@@ -64,7 +64,7 @@ let $strings := for $elem in $persons
     
                     return 
                     
-                    concat('["', $person, '"', ', "', $personId, '"]')
+                    concat('"', $person, '"', ', "', $personId, '"')
                     
     return 
         string-join($strings,',')
@@ -83,7 +83,9 @@ let $strings := for $elem in $cells
     
                     return 
                     
-                    if($person  != '')then(normalize-space($person))else(
+                    if($person  != '')then(
+                    concat('{"person":[', normalize-space($person), ']}')
+                    )else(
                         if($onecell != '')then(concat('["', normalize-space($onecell), '"]'))else())
                     
                                       
@@ -102,14 +104,15 @@ let $strings := for $elem in $inhaltTable
 
                     return 
                     
-                    if($cell  != '')then(concat('[', $cell, ']'))else()
+                    if($cell  != '')then(concat('{"cells":[', $cell, ']}')
+                    )else()
                     
     return 
         string-join($strings,',')
  
 };
 
-declare function local:getWork($works, $elem) {
+declare function local:getWork($works, $elem, $onecell) {
 
 let $strings := for $elem_3 in $works
 
@@ -123,14 +126,15 @@ let $strings := for $elem_3 in $works
     
     let $inhaltTable := $elem//tei:text/tei:body//tei:table[@xml:id=$tableId]//tei:row
     
-    let $inhaltDetails := ''(:local:getInhalt($inhaltTable):)
+    let $inhaltDetails := local:getInhalt($inhaltTable)
     
                     return 
                     
                     if($work  != '')then(
                         if($inhaltDetails != '')
-                        then(concat('["', $work, '"', ', "', $workId, '",', $inhaltDetails,'"]'))
-                        else(concat('"', $work, '"', ', "', $workId, '"')))
+                        then(concat('"', normalize-space($onecell), '"', ', "', $workId, '",', '{"akten":[',$inhaltDetails, ']}'))
+                        else(concat('"', normalize-space($onecell), '"', ', "', $workId, '"')
+                        ))
                         else()
                     
                     
@@ -141,6 +145,26 @@ let $strings := for $elem_3 in $works
 };
 
 
+declare function local:getWorkPersons($workPersons) {
+
+let $strings := for $elem_3 in $workPersons
+
+    let $pers := $elem_3
+    
+    let $persId := $pers/@key
+    
+                    return 
+                        concat('"', $pers, '"', ', "', $persId, '"')
+                    
+                   
+                    
+    return 
+        string-join($strings,',')
+ 
+};
+
+
+
 declare function local:getTableCell($cells, $elem) {
 
 let $strings := for $elem_2 in $cells
@@ -149,16 +173,26 @@ let $strings := for $elem_2 in $cells
     
     let $date := $elem_2/tei:date
     
+    let $workPersons := $elem_2/tei:persName
+    
+    let $workPerson := local:getWorkPersons($workPersons)
+    
     let $works := $onecell/tei:rs
     
-    let $workArray := local:getWork($works, $elem)
+    let $workArray := local:getWork($works, $elem, $onecell)
     
                     return 
                     
-                    if($workArray  != '')then(concat('{"work":[', $workArray, ']}'))else(
-                    if($date != '')then(concat('{"date":["', $date, '"]}'))else(
-                        if($onecell != '')then(concat('["', normalize-space($onecell), '"]'))else())
+                    if($workArray  != '')then(
+                        if($workPerson  != '')then(concat('{"work":[', $workArray, ']},', '{"workpersons":[', $workPerson, ']}'))
+                        else(concat('{"work":[', $workArray, ']}')))
+                    
+                    else(
+                        if($date != '')then(concat('{"date":["', normalize-space($onecell), '"]}'))else(
+                            if($workPerson  != '')then(concat('{"workpersons":[', $workPerson, ']}'))else(
+                            concat('["', normalize-space($onecell), '"]'))
                         )
+                    )
                     
                                       
     return 
