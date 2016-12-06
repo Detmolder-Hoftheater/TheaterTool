@@ -415,7 +415,7 @@ createTextField: function (fieldName, fieldLabel) {
 					
 					click: function (item, e, eOpts) {
                         
-                        menuButton.setText('<font size = "1"><b style="color:#CC9FA7;">'+item.text+'</b></font>');
+                        menuButton.setText(item.text);
 					
 					}
 				}
@@ -428,7 +428,7 @@ createTextField: function (fieldName, fieldLabel) {
 					click: function (item, e, eOpts) {
 
 					
-					menuButton.setText('<font size = "1"><b style="color:#CC9FA7;">'+item.text+'</b></font>');
+					menuButton.setText(item.text);
 					}
 				}
 				}]
@@ -488,6 +488,8 @@ createTextField: function (fieldName, fieldLabel) {
         var me = this,
         value = me.getValue();
         searchType = searchFilterButton.getText();
+        console.log(value);
+        console.log(searchType);
         if(!value.trim()){        
             Ext.MessageBox.show({
             title: 'Suche',
@@ -504,7 +506,7 @@ createTextField: function (fieldName, fieldLabel) {
         });
             return;
         }
-        else if(searchType === null){
+        else if(searchType === '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>'){
         Ext.MessageBox.show({
             title: 'Suche',
             msg: 'Bitte wählen Sie den Suchfilter aus!',

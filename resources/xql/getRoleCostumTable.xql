@@ -154,7 +154,7 @@ let $strings := for $elem_3 in $workPersons
     let $persId := $pers/@key
     
                     return 
-                        concat('"', $pers, '"', ', "', $persId, '"')
+                        concat('["', $pers, '"', ', "', $persId, '"]')
                     
                    
                     
