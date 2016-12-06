@@ -60,6 +60,9 @@ if(me.lineList != 'undefined'){
 //console.log(me.lineList);
 
 var columnNumber = 0;
+var isDateColumn = false;
+             var isWorkColumn = false;
+             var isPersonColumn = false;
 for(i = 0; i < me.lineList.rows.length; i++){
             var one_row = me.lineList.rows[i]; 
             
@@ -70,10 +73,14 @@ for(i = 0; i < me.lineList.rows.length; i++){
             var workName = '';
              var workKey = '';
              var workDetails_1 = '';
+             var detailsColumnNumber = 1;
              var workDetails_2 = '';
+             var workDetails_3 = '';
              var workDate = '';
              var isContent = false;
              var personObject = '';
+             
+             
              
             for(j = 0; j < one_row.cells.length; j++){
                 var oneColumn = one_row.cells[j];
@@ -84,7 +91,7 @@ for(i = 0; i < me.lineList.rows.length; i++){
                 if(typeof workArray !== 'undefined'){
                     workName = workArray[0];
                     workKey = workArray[1];
-                    
+                    isWorkColumn = true;
                     if(typeof workArray[2] !== 'undefined'){
                     //console.log(workArray[2]);
                         isContent = true;
@@ -92,21 +99,31 @@ for(i = 0; i < me.lineList.rows.length; i++){
                 }
                 else if(typeof oneColumn.workpersons !== 'undefined' && oneColumn.workpersons.length > 0){
                     personObject = oneColumn;
+                    isPersonColumn = true;
                     //console.log(personObject);
                 }
                 else if(typeof dateObject !== 'undefined'){
                     workDate = dateObject[0];
+                    isDateColumn = true;
                 }
-                else{   
-                    if(workDetails_1 === ''){
-                        workDetails_1  = oneColumn;  
+                else{  
+                //console.log(oneColumn);
+                    if(detailsColumnNumber === 1){
+                        workDetails_1  = oneColumn; 
+                        detailsColumnNumber = 2;
                     } 
-                    else{
+                    else if(detailsColumnNumber === 2){
                         workDetails_2  = oneColumn; 
-                    }          
+                        detailsColumnNumber = 3;
+                    }  
+                     else if(detailsColumnNumber === 3){
+                        workDetails_3  = oneColumn; 
+                        detailsColumnNumber = 1;
+                    }  
             }
                
             }
+         
             
             
             
@@ -115,6 +132,7 @@ for(i = 0; i < me.lineList.rows.length; i++){
     			      workKey: workKey,
     			      details1 : workDetails_1, 
     			      details2 : workDetails_2,
+    			      details3 : workDetails_3,
     			      date: workDate,
     			      createContent: isContent,
     			      persons: personObject
@@ -127,16 +145,26 @@ for(i = 0; i < me.lineList.rows.length; i++){
             
 			
 			}
+			   
+            if(isDateColumn){
+                columnNumber--;
+            }
+            if(isPersonColumn){
+                columnNumber--;
+            }
+            if(isWorkColumn){
+                columnNumber--;
+            }
 	}
 	
 	
 	var objs = new Array();
 	
-		me.detailsColumn = this.createColumn('Werk', 'resources/images/Door-24.png', 'name');
 		
-		//var extendColumn = this.createColumn('Tiefenerschliessung', '');
+		var tableColumns = -1;
 		
-		var col_date = Ext.create('Ext.grid.column.Column', {			
+		if(isDateColumn){
+		    var col_date = Ext.create('Ext.grid.column.Column', {			
 			xtype: 'gridcolumn',
 			header: 'Datum',
 			flex: 1,			
@@ -145,10 +173,17 @@ for(i = 0; i < me.lineList.rows.length; i++){
 			//align: 'center'
 			
 			
-		});
-		objs[0] = col_date;
+		  });
+		  tableColumns = tableColumns+1;
+		  objs[tableColumns] = col_date;
+		}
 		
-		/*var col_work = Ext.create('Ext.grid.column.Column', {			
+		if(isWorkColumn){
+		    me.detailsColumn = this.createColumn('Werkdetails', 'resources/images/Door-24.png', 'name');
+		    tableColumns = tableColumns+1;
+		    objs[tableColumns] = me.detailsColumn;
+		
+		var col_work = Ext.create('Ext.grid.column.Column', {			
 			xtype: 'gridcolumn',
 		    header: 'Werk',
 			flex: 2,			
@@ -158,13 +193,14 @@ for(i = 0; i < me.lineList.rows.length; i++){
 			
 			
 		});
-		objs[1] = col_work;*/
+		tableColumns = tableColumns+1;
+		objs[tableColumns] = col_work;
+		    
+		}
 		
-		objs[1] = me.detailsColumn;
 		
-		var index = 1;
-		//console.log(columnNumber);
-		for(i = 1; i < columnNumber; i++){
+		console.log(columnNumber);
+		for(i = 1; i <= columnNumber; i++){
 		    var col = Ext.create('Ext.grid.column.Column', {			
 			xtype: 'gridcolumn',
 			//header: headerName,
@@ -172,11 +208,12 @@ for(i = 0; i < me.lineList.rows.length; i++){
 			menuDisabled: true,
 			dataIndex: 'details'+i
 		});
-		index = i+1;
-		objs[index] = col;
-		
+		tableColumns = tableColumns+1;
+		objs[tableColumns] = col;		
 		}
 		
+		
+		if(isPersonColumn){
 		var id_index = 0;
 		var col_person = Ext.create('Ext.grid.column.Column', {			
 			xtype: 'gridcolumn',
@@ -260,63 +297,10 @@ for(i = 0; i < me.lineList.rows.length; i++){
 			
 		});
 		
-		//this.createTextColumn('Personen', 'resources/images/Door-24.png', 'persons');
-		/*var col_person = Ext.create('Ext.grid.column.Column', {			
-			xtype: 'actioncolumn',
-		    header: 'Personen',
-			flex: 1,			
-			menuDisabled: true,
-			dataIndex: 'persons',
-            renderer: function(val, metadata, record) {
-            console.log(this.header);
-            console.log(metadata);
-            if(this.header === 'Personen' && record.data.persons !== ''){
-                 var objs = new Array();
-                for(i = 0; i < record.data.persons.workpersons.length; i++){
-			             var onePersData = record.data.persons.workpersons[i];
-			             //this.items[i].icon = 'resources/images/Door-24.png';
-			            //console.log(onePersData[0]);
-			            // dataToSchow += '<p style="left; font-size: 11px; line-height: 1em;"><img src="resources/images/Door-24.png" style="float:right;width:20px;height:16px;">'+onePersData[0]+'</p>';
-			            //'<br style="left; font-size: 11px; line-height: 1em;">'+ onePersData[0]+'<img src="resources/images/Door-24.png" style="width:20px;height:16px;"></br>';
-		             objs[i] = {
-                               icon: 'resources/images/Door-24.png',
-                                text: '<p style="left; font-size: 11px; line-height: 1em;">'+onePersData[0]+'</p>',
-                                handler: function(grid, rowIndex, colIndex) {
-                                    var rec = grid.getStore().getAt(rowIndex);
-                                    console.log(rec);
-                                }
-                             };
-			               
-			       }
-			        this.items = objs;
-			       return objs;
-            
-            
-            
-			        // if(typeof record.data.persons.workpersons !== 'undefined'){
-					   /\*this.items[0].icon = 'resources/images/Door-24.png';
-					   return '<div style="float: right; clear: left; font-size: 11px; line-height: 1em;">'
-                            + record.data.persons.workpersons[0]+'</div>';*\/
-				  //  }				
-				   // else {					
-					   /\*this.items[0].icon = '';
-					   return '<font style="right; font-size: 11px; line-height: 1em;">'
-                + record.data.persons.workpersons[0] 
-            + '</font>';*\/
-				  //  }
-			     
-					
-				}
-				else{
-				
-				    return val;
-				}
-            
-            
-      
-                    }			
-		});*/
-		objs[index+1] = col_person;
+		tableColumns = tableColumns+1;
+		objs[tableColumns] = col_person;
+		}
+		
 		var col_inhalt = Ext.create('Ext.grid.column.Column', {			
 			xtype: 'gridcolumn',
 		    header: 'Inhaltdetails',
@@ -324,7 +308,8 @@ for(i = 0; i < me.lineList.rows.length; i++){
 			menuDisabled: true,
 			dataIndex: 'createContent'			
 		});
-		objs[index+2] = col_inhalt;
+		tableColumns = tableColumns+1;
+		objs[tableColumns] = col_inhalt;
 		
 		me.columns = objs;
 		
@@ -433,102 +418,29 @@ for(i = 0; i < me.lineList.rows.length; i++){
 		var eColumn = Ext.create('Ext.grid.column.Action', {			
 			xtype: 'actioncolumn',
 			header: headerName,
-			flex: 2.5,			
+			flex: 1,			
 			menuDisabled: true,
-			dataIndex: dataind,			
-			//align: 'center',
+			//dataIndex: dataind,			
+			align: 'center',
 			renderer: function (val, metadata, record) {
-			     if(headerName === 'Werk'){
+			     if(headerName === 'Werkdetails'){
 			         if(record.data.workKey !== ''){
 					   this.items[0].icon = path;
-					   return '<div style="float: right; font-size: 11px; line-height: 1em;">'
-                            + record.data.name+'</div>';
+					   /*return '<div style="float: right; font-size: 11px; line-height: 1em;">'
+                            + record.data.name+'</div>';*/
 				    }				
 				    else {					
 					   this.items[0].icon = '';
-					   return '<font style="right; font-size: 11px; line-height: 1em;">'
+					   /*return '<font style="right; font-size: 11px; line-height: 1em;">'
                 + record.data.name 
-            + '</font>';
+            + '</font>';*/
 				    }
 			     
 					
 				}
-				else if(headerName === 'Personen'){
 				
-			         if(record.data.persons !== ''){
-			         
-			         this.items = [{
-                icon: 'resources/images/Door-24.png',  // Use a URL in the icon config
-                tooltip: 'Edit',
-                text: 'Edit',
-                handler: function(grid, rowIndex, colIndex) {
-                    var rec = grid.getStore().getAt(rowIndex);
-                    alert("Edit " + rec.get('firstname'));
-                }
-            },{
-                icon: 'resources/images/Door-24.png',
-                tooltip: 'Delete',
-                text:'Delete',
-                handler: function(grid, rowIndex, colIndex) {
-                    var rec = grid.getStore().getAt(rowIndex);
-                    alert("Terminate " + rec.get('firstname'));
-                }                
-            }]
-			         
-			         
-			           /* var objs = new Array();
-			            
-			           for(i = 0; i < record.data.persons.workpersons.length; i++){
-			             var onePersData = record.data.persons.workpersons[i];
-			             console.log(onePersData[0]);
-			            // dataToSchow += '<p style="left; font-size: 11px; line-height: 1em;"><img src="resources/images/Door-24.png" style="float:right;width:20px;height:16px;">'+onePersData[0]+'</p>';
-			            //'<br style="left; font-size: 11px; line-height: 1em;">'+ onePersData[0]+'<img src="resources/images/Door-24.png" style="width:20px;height:16px;"></br>';
-		             objs[i] = {
-                               icon: 'resources/images/Door-24.png',
-                                //'<img src="resources/images/Door-24.png" style="float:right;width:20px;height:16px;"><p style="left; font-size: 11px; line-height: 1em;">'+onePersData[0]+'</p>',
-                                //'<p style="left; font-size: 11px; line-height: 1em;">'+onePersData[0]+'</p>',
-                                handler: function(grid, rowIndex, colIndex) {
-                                    var rec = grid.getStore().getAt(rowIndex);
-                                    console.log(rec);
-                                }
-                             };
-			               
-			           }
-			           this.items = objs;*/
-			           //return objs;
-			             
-			             
-					   /*this.items[0].icon = 'resources/images/Door-24.png';
-					   return '<div style="float: right; font-size: 11px; line-height: 1em;">'
-                            + record.data.persons.workpersons[0]+'</div>'+'<div style="float: right; font-size: 11px; line-height: 1em;">'
-                            + record.data.persons.workpersons[0]+'</div>';*/
-				    }				
-				    else {
-				    /*var objs = new Array();
-				    objs[0] = {
-				     icon: '',
-                                text: '',
-                                handler: function(grid, rowIndex, colIndex) {
-                                    var rec = grid.getStore().getAt(rowIndex);
-                                    console.log(rec);
-                                }
-                             };
-			               
-			           
-				    this.items = objs;
-				    return objs;*/
-				    
-					   this.items[0].icon = '';
-					  // return '';
-				   }
-			     
-					
-				}
-				
-				else{
-				
-				    return val;
-				}
+				metadata.style = 'cursor: pointer;';			
+				return val;
 			
 			
 			
