@@ -37,22 +37,6 @@ let $strings := for $elem in $allFiles
     
 };
 
-declare function local:getTableRow($rows, $elem) {
-
-let $strings := for $elem_1 in $rows
-
-    let $cells := $elem_1/tei:cell
-    
-    let $cell := local:getTableCell($cells, $elem)
-
-                    return 
-                    
-                    if($cell  != '')then(concat('{"cells":[', $cell, ']}'))else()
-                    
-    return 
-        string-join($strings,',')
- 
-};
 
 declare function local:getPerson($persons) {
 
@@ -130,11 +114,17 @@ let $strings := for $elem_3 in $works
     
                     return 
                     
+                    (: if($inhaltDetails != '')
+                        then(concat('"', normalize-space($work), '"', ', "', $workId, '",', '{"akten":[',$inhaltDetails, ']}'))
+                        else(concat('"', normalize-space($work), '"', ', "', $workId, '"')
+                        ):)
+                    
                     if($work  != '')then(
                         if($inhaltDetails != '')
-                        then(concat('"', normalize-space($onecell), '"', ', "', $workId, '",', '{"akten":[',$inhaltDetails, ']}'))
-                        else(concat('"', normalize-space($onecell), '"', ', "', $workId, '"')
-                        ))
+                        then(concat('"', normalize-space($work), '"', ', "', $workId, '",', '{"akten":[',$inhaltDetails, ']}'))
+                        else(concat('"', normalize-space($work), '"', ', "', $workId, '"')
+                        )
+                        )
                         else()
                     
                     
@@ -163,7 +153,22 @@ let $strings := for $elem_3 in $workPersons
  
 };
 
+declare function local:getTableRow($rows, $elem) {
 
+let $strings := for $elem_1 in $rows
+
+    let $cells := $elem_1/tei:cell
+    
+    let $cell := local:getTableCell($cells, $elem)
+
+                    return 
+                    
+                    if($cell  != '')then(concat('{"cells":[', $cell, ']}'))else()
+                    
+    return 
+        string-join($strings,',')
+ 
+};
 
 declare function local:getTableCell($cells, $elem) {
 
@@ -171,7 +176,7 @@ let $strings := for $elem_2 in $cells
 
     let $onecell := $elem_2
     
-    let $date := $elem_2/tei:date
+    let $date := if($elem_2/tei:date != '')then(concat('"', $elem_2/tei:date, '"'))else()
     
     let $workPersons := $elem_2/tei:persName
     
@@ -183,7 +188,9 @@ let $strings := for $elem_2 in $cells
     
                     return 
                     
-                    if($workArray  != '')then(
+                    concat('["', normalize-space($onecell),'",', '{"work":[', $workArray, ']},', '{"workpersons":[', $workPerson, ']},', '{"date":[', $date, ']}]')
+                    
+                   (: if($workArray  != '')then(
                         if($workPerson  != '')then(concat('{"work":[', $workArray, ']},', '{"workpersons":[', $workPerson, ']}'))
                         else(concat('{"work":[', $workArray, ']}')))
                     
@@ -192,7 +199,7 @@ let $strings := for $elem_2 in $cells
                             if($workPerson  != '')then(concat('{"workpersons":[', $workPerson, ']}'))else(
                             concat('["', normalize-space($onecell), '"]'))
                         )
-                    )
+                    ):)
                     
                                       
     return 

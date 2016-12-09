@@ -44,10 +44,11 @@ selectedWork: null,
 		var me = this;
 
 var selFolder = null;
-if(me.selectedWork === 'Aschenbrödel'){
+console.log(me.selectedWork);
+if(me.selectedWork === 'H020149'){
 	selFolder = 'aschenbroedel';
 }
-else if(me.selectedWork === 'Der Bettelstudent'){
+else if(me.selectedWork === 'H020263'){
 	selFolder = 'bettelstudent';
 }
 var folderForEO = selFolder + '/';

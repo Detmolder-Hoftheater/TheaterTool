@@ -15,9 +15,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         var me = this;
         
         var selFolder = null;
-        if (me.selectedWork === 'Aschenbrödel') {
+        if (me.selectedWork === 'H020149') {
             selFolder = 'aschenbroedel';
-        } else if (me.selectedWork === 'Der Bettelstudent') {
+        } else if (me.selectedWork === 'H020263') {
             selFolder = 'bettelstudent';
         }
         var folderForEO = selFolder + '/';
@@ -59,7 +59,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         navTreeStore.getProxy().extraParams.selectedWork = me.selectedWork;
         navTreeStore.load();
         me.navTree.getView().bindStore(navTreeStore);
-        //navTreeStore.sort('name');
+        navTreeStore.sort('name');
         
         me.listeners = {
             render: function () {
