@@ -55,7 +55,7 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
 		me.add(ref_layout);
 		
 		var tableTitle = '';
-		if(me.searchValue === '*'){
+		if(me.searchValue === ''){
 		    tableTitle = '<b style="color:gray;">Alle Werke</b>';
 		}
 		else{
@@ -101,7 +101,7 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
 		me.add(ref_layout);
 		
 		var tableTitle = '';
-		if(me.searchValue === '*'){
+		if(me.searchValue === ''){
 		    tableTitle = '<b style="color:gray;">Alle Personen</b>';
 		}
 		else{

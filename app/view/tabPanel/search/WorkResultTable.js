@@ -10,6 +10,7 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
 		pack: 'start',
 		align: 'stretch'
 	},
+	
 	flex:1,
 	sortableColumns: false,
 	border: false,
@@ -27,6 +28,7 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
 	
 	me.store = Ext.create('Ext.data.Store', {
 	model: 'TheaterTool.model.SearchWork',
+	//pageSize: 4,
     data:[]
     /*sorters: [{
         sorterFn: function(o1, o2){
@@ -66,9 +68,7 @@ for(i = 0; i < me.worksList.length; i++){
 					else if(nameTypeShort === 'alt'){
 					nameTypeLong = 'Alternativtitel';
 					}
-					else if(nameTypeShort === 'sub'){
-					nameTypeLong = 'Untertitel';
-					}
+					
             
 			var workRow = Ext.create('TheaterTool.model.SearchWork', {
     			name : work[0],
@@ -81,11 +81,11 @@ for(i = 0; i < me.worksList.length; i++){
 			me.store.add(workRow);
 			}
 	}
-		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
+		me.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
 		var extendColumn = this.createColumn('Tiefenerschliessung', '');
 		
-		this.columns =[ 
+		me.columns =[ 
 		{
                 xtype: 'rownumberer',
                 text: 'Nr.',
@@ -122,11 +122,23 @@ for(i = 0; i < me.worksList.length; i++){
 			dataIndex: 'personen'
 			
 		},
-		this.detailsColumn
+		me.detailsColumn
 		];
 		
-		this.callParent();
+	/*	me.dockedItems = [{
+        xtype: 'pagingtoolbar',
+        store: me.store,  
+        dock: 'bottom',
+        displayInfo: true
+    }];*/
+		
+		me.callParent();
 	},
+	
+	/*afterRender: function(){
+        this.callParent(arguments);
+        this.getStore().loadPage(1);
+    },*/
 	
 	createColumn: function (headerName, path) {
 		

@@ -36,7 +36,7 @@ regieName: null,
 				roleTable.setTablePanel(me);
                 me.add(roleTable);
                 
-                /*var source_group = Ext.create('Ext.panel.Panel', {
+                var source_group = Ext.create('Ext.panel.Panel', {
 			         flex:1,
                     border:false,
                     bodyPadding:15,
@@ -46,13 +46,13 @@ regieName: null,
 		      me.add(source_group);
 		      
 		      var info_group = Ext.create('Ext.form.FieldSet', {
-			        title: '<b style="color:gray;">Allgemeine Information</b>',
+			        title: '<b style="color:gray;">Inhaltdetails</b>',
 		            bodyBorder: false,
 			         collapsible: false,
 			         collapsed: true,
 			         margin: '0 0 10 0'
 		      });
-		      source_group.add(info_group);*/
+		      source_group.add(info_group);
 				
 				
 			

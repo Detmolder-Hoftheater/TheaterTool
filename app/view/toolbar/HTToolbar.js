@@ -490,7 +490,7 @@ createTextField: function (fieldName, fieldLabel) {
         searchType = searchFilterButton.getText();
         console.log(value);
         console.log(searchType);
-        if(!value.trim()){        
+        /*if(!value.trim()){        
             Ext.MessageBox.show({
             title: 'Suche',
             msg: 'Bitte tragen Sie das Suchwort oder den Suchtext ein!',
@@ -506,7 +506,8 @@ createTextField: function (fieldName, fieldLabel) {
         });
             return;
         }
-        else if(searchType === '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>'){
+        else */
+        if(searchType === '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>'){
         Ext.MessageBox.show({
             title: 'Suche',
             msg: 'Bitte wählen Sie den Suchfilter aus!',

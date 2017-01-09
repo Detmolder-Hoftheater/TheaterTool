@@ -28,12 +28,25 @@ let $strings := for $elem in $titles
     let $serchvalue_tmp := substring($searchValue, 1, 1)
     let $serchvalue_uppercase_tmp := upper-case($serchvalue_tmp)
     let $serchvalue_uppercase := concat($serchvalue_uppercase_tmp, substring($searchValue, 2)) 
-
-	let $title := if(contains($elem, $searchValue) or contains($elem, lower-case($searchValue)) or contains($elem, $serchvalue_uppercase))
+    
+    
+    let $title_1 := if(string-length($searchValue) = 1)then(
+        if(contains(substring($elem, 1,1), $searchValue) or contains(substring($elem, 1,1), lower-case($searchValue)) or contains(substring($elem, 1,1), $serchvalue_uppercase))
 			then(normalize-space($elem))
-			else(if($searchValue ='*')
+			else()
+    )else()
+
+	let $title := if(string-length($searchValue) > 1)then(
+	
+	if(contains($elem, $searchValue) or contains($elem, lower-case($searchValue)) or contains($elem, $serchvalue_uppercase))
+			then(normalize-space($elem))
+			else(if($searchValue ='')
 			     then(normalize-space($elem))
 			     else())
+			     ) else(
+			     if($searchValue ='')then(normalize-space($elem))
+			     else(
+			     $title_1))
 					
 	
 	let $type := $elem/@type

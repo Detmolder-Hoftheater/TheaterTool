@@ -49,12 +49,39 @@ let $strings := for $elem in $titles
     let $serchvalue_tmp := substring($searchValue, 1, 1)
     let $serchvalue_uppercase_tmp := upper-case($serchvalue_tmp)
     let $serchvalue_uppercase := concat($serchvalue_uppercase_tmp, substring($searchValue, 2)) 
-
-	let $title := if(contains($elem, $searchValue) or contains($elem, lower-case($searchValue)) or contains($elem, $serchvalue_uppercase))
+    
+    let $fileNameCut := substring($elem, 1,4)
+		let $fileNameFiltered :=  if(contains($fileNameCut, 'Der ') 
+								or contains($fileNameCut, 'Die ') 
+								or contains($fileNameCut, 'Das '))
+			then(substring($elem, 5))
+			else($elem)
+    
+    
+    let $title_1 := if(string-length($searchValue) = 1)then(
+        if(contains(substring($fileNameFiltered, 1,1), $searchValue) or contains(substring($fileNameFiltered, 1,1), lower-case($searchValue)) or contains(substring($fileNameFiltered, 1,1), $serchvalue_uppercase))
 			then(normalize-space($elem))
-			else(if($searchValue ='*')
+			else()
+    
+    
+    
+    
+    )else()
+    
+    
+
+	let $title := if(string-length($searchValue) > 1)then(
+	
+	   if(contains($elem, $searchValue) or contains($elem, lower-case($searchValue)) or contains($elem, $serchvalue_uppercase))
+	   then(normalize-space($elem))
+	   else(if($searchValue ='')
 			     then(normalize-space($elem))
 			     else())
+			     ) else(
+			     if($searchValue ='')then(normalize-space($elem))
+			     
+			     else(
+			     $title_1))
 					
 	let $comp := local:jsonifyRoles($names)	
 	
@@ -83,7 +110,7 @@ let $strings := for $elem in $fileNames
 		let $names :=$file1//mei:persName
 
 		
-		let $titles := $file1//mei:titleStmt[1]/mei:title
+		let $titles := $file1//mei:titleStmt[1]/mei:title[not(@type='sub')]
 	    let $fileName_1 := local:jsonifyNormalizeCharacter($titles, $fileID, $names)
 	  
 			return 
