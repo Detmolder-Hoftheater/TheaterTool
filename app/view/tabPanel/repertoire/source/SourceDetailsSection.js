@@ -175,8 +175,74 @@ flex:1,
 			margin: '10 0 0 0'
 		});
 		me.add(info_group);
+		
+		var ext_panel = Ext.create('Ext.panel.Panel', {
+			layout: {
+				type: 'table',
+				columns: 2,
+				tdAttrs: {
+        			valign: 'top'
+   				 },
+   				  tableAttrs: {
+                            style: {
+                                width: '100%'
+                            }
+                        }
+                        
+			},
+			
+			//margin: '0 10 0 10',
+			//bodyPadding: 10,
+			bodyBorder: false,
+			border: false,
+			items:[]
+		});
+		me.add(ext_panel);
+		
+		var rismValue = json.rism[0];
+		var imageRISMLink = Ext.create('Ext.Img', {
+                            html: '<img src="resources/images/Link.png" style="width:17px;height:18px;">',
+                            
+                            autoEl: {
+                                tag: 'a',
+                                href: 'https://opac.rism.info/search?id='+rismValue,
+                                //'https://opac.rism.info/metaopac/start.do?View=rism&Language=en&searchString[0]='+rismValue,
+                                target: "_blank"
+                            }
+                        });
+                        ext_panel.add({
+                            xtype: 'fieldcontainer',
+                            fieldLabel: '<img src="resources/images/Info.png"  title="Répertoire International des Sources Musicales" style="margin: 0 5 -2 0; width:13px;height:13px;">' + 'RISM ID',
+                            defaultType: 'textfield',                        
+                            layout: {
+                                type: 'table', columns: 2,
+                                tdAttrs: {
+                                    valign: 'top'
+                                },
+                                tableAttrs: {
+                                    style: {
+                                        width: '100%'
+                                    }
+                                }
+                            },
+                                                       
+                            items:[imageRISMLink, {
+                                value: rismValue,
+                                readOnly: true,
+                                style: {
+                                    width: '100%',
+                                    //autoWidth: true,
+                                    borderLeft: '3px solid #FFFFFF'
+                                }
+                            }]
+                        });
+		
+		
+		
+		
+		
 	
-		me.rism = me.createTextField('RISM ID'+
+		/*me.rism = me.createTextField('RISM ID'+
 		'<img src="resources/images/Info.png"  title="Répertoire International des Sources Musicales" style="float:right;width:13px;height:13px;">');
 		var rismValue = json.rism[0]
 		me.rism.setValue(rismValue);
@@ -201,11 +267,11 @@ flex:1,
 			bodyBorder: false,
 			border: false,
 			items:[]
-		});
+		});*/
 		//me.add(ext_panel);
-		ext_panel.add(me.rism);
+		//ext_panel.add(me.rism);
 		
-		ext_panel.add({html: '<img src="resources/images/Link.png" style="width:17px;height:18px;">',
+		/*ext_panel.add({html: '<img src="resources/images/Link.png" style="width:17px;height:18px;">',
 				border: false,
 				colspan: 1,
 				bodyPadding: 3,
@@ -215,7 +281,7 @@ flex:1,
 		target: "_blank"
     }
 				
-				});
+				});*/
 		
 		
 me.sign = me.createTextArea('Bibliotheken');
