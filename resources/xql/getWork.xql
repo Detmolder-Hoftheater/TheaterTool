@@ -25,7 +25,9 @@ let $strings := for $elem in $fileNames
 
 		let $path1 := concat($path, $elem, '.xml')
 		let $file1 := doc($path1)
-		let $fileName :=  $file1//mei:title[not(@type)][1]
+		let $fileName1 := $file1//mei:title[not(@type)][1]
+		
+		let $fileName := if($fileName1 !=" ")then($fileName1)else($file1//mei:titleStmt//mei:title[1])
 
 		let $fileID :=  if(contains($file1//mei:work/@xml:id, $selection1))
 			then($file1//mei:work/@xml:id)
@@ -33,7 +35,7 @@ let $strings := for $elem in $fileNames
 		
 		(:$file1//mei:work/@xml:id:)
 
-		let $comp := $file1//mei:persName[@role ="cmp"]
+		let $comp := $file1//mei:persName[@role ="cmp"][1]
 
 		let $fileName1 := $fileName
 		(:if(contains($fileName, $selection1))

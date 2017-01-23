@@ -407,6 +407,33 @@ bodyPadding: 3,
 
 getNavigationItems: function(){
 var me = this;
+
+/*Ext.Ajax.request({           
+    			url:'resources/xql/getNumberWorks.xql', 
+			method: 'GET', 
+			params: {
+					path: dbPathsMap.get('works')
+				},
+    		success: function (response, options) {
+ 				var json = jQuery.parseJSON(response.responseText);
+						
+				var navTreeStoreRoot = me.store.getRootNode();
+				var regieMenu = navTreeStoreRoot.childNodes[0].childNodes[0];
+							
+				console.log(regieMenu);
+				
+                /\*for(i = 0; i < json.names.length; i++){
+	               var regName = json.names[i];
+	               regieMenu.appendChild({
+					 leaf:true, text: regName,
+                     icon: 'resources/images/Crown-17.png'
+				    }); 
+                }	*\/			   			
+    		}
+});*/
+
+
+
     Ext.Ajax.request({           
     			url:'resources/xql/getRegieMenu.xql', 
 			method: 'GET', 

@@ -666,7 +666,7 @@ for(i = 0; i < json.autoren.length; i++){
 		var textArea = Ext.create('Ext.form.field.Text', {
 			name: fieldName,
 			readOnly: true,
-			
+			bodyBorder:false,
 			style: {
 				width: '100%',
 				//autoWidth: true,
