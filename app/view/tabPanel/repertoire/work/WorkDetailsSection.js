@@ -50,10 +50,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                 
                 var json = jQuery.parseJSON(result.responseText);
                 
-                console.log(json);
-                
-                
-                
                 var titel_group = Ext.create('Ext.form.FieldSet', {
                     title: '<b style="color:gray;">Titel Varianten</b>',
                     bodyBorder: false,
