@@ -24,6 +24,8 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	searchFilterButton: null,
 	
 	initComponent: function () {
+	
+	var me = this;
 		
 		this.extendWorkButton = this.createCEButton('<font size = "1"><b style="color:#CC9FA7;">Tiefenerschließung</b></font>');
 
@@ -117,9 +119,23 @@ autoEl: {
 			}, 	*/
 {
 				xtype: 'button',
-disabled: true,
-margin: '0 0 0 5',
-				text: '<font size = "1"><b style="color:#CC9FA7;">Tab duplizieren</b></font>'
+                margin: '0 0 0 5',
+				text: '<font size = "1"><b style="color:#CC9FA7;">Tab duplizieren</b></font>',
+				listeners: {
+					
+					click: function (item, e, eOpts) {
+					   var activeTab = me.htPanel.getHTTabPanel().getActiveTab();
+					   var clone = activeTab.cloneConfig();
+					   
+					   var childClone = activeTab.items.items[0].cloneConfig();
+					   clone.add(childClone);
+					   
+					   me.htPanel.getHTTabPanel().add(clone);
+					   me.htPanel.getHTTabPanel().setActiveTab(clone);
+					   me.htPanel.getHTTabPanel().fireEvent('render', me.htPanel.getHTTabPanel());
+				
+					}
+				}
 			},		
 	
 
