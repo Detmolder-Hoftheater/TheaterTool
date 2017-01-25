@@ -436,14 +436,15 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         title: '<b style="color:gray;">Referenzen extern</b>',
                         bodyBorder: false,
                         collapsible: false,
-                        collapsed: true,
-                        margin: '10 0 10 0'
+                        collapsed: true
+                        
+                        //margin: '10 0 10 0'
                     });
                     me.add(extGroup);
                     ext_panel = Ext.create('Ext.panel.Panel', {
                         layout: {
                             type: 'table',
-                            columns: 4,
+                            columns: 2,
                             tdAttrs: {
                                 valign: 'top'
                             },
@@ -454,7 +455,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                             }
                         },
                         margin: '0 10 0 10',
-                        //bodyPadding: 10,
+                       
                         bodyBorder: false,
                         border: false,
                         items:[]
@@ -478,7 +479,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         });
                         ext_panel.add({
                             xtype: 'fieldcontainer',
-                            fieldLabel: '<img src="resources/images/Info.png"  title="Die Gemeinsame Normdatei (GND) ist eine Normdatei für Personen, Körperschaften, Konferenzen, Geografika, Sachschlagwörter und Werktitel." style="margin: 0 5 -2 0; width:13px;height:13px;">' + 'GND ID',
+                            fieldLabel: '<img src="resources/images/Info.png"  title="Die Gemeinsame Normdatei (GND) ist eine Normdatei für Personen, Körperschaften, Konferenzen, Geografika, Sachschlagwörter und Werktitel." style="margin: 0 5 -2 10; width:13px;height:13px;">' + 'GND ID',
                             defaultType: 'textfield',                        
                             layout: {
                                 type: 'table', columns: 2,
@@ -490,15 +491,14 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                                         width: '100%'
                                     }
                                 }
-                            },
-                                                       
+                            },                       
                             items:[imageGNDLink, {
                                 value: gndId,
                                 readOnly: true,
                                 style: {
-                                    width: '100%',
+                                    width: '100%'
                                     //autoWidth: true,
-                                    borderLeft: '3px solid #FFFFFF'
+                                    //borderLeft: '3px solid #FFFFFF'
                                 }
                             }]
                         });
@@ -519,7 +519,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         });
                         ext_panel.add({
                             xtype: 'fieldcontainer',
-                            fieldLabel: '<img src="resources/images/Info.png"  title="Virtual International Authority File" style="margin: 0 5 -2 0; width:13px;height:13px;">' + 'VIAF ID',
+                            fieldLabel: '<img src="resources/images/Info.png"  title="Virtual International Authority File" style="margin: 0 5 -2 10; width:13px;height:13px;">' + 'VIAF ID',
                             defaultType: 'textfield',                        
                             layout: {
                                 type: 'table', columns: 2,
@@ -537,9 +537,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                                 value: viafId,
                                 readOnly: true,
                                 style: {
-                                    width: '100%',
+                                    width: '100%'
                                     //autoWidth: true,
-                                    borderLeft: '3px solid #FFFFFF'
+                                    //borderLeft: '3px solid #FFFFFF'
                                 }
                             }]
                         });
@@ -579,9 +579,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                                 readOnly: true,
                                
                                 style: {
-                                    width: '100%',
+                                    width: '100%'
                                     //autoWidth: true,
-                                    borderLeft: '3px solid #FFFFFF'
+                                    //borderLeft: '3px solid #FFFFFF'
                                 }
                             }]
                         });

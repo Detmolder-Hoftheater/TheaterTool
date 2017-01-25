@@ -121,6 +121,12 @@ autoEl: {
 				xtype: 'button',
                 margin: '0 0 0 5',
 				text: '<font size = "1"><b style="color:#CC9FA7;">Tab duplizieren</b></font>',
+				style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7',
+					 borderTop: '1px solid CC9FA7',
+					 borderBottom: '1px solid CC9FA7'
+				},
 				listeners: {
 					click: function (item, e, eOpts) {
 					   var activeTab = me.htPanel.getHTTabPanel().getActiveTab();
