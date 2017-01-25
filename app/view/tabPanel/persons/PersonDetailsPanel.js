@@ -16,7 +16,7 @@ selection: null,
 	
     bodyBorder: false,
    // border: false,
-  //  bodyPadding: 5,
+    bodyPadding: 2,
 border: false,
  style: {
       borderRight: '7px solid white',
@@ -27,12 +27,13 @@ border: false,
     
    
    defaults: {
-		autoScroll: true,
-		split: true
+		autoScroll: true
+		//split: true
 	},
 	
 	navTree: null,
 	repertoirePanel: null,
+	navTreetitle: null,
 	
 	initComponent: function () {
 	 var me = this;
@@ -51,15 +52,18 @@ Ext.Ajax.request({
 					var persons_list = json.persons;
 					//console.log(json);
 					
-					me.navTree = new TheaterTool.view.tabPanel.persons.PersonNavigationTree({persons_list: persons_list});
+					me.navTree = new TheaterTool.view.tabPanel.persons.PersonNavigationTree({persons_list: persons_list, title: me.navTreetitle});
 					
 
 	me.repertoirePanel = new TheaterTool.view.tabPanel.repertoire.RepertoirePanel();
+	
+	//var navigationHistory = new TheaterTool.view.tabPanel.NavigationHistory();
 	
 	me.navTree.setRepertoirePanel(me.repertoirePanel);
 	//me.add(me.navTree);
 	//me.add(me.repertoirePanel);
     me.items = [
+        //navigationHistory,
        me.navTree,
        me.repertoirePanel
     ]

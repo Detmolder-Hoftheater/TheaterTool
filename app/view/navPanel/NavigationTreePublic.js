@@ -819,7 +819,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/Mask-19.png'
                         });
                         var repertoireDetails = new TheaterTool.view.tabPanel.persons.PersonDetailsPanel({
-                            selection: item.data.text
+                            selection: item.data.text, navTreetitle: '<font style="color:#A87678;">Personen: ' + item.data.text + '</font>', navTreeicon: 'resources/images/Mask-19.png'
                         });
                         repertoireTab.add(repertoireDetails);
                     }

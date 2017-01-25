@@ -43,10 +43,11 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
 		this.htNavPanel = new TheaterTool.view.navPanel.HTNavigationPanel();
 
 		this.htNavPanel.setHTTabPanel(this.htTabView);
-		
+		var navigationHistory = new TheaterTool.view.tabPanel.NavigationHistory();
 		
 		this.items =[
 		this.htTabView,
+		navigationHistory,
 		this.htNavPanel],
 		
 		this.callParent();

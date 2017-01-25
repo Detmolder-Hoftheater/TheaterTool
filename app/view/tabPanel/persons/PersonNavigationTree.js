@@ -43,9 +43,10 @@ header: false,
 	},*/
 	flex: 3.3,
 	region:'east',
-	title: '<b style="color:gray;">Personen</b>',
+	//title: '<b style="color:gray;">Personen</b>',
+	icon: 'resources/images/Mask-19.png',
 	collapsible: true,
-	header: false,
+	//header: false,
 	sortableColumns: false,
 	rowLines: true,
     columnLines: true,
@@ -121,7 +122,7 @@ me.store.sort('name');
 					me.repertoirePanel.add(me.workPanel);			
 					me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name + ', '+eOpts[0].data.forename+'</b>');
 
-			
+			me.repertoirePanel.setIcon('resources/images/Mask-19.png');
 			
 			
 			
