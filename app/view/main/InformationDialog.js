@@ -37,7 +37,7 @@ layout: {
 
 '<p><b style="color:#A87678;">Navigation</b></p>'+
 
-'<p>Einzelne Werke können durch einen Doppelklick auf die Items unter '+ 
+'<p>Einzelne Werke können durch einen Klick auf die Items unter '+ 
 '„Repertoire“ bzw. auf die unter „Tiefenerschlossene Werke“ aufgelisteten Werke '+ 
 'im Navigationsbaum aufgerufen werden.</p><p></p>'+ 
 
@@ -49,8 +49,8 @@ layout: {
 'mit der Itemselektion "Incipits" bereits in einer vorläufigen Darstellung zu sehen. '+
 'Ein Dppelklick in das Einzelincipit öffnet eine größere Darstellung.</p><p></p>'+
 
-'<p>Allgemeine Informationen und XML-Ansichten sind für alle Daten-Objekte verfügbar und'+ 
-'können durch einen Doppelklick auf die Items im Navigationsbaum angezeigt werden.</p><p></p>'+
+'<p>Allgemeine Informationen und XML-Ansichten sind für alle Daten-Objekte verfügbar und '+ 
+'können durch einen Klick auf die Items im Navigationsbaum angezeigt werden.</p><p></p>'+
 
 '<p>Eine einfache Suche nach Werken oder nach Personen ist in Toolbar vorhanden.</p><p></p>';
 
