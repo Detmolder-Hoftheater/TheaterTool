@@ -5,9 +5,9 @@ Ext.define('TheaterTool.view.tabPanel.NavigationHistory', {
             flex: 0.12,
 
 layout: {
-		type: 'vbox',
+		type: 'hbox',
 		pack: 'start',
-		align: 'right'
+		align: 'stretch'
 	},
 		
 	bodyPadding: 5,
@@ -17,7 +17,7 @@ collapsible: true,
 collapsed: true,
 	//header: false,
 	//split: false,
-	title: '<b style="float: right; color:gray;">Verlauf: besuchte Tabs</b>',
+	title: '<b style="float: right; color:gray;">Verlauf</b>',
 	//height:10,
 bodyBorder:true,
 	
@@ -27,23 +27,78 @@ bodyBorder:true,
 	
 	
 	me.items = [{
+                        html: '<img src="resources/images/Gender.png" style="width:23px;height:23px;">',
+                        border: false
+                        //margin: '0 0 -11 0'
+                    },
+                    {
+                        html: '<img src="resources/images/BooksVert-17.png" style="width:23px;height:23px;">',
+                        border: false
+                        //margin: '0 0 -11 0'
+                    },
+                    {
+                        html: '<img src="resources/images/Gender.png" style="width:23px;height:23px;">',
+                        border: false
+                        //margin: '0 0 -11 0'
+                    },
+                    {
+                        html: '<img src="resources/images/Gender.png" style="width:23px;height:23px;">',
+                        border: false
+                        //margin: '0 0 -11 0'
+                    }
+	
+	
+	
+	
+	/*{
                     xtype: 'fieldcontainer',
-                   // fieldLabel: 'Tabs',
-                  // labelWidth: 250,
                    
                     items: [{
                         xtype: 'segmentedbutton',
                         reference: 'positionBtn',
                         value: 'top',
                         items: [
-                            { text: 'Top', value: 'top' },
-                            { text: 'Right', value: 'right' },
-                            { text: 'Bottom', value: 'bottom' },
-                            { text: 'Left', value: 'left' }
+                            {
+                        html: '<img src="resources/images/Gender.png" style="width:23px;height:23px;">',
+                        border: false
+                        //margin: '0 0 -11 0'
+                    },
+                            {
+                        html: '<img src="resources/images/Gender.png" style="width:23px;height:23px;">',
+                        border: false
+                        //margin: '0 0 -11 0'
+                    },
+                            {
+                        html: '<img src="resources/images/Gender.png" style="width:23px;height:23px;">',
+                        border: false
+                        //margin: '0 0 -11 0'
+                    },
+                            {
+                        html: '<img src="resources/images/Gender.png" style="width:23px;height:23px;">',
+                        border: false
+                        //margin: '0 0 -11 0'
+                    }
                         ]
                     }]
                 }
-              ]  
+ */             ]  
     	me.callParent();
 	}
 });
+
+
+/*{
+                        html: '<img src="resources/images/Gender.png" style="width:23px;height:23px;">',
+                        border: false
+                        //margin: '0 0 -11 0'
+                    }
+                    
+                    var imageGNDLink = Ext.create('Ext.Img', {
+                            html: '<img src="resources/images/Link.png" style="width:17px;height:18px;">',
+                            
+                            autoEl: {
+                                tag: 'a',
+                                href: 'https://portal.dnb.de/opac.htm?method=simpleSearch&query=' + gndId,
+                                target: "_blank"
+                            }
+                        });*/

@@ -21,9 +21,13 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
       borderTop: '3px solid #A80016',
       borderBottom: '5px solid #A80016'
     },
+   // split:true,
 
-	
-    
+	/* defaults: {
+		//autoScroll: true,
+		split: true
+	},
+    */
     
 	
 	ceTabView: null,
@@ -43,11 +47,11 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
 		this.htNavPanel = new TheaterTool.view.navPanel.HTNavigationPanel();
 
 		this.htNavPanel.setHTTabPanel(this.htTabView);
-		var navigationHistory = new TheaterTool.view.tabPanel.NavigationHistory();
+		//var navigationHistory = new TheaterTool.view.tabPanel.NavigationHistory();
 		
 		this.items =[
 		this.htTabView,
-		navigationHistory,
+		//navigationHistory,
 		this.htNavPanel],
 		
 		this.callParent();

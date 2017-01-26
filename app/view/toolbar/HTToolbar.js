@@ -142,7 +142,66 @@ autoEl: {
 					}
 				}
 			},		
+	'->',
+	{
+			xtype: 'button',
+			icon: 'resources/images/page-prev-disabled.gif',
+//margin: '0 5 0 0',
+style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7',
+					 borderTop: '1px solid CC9FA7',
+					 borderBottom: '1px solid CC9FA7'
+				}
+
+ 
+			//cls: 'prev toolButton',
+			/*listeners: {
+				scope: this,
+				click: this.prev
+			}*/
+		},
 	
+	{
+        xtype: 'button',
+				text: '<font size = "1"><b style="color:#CC9FA7;">Verlauf</b></font>',
+				margin: '0 5 0 3',
+				style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7',
+					 borderTop: '1px solid CC9FA7',
+					 borderBottom: '1px solid CC9FA7'
+				},
+				menu:[ {
+					text: 'Horizontal verteilen',
+					icon: 'resources/images/BooksVert-17.png'
+				},
+				{
+					text: 'Vertikal verteilen',
+					icon: 'resources/images/BooksVert-17.png'
+				},
+				{
+					text: 'Stapeln',
+					icon: 'resources/images/Sheets-17.png'
+				}]
+				
+    },
+    {
+			xtype: 'button',
+			icon: 'resources/images/page-next-disabled.gif',
+//margin: '0 0 0 5',
+style: {
+					borderRight: '1px solid #CC9FA7',
+					borderLeft: '1px solid #CC9FA7',
+					 borderTop: '1px solid CC9FA7',
+					 borderBottom: '1px solid CC9FA7'
+				}
+			//cls: 'next toolButton',
+			/*listeners: {
+				scope: this,
+				click: this.next
+			}*/
+		},
 
 			
 '->',

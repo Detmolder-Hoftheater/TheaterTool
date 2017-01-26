@@ -7,6 +7,10 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
 		autoScroll: true
 		
 	},
+	 style: {
+      
+      borderTop: '3px solid #A80016'
+    },
 	
 	collapsible: false,
 	region: 'center',
