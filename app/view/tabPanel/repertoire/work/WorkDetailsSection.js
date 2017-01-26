@@ -249,9 +249,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                             var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
                             var existItems = navTreeGlobal.items;
                             var rec = grid.getStore().getAt(rowIndex);
-                            var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">' + rec.data.name + '</font>');
-                            if (! isFoundItem) {                       
-                            var dbkey = rec.data.dbkey;
+                             var dbkey = rec.data.dbkey;
+                            var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey);
+                            if (! isFoundItem) {                                          
                             var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                                 title: '<font style="color:gray;">' + rec.data.name + '</font>',
                                 icon: 'resources/images/Mask-19.png'

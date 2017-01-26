@@ -73,21 +73,24 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTable', {
 				return val;
 			},
 			handler: function(grid, rowIndex, colIndex) {
+			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+			        var existItems = navTreeGlobal.items;
                     var rec = grid.getStore().getAt(rowIndex);
-					console.log(rec);
 					var dbkey = rec.data.dbkey;
+					var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey);
+                     if (! isFoundItem) {
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',
 						icon: 'resources/images/Mask-19.png'
 					});
 					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: dbkey});
 					repertoireTab.add(personDetails);
-
-					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+				
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);
 					navTreeGlobal.fireEvent('render', navTreeGlobal);
 
+                }
                 }
 		});
 		return eColumn;
