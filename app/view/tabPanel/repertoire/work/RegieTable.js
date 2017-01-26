@@ -72,8 +72,11 @@ for(i = 0; i < me.regieList.length; i++){
 				return val;
 			},
 			handler: function(grid, rowIndex, colIndex) {
+			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+			        var existItems = navTreeGlobal.items;
                     var rec = grid.getStore().getAt(rowIndex);
-					console.log(rec);
+                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+rec.data.name+'</font>');
+                    if (! isFoundItem) {
 					var dbkey = rec.data.name;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',
@@ -82,10 +85,11 @@ for(i = 0; i < me.regieList.length; i++){
 					var personDetails = new TheaterTool.view.tabPanel.regiebooks.RegiePanelInTab({regieName: dbkey});
 					repertoireTab.add(personDetails);
 
-					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
                     navTreeGlobal.fireEvent('render', navTreeGlobal);
+                }
                 }
           
 		});

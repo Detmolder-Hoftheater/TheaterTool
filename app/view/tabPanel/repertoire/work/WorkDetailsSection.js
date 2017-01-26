@@ -246,8 +246,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                             return val;
                         },
                         handler: function (grid, rowIndex, colIndex) {
+                            var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+                            var existItems = navTreeGlobal.items;
                             var rec = grid.getStore().getAt(rowIndex);
-                            console.log(rec);
+                            var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">' + rec.data.name + '</font>');
+                            if (! isFoundItem) {                       
                             var dbkey = rec.data.dbkey;
                             var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                                 title: '<font style="color:gray;">' + rec.data.name + '</font>',
@@ -259,10 +262,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                             personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + rec.data.name + '</font>');
                             repertoireTab.add(personDetails);
                             
-                            var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+                            
                             navTreeGlobal.add(repertoireTab);
                             navTreeGlobal.setActiveTab(repertoireTab);
                             navTreeGlobal.fireEvent('render', navTreeGlobal);
+                            }
                         }
                     })
                     

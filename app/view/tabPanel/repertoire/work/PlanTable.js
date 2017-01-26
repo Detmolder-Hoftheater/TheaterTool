@@ -97,8 +97,11 @@ for(i = 0; i < me.scheduleList.length; i++){
 				return val;
 			},
 			handler: function(grid, rowIndex, colIndex) {
+			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+			        var existItems = navTreeGlobal.items;
                     var rec = grid.getStore().getAt(rowIndex);
-					console.log(rec);
+                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">Spielpläne: '+rec.data.jahr+'</font>');
+                    if (! isFoundItem) {  
 					var dbkey = rec.data.jahr;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">Spielpläne: '+rec.data.jahr+'</font>',
@@ -107,10 +110,11 @@ for(i = 0; i < me.scheduleList.length; i++){
 					var personDetails = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab({year: dbkey, monat: rec.data.monat});
 					repertoireTab.add(personDetails);
 
-					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);
 					navTreeGlobal.fireEvent('render', navTreeGlobal);
+					}
                 }
 		});
 		return eColumn;

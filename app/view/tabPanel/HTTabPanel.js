@@ -51,5 +51,18 @@ bodyBorder: false,
         }
 		
 		me.callParent()
-	}
+	},
+	
+	isItemFound: function (existItems, titletext) {
+        for (i = 0; i < existItems.items.length; i++) {
+            var existItem = existItems.items[i];
+            if (existItem.title === titletext) {
+                this.setActiveTab(existItem);
+                this.fireEvent('render', this);
+                return true;
+            }
+        }
+        return false;
+    }
+    
 });
