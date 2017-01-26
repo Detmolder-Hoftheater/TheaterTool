@@ -56,8 +56,7 @@ bodyBorder: false,
 	isItemFoundWithId: function (existItems, dbId) {
         for (i = 0; i < existItems.items.length; i++) {
             var existItem = existItems.items[i];
-            console.log(existItem);
-            if (existItem.items.items[0].dbkey === dbId) {
+            if (existItem.items.items[0].dbkey === dbId || existItem.items.items[0].selection === dbId) {
                 this.setActiveTab(existItem);
                 this.fireEvent('render', this);
                 return true;

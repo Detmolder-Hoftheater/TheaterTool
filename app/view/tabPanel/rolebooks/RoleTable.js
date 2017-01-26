@@ -233,6 +233,10 @@ for(i = 0; i < me.lineList.rows.length; i++){
 			        var personData = prsonElement[0].id;
 			        var personDataArray = personData.split('_')
 			        var personId = personDataArray[0];
+			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+			        var existItems = navTreeGlobal.items;
+			        var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId);
+                     if (! isFoundItem) { 
 			        var personName = personDataArray[1];
 			        var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+personName+'</font>',
@@ -242,12 +246,13 @@ for(i = 0; i < me.lineList.rows.length; i++){
 					personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">'+personName+'</font>');
 					repertoireTab.add(personDetails);
 
-					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
 					navTreeGlobal.fireEvent('render', navTreeGlobal);
 
 			      } 
+			      }
 			 }
 			 }
            
@@ -348,6 +353,12 @@ for(i = 0; i < me.lineList.rows.length; i++){
 			 if(colIndex === me.workDetailsColumn && rec.data.workKey != ''){
 					var dbkey = rec.data.workKey;
 					if(dbkey != ''){
+					
+					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					var existItems = navTreeGlobal.items;
+					var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey);
+                     if (! isFoundItem) { 
+					
 					var workIcon = '';
 					if(extWorkKeys.indexOf('dbkey') > -1){
 					    workIcon = 'resources/images/BookBlau-16.png';
@@ -362,10 +373,12 @@ for(i = 0; i < me.lineList.rows.length; i++){
 					var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: dbkey, isSelected: true});
 					repertoireTab.add(personDetails);
 
-					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
-					navTreeGlobal.fireEvent('render', Ext.getCmp('tabpanel'));	
+					navTreeGlobal.fireEvent('render', Ext.getCmp('tabpanel'));
+					
+					}
 					}
 			 }
                     
