@@ -12,22 +12,22 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 let $month := request:get-parameter('month', '')
 let $year := request:get-parameter('year', '')
 
-let $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/', $year, '_', $month, '.xml')
+let $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/')
 
-let $file := doc($uri)
+let $file := collection($uri)
 
-let $headName := $file//tei:profileDesc//tei:keywords/tei:term['Spielplan']
+let $uri_1 := concat('/db/apps/theater-data/ausgaben/', $year, '/')
 
-let $schedule := if($headName != '')then($file)else()
+let $file_1 := collection($uri_1)
 
-(:let $type := request:get-parameter('type', 'work')
-let $docUri := if(contains($uri, '#')) then(substring-before($uri, '#')) else($uri)
-let $doc := if(contains($type, 'work'))then(eutil:getDoc($docUri)/mei:work)else(eutil:getDoc($docUri)/mei:source)
-(\:let $doc := eutil:getDoc($docUri)/mei:work:\)
-let $lang := request:get-parameter('lang', 'de'):)
+let $selectedDate := concat($year, '-', $month)
 
-(:let $base := concat(replace(system:get-module-load-path(), 'embedded-eXist-server', ''), '/../xslt/') :)
-(: TODO: Pr\'fcfen, wie wir an dem replace vorbei kommen:)
+let $schedule := for $elem in ($file, $file_1)
+                    return 
+                    if($elem/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
+                     and $elem/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title//tei:date[@when = $selectedDate]
+                    )then($elem)else() 
+                    
 
 let $base := 'xmldb:exist:///db/apps/TheaterTool/resources/xslt/'
 

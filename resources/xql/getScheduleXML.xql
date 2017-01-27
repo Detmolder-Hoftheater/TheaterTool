@@ -13,9 +13,24 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 let $month := request:get-parameter('month', '')
 let $year := request:get-parameter('year', '')
 
-let $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/', $year, '_', $month, '.xml')
+(:let $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/', $year, '_', $month, '.xml'):)
 
-let $doc := eutil:getDoc($uri)/tei:TEI
+let $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/')
+let $file := collection($uri)
+
+let $uri_1 := concat('/db/apps/theater-data/ausgaben/', $year, '/')
+
+let $file_1 := collection($uri_1)
+
+let $selectedDate := concat($year, '-', $month)
+
+let $schedule := for $elem in ($file, $file_1)
+                    return 
+                    if($elem/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
+                     and $elem/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title//tei:date[@when = $selectedDate]
+                    )then($elem)else() 
+
+(:let $doc := eutil:getDoc($schedule)/tei:TEI:)
 
 return
-   $doc
+   $schedule

@@ -9,37 +9,24 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";
 
-(:declare variable $month := request:get-parameter('month', '');
-declare variable $year := request:get-parameter('year', '');
-
-declare variable $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/', $year, '_', $month, '.xml');
-
-declare variable $file := doc($uri);
-
-declare variable $headName := $file//tei:profileDesc//tei:keywords/tei:term['Spielplan'];
-
-declare variable $schedule := if($headName != '')then($file)else();:)
-
-
 declare variable $selectedYear := request:get-parameter('selectedYear', '');
+
 declare variable $path := concat('xmldb:exist:///apps/theater-data/einnahmen/', $selectedYear, '/');
 declare variable $file := collection($path);
-(:declare variable $fileNames := $file//mei:work/@xml:id;:)
-declare variable $headName := $file//tei:profileDesc//tei:keywords/tei:term['Spielplan'];
-declare variable $oneFile := $file//tei:teiHeader;
 
+declare variable $path_1 := concat('xmldb:exist:///apps/theater-data/ausgaben/', $selectedYear, '/');
+declare variable $file_1 := collection($path_1);
 
-declare function local:jsonifySlurs($oneFile) {
+declare function local:getMonths($file, $file_1) {
 
-let $strings := for $elem in $oneFile
+let $strings := for $elem in ($file, $file_1)
 
-                    let $monthName := if($headName != '')then(
+                    let $monthName := if($elem/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan'])then(
 
-					$elem//tei:fileDesc//tei:title['Spielplan']/tei:date
-					)else()
+					$elem//tei:fileDesc//tei:title/tei:date)else()
 
-					let $month := if($headName != '')then(substring-before($monthName, " "))else()
-
+					let $month := if($monthName != '')then(substring-before($monthName, " "))else()
+					
                     return 
 						if($month != '')then(
                         concat('{name:"',$month,'",',
@@ -50,12 +37,12 @@ let $strings := for $elem in $oneFile
         string-join($strings,',')   
 };
 
-    
+
  (
 
   '[',
-        local:jsonifySlurs($oneFile),
-
+        local:getMonths($file, $file_1),
+      
     ']'
    
       

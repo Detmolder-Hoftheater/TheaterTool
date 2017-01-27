@@ -146,6 +146,7 @@ autoEl: {
 	{
 			xtype: 'button',
 			icon: 'resources/images/page-prev-disabled.gif',
+			disabled: true,
 //margin: '0 5 0 0',
 style: {
 					borderRight: '1px solid #CC9FA7',
@@ -164,6 +165,7 @@ style: {
 	
 	{
         xtype: 'button',
+        disabled: true,
 				text: '<font size = "1"><b style="color:#CC9FA7;">Verlauf</b></font>',
 				margin: '0 5 0 3',
 				style: {
@@ -188,6 +190,7 @@ style: {
     },
     {
 			xtype: 'button',
+			disabled: true,
 			icon: 'resources/images/page-next-disabled.gif',
 //margin: '0 0 0 5',
 style: {
