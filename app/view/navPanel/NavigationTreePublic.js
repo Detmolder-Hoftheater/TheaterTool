@@ -607,7 +607,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
             var existItem = existItems.items[i];
             if (existItem.title === titletext) {
                 this.tabPanel.setActiveTab(existItem);
-                this.tabPanel.fireEvent('render', this.tabPanel);
+               // this.tabPanel.fireEvent('render', this.tabPanel);
                 return true;
             }
         }
@@ -644,8 +644,10 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                 }               
                 var existItems = me.tabPanel.items;
                 var repertoireTab = null;
+                 var historyButton = Ext.getCmp('historyButton');                       
                 if (item.data.text === 'Aschenbrödel') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Aschenbrödel</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Aschenbrödel</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H020149'});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Aschenbrödel</font>',
@@ -659,6 +661,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.data.text === 'Des Teufels Anteil') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Des Teufels Anteil</font>');
+                     historyButton.menu.add({text: '<font style="color:gray;">Des Teufels Anteil</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H020048'});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Des Teufels Anteil</font>',
@@ -673,6 +676,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.data.text === 'Der Bettelstudent') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Der Bettelstudent</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Der Bettelstudent</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H020263'});                  
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Der Bettelstudent</font>',
@@ -686,6 +690,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'A-B-C') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: A-B-C</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Werke: A-B-C</font>', icon: 'resources/images/Books1-17.png', selection: 1});                  
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Werke: A-B-C</font>',
@@ -699,6 +704,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'D-E-F') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: D-E-F</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Werke: D-E-F</font>', icon: 'resources/images/Books1-17.png', selection: 2});                  
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Werke: D-E-F</font>',
@@ -711,6 +717,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'G-H-I') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: G-H-I</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Werke: G-H-I</font>', icon: 'resources/images/Books1-17.png', selection: 3}); 
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Werke: G-H-I</font>',
@@ -723,6 +730,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'J-K-L') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: J-K-L</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Werke: J-K-L</font>', icon: 'resources/images/Books1-17.png', selection: 4});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Werke: J-K-L</font>',
@@ -735,6 +743,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'M-N-O') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: M-N-O</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Werke: M-N-O</font>', icon: 'resources/images/Books1-17.png', selection: 5});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Werke: M-N-O</font>',
@@ -747,6 +756,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'P-Q-R') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: P-Q-R</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Werke: P-Q-R</font>', icon: 'resources/images/Books1-17.png', selection: 6});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Werke: P-Q-R</font>',
@@ -759,6 +769,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'S-T-U') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: S-T-U</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Werke: S-T-U</font>', icon: 'resources/images/Books1-17.png', selection: 7});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Werke: S-T-U</font>',
@@ -771,6 +782,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'V-W-X-Y-Z') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: V-W-X-Y-Z</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Werke: V-W-X-Y-Z</font>', icon: 'resources/images/Books1-17.png', selection: 8});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Werke: V-W-X-Y-Z</font>',
@@ -783,6 +795,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Spielpläne') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Spielpläne: ' + item.data.text + '</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Spielpläne: ' + item.data.text + '</font>', icon: 'resources/images/Calendar-17.png', selection: item.data.text});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Spielpläne: ' + item.data.text + '</font>',
@@ -801,6 +814,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     });*/
                 } else if (item.data.text === 'Theaterzettel') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">' + item.data.text + '</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Day-17.png', selection: item.data.text});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + item.data.text + '</font>',
@@ -813,6 +827,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Personen (1.106)') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Personen: ' + item.data.text + '</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Personen: ' + item.data.text + '</font>', icon: 'resources/images/Mask-19.png', selection: item.data.text});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Personen: ' + item.data.text + '</font>',
@@ -840,6 +855,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     repertoireTab.add(repertoireDetails);	*/
                 } else if (item.parentNode.data.text === 'Karten & Abos') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">' + item.data.text + '</font>');
+                     historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Ticket-14.png', selection: item.data.text});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + item.data.text + '</font>',
@@ -852,6 +868,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.data.text === 'Linksammlung') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">' + item.data.text + '</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Presse-16.png', selection: item.data.text});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + item.data.text + '</font>',
@@ -864,6 +881,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Theaterjournal') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">' + item.data.text + '</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Presse-16.png', selection: item.data.text});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + item.data.text + '</font>',
@@ -881,6 +899,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     });*/
                 } else if (item.parentNode.data.text === 'Regiebücher') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">' + item.data.text + '</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Crown-17.png', selection: item.data.text});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + item.data.text + '</font>',
@@ -893,6 +912,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Rollen- & Kostümbücher') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">' + item.data.text + '</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/carnival.png', selection: item.data.text});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + item.data.text + '</font>',
@@ -910,6 +930,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     });*/
                 } else if (item.parentNode.data.text === 'Jährliche Ausgaben') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">' + item.data.text + '</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/MoneyTransfer-17.png', selection: item.data.text});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + item.data.text + '</font>',
@@ -922,6 +943,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Einnahmen') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Einnahmen: ' + item.data.text + '</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">Einnahmen: ' + item.data.text + '</font>', icon: 'resources/images/MoneyMoneyBox-17.png', selection: item.data.text});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">Einnahmen: ' + item.data.text + '</font>',
@@ -935,6 +957,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 } else if (item.parentNode.data.text === 'Gagenbücher') {
                     var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">' + item.data.text + '</font>');
+                    historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Gift-17.png', selection: item.data.text});
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + item.data.text + '</font>',
@@ -955,6 +978,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         this.tabPanel.add(repertoireTab);
                         this.tabPanel.setActiveTab(repertoireTab);
                         this.tabPanel.fireEvent('render', this.tabPanel);
+                        
                     }
                 }
             }

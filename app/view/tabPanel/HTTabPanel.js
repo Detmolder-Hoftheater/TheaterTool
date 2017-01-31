@@ -58,7 +58,7 @@ bodyBorder: false,
             var existItem = existItems.items[i];
             if (existItem.items.items[0].dbkey === dbId || existItem.items.items[0].selection === dbId) {
                 this.setActiveTab(existItem);
-                this.fireEvent('render', this);
+                //this.fireEvent('render', this);
                 return true;
             }
         }
@@ -70,7 +70,7 @@ bodyBorder: false,
             var existItem = existItems.items[i];
             if (existItem.title === titletext) {
                 this.setActiveTab(existItem);
-                this.fireEvent('render', this);
+                //this.fireEvent('render', this);
                 return true;
             }
         }

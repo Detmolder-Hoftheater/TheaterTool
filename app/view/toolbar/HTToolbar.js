@@ -165,7 +165,9 @@ style: {
 	
 	{
         xtype: 'button',
-        disabled: true,
+        id: 'historyButton',
+        selection: null,
+        //disabled: true,
 				text: '<font size = "1"><b style="color:#CC9FA7;">Verlauf</b></font>',
 				margin: '0 5 0 3',
 				style: {
@@ -174,22 +176,44 @@ style: {
 					 borderTop: '1px solid CC9FA7',
 					 borderBottom: '1px solid CC9FA7'
 				},
-				menu:[ {
-					text: 'Horizontal verteilen',
-					icon: 'resources/images/BooksVert-17.png'
-				},
-				{
-					text: 'Vertikal verteilen',
-					icon: 'resources/images/BooksVert-17.png'
-				},
-				{
-					text: 'Stapeln',
-					icon: 'resources/images/Sheets-17.png'
-				}]
+				 menu: {
+        xtype: 'menu',
+        items: [
+            
+        ],
+        listeners: {
+            click: function( menu, item, e, eOpts ) {
+                 var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+			   var existItems = navTreeGlobal.items;
+			   var isFoundItem = navTreeGlobal.isItemFound(existItems, item.text);
+			     menu.hide();
+			    if (isFoundItem) {
+                      
+                }               
+            }
+        }
+    },
+    listeners: {
+            click: function() {
+                    var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+                    var selectedTab = navTreeGlobal.getActiveTab();
+                    
+                    var menuItems = this.menu.items;
+                    for (i = 0; i < menuItems.items.length; i++) {
+                        var existItem = menuItems.items[i];
+                         
+                        if (existItem.text === selectedTab.title) {
+                        existItem.focus();
+            }
+        }
+            }
+        }
+				
 				
     },
     {
 			xtype: 'button',
+			
 			disabled: true,
 			icon: 'resources/images/page-next-disabled.gif',
 //margin: '0 0 0 5',
