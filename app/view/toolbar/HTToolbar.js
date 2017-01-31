@@ -146,6 +146,7 @@ autoEl: {
 	{
 			xtype: 'button',
 			icon: 'resources/images/page-prev-disabled.gif',
+			id: 'prevHistoryButton',
 			//disabled: true,
 //margin: '0 5 0 0',
 style: {
@@ -183,13 +184,6 @@ style: {
                     
             }
         }
-
- 
-			//cls: 'prev toolButton',
-			/*listeners: {
-				scope: this,
-				click: this.prev
-			}*/
 		},
 	
 	{
@@ -197,7 +191,7 @@ style: {
         id: 'historyButton',
         selection: null,
         //disabled: true,
-				text: '<font size = "1"><b style="color:#CC9FA7;">Verlauf</b></font>',
+				text: '<font size = "1"><b style="color:#CC9FA7;">Tabs Reihenfolge</b></font>',
 				margin: '0 5 0 3',
 				style: {
 					borderRight: '1px solid #CC9FA7',
@@ -242,7 +236,7 @@ style: {
     },
     {
 			xtype: 'button',
-			
+			id: 'naxtHistoryButton',
 			//disabled: true,
 			icon: 'resources/images/page-next-disabled.gif',
 //margin: '0 0 0 5',
@@ -281,11 +275,6 @@ style: {
                     
             }
         }
-			//cls: 'next toolButton',
-			/*listeners: {
-				scope: this,
-				click: this.next
-			}*/
 		},
 
 			
