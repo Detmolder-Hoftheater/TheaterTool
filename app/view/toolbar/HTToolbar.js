@@ -146,14 +146,43 @@ autoEl: {
 	{
 			xtype: 'button',
 			icon: 'resources/images/page-prev-disabled.gif',
-			disabled: true,
+			//disabled: true,
 //margin: '0 5 0 0',
 style: {
 					borderRight: '1px solid #CC9FA7',
 					borderLeft: '1px solid #CC9FA7',
 					 borderTop: '1px solid CC9FA7',
 					 borderBottom: '1px solid CC9FA7'
-				}
+				},
+				listeners: {
+            click: function() {                   
+                    var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+                    var selectedTab = navTreeGlobal.getActiveTab();
+                    var openTabs = navTreeGlobal.items;
+                    
+                    var historyButton = Ext.getCmp('historyButton');                   
+                    var menuItems = historyButton.menu.items;
+                    var itemToSelect = null;
+                    for (i = 0; i < menuItems.items.length; i++) {
+                        var existItem = menuItems.items[i];  
+                       
+                        if (existItem.text === selectedTab.title && i > 0) {
+                             
+                            itemToSelect = menuItems.items[i-1].text;
+                            break;
+                        }
+                    }
+                    if(itemToSelect !== null){
+                         for (i = 0; i < openTabs.items.length; i++) {
+                        var openTab = openTabs.items[i];  
+                        if (openTab.title === itemToSelect) {
+                             navTreeGlobal.setActiveTab(openTab);
+                        }
+                    }    
+                    }
+                    
+            }
+        }
 
  
 			//cls: 'prev toolButton',
@@ -214,7 +243,7 @@ style: {
     {
 			xtype: 'button',
 			
-			disabled: true,
+			//disabled: true,
 			icon: 'resources/images/page-next-disabled.gif',
 //margin: '0 0 0 5',
 style: {
@@ -222,7 +251,36 @@ style: {
 					borderLeft: '1px solid #CC9FA7',
 					 borderTop: '1px solid CC9FA7',
 					 borderBottom: '1px solid CC9FA7'
-				}
+				},
+				listeners: {
+            click: function() {                   
+                    var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+                    var selectedTab = navTreeGlobal.getActiveTab();
+                    var openTabs = navTreeGlobal.items;
+                    
+                    var historyButton = Ext.getCmp('historyButton');                   
+                    var menuItems = historyButton.menu.items;
+                    var itemToSelect = null;
+                    for (i = 0; i < menuItems.items.length; i++) {
+                        var existItem = menuItems.items[i];  
+                       
+                        if (existItem.text === selectedTab.title && i < menuItems.items.length) {
+                             
+                            itemToSelect = menuItems.items[i+1].text;
+                            break;
+                        }
+                    }
+                    if(itemToSelect !== null){
+                         for (i = 0; i < openTabs.items.length; i++) {
+                        var openTab = openTabs.items[i];  
+                        if (openTab.title === itemToSelect) {
+                             navTreeGlobal.setActiveTab(openTab);
+                        }
+                    }    
+                    }
+                    
+            }
+        }
 			//cls: 'next toolButton',
 			/*listeners: {
 				scope: this,
