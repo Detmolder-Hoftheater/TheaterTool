@@ -78,6 +78,8 @@ bodyBorder: true,
 	
 	initComponent: function () {
 	
+	var me = this;
+	
 	//this.repertoireNavigation = new TheaterTool.view.tabPanel.repertoire.RepertoireAlphNavigation();
 	
 	//this.repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel();
@@ -86,6 +88,27 @@ bodyBorder: true,
 		//this.repertoireNavigation,
 	//	this.repertoireDetails
 	//	];
+	
+	
+	me.listeners = {
+            beforeclose: function( panel, eOpts ){
+                var historyButton = Ext.getCmp('historyButton'); 
+                var menuItems = historyButton.menu.items;
+                var itemToDelete = null;
+                for (i = 0; i < menuItems.items.length; i++) {
+                        var existItem = menuItems.items[i];
+                         
+                        if (existItem.text === panel.title) {
+                        itemToDelete = existItem;
+            }
+        }
+               if(itemToDelete !== null){
+                   historyButton.menu.remove(itemToDelete, true);
+               }
+                
+            }
+            
+        }
 	
 		
 		this.callParent();
