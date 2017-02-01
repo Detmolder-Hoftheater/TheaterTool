@@ -10,6 +10,8 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
 	'Ext.Button',
 	'Ext.window.MessageBox'],
 	
+	id: 'toolbar',
+	
 	style: {
 		//borderLeft: '3px solid #A80016',
 		borderTop: '5px solid #A80016',
@@ -701,6 +703,31 @@ createTextField: function (fieldName, fieldLabel) {
 });
 		
 		return searchField;
-	}
+	},
+	
+	foundHistoryitem: function(menuItems, titletext){
+        for (i = 0; i < menuItems.items.length; i++) {
+            var existItem = menuItems.items[i];
+            /*console.log(existItem.text);
+            console.log(titletext);*/
+            if (existItem.text === titletext) {
+                return true;
+            }
+        }
+        return false;
+    },
+    
+    foundHistoryitemWithId: function(menuItems, dbKey){
+        for (i = 0; i < menuItems.items.length; i++) {
+            var existItem = menuItems.items[i];
+            /*console.log(existItem.text);
+            console.log(titletext);*/
+            if (existItem.dbkey === dbKey) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 });

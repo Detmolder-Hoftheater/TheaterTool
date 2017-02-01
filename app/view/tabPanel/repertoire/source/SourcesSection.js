@@ -232,10 +232,20 @@ Ext.create('Ext.grid.column.Action', {
 				return val;
 			},
 handler: function(grid, rowIndex, colIndex) {
-                    var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
-                    var existItems = navTreeGlobal.items;
+
                     var rec = grid.getStore().getAt(rowIndex);
                     var dbkey = rec.data.dbkey;
+                             
+                    var toolBarGlobal = Ext.getCmp('toolbar');
+                    var historyButton = Ext.getCmp('historyButton'); 
+                    var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, dbkey);
+                    if(!isHistoryItemExist){
+                        historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: 'resources/images/Mask-19.png', dbkey: dbkey});  
+
+                    }
+
+                    var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+                    var existItems = navTreeGlobal.items;
 					var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey);
                      if (! isFoundItem) { 		
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({

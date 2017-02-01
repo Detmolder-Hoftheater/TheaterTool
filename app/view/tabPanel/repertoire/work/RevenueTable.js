@@ -97,9 +97,19 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 				return val;
 			},
 			handler: function(grid, rowIndex, colIndex) {
+			
+			        var rec = grid.getStore().getAt(rowIndex);
+			
+			        var toolBarGlobal = Ext.getCmp('toolbar');
+                    var historyButton = Ext.getCmp('historyButton'); 
+                    var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">Einnahmen: ' + rec.data.jahr + '</font>');
+                    if(!isHistoryItemExist){
+                          historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.jahr + '</font>Einnahmen: ', icon: 'resources/images/MoneyBox-17.png'});  //, selection: 3
+
+                     }
+			
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;
-                    var rec = grid.getStore().getAt(rowIndex);
                     var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">Einnahmen: '+rec.data.jahr+'</font>');
                     if (! isFoundItem) {
 					var dbkey = rec.data.jahr;

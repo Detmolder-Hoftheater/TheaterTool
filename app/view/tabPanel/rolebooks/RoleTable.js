@@ -233,11 +233,21 @@ for(i = 0; i < me.lineList.rows.length; i++){
 			        var personData = prsonElement[0].id;
 			        var personDataArray = personData.split('_')
 			        var personId = personDataArray[0];
+			        var personName = personDataArray[1];
+			        		       
+                           var toolBarGlobal = Ext.getCmp('toolbar');
+                           var historyButton = Ext.getCmp('historyButton'); 
+                           var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
+                            if(!isHistoryItemExist){
+                                historyButton.menu.add({text: '<font style="color:gray;">'+personName+'</font>', icon: 'resources/images/Mask-19.png', dbkey: personId});  
+
+                            }
+			        			        
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;
 			        var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId);
                      if (! isFoundItem) { 
-			        var personName = personDataArray[1];
+			        
 			        var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+personName+'</font>',
 						icon: 'resources/images/Mask-19.png'
@@ -354,11 +364,6 @@ for(i = 0; i < me.lineList.rows.length; i++){
 					var dbkey = rec.data.workKey;
 					if(dbkey != ''){
 					
-					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
-					var existItems = navTreeGlobal.items;
-					var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey);
-                     if (! isFoundItem) { 
-					
 					var workIcon = '';
 					if(extWorkKeys.indexOf('dbkey') > -1){
 					    workIcon = 'resources/images/BookBlau-16.png';
@@ -366,6 +371,22 @@ for(i = 0; i < me.lineList.rows.length; i++){
 					else{
 					    workIcon = 'resources/images/Books1-17.png';
 					}
+					
+					
+					var toolBarGlobal = Ext.getCmp('toolbar');
+                           var historyButton = Ext.getCmp('historyButton'); 
+                           var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, dbkey);
+                            if(!isHistoryItemExist){
+                                historyButton.menu.add({text: '<font style="color:gray;">'+rec.data.name+'</font>', icon: workIcon, dbkey: dbkey});  
+
+                            }
+					
+					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					var existItems = navTreeGlobal.items;
+					var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey);
+                     if (! isFoundItem) { 
+					
+					
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',
 						icon: workIcon

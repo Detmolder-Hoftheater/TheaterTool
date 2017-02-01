@@ -71,9 +71,19 @@ for(i = 0; i < me.roleList.length; i++){
 				return val;
 			},
 			handler: function(grid, rowIndex, colIndex) {
+			
+			        var rec = grid.getStore().getAt(rowIndex);
+			
+			        var toolBarGlobal = Ext.getCmp('toolbar');
+                    var historyButton = Ext.getCmp('historyButton'); 
+                    var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.name + '</font>');
+                    if(!isHistoryItemExist){
+                          historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: 'resources/images/carnival.png'});  //, selection: 3
+
+                     }
+			
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;
-                    var rec = grid.getStore().getAt(rowIndex);
                     var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+rec.data.name+'</font>');
                     if (! isFoundItem) {
 					var dbkey = rec.data.name;
