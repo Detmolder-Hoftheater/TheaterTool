@@ -168,18 +168,22 @@ style: {
                     var itemToSelect = null;
                     for (i = 0; i < menuItems.items.length; i++) {
                         var existItem = menuItems.items[i];  
-                       
-                        if (existItem.text === selectedTab.title && i > 0) {
+                       console.log(i);
+                        if (existItem.text === selectedTab.title && i > 0  &&  selectedTab.activeMenuItemId === existItem.id) {
                              
-                            itemToSelect = menuItems.items[i-1].text;
+                            itemToSelect = menuItems.items[i-1];
+                            
                             break;
                         }
                     }
                     if(itemToSelect !== null){
                          for (i = 0; i < openTabs.items.length; i++) {
                         var openTab = openTabs.items[i];  
-                        if (openTab.title === itemToSelect) {
+                         console.log(itemToSelect);
+                         console.log(openTab);
+                        if (openTab.title === itemToSelect.text) {
                              navTreeGlobal.setActiveTab(openTab);
+                             openTab.setActiveMenuItemId(itemToSelect.id);
                         }
                     }    
                     }
@@ -210,7 +214,7 @@ style: {
             click: function( menu, item, e, eOpts ) {
                  var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			   var existItems = navTreeGlobal.items;
-			   var isFoundItem = navTreeGlobal.isItemFound(existItems, item.text);
+			   var isFoundItem = navTreeGlobal.isItemFound(existItems, item.text, item.id);
 			     menu.hide();
 			    if (isFoundItem) {
                       
@@ -222,13 +226,15 @@ style: {
             click: function() {
                     var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
                     var selectedTab = navTreeGlobal.getActiveTab();
-                    
                     var menuItems = this.menu.items;
                     for (i = 0; i < menuItems.items.length; i++) {
                         var existItem = menuItems.items[i];
-                         
-                        if (existItem.text === selectedTab.title) {
+                        // console.log("Get bei offnen existItem : "+ existItem.id);
+                        // console.log("Get bei activeMenuItemId: "+ selectedTab.activeMenuItemId);
+                        if (existItem.text === selectedTab.title && selectedTab.activeMenuItemId === existItem.id) {
+                        //console.log(existItem.hasFocus);                       
                         existItem.focus();
+                        selectedTab.setActiveMenuItemId(existItem.id);
             }
         }
             }
@@ -260,17 +266,20 @@ style: {
                     for (i = 0; i < menuItems.items.length; i++) {
                         var existItem = menuItems.items[i];  
                        
-                        if (existItem.text === selectedTab.title && i < menuItems.items.length) {
+                        if (existItem.text === selectedTab.title && i < menuItems.items.length &&  selectedTab.activeMenuItemId === existItem.id) {
                              
-                            itemToSelect = menuItems.items[i+1].text;
+                            itemToSelect = menuItems.items[i+1];
+                            
                             break;
                         }
                     }
-                    if(itemToSelect !== null){
+                    if(itemToSelect !== undefined){
+                       // selectedTab.setActiveMenuItemId(itemToSelect.id);
                          for (i = 0; i < openTabs.items.length; i++) {
                         var openTab = openTabs.items[i];  
-                        if (openTab.title === itemToSelect) {
+                        if (openTab.title === itemToSelect.text) {
                              navTreeGlobal.setActiveTab(openTab);
+                             openTab.setActiveMenuItemId(itemToSelect.id);
                         }
                     }    
                     }

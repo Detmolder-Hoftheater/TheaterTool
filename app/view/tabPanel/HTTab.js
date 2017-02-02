@@ -54,6 +54,8 @@ border:false,
 bodyBorder: true,
 	
 	closable: true,
+	
+	activeMenuItemId: null,
 
 	/*defaults: {
 		frame: true,
@@ -112,5 +114,11 @@ bodyBorder: true,
 	
 		
 		this.callParent();
+	},
+	
+	setActiveMenuItemId: function(activeMenuItemId){
+	 this.activeMenuItemId = activeMenuItemId;
+	// console.log("Set in HTTab : "+ activeMenuItemId);
+	    
 	}
 });

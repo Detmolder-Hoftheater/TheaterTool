@@ -65,11 +65,12 @@ bodyBorder: false,
         return false;
     },
 	
-	isItemFound: function (existItems, titletext) {
+	isItemFound: function (existItems, titletext, activeMenuItemId) {
         for (i = 0; i < existItems.items.length; i++) {
             var existItem = existItems.items[i];
             if (existItem.title === titletext) {
                 this.setActiveTab(existItem);
+                existItem.setActiveMenuItemId(activeMenuItemId);
                 //this.fireEvent('render', this);
                 return true;
             }
