@@ -176,6 +176,15 @@ for(i = 0; i < me.worksList.length; i++){
 			 if(colIndex === 6){
 			     var rec = grid.getStore().getAt(rowIndex);
 					var dbkey = rec.data.workid;
+					
+					var historyButton = Ext.getCmp('historyButton'); 
+					var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: 'resources/images/BookBlau-16.png', dbkey: dbkey});  
+
+                    var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+                     var existItems = navTreeGlobal.items;					
+					var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey, menuItem.id);
+                     if (! isFoundItem) { 
+					
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',
 						icon: 'resources/images/BookBlau-16.png'
@@ -183,10 +192,13 @@ for(i = 0; i < me.worksList.length; i++){
 					var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: dbkey, isSelected: true});
 					repertoireTab.add(personDetails);
 
-					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					repertoireTab.setActiveMenuItemId(menuItem.id);
+                    repertoireTab.setMenuAdded(true);
+                    
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
-					navTreeGlobal.fireEvent('render', Ext.getCmp('tabpanel'));		     
+					navTreeGlobal.fireEvent('render', Ext.getCmp('tabpanel'));	
+					}
 			 }
                     
                 }

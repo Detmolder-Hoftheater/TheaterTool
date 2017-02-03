@@ -123,6 +123,7 @@ autoEl: {
 				xtype: 'button',
                 margin: '0 0 0 5',
 				text: '<font size = "1"><b style="color:#CC9FA7;">Tab duplizieren</b></font>',
+				disabled: true,
 				style: {
 					borderRight: '1px solid #CC9FA7',
 					borderLeft: '1px solid #CC9FA7',
@@ -136,6 +137,12 @@ autoEl: {
 					       var clone = activeTab.cloneConfig();
 					       var childClone = activeTab.items.items[0].cloneConfig();
 					       clone.add(childClone);
+					       
+					       var historyButton = Ext.getCmp('historyButton'); 
+					       var menuItem = historyButton.menu.add({text: clone.title, icon: clone.icon}); 
+
+                            clone.setActiveMenuItemId(menuItem.id);
+                            clone.setMenuAdded(true);
 					   
 					       me.htPanel.getHTTabPanel().add(clone);
 					       me.htPanel.getHTTabPanel().setActiveTab(clone);
@@ -230,7 +237,7 @@ style: {
                     var menuItems = this.menu.items;
                     for (i = 0; i < menuItems.items.length; i++) {
                         var existItem = menuItems.items[i];
-                        // console.log("Get bei offnen existItem : "+ existItem.id);
+                         //console.log("Get bei offnen existItem : "+ selectedTab);
                         // console.log("Get bei activeMenuItemId: "+ selectedTab.activeMenuItemId);
                         if (existItem.text === selectedTab.title && selectedTab.activeMenuItemId === existItem.id) {
                         //console.log(existItem.hasFocus);                       
@@ -682,18 +689,24 @@ createTextField: function (fieldName, fieldLabel) {
         });
             return;
         }
-        
-         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">'+value+'</font>',
+         var historyButton = Ext.getCmp('historyButton'); 
+        var menuItem = historyButton.menu.add({text: '<font style="color:gray;">'+searchType+': '+value+'</font>', icon: 'resources/images/Search-16.png', selection: value});
+       
+                var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+searchType+': '+value+'</font>',
 						icon: 'resources/images/Search-16.png'
 					});
 					var regieDetails = new TheaterTool.view.tabPanel.search.SearchPanelInTab({searchValue: value, type: searchType});
 				    repertoireTab.add(regieDetails);
+				    
+				    repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                
-                 Ext.getCmp('tabpanel').add(repertoireTab);
-                 Ext.getCmp('tabpanel').setActiveTab(repertoireTab);
-                 Ext.getCmp('tabpanel').fireEvent('render', Ext.getCmp('tabpanel'));
-                 
+                var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+                navTreeGlobal.add(repertoireTab);
+					navTreeGlobal.setActiveTab(repertoireTab);	
+					navTreeGlobal.fireEvent('render', navTreeGlobal);
+                
                  if (typeof Ext.getCmp('infoDialog') !== 'undefined') {
 							Ext.getCmp('infoDialog').close();
 					}

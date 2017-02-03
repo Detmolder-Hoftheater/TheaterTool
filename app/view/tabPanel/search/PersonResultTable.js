@@ -138,8 +138,17 @@ for(i = 0; i < me.personList.length; i++){
 			handler: function(grid, rowIndex, colIndex) {
 			 if(colIndex === 3){
 					var rec = grid.getStore().getAt(rowIndex);
-					console.log(rec);
+					//console.log(rec);
 					var dbkey = rec.data.dbkey;
+					
+					var historyButton = Ext.getCmp('historyButton'); 
+					var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: 'resources/images/Mask-19.png', dbkey: dbkey});  
+
+					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					var existItems = navTreeGlobal.items;					
+					var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey, menuItem.id);
+                     if (! isFoundItem) { 
+					
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',
 						icon: 'resources/images/Mask-19.png'
@@ -147,10 +156,13 @@ for(i = 0; i < me.personList.length; i++){
 					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: dbkey});
 					repertoireTab.add(personDetails);
 
-					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+					repertoireTab.setActiveMenuItemId(menuItem.id);
+                    repertoireTab.setMenuAdded(true);
+                    
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);
 					navTreeGlobal.fireEvent('render', Ext.getCmp('tabpanel'));
+					}
 							     
 			 }
                     

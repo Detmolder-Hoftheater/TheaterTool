@@ -88,7 +88,7 @@ for(i = 0; i < me.issueList.length; i++){
                     var historyButton = Ext.getCmp('historyButton'); 
                     //var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.jahr + '</font>');
                     //if(!isHistoryItemExist){
-                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.jahr + '</font>', icon: 'resources/images/Transfer-17.png'});  //, selection: 3
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.jahr + '</font>', icon: 'resources/images/MoneyTransfer-17.png'});  //, selection: 3
 
                      //}
 			
