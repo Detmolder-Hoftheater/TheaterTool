@@ -198,7 +198,7 @@ style: {
         id: 'historyButton',
         selection: null,
         //disabled: true,
-				text: '<font size = "1"><b style="color:#CC9FA7;">Tabs Reihenfolge</b></font>',
+				text: '<font size = "1"><b style="color:#CC9FA7;">Verlauf</b></font>',
 				margin: '0 5 0 3',
 				style: {
 					borderRight: '1px solid #CC9FA7',

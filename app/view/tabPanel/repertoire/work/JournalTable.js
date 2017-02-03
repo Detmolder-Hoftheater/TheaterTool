@@ -94,15 +94,15 @@ for(i = 0; i < me.journalList.length; i++){
 			
 			        var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton'); 
-                    var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.jahr + '</font>');
-                    if(!isHistoryItemExist){
-                          historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.jahr + '</font>', icon: 'resources/images/Presse-16.png'});  //, selection: 3
+                    //var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.jahr + '</font>');
+                    //if(!isHistoryItemExist){
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.jahr + '</font>', icon: 'resources/images/Presse-16.png'});  //, selection: 3
 
-                     }
+                     //}
 			
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;
-                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+rec.data.jahr+'</font>');
+                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+rec.data.jahr+'</font>', menuItem.id);
                     if (! isFoundItem) {
 					var dbkey = rec.data.jahr;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
@@ -112,7 +112,9 @@ for(i = 0; i < me.journalList.length; i++){
 					var personDetails = new TheaterTool.view.tabPanel.journal.JournalPanelInTab({regieName: dbkey});
 					repertoireTab.add(personDetails);
 
-					
+					repertoireTab.setActiveMenuItemId(menuItem.id);
+                    repertoireTab.setMenuAdded(true);
+                    
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);
 					navTreeGlobal.fireEvent('render', navTreeGlobal);

@@ -76,15 +76,15 @@ for(i = 0; i < me.roleList.length; i++){
 			
 			        var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton'); 
-                    var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.name + '</font>');
-                    if(!isHistoryItemExist){
-                          historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: 'resources/images/carnival.png'});  //, selection: 3
+                    //var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.name + '</font>');
+                    //if(!isHistoryItemExist){
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: 'resources/images/carnival.png'});  //, selection: 3
 
-                     }
+                    // }
 			
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;
-                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+rec.data.name+'</font>');
+                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+rec.data.name+'</font>', menuItem.id);
                     if (! isFoundItem) {
 					var dbkey = rec.data.name;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
@@ -94,7 +94,9 @@ for(i = 0; i < me.roleList.length; i++){
 					var personDetails = new TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab({regieName: dbkey});
 					repertoireTab.add(personDetails);
 
-					
+					repertoireTab.setActiveMenuItemId(menuItem.id);
+                    repertoireTab.setMenuAdded(true);
+                    
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
 					navTreeGlobal.fireEvent('render', navTreeGlobal);

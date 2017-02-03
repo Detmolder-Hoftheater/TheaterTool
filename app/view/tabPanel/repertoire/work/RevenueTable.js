@@ -102,15 +102,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 			
 			        var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton'); 
-                    var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">Einnahmen: ' + rec.data.jahr + '</font>');
-                    if(!isHistoryItemExist){
-                          historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.jahr + '</font>Einnahmen: ', icon: 'resources/images/MoneyBox-17.png'});  //, selection: 3
+                    //var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">Einnahmen: ' + rec.data.jahr + '</font>');
+                    //if(!isHistoryItemExist){
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Einnahmen: '+rec.data.jahr+'</font>', icon: 'resources/images/MoneyBox-17.png'});  //, selection: 3
 
-                     }
+                     //}
 			
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;
-                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">Einnahmen: '+rec.data.jahr+'</font>');
+                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">Einnahmen: '+rec.data.jahr+'</font>' , menuItem.id);
                     if (! isFoundItem) {
 					var dbkey = rec.data.jahr;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
@@ -120,6 +120,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 					var personDetails = new TheaterTool.view.tabPanel.revenue.RevenuePanelInTab({year: dbkey, monat: rec.data.monat});
 					repertoireTab.add(personDetails);
 
+                    repertoireTab.setActiveMenuItemId(menuItem.id);
+                    repertoireTab.setMenuAdded(true);       
 					
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	

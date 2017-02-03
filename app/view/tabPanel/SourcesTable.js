@@ -99,16 +99,16 @@ for(i = 0; i < me.sourcesList.length; i++){
 			
 			        var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton'); 
-                    var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, dbkey);
-                    if(!isHistoryItemExist){
-                          historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: 'resources/images/BookBlau-16.png', dbkey: dbkey});  
+                    //var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, dbkey);
+                    //if(!isHistoryItemExist){
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: 'resources/images/BookBlau-16.png', dbkey: dbkey});  
 
-                     }
+                     //}
 			
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;
 					
-					var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey);
+					var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey, menuItem.id);
                      if (! isFoundItem) { 
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+rec.data.jahr+'</font>',
@@ -117,7 +117,9 @@ for(i = 0; i < me.sourcesList.length; i++){
 					var personDetails = new TheaterTool.view.tabPanel.journal.JournalPanelInTab({regieName: dbkey});
 					repertoireTab.add(personDetails);
 
-					
+					repertoireTab.setActiveMenuItemId(menuItem.id);
+                    repertoireTab.setMenuAdded(true);
+                    
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);
 					navTreeGlobal.fireEvent('render', navTreeGlobal);

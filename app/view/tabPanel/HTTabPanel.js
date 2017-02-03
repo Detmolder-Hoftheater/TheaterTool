@@ -88,11 +88,13 @@ bodyBorder: false,
         return false;
     },
 	
-	isItemFoundWithId: function (existItems, dbId) {
+	isItemFoundWithId: function (existItems, dbId, activeMenuItemId) {
         for (i = 0; i < existItems.items.length; i++) {
             var existItem = existItems.items[i];
             if (existItem.items.items[0].dbkey === dbId || existItem.items.items[0].selection === dbId) {
+                existItem.setMenuAdded(true);
                 this.setActiveTab(existItem);
+                existItem.setActiveMenuItemId(activeMenuItemId);
                 //this.fireEvent('render', this);
                 return true;
             }
@@ -104,7 +106,7 @@ bodyBorder: false,
         for (i = 0; i < existItems.items.length; i++) {
             var existItem = existItems.items[i];
             if (existItem.title === titletext) {
-                //existItem.setMenuAdded(true);
+                existItem.setMenuAdded(true);
                 this.setActiveTab(existItem);
                 existItem.setActiveMenuItemId(activeMenuItemId);
                 
