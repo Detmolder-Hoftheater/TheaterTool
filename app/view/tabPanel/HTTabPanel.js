@@ -47,11 +47,46 @@ bodyBorder: false,
                     });
                 });
                 //}
+            },
+            
+            
+            beforetabchange: function(newCard, oldCard, eOpts ){
+               /* console.log(newCard);
+                console.log(oldCard);*/
+                console.log(oldCard.isMenuAdded);
+                console.log('***********************');
+                var historyButton = Ext.getCmp('historyButton');
+                if(!oldCard.isMenuAdded){
+                    var menuItem = historyButton.menu.add({text: oldCard.title, icon: oldCard.icon});
+                    oldCard.setActiveMenuItemId(menuItem.id);
+                    oldCard.setMenuAdded(true);  
+                }
+                else{
+                    oldCard.setMenuAdded(false);  
+                }
+                
+               // var isFound = me.foundHistoryitem(historyButton.menu.items, oldCard);
+               // if(!isFound){
+               //     var menuItem = historyButton.menu.add({text: oldCard.title, icon: oldCard.icon});
+               //     oldCard.setActiveMenuItemId(menuItem.id);
+               // }
+                
+                
             }
         }
 		
 		me.callParent()
 	},
+	
+	foundHistoryitem: function(menuItems, card){
+        for (i = 0; i < menuItems.items.length; i++) {
+            var existItem = menuItems.items[i];
+            if (existItem.text === card.title && existItem.id === card.activeMenuItemId) {
+                return true;
+            }
+        }
+        return false;
+    },
 	
 	isItemFoundWithId: function (existItems, dbId) {
         for (i = 0; i < existItems.items.length; i++) {
@@ -69,9 +104,10 @@ bodyBorder: false,
         for (i = 0; i < existItems.items.length; i++) {
             var existItem = existItems.items[i];
             if (existItem.title === titletext) {
+                //existItem.setMenuAdded(true);
                 this.setActiveTab(existItem);
                 existItem.setActiveMenuItemId(activeMenuItemId);
-                //this.fireEvent('render', this);
+                
                 return true;
             }
         }

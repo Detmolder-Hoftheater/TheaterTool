@@ -606,9 +606,11 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
         for (i = 0; i < existItems.items.length; i++) {
             var existItem = existItems.items[i];
             if (existItem.title === titletext) {
+                existItem.setMenuAdded(true);
                 this.tabPanel.setActiveTab(existItem);
                 existItem.setActiveMenuItemId(activeMenuItemId);
-                console.log("Set bei found: "+ activeMenuItemId);
+               
+                //console.log("Set bei found: "+ activeMenuItemId);
                // console.log(existItem);
                // this.tabPanel.fireEvent('render', this.tabPanel);
                 return true;
@@ -672,6 +674,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.data.text === 'Des Teufels Anteil') {
                     var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Des Teufels Anteil</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H020048'});
@@ -688,6 +691,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.data.text === 'Der Bettelstudent') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Der Bettelstudent</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H020263'});                  
@@ -703,6 +707,8 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                        
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'A-B-C') {
                     var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Werke: A-B-C</font>', icon: 'resources/images/Books1-17.png', selection: 1});                  
@@ -718,6 +724,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'D-E-F') {
                     var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Werke: D-E-F</font>', icon: 'resources/images/Books1-17.png', selection: 2});                  
@@ -732,6 +739,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'G-H-I') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Werke: G-H-I</font>', icon: 'resources/images/Books1-17.png', selection: 3}); 
@@ -746,6 +754,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'J-K-L') {
                      var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Werke: J-K-L</font>', icon: 'resources/images/Books1-17.png', selection: 4});
@@ -760,6 +769,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'M-N-O') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Werke: M-N-O</font>', icon: 'resources/images/Books1-17.png', selection: 5});
@@ -774,6 +784,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'P-Q-R') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Werke: P-Q-R</font>', icon: 'resources/images/Books1-17.png', selection: 6});
@@ -788,6 +799,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'S-T-U') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Werke: S-T-U</font>', icon: 'resources/images/Books1-17.png', selection: 7});
@@ -802,6 +814,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Repertoire (977 Werke)' && item.data.text === 'V-W-X-Y-Z') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Werke: V-W-X-Y-Z</font>', icon: 'resources/images/Books1-17.png', selection: 8});
@@ -816,6 +829,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Spielpläne') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Spielpläne: ' + item.data.text + '</font>', icon: 'resources/images/Calendar-17.png', selection: item.data.text});
@@ -831,6 +845,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
                         repertoireTab.add(scheduleDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.data.text === 'Aufführungen') {
                     /*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
@@ -850,6 +865,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(regieDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Personen (1.106)') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Personen: ' + item.data.text + '</font>', icon: 'resources/images/Mask-19.png', selection: item.data.text});
@@ -864,6 +880,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                     
                     /*var win = new TheaterTool.view.tabPanel.persons.PersonSelectionDialog({selection: item.data.text, tabPanel : this.tabPanel});
@@ -893,6 +910,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(regieDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.data.text === 'Linksammlung') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Presse-16.png', selection: item.data.text});
@@ -907,6 +925,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(regieDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Theaterjournal') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Presse-16.png', selection: item.data.text});
@@ -921,6 +940,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(regieDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.data.text === 'Dekoration') {
                     /*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
@@ -940,6 +960,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(regieDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Rollen- & Kostümbücher') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/carnival.png', selection: item.data.text});
@@ -954,6 +975,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(regieDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.data.text === 'Theaterberufe') {
                     /*repertoireTab = new TheaterTool.view.tabPanel.HTTab({
@@ -973,6 +995,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(issueDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Einnahmen') {
                         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Einnahmen: ' + item.data.text + '</font>', icon: 'resources/images/MoneyMoneyBox-17.png', selection: item.data.text});
@@ -988,6 +1011,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(revenueDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 } else if (item.parentNode.data.text === 'Gagenbücher') {
                        var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Gift-17.png', selection: item.data.text});
@@ -1002,6 +1026,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         repertoireTab.add(regieDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
                     }
                 }
                 

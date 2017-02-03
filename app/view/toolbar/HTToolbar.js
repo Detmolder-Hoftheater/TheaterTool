@@ -182,8 +182,9 @@ style: {
                          console.log(itemToSelect);
                          console.log(openTab);
                         if (openTab.title === itemToSelect.text) {
+                             openTab.setMenuAdded(true);
                              navTreeGlobal.setActiveTab(openTab);
-                             openTab.setActiveMenuItemId(itemToSelect.id);
+                             openTab.setActiveMenuItemId(itemToSelect.id);                           
                         }
                     }    
                     }
@@ -278,6 +279,7 @@ style: {
                          for (i = 0; i < openTabs.items.length; i++) {
                         var openTab = openTabs.items[i];  
                         if (openTab.title === itemToSelect.text) {
+                            openTab.setMenuAdded(true);
                              navTreeGlobal.setActiveTab(openTab);
                              openTab.setActiveMenuItemId(itemToSelect.id);
                         }

@@ -77,6 +77,7 @@ bodyBorder: true,
 	
 	repertoireNavigation: null,
 	repertoireDetails: null,
+	isMenuAdded: null,
 	
 	initComponent: function () {
 	
@@ -96,15 +97,16 @@ bodyBorder: true,
             beforeclose: function( panel, eOpts ){
                 var historyButton = Ext.getCmp('historyButton'); 
                 var menuItems = historyButton.menu.items;
-                var itemToDelete = null;
+                var itemsToDelete = new Array();
                 for (i = 0; i < menuItems.items.length; i++) {
                         var existItem = menuItems.items[i];
                          
                         if (existItem.text === panel.title) {
-                        itemToDelete = existItem;
+                        itemsToDelete.push(existItem);
             }
         }
-               if(itemToDelete !== null){
+               for(i = 0; i < itemsToDelete.length; i++){
+                    var itemToDelete = itemsToDelete[i];
                    historyButton.menu.remove(itemToDelete, true);
                }
                 
@@ -120,5 +122,9 @@ bodyBorder: true,
 	 this.activeMenuItemId = activeMenuItemId;
 	// console.log("Set in HTTab : "+ activeMenuItemId);
 	    
+	},
+	
+	setMenuAdded: function(isMenuAdded){
+	    this.isMenuAdded = isMenuAdded;
 	}
 });
