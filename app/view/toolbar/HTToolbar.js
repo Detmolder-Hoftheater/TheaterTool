@@ -156,7 +156,7 @@ autoEl: {
 			xtype: 'button',
 			icon: 'resources/images/page-prev-disabled.gif',
 			id: 'prevHistoryButton',
-			//disabled: true,
+			disabled: true,
 //margin: '0 5 0 0',
 style: {
 					borderRight: '1px solid #CC9FA7',
@@ -195,6 +195,7 @@ style: {
                         }
                     }    
                     }
+                    me.handleHistoryButtons();
                     
             }
         }
@@ -204,7 +205,7 @@ style: {
         xtype: 'button',
         id: 'historyButton',
         selection: null,
-        //disabled: true,
+        disabled: true,
 				text: '<font size = "1"><b style="color:#CC9FA7;">Verlauf</b></font>',
 				margin: '0 5 0 3',
 				style: {
@@ -224,6 +225,7 @@ style: {
 			   var existItems = navTreeGlobal.items;
 			   var isFoundItem = navTreeGlobal.isItemFound(existItems, item.text, item.id);
 			     menu.hide();
+			     me.handleHistoryButtons();
 			    if (isFoundItem) {
                       
                 }               
@@ -245,6 +247,7 @@ style: {
                         selectedTab.setActiveMenuItemId(existItem.id);
             }
         }
+        me.handleHistoryButtons();
             }
         }
 				
@@ -253,7 +256,7 @@ style: {
     {
 			xtype: 'button',
 			id: 'naxtHistoryButton',
-			//disabled: true,
+			disabled: true,
 			icon: 'resources/images/page-next-disabled.gif',
 //margin: '0 0 0 5',
 style: {
@@ -292,6 +295,7 @@ style: {
                         }
                     }    
                     }
+                    me.handleHistoryButtons();
                     
             }
         }
@@ -690,6 +694,7 @@ createTextField: function (fieldName, fieldLabel) {
             return;
         }
          var historyButton = Ext.getCmp('historyButton'); 
+        
         var menuItem = historyButton.menu.add({text: '<font style="color:gray;">'+searchType+': '+value+'</font>', icon: 'resources/images/Search-16.png', selection: value});
        
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
@@ -706,6 +711,10 @@ createTextField: function (fieldName, fieldLabel) {
                 navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
 					navTreeGlobal.fireEvent('render', navTreeGlobal);
+					
+					historyButton.setDisabled(false);
+                    var toolBar = Ext.getCmp('toolbar'); 
+                    toolBar.handleHistoryButtons();
                 
                  if (typeof Ext.getCmp('infoDialog') !== 'undefined') {
 							Ext.getCmp('infoDialog').close();
@@ -751,6 +760,50 @@ createTextField: function (fieldName, fieldLabel) {
             }
         }
         return false;
+    },
+    
+    handleHistoryButtons: function(){
+        var prevHistoryButton = Ext.getCmp('prevHistoryButton');
+        var naxtHistoryButton = Ext.getCmp('naxtHistoryButton');
+        var historyButton = Ext.getCmp('historyButton'); 
+        var menuItems = historyButton.menu.items;
+        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+        var selectedTab = navTreeGlobal.getActiveTab();
+        if(selectedTab !== null){
+        for (i = 0; i < menuItems.items.length; i++) {
+            var existItem = menuItems.items[i];
+            
+            if (existItem.text === selectedTab.title && existItem.id === selectedTab.activeMenuItemId) {
+                if(i === 0){
+                    if(menuItems.items.length === 1){
+                        prevHistoryButton.setDisabled(true);
+                        naxtHistoryButton.setDisabled(true);
+                    }
+                    else{
+                        prevHistoryButton.setDisabled(true);
+                        naxtHistoryButton.setDisabled(false);                                                 
+                    }
+                    
+                }
+                else if(i === menuItems.items.length-1){
+                    if(menuItems.items.length === 1){
+                        prevHistoryButton.setDisabled(true);
+                        naxtHistoryButton.setDisabled(true);
+                    }
+                    else{
+                        prevHistoryButton.setDisabled(false);
+                        naxtHistoryButton.setDisabled(true);                                                 
+                    } 
+                }
+                else{
+                    prevHistoryButton.setDisabled(false);
+                    naxtHistoryButton.setDisabled(false); 
+                }
+               
+            }
+        }
+        }
+        
     }
 
 

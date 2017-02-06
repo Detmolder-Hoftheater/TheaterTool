@@ -51,15 +51,14 @@ bodyBorder: false,
             
             
             beforetabchange: function(newCard, oldCard, eOpts ){
-               /* console.log(newCard);
-                console.log(oldCard);*/
-                console.log(oldCard.isMenuAdded);
-                console.log('***********************');
                 var historyButton = Ext.getCmp('historyButton');
                 if(!oldCard.isMenuAdded){
+                    var isFound = me.foundHistoryitem(historyButton.menu.items, oldCard);
+                   
                     var menuItem = historyButton.menu.add({text: oldCard.title, icon: oldCard.icon});
                     oldCard.setActiveMenuItemId(menuItem.id);
-                    oldCard.setMenuAdded(true);  
+                    oldCard.setMenuAdded(true); 
+                   
                 }
                 else{
                     oldCard.setMenuAdded(false);  
@@ -70,7 +69,8 @@ bodyBorder: false,
                //     var menuItem = historyButton.menu.add({text: oldCard.title, icon: oldCard.icon});
                //     oldCard.setActiveMenuItemId(menuItem.id);
                // }
-                
+                var toolBar = Ext.getCmp('toolbar'); 
+                toolBar.handleHistoryButtons();
                 
             }
         }

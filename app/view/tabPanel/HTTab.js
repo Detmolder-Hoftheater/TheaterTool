@@ -109,7 +109,17 @@ bodyBorder: true,
                     var itemToDelete = itemsToDelete[i];
                    historyButton.menu.remove(itemToDelete, true);
                }
-                
+               if(menuItems.items.length === 0){
+                   historyButton.setDisabled(true);
+               }
+               var toolBar = Ext.getCmp('toolbar'); 
+               toolBar.handleHistoryButtons(); 
+               var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+               var openTabs = navTreeGlobal.items;
+               for (i = 0; i < openTabs.items.length; i++) {
+                  var openTab = openTabs.items[i];  
+                  openTab.setMenuAdded(true);      
+                }    
             }
             
         }

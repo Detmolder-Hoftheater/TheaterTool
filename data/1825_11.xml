@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-stylesheet type="text/xsl" href="test.xsl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title/>
+                <author>Hoftheater</author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-10-01</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <p>unknown</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p/>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <p>Elektronische Übertragung TheaterAnzeigen im Intelligenzblatt</p>
+        </encodingDesc>
+        <revisionDesc>
+            <listChange>
+                <change>
+                    <date when="2015-09-16">16.1.2015</date>
+                    <p>Anlegen der Datei und Ersterfassung</p>
+                                   </change>
+                
+            </listChange>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <table rend="rules">
+                <head>[Spielplan 1825]</head>
+                <head type="sub"><table>
+                    <row>
+                        <cell>1825</cell>
+                        <cell/>
+                    </row>
+                </table></head>
+                <row>
+                    <cell><date when="1825-11-08">Dienstag den 8ten Nov.</date></cell>
+                    <cell>Zur Einweihung des Hoftheaters in Detmold: <rs type="work">Prolog mit Gesang</rs>. Gedichtet von <persName>F. Falkmann</persName>, in Musik gesetzt von <persName>H. Neumann</persName>. Hierauf: <rs type="work">Titus der Gütige</rs>, nach <persName>Metastasios</persName> <rs type="work">Clemenza di Tito. Oper in 2 Abtheilungen</rs>, Musik von <persName>Mozart</persName>.</cell>
+                </row><!-- TZ 24 -->
+                <row>
+                    <cell><date when="1825-11-11">Donnerstag den 11ten Nov.</date></cell>
+                    <cell><rs type="work">Der Empfehlungsbrief. Lustspiel in 4 Acten</rs>, von <persName>Doctor Carl Töpfer</persName></cell>
+                </row><!-- Tz 25 -->
+                                <row>
+                                       <cell><date when="1825-11-13">Sonntag den 13ten November.</date></cell>
+                    <cell><rs type="work">Preciosa. Romantisches Schauspiel in 4 Akten mit Gesang und Tanz</rs>, von <persName>Wolff</persName>, Musik von <persName>Carl Maria von Weber</persName>.</cell>
+                </row>
+                <row>
+                    <cell><date when="1825-11-14">Montag den 14ten -</date></cell>
+                    <cell><rs type="work">Die Advokaten. Schauspiel in 5 Akten</rs> von <persName>Iffland</persName></cell>
+                </row>
+                <row>
+                    <cell><date when="1825-11-15">Dienstag den 15ten -</date></cell>
+                    <cell><rs type="work">Johann von Paris. Oper in 2 Akten mit Ballet</rs> getanzt von Kindern.</cell>
+                </row>
+                <row>
+                    <cell><date when="1825-11-17">Donnerstag den 17ten -</date></cell>
+                    <cell><rs type="work">Die Mohrin. Schauspiel in 4 Akten</rs> von <persName>Ziegler</persName></cell>
+                </row>
+                <row>
+                    <cell><date when="1825-11-18">Freitag den 18ten -</date></cell>
+                    <cell><rs type="work">Der Schnee, oder: Der neue Eginhard. Oper in 4 Abtheilungen</rs>, Musik von <persName>Auber</persName></cell>
+                </row>
+                <!-- mehr im Intelligenzblatt nicht enthalten! -->
+            </table>
+        </body>
+    </text>
+</TEI>

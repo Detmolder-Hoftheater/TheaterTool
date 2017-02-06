@@ -1034,10 +1034,13 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     if (typeof Ext.getCmp('infoDialog') !== 'undefined') {
                         Ext.getCmp('infoDialog').close();
                     }
-                    if (repertoireTab !== null) {
+                    if (repertoireTab !== null) {                      
                         this.tabPanel.add(repertoireTab);
                         this.tabPanel.setActiveTab(repertoireTab);
                         this.tabPanel.fireEvent('render', this.tabPanel);
+                        historyButton.setDisabled(false);
+                        var toolBar = Ext.getCmp('toolbar'); 
+                        toolBar.handleHistoryButtons();
                         
                     }
                 }
