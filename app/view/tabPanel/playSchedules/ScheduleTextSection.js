@@ -75,7 +75,7 @@ autoScroll: true,
 
 			Ext.Ajax.request({
            // url: 'data/Output_Exist.xql',
- 			url: 'resources/xql/getSchedule.xql',
+ 			url: 'resources/xql/getScheduleTable.xql',
             method: 'GET',
             params: {
                 month: me.monthNumber,
