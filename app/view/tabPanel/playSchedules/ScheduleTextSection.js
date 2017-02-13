@@ -2,27 +2,25 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
-   // extend: 'Ext.form.FieldSet',
- 
-   // collapsible: true,
-   //collapsed: true,
-
-    //title: '<b style="color:gray;">Text</b>',
-
-//flex:1,
  extend: 'Ext.panel.Panel',
  title: '<b style="color:gray;">Übersicht</b>',
+
 /*border: true,
 	flex:1,
 bodyBorder: true,
 bodyPadding:10,
 autoScroll: true,*/
 
-border: true,
-	flex:1,
-bodyBorder: true,
-bodyPadding:10,
-autoScroll: true,
+layout: {
+		type: 'hbox',
+		pack: 'start',
+		align: 'stretch'
+	},
+	autoScroll: true,
+	border: false,
+	bodyBorder: false,
+    //bodyPadding:10,
+    flex:1,
 
     repertoireTab:null,
 
@@ -83,14 +81,16 @@ autoScroll: true,
               
             },
             success: function(response){
-				//var idtemp = me.repertoireTab.getTextTab().id;
-
-				//$('#'+me.id).html(response.responseText);
-				me.setTextInfo(response.responseText);
- 				//me.repertoireTab.setTextInfo(response.responseText);
-				//me.repertoireTab.setTextInfo1(response.responseText);
-			//$('#'+me.id+'-innerCt').html(response.responseText);
-
+            
+                var json = jQuery.parseJSON(response.responseText);
+                console.log(json);
+                
+                var scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({lineList: json});
+				scheduleTable.setTablePanel(me);
+                me.add(scheduleTable);
+				
+				//me.setTextInfo(response.responseText);
+ 				
      		}
          
         });

@@ -81,13 +81,7 @@ let $strings := for $elem_2 in $cells
     
     let $workArray := local:getWork($works)
     
-  
-    
-    
                     return 
-                    
-                    (:concat('[', '{"inhalt":[', $onecell, ']}', '{"workpersons":[', $workPerson, ']},', '{"date":[', $date, ']}]')
-                    :)
                     
                         if($date != '')
                         then(concat('[','{"date":[', $date, ']}]'))
@@ -98,9 +92,9 @@ let $strings := for $elem_2 in $cells
                                 then(
                                     if($workArray != '')
                                     then(
-                                        concat('[', '{"inhalt":[', $onecell, ']},', '{"work":[', $workArray, ']},',  '{"workpersons":[', $workPerson, ']}',']')
-                                    )else(concat('[', '{"inhalt":[', $onecell, ']},', '{"workpersons":[', $workPerson, ']}',']')))                               
-                                else(concat('[','{"inhalt":[', $onecell, ']}', ']')))
+                                        concat('[', '{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},',  '{"workpersons":[', $workPerson, ']}',']')
+                                    )else(concat('[', '{"inhalt":["', normalize-space($onecell), '"]},', '{"workpersons":[', $workPerson, ']}',']')))                               
+                                else(concat('[','{"inhalt":["', normalize-space($onecell), '"]}', ']')))
                             else()
                         )
                       
