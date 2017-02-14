@@ -83,7 +83,6 @@ layout: {
             success: function(response){
             
                 var json = jQuery.parseJSON(response.responseText);
-                console.log(json);
                 
                 var scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({lineList: json});
 				scheduleTable.setTablePanel(me);

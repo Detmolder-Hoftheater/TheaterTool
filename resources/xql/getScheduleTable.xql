@@ -84,7 +84,7 @@ let $strings := for $elem_2 in $cells
                     return 
                     
                         if($date != '')
-                        then(concat('[','{"date":[', $date, ']}]'))
+                        then(concat('{"date":[', $date, ']}'))
                         else(
                             if($onecell != '')
                             then(
@@ -92,9 +92,18 @@ let $strings := for $elem_2 in $cells
                                 then(
                                     if($workArray != '')
                                     then(
-                                        concat('[', '{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},',  '{"workpersons":[', $workPerson, ']}',']')
-                                    )else(concat('[', '{"inhalt":["', normalize-space($onecell), '"]},', '{"workpersons":[', $workPerson, ']}',']')))                               
-                                else(concat('[','{"inhalt":["', normalize-space($onecell), '"]}', ']')))
+                                        concat('{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},',  '{"workpersons":[', $workPerson, ']}')
+                                    )else(concat('{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', ']},', '{"workpersons":[', $workPerson, ']}')))                               
+                                else(
+                                    if($workArray != '')
+                                    then(concat('{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},', '{"workpersons":[', ']}'))
+                                    else(concat('{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', ']},', '{"workpersons":[', ']}')))
+                                
+                                
+                                
+                                
+                                
+                                )
                             else()
                         )
                       
@@ -114,7 +123,7 @@ let $strings := for $elem_3 in $works
     let $workId := $work/@key
     
                     return 
-                        concat('["', $work, '"', ', "', $workId, '"]')
+                        concat('["', normalize-space($work), '"', ', "', $workId, '"]')
                     
                    
                     

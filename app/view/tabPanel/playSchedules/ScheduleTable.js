@@ -27,29 +27,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
 	workDetailsColumn: null,
 	inhaltColumn: null,
 	
-	/*constructor: function(config) {
-        config = Ext.apply({
-            plugins: {
-                ptype: "subtable",
-                association: 'persons',
-                headerWidth: 24,
-                columns: [{
-                    text: 'Order Id',
-                    //dataIndex: 'id',
-                    width: 100
-                },{
-                    xtype: 'datecolumn',
-                    format: 'Y-m-d',
-                    width: 120,
-                    text: 'Date'
-                    //dataIndex: 'date'
-                }]
-            }
-        }, config);
-        this.callParent([config]);
-    },
-
-	*/
+	
 	initComponent: function () {
 	
 	   var me = this;
@@ -62,17 +40,13 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
 if(me.lineList != 'undefined'){
 console.log(me.lineList);
 
-var columnNumber = 0;
-var isDateColumn = false;
-             var isWorkColumn = false;
-             var isPersonColumn = false;
+
+
+            
              var personsNumber = 0;
 for(i = 0; i < me.lineList.rows.length; i++){
             var one_row = me.lineList.rows[i]; 
             
-            if(columnNumber < one_row.cells.length){
-                columnNumber = one_row.cells.length;
-            }
             
             var workName = '';
              var workKey = '';
@@ -81,28 +55,26 @@ for(i = 0; i < me.lineList.rows.length; i++){
              var workDetails_2 = '';
              var workDetails_3 = '';
              var workDate = '';
-             var isContent = false;
+            
              var personObject = new Array();
              var columnText = new Array();
              
              
-            for(j = 0; j < one_row.cells.length; j++){
-                var oneColumn = one_row.cells[j];
-                //console.log(oneColumn);
-                var workArray = oneColumn[1].work;
-                var dateObject = oneColumn[3].date;
-                var personWorkObject = oneColumn[2].workpersons;
+            //for(j = 0; j < one_row.cells.length; j++){
+                var oneColumn = one_row.cells[1];
+                var workArray = one_row.cells[2];
+                var dateObject = one_row.cells[0];
+                console.log(workArray.work[0]);
+                var personWorkObject = one_row.cells[1];
                 
-                if(workArray.length > 0){
-                    workName = workArray[0];
-                    workKey = workArray[1];
-                    isWorkColumn = true;
-                    if(typeof workArray[2] !== 'undefined'){
-                    //console.log(workArray[2]);
-                        isContent = true;
-                    }
+                if(typeof workArray !== 'undefined'){
+                    workName = workArray.work[0];
+                    workKey = workArray.work[1];
+                 
                 }
-                if(personWorkObject.length > 0){
+                
+                
+                /*if(typeof personWorkObject !== 'undefined'){
                     if( personObject.length == 0){
                         personObject[0] = personWorkObject;
                     }
@@ -113,16 +85,15 @@ for(i = 0; i < me.lineList.rows.length; i++){
                     if(personWorkObject.length > personsNumber){
                         personsNumber = personWorkObject.length;
                     }                   
-                    isPersonColumn = true;
-                    //console.log(personWorkObject);
+                    
+                }*/
+                if(typeof dateObject !== 'undefined'){
+                    workDate = dateObject.date[0];
+                    
                    
                 }
-                if(dateObject.length > 0){
-                    workDate = dateObject[0];
-                    isDateColumn = true;
-                }
                 
-                columnText[j] = oneColumn[0];
+               // columnText[j] = oneColumn[1].inhalt;
                 /*else{  
                 //console.log(oneColumn);
                     if(detailsColumnNumber === 1){
@@ -139,36 +110,20 @@ for(i = 0; i < me.lineList.rows.length; i++){
                     }  
             }*/
                
-            }
+            //}
           
              var one_line = Ext.create('TheaterTool.model.Theaterakte', {
     			      name : workName,
     			      workKey: workKey,
-    			      details1 :columnText[0], 
-    			      details2 : columnText[1],
-    			      details3 : columnText[2],
-    			      date: workDate,
-    			      createContent: isContent,
+    			      details1 :oneColumn.inhalt[0],
+    			      date: workDate,   			    
     			      persons: personObject
-    			      //anmerkung: one_row[2] 
 			             });
 			         me.store.add(one_line);
-            
-            
-            
-            
-			
+ 
 			}
 			   
-           /* if(isDateColumn){
-                columnNumber--;
-            }
-            if(isPersonColumn){
-                columnNumber--;
-            }
-            if(isWorkColumn){
-                columnNumber--;
-            }*/
+        
 	}
 	
 	
@@ -176,28 +131,39 @@ for(i = 0; i < me.lineList.rows.length; i++){
 	
 		
 		var tableColumns = -1;
+		//var columnNumber = 4;
 		
-		for(i = 1; i <= columnNumber; i++){
+		 var colDate = Ext.create('Ext.grid.column.Column', {			
+			xtype: 'gridcolumn',
+			header: 'Datum',
+			flex: 0.3,			
+			menuDisabled: true,
+			dataIndex: 'date'
+		});
+		tableColumns = tableColumns+1;
+		objs[tableColumns] = colDate;	
+		
+		//for(i = 1; i <= columnNumber; i++){
 		    var col = Ext.create('Ext.grid.column.Column', {			
 			xtype: 'gridcolumn',
-			//header: headerName,
+			header: 'Werk',
 			flex: 2,			
 			menuDisabled: true,
-			dataIndex: 'details'+i
+			dataIndex: 'details1'
 		});
 		tableColumns = tableColumns+1;
 		objs[tableColumns] = col;		
-		}
+		//}
 		
-		if(isWorkColumn){
+		
 		    me.detailsColumn = this.createColumn('Werkdetails', 'resources/images/Door-24.png', 'name');
 		    tableColumns = tableColumns+1;
 		    objs[tableColumns] = me.detailsColumn;
 		     me.workDetailsColumn = tableColumns;
 		    
-		}
+	
 		
-		if(isPersonColumn){
+		//if(isPersonColumn){
 		var personArray = new Array();
 		for(var i = 0; i < personsNumber; i++){
 		    var pers = {
@@ -271,10 +237,15 @@ for(i = 0; i < me.lineList.rows.length; i++){
         };
         
         personArray[i]=pers
-		}		
+		//}		
 		    var testColumn = Ext.create('Ext.grid.column.Column', {
    header: 'Personen',
-    columns: personArray
+    columns: personArray,
+    xtype: 'gridcolumn',
+			
+			flex: 2,			
+			menuDisabled: true
+			//dataIndex: 'details1'
     
 		});
 		
@@ -283,10 +254,10 @@ for(i = 0; i < me.lineList.rows.length; i++){
 		}     
 		
 		
-		var col_inhalt = this.createColumn('Inhaltdetails', 'resources/images/Note-15.png', 'createContent');	
+		/*var col_inhalt = this.createColumn('Inhaltdetails', 'resources/images/Note-15.png', 'createContent');	
 		tableColumns = tableColumns+1;
 		me.inhaltColumn = tableColumns;
-		objs[tableColumns] = col_inhalt;
+		objs[tableColumns] = col_inhalt;*/
 		
 		me.columns = objs;
 		
