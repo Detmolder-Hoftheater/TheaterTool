@@ -69,9 +69,15 @@ let $strings := for $elem_2 in $cells
 
    
     
-    let $date := if($elem_2/tei:date != '')then(concat('"', $elem_2/tei:date, '"'))else()
+    let $date := concat('"', $elem_2/ancestor::tei:row/tei:cell/tei:date, '"')
     
-    let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/child::node()[not(self::tei:seg)]))else()
+    let $onecell_row := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/child::node()[not(self::tei:seg)]))else()
+    
+    let $onecell_1 := if($onecell_row != '')then(translate($onecell_row, '[', ''))else()
+    
+    let $onecell_2 := if($onecell_row != '')then(translate($onecell_1, ']', '' ))else()
+    
+    let $onecell := if($onecell_row != '')then(replace($onecell_2, '"', '\\"' ))else()
      
     let $workPersons := $elem_2/tei:persName
     
@@ -83,8 +89,8 @@ let $strings := for $elem_2 in $cells
     
                     return 
                     
-                        if($date != '')
-                        then(concat('{"date":[', $date, ']}'))
+                        if($date = '')
+                            then((:concat('{"date":[', $date, ']}'):))
                         else(
                             if($onecell != '')
                             then(
@@ -92,12 +98,12 @@ let $strings := for $elem_2 in $cells
                                 then(
                                     if($workArray != '')
                                     then(
-                                        concat('{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},',  '{"workpersons":[', $workPerson, ']}')
-                                    )else(concat('{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', ']},', '{"workpersons":[', $workPerson, ']}')))                               
+                                        concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},',  '{"workpersons":[', $workPerson, ']}')
+                                    )else(concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', ']},', '{"workpersons":[', $workPerson, ']}')))                               
                                 else(
                                     if($workArray != '')
-                                    then(concat('{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},', '{"workpersons":[', ']}'))
-                                    else(concat('{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', ']},', '{"workpersons":[', ']}')))
+                                    then(concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},', '{"workpersons":[', ']}'))
+                                    else(concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', ']},', '{"workpersons":[', ']}')))
                                 
                                 
                                 

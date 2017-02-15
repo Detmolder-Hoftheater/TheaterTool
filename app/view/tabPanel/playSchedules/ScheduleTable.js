@@ -64,33 +64,32 @@ for(i = 0; i < me.lineList.rows.length; i++){
                 var oneColumn = one_row.cells[1];
                 var workArray = one_row.cells[2];
                 var dateObject = one_row.cells[0];
-                console.log(workArray.work[0]);
-                var personWorkObject = one_row.cells[1];
+                
+                var personWorkObject = one_row.cells[3];
                 
                 if(typeof workArray !== 'undefined'){
-                    workName = workArray.work[0];
-                    workKey = workArray.work[1];
+                    
+                  
+                    workName = workArray[0];
+                    workKey = workArray[1];
                  
                 }
                 
                 
-                /*if(typeof personWorkObject !== 'undefined'){
-                    if( personObject.length == 0){
-                        personObject[0] = personWorkObject;
+                if(typeof personWorkObject !== 'undefined'){
+                
+                for(j = 0; j < personWorkObject.workpersons.length; j++){
+                    personObject[j] = personWorkObject.workpersons[j];
+                    if(personWorkObject.workpersons.length > personsNumber){
+                        personsNumber = personWorkObject.workpersons.length;
                     }
-                    else{
-                        var arrIndex = personObject.length+1;
-                        personObject[arrIndex] = personWorkObject;
                     }
-                    if(personWorkObject.length > personsNumber){
-                        personsNumber = personWorkObject.length;
-                    }                   
                     
-                }*/
+                }
+                
                 if(typeof dateObject !== 'undefined'){
                     workDate = dateObject.date[0];
                     
-                   
                 }
                 
                // columnText[j] = oneColumn[1].inhalt;
@@ -146,7 +145,7 @@ for(i = 0; i < me.lineList.rows.length; i++){
 		//for(i = 1; i <= columnNumber; i++){
 		    var col = Ext.create('Ext.grid.column.Column', {			
 			xtype: 'gridcolumn',
-			header: 'Werk',
+			header: 'Vorstellungen',
 			flex: 2,			
 			menuDisabled: true,
 			dataIndex: 'details1'
@@ -156,14 +155,14 @@ for(i = 0; i < me.lineList.rows.length; i++){
 		//}
 		
 		
-		    me.detailsColumn = this.createColumn('Werkdetails', 'resources/images/Door-24.png', 'name');
+		    me.detailsColumn = this.createColumn('Werk', 'resources/images/Door-24.png', 'name');
 		    tableColumns = tableColumns+1;
 		    objs[tableColumns] = me.detailsColumn;
 		     me.workDetailsColumn = tableColumns;
 		    
 	
 		
-		//if(isPersonColumn){
+		if(personsNumber > 0){
 		var personArray = new Array();
 		for(var i = 0; i < personsNumber; i++){
 		    var pers = {
@@ -171,18 +170,24 @@ for(i = 0; i < me.lineList.rows.length; i++){
             width: 100,
             dataIndex: 'persons',
              defaultRenderer: 	function(value, meta, record, rowIdx, colIdx, store, view) {
+             
                 if(value.length > 0){
+                
                     for(k = 0; k < value.length; k++){
-                                var onePerson = value[k];
+                                var m = colIdx-tableColumns;
+                                var onePerson = value[m];
+                                
                             if(onePerson !== undefined){
-                                var m = Math.abs((tableColumns-1)-colIdx);
-                                var persName = onePerson[m];
+                                //var m = Math.abs((tableColumns-1)-colIdx);
+                                var persName = onePerson[0];
+                                var persKey = onePerson[1]
+                                
                                 if(persName!== undefined){
-                                 if(persName[1] !== ''){
-                                     return '<div class="personhtml" style="font-size: 11px;" id="'+persName[1]+'_'+persName[0]+'"><img src="resources/images/Door-24.png" style="width:17px;height:16px;">'+ persName[0]+'</div>';
+                                 if(persKey !== ''){
+                                     return '<div class="personhtml" style="font-size: 11px;" id="'+persKey+'_'+persName+'">'+persName+'<img src="resources/images/Door-24.png" style="width:17px;height:16px;">'+'</div>';
                                 
                                  }
-                                return '<div style="font-size: 11px;">'+ persName[0]+'</div>';
+                                return '<div style="font-size: 11px;">'+ persName+'</div>';
                                 
                                 }
                             }
@@ -237,16 +242,10 @@ for(i = 0; i < me.lineList.rows.length; i++){
         };
         
         personArray[i]=pers
-		//}		
+		}		
 		    var testColumn = Ext.create('Ext.grid.column.Column', {
    header: 'Personen',
-    columns: personArray,
-    xtype: 'gridcolumn',
-			
-			flex: 2,			
-			menuDisabled: true
-			//dataIndex: 'details1'
-    
+    columns: personArray
 		});
 		
 		    tableColumns = tableColumns+1;
