@@ -4,7 +4,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelDetails', {
     flex: 1,
     border: false,
     //bodyPadding:15,
-       
+    
     personSection: null,
     planSection: null,
     detailSection: null,

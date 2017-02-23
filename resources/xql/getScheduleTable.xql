@@ -77,7 +77,9 @@ let $strings := for $elem_2 in $cells
     
     let $onecell_2 := if($onecell_row != '')then(translate($onecell_1, ']', '' ))else()
     
-    let $onecell := if($onecell_row != '')then(replace($onecell_2, '"', '\\"' ))else()
+    let $onecell_3 := if($onecell_row != '')then(replace($onecell_2, '"', '\\"' ))else()
+    
+    let $onecell := if($onecell_row != '')then(replace($onecell_3, ',', '' ))else()
      
     let $workPersons := $elem_2/tei:persName
     

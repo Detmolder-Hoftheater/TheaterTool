@@ -133,7 +133,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
         var col = Ext.create('Ext.grid.column.Column', {
             xtype: 'gridcolumn',
             header: 'Vorstellungen',
-            flex: 2,
+            flex: 1,           
             menuDisabled: true,
             dataIndex: 'details1'
         });
@@ -152,7 +152,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
             for (var i = 0; i < workNumber; i++) {
                 var pers = {
                     text: 'Werkdetails',
-                    width: 100,
+                    width: 150,                 
                     dataIndex: 'works',
                     defaultRenderer: function (value, meta, record, rowIdx, colIdx, store, view) {
                         
@@ -264,7 +264,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
             for (var i = 0; i < personsNumber; i++) {
                 var pers = {
                     text: 'Persondetails',
-                    width: 100,
+                    width: 120,
                     dataIndex: 'persons',
                     defaultRenderer: function (value, meta, record, rowIdx, colIdx, store, view) {
                         
