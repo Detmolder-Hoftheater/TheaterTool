@@ -79,7 +79,7 @@ me.pageSpinner,
     autoEl: {
         tag: 'a',
         href: 'http://hoftheater-detmold.de/'+folderForEO,
-        html: 'Vertaktung mit Edirom Online',
+        html: 'Zur Erschließung mit Edirom Online',
 		target: "_blank"
     }
 }
