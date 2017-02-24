@@ -170,7 +170,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                                     
                                     if (workName !== undefined) {
                                         if (workKey !== '') {
-                                            return '<div class="wokrhtml" style="font-size: 11px;" id="' + workKey + '_' + workName + '">' + workName + '<img src="resources/images/Door-24.png" style="width:17px;height:16px;">' + '</div>';
+                                            return '<div class="workhtml" style="font-size: 11px;" id="' + workKey + '_' + workName + '">' + workName + '<img src="resources/images/Door-24.png" style="width:17px;height:16px;">' + '</div>';
                                         }
                                         return '<div style="font-size: 11px;">' + workName + '</div>';
                                     }
@@ -190,14 +190,18 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                                 
                                 var toolBarGlobal = Ext.getCmp('toolbar');
                                 var historyButton = Ext.getCmp('historyButton');
-                                // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
-                                //if(!isHistoryItemExist){
+                                
+                                var workIcon = '';
+                                if (extWorkKeys.indexOf(personId) > -1) {
+                                     workIcon = 'resources/images/BookBlau-16.png';
+                                } else {
+                                    workIcon = 'resources/images/Books1-17.png';
+                                }
+                               
                                 var menuItem = historyButton.menu.add({
-                                    text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
+                                    text: '<font style="color:gray;">' + personName + '</font>', icon: workIcon, dbkey: personId
                                 });
-                                
-                                //}
-                                
+                               
                                 var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
                                 var existItems = navTreeGlobal.items;
                                 var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId, menuItem.id);
@@ -205,11 +209,13 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                                     
                                     var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                                         title: '<font style="color:gray;">' + personName + '</font>',
-                                        icon: 'resources/images/Mask-19.png'
+                                        icon: workIcon
                                     });
-                                    var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                                        dbkey: personId
-                                    });
+                                    
+                                     var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
+                                        selection: personId, isSelected: true
+                                     });
+                                    
                                     personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                                     repertoireTab.add(personDetails);
                                     

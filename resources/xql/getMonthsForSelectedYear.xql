@@ -29,23 +29,22 @@ let $strings := for $elem in ($file, $file_1)
 					
                     return 
 						if($month != '')then(
-                        concat('{name:"',$month,'",',
-							'leaf:"',"true",'"', 
-                            '}')
+                        concat('"',$month,
+							
+                            '"')
 						)else()
     return 
         string-join($strings,',')   
 };
 
 
- (
+ 
+   (
 
-  '[',
+  '{"names":[',
         local:getMonths($file, $file_1),
-      
-    ']'
-   
-      
-   
 
+     ']}'
+   
 )
+      

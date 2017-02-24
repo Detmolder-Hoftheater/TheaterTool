@@ -16,11 +16,12 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
         pack: 'start',
         align: 'stretch'
     },
-    autoScroll: true,
+    //autoScroll: true,
     border: false,
     bodyBorder: false,
     //bodyPadding:10,
     flex: 1,
+    //autoScroll: true,
     
     repertoireTab: null,
     
