@@ -151,8 +151,8 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
             var workArray = new Array();
             for (var i = 0; i < workNumber; i++) {
                 var pers = {
-                    text: 'Werkdetails',
-                    width: 150,                 
+                    text: 'Werk',
+                    width: 180,                 
                     dataIndex: 'works',
                     defaultRenderer: function (value, meta, record, rowIdx, colIdx, store, view) {
                         
@@ -269,7 +269,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
             var personArray = new Array();
             for (var i = 0; i < personsNumber; i++) {
                 var pers = {
-                    text: 'Persondetails',
+                    text: 'Person',
                     width: 120,
                     dataIndex: 'persons',
                     defaultRenderer: function (value, meta, record, rowIdx, colIdx, store, view) {

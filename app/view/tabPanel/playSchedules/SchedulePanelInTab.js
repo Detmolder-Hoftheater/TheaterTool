@@ -3,7 +3,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
     
     flex: 1,
     border: true,
-    bodyPadding:15,
+    //bodyPadding:15,
     
     autoScroll: true,
     

@@ -15,6 +15,9 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelDetails', {
     revenueSection: null,
     issueSection: null,
     
+    collapsible: true,
+    //collapsed: true,
+    
     /*layout: {
     type: 'vbox',
     pack: 'start',
@@ -32,14 +35,17 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelDetails', {
     initComponent: function () {
         
         var me = this;
-        
-        me.detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-            month: me.month, year: me.year
+                
+       
+               
+         me.detailSection_1 = new TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule({
+            month: me.month, year: me.year, value: 2
         });
         
-        me.detailSection_1 = new TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule({
-            month: me.month, year: me.year
+         me.detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+            month: me.month, year: me.year, xmlSection: me.detailSection_1, value: 2
         });
+       
         
         me.items =[
         //			{

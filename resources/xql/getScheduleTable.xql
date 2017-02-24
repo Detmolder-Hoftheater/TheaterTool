@@ -100,8 +100,8 @@ let $strings := for $elem_2 in $cells
                                 then(
                                     if($workArray != '')
                                     then(
-                                        concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},',  '{"workpersons":[', $workPerson, ']}')
-                                    )else(concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', ']},', '{"workpersons":[', $workPerson, ']}')))                               
+                                        concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},',  '{"workpersons":[', normalize-space($workPerson), ']}')
+                                    )else(concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', ']},', '{"workpersons":[', normalize-space($workPerson), ']}')))                               
                                 else(
                                     if($workArray != '')
                                     then(concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},', '{"workpersons":[', ']}'))

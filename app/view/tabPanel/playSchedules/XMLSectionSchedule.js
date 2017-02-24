@@ -2,11 +2,8 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule', {
-    //extend: 'Ext.form.FieldSet',
     extend: 'Ext.panel.Panel',
-    /*collapsible: true,
-    collapsed: true,*/
-    
+   
     title: '<b style="color:gray;">XML</b>',
     
     border: true,
@@ -14,13 +11,15 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule', {
     bodyBorder: true,
     bodyPadding: 10,
     autoScroll: true,
-    
+  
     
     repertoireTab: null,
     
     month: null,
     monthNumber: null,
     year: null,
+    
+    sectionSize: null,
     
     initComponent: function () {
         
@@ -70,11 +69,15 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule', {
                     },
                     success: function (response) {
                         me.setTextInfo(response.responseText);
+                        //console.log( me.sectionSize);
+                       // me.height = me.sectionSize;
                         //me.repertoireTab.setTextInfo(response.responseText);
                     }
                 });
             }
         },
+        
+        
         
         me.callParent();
     },
@@ -93,5 +96,10 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule', {
         var tmp = hljs.highlightAuto($(tempDiv).html()).value;
         
         $('#' + me.id + '-innerCt').html('<pre>' + tmp + '</pre>');
+        me.setHeight(me.sectionSize);
+    },
+    
+    setSectionSize: function(sectionSize){
+        this.sectionSize = sectionSize;
     }
 });

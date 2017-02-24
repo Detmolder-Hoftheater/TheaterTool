@@ -29,6 +29,8 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     monthNumber: null,
     year: null,
     
+    xmlSection: null,
+    
     initComponent: function () {
         
         var me = this;
@@ -78,7 +80,8 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                 });
                 scheduleTable.setTablePanel(me);
                 me.add(scheduleTable);
-                
+                me.xmlSection.setSectionSize(me.getHeight());
+               //console.log( me.getHeight());
                 //me.setTextInfo(response.responseText);
             }
         });
