@@ -19,7 +19,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     //autoScroll: true,
     border: false,
     bodyBorder: false,
-    //bodyPadding:10,
+   // bodyPadding:10,
     flex: 1,
     //autoScroll: true,
     
@@ -29,7 +29,12 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     monthNumber: null,
     year: null,
     
+    tableheight: null,
+	tablewidth: null,
+    
     xmlSection: null,
+    
+    scheduleTable: null,
     
     initComponent: function () {
         
@@ -39,29 +44,38 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
         style: {
         background: '#dcdcdc'
         },
-        height: 33,
+       border: false,
+        height: 30,
         items:[{xtype: 'button',
         		text: '<font size = "1"><b style="color:gray;">Schow XML</b></font>',
-        		//'<b style="color:gray;">Schow XML</b>',
         		style: {
 					borderRight: '1px solid gray',
 					borderLeft: '1px solid gray',
 					 borderTop: '1px solid gray',
 					 borderBottom: '1px solid gray'
 				},
-        		margin: '0 3 0 5'
+        		margin: '0 3 0 5',
+        		listeners: {
+					click: function (item, e, eOpts) {
+					   var win = new TheaterTool.view.tabPanel.playSchedules.XMLWindow({
+					       title: '<font style="color:gray;">XML for ' + me.title+', '+ me.year+ '</font>',
+					        month: me.month, 
+					        year: me.year,
+					        icon: 'resources/images/Calendar-17.png'
+					        });
+					   win.show();
+					}
+				}
         		},
         		{xtype: 'button',
         		text: '<font size = "1"><b style="color:gray;">Load XML</b></font>',
         		disabled: true,
-        		//'<b style="color:gray;">Load XML</b>',
         		style: {
 					borderRight: '1px solid gray',
 					borderLeft: '1px solid gray',
 					 borderTop: '1px solid gray',
 					 borderBottom: '1px solid gray'
 				}
-        		//margin: '0 5 0 10'
         		}
         		]
         };
@@ -106,11 +120,13 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                 
                 var json = jQuery.parseJSON(response.responseText);
                 
-                var scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({
+                me.scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({
                     lineList: json
                 });
-                scheduleTable.setTablePanel(me);
-                me.add(scheduleTable);
+                me.scheduleTable.setTablePanel(me);
+                me.add(me.scheduleTable);
+                 me.tableheight =  me.scheduleTable.height;
+	             me.tablewidth =  me.scheduleTable.width;
                // me.xmlSection.setSectionSize(me.getHeight());
                 //console.log( me.getHeight());
                 //me.setTextInfo(response.responseText);

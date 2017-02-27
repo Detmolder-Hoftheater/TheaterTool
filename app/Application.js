@@ -48,6 +48,7 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.repertoire.beat.FacsimileView',
     'tabPanel.HTTabPanel',
     'tabPanel.HTTab',
+    'tabPanel.playSchedules.XMLWindow',
     'tabPanel.repertoire.RepertoireAlphNavigation',
     'tabPanel.repertoire.RepertoireDetailsPanel',
     'tabPanel.repertoire.work.WorkDetailsSection',
