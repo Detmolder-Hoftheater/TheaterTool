@@ -10,9 +10,13 @@ bodyBorder: true,
 bodyPadding:10,
 autoScroll: true,*/
 
-border: true,
+
+/*border: true,
 	flex:1,
 bodyBorder: true,
+bodyPadding:10,
+autoScroll: true,*/
+
 bodyPadding:10,
 autoScroll: true,
 
@@ -35,14 +39,12 @@ autoScroll: true,
               
             },
             success: function(response){
-				//var idtemp = me.repertoireTab.getTextTab().id;
-
-				//$('#'+me.id).html(response.responseText);
-				me.setTextInfo(response.responseText);
- 				//me.repertoireTab.setTextInfo(response.responseText);
-				//me.repertoireTab.setTextInfo1(response.responseText);
-			//$('#'+me.id+'-innerCt').html(response.responseText);
-
+				// for Firefox
+				var htmlText = response.responseText;
+				me.html = htmlText;
+				// for Safari
+			     me.setTextInfo(htmlText);
+			
      		}
          
         });
@@ -52,6 +54,7 @@ autoScroll: true,
         },
 
 setTextInfo: function(infoText){
+
 		$('#'+this.id+'-innerCt').html(infoText);
 
 	}
