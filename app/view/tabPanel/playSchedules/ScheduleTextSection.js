@@ -3,8 +3,8 @@
  */
 Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     extend: 'Ext.panel.Panel',
-    title: '<b style="color:gray;">Übersicht</b>',
-    
+    //title: '<b style="color:gray;">Übersicht</b>',
+    collapsible: true,
     /*border: true,
     flex:1,
     bodyBorder: true,
@@ -34,6 +34,37 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     initComponent: function () {
         
         var me = this;
+        
+        me.tbar = {
+        style: {
+        background: '#dcdcdc'
+        },
+        height: 33,
+        items:[{xtype: 'button',
+        		text: '<font size = "1"><b style="color:gray;">Schow XML</b></font>',
+        		//'<b style="color:gray;">Schow XML</b>',
+        		style: {
+					borderRight: '1px solid gray',
+					borderLeft: '1px solid gray',
+					 borderTop: '1px solid gray',
+					 borderBottom: '1px solid gray'
+				},
+        		margin: '0 3 0 5'
+        		},
+        		{xtype: 'button',
+        		text: '<font size = "1"><b style="color:gray;">Load XML</b></font>',
+        		disabled: true,
+        		//'<b style="color:gray;">Load XML</b>',
+        		style: {
+					borderRight: '1px solid gray',
+					borderLeft: '1px solid gray',
+					 borderTop: '1px solid gray',
+					 borderBottom: '1px solid gray'
+				}
+        		//margin: '0 5 0 10'
+        		}
+        		]
+        };
         
         /*me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel();*/
         
@@ -80,8 +111,8 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                 });
                 scheduleTable.setTablePanel(me);
                 me.add(scheduleTable);
-                me.xmlSection.setSectionSize(me.getHeight());
-               //console.log( me.getHeight());
+               // me.xmlSection.setSectionSize(me.getHeight());
+                //console.log( me.getHeight());
                 //me.setTextInfo(response.responseText);
             }
         });
