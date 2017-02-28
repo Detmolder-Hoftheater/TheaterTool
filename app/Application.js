@@ -32,6 +32,7 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.repertoire.work.IssueTable',
     'tabPanel.repertoire.work.TabTextWork',
     'tabPanel.repertoire.work.TabXMLWork',
+    'tabPanel.repertoire.work.WorkPanelInTab',
     'tabPanel.repertoire.rism.RISMDetailsTabPanel',
     'tabPanel.repertoire.rism.RISMDetailsSection',
     'tabPanel.repertoire.source.SourceDetailsTabPanel',

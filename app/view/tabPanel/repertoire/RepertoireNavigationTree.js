@@ -124,7 +124,7 @@ selectedWork: null,
 		
 		this.columns =[ {
 			xtype: 'treecolumn',
-			header: '<b style="color:gray;">Werk -> Quelle -> Faksimiles/Incipits</b>',
+			header: '<b style="color:gray;">Werk -> Quelle -> Incipits/Faksimiles</b>',
 			flex: 2,
 			sortable: true,
 			menuDisabled: true,
