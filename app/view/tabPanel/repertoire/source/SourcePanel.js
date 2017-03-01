@@ -40,7 +40,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
         });
         //console.log(this.werkTitle);
         if (storeField.indexOf(me.werkTitle) > -1 && me.werkTitle === 'Aschenbrödel') {
-            me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection();
+            me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
+                path:'Einleitung_Mus-n120_Aschenbroedel'
+            });
+        }
+        else if(storeField.indexOf(me.werkTitle) > -1 && me.werkTitle === 'Der Bettelstudent'){
+            me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
+                path:'Einleitung_Mus-n237_Bettelstudent'
+            });
         }
         
         if (me.overviewSection !== null) {

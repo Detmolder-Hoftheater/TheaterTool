@@ -3,19 +3,12 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.XMLWindow', {
 	
 	border: false,
 	height: 500, 
-	width: 1000,
+	width: 500,
 	maximizable: true,
-	//minimizable: true,
-   // flex:1,
+	
 	autoScroll: true,
-	//closable: true,
-
-/*layout: {
-					type: 'vbox',
-					pack: 'start',
-					align: 'stretch'
-				},*/
-				bodyStyle:{"background-color":"white"},
+	
+	bodyStyle:{"background-color":"white"},
 	
 
 	 month: null, 

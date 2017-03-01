@@ -22,7 +22,8 @@ autoScroll: true,
 
     title: '<b style="color:gray;">Beschreibung</b>',
 
-    
+    path: null,
+      
     repertoireTab:null,
 
     initComponent: function() {
@@ -34,9 +35,7 @@ autoScroll: true,
  			url: 'resources/xql/getOverviewSource.xql',
             method: 'GET',
             params: {
-                month: me.monthNumber,
-				year: me.year
-              
+                path: me.path
             },
             success: function(response){
 				// for Firefox

@@ -10,12 +10,9 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";
 
-(:let $dbkey := request:get-parameter('dbkey', ''):)
-(:let $year := request:get-parameter('year', ''):)
+let $filename := request:get-parameter('path', '')
 
-let $uri := concat('/db/apps/theater-data/beschreibung/', 'Einleitung_Mus-n120_Aschenbroedel', '.xml')
-
-(:, $year, '/', $year, '_', $month, '.xml'):)
+let $uri := concat('/db/apps/theater-data/beschreibung/', $filename, '.xml')
 
 let $doc := eutil:getDoc($uri)/tei:TEI/tei:text
 
