@@ -27,8 +27,7 @@ declare variable $schedule := for $elem in ($file, $file_1)
                     if($elem/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
                      and $elem/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title//tei:date[@when = $selectedDate]
                     )then($elem)else();
- 
- 
+                    
  
 declare function local:getTableInformation($schedule) {
 
@@ -71,7 +70,7 @@ let $strings := for $elem_2 in $cells
     
     let $date := concat('"', $elem_2/ancestor::tei:row/tei:cell/tei:date, '"')
     
-    let $onecell_row := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/child::node()[not(self::tei:seg)]))else()
+   (: let $onecell_row := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/child::node()[not(self::tei:seg)]))else()
     
     let $onecell_1 := if($onecell_row != '')then(translate($onecell_row, '[', ''))else()
     
@@ -79,7 +78,15 @@ let $strings := for $elem_2 in $cells
     
     let $onecell_3 := if($onecell_row != '')then(replace($onecell_2, '"', '\\"' ))else()
     
-    let $onecell := if($onecell_row != '')then(replace($onecell_3, ',', '' ))else()
+    let $onecell := if($onecell_row != '')then(replace($onecell_3, ',', '' ))else():)
+    
+    (:let $onecell := local:getCellContent($elem_2/following-sibling::*[not(self::tei:seg)]):)
+    
+    (:let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/self))else():)
+    
+    (:let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2[not(self::tei:seg)]/child::*))else():)
+    let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2[not(self::tei:seg)]/node()))else()
+    
      
     let $workPersons := $elem_2/tei:persName
     
@@ -96,19 +103,18 @@ let $strings := for $elem_2 in $cells
                         else(
                             if($onecell != '')
                             then(
-                                if($workPerson != '')
+                            concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']}')
+                                 
+                                (:if($workPerson != '')
                                 then(
                                     if($workArray != '')
                                     then(
-                                        concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},',  '{"workpersons":[', normalize-space($workPerson), ']}')
-                                    )else(concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', ']},', '{"workpersons":[', normalize-space($workPerson), ']}')))                               
+                                        concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']},', '{"work":[', $workArray, ']},',  '{"workpersons":[', normalize-space($workPerson), ']}')
+                                    )else(concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']},', '{"work":[', ']},', '{"workpersons":[', normalize-space($workPerson), ']}')))                               
                                 else(
                                     if($workArray != '')
-                                    then(concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', $workArray, ']},', '{"workpersons":[', ']}'))
-                                    else(concat('{"date":[', $date, ']},','{"inhalt":["', normalize-space($onecell), '"]},', '{"work":[', ']},', '{"workpersons":[', ']}')))
-                                
-                                
-                                
+                                    then(concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']},', '{"work":[', $workArray, ']},', '{"workpersons":[', ']}'))
+                                    else(concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']},', '{"work":[', ']},', '{"workpersons":[', ']}'))):)
                                 
                                 
                                 )
@@ -162,17 +168,61 @@ declare function local:getCellContent($elem_2) {
 
 let $strings := for $elem in $elem_2
 
-    let $content := $elem
+   (: let $content := if($elem/tei:rs != '')then(
+        if($elem/tei:rs[@type ='work'])then(
+            
+            local:getWork($elem/tei:rs[@type ='work'])
+        )
+        else(
+          if($elem_2/tei:persName != '')then(
+                local:getWorkPersons($elem_2/tei:persName)
+          )else()
+        
+        )
+    
+    )else($elem/node()):)
+    
+   
+    
+     let $content := if($elem[@type ='work'])then(
+           (: $elem:)
+            concat('{"work":["', normalize-space($elem), '"', ', "', $elem/@key, '"]}')
+            
+            (:local:getWork($elem/tei:rs[@type ='work']):)
+        )
+        else(
+          
+        )
+    
+    
+    
+    let  $content_2 :=  if($elem/self::tei:persName)then(
+             (:$elem:)
+             concat('{"workpersons":["', $elem, '"', ', "', $elem/@key, '"]}')
+             
+                (:local:getWorkPersons($elem_2/tei:persName):)
+          )else()
+          
+   let  $content_3 := concat('{"celltext":["', normalize-space($elem[not(self::tei:persName) and not(self::tei:seg) and not($elem[@type ='work'])]), '"]}')
+  
+    (:$elem/node():)
     (:$elem(node()[not(self::tei:seg)]):)
     (:$elem/node()[not(self::tei:seg)]:)
     (:$elem/child::node()[not(self::tei:seg)]:)
     
-    
+   
     
    (:self::tei:rs or self::tei:persName:)
     
                     return 
-                       $content
+                    if($content != '')
+                    then($content)                   
+                    else(
+                        if($content_2 != '')then($content_2)else($content_3)
+                    
+                    )
+                    
+                      (:concat($content, ',', $content_2, ',', $content_3):)
                  
                                       
     return 
@@ -180,11 +230,11 @@ let $strings := for $elem in $elem_2
  
 };
                     
-                    
-
-(
+ (                   
+ (:'{[',$schedule/tei:TEI/tei:teiHeader,']},',:)
 
   '{"rows":[',
+ 
         local:getTableInformation($schedule),
 
      ']}'

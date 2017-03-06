@@ -116,12 +116,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                      
                     }
                 });
-					
-					
-					
-					
-					
-					
+				
 					   
 					}
 				}
