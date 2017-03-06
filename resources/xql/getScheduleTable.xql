@@ -203,7 +203,11 @@ let $strings := for $elem in $elem_2
                 (:local:getWorkPersons($elem_2/tei:persName):)
           )else()
           
-   let  $content_3 := concat('{"celltext":["', normalize-space($elem[not(self::tei:persName) and not(self::tei:seg) and not($elem[@type ='work'])]), '"]}')
+    let  $content_3_0 := normalize-space($elem[not(self::tei:persName) and not(self::tei:seg) and not($elem[@type ='work'])])  
+    
+    let  $content_3_1 := replace($content_3_0, '"', '\\"' )
+          
+   let  $content_3 := concat('{"celltext":["', $content_3_1, '"]}')
   
     (:$elem/node():)
     (:$elem(node()[not(self::tei:seg)]):)
@@ -218,7 +222,7 @@ let $strings := for $elem in $elem_2
                     if($content != '')
                     then($content)                   
                     else(
-                        if($content_2 != '')then($content_2)else($content_3)
+                        if($content_2 != '')then(normalize-space($content_2))else($content_3)
                     
                     )
                     

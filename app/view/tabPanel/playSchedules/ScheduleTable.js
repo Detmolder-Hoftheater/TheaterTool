@@ -28,15 +28,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
     //selType: 'cellmodel',
     
     //reserveScrollbar: true,
-    myfunction: function(){
-        console.log("Es klappt?!");
-    },
-    
-    openOnImageClick: function( aElement ) {
-        console.log('Image Clicked');
-    }  ,
-    
-    
+   
     initComponent: function () {
         
         var me = this;
@@ -59,7 +51,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                 var presentationText = '';
                 var workDate = one_row.cells[0];
                 var workObject = one_row.cells[1];
-                for(j = 0; j < workObject.inhalt.length; j++){
+                /*for(j = 0; j < workObject.inhalt.length; j++){
                  var tail = workObject.inhalt[j];
                   //console.log(tail.work);
                  if(typeof tail.celltext !== 'undefined'){
@@ -67,82 +59,26 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                      
                  }
                  else if(typeof tail.work !== 'undefined'){
-                 //console.log(tail.work);
+                 
                      presentationText = presentationText + tail.work[0]+' ';
                      if(tail.work[1] !== ''){
-                    // console.log(tail.work[1]);
-                         presentationText = presentationText + /*'<img src="resources/images/Door-24.png" style="width:15px;height:14px;vertical-align:middle;">'*/
+                    
+                         presentationText = presentationText + /\*'<img src="resources/images/Door-24.png" style="width:15px;height:14px;vertical-align:middle;">'*\/
                      '<img onclick="openOnImageClick()" class="workhtml" src="resources/images/Door-24.png" id="' + tail.work[1] + '" style="width:15px;height:14px;vertical-align:middle;">'+' ';
                       
-                        /*var imges = document.getElementsByTagName('img')
-                        for(k = 0; k < imges.length; k++){
-                        var im = imges[k];
-                        console.log('++++++++++++++++++++++++');
-                         if(im.id === tail.work[1]){
-                             console.log('++++++++++++++++++++++++');
-                             break;
-                             
-                         }
-                            
-                        }*/
-                        
-                        /*document.getElementsByClassName('workhtml').addEventListener('click', function (e) {
-                        console.log("aaaaaaaaaaa");
-    
-  });                */
+                       
                      }
                  }
                  else if(typeof tail.workpersons !== 'undefined'){
-                 //console.log(tail.workpersons);
+                 
                      presentationText = presentationText + tail.workpersons[0]+' ';
                      if(tail.workpersons[1] !== ''){
                          presentationText = presentationText + '<img class="personhtml" src="resources/images/Door-24.png" id="' + tail.workpersons[1] + '" style="width:15px;height:14px;vertical-align:middle;">'+' ';
                      }
                  }
                     
-                }
-                
-                /*var workName = '';
-                var workKey = '';
-                var workDetails_1 = '';
-                var detailsColumnNumber = 1;
-                var workDetails_2 = '';
-                var workDetails_3 = '';
-               
-                var personObject = new Array();
-                var columnText = new Array();
-                
-                var oneColumn = one_row.cells[1];
-                var workArray = one_row.cells[2];
-                var dateObject = one_row.cells[0];
-                
-                var personWorkObject = one_row.cells[3];
-                
-                if (typeof workArray !== 'undefined') {
-                    
-                    for (k = 0; k < workArray.work.length; k++) {
-                        workObject[k] = workArray.work[k];
-                        if (workArray.work.length > workNumber) {
-                            workNumber = workArray.work.length;
-                        }
-                        
-                    }
-                   
-                    if (typeof personWorkObject !== 'undefined') {
-                        
-                        for (j = 0; j < personWorkObject.workpersons.length; j++) {
-                            personObject[j] = personWorkObject.workpersons[j];
-                            if (personWorkObject.workpersons.length > personsNumber) {
-                                personsNumber = personWorkObject.workpersons.length;
-                            }
-                        }
-                    }*/
-                    
-                   /* if (typeof dateObject !== 'undefined') {
-                        workDate = dateObject.date;
-                    }*/
-                    
-                    
+                }*/
+                  
                     var one_line = Ext.create('TheaterTool.model.Theaterakte', {
                         works: workObject,
                         // workKey: workKey,
@@ -160,7 +96,6 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
         
         
         var tableColumns = -1;
-        //var columnNumber = 4;
         
         var colDate = Ext.create('Ext.grid.column.Column', {
             xtype: 'gridcolumn',
@@ -557,28 +492,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
             objs[tableColumns] = testColumn;
         }
         */
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+      
         
         /*if (personsNumber > 0) {
             var personArray = new Array();
@@ -770,9 +684,6 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
             //align: 'center',
             renderer: function (val, metadata, record) {
             var me =this;
-            console.log(val);
-            console.log(metadata);
-            console.log(record);
             var presentationText = '';
                var workObject = record.data.works;
                 for(j = 0; j < workObject.inhalt.length; j++){
@@ -834,63 +745,8 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                 //metadata.style = 'cursor: pointer;';
                // return val;
                 
-            },
-            
-            
-            handler: function (grid, rowIndex, colIndex) {
-               
-                var rec = grid.getStore().getAt(rowIndex);
-               
-               
-                /*
-                if (colIndex === me.workDetailsColumn && rec.data.workKey != '') {
-                    var dbkey = rec.data.workKey;
-                    if (dbkey != '') {
-                        
-                        var workIcon = '';
-                        if (extWorkKeys.indexOf('dbkey') > -1) {
-                            workIcon = 'resources/images/BookBlau-16.png';
-                        } else {
-                            workIcon = 'resources/images/Books1-17.png';
-                        }
-                        
-                        
-                        var toolBarGlobal = Ext.getCmp('toolbar');
-                        var historyButton = Ext.getCmp('historyButton');
-                        // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, dbkey);
-                        //  if(!isHistoryItemExist){
-                        var menuItem = historyButton.menu.add({
-                            text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: workIcon, dbkey: dbkey
-                        });
-                        
-                        //  }
-                        
-                        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
-                        var existItems = navTreeGlobal.items;
-                        var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey, menuItem.id);
-                        if (! isFoundItem) {
-                            
-                            
-                            var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                                title: '<font style="color:gray;">' + rec.data.name + '</font>',
-                                icon: workIcon
-                            });
-                            var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
-                                selection: dbkey, isSelected: true
-                            });
-                            repertoireTab.add(personDetails);
-                            
-                            repertoireTab.setActiveMenuItemId(menuItem.id);
-                            repertoireTab.setMenuAdded(true);
-                            
-                            navTreeGlobal.add(repertoireTab);
-                            navTreeGlobal.setActiveTab(repertoireTab);
-                            navTreeGlobal.fireEvent('render', Ext.getCmp('tabpanel'));
-                        }
-                    }
-                }
-*/            }
-        });
+            }
+            });
         return eColumn;
     },
     
