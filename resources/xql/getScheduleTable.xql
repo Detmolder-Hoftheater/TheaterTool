@@ -68,7 +68,7 @@ let $strings := for $elem_2 in $cells
 
    
     
-    let $date := concat('"', $elem_2/ancestor::tei:row/tei:cell/tei:date, '"')
+    let $date := concat('"', replace($elem_2/ancestor::tei:row/tei:cell/tei:date, '"', '\\"' ), '"')
     
    (: let $onecell_row := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/child::node()[not(self::tei:seg)]))else()
     
