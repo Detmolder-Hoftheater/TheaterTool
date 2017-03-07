@@ -71,6 +71,7 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.revenue.RevenuePanelDetails',
     'tabPanel.revenue.RevenueMenuItemTree',
     'tabPanel.revenue.RevenuePanelInTab',
+    'tabPanel.revenue.RevenueTable',
     'tabPanel.issue.IssuePanelInTab',
     'tabPanel.issue.IssueMenuItemTree',
     'tabPanel.issue.IssuePanelDetails',

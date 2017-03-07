@@ -1,7 +1,7 @@
 Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
     extend: 'Ext.panel.Panel',
     
-    layout: {
+    /*layout: {
         type: 'vbox',
         pack: 'start',
         align: 'stretch'
@@ -12,12 +12,77 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
     
     navButton: null,
     year: null,
+    monat: null,*/
+       
+    flex: 1,
+    border: true,
+    bodyBorder: false,
+   
+    autoScroll: true,
+   
+    year: null,
     monat: null,
+    workPanel: null,
+    
+    
+    
     
     initComponent: function () {
         var me = this;
         
-        var navTree = new TheaterTool.view.tabPanel.revenue.RevenueMenuItemTree({
+        Ext.Ajax.request({
+            url: 'resources/xql/getMonthsByRevenueYear.xql',
+            method: 'GET',
+            params: {
+                selectedYear: me.year
+            },
+            success: function (response) {
+                
+                var json = jQuery.parseJSON(response.responseText);
+                
+                var objs = new Array();
+                for (i = 0; i < json.names.length; i++) {
+                    var name = json.names[i];
+                    if (name === 'Januar') {
+                        objs[1] = name;
+                    } else if (name === 'Februar') {
+                        objs[2] = name;
+                    } else if (name === 'März') {
+                        objs[3] = name;
+                    } else if (name === 'April') {
+                        objs[4] = name;
+                    } else if (name === 'Mai') {
+                        objs[5] = name;
+                    } else if (name === 'Juni') {
+                        objs[6] = name;
+                    } else if (name === 'Juli') {
+                        objs[7] = name;
+                    } else if (name === 'August') {
+                        objs[8] = name;
+                    } else if (name === 'September') {
+                        objs[9] = name;
+                    } else if (name === 'Oktober') {
+                        objs[10] = name;
+                    } else if (name === 'November') {
+                        objs[11] = name;
+                    } else {
+                        objs[12] = name;
+                    }
+                }
+                
+                for (i = 0; i < objs.length; i++) {
+                    if (objs[i] !== undefined) {
+                    
+                      var detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({
+            month: objs[i], year: me.year, value: 2, title: '<b style="color:gray;">'+objs[i]+'</b>'
+        });
+        me.add(detailSection);
+                    }
+                }
+            }
+        });
+        
+       /* var navTree = new TheaterTool.view.tabPanel.revenue.RevenueMenuItemTree({
             year: me.year
         });
         
@@ -44,9 +109,9 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
             },
             height: 33,
             items:[me.navButton]
-        };
+        };*/
         
-        this.callParent();
+        me.callParent();
     },
     
     createButton: function (navTree) {       

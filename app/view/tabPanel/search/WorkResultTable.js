@@ -189,7 +189,11 @@ for(i = 0; i < me.worksList.length; i++){
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',
 						icon: 'resources/images/BookBlau-16.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: dbkey, isSelected: true});
+					//var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: dbkey, isSelected: true});
+					  var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
+                            selection: dbkey, isSelected: true
+                        });
+					
 					repertoireTab.add(personDetails);
 
 					repertoireTab.setActiveMenuItemId(menuItem.id);
