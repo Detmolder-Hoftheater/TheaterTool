@@ -60,19 +60,24 @@ let $strings := for $elem_2 in $cells
     let $date := concat('"', replace($elem_2/ancestor::tei:row/tei:cell/tei:date, '"', '\\"' ), '"')
     
     let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
-        
+    
+    let $rthlr := $elem_2/ancestor::tei:row/tei:cell/tei:measure[@unit='Rthlr']
+    
+    let $ggr := $elem_2/ancestor::tei:row/tei:cell/tei:measure[@unit='ggr']
+    
+    let $d := $elem_2/ancestor::tei:row/tei:cell/tei:measure[@unit='d']
+           
                     return 
                     
                         if($date = '')
                             then()
                         else(
                             if($onecell != '')
-                            then(concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']}'))
+                            then(concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']},',
+                                '{"rthlr":["', $rthlr, '"]},', '{"ggr":["', $ggr, '"]},', '{"d":["', $d, '"]}' ))
                             else()
                         )
-                      
-                 
-                                      
+                                                            
     return 
         string-join($strings,',')
  
