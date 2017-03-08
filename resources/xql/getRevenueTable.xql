@@ -61,11 +61,12 @@ let $strings := for $elem_2 in $cells
     
     let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
     
-    let $rthlr := $elem_2/ancestor::tei:row/tei:cell/tei:measure[@unit='Rthlr']
+    let $rthlr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']
+   (: $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']:)
     
-    let $ggr := $elem_2/ancestor::tei:row/tei:cell/tei:measure[@unit='ggr']
+    let $ggr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/child::tei:measure[@unit='ggr']
     
-    let $d := $elem_2/ancestor::tei:row/tei:cell/tei:measure[@unit='d']
+    let $d := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/child::tei:measure[@unit='d']
            
                     return 
                     

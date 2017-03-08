@@ -43,9 +43,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTable', {
                 var rthlrObject = one_row.cells[2];
                 var ggrObject = one_row.cells[3];
                 var dObject = one_row.cells[4];
-                
-                console.log(rthlrObject.rthlr[0]);
-                
+               
                     var one_line = Ext.create('TheaterTool.model.Theaterakte', {
                         works: workObject,
                         Rthlr: rthlrObject.rthlr[0],
