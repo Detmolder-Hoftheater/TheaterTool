@@ -53,7 +53,7 @@ autoScroll: true,
        border: false,
         height: 30,
         items:[{xtype: 'button',
-        		text: '<font size = "1"><b style="color:gray;">Schow XML</b></font>',
+        		text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
         		style: {
 					borderRight: '1px solid gray',
 					borderLeft: '1px solid gray',
@@ -127,7 +127,7 @@ autoScroll: true,
 				}
         		},
         		{xtype: 'button',
-        		text: '<font size = "1"><b style="color:gray;">Load XML</b></font>',
+        		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
         		disabled: true,
         		style: {
 					borderRight: '1px solid gray',

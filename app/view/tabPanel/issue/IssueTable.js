@@ -1,4 +1,4 @@
-Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTable', {
+Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
     extend: 'Ext.grid.Panel',
     requires:[
     'Ext.grid.column.Action',

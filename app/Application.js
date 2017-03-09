@@ -110,6 +110,7 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.WorksTable',
     'tabPanel.issue.FacsimileView',
     'tabPanel.issue.LeafletFacsimile',
+    'tabPanel.issue.IssueTable',
     'tabPanel.link.LinkPanelInTab',
     'tabPanel.zettel.TheaterZettelPanelInTab',
     'tabPanel.persons.PersonDetailsPanel',

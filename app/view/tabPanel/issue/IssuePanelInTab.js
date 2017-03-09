@@ -1,7 +1,7 @@
 Ext.define('TheaterTool.view.tabPanel.issue.IssuePanelInTab', {
     extend: 'Ext.panel.Panel',
     
-    layout: {
+    /*layout: {
         type: 'vbox',
         pack: 'start',
         align: 'stretch'
@@ -12,12 +12,46 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssuePanelInTab', {
     
     navButton: null,
     year: null,
+    issueName: null,*/
+    
+    flex: 1,
+    border: true,
+    bodyBorder: false,
+   
+    autoScroll: true,
+   
+    year: null,
     issueName: null,
+    workPanel: null,
     
     initComponent: function () {
         var me = this;
         
-        var navTree = new TheaterTool.view.tabPanel.issue.IssueMenuItemTree({ year: me.year });
+        Ext.Ajax.request({
+            url: 'resources/xql/getIssueNames.xql',
+            method: 'GET',
+            params: {
+                selectedYear: me.year
+            },
+            success: function (response) {
+                
+                var json = jQuery.parseJSON(response.responseText);
+              
+                for (i = 0; i < json.names.length; i++) {
+                    if (json.names[i] !== undefined) {
+                    
+                      var detailSection = new TheaterTool.view.tabPanel.issue.IssueTextSection({
+            issueName: json.names[i], year: me.year, title: '<b style="color:gray;">'+json.names[i]+'</b>'
+        });
+        me.add(detailSection);
+                    }
+                }
+            }
+        });
+        
+        
+        
+        /*var navTree = new TheaterTool.view.tabPanel.issue.IssueMenuItemTree({ year: me.year });
         var store = new TheaterTool.store.issue.IssueNames();
         store.getProxy().extraParams.selectedYear = me.year;
         store.load();
@@ -42,9 +76,9 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssuePanelInTab', {
             },           
             height: 33,            
             items:[me.navButton]
-        };
+        };*/
         
-        this.callParent();
+        me.callParent();
     },
     
     createButton: function (navTree) {
