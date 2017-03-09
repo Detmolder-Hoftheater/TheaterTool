@@ -59,31 +59,55 @@ let $strings := for $elem_1 in $rows
  
 };
 
+declare function local:getDateContent($dateCells) {
+
+let $strings := for $oneDate in $dateCells
+
+    let $dateContent := $oneDate
+   (: replace($oneDate, '"', '\\"' ):)
+    
+   
+                    return 
+                    $oneDate
+                    (:concat('"', $dateContent, '"'):)
+                    
+    return 
+        string-join($strings,',')
+ 
+};
+
 declare function local:getTableCell($cells) {
 
 let $strings := for $elem_2 in $cells
 
-    let $date := concat('"', replace($elem_2/ancestor::tei:row/tei:cell/tei:date, '"', '\\"' ), '"')
+    let $dateCells:= $elem_2/ancestor::tei:row/tei:cell/tei:date
+
+    let $date := concat('"', local:getDateContent($dateCells), '"')
     
-    let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
+    let $onecell := if($elem_2/tei:persName != '' or $elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
     
-    let $rthlr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']
+    let $rthlr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:persName)]/tei:measure[@unit='Rthlr']
    (: $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']:)
     
-    let $ggr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/child::tei:measure[@unit='ggr']
+    let $ggr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:persName)]/child::tei:measure[@unit='ggr']
     
-    let $d := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/child::tei:measure[@unit='d']
+    let $d := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:persName)]/child::tei:measure[@unit='d']
            
                     return 
+                    if($onecell != '')
+                            then(concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']},',
+                                '{"rthlr":["', $rthlr, '"]},', '{"ggr":["', $ggr, '"]},', '{"d":["', $d, '"]}' ))
+                            else()
                     
-                        if($date = '')
+                    
+                        (:if($date = '' and $onecell = '')
                             then()
                         else(
                             if($onecell != '')
                             then(concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']},',
                                 '{"rthlr":["', $rthlr, '"]},', '{"ggr":["', $ggr, '"]},', '{"d":["', $d, '"]}' ))
                             else()
-                        )
+                        ):)
                                                             
     return 
         string-join($strings,',')
@@ -96,17 +120,14 @@ declare function local:getCellContent($elem_2) {
 let $strings := for $elem in $elem_2
     
      let $content := if($elem[@type ='work'])then(
-           (: $elem:)
-            concat('{"work":["', normalize-space($elem), '"', ', "', $elem/@key, '"]}')
-            
-            (:local:getWork($elem/tei:rs[@type ='work']):)
+            concat('{"work":["', normalize-space(replace($elem, '"', '\\"' )), '"', ', "', $elem/@key, '"]}')
         )
         else(
           
         )
     
     let  $content_2 :=  if($elem/self::tei:persName)then(
-             concat('{"workpersons":["', $elem, '"', ', "', $elem/@key, '"]}')
+             concat('{"workpersons":["', replace($elem, '"', '\\"' ), '"', ', "', $elem/@key, '"]}')
           )else()
           
     let  $content_3_0 := normalize-space($elem[not(self::tei:persName) and not($elem[@type ='work'])])  

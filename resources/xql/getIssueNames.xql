@@ -29,7 +29,7 @@ declare variable $file := collection($path);
 declare variable $oneFile := $file//tei:TEI/tei:teiHeader;
 
 
-declare function local:jsonifySlurs($oneFile) {
+declare function local:getMonths($oneFile) {
 
 let $strings := for $elem in $oneFile
 
@@ -43,11 +43,11 @@ let $strings := for $elem in $oneFile
 
 					let $month := $elem/tei:fileDesc/tei:titleStmt[1]/tei:title
                     return
-						(:if($month != '')then( :)
-                        concat('{name:"',$month,'",',
-							'leaf:"',"true",'"', 
-                            '}')
-						(:)else():)
+						if($month!= '')then(concat('"',$month,
+							
+                            '"'))else()
+                        
+						
     return 
         string-join($strings,',')   
 };
@@ -55,12 +55,9 @@ let $strings := for $elem in $oneFile
     
  (
 
-  '[',
-        local:jsonifySlurs($oneFile),
+  '{"names":[',
+        local:getMonths($oneFile),
 
-    ']'
+     ']}'
    
-      
-   
-
 )

@@ -34,7 +34,7 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
         });
         
         if (me.lineList !== 'undefined') {
-           
+          
             for (i = 0; i < me.lineList.rows.length; i++) {
                 var one_row = me.lineList.rows[i];
                 var presentationText = '';
