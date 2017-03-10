@@ -709,7 +709,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                          presentationText = presentationText + /*'<img src="resources/images/Door-24.png" style="width:15px;height:14px;vertical-align:middle;">'*/
                      //'<img class="workhtml" src="resources/images/Door-24.png" id="' + tail.work[1] + '" style="width:15px;height:14px;vertical-align:middle;">'+' ';
                      // this.icon;
-                      '<small style="font-size: 11px; line-height: 1em;"><a href="javascript:getWorkContent(\''+tail.work[1]+'\''+', \''+tail.work[0]+'\'); return false;">'+tail.work[0]+'</a></small>';
+                      '<small style="font-size: 11px; line-height: 1em;"><a href="javascript:getWorkContent(\''+tail.work[1]+'\''+', \''+tail.work[0]+'\');">'+tail.work[0]+'</a></small>';
                    
                      }
                      else{
