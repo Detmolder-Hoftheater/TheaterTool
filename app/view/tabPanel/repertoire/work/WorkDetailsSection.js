@@ -668,15 +668,19 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
         var textArea = Ext.create('Ext.form.field.Text', {
             name: fieldName,
             readOnly: true,
-            
+            border:false,
+           // cls: Ext.baseCSSPrefix + 'form-clear-trigger',
+           // remove default styling for element wrapping the input element
+            inputWrapCls: '',
+            // remove default styling for div wrapping the input element and trigger button(s)
+            triggerWrapCls: '',
+            // remove the input element's background
+            fieldStyle: 'background:none',
             style: {
                 width: '100%',
-                //autoWidth: true,
                 borderLeft: '5px solid #FFFFFF'
             },
-            //width: 235,
             fieldLabel: fieldName
-            //anchor: '100%'
         });
         
         return textArea;
