@@ -13,9 +13,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 	},
 	flex:1,
 	sortableColumns: false,
-	title: '<b style="color:gray;">Regiebücher</b>',
-	icon: 'resources/images/Crown-17.png',
-	margin: '0 7 10 120',
+	//title: '<b style="color:gray;">Regiebücher</b>',
+	//icon: 'resources/images/Crown-17.png',
+	margin: '0 0 10 0',
 	store: null,
 	
 	detailsColumn: null,

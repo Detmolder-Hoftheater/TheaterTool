@@ -13,9 +13,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.EventsTable', {
 	},
 	flex:1,
 	
-	title: '<b style="color:gray;">Aufführungen</b>',
-	icon: 'resources/images/Time-17.png',
-	margin: '0 0 10 110',
+	//title: '<b style="color:gray;">Aufführungen</b>',
+	//icon: 'resources/images/Time-17.png',
+	margin: '0 0 10 0',
 	sortableColumns: false,
 	
 	eventList: null,
