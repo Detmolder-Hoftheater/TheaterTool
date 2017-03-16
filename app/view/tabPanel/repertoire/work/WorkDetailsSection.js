@@ -1,7 +1,7 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
     extend: 'Ext.panel.Panel',
     
-    title: '<b style="color:gray;">Übersicht</b>',
+   // title: '<b style="color:gray;">Übersicht</b>',
     
     layout: {
         type: 'vbox',
@@ -34,10 +34,86 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
     w_alt_titel: null,
     w_unter_titel: null,
     
+    initComponent: function () {
+        var me = this;
+    me.tbar = {
+        style: {
+        background: '#dcdcdc'
+        },
+       border: false,
+        height: 30,
+        items:[{xtype: 'button',
+        		text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
+        		style: {
+					borderRight: '1px solid gray',
+					borderLeft: '1px solid gray',
+					 borderTop: '1px solid gray',
+					 borderBottom: '1px solid gray'
+				},
+        		margin: '0 3 0 5',
+        		listeners: {
+					click: function (item, e, eOpts) {
+					
+                Ext.Ajax.request({
+                  
+                    url:'resources/xql/getXML.xql',
+                    method: 'GET',
+                    params: {
+                        uri: '/db/apps/theater-data/works/'+me.workID+'.xml',
+                        type: 'work'
+                    },
+                    success: function (response) {
+                    var testText = response.responseText;
+                      
+                       var fragment = document.createDocumentFragment('div');
+        var tempDiv = document.createElement('div');
+        fragment.appendChild(tempDiv);
+        tempDiv.innerHTML = testText;
+        
+        var tmp = hljs.highlightAuto($(tempDiv).html()).value;
+        var htmlVersion = '<pre>' + tmp + '</<pre>';
+                        var win = new Ext.window.Window({
+					       title: '<font style="color:gray;">XML for ' + me.title+', '+ me.year+ '</font>',
+					        html: htmlVersion,
+					        icon: 'resources/images/Calendar-17.png',
+					        bodyStyle:{"background-color":"white"},
+					        height: 600,
+                            width: 800,
+                            autoScroll: true,
+                            bodyPadding: 10
+					        });
+					   win.show();
+                     
+                    }
+                });
+				
+					   
+					}
+				}
+        		},
+        		{xtype: 'button',
+        		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
+        		disabled: true,
+        		style: {
+					borderRight: '1px solid gray',
+					borderLeft: '1px solid gray',
+					 borderTop: '1px solid gray',
+					 borderBottom: '1px solid gray'
+				}
+        		}
+        		]
+        };
+        
+       
     
-    createComponents: function (workPanel) {
+        me.callParent();
+    },
+    
+    createComponents: function () {
         
         var me = this;
+        
+        
         
         Ext.Ajax.request({
             url: 'resources/xql/getWorkOverview.xql',

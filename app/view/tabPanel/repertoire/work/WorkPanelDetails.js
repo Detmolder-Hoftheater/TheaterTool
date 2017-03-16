@@ -1,11 +1,19 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
-	extend: 'Ext.tab.Panel',  
+extend: 'Ext.panel.Panel',
+    
+    flex: 1,
+    border: true,
+    bodyBorder: false,
+   
+    autoScroll: true,
+    
+	/*extend: 'Ext.tab.Panel',  
 	
 	flex: 1,
     border: false,
     
 	detailSection: null,
-	detailSection_1: null,
+	detailSection_1: null,*/
 	
 	workID: null,
 	
@@ -15,9 +23,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 
 	   me.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: me.workID});
 
-	   me.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: me.workID});
+	  // me.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: me.workID});
 	   
-	    me.detailSection.createComponents();
+	   me.detailSection.createComponents();
 
         me.items = [
 			/*{
@@ -26,14 +34,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
         		margin: '0 0 10 0'
 
 			},*/
-			me.detailSection,
+			me.detailSection
 
 			/*{
         		html: '<img src="resources/images/Download.png" style="width:11px;height:14px;">',
 				border: false,
 				margin: '0 0 -11 0'
 			},*/
-			me.detailSection_1
+			//me.detailSection_1
 
 			/*{
 				xtype: 'label',
@@ -51,7 +59,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
 			
     ]
     
-    me.listeners = {
+    /*me.listeners = {
             render: function () {
                 //if (Ext.browser.is('Firefox')) {
                 me.items.each(function (itm, idx) {
@@ -62,7 +70,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
                 });
                 //}
             }
-        }
+        }*/
     
        
     	me.callParent();
