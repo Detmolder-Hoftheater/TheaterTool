@@ -12,11 +12,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.EventsTable', {
 		align: 'stretch'
 	},
 	flex:1,
-	
+	columnLines: true,
 	//title: '<b style="color:gray;">Aufführungen</b>',
 	//icon: 'resources/images/Time-17.png',
 	margin: '0 0 10 0',
 	sortableColumns: false,
+	hideHeaders: true,
 	
 	eventList: null,
 		
@@ -46,26 +47,26 @@ for(i = 0; i < me.eventList.length; i++){
 	
 		this.columns =[ 
 		{
-			text: 'Event',
+			//text: 'Event',
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'event'
 			
 		},
 		{
-			text: 'Datum',
+			//text: 'Datum',
 			flex: 1,
 			menuDisabled: true,
 			dataIndex: 'datum'
 		},
 		{
-			text: 'Ort',
+			//text: 'Ort',
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'ort'
 		},
 		{
-			text: 'Stadt',
+			//text: 'Stadt',
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'stadt'

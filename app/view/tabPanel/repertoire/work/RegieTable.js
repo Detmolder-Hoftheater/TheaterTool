@@ -13,6 +13,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
 	},
 	flex:1,
 	sortableColumns: false,
+	hideHeaders: true,
+	columnLines: true,
 	//title: '<b style="color:gray;">Regiebücher</b>',
 	//icon: 'resources/images/Crown-17.png',
 	margin: '0 0 10 0',
@@ -41,13 +43,7 @@ for(i = 0; i < me.regieList.length; i++){
 		
 		this.columns =[ 
 		
-		{
-			text: 'Name',
-			flex: 2,
-			menuDisabled: true,
-			dataIndex: 'name'
-			
-		},
+		
 		this.detailsColumn
 		];
 		
@@ -55,44 +51,25 @@ for(i = 0; i < me.regieList.length; i++){
 	},
 	
 	createColumn: function (headerName, path) {
-		
-		var eColumn = Ext.create('Ext.grid.column.Action', {			
-			xtype: 'actioncolumn',
-			header: headerName,
-			flex:1,
-			align: 'center',
-			menuDisabled: true,
-			renderer: function (val, metadata, record) {
-			
-			if(headerName == 'Details'){
-					this.items[0].icon = path;					
-				}
-				
-				metadata.style = 'cursor: pointer;';
-				return val;
-			},
-			handler: function(grid, rowIndex, colIndex) {
-			
-			        var rec = grid.getStore().getAt(rowIndex);
-			
-			        var toolBarGlobal = Ext.getCmp('toolbar');
+	
+	getRegieContent = function (regieName) {
+            var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton'); 
                    // var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.name + '</font>');
                    // if(!isHistoryItemExist){
-                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: 'resources/images/Crown-17.png'});  //, selection: 3
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + regieName + '</font>', icon: 'resources/images/Crown-17.png'});  //, selection: 3
 
                     // }
 			
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;
-                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+rec.data.name+'</font>', menuItem.id);
+                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+regieName+'</font>', menuItem.id);
                     if (! isFoundItem) {
-					var dbkey = rec.data.name;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">'+rec.data.name+'</font>',
+						title: '<font style="color:gray;">'+regieName+'</font>',
 						icon: 'resources/images/Crown-17.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.regiebooks.RegiePanelInTab({regieName: dbkey});
+					var personDetails = new TheaterTool.view.tabPanel.regiebooks.RegiePanelInTab({regieName: regieName});
 					repertoireTab.add(personDetails);
 
 					repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -102,9 +79,30 @@ for(i = 0; i < me.regieList.length; i++){
 					navTreeGlobal.setActiveTab(repertoireTab);	
                     navTreeGlobal.fireEvent('render', navTreeGlobal);
                 }
-                }
-          
-		});
+        };
+		
+		var eColumn = Ext.create('Ext.grid.column.Action', {			
+			xtype: 'actioncolumn',
+			//header: headerName,
+			flex:1,
+			//align: 'center',
+			menuDisabled: true,
+			dataIndex: 'name',
+			renderer: function (val, metadata, record) {
+			
+			var presentationText = '';
+                                if (record.data.dbkey !== '') {
+                                    // this.items[0].icon = 'resources/images/Door-24.png';
+                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getRegieContent(\'' + record.data.name + '\');">' + record.data.name + '</a></small>';
+                                } else {
+                                    //this.items[0].icon = '';
+                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.name + ' </small>';
+                                }
+                                // metadata.style = 'cursor: pointer;';
+                                return presentationText;
+			
+			}
+			});
 		return eColumn;
 	}
 

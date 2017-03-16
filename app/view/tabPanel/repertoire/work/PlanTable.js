@@ -16,6 +16,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
 	//title: '<b style="color:gray;">Spielpläne</b>',
 	//icon: 'resources/images/Calendar-17.png',
 	margin: '0 0 10 0',	
+	hideHeaders: true,
 	store: null,	
 	detailsColumn: null,
 	columnLines: true,
@@ -62,18 +63,13 @@ for(i = 0; i < me.scheduleList.length; i++){
 		this.columns =[ 
 		{
 			//xtype: 'treecolumn',
-			text: 'Jahr',
-			flex: 2,
+			//text: 'Jahr',
+			//flex: 2,
 			menuDisabled: true,
 			dataIndex: 'jahr'
 			
 		},
-		{
-			text: 'Monat',
-			flex: 2,
-			menuDisabled: true,
-			dataIndex: 'monat'
-		},
+		
 		this.detailsColumn
 		];
 		
@@ -81,43 +77,25 @@ for(i = 0; i < me.scheduleList.length; i++){
 	},
 	
 	createColumn: function (headerName, path) {
-		
-		var eColumn = Ext.create('Ext.grid.column.Action', {			
-			xtype: 'actioncolumn',
-			header: headerName,
-			flex:1,
-			align: 'center',
-			menuDisabled: true,
-			renderer: function (val, metadata, record) {				
-			     if(headerName == 'Details'){					
-					this.items[0].icon = path;					
-				}
-				
-				metadata.style = 'cursor: pointer;';
-				return val;
-			},
-			handler: function(grid, rowIndex, colIndex) {
-			
-			        var rec = grid.getStore().getAt(rowIndex);
-			
-			        var toolBarGlobal = Ext.getCmp('toolbar');
+	
+	getPlanContent = function (jahr, monat) {
+            var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton'); 
                    // var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">Spielpläne: ' + rec.data.jahr + '</font>');
                     //if(!isHistoryItemExist){
-                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Spielpläne: '+rec.data.jahr+'</font>', icon: 'resources/images/Calendar-17.png'});  //, selection: 3
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Spielpläne: '+jahr+'</font>', icon: 'resources/images/Calendar-17.png'});  //, selection: 3
 
                     // }
 			
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;                    
-                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">Spielpläne: '+rec.data.jahr+'</font>' , menuItem.id);
+                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">Spielpläne: '+jahr+'</font>' , menuItem.id);
                     if (! isFoundItem) {  
-					var dbkey = rec.data.jahr;
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Spielpläne: '+rec.data.jahr+'</font>',
+						title: '<font style="color:gray;">Spielpläne: '+jahr+'</font>',
 						icon: 'resources/images/Calendar-17.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab({year: dbkey, monat: rec.data.monat});
+					var personDetails = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab({year: jahr, monat: monat});
 					repertoireTab.add(personDetails);
 
                     repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -127,8 +105,28 @@ for(i = 0; i < me.scheduleList.length; i++){
 					navTreeGlobal.setActiveTab(repertoireTab);
 					navTreeGlobal.fireEvent('render', navTreeGlobal);
 					}
-                }
-		});
+        };
+		
+		var eColumn = Ext.create('Ext.grid.column.Action', {			
+			xtype: 'actioncolumn',
+			//header: headerName,
+			flex:1,
+			//align: 'center',
+			menuDisabled: true,
+			dataIndex: 'monat',
+			renderer: function (val, metadata, record) {
+			 var presentationText = '';
+                                if (record.data.dbkey !== '') {
+                                    // this.items[0].icon = 'resources/images/Door-24.png';
+                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getPlanContent(\'' + record.data.jahr + '\'' + ', \'' + record.data.monat + '\');">' + record.data.monat + '</a></small>';
+                                } else {
+                                    //this.items[0].icon = '';
+                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.monat + ' </small>';
+                                }
+                                // metadata.style = 'cursor: pointer;';
+                                return presentationText;
+			}
+			});
 		return eColumn;
 	}
 
