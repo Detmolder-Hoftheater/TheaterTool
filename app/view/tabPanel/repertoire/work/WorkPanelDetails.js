@@ -17,11 +17,14 @@ extend: 'Ext.panel.Panel',
 	
 	workID: null,
 	
+	workName: null,
+    workIcon: null,
+	
 	initComponent: function () {
 
        var me = this;
 
-	   me.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: me.workID});
+	   me.detailSection = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection({workID: me.workID, workName: me.title, workIcon: me.icon});
 
 	  // me.detailSection_1 = new TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML({workID: me.workID});
 	   

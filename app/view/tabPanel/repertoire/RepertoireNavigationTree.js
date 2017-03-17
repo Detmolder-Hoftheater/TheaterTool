@@ -77,10 +77,10 @@ selectedWork: null,
                         workIcon = 'resources/images/Books1-17.png';
                     }
 					me.repertoirePanel.removeAll(true);
-					me.workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails({workID: eOpts[0].data.werkID});
+					me.workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails({workID: eOpts[0].data.werkID, title: '<font size="2" face="Arial" style="color:#A87678;">Werk: '+eOpts[0].data.name+'</font>', icon: workIcon});
 					me.repertoirePanel.add(me.workPanel);			
-					me.repertoirePanel.setTitle('<font size="2" face="Arial" style="color:#A87678;">Werk: '+eOpts[0].data.name+'</font>');
-					me.repertoirePanel.setIcon(workIcon);
+					//me.repertoirePanel.setTitle('<font size="2" face="Arial" style="color:#A87678;">Werk: '+eOpts[0].data.name+'</font>');
+					//me.repertoirePanel.setIcon(workIcon);
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
 					me.repertoirePanel.removeAll(true);

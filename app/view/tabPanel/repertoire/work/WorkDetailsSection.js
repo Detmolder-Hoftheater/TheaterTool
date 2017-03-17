@@ -34,6 +34,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
     w_alt_titel: null,
     w_unter_titel: null,
     
+    workName: null,
+    workIcon: null,
+    
     initComponent: function () {
         var me = this;
     me.tbar = {
@@ -73,9 +76,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
         var tmp = hljs.highlightAuto($(tempDiv).html()).value;
         var htmlVersion = '<pre>' + tmp + '</<pre>';
                         var win = new Ext.window.Window({
-					       title: '<font style="color:gray;">XML for ' + me.title+', '+ me.year+ '</font>',
+					       title: '<font style="color:gray;">XML for ' + me.workName+'</font>',
 					        html: htmlVersion,
-					        icon: 'resources/images/Calendar-17.png',
+					        icon: me.workIcon,
 					        bodyStyle:{"background-color":"white"},
 					        height: 600,
                             width: 800,
