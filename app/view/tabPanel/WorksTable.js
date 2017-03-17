@@ -121,12 +121,19 @@ for(i = 0; i < me.worksList.length; i++){
 			
 			         var rec = grid.getStore().getAt(rowIndex);
 			         var dbkey = rec.data.id;
+			         
+			         var workIcon = '';
+                    if (extWorkKeys.indexOf(dbkey) > -1) {
+                        workIcon = 'resources/images/BookBlau-16.png';
+                    } else {
+                        workIcon = 'resources/images/Books1-17.png';
+                    }
 			
 			        var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton'); 
                     //var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, dbkey);
                     //if(!isHistoryItemExist){
-                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: 'resources/images/BookBlau-16.png', dbkey: dbkey});  
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: workIcon, dbkey: dbkey});  
 
                      //}
 			
@@ -136,11 +143,11 @@ for(i = 0; i < me.worksList.length; i++){
                      if (! isFoundItem) { 
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',
-						icon: 'resources/images/BookBlau-16.png'
+						icon: workIcon
 					});
 					//var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: dbkey, isSelected: true});
 					var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
-                                        selection: dbkey, isSelected: true
+                                        selection: dbkey, isSelected: true, workName: rec.data.name, workIcon: workIcon
                                     });
 					
 					repertoireTab.add(personDetails);

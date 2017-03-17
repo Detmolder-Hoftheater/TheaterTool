@@ -9,7 +9,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
         align: 'stretch'
     },
     autoScroll: true,
-    border: true,
+    border: false,
     bodyPadding: 10,
     flex: 1,
     

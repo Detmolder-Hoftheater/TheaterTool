@@ -70,16 +70,17 @@ selectedWork: null,
 			
 			selectionchange: function (selected, eOpts) {			
 				if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 1) {	
-					/*if(me.sourcePanel !== null){						
-						me.repertoirePanel.removeAll(true);			
-					}
-					if(me.rismPanel !== null){
-						me.repertoirePanel.removeAll(true);
-					}*/
+					var workIcon = '';
+                    if (extWorkKeys.indexOf(eOpts[0].data.werkID) > -1) {
+                        workIcon = 'resources/images/BookBlau-16.png';
+                    } else {
+                        workIcon = 'resources/images/Books1-17.png';
+                    }
 					me.repertoirePanel.removeAll(true);
 					me.workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails({workID: eOpts[0].data.werkID});
 					me.repertoirePanel.add(me.workPanel);			
-					me.repertoirePanel.setTitle('<b style="color:#A87678;">Werk: '+eOpts[0].data.name+', '+eOpts[0].data.componist+'</b>');
+					me.repertoirePanel.setTitle('<font size="2" face="Arial" style="color:#A87678;">Werk: '+eOpts[0].data.name+'</font>');
+					me.repertoirePanel.setIcon(workIcon);
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
 					me.repertoirePanel.removeAll(true);

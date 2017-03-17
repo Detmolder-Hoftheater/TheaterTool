@@ -395,7 +395,7 @@ for(i = 0; i < me.lineList.rows.length; i++){
 					});
 					//var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: dbkey, isSelected: true});
 					var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
-                                        selection: dbkey, isSelected: true
+                                        selection: dbkey, isSelected: true, workName: rec.data.name, workIcon: workIcon
                                     });					
 					repertoireTab.add(personDetails);
 

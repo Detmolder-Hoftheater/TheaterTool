@@ -149,10 +149,10 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
                                         selection: workId, isSelected: true
                                     });*/
                                      var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
-                                        selection: workId, isSelected: true
+                                        selection: workId, isSelected: true, workName: workName, workIcon: workIcon
                                     });
                                     
-                                    personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
+                                   // personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
                                     repertoireTab.add(personDetails);
                                     
                                     repertoireTab.setActiveMenuItemId(menuItem.id);
