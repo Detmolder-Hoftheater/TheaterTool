@@ -25,9 +25,9 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
     lineList: null,
     workDetailsColumn: null,
     inhaltColumn: null,
-    //selType: 'cellmodel',
-    
-    //reserveScrollbar: true,
+   
+    selectedWorkID: null,
+    workToFocus: null,
     
     initComponent: function () {
         
@@ -107,7 +107,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
         tableColumns = tableColumns + 1;
         objs[tableColumns] = colDate;
         
-        var col_inhalt = this.createColumn('Vorstellungen', 'resources/images/Note-15.png', 'works');
+        var col_inhalt = this.createColumn('Vorstellungen', 'resources/images/Note-15.png', 'works', me.selectedWorkID);
         tableColumns = tableColumns + 1;
         objs[tableColumns] = col_inhalt;
         
@@ -595,7 +595,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
     },
     
     
-    createColumn: function (headerName, path, dataind) {
+    createColumn: function (headerName, path, dataind, selectedWorkID) {
         var me = this;
         
         getWorkContent = function (workId, workName) {
@@ -677,6 +677,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
             }
         };
         var eColumn = Ext.create('Ext.grid.column.Action', {
+            
             xtype: 'actioncolumn',
             header: headerName,
             flex: 1,
@@ -684,7 +685,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
             dataIndex: dataind,
             //align: 'center',
             renderer: function (val, metadata, record) {
-                var me = this;
+                
                 var presentationText = '';
                 var workObject = record.data.works;
                 for (j = 0; j < workObject.inhalt.length; j++) {
@@ -700,6 +701,12 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                         if (tail.work[1] !== '') {
                             workId = tail.work[1];
                             workName = tail.work[0];
+                            
+                            if(selectedWorkID === workId){
+                               
+                                me.setWorkToFocus(record);
+                                
+                            }
                             //this.icon = 'resources/images/BookBlau-16.png';
                             presentationText = presentationText + /*'<img src="resources/images/Door-24.png" style="width:15px;height:14px;vertical-align:middle;">'*/
                             //'<img class="workhtml" src="resources/images/Door-24.png" id="' + tail.work[1] + '" style="width:15px;height:14px;vertical-align:middle;">'+' ';
@@ -737,6 +744,14 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
             }
         });
         return eColumn;
+    },
+    
+    getWorkToFocus: function(){
+        return this.workToFocus;
+    },
+    
+    setWorkToFocus: function(workToFocus){
+        this.workToFocus = workToFocus;
     },
     
     

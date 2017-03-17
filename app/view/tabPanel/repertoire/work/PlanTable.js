@@ -22,6 +22,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
 	columnLines: true,
 	scheduleList: null,
 	
+	selectedWorkID: null,
+	
 	initComponent: function () {
 	
 	var me = this;
@@ -77,7 +79,7 @@ for(i = 0; i < me.scheduleList.length; i++){
 	},
 	
 	createColumn: function (headerName, path) {
-	
+	var me = this;
 	getPlanContent = function (jahr, monat) {
             var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton'); 
@@ -95,7 +97,7 @@ for(i = 0; i < me.scheduleList.length; i++){
 						title: '<font style="color:gray;">Spielpläne: '+jahr+'</font>',
 						icon: 'resources/images/Calendar-17.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab({year: jahr, monat: monat});
+					var personDetails = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab({year: jahr, monat: monat, selectedWorkID: me.selectedWorkID});
 					repertoireTab.add(personDetails);
 
                     repertoireTab.setActiveMenuItemId(menuItem.id);

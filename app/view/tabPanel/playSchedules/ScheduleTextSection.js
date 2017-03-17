@@ -36,6 +36,10 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     
     scheduleTable: null,
     
+    selectedMonth: null,
+    
+    selectedWorkID: null,
+    
     initComponent: function () {
         
         var me = this;
@@ -175,15 +179,20 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                 var json = jQuery.parseJSON(response.responseText);
                 
                 me.scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({
-                    lineList: json
+                    lineList: json, selectedWorkID: me.selectedWorkID
                 });
                 me.scheduleTable.setTablePanel(me);
                 me.add(me.scheduleTable);
                  me.tableheight =  me.scheduleTable.height;
 	             me.tablewidth =  me.scheduleTable.width;
-               // me.xmlSection.setSectionSize(me.getHeight());
-                //console.log( me.getHeight());
-                //me.setTextInfo(response.responseText);
+	             
+	             if(me.selectedMonth === me.month){
+	                 var workToFocus = me.scheduleTable.getWorkToFocus();
+	                 me.scheduleTable.getSelectionModel().select(workToFocus);
+	                 me.scheduleTable.getView().focusRow(workToFocus);
+	             }
+	             
+	         
             }
         });
         

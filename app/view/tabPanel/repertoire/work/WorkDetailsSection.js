@@ -598,7 +598,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     });
                     
                     var playscheduleTable = new TheaterTool.view.tabPanel.repertoire.work.PlanTable({
-                        scheduleList: json.scheduleRef
+                        scheduleList: json.scheduleRef, selectedWorkID: me.workID
                     });
                     //ref_layout.add(playscheduleTable);
                     
