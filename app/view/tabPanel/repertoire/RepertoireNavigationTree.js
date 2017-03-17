@@ -133,12 +133,22 @@ selectedWork: null,
 			
 		},
 		{
-			header: '<b style="color:gray;">Type</b>',
-			flex: 0.3,
+			header: '<b style="color:gray;">Title Type</b>',
+			flex: 0.7,
 			sortable: true,
 			menuDisabled: true,
 			//align: 'center',
-			dataIndex: 'nametype'
+			dataIndex: 'nametype',
+			renderer: function (val, metadata, record) {
+                                 if(val !== ''){
+                                    if (val === 'uniform') {
+                                        val = 'Einheitstitel';                              
+                                    } else if (val === 'alt') {
+                                        val = 'Alternativtitel';
+                                    } 
+                                 }
+                                return val;
+                            }
 			
 		},
 		/*{

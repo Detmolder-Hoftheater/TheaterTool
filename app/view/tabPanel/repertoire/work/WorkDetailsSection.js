@@ -534,7 +534,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         for (i = 1; i < json.instr.length; i++) {
                             spr += ', ' + json.instr[i];
                         }
-                        me.instr = me.createTextField('Besetzung', spr);
+                        me.instr = me.createTextArea('Besetzung', spr);
                         panel_101.items.add(me.instr);
                     }
                     
