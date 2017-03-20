@@ -22,6 +22,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.IssueTable', {
 	
 	detailsColumn: null,
 	issueList: null,
+		
+	selectedWorkID: null,
 	
 	initComponent: function () {
 	
@@ -61,25 +63,25 @@ for(i = 0; i < me.issueList.length; i++){
 	},
 	
 	createColumn: function (headerName, path) {
-	
+	var me = this;
 	getIssueContent = function (jahr, issueName) {
             var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton'); 
                     //var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.jahr + '</font>');
                     //if(!isHistoryItemExist){
-                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + jahr + '</font>', icon: 'resources/images/MoneyTransfer-17.png'});  //, selection: 3
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">'+issueName+ '</font>', icon: 'resources/images/MoneyTransfer-17.png'});  //, selection: 3
 
                      //}
 			
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;
-                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+jahr+'</font>', menuItem.id);
+                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+issueName+'</font>', menuItem.id);
                     if (! isFoundItem) {
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">'+jahr+'</font>',
+						title: '<font style="color:gray;">'+issueName+'</font>',
 						icon: 'resources/images/MoneyTransfer-17.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.issue.IssuePanelInTab({issueName: issueName, year: jahr});
+					var personDetails = new TheaterTool.view.tabPanel.issue.IssuePanelInTab({issueName: issueName, year: jahr, selectedWorkID: me.selectedWorkID});
 					repertoireTab.add(personDetails);
 
 					repertoireTab.setActiveMenuItemId(menuItem.id);

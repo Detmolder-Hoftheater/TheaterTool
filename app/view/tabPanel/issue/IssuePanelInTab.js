@@ -23,6 +23,8 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssuePanelInTab', {
     year: null,
     issueName: null,
     workPanel: null,
+        
+    selectedWorkID: null,
     
     initComponent: function () {
         var me = this;
@@ -41,7 +43,8 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssuePanelInTab', {
                     if (json.names[i] !== undefined) {
                     
                       var detailSection = new TheaterTool.view.tabPanel.issue.IssueTextSection({
-            issueName: json.names[i], year: me.year, title: '<b style="color:gray;">'+json.names[i]+'</b>'
+            issueName: json.names[i], year: me.year, title: '<b style="color:gray;">'+json.names[i]+'</b>', selectedIssueName: me.issueName,
+            selectedWorkID: me.selectedWorkID
         });
         me.add(detailSection);
                     }

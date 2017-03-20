@@ -55,6 +55,10 @@ detailSection: null,
     xmlSection: null,
     
     revenueTable: null,
+    
+	selectedIssueName: null,
+    
+    selectedWorkID: null,
 	
     initComponent: function() {
 
@@ -141,12 +145,18 @@ detailSection: null,
                 var json = jQuery.parseJSON(response.responseText);
                 
                 me.scheduleTable = new TheaterTool.view.tabPanel.issue.IssueTable({
-                    lineList: json
+                    lineList: json, selectedWorkID: me.selectedWorkID
                 });
                 me.scheduleTable.setTablePanel(me);
                 me.add(me.scheduleTable);
                  me.tableheight =  me.scheduleTable.height;
 	             me.tablewidth =  me.scheduleTable.width;
+	             
+	              if(me.selectedIssueName === me.issueName){
+	                 var workToFocus = me.scheduleTable.getWorkToFocus();
+	                 me.scheduleTable.getSelectionModel().select(workToFocus);
+	                 me.scheduleTable.getView().focusRow(workToFocus);
+	             }
 	             
 	             
 	             if( me.issueName === 'Außerordentliche Ausgaben 1840 (Auszug 1)'){

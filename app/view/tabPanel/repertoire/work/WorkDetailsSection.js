@@ -713,7 +713,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     });
                     
                     var issueTable = new TheaterTool.view.tabPanel.repertoire.work.IssueTable({
-                        issueList: json.issueRef
+                        issueList: json.issueRef, selectedWorkID: me.workID
                     });
                     //ref_layout.add(issueTable);
                     

@@ -24,6 +24,9 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
     workDetailsColumn: null,
     inhaltColumn: null,
     
+    selectedWorkID: null,
+    workToFocus: null,
+    
     initComponent: function () {
         
         var me = this;
@@ -71,7 +74,7 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
         tableColumns = tableColumns + 1;
         objs[tableColumns] = colDate;
         
-        var col_inhalt = this.createColumn('Vorstellungen', 'resources/images/Note-15.png', 'works');
+        var col_inhalt = this.createColumn('Vorstellungen', 'resources/images/Note-15.png', 'works', me.selectedWorkID);
         tableColumns = tableColumns+1;
         objs[tableColumns] = col_inhalt;
                
@@ -117,7 +120,7 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
     },
     
     
-    createColumn: function (headerName, path, dataind) {
+    createColumn: function (headerName, path, dataind, selectedWorkID) {
         var me = this;
         
         getWorkContent = function(workId, workName){
@@ -208,7 +211,7 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
             dataIndex: dataind,
             //align: 'center',
             renderer: function (val, metadata, record) {
-            var me =this;
+            //var me =this;
             var presentationText = '';
                var workObject = record.data.works;
                 for(j = 0; j < workObject.inhalt.length; j++){
@@ -227,6 +230,12 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
                      if(tail.work[1] !== ''){
                      workId = tail.work[1];
                      workName  = tail.work[0];
+                     
+                     if(selectedWorkID === workId){
+                               
+                                me.setWorkToFocus(record);
+                                
+                            }
                          //this.icon = 'resources/images/BookBlau-16.png';
                          presentationText = presentationText + /*'<img src="resources/images/Door-24.png" style="width:15px;height:14px;vertical-align:middle;">'*/
                      //'<img class="workhtml" src="resources/images/Door-24.png" id="' + tail.work[1] + '" style="width:15px;height:14px;vertical-align:middle;">'+' ';
@@ -273,6 +282,14 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
             }
             });
         return eColumn;
+    },
+    
+     getWorkToFocus: function(){
+        return this.workToFocus;
+    },
+    
+    setWorkToFocus: function(workToFocus){
+        this.workToFocus = workToFocus;
     },
     
     
