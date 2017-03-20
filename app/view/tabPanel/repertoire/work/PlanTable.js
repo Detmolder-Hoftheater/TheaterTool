@@ -85,16 +85,18 @@ for(i = 0; i < me.scheduleList.length; i++){
                     var historyButton = Ext.getCmp('historyButton'); 
                    // var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">Spielpläne: ' + rec.data.jahr + '</font>');
                     //if(!isHistoryItemExist){
-                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Spielpläne: '+jahr+'</font>', icon: 'resources/images/Calendar-17.png'});  //, selection: 3
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Spielpläne: '+monat+', '+jahr+'</font>', icon: 'resources/images/Calendar-17.png'});  //, selection: 3
 
                     // }
 			
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
-			        var existItems = navTreeGlobal.items;                    
-                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">Spielpläne: '+jahr+'</font>' , menuItem.id);
+			        var existItems = navTreeGlobal.items; 
+			        console.log(navTreeGlobal);
+			        console.log(existItems);
+                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">Spielpläne: '+monat+', '+jahr+'</font>' , menuItem.id);              
                     if (! isFoundItem) {  
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Spielpläne: '+jahr+'</font>',
+						title: '<font style="color:gray;">Spielpläne: '+monat+', '+jahr+'</font>',
 						icon: 'resources/images/Calendar-17.png'
 					});
 					var personDetails = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab({year: jahr, monat: monat, selectedWorkID: me.selectedWorkID});

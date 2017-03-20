@@ -692,6 +692,8 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
         for (i = 0; i < existItems.items.length; i++) {
             var existItem = existItems.items[i];
             if (existItem.title === titletext) {
+                console.log(activeMenuItemId);
+                console.log(existItem);
                 existItem.setMenuAdded(true);
                 this.tabPanel.setActiveTab(existItem);
                 existItem.setActiveMenuItemId(activeMenuItemId);

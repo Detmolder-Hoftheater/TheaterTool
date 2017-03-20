@@ -24,8 +24,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
     monat: null,
     workPanel: null,
     
-    
-    
+    selectedWorkID: null,  
     
     initComponent: function () {
         var me = this;
@@ -74,7 +73,8 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
                     if (objs[i] !== undefined) {
                     
                       var detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({
-            month: objs[i], year: me.year, value: 2, title: '<b style="color:gray;">'+objs[i]+'</b>'
+            month: objs[i], year: me.year, value: 2, title: '<b style="color:gray;">'+objs[i]+'</b>', selectedMonth: me.monat,
+            selectedWorkID: me.selectedWorkID
         });
         me.add(detailSection);
                     }

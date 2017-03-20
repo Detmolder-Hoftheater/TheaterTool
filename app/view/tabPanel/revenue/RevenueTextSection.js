@@ -42,6 +42,10 @@ autoScroll: true,
     
     revenueTable: null,
 	
+	selectedMonth: null,
+    
+    selectedWorkID: null,
+	
     initComponent: function() {
 
 	var me = this;
@@ -177,12 +181,18 @@ autoScroll: true,
                 var json = jQuery.parseJSON(response.responseText);
                 
                 me.scheduleTable = new TheaterTool.view.tabPanel.revenue.RevenueTable({
-                    lineList: json
+                    lineList: json, selectedWorkID: me.selectedWorkID
                 });
                 me.scheduleTable.setTablePanel(me);
                 me.add(me.scheduleTable);
                  me.tableheight =  me.scheduleTable.height;
 	             me.tablewidth =  me.scheduleTable.width;
+	             
+	             if(me.selectedMonth === me.month){
+	                 var workToFocus = me.scheduleTable.getWorkToFocus();
+	                 me.scheduleTable.getSelectionModel().select(workToFocus);
+	                 me.scheduleTable.getView().focusRow(workToFocus);
+	             }
             }
         });
     

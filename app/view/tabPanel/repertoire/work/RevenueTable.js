@@ -21,6 +21,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 	hideHeaders: true,
 	detailsColumn: null,
 	revenueList: null,
+	
+	selectedWorkID: null,
      
 	initComponent: function () {
 	
@@ -75,25 +77,25 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
 	},
 	
 	createColumn: function (headerName, path) {
-	
+	var me = this;
 	getRevenueContent = function (jahr, monat) {
             var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton'); 
                     //var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">Einnahmen: ' + rec.data.jahr + '</font>');
                     //if(!isHistoryItemExist){
-                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Einnahmen: '+jahr+'</font>', icon: 'resources/images/MoneyBox-17.png'});  //, selection: 3
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">Einnahmen: '+monat+', '+jahr+'</font>', icon: 'resources/images/MoneyBox-17.png'});  //, selection: 3
 
                      //}
 			
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;
-                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">Einnahmen: '+jahr+'</font>' , menuItem.id);
+                    var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">Einnahmen: '+monat+', '+jahr+'</font>' , menuItem.id);
                     if (! isFoundItem) {
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">Einnahmen: '+jahr+'</font>',
+						title: '<font style="color:gray;">Einnahmen: '+monat+', '+jahr+'</font>',
 						icon: 'resources/images/MoneyBox-17.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.revenue.RevenuePanelInTab({year: jahr, monat: monat});
+					var personDetails = new TheaterTool.view.tabPanel.revenue.RevenuePanelInTab({year: jahr, monat: monat, selectedWorkID: me.selectedWorkID});
 					repertoireTab.add(personDetails);
 
                     repertoireTab.setActiveMenuItemId(menuItem.id);

@@ -636,7 +636,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     });
                     
                     var revenueTable = new TheaterTool.view.tabPanel.repertoire.work.RevenueTable({
-                        revenueList: json.revenueRef
+                        revenueList: json.revenueRef, selectedWorkID: me.workID
                     });
                     //ref_layout.add(revenueTable);
                     
