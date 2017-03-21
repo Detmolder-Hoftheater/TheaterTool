@@ -393,7 +393,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                 
                 if (typeof json.sprachen[0] !== 'undefined' || typeof json.instr[0] !== 'undefined' 
                     || json.creation[0][0] !== '' || typeof json.hoverview[0] !== 'undefined'
-                    || json.events.length > 0 || json.gnd[0].length > 0 || json.wega.length > 0) {
+                    || json.gnd[0].length > 0 || json.wega.length > 0) {
                     
                     me.add({
                         
@@ -550,18 +550,23 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         panel_101.items.add(me.overview);
                     }
                     
-                    if (json.events.length > 0) {
+                    
+                }
+                
+                if (json.events.length > 0) {
                     
                     me.add({
                         
                         xtype: 'label',
-                        html: '<b style="color:gray; font-size: 10px;">Vorführungen:</b>',
-                        margin: '0 0 10 10'
+                        html: '<img src="resources/images/Time-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Aufführungen</b>',
+                        margin: '10 0 10 0'
                     });
+                    
                      var eventsTable = new TheaterTool.view.tabPanel.repertoire.EventsTable({
                         eventList: json.events
                     });
-                     var left_panel_11 = Ext.create('Ext.panel.Panel', {
+                    
+                    var left_panel_11 = Ext.create('Ext.panel.Panel', {
                         //colspan: 1,
                         //type: 'hbox',
                         border: false,
@@ -576,7 +581,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     me.add(left_panel_11);
                    
                     }
-                }
               
                 
                 if (json.scheduleRef.length > 0) {
