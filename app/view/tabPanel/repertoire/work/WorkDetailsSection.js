@@ -129,174 +129,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                 
                 var json = jQuery.parseJSON(result.responseText);
                 
-                if (json.autoren.length > 0) {
-                    
-                    me.add({
-                        
-                        xtype: 'label',
-                        html: '<img src="resources/images/Mask-19.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Personen</b>',
-                        margin: '0 0 10 0'
-                    });
-                    
-                    var persStore = Ext.create('Ext.data.Store', {
-                        model: 'TheaterTool.model.Person',
-                        data:[]
-                    });
-                    me.pers = Ext.create('Ext.grid.Panel', {
-                        store: persStore,
-                        // sortableColumns: false,
-                        // title: '<b style="color:gray;">Personen</b>',
-                        //icon: 'resources/images/Mask-19.png',
-                        columnLines: true,
-                        layout: {
-                            type: 'hbox',
-                            pack: 'start',
-                            align: 'stretch'
-                        },
-                        flex: 1,
-                        hideHeaders: true,
-                        // border: false,
-                        // bodyBoreder: false,
-                        columns:[
-                        
-                        Ext.create('Ext.grid.column.Action', {
-                            xtype: 'actioncolumn',
-                            // header: 'Name',
-                            
-                            flex: 1,
-                            menuDisabled: true,
-                            dataIndex: 'name',
-                            renderer: function (val, metadata, record) {
-                                getPersonContent = function (personId, personName) {
-                                    var toolBarGlobal = Ext.getCmp('toolbar');
-                                    var historyButton = Ext.getCmp('historyButton');
-                                    // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
-                                    //if(!isHistoryItemExist){
-                                    var menuItem = historyButton.menu.add({
-                                        text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
-                                    });
-                                    
-                                    //}
-                                    
-                                    var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
-                                    var existItems = navTreeGlobal.items;
-                                    var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId, menuItem.id);
-                                    if (! isFoundItem) {
-                                        
-                                        var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                                            title: '<font style="color:gray;">' + personName + '</font>',
-                                            icon: 'resources/images/Mask-19.png'
-                                        });
-                                        var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                                            dbkey: personId
-                                        });
-                                        personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
-                                        repertoireTab.add(personDetails);
-                                        
-                                        repertoireTab.setActiveMenuItemId(menuItem.id);
-                                        repertoireTab.setMenuAdded(true);
-                                        
-                                        navTreeGlobal.add(repertoireTab);
-                                        navTreeGlobal.setActiveTab(repertoireTab);
-                                        navTreeGlobal.fireEvent('render', navTreeGlobal);
-                                    }
-                                };
-                                var presentationText = '';
-                                
-                                
-                                if (record.data.dbkey !== '') {
-                                    // this.items[0].icon = 'resources/images/Door-24.png';
-                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getPersonContent(\'' + record.data.dbkey + '\'' + ', \'' + record.data.name + '\');">' + record.data.name + '</a></small>';
-                                } else {
-                                    //this.items[0].icon = '';
-                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.name + ' </small>';
-                                }
-                                // metadata.style = 'cursor: pointer;';
-                                return presentationText;
-                            }
-                        }), {
-                            dataIndex: 'role', menuDisabled: true, flex: 1,
-                            renderer: function (val, metadata, record) {
-                                // if(val !== ''){
-                                return '<small style="font-size: 11px; line-height: 1.5em; vertical-align:middle;">' + val + '</small>'
-                                
-                                // }
-                                return val;
-                            }
-                        }],
-                        margin: '0 0 15 0'
-                    });
-                    
-                    var left_panel_1 = Ext.create('Ext.panel.Panel', {
-                        //colspan: 1,
-                        //type: 'hbox',
-                        border: false,
-                        margin: '0 10 0 10',
-                        //type: 'fit',
-                        //bodyPadding: 10,
-                        items:[
-                        
-                        me.pers]
-                    });
-                    
-                    me.add(left_panel_1);
-                    
-                    for (i = 0; i < json.autoren.length; i++) {
-                        var autor = json.autoren[i];
-                        var persRole = '';
-                        if (autor[1] === 'arr') {
-                            persRole = 'Arrangeur';
-                        } else if (autor[1] === 'aut') {
-                            persRole = 'Autor';
-                        } else if (autor[1] === 'cmp') {
-                            persRole = 'Komponist';
-                        } else if (autor[1] === 'cre') {
-                            persRole = 'Urheber ';
-                        } else if (autor[1] === 'lbt') {
-                            persRole = 'Librettist';
-                        } else if (autor[1] === 'edt') {
-                            persRole = 'Verfasser';
-                        } else if (autor[1] === 'lyr') {
-                            persRole = 'Textdichter';
-                        } else if (autor[1] === 'trl') {
-                            persRole = 'Übersetzer';
-                        } else if (autor[1] === 'scr') {
-                            persRole = 'Schreiber';
-                        } else if (autor[1] === 'fmo') {
-                            persRole = 'former owner';
-                        } else if (autor[1] === 'asn') {
-                            persRole = 'associated name';
-                        } else if (autor[1] === 'prf') {
-                            persRole = 'Schauspieler';
-                        } else if (autor[1] === 'clb') {
-                            persRole = 'Kollaborator';
-                        } else {
-                            persRole = autor[1];
-                        }
-                        var person = Ext.create('TheaterTool.model.Person', {
-                            name: autor[0],
-                            role: persRole,
-                            dbkey: autor[2]
-                        });
-                        persStore.add(person);
-                    }
-                }
-                
-                
-                /*var titel_group = Ext.create('Ext.form.FieldSet', {
-                title: '<b style="color:gray;">Titel Varianten</b>',
-                bodyBorder: false,
-                collapsible: false,
-                collapsed: true
-                //margin: '10 0 0 0'
-                });
-                me.add(titel_group);*/
-                
                 me.add({
                     
                     xtype: 'label',
                     html: '<b style="color:gray; font-size: 12px;">Titel Varianten</b>',
-                    margin: '10 0 10 0'
+                    margin: '0 0 10 0'
                 });
                 
                 var panel_0 = null;
@@ -389,6 +226,118 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     me.w_alt_titel = null;
                     me.w_unter_titel = null;
                 }
+                
+                if (json.autoren.length > 0) {
+                    
+                    me.add({                      
+                        xtype: 'label',
+                        html: '<img src="resources/images/Mask-19.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Personen</b>',
+                        margin: '10 0 10 0'
+                    });
+                    
+                    for(i = 0; i < json.autoren.length; i++){
+                        var autor = json.autoren[i];
+                        var persRole = '';
+                        if (autor[1] === 'arr') {
+                            persRole = 'Arrangeur';
+                        } else if (autor[1] === 'aut') {
+                            persRole = 'Autor';
+                        } else if (autor[1] === 'cmp') {
+                            persRole = 'Komponist';
+                        } else if (autor[1] === 'cre') {
+                            persRole = 'Urheber ';
+                        } else if (autor[1] === 'lbt') {
+                            persRole = 'Librettist';
+                        } else if (autor[1] === 'edt') {
+                            persRole = 'Verfasser';
+                        } else if (autor[1] === 'lyr') {
+                            persRole = 'Textdichter';
+                        } else if (autor[1] === 'trl') {
+                            persRole = 'Übersetzer';
+                        } else if (autor[1] === 'scr') {
+                            persRole = 'Schreiber';
+                        } else if (autor[1] === 'fmo') {
+                            persRole = 'former owner';
+                        } else if (autor[1] === 'asn') {
+                            persRole = 'associated name';
+                        } else if (autor[1] === 'prf') {
+                            persRole = 'Schauspieler';
+                        } else if (autor[1] === 'clb') {
+                            persRole = 'Kollaborator';
+                        } else {
+                            persRole = autor[1];
+                        }
+                        if(persRole === '' ){
+                            persRole = 'Funktion nicht definiert';
+                        }
+                        var autorName = autor[0];                        
+                       var dbkey = autor[2];
+                        var name = null;
+                        if(dbkey !== ''){
+                            getPersonContent = function (personId, personName) {
+                                    var toolBarGlobal = Ext.getCmp('toolbar');
+                                    var historyButton = Ext.getCmp('historyButton');
+                                    // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
+                                    //if(!isHistoryItemExist){
+                                    var menuItem = historyButton.menu.add({
+                                        text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
+                                    });
+                                    
+                                    //}
+                                    
+                                    var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+                                    var existItems = navTreeGlobal.items;
+                                    var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId, menuItem.id);
+                                    if (! isFoundItem) {
+                                        
+                                        var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                                            title: '<font style="color:gray;">' + personName + '</font>',
+                                            icon: 'resources/images/Mask-19.png'
+                                        });
+                                        var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
+                                            dbkey: personId
+                                        });
+                                        personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
+                                        repertoireTab.add(personDetails);
+                                        
+                                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                                        repertoireTab.setMenuAdded(true);
+                                        
+                                        navTreeGlobal.add(repertoireTab);
+                                        navTreeGlobal.setActiveTab(repertoireTab);
+                                        navTreeGlobal.fireEvent('render', navTreeGlobal);
+                                    }
+                                };
+                            name ={
+                            xtype: 'displayfield',
+                            fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
+                            value: '<span><a href="javascript:getPersonContent(\'' + dbkey + '\'' + ', \'' + autorName + '\');">' + autorName + '</a></span>'
+                      };
+                        }
+                        else{
+                            name ={
+                            xtype: 'displayfield',
+                            fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
+                            value: '<span>' + autorName + '</span>'
+                      };
+                        }
+                      
+                       var left_panel_1 = Ext.create('Ext.panel.Panel', {
+                            colspan: 1,
+                            // type: 'vbox',
+                            border: false,
+                            bodyBorder: false,
+                            // bodyPadding: 10,
+                            margin: '0 0 10 10',
+                            //margin: '0 0 0 5',
+                            items:[
+                            name
+                            ]
+                        });
+                                    
+                    me.add(left_panel_1);
+                    }
+                 }
                 
                 
                 if (typeof json.sprachen[0] !== 'undefined' || typeof json.instr[0] !== 'undefined' 
