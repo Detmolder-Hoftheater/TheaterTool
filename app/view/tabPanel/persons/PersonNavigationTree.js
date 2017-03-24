@@ -118,9 +118,9 @@ me.store.sort('name');
 			
 			selectionchange: function (selected, eOpts) {
 			        me.repertoirePanel.removeAll(true);
-					me.workPanel = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: eOpts[0].data.persId, title: '<font size="2" face="Arial" style="color:#A87678;">Person: '+eOpts[0].data.name + ', '+eOpts[0].data.forename+'</font>', icon: 'resources/images/Mask-19.png'});
-					me.repertoirePanel.add(me.workPanel);			
-					//me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name + ', '+eOpts[0].data.forename+'</b>');
+					me.workPanel = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: eOpts[0].data.persId, icon: 'resources/images/Mask-19.png', title:'<b style="color:#A87678;">'+eOpts[0].data.name +'</b>'});
+					me.repertoirePanel.add(me.workPanel);	
+					//me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name +'</b>');
 
 			//me.repertoirePanel.setIcon('resources/images/Mask-19.png');
 			

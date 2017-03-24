@@ -1,6 +1,6 @@
 Ext.define('TheaterTool.view.tabPanel.persons.PersonDetailsPanel', {
 	extend: 'Ext.panel.Panel',
-    xtype: 'layout-border',
+   // xtype: 'layout-border',
     requires: [
         'Ext.layout.container.Border'
     ],
