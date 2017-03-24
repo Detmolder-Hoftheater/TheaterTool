@@ -158,7 +158,8 @@ handler: function(grid, rowIndex, colIndex) {
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',
 						icon: 'resources/images/Mask-19.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: dbkey});
+					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: dbkey, title: '<font style="color:gray;">'+rec.data.name+'</font>',
+						icon: 'resources/images/Mask-19.png'});
 					repertoireTab.add(personDetails);
 
 					var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();

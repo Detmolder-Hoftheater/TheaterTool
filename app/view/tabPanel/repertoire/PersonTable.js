@@ -83,7 +83,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.PersonTable', {
 						title: '<font style="color:gray;">'+rec.data.name+'</font>',
 						icon: 'resources/images/Mask-19.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: dbkey});
+					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: dbkey,
+					 title: '<font size="2" face="Arial" style="color:#A87678;">Person: '+rec.data.name + '</font>', icon: 'resources/images/Mask-19.png'
+					 });
 					repertoireTab.add(personDetails);
 				
 					navTreeGlobal.add(repertoireTab);

@@ -252,7 +252,7 @@ for(i = 0; i < me.lineList.rows.length; i++){
 						title: '<font style="color:gray;">'+personName+'</font>',
 						icon: 'resources/images/Mask-19.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: personId});
+					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: personId, icon: 'resources/images/Mask-19.png'});
 					personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">'+personName+'</font>');
 					repertoireTab.add(personDetails);
 

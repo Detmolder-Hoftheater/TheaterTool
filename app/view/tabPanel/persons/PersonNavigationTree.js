@@ -105,8 +105,8 @@ me.store.sort('name');
 			dataIndex: 'name'
             },
             {
-                text: 'Type',
-                flex: 1,
+                text: 'Name Variante',
+                flex: 1.3,
                 menuDisabled: true,
                 dataIndex: 'type'
                 

@@ -663,9 +663,9 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                     icon: 'resources/images/Mask-19.png'
                 });
                 var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                    dbkey: personId
+                    dbkey: personId,  title: '<font size="2" face="Arial" style="color:#A87678;">Person: '+personName+'</font>', icon: 'resources/images/Mask-19.png'
                 });
-                personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
+                //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                 repertoireTab.add(personDetails);
                 
                 repertoireTab.setActiveMenuItemId(menuItem.id);

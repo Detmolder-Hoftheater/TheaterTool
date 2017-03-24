@@ -134,8 +134,8 @@ selectedWork: null,
 			
 		},
 		{
-			header: '<b style="color:gray;">Title Type</b>',
-			flex: 0.7,
+			header: '<b style="color:gray;">Title Variante</b>',
+			flex: 0.9,
 			sortable: true,
 			menuDisabled: true,
 			//align: 'center',
