@@ -24,9 +24,10 @@ columnLines: true,
 
 bodyPadding: 5,
 
-header: false,
+//header: false,
+icon: 'resources/images/BooksVert-17.png',
 	
-	title: '<b style="color:gray;">Werke</b>',
+	//title: '<b style="color:gray;">Werke</b>',
 	
 	xmlColumn: null,
 	incipitsColumn: null,

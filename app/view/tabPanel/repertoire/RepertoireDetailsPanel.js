@@ -18,11 +18,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel', {
         split: true
     },
     
+    navTreetitle: null,
+    
     selection: null,
     
     initComponent: function () {
         
-        var navTree = new TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree();
+        var navTree = new TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree({title: this.navTreetitle});
         
         var navTreeStore = new TheaterTool.store.work.Works();
          if(this.selection === 1){

@@ -62,7 +62,7 @@ extend: 'Ext.panel.Panel',
 			
     ]
     
-    /*me.listeners = {
+   /* me.listeners = {
             render: function () {
                 //if (Ext.browser.is('Firefox')) {
                 me.items.each(function (itm, idx) {

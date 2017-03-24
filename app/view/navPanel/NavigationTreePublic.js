@@ -823,7 +823,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         });
                         
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 1
+                            selection: 1, navTreetitle: '<font style="color:#A87678;">Werke: A-B-C</font>'
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -840,7 +840,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/BooksVert-17.png'
                         });
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 2
+                            selection: 2, navTreetitle: '<font style="color:#A87678;">Werke: D-E-F</font>'
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -857,7 +857,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/BooksVert-17.png'
                         });
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 3
+                            selection: 3, navTreetitle: '<font style="color:#A87678;">Werke: G-H-I</font>'
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -874,7 +874,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/BooksVert-17.png'
                         });
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 4
+                            selection: 4, navTreetitle: '<font style="color:#A87678;">Werke: J-K-L</font>'
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -891,7 +891,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/BooksVert-17.png'
                         });
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 5
+                            selection: 5, navTreetitle: '<font style="color:#A87678;">Werke: M-N-O</font>'
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -908,7 +908,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/BooksVert-17.png'
                         });
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 6
+                            selection: 6, navTreetitle: '<font style="color:#A87678;">Werke: P-Q-R</font>'
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -925,7 +925,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/BooksVert-17.png'
                         });
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 7
+                            selection: 7, navTreetitle: '<font style="color:#A87678;">Werke: S-T-U</font>'
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -942,7 +942,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/BooksVert-17.png'
                         });
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 8
+                            selection: 8, navTreetitle: '<font style="color:#A87678;">Werke: V-W-X-Y-Z</font>'
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -999,7 +999,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/Mask-19.png'
                         });
                         var repertoireDetails = new TheaterTool.view.tabPanel.persons.PersonDetailsPanel({
-                            selection: item.data.text, navTreetitle: '<font style="color:#A87678;">Personen: ' + item.data.text + '</font>', navTreeicon: 'resources/images/Mask-19.png'
+                            selection: item.data.text, navTreetitle: '<font style="color:#A87678;">Personen: ' + item.data.text + '</font>'
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);

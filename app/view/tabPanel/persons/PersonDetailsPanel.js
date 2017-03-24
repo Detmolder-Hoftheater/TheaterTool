@@ -1,10 +1,6 @@
-/**
- * Creates class TheaterTool.view.tabPanel.CEPanel that extend from Ext.panel.Panel.
- * @class
- */
 Ext.define('TheaterTool.view.tabPanel.persons.PersonDetailsPanel', {
 	extend: 'Ext.panel.Panel',
-  //  xtype: 'layout-border',
+    xtype: 'layout-border',
     requires: [
         'Ext.layout.container.Border'
     ],
@@ -12,10 +8,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonDetailsPanel', {
   
 	flex: 1,
 
-selection: null,
+/*selection: null,
 	
     bodyBorder: false,
-   // border: false,
     bodyPadding: 2,
 border: false,
  style: {
@@ -32,8 +27,24 @@ border: false,
 	},
 	
 	navTree: null,
-	repertoirePanel: null,
+	repertoirePanel: null,*/
 	navTreetitle: null,
+	
+	bodyBorder: false,
+    border: false,
+    style: {
+        borderRight: '7px solid white',
+        borderLeft: '7px solid white',
+        borderTop: '7px solid white',
+        borderBottom: '7px solid white'
+    },
+    
+    defaults: {
+        autoScroll: true,
+        split: true
+    },
+    
+    selection: null,
 	
 	initComponent: function () {
 	 var me = this;
@@ -50,22 +61,16 @@ Ext.Ajax.request({
 					
 					
 					var persons_list = json.persons;
-					//console.log(json);
+				
+					var navTree = new TheaterTool.view.tabPanel.persons.PersonNavigationTree({persons_list: persons_list, title: me.navTreetitle});
 					
-					me.navTree = new TheaterTool.view.tabPanel.persons.PersonNavigationTree({persons_list: persons_list, title: me.navTreetitle});
-					
-
-	me.repertoirePanel = new TheaterTool.view.tabPanel.repertoire.RepertoirePanel();
+	var repertoirePanel = new TheaterTool.view.tabPanel.repertoire.RepertoirePanel();
 	
-	//var navigationHistory = new TheaterTool.view.tabPanel.NavigationHistory();
+	navTree.setRepertoirePanel(repertoirePanel);
 	
-	me.navTree.setRepertoirePanel(me.repertoirePanel);
-	//me.add(me.navTree);
-	//me.add(me.repertoirePanel);
     me.items = [
-        //navigationHistory,
-       me.navTree,
-       me.repertoirePanel
+       navTree,
+       repertoirePanel
     ]
 
 }

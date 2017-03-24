@@ -1,18 +1,9 @@
-/**
- * This example illustrates how to use the grouping feature of the Grid.
- */
 Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
     extend: 'Ext.panel.Panel',
     
-    /*border: false,
+   // title: '<b style="color:gray;">Übersicht</b>',
     
-    flex:1,
-    
-    autoScroll: true,
-     */
-    title: '<b style="color:gray;">Übersicht</b>',
-    
-    layout: {
+    /*layout: {
         type: 'vbox',
         pack: 'start',
         align: 'stretch'
@@ -20,9 +11,96 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
     autoScroll: true,
     border: true,
     bodyPadding: 10,
+    flex: 1,*/
+      
+    layout: {
+        type: 'vbox',
+        pack: 'start',
+        align: 'stretch'
+    },
+    autoScroll: true,
+    border: false,
+    bodyPadding: 10,
     flex: 1,
     
     dbkey: null,
+    
+    personName: null,
+    personIcon: null,
+    
+    initComponent: function () {
+        var me = this;
+    me.tbar = {
+        style: {
+        background: '#dcdcdc'
+        },
+       border: false,
+        height: 30,
+        items:[{xtype: 'button',
+        		text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
+        		style: {
+					borderRight: '1px solid gray',
+					borderLeft: '1px solid gray',
+					 borderTop: '1px solid gray',
+					 borderBottom: '1px solid gray'
+				},
+        		margin: '0 3 0 5',
+        		listeners: {
+					click: function (item, e, eOpts) {
+					
+                Ext.Ajax.request({
+                  
+                    url:'resources/xql/getPersonXML.xql',
+                    method: 'GET',
+                    params: {
+                        dbkey: me.dbkey
+                    },
+                    success: function (response) {
+                    var testText = response.responseText;
+                      
+                       var fragment = document.createDocumentFragment('div');
+        var tempDiv = document.createElement('div');
+        fragment.appendChild(tempDiv);
+        tempDiv.innerHTML = testText;
+        
+        var tmp = hljs.highlightAuto($(tempDiv).html()).value;
+        var htmlVersion = '<pre>' + tmp + '</<pre>';
+                        var win = new Ext.window.Window({
+					       title: '<font style="color:gray;">XML for ' + me.workName+'</font>',
+					        html: htmlVersion,
+					        icon: me.workIcon,
+					        bodyStyle:{"background-color":"white"},
+					        height: 600,
+                            width: 800,
+                            autoScroll: true,
+                            bodyPadding: 10
+					        });
+					   win.show();
+                     
+                    }
+                });
+				
+					   
+					}
+				}
+        		},
+        		{xtype: 'button',
+        		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
+        		disabled: true,
+        		style: {
+					borderRight: '1px solid gray',
+					borderLeft: '1px solid gray',
+					 borderTop: '1px solid gray',
+					 borderBottom: '1px solid gray'
+				}
+        		}
+        		]
+        };
+        
+       
+    
+        me.callParent();
+    },
     
     createContent: function () {
         
