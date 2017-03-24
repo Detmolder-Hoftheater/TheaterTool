@@ -66,9 +66,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
         var tmp = hljs.highlightAuto($(tempDiv).html()).value;
         var htmlVersion = '<pre>' + tmp + '</<pre>';
                         var win = new Ext.window.Window({
-					       title: '<font style="color:gray;">XML for ' + me.workName+'</font>',
+					       title: '<font style="color:gray;">XML for ' + me.personName+'</font>',
 					        html: htmlVersion,
-					        icon: me.workIcon,
+					        icon: me.personIcon,
 					        bodyStyle:{"background-color":"white"},
 					        height: 600,
                             width: 800,
