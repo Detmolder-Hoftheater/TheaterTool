@@ -12,12 +12,13 @@ Ext.define('TheaterTool.view.tabPanel.GagenTable', {
 	},
 	flex:1,
 	sortableColumns: false,
-	title: '<b style="color:gray;">Gagenbücher</b>',
-	icon: 'resources/images/Gift-17.png',
+	hideHeaders: true,
+	//title: '<b style="color:gray;">Gagenbücher</b>',
+	//icon: 'resources/images/Gift-17.png',
 	store: null,
 	columnLines: true,	
 	detailsColumn: null,
-	margin: '0 10 10 120',
+	margin: '0 0 10 0',
 	gagenList: null,
    
 	initComponent: function () {

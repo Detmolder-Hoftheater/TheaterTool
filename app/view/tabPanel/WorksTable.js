@@ -12,12 +12,13 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
 	},
 	flex:1,
 	sortableColumns: false,
-	title: '<b style="color:gray;">Werke</b>',
+	hideHeaders: true,
+	//title: '<b style="color:gray;">Werke</b>',
 	//icon: 'resources/images/Presse-16.png',
 	store: null,
 	columnLines: true,	
 	detailsColumn: null,
-	margin: '0 10 10 120',
+	margin: '0 0 10 0',
 	worksList: null,
    
 	initComponent: function () {

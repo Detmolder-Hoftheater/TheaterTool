@@ -295,7 +295,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                                             icon: 'resources/images/Mask-19.png'
                                         });
                                         var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                                            dbkey: personId
+                                            dbkey: personId, icon: 'resources/images/Mask-19.png'
                                         });
                                         personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                                         repertoireTab.add(personDetails);

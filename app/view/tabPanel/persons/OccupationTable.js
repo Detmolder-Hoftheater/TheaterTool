@@ -15,7 +15,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.OccupationTable', {
 	
 	title: '<b style="color:gray;">Berufliche Werdegang</b>',
 	//icon: 'resources/images/Time-17.png',
-	margin: '0 10 10 120',
+	margin: '0 5 10 0',
 	sortableColumns: false,
 	
 	ocupationList: null,
