@@ -50,120 +50,120 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
 if(me.worksList != 'undefined'){
 for(i = 0; i < me.worksList.length; i++){
             var work = me.worksList[i];
-            var iconExtend = '';
-            if(work[1] === 'H020149' || work[1] === 'H020048' || work[1] === 'H020263'){
-                iconExtend = 'resources/images/BookBlau-17.png';
+            var iconPath = '';
+            var workId = work[1];
+            console.log(workId);
+            if (extWorkKeys.indexOf(workId) > -1) {
+                iconPath = 'resources/images/BookBlau-16.png';
+            } else {
+                iconPath = 'resources/images/Books1-17.png';
             }
-            else{
-                iconExtend = 'resources/images/Books1-17.png';
-            }
-            
+       
 			var workRow = Ext.create('TheaterTool.model.RefData', {
     			name : work[0],
-    			iconExtend: iconExtend,
+    			iconExtend: iconPath,
     			id : work[1]
 			});
 			me.store.add(workRow);
 			}
 	}
-		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
+		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png', 'name');
 		
-		var extendColumn = this.createColumn('', '');
+		var extendColumn = this.createExtendColumn();
 		
 		this.columns =[ 
 		extendColumn,
-		
-		{
-			text: 'Name',
-			flex: 2,
-			menuDisabled: true,
-			dataIndex: 'name'
-			
-		},
 		this.detailsColumn
 		];
 		
 		this.callParent();
 	},
 	
-	createColumn: function (headerName, path) {
+	createExtendColumn: function () {
+		
+		var eColumn = Ext.create('Ext.grid.column.Action', {			
+			xtype: 'actioncolumn',
+			//header: headerName,
+			//flex:0.3,
+			align: 'center',
+			menuDisabled: true,
+			renderer: function (val, metadata, record) {	
+			    this.items[0].icon = record.data.iconExtend;					
+				metadata.style = 'cursor: pointer;';				
+			}
+			
+			});
+		return eColumn;
+	},
+	
+	createColumn: function (headerName, path, dataind) {
+	
+	getWorkContent = function (workId, workName) {
+            var toolBarGlobal = Ext.getCmp('toolbar');
+            var historyButton = Ext.getCmp('historyButton');
+            
+            var workIcon = '';
+            if (extWorkKeys.indexOf(workId) > -1) {
+                workIcon = 'resources/images/BookBlau-16.png';
+            } else {
+                workIcon = 'resources/images/Books1-17.png';
+            }
+            
+            var menuItem = historyButton.menu.add({
+                text: '<font style="color:gray;">' + workName + '</font>', icon: workIcon, dbkey: workId
+            });
+            
+            var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+            var existItems = navTreeGlobal.items;
+            var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, workId, menuItem.id);
+            if (! isFoundItem) {
+                
+                var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                    title: '<font style="color:gray;">' + workName + '</font>',
+                    icon: workIcon
+                });
+                
+                /*var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
+                selection: workId, isSelected: true
+                });*/
+                var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
+                    selection: workId, isSelected: true, workName: workName, workIcon: workIcon
+                });
+                
+               // personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
+                repertoireTab.add(personDetails);
+                
+                repertoireTab.setActiveMenuItemId(menuItem.id);
+                repertoireTab.setMenuAdded(true);
+                
+                navTreeGlobal.add(repertoireTab);
+                navTreeGlobal.setActiveTab(repertoireTab);
+                navTreeGlobal.fireEvent('render', navTreeGlobal);
+            }
+        };
 		
 		var eColumn = Ext.create('Ext.grid.column.Action', {			
 			xtype: 'actioncolumn',
 			header: headerName,
 			flex:1,
-			align: 'center',
+			//align: 'center',
+			dataIndex: dataind,
 			menuDisabled: true,
 			renderer: function (val, metadata, record) {
-			
-			if(headerName == 'Details'){
-					this.items[0].icon = path;	
-				}
-								
-				if(headerName == ''){
-				  
-					this.items[0].icon = record.data.iconExtend;					
-				}
+			     var presentationText = '';
+                                if (record.data.id !== '') {
+                                    // this.items[0].icon = 'resources/images/Door-24.png';
+                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getWorkContent(\'' + record.data.id + '\'' + ', \'' + record.data.name + '\');">' + record.data.name + '</a></small>';
+                      } else {
+                                    //this.items[0].icon = '';
+                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.name + ' </small>';
+                                }
+                                // metadata.style = 'cursor: pointer;';
+                                return presentationText;
 				
-				metadata.style = 'cursor: pointer;';
-				
-				/*if(headerName == 'Details'){
-					return '<div style="float:right; font-size: 13px; line-height: 1em;">'
-                + 'Hey!' 
-            + '</div>';
-				}
-				else{*/
-				    return val;
-			//	}
-				
-			},
+			}
 			
-			handler: function(grid, rowIndex, colIndex) {
-			
-			         var rec = grid.getStore().getAt(rowIndex);
-			         var dbkey = rec.data.id;
-			         
-			         var workIcon = '';
-                    if (extWorkKeys.indexOf(dbkey) > -1) {
-                        workIcon = 'resources/images/BookBlau-16.png';
-                    } else {
-                        workIcon = 'resources/images/Books1-17.png';
-                    }
-			
-			        var toolBarGlobal = Ext.getCmp('toolbar');
-                    var historyButton = Ext.getCmp('historyButton'); 
-                    //var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, dbkey);
-                    //if(!isHistoryItemExist){
-                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: workIcon, dbkey: dbkey});  
-
-                     //}
-			
-			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
-			        var existItems = navTreeGlobal.items;					
-					var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey, menuItem.id);
-                     if (! isFoundItem) { 
-					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">'+rec.data.name+'</font>',
-						icon: workIcon
-					});
-					//var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: dbkey, isSelected: true});
-					var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
-                                        selection: dbkey, isSelected: true, workName: rec.data.name, workIcon: workIcon
-                                    });
-					
-					repertoireTab.add(personDetails);
-
-					repertoireTab.setActiveMenuItemId(menuItem.id);
-                    repertoireTab.setMenuAdded(true);
-                    
-					navTreeGlobal.add(repertoireTab);
-					navTreeGlobal.setActiveTab(repertoireTab);
-					navTreeGlobal.fireEvent('render', navTreeGlobal);
-
-					
-                }
-                }
-		});
+			});
 		return eColumn;
 	}
 

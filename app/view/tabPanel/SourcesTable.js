@@ -58,7 +58,7 @@ for(i = 0; i < me.sourcesList.length; i++){
 			}
 			}
 	
-		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
+		//this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
 		
 		this.columns =[ 
 		
@@ -68,8 +68,8 @@ for(i = 0; i < me.sourcesList.length; i++){
 			menuDisabled: true,
 			dataIndex: 'name'
 			
-		},
-		this.detailsColumn
+		}
+		//this.detailsColumn
 		];
 		
 		this.callParent();

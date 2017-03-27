@@ -471,7 +471,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 var table_layout = Ext.create('Ext.panel.Panel', {
                     layout: {
                         type: 'table',
-                        columns: 2,
+                        columns: 1,
                         tdAttrs: {
                             valign: 'top'
                         },

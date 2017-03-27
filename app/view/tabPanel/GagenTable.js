@@ -41,13 +41,13 @@ for(i = 0; i < me.gagenList.length; i++){
 		
 		this.columns =[ 
 		
-		{
+		/*{
 			text: 'Name',
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'name'
 			
-		},
+		},*/
 		this.detailsColumn
 		];
 		
@@ -55,22 +55,42 @@ for(i = 0; i < me.gagenList.length; i++){
 	},
 	
 	createColumn: function (headerName, path) {
+	
+	getGagenContent = function (gagenName) {
+            var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+			        var existItems = navTreeGlobal.items;
+					var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+gagenName+'</font>');
+                    if (! isFoundItem) {
+					
+					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+						title: '<font style="color:gray;">'+gagenName+'</font>',
+						icon: 'resources/images/Gift-17.png'
+					});
+					var personDetails = new TheaterTool.view.tabPanel.gagebooks.GageBookPanelInTab({regieName: gagenName});
+					repertoireTab.add(personDetails);
+
+					
+					navTreeGlobal.add(repertoireTab);
+					navTreeGlobal.setActiveTab(repertoireTab);	
+					navTreeGlobal.fireEvent('render', navTreeGlobal);
+                }
+        };
 		
 		var eColumn = Ext.create('Ext.grid.column.Action', {			
 			xtype: 'actioncolumn',
 			header: headerName,
 			flex:1,
-			align: 'center',
+			//align: 'center',
+			dataIndex: 'name',
 			menuDisabled: true,
-			renderer: function (val, metadata, record) {
+			renderer: function (val, metadata, record) {			
+			var presentationText = '';
+                              
+                                var presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getGagenContent(\'' + record.data.name + '\');">' + record.data.name + '</a></small>';
+                               
+                                return presentationText;
 			
-			if(headerName == 'Details'){
-					this.items[0].icon = path;					
-				}
-				
-				metadata.style = 'cursor: pointer;';
-				return val;
-			},
+			}/*,
 			handler: function(grid, rowIndex, colIndex) {
 			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
 			        var existItems = navTreeGlobal.items;
@@ -90,7 +110,7 @@ for(i = 0; i < me.gagenList.length; i++){
 					navTreeGlobal.setActiveTab(repertoireTab);	
 					navTreeGlobal.fireEvent('render', navTreeGlobal);
                 }
-                }
+                }*/
 		});
 		return eColumn;
 	}
