@@ -655,7 +655,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     });
                     
                     var issueTable = new TheaterTool.view.tabPanel.repertoire.work.IssueTable({
-                        issueList: json.issueRef, selectedWorkID: me.workID
+                        issueList: json.issueRef, selectedWorkID: me.dbkey
                     });
                     //ref_layout.add(issueTable);
                     

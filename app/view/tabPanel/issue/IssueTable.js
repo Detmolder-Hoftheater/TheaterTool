@@ -256,6 +256,12 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
                      if(tail.workpersons[1] !== ''){
                         personId = tail.workpersons[1];
                         personName  = tail.workpersons[0];
+                        if(selectedWorkID === personId){
+                               
+                                me.setWorkToFocus(record);
+                                
+                            }
+                        
                          presentationText = presentationText + 
                          //'<img class="personhtml" src="resources/images/Door-24.png" id="' + tail.workpersons[1] + '" style="width:15px;height:14px;vertical-align:middle;">'+' ';
                      '<small style="font-size: 11px; line-height: 1em;"><a href="javascript:getPersonContent(\''+tail.workpersons[1]+'\''+', \''+tail.workpersons[0]+'\');">'+tail.workpersons[0]+'</a></small>';
