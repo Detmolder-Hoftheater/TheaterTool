@@ -1,0 +1,140 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "ViFE API",
+        "description": "The API for all projects of the Virtual Research Group Edirom",
+        "version": "1.0.0"
+    },
+    "host": "edirom.de",
+    "schemes": [
+        "http"
+    ],
+    "basePath": "/api/v1",
+    "produces": [
+        "application/json",
+        "application/xml"
+    ],
+    "paths": {
+        "/documents": {
+            "get": {
+                "summary": "Lists all documents",
+                "description": "The Documents endpoint returns a list of all documents from the WeGA digital edition.\n",
+                "tags": [
+                    "Documents"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/docTypeParam"
+                    },
+                    {
+                        "$ref": "#/parameters/offsetParam"
+                    },
+                    {
+                        "$ref": "#/parameters/limitParam"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of documents",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Document"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Document": {
+            "type": "object",
+            "properties": {
+                "uri": {
+                    "type": "string",
+                    "description": "Unique identifier representing a specific document"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        },
+        "parameters": {
+            "offsetParam": {
+                "name": "offset",
+                "in": "query",
+                "description": "Position of first item to retrieve (starting from 1)",
+                "type": "integer",
+                "format": "int32",
+                "default": 1,
+                "minimum": 1
+            },
+            "limitParam": {
+                "name": "limit",
+                "in": "query",
+                "description": "Number of items to retrieve (200 max)",
+                "type": "integer",
+                "format": "int32",
+                "default": 10,
+                "maximum": 200
+            },
+            "fromDateParam": {
+                "name": "fromDate",
+                "in": "query",
+                "description": "The earliest date",
+                "type": "string",
+                "format": "date"
+            },
+            "toDateParam": {
+                "name": "toDate",
+                "in": "query",
+                "description": "The latest date",
+                "type": "string",
+                "format": "date"
+            },
+            "docTypeParam": {
+                "name": "docType",
+                "in": "query",
+                "description": "The WeGA document type",
+                "type": "array",
+                "collectionFormat": "csv",
+                "items": {
+                    "type": "string",
+                    "enum": [
+                        "biblio",
+                        "diaries",
+                        "documents",
+                        "letters",
+                        "news",
+                        "persons",
+                        "thematicCommentaries",
+                        "works",
+                        "writings"
+                    ]
+                }
+            }
+        }
+    }
+}
