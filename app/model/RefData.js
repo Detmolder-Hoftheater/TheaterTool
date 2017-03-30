@@ -3,6 +3,7 @@ Ext.define('TheaterTool.model.RefData', {
     fields: [
         {name: 'name',   type: 'string'}, 
         {name: 'id',   type: 'string'},
+        {name: 'refId',   type: 'string'},
         {name: 'iconExtend',   type: 'string'},       
         {name: 'jahr',   type: 'string'},
         {name: 'monat',   type: 'string'}

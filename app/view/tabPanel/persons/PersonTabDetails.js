@@ -116,7 +116,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 
                 var json = jQuery.parseJSON(result.responseText);
                 
-                console.log(json);
+                //console.log(json);
                 
                 me.add({
                     
@@ -425,7 +425,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     });
                     panel_011.add(gender);
                 }
-                console.log(json.birth[0][0]);
+                //console.log(json.birth[0][0]);
                 if (json.birth[0][0] !== '') {
                 var birth = me.createTextFieldWithoutLabel();               
                     birth.setValue(json.birth[0]);

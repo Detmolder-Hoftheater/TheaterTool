@@ -52,46 +52,95 @@ for(i = 0; i < me.sourcesList.length; i++){
             var source = me.sourcesList[i];
 			var sourceRow = Ext.create('TheaterTool.model.RefData', {
     			name : source[0],
-    			id : source[1]
+    			id : source[1],
+    			refId: source[2]
 			});
 			me.store.add(sourceRow);
 			}
 			}
 	
-		//this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png');
+		this.detailsColumn = this.createColumn();
 		
 		this.columns =[ 
 		
-		{
+		/*{
 			text: 'Name',
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'name'
 			
-		}
-		//this.detailsColumn
+		}*/
+		this.detailsColumn
 		];
 		
 		this.callParent();
 	},
 	
-	createColumn: function (headerName, path) {
+	createColumn: function () {
+	
+	getSourceContent = function (sourceId, sourceName, workId) {
+            var toolBarGlobal = Ext.getCmp('toolbar');
+            var historyButton = Ext.getCmp('historyButton');
+            
+            var workIcon = '';
+            if (extWorkKeys.indexOf(workId) > -1) {
+                workIcon = 'resources/images/BookBlau-16.png';
+            } else {
+                workIcon = 'resources/images/Books1-17.png';
+            }
+            
+            var menuItem = historyButton.menu.add({
+                text: '<font style="color:gray;">' + sourceName + '</font>', icon: workIcon, dbkey: workId
+            });
+            
+            var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+            var existItems = navTreeGlobal.items;
+            var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, workId, menuItem.id);
+            if (! isFoundItem) {
+                
+                var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                    title: '<font style="color:gray;">' + sourceName + '</font>',
+                    icon: workIcon
+                });
+                
+                /*var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
+                selection: workId, isSelected: true
+                });*/
+                var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
+                    selection: workId, isSelected: true, workName: sourceName, workIcon: workIcon, sourceId: sourceId
+                });
+                
+               // personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
+                repertoireTab.add(personDetails);
+                
+                repertoireTab.setActiveMenuItemId(menuItem.id);
+                repertoireTab.setMenuAdded(true);
+                
+                navTreeGlobal.add(repertoireTab);
+                navTreeGlobal.setActiveTab(repertoireTab);
+                navTreeGlobal.fireEvent('render', navTreeGlobal);
+            }
+        };
 		
 		var eColumn = Ext.create('Ext.grid.column.Action', {			
 			xtype: 'actioncolumn',
-			header: headerName,
+			//header: headerName,
 			flex:1,
-			align: 'center',
+			//align: 'center',
+			dataIndex: 'name',
 			menuDisabled: true,
-			disabled: true,
-			renderer: function (val, metadata, record) {
-			
-			if(headerName == 'Details'){
-					this.items[0].icon = path;					
-				}
-				
-				metadata.style = 'cursor: pointer;';
-				return val;
+			//disabled: true,
+			renderer: function (val, metadata, record) {			
+			var presentationText = '';
+                                if (record.data.id !== '') {
+                                    // this.items[0].icon = 'resources/images/Door-24.png';
+                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getSourceContent(\'' + record.data.id + '\'' + ', \'' + record.data.name +'\'' +  ', \'' + record.data.refId + '\');">' + record.data.name + '</a></small>';
+                      } else {
+                                    //this.items[0].icon = '';
+                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.name + ' </small>';
+                                }
+                                // metadata.style = 'cursor: pointer;';
+                                return presentationText;
 			}
 			/*handler: function(grid, rowIndex, colIndex) {
 			

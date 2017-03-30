@@ -457,11 +457,15 @@ let $strings := for $elem in $names
 
 					let $name :=if($elem[@dbkey=$workID])then($file1//mei:titleStmt[not(ancestor::mei:componentGrp)][1]/mei:title[1])else()
 					let $dbId :=if($elem[@dbkey=$workID])then($file1/mei:source[not(ancestor::mei:componentGrp)]/@xml:id)else()
-
+					(:let $workIdREf:) 
+					let $worTargetId:=if($elem[@dbkey=$workID])then($file1/mei:source[not(ancestor::mei:componentGrp)]/mei:relationList/mei:relation[@rel='isEmbodimentOf']/@target)else()
+                    let $workIdExpr := tokenize($worTargetId, "#")[last()]
+                    let $workRefId := substring-before($workIdExpr, '_')
+                   
  return 
     if($name != '')then(   
     
-concat('["',$name, '",', '"',$dbId, '"]')
+concat('["',$name, '",', '"',$dbId, '",', '"',$workRefId,'"]')
     )else()
     return 
         string-join($strings,',')
