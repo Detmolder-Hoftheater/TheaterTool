@@ -50,30 +50,49 @@ Ext.define('TheaterTool.view.tabPanel.SourcesTable', {
 if(me.sourcesList != 'undefined'){
 for(i = 0; i < me.sourcesList.length; i++){
             var source = me.sourcesList[i];
+            var workIcon = '';
+                if (extWorkKeys.indexOf(source[2]) > -1) {
+                    workIcon = 'resources/images/BookBlau-16.png';
+                    //'resources/images/SourceBlue.png';
+                } else {
+                    workIcon = 'resources/images/Books1-17.png'
+                    //'resources/images/SourceRed_24.png';
+                }
 			var sourceRow = Ext.create('TheaterTool.model.RefData', {
     			name : source[0],
     			id : source[1],
-    			refId: source[2]
+    			refId: source[2],
+    			iconExtend: workIcon
 			});
 			me.store.add(sourceRow);
 			}
 			}
 	
 		this.detailsColumn = this.createColumn();
-		
-		this.columns =[ 
-		
-		/*{
-			text: 'Name',
-			flex: 2,
-			menuDisabled: true,
-			dataIndex: 'name'
-			
-		}*/
+		var iconColumn = this.createIconColumn();
+		this.columns =[ 	
+		iconColumn,
 		this.detailsColumn
 		];
 		
 		this.callParent();
+	},
+	
+	createIconColumn: function () {
+	   var eColumn = Ext.create('Ext.grid.column.Action', {			
+			xtype: 'actioncolumn',
+			//header: headerName,
+			flex:0.1,
+			align: 'center',
+			menuDisabled: true,
+			renderer: function (val, metadata, record) {	
+			 
+			    this.items[0].icon = record.data.iconExtend;
+			    metadata.style = 'cursor: pointer;';			
+			}
+			
+			});
+		return eColumn;
 	},
 	
 	createColumn: function () {
@@ -84,9 +103,9 @@ for(i = 0; i < me.sourcesList.length; i++){
             
             var workIcon = '';
             if (extWorkKeys.indexOf(workId) > -1) {
-                workIcon = 'resources/images/BookBlau-16.png';
+                workIcon = 'resources/images/SourceBlue.png';
             } else {
-                workIcon = 'resources/images/Books1-17.png';
+                workIcon = 'resources/images/SourceRed.png';
             }
             
             var menuItem = historyButton.menu.add({
