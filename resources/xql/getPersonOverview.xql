@@ -461,11 +461,15 @@ let $strings := for $elem in $names
 					let $worTargetId:=if($elem[@dbkey=$workID])then($file1/mei:source[not(ancestor::mei:componentGrp)]/mei:relationList/mei:relation[@rel='isEmbodimentOf']/@target)else()
                     let $workIdExpr := tokenize($worTargetId, "#")[last()]
                     let $workRefId := substring-before($workIdExpr, '_')
+                    
+                    let $rismLabel := if($elem[@dbkey=$workID])then($file1/mei:source//mei:identifier[@label ="RISM-label"][1])else()
+		            let $physLoc := if($elem[@dbkey=$workID])then($file1/mei:source//mei:identifier[@type ="shelfLocation"][1])else()
+		            let $sourceName := concat('Quelle: ', $rismLabel, ' , ' ,$physLoc)
                    
  return 
     if($name != '')then(   
     
-concat('["',$name, '",', '"',$dbId, '",', '"',$workRefId,'"]')
+concat('["',$name, '",', '"',$dbId, '",', '"',$workRefId,'",', '"',$sourceName, '"]')
     )else()
     return 
         string-join($strings,',')

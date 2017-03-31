@@ -85,9 +85,15 @@ selectedWork: null,
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
 					me.repertoirePanel.removeAll(true);
-					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: eOpts[0].data.sourceID, werkTitle: eOpts[0].parentNode.data.name});
+					var workIcon = '';
+                    if (extWorkKeys.indexOf(eOpts[0].parentNode.data.werkID) > -1) {
+                        workIcon = 'resources/images/SourceBlue.png';
+                    } else {
+                        workIcon = 'resources/images/SourceRed_24.png';
+                    }
+					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: eOpts[0].data.sourceID, werkTitle: eOpts[0].parentNode.data.name, title: '<font size="2" face="Arial" style="color:#A87678;">'+eOpts[0].data.name+'</font>', icon: workIcon});
 					me.repertoirePanel.add(me.sourcePanel);	
-					me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name+' (Werk: '+eOpts[0].parentNode.data.name+'; '+eOpts[0].parentNode.data.componist+')</b>');
+					//me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name+' (Werk: '+eOpts[0].parentNode.data.name+'; '+eOpts[0].parentNode.data.componist+')</b>');
 				}
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
 				//console.log(eOpts[0].data);
