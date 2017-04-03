@@ -52,7 +52,7 @@ for(i = 0; i < me.residenseList.length; i++){
 		this.columns =[ 
 		{
 			text: 'Datum',
-			flex: 1,
+			flex: 0.5,
 			menuDisabled: true,
 			dataIndex: 'datum'
 		},

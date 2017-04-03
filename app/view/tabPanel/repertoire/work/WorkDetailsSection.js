@@ -128,7 +128,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
             success: function (result) {
                 
                 var json = jQuery.parseJSON(result.responseText);
-                
+               
                 me.add({
                     
                     xtype: 'label',

@@ -50,25 +50,34 @@ flex:1,
 					
 					var json = jQuery.parseJSON(result.responseText);
 					
-					console.log(json);	
-
-		/*var titel_group = Ext.create('Ext.form.FieldSet', {
-			title: '<b style="color:gray;">Titel Varianten</b>',
-			bodyBorder: false,
-			collapsible: false,
-			collapsed: false,
-			items:[]
-		});
-		me.add(titel_group);*/
+					console.log(json);
+					
+					
+					panel_101 = Ext.create('Ext.panel.Panel', {
+                        colspan: 1,
+                        //type: 'hbox',
+                        border: false,
+                        bodyBorder: false,
+                        //bodyPadding: 10,
+                        margin: '0 0 10 10',
+                        //margin: '0 0 0 5',
+                        items:[
+                        /*left_panel,
+                        right_panel,*/]
+                    });
+                    me.add(panel_101);
 		
-		var titel_group = Ext.create('Ext.form.FieldSet', {
-			title: '<b style="color:gray;">Titel Varianten (Werk)</b>',
-			bodyBorder: false,
-			collapsible: false,
-			collapsed: true
-			//margin: '10 0 0 0'
-		});
-		me.add(titel_group);
+		me.titel = me.createTextField('<font size = "1"><b style="color:gray; vertical-align:top;">Titel</b></font>');
+		me.titel.setValue(json.titel[0]);
+		panel_101.add(me.titel);
+		
+		
+		me.add({
+                    
+                    xtype: 'label',
+                    html: '<b style="color:gray; font-size: 12px;">Titel Varianten (Werk)</b>',
+                    margin: '0 0 10 0'
+                });
 		
 		
 		var panel_0 = null;
@@ -76,7 +85,7 @@ flex:1,
 		panel_0 = Ext.create('Ext.panel.Panel', {
 			layout: {
 				type: 'table',
-				columns: 2,
+				columns: 1,
 				tdAttrs: {
         			valign: 'top'
    				 },
@@ -117,19 +126,19 @@ flex:1,
                         
 				if(titelKey_tmp === titleKeyLang){
 					if(el[1] === 'uniform'){
-						me.w_ein_titel = me.createTextField('Einheitstitel'+titelKey);
+						me.w_ein_titel = me.createTextField('<font size = "1"><b style="color:gray; vertical-align:top;">' + 'Einheitstitel'+titelKey + '</b></font>');
 						me.w_ein_titel.setValue(el[0]);
 					}
 					else if(el[1] === ''){
-						me.w_titel = me.createTextField('Titel'+titelKey);
+						me.w_titel = me.createTextField('<font size = "1"><b style="color:gray; vertical-align:top;">' + 'Titel'+titelKey + '</b></font>');
 						me.w_titel.setValue(el[0]);
 					}
 					else if(el[1] === 'alt'){
-						me.w_alt_titel = me.createTextField('Alternativtitel'+titelKey);
+						me.w_alt_titel = me.createTextField('<font size = "1"><b style="color:gray; vertical-align:top;">' + 'Alternativtitel'+titelKey + '</b></font>');
 						me.w_alt_titel.setValue(el[0]);
 					}
 					else if(el[1] === 'sub'){
-						me.w_unter_titel =  me.createTextField('Untertitel'+titelKey);
+						me.w_unter_titel =  me.createTextField('<font size = "1"><b style="color:gray; vertical-align:top;">' + 'Untertitel'+titelKey + '</b></font>');
 						me.w_unter_titel.setValue(el[0]);
 					}
 }
@@ -163,281 +172,178 @@ flex:1,
 				me.w_unter_titel = null;
 
 		}
-
-		me.titel = me.createTextField('Titel (Quelle)');
-		me.titel.setValue(json.titel[0]);
 		
-		var info_group = Ext.create('Ext.form.FieldSet', {
-			title: '<b style="color:gray;">Allgemeine Information</b>',
-			bodyBorder: false,
-			collapsible: false,
-			collapsed: true,
-			margin: '10 0 0 0'
-		});
-		me.add(info_group);
-		
-		var ext_panel = Ext.create('Ext.panel.Panel', {
-			layout: {
-				type: 'table',
-				columns: 2,
-				tdAttrs: {
-        			valign: 'top'
-   				 },
-   				  tableAttrs: {
-                            style: {
-                                width: '100%'
-                            }
-                        }
-                        
-			},
-			
-			//margin: '0 10 0 10',
-			//bodyPadding: 10,
-			bodyBorder: false,
-			border: false,
-			items:[]
-		});
-		me.add(ext_panel);
-		
-		var rismValue = json.rism[0];
-		var imageRISMLink = Ext.create('Ext.Img', {
-                            html: '<img src="resources/images/Link.png" style="width:17px;height:18px;">',
-                            
-                            autoEl: {
-                                tag: 'a',
-                                href: 'https://opac.rism.info/search?id='+rismValue,
-                                //'https://opac.rism.info/metaopac/start.do?View=rism&Language=en&searchString[0]='+rismValue,
-                                target: "_blank"
-                            }
-                        });
-                        ext_panel.add({
-                            xtype: 'fieldcontainer',
-                            fieldLabel: '<img src="resources/images/Info.png"  title="Répertoire International des Sources Musicales" style="margin: 0 5 -2 0; width:13px;height:13px;">' + 'RISM ID',
-                            defaultType: 'textfield',                        
-                            layout: {
-                                type: 'table', columns: 2,
-                                tdAttrs: {
-                                    valign: 'top'
-                                },
-                                tableAttrs: {
-                                    style: {
-                                        width: '100%'
-                                    }
-                                }
-                            },
-                                                       
-                            items:[imageRISMLink, {
-                                value: rismValue,
-                                readOnly: true,
-                                style: {
-                                    width: '100%',
-                                    //autoWidth: true,
-                                    borderLeft: '3px solid #FFFFFF'
-                                }
-                            }]
-                        });
-		
-		
-		
-		
-		
-	
-		/*me.rism = me.createTextField('RISM ID'+
-		'<img src="resources/images/Info.png"  title="Répertoire International des Sources Musicales" style="float:right;width:13px;height:13px;">');
-		var rismValue = json.rism[0]
-		me.rism.setValue(rismValue);
-		
-		 var ext_panel = Ext.create('Ext.panel.Panel', {
-			layout: {
-				type: 'table',
-				columns: 2,
-				tdAttrs: {
-        			valign: 'top'
-   				 },
-   				  tableAttrs: {
-                            style: {
-                                width: '100%'
-                            }
-                        }
-                        
-			},
-			
-			//margin: '0 10 0 10',
-			//bodyPadding: 10,
-			bodyBorder: false,
-			border: false,
-			items:[]
-		});*/
-		//me.add(ext_panel);
-		//ext_panel.add(me.rism);
-		
-		/*ext_panel.add({html: '<img src="resources/images/Link.png" style="width:17px;height:18px;">',
-				border: false,
-				colspan: 1,
-				bodyPadding: 3,
-				autoEl: {
-        tag: 'a',
-        href: 'https://opac.rism.info/metaopac/start.do?View=rism&Language=en&searchString[0]='+rismValue,
-		target: "_blank"
-    }
-				
-				});*/
-		
-		
-me.sign = me.createTextArea('Bibliotheken');
-		var bibText = '';
-		for(i = 0; i < json.bibliotheken.length; i++){
-			bibText += json.bibliotheken[i] + '\n';
-		}
-		me.sign.setValue(bibText);
-		me.prov = me.createTextArea('Provenienz');
-		var provText = '';
-		for(i = 0; i < json.abschriften.length; i++){
-			provText += json.abschriften[i] + '\n';
-		}
-		me.prov.setValue(provText);
-
-var persStore = Ext.create('Ext.data.Store', {
-	model: 'TheaterTool.model.Person',
-    data:[]
-});
-me.pers =Ext.create('Ext.grid.Panel', {
-    store: persStore,
-    sortableColumns: false,
-    columnLines: true,
-   layout: {
-		type: 'hbox',
-		pack: 'start',
-		align: 'stretch'
-	},
-	flex:1,
-	
-    title: '<b style="color:gray;">Personen</b>',
-    icon: 'resources/images/Mask-19.png',
-    columns: [
-        { header: 'Name',  dataIndex: 'name', menuDisabled: true, flex:2},
-        { header: 'Rolle', dataIndex: 'role', menuDisabled: true, flex:1},
-Ext.create('Ext.grid.column.Action', {			
-			xtype: 'actioncolumn',
-			header: 'Details',
-			flex:1,
-			align: 'center',
-			menuDisabled: true,
-			renderer: function (val, metadata, record) {
-					if(record.data.dbkey !== ''){
-					this.items[0].icon = 'resources/images/Door-24.png';					
-				}				
-				else {					
-					this.items[0].icon = '';
-				}
-				
-				
-				metadata.style = 'cursor: pointer;';
-				return val;
-			},
-			handler: function(grid, rowIndex, colIndex) {
-			
-			        var rec = grid.getStore().getAt(rowIndex);
-                    var dbkey = rec.data.dbkey;
-                             
-                    var toolBarGlobal = Ext.getCmp('toolbar');
-                    var historyButton = Ext.getCmp('historyButton'); 
-                   // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, dbkey);
-                    //if(!isHistoryItemExist){
-                        var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + rec.data.name + '</font>', icon: 'resources/images/Mask-19.png', dbkey: dbkey});  
-
-                   // }
-					
-			        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
-			        var existItems = navTreeGlobal.items;
-					var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, dbkey, menuItem.id);
-                     if (! isFoundItem) {					
-					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-						title: '<font style="color:gray;">'+rec.data.name+'</font>',
-						icon: 'resources/images/Mask-19.png'
-					});
-					var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: dbkey, icon: 'resources/images/Mask-19.png'});
-					personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">'+rec.data.name+'</font>');
-					repertoireTab.add(personDetails);
-
-					repertoireTab.setActiveMenuItemId(menuItem.id);
-                    repertoireTab.setMenuAdded(true);
+		 if (json.autoren.length > 0) {
+		me.add({                      
+                        xtype: 'label',
+                        html: '<img src="resources/images/Mask-19.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Personen</b>',
+                        margin: '10 0 10 0'
+                    });
                     
-					navTreeGlobal.add(repertoireTab);
-					navTreeGlobal.setActiveTab(repertoireTab);	
-                    navTreeGlobal.fireEvent('render', navTreeGlobal);
-                }
-                }
-		})
+                    for(i = 0; i < json.autoren.length; i++){
+                        var autor = json.autoren[i];
+                        var persRole = '';
+                        if (autor[1] === 'arr') {
+                            persRole = 'Arrangeur';
+                        } else if (autor[1] === 'aut') {
+                            persRole = 'Autor';
+                        } else if (autor[1] === 'cmp') {
+                            persRole = 'Komponist';
+                        } else if (autor[1] === 'cre') {
+                            persRole = 'Urheber ';
+                        } else if (autor[1] === 'lbt') {
+                            persRole = 'Librettist';
+                        } else if (autor[1] === 'edt') {
+                            persRole = 'Verfasser';
+                        } else if (autor[1] === 'lyr') {
+                            persRole = 'Textdichter';
+                        } else if (autor[1] === 'trl') {
+                            persRole = 'Übersetzer';
+                        } else if (autor[1] === 'scr') {
+                            persRole = 'Schreiber';
+                        } else if (autor[1] === 'fmo') {
+                            persRole = 'former owner';
+                        } else if (autor[1] === 'asn') {
+                            persRole = 'associated name';
+                        } else if (autor[1] === 'prf') {
+                            persRole = 'Schauspieler';
+                        } else if (autor[1] === 'clb') {
+                            persRole = 'Kollaborator';
+                        } else {
+                            persRole = autor[1];
+                        }
+                        if(persRole === '' ){
+                            persRole = 'Funktion nicht definiert';
+                        }
+                        var autorName = autor[0];                        
+                       var dbkey = autor[2];
+                        var name = null;
+                        if(dbkey !== ''){
+                            getPersonContent = function (personId, personName) {
+                                    var toolBarGlobal = Ext.getCmp('toolbar');
+                                    var historyButton = Ext.getCmp('historyButton');
+                                    // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
+                                    //if(!isHistoryItemExist){
+                                    var menuItem = historyButton.menu.add({
+                                        text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
+                                    });
+                                    
+                                    //}
+                                    
+                                    var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+                                    var existItems = navTreeGlobal.items;
+                                    var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId, menuItem.id);
+                                    if (! isFoundItem) {
+                                        
+                                        var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                                            title: '<font style="color:gray;">' + personName + '</font>',
+                                            icon: 'resources/images/Mask-19.png'
+                                        });
+                                        var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
+                                            dbkey: personId, icon: 'resources/images/Mask-19.png'
+                                        });
+                                        personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
+                                        repertoireTab.add(personDetails);
+                                        
+                                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                                        repertoireTab.setMenuAdded(true);
+                                        
+                                        navTreeGlobal.add(repertoireTab);
+                                        navTreeGlobal.setActiveTab(repertoireTab);
+                                        navTreeGlobal.fireEvent('render', navTreeGlobal);
+                                    }
+                                };
+                            name ={
+                            xtype: 'displayfield',
+                            fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
+                            value: '<span><a href="javascript:getPersonContent(\'' + dbkey + '\'' + ', \'' + autorName + '\');">' + autorName + '</a></span>'
+                      };
+                        }
+                        else{
+                            name ={
+                            xtype: 'displayfield',
+                            fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
+                            value: '<span>' + autorName + '</span>'
+                      };
+                        }
+                      
+                       var left_panel_1 = Ext.create('Ext.panel.Panel', {
+                            colspan: 1,
+                            // type: 'vbox',
+                            border: false,
+                            bodyBorder: false,
+                            // bodyPadding: 10,
+                            margin: '0 0 10 10',
+                            //margin: '0 0 0 5',
+                            items:[
+                            name
+                            ]
+                        });
+                                    
+                    me.add(left_panel_1);
+                    }
 
-
-
-       // { header: 'Details', dataIndex: 'dbkey', flex:0.5 }
-    ],
-margin: '0 0 15 110'
-});
-
-for(i = 0; i < json.autoren.length; i++){
-			var autor = json.autoren[i];
-			var persRole = '';
-			if(autor[1] === 'arr'){
-				persRole = 'arranger';
-			}
-			else if(autor[1] === 'aut'){
-				persRole = 'author';
-			}
-			else if(autor[1] === 'cmp'){
-				persRole = 'composer';
-			}
-			else if(autor[1] === 'cre'){
-				persRole = 'creator';
-			}
-			else if(autor[1] === 'lbt'){
-				persRole = 'librettist';
-			}
-			else if(autor[1] === 'edt'){
-				persRole = 'editor';
-			}
-			else if(autor[1] === 'lyr'){
-				persRole = 'lyricist';
-			}
-			else if(autor[1] === 'trl'){
-				persRole = 'translator';
-			}
-			else if(autor[1] === 'scr'){
-				persRole = 'scribe';
-			}
-			else if(autor[1] === 'fmo'){
-				persRole = 'former owner';
-			}
-			else if(autor[1] === 'asn'){
-				persRole = 'associated name';
-			}
-			else if(autor[1] === 'prf'){
-				persRole = 'performer';
-			}
-			else if(autor[1] === 'clb'){
-				persRole = 'collaborator';
-			}
-			else{
-				persRole = autor[1];
-			}
-//act = actor
-//dte = dedicatee
-//egr = engraver
-//editorial_assistant = editorial assistant
-//mcp = music copyist
-
-			var person = Ext.create('TheaterTool.model.Person', {
-    			name : autor[0],
-    			role  : persRole,
-    			dbkey: autor[2]
-			});
-			persStore.add(person);
 		}
 		
-		
-		
+		 if (json.rism[0] !== '' || json.bibliotheken.length > 0 || json.abschriften.length > 0
+                    || typeof json.creation[0] !== 'undefined' || typeof json.hoverview[0] !== 'undefined') {
+		me.add({
+                        
+                        xtype: 'label',
+                        html: '<b style="color:gray; font-size: 12px;">Allgemeine Information</b>',
+                        margin: '10 0 10 0'
+                    });
+		if(json.rism[0] !== ''){
+		var rismPanel = Ext.create('Ext.panel.Panel', {
+                        layout: {
+                            type: 'table',
+                            columns: 1,
+                            tdAttrs: {
+                                valign: 'top'
+                            },
+                            tableAttrs: {
+                                style: {
+                                    width: '100%'
+                                }
+                            }
+                        },
+                        bodyBorder: false,
+                        border: false,
+                        
+                        items:[]
+                    });
+                   me.add(rismPanel);
+                    
+                    
+                    //if (json.rism[0].length > 0) {
+                        var rismValue = json.rism[0];
+                       // for (i = 0; i < gndList.length; i++) {
+                            //var rismValue = gndList[i];
+                            
+                            var panel_10111 = Ext.create('Ext.panel.Panel', {
+                                colspan: 1,
+                                // type: 'vbox',
+                                border: false,
+                                bodyBorder: false,
+                                // bodyPadding: 10,
+                                margin: '0 0 10 10',
+                                //margin: '0 0 0 5',
+                                items:[]
+                            });
+                            rismPanel.add(panel_10111);
+                            panel_10111.add({
+                                xtype: 'component',
+                                bodyPadding: 10,
+                                margin: '0 0 0 107',
+                                autoEl: {
+                                    tag: 'a',
+                                    href: 'https://opac.rism.info/search?id='+rismValue,
+                                    html: 'Informationen auf der Répertoire International des Sources Musicales (RISM) Seite',
+                                    target: "_blank"
+                                }
+                            });
+                    
+                    }
 		var right_panel = Ext.create('Ext.panel.Panel', {
 						colspan: 1,
 						//type: 'hbox',
@@ -445,34 +351,58 @@ for(i = 0; i < json.autoren.length; i++){
 						margin: '0 10 0 10',
 			//bodyPadding: 10,
 						items:[
-						ext_panel,
+						//ext_panel,
 						//me.rism,
-			             me.prov,
-			             me.sign
+						//rismPanel,
+			            /* me.prov,
+			             me.sign,
+			            me.abs,
+		                  me.overview*/
 						
 						]
 					});
-					
-					var left_panel = Ext.create('Ext.panel.Panel', {
-						colspan: 1,
-						//type: 'hbox',
-						border: false,
-						margin: '0 10 0 10',
-						
-			//bodyPadding: 10,
-						items:[
-						me.titel,						
-						me.pers
-						
-						//me.abs
-						]
-					});
-					
+	if(json.bibliotheken.length > 0){	
+me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-align:top;">Bibliotheken</b></font>');
+		var bibText = '';
+		for(i = 0; i < json.bibliotheken.length; i++){
+			bibText += json.bibliotheken[i] + ', ';
+		}
+		me.sign.setValue(bibText);
+		right_panel.add(me.sign);
+		}
+		
+		if(json.abschriften.length > 0){
+		me.prov = me.createTextField('<font size = "1"><b style="color:gray; vertical-align:top;">Provenienz</b></font>');
+		var provText = '';
+		for(i = 0; i < json.abschriften.length; i++){
+			provText += json.abschriften[i] + ', ';
+		}
+		me.prov.setValue(provText);
+		right_panel.add(me.prov);
+        }
+       
+       
+        if(typeof json.creation[0] !== 'undefined'){
+        me.abs = me.createTextField('<font size = "1"><b style="color:gray; vertical-align:top;">Entstehung</b></font>');
+		//if(typeof json.creation !== 'undefined'){
+	       me.abs.setValue(json.creation);
+	       right_panel.add(me.abs);
+       // }
+		}
+		
+		if(typeof json.hoverview[0] !== 'undefined'){
+		me.overview = me.createTextArea('Beschreibung');
+		//if(typeof json.hoverview !== 'undefined'){
+	       me.overview.setValue(json.hoverview);
+	       right_panel.add(me.overview);
+       // }
+	    }
+				
 		var panel_01 = Ext.create('Ext.panel.Panel', {
 			
 			layout: {
 				type: 'table',
-				columns: 2,
+				columns: 1,
 			tdAttrs: {
         			valign: 'top'
    				 }
@@ -488,74 +418,42 @@ for(i = 0; i < json.autoren.length; i++){
 			//bodyPadding: 10,
 			
 			items:[
-			left_panel,
+			//left_panel,
 			right_panel
 			]
 		});
 		
 		me.add(panel_01);
-
+}
 		
-		/*var pers_panel = Ext.create('Ext.panel.Panel', {
-			border: false,
-			bodyPadding: 10,
-			items:[]
-		});
-		
-		pers_panel.add(me.pers);
-		me.items.add(pers_panel);*/
-		
-		
-		/*var ents_panel = Ext.create('Ext.panel.Panel', {
-			border: false,
-			bodyPadding: 10,
-			items:[]
-		});
-		
-		ents_panel.add(me.abs);
-		me.items.add(ents_panel);*/
-		
-		var info_group = Ext.create('Ext.form.FieldSet', {
-			title: '<b style="color:gray;">Geschichte</b>',
-			bodyBorder: false,
-			collapsible: false,
-			collapsed: true,
-			margin: '10 0 0 0'
-		});
-		me.add(info_group);
-		
-		me.abs = me.createTextField('Entstehung');
-		if(typeof json.creation !== 'undefined'){
-	       me.abs.setValue(json.creation);
-	       
-        }
-		
-		me.overview = me.createTextArea('Beschreibung');
-		if(typeof json.hoverview !== 'undefined'){
-	       me.overview.setValue(json.hoverview);
-	       
-        }
-		
-		me.annot = new TheaterTool.view.tabPanel.repertoire.EventsTable({eventList: json.events});
-		//me.createTextArea('Aufführungen');
-		var annot_panel = Ext.create('Ext.panel.Panel', {
-			border: false,
-			//bodyPadding: 10,
-			margin: '10 10 0 10',
-			items:[]
-		});
-		annot_panel.add(me.abs);
-		annot_panel.add(me.overview);
-		annot_panel.add(me.annot);
-		me.add(annot_panel);
-		
-		
-		
-		
-		
-		
-		//this.titel.setValue(value);
-//this.titel.setValue(sourceStore.data[0].item[0].data.row.titel[0]);
+        if (json.events.length > 0) {
+                    
+                    me.add({
+                        
+                        xtype: 'label',
+                        html: '<img src="resources/images/Time-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Aufführungen</b>',
+                        margin: '10 0 10 0'
+                    });
+                    
+                     var eventsTable = new TheaterTool.view.tabPanel.repertoire.EventsTable({
+                        eventList: json.events
+                    });
+                    
+                    var left_panel_11 = Ext.create('Ext.panel.Panel', {
+                        //colspan: 1,
+                        //type: 'hbox',
+                        border: false,
+                        margin: '0 10 0 10',
+                        //type: 'fit',
+                        //bodyPadding: 10,
+                        items:[
+                        
+                        eventsTable]
+                    });
+                    
+                    me.add(left_panel_11);
+                   
+                    }
 }
 			});
 //me.callParent();
@@ -569,15 +467,22 @@ for(i = 0; i < json.autoren.length; i++){
 		var me = this;
 		var textArea = Ext.create('Ext.form.field.TextArea', {
 			name: fieldName,
-			fieldLabel: fieldName,
+			fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + fieldName + '</b></font>',
 			
 			//width: 235,
 			readOnly: true,
+			//cls: Ext.baseCSSPrefix + 'form-clear-trigger',
+            // remove default styling for element wrapping the input element
+            inputWrapCls: '',
+            // remove default styling for div wrapping the input element and trigger button(s)
+            // triggerWrapCls: '',
+            // remove the input element's background
+            fieldStyle: 'background:none',
 			//anchor: '100%',
 			style: {
 			//autoWidth: true,
-				width: '100%',
-				borderLeft: '5px solid #FFFFFF'
+				width: '100%'
+				//borderLeft: '5px solid #FFFFFF'
 			}
 		});
 		
@@ -589,10 +494,17 @@ for(i = 0; i < json.autoren.length; i++){
 		var textArea = Ext.create('Ext.form.field.Text', {
 			//name: fieldName,
 			readOnly: true,
+			// cls: Ext.baseCSSPrefix + 'form-clear-trigger',
+            // remove default styling for element wrapping the input element
+            inputWrapCls: '',
+            // remove default styling for div wrapping the input element and trigger button(s)
+            triggerWrapCls: '',
+            // remove the input element's background
+            fieldStyle: 'background:none',
 			style: {
-				width: '100%',
+				width: '100%'
 				//autoWidth: true,
-				borderLeft: '5px solid #FFFFFF'
+				//borderLeft: '5px solid #FFFFFF'
 			},
 			//width: 235,
 			fieldLabel: fieldName

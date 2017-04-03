@@ -467,7 +467,21 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 }
             
             
-                if(json.occupation.length > 0 || json.residence .length > 0){              
+                if(json.occupation.length > 0 || json.residence .length > 0){ 
+                
+               /* panel_10_1 = Ext.create('Ext.panel.Panel', {
+                        colspan: 1,
+                        //type: 'vbox',
+                        border: false,
+                        bodyBorder: false,
+                        margin: '0 10 0 10',
+                        bodyPadding: 10,
+                        //margin: '0 0 0 5',
+                        items:[
+                        ]
+                    });
+                me.add(panel_10_1);*/
+                
                 var table_layout = Ext.create('Ext.panel.Panel', {
                     layout: {
                         type: 'table',
@@ -508,7 +522,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 }
                 
                
-                var ref_layout = Ext.create('Ext.panel.Panel', {
+                /*var ref_layout = Ext.create('Ext.panel.Panel', {
                     layout: {
                         type: 'table',
                         columns: 2,
@@ -527,7 +541,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     border: false,
                     items:[]
                 });
-                me.add(ref_layout);
+                me.add(ref_layout);*/
                 
                  if ( json.worksRef.length > 0) {
                     me.add({
