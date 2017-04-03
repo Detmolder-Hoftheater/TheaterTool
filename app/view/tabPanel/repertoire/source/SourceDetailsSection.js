@@ -365,7 +365,13 @@ flex:1,
 me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-align:top;">Bibliotheken</b></font>');
 		var bibText = '';
 		for(i = 0; i < json.bibliotheken.length; i++){
-			bibText += json.bibliotheken[i] + ', ';
+		    if(i === json.bibliotheken.length-1){
+		        bibText += json.bibliotheken[i];
+		    }
+		    else{
+		        bibText += json.bibliotheken[i] + '; ';
+		    }
+			
 		}
 		me.sign.setValue(bibText);
 		right_panel.add(me.sign);
@@ -375,7 +381,12 @@ me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-al
 		me.prov = me.createTextField('<font size = "1"><b style="color:gray; vertical-align:top;">Provenienz</b></font>');
 		var provText = '';
 		for(i = 0; i < json.abschriften.length; i++){
-			provText += json.abschriften[i] + ', ';
+		  if(i === json.abschriften.length-1){
+			 provText += json.abschriften[i];
+			}
+			else{
+			    provText += json.abschriften[i] + '; ';
+			}
 		}
 		me.prov.setValue(provText);
 		right_panel.add(me.prov);
@@ -473,11 +484,11 @@ me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-al
 			readOnly: true,
 			//cls: Ext.baseCSSPrefix + 'form-clear-trigger',
             // remove default styling for element wrapping the input element
-            inputWrapCls: '',
+            //inputWrapCls: '',
             // remove default styling for div wrapping the input element and trigger button(s)
             // triggerWrapCls: '',
             // remove the input element's background
-            fieldStyle: 'background:none',
+            //fieldStyle: 'background:none',
 			//anchor: '100%',
 			style: {
 			//autoWidth: true,
@@ -494,7 +505,7 @@ me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-al
 		var textArea = Ext.create('Ext.form.field.Text', {
 			//name: fieldName,
 			readOnly: true,
-			// cls: Ext.baseCSSPrefix + 'form-clear-trigger',
+			 
             // remove default styling for element wrapping the input element
             inputWrapCls: '',
             // remove default styling for div wrapping the input element and trigger button(s)
@@ -503,7 +514,7 @@ me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-al
             fieldStyle: 'background:none',
 			style: {
 				width: '100%'
-				//autoWidth: true,
+				//autoHeight: true
 				//borderLeft: '5px solid #FFFFFF'
 			},
 			//width: 235,
