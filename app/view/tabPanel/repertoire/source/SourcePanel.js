@@ -1,5 +1,5 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
-    extend: 'Ext.tab.Panel',
+    /*extend: 'Ext.tab.Panel',
     
     //autoScroll: true,
     
@@ -11,14 +11,110 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
     detailSection: null,
     sourcesSection: null,
     overviewSection: null,
-    detailSection_xml: null,
+    detailSection_xml: null,*/
     
     sourceID: null,
     werkTitle: null,
     
+    extend: 'Ext.panel.Panel',
+    
+   // title: '<b style="color:gray;">Übersicht</b>',
+    
+    layout: {
+        type: 'vbox',
+        pack: 'start',
+        align: 'stretch'
+    },
+    autoScroll: true,
+    border: true,
+    //bodyPadding: 10,
+    flex: 1,
+    
+    repertoireTab: null,
+    personSection: null,
+    planSection: null,
+    journalSection: null,
+    regieSection: null,
+    roleSection: null,
+    revenueSection: null,
+    issueSection: null,
+    
+    workID: null,
+    
+    //headerPosition: 'right',
+    
     initComponent: function () {
         
         var me = this;
+        
+        me.tbar = {
+        style: {
+        background: '#dcdcdc'
+        },
+       border: false,
+        height: 30,
+        items:[{xtype: 'button',
+        		text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
+        		style: {
+					borderRight: '1px solid gray',
+					borderLeft: '1px solid gray',
+					 borderTop: '1px solid gray',
+					 borderBottom: '1px solid gray'
+				},
+        		margin: '0 3 0 5',
+        		listeners: {
+					click: function (item, e, eOpts) {
+					
+                Ext.Ajax.request({
+                  
+                    url:'resources/xql/getXML.xql',
+                    method: 'GET',
+                    params: {
+                        uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
+                        type: 'source'
+                    },
+                    success: function (response) {
+                    var testText = response.responseText;
+                      
+                       var fragment = document.createDocumentFragment('div');
+        var tempDiv = document.createElement('div');
+        fragment.appendChild(tempDiv);
+        tempDiv.innerHTML = testText;
+        
+        var tmp = hljs.highlightAuto($(tempDiv).html()).value;
+        var htmlVersion = '<pre>' + tmp + '</<pre>';
+                        var win = new Ext.window.Window({
+					       title: '<font style="color:gray;">XML for ' + me.title+'</font>',
+					        html: htmlVersion,
+					        icon: me.workIcon,
+					        bodyStyle:{"background-color":"white"},
+					        height: 600,
+                            width: 800,
+                            autoScroll: true,
+                            bodyPadding: 10
+					        });
+					   win.show();
+                     
+                    }
+                });
+				
+					   
+					}
+				}
+        		},
+        		{xtype: 'button',
+        		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
+        		disabled: true,
+        		style: {
+					borderRight: '1px solid gray',
+					borderLeft: '1px solid gray',
+					 borderTop: '1px solid gray',
+					 borderBottom: '1px solid gray'
+				}
+        		}
+        		]
+        };
+
         
         /*var app = TheaterTool.getApplication();
         var sourceStore = app.createStoreForSource();
@@ -27,11 +123,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
         
         //this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
         
-        me.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({
-            sourceID: me.sourceID
+        var detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel({
+            sourceID: me.sourceID, werkTitle: me.werkTitle
         });
         
-        me.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({
+        
+        me.items =[
+            detailSection]
+        
+       /* me.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({
             sourceID: me.sourceID
         });
         
@@ -76,7 +176,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
                 });
                 //}
             }
-        }
+        }*/
         
         /*this.on({
         delegate: 'tab',
