@@ -3,6 +3,16 @@
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection', {
     extend: 'Ext.panel.Panel',
+    
+     /*layout: {
+        type: 'vbox',
+        pack: 'start',
+        align: 'stretch'
+    },*/
+    autoScroll: true,
+    border: false,
+    bodyPadding: 10,
+    flex: 1,
 
 /*border: true,
 	flex:1,
@@ -17,10 +27,10 @@ bodyBorder: true,
 bodyPadding:10,
 autoScroll: true,*/
 
-bodyPadding:10,
-autoScroll: true,
+/*bodyPadding:10,
+autoScroll: true,*/
 
-    title: '<b style="color:gray;">Beschreibung</b>',
+    //title: '<b style="color:gray;">Beschreibung</b>',
 
     path: null,
       

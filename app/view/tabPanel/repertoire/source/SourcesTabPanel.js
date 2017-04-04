@@ -42,7 +42,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
             sourceID: me.sourceID
         });*/
         //console.log(this.werkTitle);
-        if (storeField.indexOf(me.werkTitle) > -1 && me.werkTitle === 'Aschenbrödel') {
+        /*if (storeField.indexOf(me.werkTitle) > -1 && me.werkTitle === 'Aschenbrödel') {
             me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
                 path: 'Einleitung_Mus-n120_Aschenbroedel'
             });
@@ -50,22 +50,22 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
             me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
                 path: 'Einleitung_Mus-n237_Bettelstudent'
             });
-        }
+        }*/
         
-        if (me.overviewSection !== null) {
+        /*if (me.overviewSection !== null) {
             me.items =[
             me.overviewSection,
             me.detailSection,
             me.sourcesSection
             //me.detailSection_xml
             ]
-        } else {
+        } else {*/
             me.items =[
             me.detailSection,
             me.sourcesSection
            // me.detailSection_xml
             ]
-        };
+      //  };
         
         me.detailSection.setTitelValue();
         me.sourcesSection.createContent();

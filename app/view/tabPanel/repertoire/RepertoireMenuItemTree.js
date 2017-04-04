@@ -120,8 +120,8 @@ width: 200,
 						me.repertoirePanel.add(me.incipitsPanel);
 						//me.navButton.setText('<b style="color:#A87678;">Incipits für '+eOpts[0].parentNode.data.name+' (Werk: '+eOpts[0].parentNode.parentNode.data.name+'; '+eOpts[0].parentNode.parentNode.data.componist+')</b>');	
 					}
-					else if(eOpts[0].data.name === 'RISM'){
-						me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel({sourceID: eOpts[0].parentNode.data.sourceID});
+					else if(eOpts[0].data.name === 'Beschreibung'){
+						me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel({sourceID: eOpts[0].parentNode.data.werkID, title:eOpts[0].parentNode.data.name, title: '<font size="2" face="Arial" style="color:#A87678;">Beschreibung für '+eOpts[0].parentNode.data.name+'</font>'});
 						me.repertoirePanel.add(me.rismPanel);
 						//me.navButton.setText('<b style="color:#A87678;">RISM für '+eOpts[0].parentNode.data.name+' (Werk: '+eOpts[0].parentNode.parentNode.data.name+'; '+eOpts[0].parentNode.parentNode.data.componist+')</b>');	
 					}

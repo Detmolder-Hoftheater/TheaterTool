@@ -133,6 +133,19 @@ let $strings := for $elem in $titles
 								'}')
 			)
 			else()
+			
+			let $isOverwiew := if(contains($fileID, 'H020149')  or contains($fileID, 'H020263'))
+			then(concat('{',
+									'"leaf":"true",',
+									'"name":"Beschreibung",',
+									'"extName":"Beschreibung",',
+									'incipits:"',"false",'",',
+									'details:"',"false",'",',                          
+                            		'xml:"',"false",'",',
+									'"icon":"resources/images/SourceBlue.png",', 
+								'},')
+			)
+			else()
 
 			let $iconWork := if(contains($fileID, 'H020149') or contains($fileID, 'H020048')  or contains($fileID, 'H020263'))
 			then('resources/images/BookBlau-17.png')
@@ -170,6 +183,7 @@ let $isSource := if($sourceFileName != '')
 									'icon:"',$iconRISM,'",',                         
                             		'xml:"',"true",'",',
 								'},',:)
+								$isOverwiew,
 								'{',
 									'"leaf":"true",',
 									'"name":"Incipits",',

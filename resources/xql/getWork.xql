@@ -61,7 +61,7 @@ let $strings := for $elem in $fileNames
 		let $sourceName := concat('Quelle: ', $rismLabel, ' , ' ,$physLoc)
 		let $extName := concat($fileName1, ': ',  $comp)
 		
-		let $isExtend := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
+		let $isExtend := if(contains($fileID, 'H020149') or contains($fileID, 'H020048')  or contains($fileID, 'H020263'))
 			then(concat('{',
 									'"leaf":"true",',
 									'"name":"Faksimiles",',
@@ -71,6 +71,19 @@ let $strings := for $elem in $fileNames
                             		'xml:"',"true",'",',
 									'"icon":"resources/images/Images-17.png",', 
 								'}')
+			)
+			else()
+			
+			let $isOverwiew := if(contains($fileID, 'H020149')  or contains($fileID, 'H020263'))
+			then(concat('{',
+									'"leaf":"true",',
+									'"name":"Beschreibung",',
+									'"extName":"Beschreibung",',
+									'incipits:"',"false",'",',
+									'details:"',"false",'",',                          
+                            		'xml:"',"false",'",',
+									'"icon":"resources/images/SourceBlue.png",', 
+								'},')
 			)
 			else()
 			
@@ -110,6 +123,7 @@ let $strings := for $elem in $fileNames
 									'icon:"',$iconRISM,'",',                         
                             		'xml:"',"true",'",',
 								'},',:)
+								$isOverwiew,
 								'{',
 									'"leaf":"true",',
 									'"name":"Incipits",',
@@ -119,6 +133,7 @@ let $strings := for $elem in $fileNames
 									'icon:"',$iconIncipits,'",',                         
                             		'xml:"',"false",'",',
 								'},',
+								
 								$isExtend,
 								']',
 							'}]')
