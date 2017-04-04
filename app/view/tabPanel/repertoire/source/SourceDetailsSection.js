@@ -50,7 +50,7 @@ flex:1,
 					
 					var json = jQuery.parseJSON(result.responseText);
 					
-					console.log(json);
+					//console.log(json);
 					
 					
 					panel_101 = Ext.create('Ext.panel.Panel', {
