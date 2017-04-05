@@ -19,6 +19,27 @@ declare variable $path := 'xmldb:exist:///apps/theater-data/works/';
 declare variable $file := collection($path);
 declare variable $fileNames := $file//mei:work/@xml:id;
 
+declare function local:getFacsimNames($file) {
+
+let $strings := for $elem in $file
+
+		let $navItem := $elem//mei:sourceDesc//mei:title
+		let $xmlid := $elem//mei:mei/@xml:id
+                    return 
+						if($navItem != '')then(
+                        concat('{name:"',$navItem,'",',
+							'"leaf":"true",',
+							'xmlid:"',$xmlid,'",',
+							'"icon":"resources/images/Images-17.png"',							
+                            '}'))
+else()
+    return 
+        string-join($strings,',')
+
+   
+    
+};
+
 declare function local:jsonifySlurs($fileNames) {
 
 let $strings := for $elem in $fileNames
@@ -61,15 +82,22 @@ let $strings := for $elem in $fileNames
 		let $sourceName := concat('Quelle: ', $rismLabel, ' , ' ,$physLoc)
 		let $extName := concat($fileName1, ': ',  $comp)
 		
-		let $isExtend := if(contains($fileID, 'H020149') or contains($fileID, 'H020048')  or contains($fileID, 'H020263'))
+		let $workFolder := if(contains($fileID, 'H020149'))then('aschenbroedel/')else(
+        if(contains($fileID, 'H020263'))then('bettelstudent/')else('test/'))
+        let $path := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder, '/')
+        let $file := collection($path)      
+        let $facsimNames := concat('"children":[',local:getFacsimNames($file), ']' )
+		
+		let $isExtend := if(contains($fileID, 'H020149')  or contains($fileID, 'H020263'))
 			then(concat('{',
-									'"leaf":"true",',
+									'"leaf":"false",',
 									'"name":"Faksimiles",',
 									'"extName":"Faksimiles",',
 									'incipits:"',"false",'",',
 									'details:"',"false",'",',                          
                             		'xml:"',"true",'",',
-									'"icon":"resources/images/Images-17.png",', 
+									'"icon":"resources/images/Images-17.png",',
+									$facsimNames,
 								'}')
 			)
 			else()

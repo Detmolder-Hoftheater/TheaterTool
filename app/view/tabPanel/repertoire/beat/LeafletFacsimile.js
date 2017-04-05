@@ -21,7 +21,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {
 pageNumber: null,
 //border:false,
 
-
+voiceID: null, 
+number: null,  
+selectedWork: null,
+pageSpinner: null,
 
 	zones: null,
 	facsimileTile: null,
@@ -39,6 +42,9 @@ pageNumber: null,
 		var leafletRef = window.L;
 		if (leafletRef == null) {
 			this.update('No leaflet library loaded');
+		}
+		else{
+		    me.loadFacsimile(me.voiceID, me.number, me.selectedWork);
 		}
 
 
@@ -139,6 +145,14 @@ pageNumber: null,
 			map.invalidateSize();
 		}
 	},
+	
+	setPageSpinner: function(pageSpinner){
+	    this.pageSpinner = pageSpinner;
+	},
+	
+	/*getTest: function(){
+	    return this.pageNumber;
+	},*/
 
 	loadFacsimile: function(voiceID, number, selectedWork){
 var me = this;
@@ -160,6 +174,11 @@ Ext.Ajax.request({
 					var page = json.page;
 
 					me.pageNumber = page.pageAnzahl;
+					
+			
+					me.pageSpinner.setStore(me.pageNumber);
+					me.pageSpinner.setPage(number);
+                    me.pageSpinner.setPageID(voiceID);
 					
 					facsimileHeight = 
 					//2992;
@@ -200,8 +219,8 @@ Ext.Ajax.request({
 					 //var path = 'http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/edition-HT_Isouard/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586/MUS-N_120_BASS-VIOLONCELLO_001/{z}-{x}-{y}.jpg';
 
 					 
-					 console.log('facsimile path');
-					 console.log(page.path);
+					 //console.log('facsimile path');
+					 //console.log(page.path);
 					
 					me.facsimileTile = 
 					/*L.tileLayer.facsimileLayer('data/example/{z}-{x}-{y}.jpg', {

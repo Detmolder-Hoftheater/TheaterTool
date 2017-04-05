@@ -34,6 +34,7 @@ pageSpinner: null,
 leafletFacsimile: null,
 
 selectedWork: null,
+xmlId: null,
 
 	/**
 	 * Set title for view and create leaflet component.
@@ -55,7 +56,7 @@ var folderForEO = selFolder + '/';
 
 
 	
-		me.leafletFacsimile = new TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile({margin: '0 0 5 0'})
+		me.leafletFacsimile = new TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile({margin: '0 0 5 0', voiceID:me.xmlId, number: 1, selectedWork: me.selectedWork})
 
 me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 			leafletFacsimile : me.leafletFacsimile,
@@ -72,7 +73,6 @@ me.leafletFacsimile,
 margin: '0 0 5 0'
 		},*/
 
-
 me.pageSpinner,
 {
     xtype: 'component',
@@ -86,6 +86,17 @@ me.pageSpinner,
 
 
 ];
+
+
+me.leafletFacsimile.setPageSpinner(me.pageSpinner);
+
+//leafletFacsimile.clear();
+         // me.leafletFacsimile.loadFacsimile(me.xmlId, 1, me.selectedWork);
+/*var number = me.leafletFacsimile.getPageNumber();
+console.log(number);*/
+/*me.pageSpinner.setStore(number);
+me.pageSpinner.setPage(1);
+me.pageSpinner.setPageID(me.xmlId);*/
 
 /*var Interactions = new Array(1, 2, 3);
 this.bbar = Ext.create('Ext.PagingToolbar', {
@@ -177,8 +188,11 @@ this.leafletFacsimile.clear();
 		var me = this;
 
 //test=25;
+		console.log(test);
+		
 		
 		this.removeAll();
+		//test = me.leafletFacsimile.getTest();
 		
 		var storeField = new Array(test-1);
 		var value = 1;

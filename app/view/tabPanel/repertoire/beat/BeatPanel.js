@@ -10,31 +10,42 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
     navTree: null,
     selectedWork: null,
     
+    xmlId: null,
+    
     initComponent: function () {
     
         var me = this;
         
-        var selFolder = null;
+       /* var selFolder = null;
         if (me.selectedWork === 'H020149') {
             selFolder = 'aschenbroedel';
         } else if (me.selectedWork === 'H020263') {
             selFolder = 'bettelstudent';
         }
-        var folderForEO = selFolder + '/';
+        var folderForEO = selFolder + '/';*/
         
         me.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView({
-            selectedWork: me.selectedWork
+            selectedWork: me.selectedWork, xmlId: me.xmlId
         });
         
-        me.navTree = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileNavTree({
+      
+        
+       /* me.navTree = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileNavTree({
             selectedWork: me.selectedWork
-        });
+        });*/
         
         var leafletFacsimile = me.detailSection.getLeafletFacsimile();
         var pageSpinner = me.detailSection.getPageSpinner();
         
-        me.navTree.setLeafletFacsimile(leafletFacsimile);
-        me.navTree.setPageSpinner(pageSpinner);
+        /*leafletFacsimile.clear();
+          leafletFacsimile.loadFacsimile(me.xmlId, 1, me.selectedWork);
+var number = leafletFacsimile.getPageNumber();
+pageSpinner.setStore(number);
+pageSpinner.setPage(1);
+pageSpinner.setPageID(me.xmlId);*/
+        
+        /*me.navTree.setLeafletFacsimile(leafletFacsimile);
+        me.navTree.setPageSpinner(pageSpinner);*/
         
         me.items =[ {
             layout: {
@@ -52,14 +63,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
             
             border: false,
             items:[
-            me.navTree,
+           // me.navTree,
             me.detailSection]
         }];
-        var navTreeStore = new TheaterTool.store.facsimile.FacsimileNames();
+       /* var navTreeStore = new TheaterTool.store.facsimile.FacsimileNames();
         navTreeStore.getProxy().extraParams.selectedWork = me.selectedWork;
         navTreeStore.load();
         me.navTree.getView().bindStore(navTreeStore);
-        navTreeStore.sort('name');
+        navTreeStore.sort('name');*/
         
         me.listeners = {
             render: function () {
