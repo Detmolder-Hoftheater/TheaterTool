@@ -138,7 +138,7 @@ width: 200,
 				else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 4) {
 				console.log(eOpts[0].data);
 					me.repertoirePanel.removeAll(true);
-					me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel({selectedWork: me.selectedWork, xmlId: eOpts[0].data.xmlid});
+					me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel({selectedWork: me.selectedWork, xmlId: eOpts[0].data.xmlid, title: '<b style="color:#A87678;">Faksimiles für '+eOpts[0].data.name+' ('+eOpts[0].parentNode.parentNode.data.name+')</b>'});
 						me.repertoirePanel.add(me.beatPanel);
 					
 				}
