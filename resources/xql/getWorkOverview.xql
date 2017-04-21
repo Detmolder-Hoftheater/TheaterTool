@@ -39,7 +39,7 @@ declare function local:jsonifyAutoren($content) {
 
 let $strings := for $elem in $content
 
-					let $id :=$elem//mei:persName
+					let $id :=$elem//mei:titleStmt//mei:persName
 
 					let $names := local:jsonifyRoles($id)
  return 

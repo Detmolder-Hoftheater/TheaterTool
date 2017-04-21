@@ -101,7 +101,7 @@ let $strings := for $elem in $titles
 
 		let $fileID :=  $file1//mei:work/@xml:id
 		
-		let $names :=$file1//mei:persName
+		let $names :=$file1//mei:titleStmt//mei:persName
 
 		let $comp := local:jsonifyRoles($names)
 
@@ -109,11 +109,24 @@ let $strings := for $elem in $titles
 (:or @role ="cre"  or @role ="aut"]:)
 
 		let $fileNameCut := substring($fileName, 1,4)
-		let $fileNameFiltered :=  if(contains($fileNameCut, 'Der ') 
+		let $fileNameFiltered_0 :=  if(contains($fileNameCut, 'Der ') 
 								or contains($fileNameCut, 'Die ') 
 								or contains($fileNameCut, 'Das '))
 			then(substring($fileName, 5))
 			else($fileName)
+			
+		let $fileNameCut_1 :=  if($fileNameFiltered_0 = $fileName)
+			then(substring($fileName, 1,3))
+			else($fileName)	
+		 let $fileNameFiltered_1 :=  if(contains($fileNameCut_1, 'Le ') 
+								or contains($fileNameCut_1, 'La ') 
+								(:or contains($fileNameCut_1, 'L' '):)
+								)
+			then(substring($fileName, 4))
+			else($fileName)
+			
+			let $fileNameFiltered :=  if($fileNameFiltered_1 != $fileName)then($fileNameFiltered_1)else($fileNameFiltered_0)
+			
 		let $fileName1 := if(contains(substring($fileNameFiltered, 1,1), $selection1) 
 								or contains(substring($fileNameFiltered, 1,1), $selection2) 
 								or contains(substring($fileNameFiltered, 1,1), $selection3)

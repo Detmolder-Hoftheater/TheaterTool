@@ -159,6 +159,17 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                 //titel_group.add(panel_0);
                 me.add(panel_0);
                 
+                panel_10 = Ext.create('Ext.panel.Panel', {
+                        colspan: 1,
+                        //type: 'hbox',
+                        border: false,
+                        bodyBorder: false,
+                        margin: '0 10 0 10',
+                        //margin: '0 0 0 5',
+                        items:[]
+                    });
+                    panel_0.add(panel_10);            
+                
                 var titelLangArray =[];
                 var titelLangArraytemp =[];
                 for (i = 0; i < json.workTitel.length; i++) {
@@ -183,22 +194,26 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         
                         if (titelKey_tmp === titleKeyLang) {
                             if (el[1] === 'uniform') {
-                                me.w_ein_titel = me.createTextField('Einheitstitel' + titelKey, el[0]);
+                                var w_ein_titel = me.createTextField('Einheitstitel' + titelKey, el[0]);
+                                panel_10.items.add(w_ein_titel);
                                 // me.w_ein_titel.setValue(el[0]);
                             } else if (el[1] === '') {
-                                me.w_titel = me.createTextField('Titel' + titelKey, el[0]);
+                                var w_titel = me.createTextField('Titel' + titelKey, el[0]);
+                                panel_10.items.add(w_titel);
                                 // me.w_titel.setValue(el[0]);
                             } else if (el[1] === 'alt') {
-                                me.w_alt_titel = me.createTextField('Alternativtitel' + titelKey, el[0]);
+                                var w_alt_titel = me.createTextField('Alternativtitel' + titelKey, el[0]);
+                                panel_10.items.add(w_alt_titel);
                                 // me.w_alt_titel.setValue(el[0]);
                             } else if (el[1] === 'sub') {
-                                me.w_unter_titel = me.createTextField('Untertitel' + titelKey, el[0]);
+                                var w_unter_titel = me.createTextField('Untertitel' + titelKey, el[0]);
+                                panel_10.items.add(w_unter_titel);
                                 // me.w_unter_titel.setValue(el[0]);
                             }
                         }
                     }
                     
-                    panel_10 = Ext.create('Ext.panel.Panel', {
+                    /*panel_10 = Ext.create('Ext.panel.Panel', {
                         colspan: 1,
                         //type: 'hbox',
                         border: false,
@@ -207,9 +222,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         //margin: '0 0 0 5',
                         items:[]
                     });
-                    panel_0.add(panel_10);
+                    panel_0.add(panel_10);*/
                     
-                    if (me.w_ein_titel !== null) {
+                   /* if (me.w_ein_titel !== null) {
                         panel_10.items.add(me.w_ein_titel);
                     }
                     if (me.w_titel !== null) {
@@ -224,7 +239,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     me.w_ein_titel = null;
                     me.w_titel = null;
                     me.w_alt_titel = null;
-                    me.w_unter_titel = null;
+                    me.w_unter_titel = null;*/
                 }
                 
                 if (json.autoren.length > 0) {
