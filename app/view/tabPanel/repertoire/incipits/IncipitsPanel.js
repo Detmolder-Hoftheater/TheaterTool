@@ -1,9 +1,16 @@
-/**
- * Creates class TheaterTool.view.tabPanel.CEPanel that extend from Ext.panel.Panel.
- * @class
- */
 Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
 	extend: 'Ext.panel.Panel',
+	
+	/*xtype: 'layout-absolute',
+                        layout: 'absolute',
+                defaults: {
+        frame: true
+    },
+                            border: false,
+                            bodyBorder: false,
+                            autoScroll: true,
+reserveScrollbar: true,*/
+
     
 	autoScroll: true,
 reserveScrollbar: true,
@@ -27,19 +34,15 @@ height:450,*/
 	
 bodyBorder: false,
 	border: false,
-
+	
+	
+	
 sourceID: null,
 	
 	initComponent: function () {
 		
 		var me = this;
 
-
-
-var initHeight = $(document).height()* 100 / 33;
-	 	var initWidth = $(document).width()* 100 / 33;
-		
-		
 		Ext.Ajax.request({
 			//url: "data/test.mei",
 			 url: "resources/xql/getIncipit.xql",
@@ -51,10 +54,7 @@ var initHeight = $(document).height()* 100 / 33;
 
 var text = response.responseText;
 var splittest = text.split('<html>');
-
 for(i = 0; i < splittest.length; i++){
-
-
 var meiE_tmp = splittest[i];
 var meiE = meiE_tmp.replace('</html>', '');
 if(meiE !== ''){
@@ -68,44 +68,111 @@ incipitSection.setTextInfo(meiE);
 
 }
 
-
-/*var meiE = splittest[1];
-var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">1. Ouverture. Allegro </b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
- me.add(incipitSection);
-incipitSection.setTextInfo(meiE);
-
-var meiE_2 = splittest[2];
-var incipitSection_2 = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">2. Poco moderato, Incipit Nr. 1-2-1, Incipit Text: "Wir rudern immerfort" </b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
- me.add(incipitSection_2);
-incipitSection_2.setTextInfo(meiE_2);
-
-for(i = 6; i < 12; i++){
-	var shoe = splittest[i];
-var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">'+i+'</b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
-me.add(incipitSection);
-incipitSection.setTextInfo(shoe);
-
-}
-for(i = 13; i < 15; i++){
-	var shoe = splittest[i];
-var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">'+i+'</b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
-me.add(incipitSection);
-incipitSection.setTextInfo(shoe);
-
-}
-
-
-var meiE_3 = splittest[17];
-var incipitSection_3 = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({title: '<b style="color:gray;">'+17+'</b>'+ '<img src="resources/images/Download.png" style="width:15px;height:15px;">'});
-me.add(incipitSection_3);
-incipitSection_3.setTextInfo(meiE_3);*/
-		
-
 			}
 		});
 		
-		this.callParent()
+
+
+/*Ext.Ajax.request({
+			 url: "resources/xql/getIncipitImages.xql",
+			method: 'GET',
+			params: {
+				sourceID: me.sourceID
+			},
+			success: function (response) {
+
+var text = jQuery.parseJSON(response.responseText);;
+var imageNames = text.names;
+//console.log(imageNames);
+var xPosition = 50*(imageNames.length+1);
+var reverseitemObjs = new Array();
+
+for(i = imageNames.length-1; i > -1 ; i--){
+    xPosition = xPosition-50;
+    var imageName = imageNames[i];
+    var imagePath = '/exist/rest/db/apps/theater-data/incipitimages/H020263/'+imageName;
+    var item_1 = Ext.create('Ext.panel.Panel', 
+    { width: 200, height: 400,
+            title: imageName,
+            items: [          
+            { xtype: 'image', //padding: 3, 
+            src: imagePath
+        }],
+         listeners: {
+            
+    el: {
+        /\*mouseover: {
+            fn: function (event, html, eOpts) {
+                console.log('mouseover');
+            }
+        },*\/
+        
+        mouseenter: {
+        
+                fn: function (event, html, eOpts) {
+                 var me_me = this;
+                  var old_index = -1;
+                  var image_itemid = null;
+                  for(i = 0; i < me.items.items.length; i++){
+                    var image_item = me.items.items[i];
+                    if(image_item.id === me_me.id){
+                        image_itemid = image_item.id;                                              
+                        break;
+                    }                    
+                  }
+                  
+                  for(i = 0; i < reverseitemObjs.length-1 ; i++){
+                      var savesItem = reverseitemObjs[i];
+                      if(savesItem.id === image_itemid){
+                           old_index = i;
+                           break;
+                      }
+                  }
+                              
+                    var newObjItems = reverseitemObjs.slice(old_index, reverseitemObjs.length);
+                    newObjItems.reverse();
+                                 
+                   var   newReverseObjItems = reverseitemObjs.slice(0, old_index); 
+                   
+                   var newItemsArray = newReverseObjItems.concat(newObjItems);
+                   
+               
+                 for(i = 0; i < newItemsArray.length ; i++){
+                    var reorderedItem = newItemsArray[i];
+                    me.insert(i, reorderedItem);
+                     
+                 }
+                  
+            }
+                
+               
+            }
+    }       
+        },
+            x: xPosition,           
+            y: 50
+           // margin: '0 5 5 5'
+            /\*listeners: {
+       
+       afterrender: function(component) {
+    console.log('Y: ' + component.getY() +' X: '+ component.getX());
+    component.setPosition(500, 800);
+  console.log('Y: ' + component.getY() +' X: '+ component.getX());
+    
+}
+     }*\/
+     });
+     
+     me.add(item_1);
+    reverseitemObjs[imageNames.length-1-i] =item_1;
+}
+
+  }
+		});*/
+  
+
+		me.callParent();
 	
 	}
-
+	
 });
