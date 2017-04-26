@@ -784,11 +784,11 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
             //anchor: '100%',
             //cls: Ext.baseCSSPrefix + 'form-clear-trigger',
             // remove default styling for element wrapping the input element
-            inputWrapCls: '',
+            //inputWrapCls: '',
             // remove default styling for div wrapping the input element and trigger button(s)
             // triggerWrapCls: '',
             // remove the input element's background
-            fieldStyle: 'background:none',
+            //fieldStyle: 'background:none',
             style: {
                 //autoWidth: true,
                 width: '100%'

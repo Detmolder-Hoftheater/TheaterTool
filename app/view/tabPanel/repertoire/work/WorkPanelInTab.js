@@ -31,6 +31,7 @@ extend: 'Ext.panel.Panel',
     
     sourceId: null,
     sourceTitle: null,
+    selLocation: null,
     
     initComponent: function () {
     
@@ -60,7 +61,7 @@ extend: 'Ext.panel.Panel',
 		}
 		else{
 		  
-		    workPanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: me.sourceId, werkTitle:'<font size="2" face="Arial" style="color:#A87678;">Werk: '+me.workName+'</font>', title: '<font size="2" face="Arial" style="color:#A87678;">'+me.sourceTitle+'</font>', icon: me.workIcon});
+		    workPanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: me.sourceId, werkTitle:'<font size="2" face="Arial" style="color:#A87678;">Werk: '+me.workName+'</font>', title: '<font size="2" face="Arial" style="color:#A87678;">'+me.sourceTitle+'</font>',firstTabTitle:me.selLocation, icon: me.workIcon});
 					repertoirePanel.add(workPanel);
 					
 					 

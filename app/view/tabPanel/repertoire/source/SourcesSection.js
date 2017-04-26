@@ -6,7 +6,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
     bodyBorder: true,
     autoScroll: true,*/
     
-    title: '<b style="color:gray;">Details</b>',
+    title: '<b style="color:gray;">Einzelquellen</b>',
     
     layout: {
         type: 'hbox',

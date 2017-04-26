@@ -134,6 +134,7 @@ let $strings := for $elem in $fileNames
 			let $isSource := if($sourceFileName != '')
 			then(concat('"children":[{',
 								'name:"',$sourceName,'",',
+								'physLocation:"',$physLoc,'",',
 								'extName:"',$sourceName,'",',
 								'incipits:"',"true",'",',
 								'sourceID:"',$sourceFileName,'",',

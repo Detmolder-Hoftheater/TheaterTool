@@ -15,6 +15,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
     
     sourceID: null,
     werkTitle: null,
+    firstTabTitle: null,
     
     extend: 'Ext.panel.Panel',
     
@@ -124,7 +125,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
         //this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
         
         var detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel({
-            sourceID: me.sourceID, werkTitle: me.werkTitle
+            sourceID: me.sourceID, werkTitle: me.werkTitle, firstTabTitle: me.firstTabTitle
         });
         
         

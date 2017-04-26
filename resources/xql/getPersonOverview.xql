@@ -469,7 +469,7 @@ let $strings := for $elem in $names
  return 
     if($name != '')then(   
     
-concat('["',$name, '",', '"',$dbId, '",', '"',$workRefId,'",', '"',$sourceName, '"]')
+concat('["',$name, '",', '"',$dbId, '",', '"',$workRefId,'",', '"',$sourceName,'",', '"',$physLoc, '"]')
     )else()
     return 
         string-join($strings,',')

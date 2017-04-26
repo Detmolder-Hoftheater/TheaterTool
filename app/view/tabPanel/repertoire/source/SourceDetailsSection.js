@@ -4,7 +4,7 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection', {
     extend: 'Ext.panel.Panel',
    
-    title: '<b style="color:gray;">Übersicht</b>',
+    //title: '<b style="color:gray;">Übersicht</b>',
 
 layout: {
 		type: 'vbox',
