@@ -279,11 +279,6 @@ var store = Ext.create('Ext.data.TreeStore', {
                 }]
             },
             {
-                leaf: true,
-                text: 'Karten & Abos',
-                icon: 'resources/images/Ticket-14.png'
-            },
-            {
                 text: 'Presse',
                 icon: 'resources/images/Presse-16.png',
                 children:[ {
@@ -412,7 +407,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                     }]
                 },
                 {
-                    text: 'Jährliche Ausgaben',
+                    text: 'Ausgaben',
                     icon: 'resources/images/MoneyTransfer-17.png',
                     children:[
                     /*{ leaf:true, text: '1825',
@@ -506,6 +501,11 @@ var store = Ext.create('Ext.data.TreeStore', {
                         icon: 'resources/images/MoneyTransfer-17.png'
                     }]
                 },
+                {
+                leaf: true,
+                text: 'Abonnement',
+                icon: 'resources/images/Ticket-14.png'
+            },
                 {
                     leaf: true, text: 'Gagenbücher',
                     icon: 'resources/images/Gift-17.png'
@@ -632,7 +632,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                 
                 //console.log(json);
                 var navTreeStoreRoot = me.store.getRootNode();
-                var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[0].childNodes[2];
+                var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[0].childNodes[3];
                 for (i = 0; i < json.names.length; i++) {
                     var regName = json.names[i];
                     regieMenu.appendChild({
@@ -654,7 +654,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                 
                 //console.log(json);
                 var navTreeStoreRoot = me.store.getRootNode();
-                var regieMenu = navTreeStoreRoot.childNodes[0].childNodes[4];
+                var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[0].childNodes[2];
                 for (i = 0; i < json.names.length; i++) {
                     var regName = json.names[i];
                     regieMenu.appendChild({
@@ -676,7 +676,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                 
                 //console.log(json);
                 var navTreeStoreRoot = me.store.getRootNode();
-                var regieMenu = navTreeStoreRoot.childNodes[0].childNodes[5].childNodes[1];
+                var regieMenu = navTreeStoreRoot.childNodes[0].childNodes[4].childNodes[1];
                 for (i = 0; i < json.names.length; i++) {
                     var regName = json.names[i];
                     regieMenu.appendChild({
@@ -1020,7 +1020,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     //var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({year: item.data.text});
                     var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: item.data.text});
                     repertoireTab.add(repertoireDetails);	*/
-                } else if (item.parentNode.data.text === 'Karten & Abos') {
+                } else if (item.parentNode.data.text === 'Abonnement') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Ticket-14.png', selection: item.data.text
                     });
@@ -1115,7 +1115,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     title: '<font style="color:gray;">Theaterberufe</font>',
                     icon: 'resources/images/theatreB.png'
                     });*/
-                } else if (item.parentNode.data.text === 'Jährliche Ausgaben') {
+                } else if (item.parentNode.data.text === 'Ausgaben') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/MoneyTransfer-17.png', selection: item.data.text
                     });

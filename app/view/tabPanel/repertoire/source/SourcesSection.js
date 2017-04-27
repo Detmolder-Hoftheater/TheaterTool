@@ -125,6 +125,93 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         var me = this;
         me.source_group.removeAll(true);
         
+        if (typeof selectedSource[0].data.titlePages[0] !== 'undefined' || selectedSource[0].data.medium !== '' || typeof selectedSource[0].data.schreiber[0] !== 'undefined' ||
+        typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '' || selectedSource[0].data.inventarnummer !== '' || selectedSource[0].data.seitenzahl !== '' || selectedSource[0].data.groesse !== '') {
+            
+            me.source_group.add({
+                
+                xtype: 'label',
+                html: '<b style="color:gray; font-size: 12px;">Physikalische Daten</b>',
+                margin: '20 0 10 0'
+            });
+            
+            var phys_panel = Ext.create('Ext.panel.Panel', {
+                border: false,
+                //bodyPadding: 10,
+                margin: '10 0 10 10',
+                items:[]
+            });
+            me.source_group.add(phys_panel);
+            
+            
+            if (typeof selectedSource[0].data.titlePages[0] !== 'undefined') {
+                var bemLength = 1;
+                var pages = '';
+                for (i = 0; i < selectedSource[0].data.titlePages.length; i++) {
+                    pages += selectedSource[0].data.titlePages[i] + '\n';
+                    bemLength++;
+                }
+                var numOfRows = parseInt(14 * bemLength);
+                me.titel = me.createTextArea('Titelseite(n)', numOfRows);
+                phys_panel.add(me.titel);
+                this.titel.setValue(pages);
+            }
+            
+            if (selectedSource[0].data.medium !== '') {
+                var umschladValue = selectedSource[0].data.medium;
+                var umschlafLength = umschladValue.split("\n").length;
+                var numOfUmschlagRows = parseInt(14 * umschlafLength);
+                me.medium = me.createTextArea('Umschlag', numOfUmschlagRows);
+                this.medium.setValue(selectedSource[0].data.medium);
+                phys_panel.add(me.medium);
+            }
+            
+            
+            if (typeof selectedSource[0].data.schreiber[0] !== 'undefined') {
+                me.schreiber = me.createTextField('Schreiber');
+                var schr = '';
+                for (i = 0; i < selectedSource[0].data.schreiber.length; i++) {
+                    if (i === selectedSource[0].data.schreiber.length -1) {
+                        schr += selectedSource[0].data.schreiber[i];
+                    } else {
+                        schr += selectedSource[0].data.schreiber[i] + '; ';
+                    }
+                }
+                this.schreiber.setValue(schr);
+                phys_panel.add(me.schreiber);
+            }
+            
+            if (typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '') {
+                var zustandsValue = selectedSource[0].data.condition;
+                var zustandLength = zustandsValue.split("\n").length;
+                var numOfZustandRows = parseInt(14 * zustandLength);
+                me.zustand = me.createTextArea('Zustand', numOfZustandRows);
+                this.zustand.setValue(selectedSource[0].data.condition);
+                phys_panel.add(me.zustand);
+            }
+            
+            if (selectedSource[0].data.inventarnummer !== '') {
+                me.inventar = me.createTextField('Inverntarnummer');
+                this.inventar.setValue(selectedSource[0].data.inventarnummer);
+                phys_panel.add(me.inventar);
+            }
+            
+            if (selectedSource[0].data.seitenzahl !== '') {
+                me.w_ein_titel = me.createTextField('Umfang');
+                this.w_ein_titel.setValue(selectedSource[0].data.seitenzahl);
+                phys_panel.add(me.w_ein_titel);
+            }
+            
+            if (selectedSource[0].data.groesse !== '') {
+                me.w_titel = me.createTextField('Format');
+                this.w_titel.setValue(selectedSource[0].data.groesse);
+                phys_panel.add(me.w_titel);
+            }
+            
+            // TODO: not coded in XML
+            //me.w_alt_titel = me.createTextField('Stempel');
+        }
+        
         if (selectedSource[0].data.inscription.length > 0) {
             me.source_group.add({
                 xtype: 'label',
@@ -175,12 +262,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                     };
                     name = {
                         xtype: 'displayfield',
+                        margin: '0 0 0 10',
                         // fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
                         value: '<span><a href="javascript:getPersonContent(\'' + dbkey + '\'' + ', \'' + autorName + '\');">' + autorName + '</a></span>'
                     };
                 } else {
                     name = {
                         xtype: 'displayfield',
+                        margin: '0 0 0 10',
                         // fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
                         value: '<span>' + autorName + '</span>'
                     };
@@ -191,7 +280,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                     border: false,
                     bodyBorder: false,
                     // bodyPadding: 10,
-                    margin: '10 0 10 10',
+                    margin: '0 0 0 10',
                     //margin: '0 0 0 5',
                     items:[
                     name]
@@ -299,92 +388,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         }
         
         
-        if (typeof selectedSource[0].data.titlePages[0] !== 'undefined' || selectedSource[0].data.medium !== '' || typeof selectedSource[0].data.schreiber[0] !== 'undefined' ||
-        typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '' || selectedSource[0].data.inventarnummer !== '' || selectedSource[0].data.seitenzahl !== '' || selectedSource[0].data.groesse !== '') {
-            
-            me.source_group.add({
-                
-                xtype: 'label',
-                html: '<b style="color:gray; font-size: 12px;">Physikalische Daten</b>',
-                margin: '20 0 10 0'
-            });
-            
-            var phys_panel = Ext.create('Ext.panel.Panel', {
-                border: false,
-                //bodyPadding: 10,
-                margin: '10 0 0 10',
-                items:[]
-            });
-            me.source_group.add(phys_panel);
-            
-            
-            if (typeof selectedSource[0].data.titlePages[0] !== 'undefined') {
-                var bemLength = 1;
-                var pages = '';
-                for (i = 0; i < selectedSource[0].data.titlePages.length; i++) {
-                    pages += selectedSource[0].data.titlePages[i] + '\n';
-                    bemLength++;
-                }
-                var numOfRows = parseInt(14 * bemLength);
-                me.titel = me.createTextArea('Titelseite(n)', numOfRows);
-                phys_panel.add(me.titel);
-                this.titel.setValue(pages);
-            }
-            
-            if (selectedSource[0].data.medium !== '') {
-                var umschladValue = selectedSource[0].data.medium;
-                var umschlafLength = umschladValue.split("\n").length;
-                var numOfUmschlagRows = parseInt(14 * umschlafLength);
-                me.medium = me.createTextArea('Umschlag', numOfUmschlagRows);
-                this.medium.setValue(selectedSource[0].data.medium);
-                phys_panel.add(me.medium);
-            }
-            
-            
-            if (typeof selectedSource[0].data.schreiber[0] !== 'undefined') {
-                me.schreiber = me.createTextField('Schreiber');
-                var schr = '';
-                for (i = 0; i < selectedSource[0].data.schreiber.length; i++) {
-                    if (i === selectedSource[0].data.schreiber.length -1) {
-                        schr += selectedSource[0].data.schreiber[i];
-                    } else {
-                        schr += selectedSource[0].data.schreiber[i] + '; ';
-                    }
-                }
-                this.schreiber.setValue(schr);
-                phys_panel.add(me.schreiber);
-            }
-            
-            if (typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '') {
-                var zustandsValue = selectedSource[0].data.condition;
-                var zustandLength = zustandsValue.split("\n").length;
-                var numOfZustandRows = parseInt(14 * zustandLength);
-                me.zustand = me.createTextArea('Zustand', numOfZustandRows);
-                this.zustand.setValue(selectedSource[0].data.condition);
-                phys_panel.add(me.zustand);
-            }
-            
-            if (selectedSource[0].data.inventarnummer !== '') {
-                me.inventar = me.createTextField('Inverntarnummer');
-                this.inventar.setValue(selectedSource[0].data.inventarnummer);
-                phys_panel.add(me.inventar);
-            }
-            
-            if (selectedSource[0].data.seitenzahl !== '') {
-                me.w_ein_titel = me.createTextField('Umfang');
-                this.w_ein_titel.setValue(selectedSource[0].data.seitenzahl);
-                phys_panel.add(me.w_ein_titel);
-            }
-            
-            if (selectedSource[0].data.groesse !== '') {
-                me.w_titel = me.createTextField('Format');
-                this.w_titel.setValue(selectedSource[0].data.groesse);
-                phys_panel.add(me.w_titel);
-            }
-            
-            // TODO: not coded in XML
-            //me.w_alt_titel = me.createTextField('Stempel');
-        }
+        
         
         
     }

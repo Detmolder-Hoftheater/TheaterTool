@@ -258,6 +258,7 @@ panel_10 = Ext.create('Ext.panel.Panel', {
                                 };
                             name ={
                             xtype: 'displayfield',
+                            margin: '0 0 0 0',
                             fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
                             value: '<span><a href="javascript:getPersonContent(\'' + dbkey + '\'' + ', \'' + autorName + '\');">' + autorName + '</a></span>'
                       };
@@ -265,6 +266,7 @@ panel_10 = Ext.create('Ext.panel.Panel', {
                         else{
                             name ={
                             xtype: 'displayfield',
+                            margin: '0 0 0 0',
                             fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
                             value: '<span>' + autorName + '</span>'
                       };
@@ -276,7 +278,7 @@ panel_10 = Ext.create('Ext.panel.Panel', {
                             border: false,
                             bodyBorder: false,
                             // bodyPadding: 10,
-                            margin: '0 0 10 10',
+                            margin: '0 0 0 10',
                             //margin: '0 0 0 5',
                             items:[
                             name

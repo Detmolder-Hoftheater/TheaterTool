@@ -652,7 +652,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 
                 if (json.issueRef.length > 0) {
                     /*var issue_group = Ext.create('Ext.form.FieldSet', {
-                    title: '<img src="resources/images/MoneyTransfer-17.png" style="vertical-align:middle;"><b style="color:gray;">Jährliche Ausgaben</b>',
+                    title: '<img src="resources/images/MoneyTransfer-17.png" style="vertical-align:middle;"><b style="color:gray;">Ausgaben</b>',
                     // icon: 'resources/images/Mask-19.png',
                     bodyBorder: false,
                     collapsible: false,
@@ -664,7 +664,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     me.add({
                         
                         xtype: 'label',
-                        html: '<img src="resources/images/MoneyTransfer-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Jährliche Ausgaben</b>',
+                        html: '<img src="resources/images/MoneyTransfer-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Ausgaben</b>',
                         margin: '10 0 10 0'
                     });
                     

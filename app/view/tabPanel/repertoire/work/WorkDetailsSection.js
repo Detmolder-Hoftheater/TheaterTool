@@ -325,6 +325,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                                 };
                             name ={
                             xtype: 'displayfield',
+                            margin: '0 0 0 0',
                             fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
                             value: '<span><a href="javascript:getPersonContent(\'' + dbkey + '\'' + ', \'' + autorName + '\');">' + autorName + '</a></span>'
                       };
@@ -332,6 +333,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         else{
                             name ={
                             xtype: 'displayfield',
+                            margin: '0 0 0 0',
                             fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
                             value: '<span>' + autorName + '</span>'
                       };
@@ -343,7 +345,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                             border: false,
                             bodyBorder: false,
                             // bodyPadding: 10,
-                            margin: '0 0 10 10',
+                            margin: '0 0 0 10',
                             //margin: '0 0 0 5',
                             items:[
                             name
@@ -664,7 +666,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                 
                 if (json.issueRef.length > 0) {
                     /*var issue_group = Ext.create('Ext.form.FieldSet', {
-                    title: '<img src="resources/images/MoneyTransfer-17.png" style="vertical-align:middle;"><b style="color:gray;">Jährliche Ausgaben</b>',
+                    title: '<img src="resources/images/MoneyTransfer-17.png" style="vertical-align:middle;"><b style="color:gray;">Ausgaben</b>',
                     // icon: 'resources/images/Mask-19.png',
                     bodyBorder: false,
                     collapsible: false,
@@ -676,7 +678,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     me.add({
                         
                         xtype: 'label',
-                        html: '<img src="resources/images/MoneyTransfer-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Jährliche Ausgaben</b>',
+                        html: '<img src="resources/images/MoneyTransfer-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Ausgaben</b>',
                         margin: '10 0 10 0'
                     });
                     

@@ -205,7 +205,7 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
     };
         var eColumn = Ext.create('Ext.grid.column.Action', {
             xtype: 'actioncolumn',
-            header: headerName,
+            //header: headerName,
             flex: 1,
             menuDisabled: true,
             dataIndex: dataind,

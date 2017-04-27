@@ -280,7 +280,8 @@ declare function local:jsonifyTitlePages($desc) {
 
 let $strings := for $elem_1 in $desc
 
-			let $page := normalize-space($elem_1)
+			let $page := $elem_1
+			(:normalize-space($elem_1):)
 
 				return 
 if($page != '')then(concat('"',replace($page, '"', '\\"' ), '"'))else()

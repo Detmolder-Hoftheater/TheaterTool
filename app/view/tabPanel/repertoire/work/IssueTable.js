@@ -15,7 +15,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.IssueTable', {
 	sortableColumns: false,
 	hideHeaders: true,
 	columnLines: true,	
-	//title: '<b style="color:gray;">Jährliche Ausgaben</b>',
+	//title: '<b style="color:gray;">Ausgaben</b>',
 	//icon: 'resources/images/MoneyTransfer-17.png',
 	margin: '0 0 10 0',
 	store: null,
