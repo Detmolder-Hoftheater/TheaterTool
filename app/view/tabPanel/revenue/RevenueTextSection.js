@@ -193,6 +193,11 @@ autoScroll: true,
 	                 me.scheduleTable.getSelectionModel().select(workToFocus);
 	                 me.scheduleTable.getView().focusRow(workToFocus);
 	             }
+	             console.log(json.graphics.length);
+	             if( json.graphics.length > 0){
+ 				    me.detailSection = new TheaterTool.view.tabPanel.revenue.FacsimileView({imageData: json.graphics});
+ 				    me.add(me.detailSection);
+ 				}
             }
         });
     
