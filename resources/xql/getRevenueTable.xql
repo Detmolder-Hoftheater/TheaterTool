@@ -20,11 +20,70 @@ declare variable $headName := $file//tei:profileDesc//tei:keywords/tei:term['Ein
 
 declare variable $schedule := if($headName != '')then($file)else();
 
+declare variable $images := if($headName != '')then($schedule//tei:facsimile/tei:graphic)else();
+
+declare function local:getGraphicsInformation($schedule) {
+
+let $strings := for $elem in $schedule
+
+        let $rev_images :=  $elem//tei:facsimile/tei:graphic
+        
+        let $rev_image := local:getGraphic($rev_images)
+        
+       (: let $path :=$elem//tei:facsimile/tei:graphic/@url
+		let $height := $elem//tei:facsimile/tei:graphic/@height
+		let $width :=$elem//tei:facsimile/tei:graphic/@width :)
+
+			return 
+			if($rev_image != '')
+			then($rev_image)
+			else()
+			
+			(:if($path != '')then(  
+				concat('["',$path, '",', '"',$height, '",', '"',$width,'"]'))
+			else():)
+        
+       (: let $graphic := if($graphics != '')then(local:getGraphic($graphics))else()
+
+			return 
+			if($graphic != '')then($graphic)else():)
+						
+    return 
+        string-join($strings,',')
+    
+};
+
+declare function local:getGraphic($rev_images) {
+
+let $strings := for $elem in $rev_images
+
+        (:let $row := $elem:)
+        
+        let $path :=$elem/@url
+		let $height := $elem/@height
+		let $width :=$elem/@width 
+
+			return 
+			(:if($row != '')
+			then($row)
+			else():)
+			
+			if($path != '')then(  
+				concat('["',$path, '",', '"',$height, '",', '"',$width,'"]'))
+			else()
+						
+    return 
+        string-join($strings,',')
+    
+};
+
 declare function local:getTableInformation($schedule) {
 
 let $strings := for $elem in $schedule
 
         let $rows := $elem//tei:text/tei:body//tei:table/tei:row
+        
+        (:let $row := $elem//tei:facsimile/tei:graphic/@url:)
         
         let $row := if($rows != '')then(local:getTableRow($rows))else()
 
@@ -126,6 +185,10 @@ let $strings := for $elem in $elem_2
   '{"rows":[',
  
         local:getTableInformation($schedule),
+
+     '],',
+     '"graphics":[',
+       local:getGraphicsInformation($schedule),
 
      ']}'
    

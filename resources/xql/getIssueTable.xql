@@ -24,6 +24,42 @@ declare variable $schedule := for $elem in $allFiles
                     return
                     
                  if($elem/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title = $month)then($elem)else();
+                 
+declare function local:getGraphicsInformation($schedule) {
+
+let $strings := for $elem in $schedule
+
+         let $rev_images :=  $elem//tei:facsimile/tei:graphic
+        
+        let $rev_image := local:getGraphic($rev_images)
+
+			return 
+			if($rev_image != '')
+			then($rev_image)
+			else()
+						
+    return 
+        string-join($strings,',')
+    
+};
+
+declare function local:getGraphic($rev_images) {
+
+let $strings := for $elem in $rev_images
+
+        let $path :=$elem/@url
+		let $height := $elem/@height
+		let $width :=$elem/@width 
+
+			return 
+			if($path != '')then(  
+				concat('["',$path, '",', '"',$height, '",', '"',$width,'"]'))
+			else()
+						
+    return 
+        string-join($strings,',')
+    
+};
 
 
 declare function local:getTableInformation($schedule) {
@@ -42,17 +78,56 @@ let $strings := for $elem in $schedule
     
 };
 
+declare function local:getDateCell($dateCells) {
+
+let $strings := for $oneDate in $dateCells
+
+    let $dateContent := $oneDate/tei:date/@when
+   (: replace($oneDate, '"', '\\"' ):)
+    
+   
+                    return 
+                     if($dateContent  != '')then(
+                    concat('"', $dateContent, '"'))else()
+                    (:concat('"', $dateContent, '"'):)
+                    
+    return 
+        string-join($strings,',')
+ 
+};
+
 declare function local:getTableRow($rows) {
 
 let $strings := for $elem_1 in $rows
 
     let $cells := $elem_1/tei:cell
+    let $date:= local:getDateCell($cells)
+    let $onecell := local:getTableCell($cells)
     
-    let $cell := local:getTableCell($cells)
+   (: let $date:= $elem_1/tei:cell/tei:date/@when
+    
+    let $onecell := if($elem_1/tei:cell/tei:persName != '' or $elem_1/tei:cell/tei:rs != '')then(local:getCellContent($elem_1/tei:cell/node()))else():)
+    
+     let $rthlr := $elem_1/tei:cell/tei:measure[@unit='Rthlr'][1]
+ 
+    
+    let $ggr := $elem_1/tei:cell/tei:measure[@unit='ggr'][1]
+    
+    let $d := $elem_1/tei:cell/tei:measure[@unit='d']
+           
+   (: let $cell := local:getTableCell($cells):)
 
                     return 
-                    
-                    if($cell  != '')then(concat('{"cells":[', $cell, ']}'))else()
+                    if($onecell  != '')then(
+                   concat('{"cells":[', '{"date":[', $date, ']},', 
+                  (: '{"inhalt":[', $onecell, ']},',:)
+                  
+                             '{"rthlr":["', $rthlr, '"]},', 
+                               '{"ggr":["', $ggr, '"]},', 
+                                 '{"d":["', $d, '"]},' , 
+                                 $onecell,
+                                ']}'))else()
+                    (:if($cell  != '')then(concat('{"cells":[', $cell, ']}'))else():)
                     
     return 
         string-join($strings,',')
@@ -80,25 +155,35 @@ declare function local:getTableCell($cells) {
 
 let $strings := for $elem_2 in $cells
 
-    let $dateCells:= $elem_2/ancestor::tei:row/tei:cell/tei:date
+    (:let $dateCells:= $elem_2/ancestor::tei:row/tei:cell/tei:date
 
-    let $date := concat('"', local:getDateContent($dateCells), '"')
+   let $date := concat('"', local:getDateContent($dateCells/@when), '"'):)
+   (: let $date := concat('"', $dateCells[1]/@when, '"'):)
     
     let $onecell := if($elem_2/tei:persName != '' or $elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
     
-    let $rthlr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:persName)]/tei:measure[@unit='Rthlr'][1]
-   (: $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']:)
+    (:let $onecell_1 := if($elem_2/ancestor::tei:row/tei:cell/tei:persName != '' or $elem_2/ancestor::tei:row/tei:cell/tei:rs != '')then(local:getCellContent($elem_2/ancestor::tei:row/tei:cell/node()))else()
+    :)
+   (: let $rthlr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:persName)]/tei:measure[@unit='Rthlr'][1]
+   (\: $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']:\)
     
     let $ggr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:persName)]/child::tei:measure[@unit='ggr'][1]
     
-    let $d := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:persName)]/child::tei:measure[@unit='d']
+    let $d := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:persName)]/child::tei:measure[@unit='d']:)
            
                     return 
+                    
                     if($onecell != '')
-                            then(concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']},',
+                            then(
+                            concat('{"inhalt":[', $onecell, ']}')
+                           (: $onecell:)
+                         
+                            (:concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']},',
                                 '{"rthlr":["', $rthlr, '"]},', 
                                 '{"ggr":["', $ggr, '"]},', 
-                                '{"d":["', $d, '"]}' ))
+                                '{"d":["', $d, '"]}' ):)
+                                
+                                )
                             else()
                     
                     
@@ -124,8 +209,7 @@ let $strings := for $elem in $elem_2
      let $content := if($elem[@type ='work'])then(
             concat('{"work":["', normalize-space(replace($elem, '"', '\\"' )), '"', ', "', $elem/@key, '"]}')
         )
-        else(
-          
+        else( 
         )
     
     let  $content_2 :=  if($elem/self::tei:persName)then(
@@ -137,12 +221,15 @@ let $strings := for $elem in $elem_2
     let  $content_3_1 := replace($content_3_0, '"', '\\"' )
           
    let  $content_3 := concat('{"celltext":["', $content_3_1, '"]}')
-  
+ 
                     return 
                     if($content != '')
                     then($content)                   
                     else(
-                        if($content_2 != '')then(normalize-space($content_2))else($content_3)
+                        if($content_2 != '')then(normalize-space($content_2))else(
+                        if($content_3 != '')then($content_3)else()
+                        
+                        )
                     
                     )
                                  
@@ -155,6 +242,11 @@ let $strings := for $elem in $elem_2
   '{"rows":[',
  
         local:getTableInformation($schedule),
+
+     '],',
+     '"graphics":[',
+ 
+        local:getGraphicsInformation($schedule),
 
      ']}'
    

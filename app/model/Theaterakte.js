@@ -18,6 +18,8 @@ Ext.define('TheaterTool.model.Theaterakte', {
         name: 'anmerkung', type: 'string'
     }, {
         name: 'works', type: 'auto'
+    }, {
+        name: 'work_2', type: 'auto'
     }, {  
         name: 'Rthlr', type: 'auto'
     }, {   
