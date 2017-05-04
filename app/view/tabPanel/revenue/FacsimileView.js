@@ -37,6 +37,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.FacsimileView', {
                 imageData: me.imageData
             });
             me.pageSpinner.setStore(me.imageData.length);
+            me.pageSpinner.setPage(1);
             
             this.items =[
             me.leafletFacsimile,
@@ -93,7 +94,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.PageSpinner', {
             
             
             this.leafletFacsimile.clear();
-            this.leafletFacsimile.loadFacsimile(this.imageData);
+            this.leafletFacsimile.loadFacsimile(this.imageData, newValue);
             
             this.setPage(newValue);
         }
@@ -104,7 +105,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.PageSpinner', {
         if (this.store.indexOf(newValue) != -1) {
             
             this.leafletFacsimile.clear();
-            this.leafletFacsimile.loadFacsimile(this.imageData);
+            this.leafletFacsimile.loadFacsimile(this.imageData, newValue);
             this.setPage(newValue);
         }
     },
@@ -148,7 +149,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.PageSpinner', {
                     if (e.getKey() == 13) {
                         
                         me.leafletFacsimile.clear();
-                        me.leafletFacsimile.loadFacsimile(me.imageData);
+                        me.leafletFacsimile.loadFacsimile(this.imageData, combo.getValue());
                         me.setPage(combo.getValue());
                     }
                 }

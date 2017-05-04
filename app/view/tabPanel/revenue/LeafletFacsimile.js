@@ -45,7 +45,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         if (leafletRef == null) {
             this.update('No leaflet library loaded');
         } else {
-            me.loadFacsimile(me.imageData);
+            me.loadFacsimile(me.imageData, 1);
         }
         
         
@@ -155,17 +155,20 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
     return this.pageNumber;
     },*/
     
-    loadFacsimile: function (imageData) {
+    loadFacsimile: function (imageData, selectedPage) {
         var me = this;
         
         me.pageNumber = 1;
         //console.log(imageData);
         
-        //me.pageSpinner.setStore(imageData.length);
-        //me.pageSpinner.setPage(1);
-        //me.pageSpinner.setPageID(voiceID);
+        if(me.pageSpinner !== null){
+            //me.pageSpinner.setStore(imageData.length);
+            me.pageSpinner.setPage(selectedPage);
+            me.pageSpinner.setPageID(selectedPage);
+        }
         
-        var first_elem = imageData[0];
+        
+        var first_elem = imageData[selectedPage-1];
         var image_px_h = first_elem[1];
         
         var image_h_split = image_px_h.split("px");
@@ -200,13 +203,16 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         me.setMap(map);
         
         var original_imagepath = first_elem[0];
-        var splitted_array = original_imagepath.split("/");
+        var image_directory_array = original_imagepath.split(".");
+        var image_directory = image_directory_array[0];
+        
+       /* var splitted_array = original_imagepath.split("/");
         var last_elem_array = splitted_array[splitted_array.length -1];
         var image_directory_parent = splitted_array[splitted_array.length -2];
         var image_directory_array = last_elem_array.split(".");
-        var image_directory = image_directory_array[0];
+        var image_directory = image_directory_array[0];*/
         
-        leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/" + image_directory_parent + '/' + image_directory;
+        leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/" + image_directory;
         
         //leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
         //leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/TA_30/TA_30_066";
