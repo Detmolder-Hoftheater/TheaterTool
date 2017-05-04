@@ -4,7 +4,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
     flex: 1,
     border: true,
     bodyBorder: false,
-    //bodyPadding:15,
+    //bodyPadding:10,
    
     autoScroll: true,
     
@@ -85,7 +85,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
                     if (objs[i] !== undefined) {
                     
                       var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-            month: objs[i], year: me.year, value: 2, title: '<b style="color:gray;">'+objs[i]+'</b>', selectedMonth: me.monat,
+            month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">'+objs[i]+'</b>', selectedMonth: me.monat,
             selectedWorkID: me.selectedWorkID
         });
         me.add(detailSection);

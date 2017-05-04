@@ -73,7 +73,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
                     if (objs[i] !== undefined) {
                     
                       var detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({
-            month: objs[i], year: me.year, value: 2, title: '<b style="color:gray;">'+objs[i]+'</b>', selectedMonth: me.monat,
+            month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">'+objs[i]+'</b>', selectedMonth: me.monat,
             selectedWorkID: me.selectedWorkID
         });
         me.add(detailSection);

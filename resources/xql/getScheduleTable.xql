@@ -29,6 +29,21 @@ declare variable $schedule := for $elem in ($file, $file_1)
                     )then($elem)else();
                     
  
+declare function local:getSchedulePlace($schedule) {
+
+let $strings := for $elem in $schedule
+
+        let $place := $elem//tei:text/tei:body//tei:table//tei:settlement
+        
+			return 
+			if($place != '')then(concat('"', $place, '"'))else()
+						
+    return 
+        string-join($strings,',')
+    
+};
+ 
+ 
 declare function local:getTableInformation($schedule) {
 
 let $strings := for $elem in $schedule
@@ -234,12 +249,15 @@ let $strings := for $elem in $elem_2
  
 };
                     
- (                   
- (:'{[',$schedule/tei:TEI/tei:teiHeader,']},',:)
 
+(                   
   '{"rows":[',
  
         local:getTableInformation($schedule),
+
+     '],',
+     '"settlement":[',
+       local:getSchedulePlace($schedule),
 
      ']}'
    
