@@ -33,7 +33,7 @@ declare function local:getSchedulePlace($schedule) {
 
 let $strings := for $elem in $schedule
 
-        let $place := $elem//tei:text/tei:body//tei:table//tei:settlement
+        let $place := $elem//tei:text/tei:body//tei:head//tei:table//tei:settlement
         
 			return 
 			if($place != '')then(concat('"', $place, '"'))else()
@@ -101,8 +101,7 @@ let $strings := for $elem_2 in $cells
     
     (:let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2[not(self::tei:seg)]/child::*))else():)
     let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2[not(self::tei:seg)]/node()))else()
-    
-     
+         
     let $workPersons := $elem_2/tei:persName
     
     let $workPerson := local:getWorkPersons($workPersons)
@@ -110,6 +109,8 @@ let $strings := for $elem_2 in $cells
     let $works := $elem_2/tei:rs[@type='work']
     
     let $workArray := local:getWork($works)
+    
+   (: let $text_cell := if($onecell = '' and $workPersons = '' and $works = '')then($elem_2)else():)
     
                     return 
                     

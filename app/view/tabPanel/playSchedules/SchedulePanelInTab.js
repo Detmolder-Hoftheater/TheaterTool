@@ -80,6 +80,27 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
                         objs[12] = name;
                     }
                 }
+                /* me.add(
+                 Ext.create('Ext.panel.Panel', 
+    { 
+            margin: '10 0 10 10',
+            border: false,
+    bodyBorder: false,
+            items: [ 
+            {
+    xtype: 'component',
+    autoEl: {
+        tag: 'a',       
+        href: 'http://www.llb-detmold.de/webOPACClient_lippe/search.do?Dokumententyp=Theaterzettel&Jahr='+me.year+'&Jahr='+me.year,
+        html: 'Theaterzettel in Lippische Landesbibliothek Detmold für '+me.year,
+		target: "_blank"
+    }
+    }	
+            
+        ]
+        })
+      
+    );*/
                 
                 for (i = 0; i < objs.length; i++) {
                     if (objs[i] !== undefined) {

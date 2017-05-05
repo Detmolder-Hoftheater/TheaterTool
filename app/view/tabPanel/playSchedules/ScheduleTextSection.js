@@ -179,9 +179,13 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                 var json = jQuery.parseJSON(response.responseText);
                 
                 me.scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({
-                    lineList: json, selectedWorkID: me.selectedWorkID, title: '<font style="color:#A87678;">Spielort: ' + json.settlement + '</font>'
+                    lineList: json, selectedWorkID: me.selectedWorkID
                 });
+                if(json.settlement.length >0){
+                    me.scheduleTable.setTitle('<font style="color:#A87678;">Spielort: ' + json.settlement + '</font>');
+                }
                 me.scheduleTable.setTablePanel(me);
+               
                 me.add(me.scheduleTable);
                  me.tableheight =  me.scheduleTable.height;
 	             me.tablewidth =  me.scheduleTable.width;
