@@ -16,6 +16,10 @@ autoScroll: true,
     repertoireTab:null,
 
 	sourceID: null,
+	
+	bodyStyle:{"background-color":"CCCCCC"},
+	
+	
 
     initComponent: function() {
 

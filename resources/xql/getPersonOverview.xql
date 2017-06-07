@@ -514,6 +514,21 @@ concat('"',$names, '"')
     
 };
 
+declare function local:getDateString($dates) {
+
+let $strings := for $elem in $dates
+
+					let $onedate :=$elem/@when
+                   
+                    return 
+                      if($onedate != '')then(        
+
+							$onedate)else()
+    
+    return 
+        string-join($strings,',') 
+};
+
 declare function local:jsonifyIssueReferences($workID) {
 
 let $rolepath := 'xmldb:exist:///apps/theater-data/ausgaben/'
@@ -522,12 +537,13 @@ let $rolefile := $rolefiles//tei:TEI
 
 let $strings := for $elem in $rolefile
         return
-        let $date := if($elem//tei:TEI//tei:persName[@key=$workID])then($elem//tei:titleStmt/tei:title/tei:date)else()
+        let $dates := if($elem//tei:TEI//tei:persName[@key=$workID])then($elem//tei:titleStmt/tei:title/tei:date)else()    
+       let $date := local:getDateString($dates)
 		let $names := if($elem//tei:TEI//tei:persName[@key=$workID])then($elem//tei:titleStmt/tei:title)else()
 		
  return 
     if($names != '')then(                     
-concat('["',$names, '",', '"', $date, '"]')
+concat('["',normalize-space($names), '",', '"', $date, '"]')
     )else()
     return 
         string-join($strings,',')

@@ -10,7 +10,7 @@ height:500,
 	
 	autoScroll: true,
 
-	
+	maximizable: true,
 	meiE: null,
 	
 	/*initComponent: function () {

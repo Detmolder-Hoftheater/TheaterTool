@@ -81,7 +81,9 @@ for(i = 0; i < me.issueList.length; i++){
 						title: '<font style="color:gray;">'+issueName+'</font>',
 						icon: 'resources/images/MoneyTransfer-17.png'
 					});
-					var personDetails = new TheaterTool.view.tabPanel.issue.IssuePanelInTab({issueName: issueName, year: jahr, selectedWorkID: me.selectedWorkID});
+					var cutJahr = jahr.split('-');
+					var jahrSplitted = cutJahr[0];
+					var personDetails = new TheaterTool.view.tabPanel.issue.IssuePanelInTab({issueName: issueName, year: jahrSplitted, selectedWorkID: me.selectedWorkID});
 					repertoireTab.add(personDetails);
 
 					repertoireTab.setActiveMenuItemId(menuItem.id);

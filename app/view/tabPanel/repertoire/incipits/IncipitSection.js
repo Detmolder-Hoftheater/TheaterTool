@@ -17,20 +17,32 @@ border: false,*/
 /*width: 850,
 height:450,*/
 
-height:173,
+//height:173,
 //width: 500,
 
 
 
 
-border: true,
-autoScroll: true,
+//border: true,
+//bodyBorder: true,
+//autoScroll: true,
+bodyPadding: 10,
+/*style: {
+		borderLeft: '5px solid #CCCCCC',
+		borderRight: '5px solid #CCCCCC',
+		borderTop: '5px solid #CCCCCC',
+		borderBottom: '5px solid #CCCCCC'
+	},*/
 
 meiE: null,
+
 
 initComponent: function () {
 		
 		var me = this;
+		
+		
+		
 
 /*me.listeners ={
         click: {
@@ -45,8 +57,8 @@ initComponent: function () {
 
 	me.listeners = {
    		'render': function(panel) {
-       panel.body.on('dblclick', function() {
-           console.log('dbclick');
+       panel.body.on('click', function() {
+           //console.log('dbclick');
 var win = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitWindow({bodyStyle:{"background-color":"white"}});
 					win.show();
 
@@ -62,6 +74,7 @@ win.showNoten(me.meiE);
 	setTextInfo: function(meiE){
 var me = this;
 me.meiE = meiE;
+
 var options = JSON.stringify({
 					//pageHeight: 450,
 					//pageWidth: 850,
