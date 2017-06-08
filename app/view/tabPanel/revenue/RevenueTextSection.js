@@ -29,6 +29,8 @@ autoScroll: true,
     bodyBorder: false,
     flex: 1,
     
+    minHeight: 500,
+    
     repertoireTab: null,
     
     month: null,
@@ -45,7 +47,10 @@ autoScroll: true,
 	selectedMonth: null,
     
     selectedWorkID: null,
-	
+    messageWindow: null,
+    rev_index: -1,
+    rev_length: -1,
+    
     initComponent: function() {
 
 	var me = this;
@@ -169,6 +174,7 @@ autoScroll: true,
             me.monthNumber = '12';
         }
         
+        
         Ext.Ajax.request({
             url: 'resources/xql/getRevenueTable.xql',
             method: 'GET',
@@ -193,11 +199,15 @@ autoScroll: true,
 	                 me.scheduleTable.getSelectionModel().select(workToFocus);
 	                 me.scheduleTable.getView().focusRow(workToFocus);
 	             }
-	             console.log(json.graphics.length);
+	            // console.log(json.graphics.length);
 	             if( json.graphics.length > 0){
  				    me.detailSection = new TheaterTool.view.tabPanel.revenue.FacsimileView({imageData: json.graphics});
  				    me.add(me.detailSection);
  				}
+ 				if(me.rev_index === me.rev_length){
+                        me.messageWindow.close();
+                        
+                    }
             }
         });
     

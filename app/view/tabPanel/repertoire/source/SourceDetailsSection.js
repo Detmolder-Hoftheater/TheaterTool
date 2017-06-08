@@ -447,7 +447,7 @@ me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-al
                     me.add({
                         
                         xtype: 'label',
-                        html: '<img src="resources/images/Time-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Aufführungen</b>',
+                        html: '<b style="color:gray; font-size: 12px;">Uraufführungen</b>',
                         margin: '10 0 10 0'
                     });
                     

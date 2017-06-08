@@ -524,7 +524,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     me.add({
                         
                         xtype: 'label',
-                        html: '<img src="resources/images/Time-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Aufführungen</b>',
+                        html: '<b style="color:gray; font-size: 12px;">Uraufführungen</b>',
                         margin: '10 0 10 0'
                     });
                     
@@ -548,7 +548,20 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                    
                     }
               
-                
+                if(json.scheduleRef.length > 0 || json.revenueRef.length > 0 || json.journalRef.length > 0 
+                || json.issueRef.length > 0 || json.regieRef.length > 0 || json.roleRef.length > 0){
+                 
+                   me.add(
+                    Ext.create('Ext.form.FieldSet', {
+                    title: '<b style="color:gray; font-size: 13px;">Spielbetrieb und Verwaltung</b>',
+                    bodyBorder: false,
+                    collapsible: false,
+                    collapsed: true,
+                    margin: '15 0 10 0'
+                    }));
+                    
+                    
+                }
                 if (json.scheduleRef.length > 0) {
                     /*var plan_group = Ext.create('Ext.form.FieldSet', {
                     title: '<img src="resources/images/Calendar-17.png" style="vertical-align:middle;"><b style="color:gray;">Spielpläne</b>',

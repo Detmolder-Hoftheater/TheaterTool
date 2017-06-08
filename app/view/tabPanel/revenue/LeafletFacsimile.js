@@ -161,14 +161,14 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         me.pageNumber = 1;
         //console.log(imageData);
         
-        if (me.pageSpinner !== null) {
+        if(me.pageSpinner !== null){
             //me.pageSpinner.setStore(imageData.length);
             me.pageSpinner.setPage(selectedPage);
             me.pageSpinner.setPageID(selectedPage);
         }
         
         
-        var first_elem = imageData[selectedPage -1];
+        var first_elem = imageData[selectedPage-1];
         var image_px_h = first_elem[1];
         
         var image_h_split = image_px_h.split("px");
@@ -206,7 +206,15 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         /*var image_directory_array = original_imagepath.split(".");
         var image_directory = image_directory_array[0];*/
         
-         var splitted_array = original_imagepath.split("/");
+       /* var splitted_array = original_imagepath.split("/");
+        var last_elem_array = splitted_array[splitted_array.length -1];
+        var image_directory_parent = splitted_array[splitted_array.length -2];
+        var image_directory_array = last_elem_array.split(".");
+        var image_directory = image_directory_array[0];*/
+        
+        //leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/" + image_directory;
+        
+        var splitted_array = original_imagepath.split("/");
         var last_elem_array = splitted_array[splitted_array.length -1];
         var image_directory_parent = splitted_array[splitted_array.length -2];
         var image_directory_array = last_elem_array.split(".");

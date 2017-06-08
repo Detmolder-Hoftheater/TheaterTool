@@ -147,7 +147,7 @@ selectedWork: null,
 			dataIndex: 'name'
 			
 		},
-		{
+		/*{
 			header: '<b style="color:gray;">Title Variante</b>',
 			flex: 0.9,
 			sortable: true,
@@ -165,7 +165,7 @@ selectedWork: null,
                                 return val;
                             }
 			
-		},
+		},*/
 		/*{
 			header: '<b style="color:gray;">Sprache</b>',
 			flex: 0.3,

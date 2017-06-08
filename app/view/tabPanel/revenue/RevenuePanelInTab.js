@@ -28,7 +28,11 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
     
     initComponent: function () {
         var me = this;
-        
+        var messageWindow =  Ext.MessageBox.show({
+           // title: 'Load Incipits',
+            msg: 'Loading...'
+            //buttons: Ext.MessageBox.OK
+        });
         Ext.Ajax.request({
             url: 'resources/xql/getMonthsByRevenueYear.xql',
             method: 'GET',
@@ -74,9 +78,10 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
                     
                       var detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({
             month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">'+objs[i]+'</b>', selectedMonth: me.monat,
-            selectedWorkID: me.selectedWorkID
+            selectedWorkID: me.selectedWorkID, messageWindow: messageWindow, rev_index: i, rev_length:objs.length-1
         });
         me.add(detailSection);
+        
                     }
                 }
             }

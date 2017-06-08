@@ -543,6 +543,21 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 });
                 me.add(ref_layout);*/
                 
+                if(json.worksRef.length > 0 || json.sourcesRef.length > 0 || json.journalRef.length > 0 
+                || json.issueRef.length > 0 || json.gagenRef.length > 0  || json.roleRef.length > 0){
+                 
+                   me.add(
+                    Ext.create('Ext.form.FieldSet', {
+                    title: '<b style="color:gray; font-size: 13px;">Spielbetrieb und Verwaltung</b>',
+                    bodyBorder: false,
+                    collapsible: false,
+                    collapsed: true,
+                    margin: '15 0 10 0'
+                    }));
+                    
+                    
+                }
+                
                  if ( json.worksRef.length > 0) {
                     me.add({
                         
