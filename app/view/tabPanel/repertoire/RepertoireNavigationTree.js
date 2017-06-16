@@ -89,7 +89,7 @@ selectedWork: null,
                     if (extWorkKeys.indexOf(eOpts[0].parentNode.data.werkID) > -1) {
                         workIcon = 'resources/images/SourceBlue.png';
                     } else {
-                        workIcon = 'resources/images/SourceRed_24.png';
+                        workIcon = 'resources/images/SourceRed.png';
                     }
 					me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: eOpts[0].data.sourceID, werkTitle: eOpts[0].parentNode.data.name, title: '<font size="2" face="Arial" style="color:#A87678;">'+eOpts[0].data.name+'</font>', firstTabTitle:eOpts[0].data.physLocation, icon: workIcon});
 					me.repertoirePanel.add(me.sourcePanel);	

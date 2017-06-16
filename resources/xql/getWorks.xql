@@ -141,10 +141,15 @@ let $strings := for $elem in $titles
 		let $path_1 := concat('xmldb:exist:///apps/theater-data/expressions/', $expressionFileName, '.xml')
 		let $file_1 := doc($path_1)
 
-
-		let $source := if(contains($fileID, 'H020149') or contains($fileID, 'H020048')  or contains($fileID, 'H020263'))
+        let $source := if($file_1 !='')
 			then($file_1//mei:relation[@rel ="hasEmbodiment"]/@target)
 			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target)
+
+
+		(:let $source := if(contains($fileID, 'H020149') or contains($fileID, 'H020048')  or contains($fileID, 'H020263')
+		or contains($fileID, 'H020010'))
+			then($file_1//mei:relation[@rel ="hasEmbodiment"]/@target)
+			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target):)
 
  
 		(:let $source := $file1//mei:relation[@rel ="hasEmbodiment"]/@target:)
