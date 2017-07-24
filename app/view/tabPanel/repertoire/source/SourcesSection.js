@@ -125,7 +125,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         var me = this;
         me.source_group.removeAll(true);
         
-        if (typeof selectedSource[0].data.titlePages[0] !== 'undefined' || selectedSource[0].data.medium !== '' || typeof selectedSource[0].data.schreiber[0] !== 'undefined' ||
+        if (typeof selectedSource[0].data.titlePages[0] !== 'undefined' || selectedSource[0].data.medium !== '' || typeof selectedSource[0].data.schreiber !== 'undefined' ||
         typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '' || selectedSource[0].data.inventarnummer !== '' || selectedSource[0].data.seitenzahl !== '' || selectedSource[0].data.groesse !== '') {
             
             me.source_group.add({
@@ -148,26 +148,81 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 var bemLength = 1;
                 var pages = '';
                 for (i = 0; i < selectedSource[0].data.titlePages.length; i++) {
-                    pages += selectedSource[0].data.titlePages[i] + '\n';
+                    pages += selectedSource[0].data.titlePages[i] + '<br/><br/>';
                     bemLength++;
                 }
-                var numOfRows = parseInt(14 * bemLength);
+               /* var numOfRows = parseInt(14 * bemLength);
                 me.titel = me.createTextArea('Titelseite(n)', numOfRows);
-                phys_panel.add(me.titel);
-                this.titel.setValue(pages);
+                phys_panel.add(               
+                    me.titel
+                );
+                this.titel.setValue(pages);*/
+                
+                
+                var right_panel = Ext.create('Ext.panel.Panel', {
+						layout: {
+				        type: 'table',
+				        columns: 2,
+			             tdAttrs: {
+        			         valign: 'top'
+   				         }
+				
+			},
+			margin: '0 0 10 0',
+			autoScroll: true,
+			border: false,
+						items:[
+						{
+        xtype: 'label',
+        html: '<b style="color:gray; font-size: 10px;">Titelseite(n):</b>'
+    },
+						{
+                  html: pages,
+                  margin: '0 0 0 40',
+                  border: false
+                }
+						]
+					});
+                phys_panel.add(right_panel);
+                
             }
             
             if (selectedSource[0].data.medium !== '') {
-                var umschladValue = selectedSource[0].data.medium;
-                var umschlafLength = umschladValue.split("\n").length;
+                var umschlagValue = selectedSource[0].data.medium;
+                /*var umschlafLength = umschladValue.split("\n").length;
                 var numOfUmschlagRows = parseInt(14 * umschlafLength);
                 me.medium = me.createTextArea('Umschlag', numOfUmschlagRows);
                 this.medium.setValue(selectedSource[0].data.medium);
-                phys_panel.add(me.medium);
+                phys_panel.add(me.medium);*/
+                
+                 var right_panel = Ext.create('Ext.panel.Panel', {
+						layout: {
+				        type: 'table',
+				        columns: 2,
+			             tdAttrs: {
+        			         valign: 'top'
+   				         }
+			},
+			margin: '0 0 10 0',
+			autoScroll: true,
+			border: false,
+						items:[
+						{
+        xtype: 'label',
+        html: '<b style="color:gray; font-size: 10px;">Umschlag:</b>'
+    },
+						{
+                  html: umschlagValue,
+                  margin: '0 0 0 55',
+                  border: false
+                }
+						]
+					});
+                phys_panel.add(right_panel);
             }
             
-            
-            if (typeof selectedSource[0].data.schreiber[0] !== 'undefined') {
+            console.log(selectedSource[0].data.schreiber);
+            if (typeof selectedSource[0].data.schreiber !== 'undefined') {
                 me.schreiber = me.createTextField('Schreiber');
                 var schr = '';
                 for (i = 0; i < selectedSource[0].data.schreiber.length; i++) {
@@ -183,11 +238,35 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
             
             if (typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '') {
                 var zustandsValue = selectedSource[0].data.condition;
-                var zustandLength = zustandsValue.split("\n").length;
+               /* var zustandLength = zustandsValue.split("\n").length;
                 var numOfZustandRows = parseInt(14 * zustandLength);
                 me.zustand = me.createTextArea('Zustand', numOfZustandRows);
                 this.zustand.setValue(selectedSource[0].data.condition);
-                phys_panel.add(me.zustand);
+                phys_panel.add(me.zustand);*/
+                var right_panel = Ext.create('Ext.panel.Panel', {
+						layout: {
+				        type: 'table',
+				        columns: 2,
+			             tdAttrs: {
+        			         valign: 'top'
+   				         }
+			},
+			margin: '0 0 10 0',
+			autoScroll: true,
+			border: false,
+						items:[
+						{
+        xtype: 'label',
+        html: '<b style="color:gray; font-size: 10px;">Zustand:</b>'
+    },
+						{
+                  html: zustandsValue,
+                  margin: '0 0 0 55',
+                  border: false
+                }
+						]
+					});
+                phys_panel.add(right_panel);
             }
             
             if (selectedSource[0].data.inventarnummer !== '') {
@@ -309,29 +388,79 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
             
             
             if (typeof selectedSource[0].data.inhalt !== 'undefined') {
-                var bemLength = 1;
+                //var bemLength = 1;
                 var inhaltText = '';
                 for (i = 0; i < selectedSource[0].data.inhalt.length; i++) {
-                    inhaltText += selectedSource[0].data.inhalt[i] + '\n'
-                    bemLength++;
+                    inhaltText += selectedSource[0].data.inhalt[i] + '<br/><br/>'
+                    //bemLength++;
                 }
-                var numOfRows = parseInt(14 * bemLength);
+                /*var numOfRows = parseInt(14 * bemLength);
                 me.prov = me.createTextArea('Inhalt', numOfRows);
                 all_panel.add(me.prov);
-                this.prov.setValue(inhaltText);
+                this.prov.setValue(inhaltText);*/
+                
+                var right_panel = Ext.create('Ext.panel.Panel', {
+						layout: {
+				        type: 'table',
+				        columns: 2,
+			             tdAttrs: {
+        			         valign: 'top'
+   				         }
+			},
+			margin: '0 0 10 0',
+			autoScroll: true,
+			border: false,
+						items:[
+						{
+        xtype: 'label',
+        html: '<b style="color:gray; font-size: 10px;">Inhalt:</b>'
+    },
+						{
+                  html: inhaltText,
+                  margin: '0 0 0 75',
+                  border: false
+                }
+						]
+					});
+                all_panel.add(right_panel);
             }
             
             if (typeof selectedSource[0].data.s_bemerkungen[0] !== 'undefined') {
                 var bem = '';
                 for (i = 0; i < selectedSource[0].data.s_bemerkungen.length; i++) {
-                    bem += selectedSource[0].data.s_bemerkungen[i] + '\n\n'
+                    bem += selectedSource[0].data.s_bemerkungen[i] + '<br/><br/>'
                 }
                 
-                var beschrLength = bem.split("\n").length;
+                /*var beschrLength = bem.split("\n").length;
                 var numOfRows = parseInt(14 * beschrLength);
                 me.annot = me.createTextArea('Anmerkungen', numOfRows);
                 all_panel.add(me.annot);
-                me.annot.setValue(bem);
+                me.annot.setValue(bem);*/
+                
+                 var right_panel = Ext.create('Ext.panel.Panel', {
+						layout: {
+				        type: 'table',
+				        columns: 2,
+			             tdAttrs: {
+        			         valign: 'top'
+   				         }
+			},
+			margin: '0 0 10 0',
+			autoScroll: true,
+			border: false,
+						items:[
+						{
+        xtype: 'label',
+        html: '<b style="color:gray; font-size: 10px;">Anmerkungen:</b>'
+    },
+						{
+                  html: bem,
+                  margin: '0 0 0 35',
+                  border: false
+                }
+						]
+					});
+                all_panel.add(right_panel);
             }
             
             
@@ -353,11 +482,36 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
             
             if (selectedSource[0].data.hoverview !== '') {
                 var beschrValue = selectedSource[0].data.hoverview;
-                var beschrLength = beschrValue.split("\n").length;
+                /*var beschrLength = beschrValue.split("\n").length;
                 var numOfRows = parseInt(14 * beschrLength);
                 me.overview = me.createTextArea('Beschreibung', numOfRows);
                 all_panel.add(me.overview);
-                this.overview.setValue(selectedSource[0].data.hoverview);
+                this.overview.setValue(selectedSource[0].data.hoverview);*/
+                
+                var right_panel = Ext.create('Ext.panel.Panel', {
+						layout: {
+				        type: 'table',
+				        columns: 2,
+			             tdAttrs: {
+        			         valign: 'top'
+   				         }
+			},
+			margin: '0 0 10 0',
+			autoScroll: true,
+			border: false,
+						items:[
+						{
+        xtype: 'label',
+        html: '<b style="color:gray; font-size: 10px;">Beschreibung:</b>'
+    },
+						{
+                  html: beschrValue,
+                  margin: '0 0 0 30',
+                  border: false
+                }
+						]
+					});
+                all_panel.add(right_panel);
             }
             if (selectedSource[0].data.events.length > 0) {
                 me.source_group.add({

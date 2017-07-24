@@ -347,7 +347,7 @@ disabled: true
 				},
 				menu:[ 
 				
-				{
+				/*{
 				xtype: 'component',
 //margin: '0 10 0 10',
 autoEl: {
@@ -357,7 +357,7 @@ autoEl: {
 		target: "_blank"
     }
     //style:{color: '#CC9FA7'}
-    },
+    },*/
 				{
 					text: 'Daten Relation',
 					

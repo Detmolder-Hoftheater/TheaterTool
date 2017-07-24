@@ -343,7 +343,7 @@ panel_10 = Ext.create('Ext.panel.Panel', {
                                 autoEl: {
                                     tag: 'a',
                                     href: 'https://opac.rism.info/search?id='+rismValue,
-                                    html: 'Informationen auf der Répertoire International des Sources Musicales (RISM) Seite',
+                                    html: 'Informationen im Répertoire International des Sources Musicales (RISM)',
                                     target: "_blank"
                                 }
                             });
@@ -407,11 +407,38 @@ me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-al
 		}
 		
 		if(typeof json.hoverview[0] !== 'undefined'){
-		me.overview = me.createTextArea('Beschreibung');
+		var beschrValue = json.hoverview;
+		/*me.overview = me.createTextArea('Beschreibung');
 		//if(typeof json.hoverview !== 'undefined'){
 	       me.overview.setValue(json.hoverview);
 	       right_panel.add(me.overview);
-       // }
+       // }*/
+       
+       
+       var right_panel_1= Ext.create('Ext.panel.Panel', {
+						layout: {
+				        type: 'table',
+				        columns: 2,
+			             tdAttrs: {
+        			         valign: 'top'
+   				         }
+			},
+			margin: '0 0 10 0',
+			autoScroll: true,
+			border: false,
+						items:[
+						{
+        xtype: 'label',
+        html: '<b style="color:gray; font-size: 10px;">Beschreibung:</b>'
+    },
+						{
+                  html: beschrValue,
+                  margin: '0 0 0 30',
+                  border: false
+                }
+						]
+					});
+                right_panel.add(right_panel_1);
 	    }
 				
 		var panel_01 = Ext.create('Ext.panel.Panel', {

@@ -25,7 +25,7 @@ layout: {
 	
 		
 		this.items =[ {
-			html: '<img src="resources/images/Diagram.png" style="width:867px;height:642px;">'
+			html: '<img src="resources/images/Diagram.png" style="width:1154px;height:708px;">'
 
 		}],
 		

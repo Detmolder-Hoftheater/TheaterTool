@@ -311,7 +311,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                                 autoEl: {
                                     tag: 'a',
                                     href: 'https://portal.dnb.de/opac.htm?method=simpleSearch&query=' + gndId,
-                                    html: 'Personinformationen auf der Deutschen Nationalbibliothek Seite',
+                                    html: 'Datensatz in der Gemeinsamen Normdatei (GND)',
                                     target: "_blank"
                                 }
                             });
@@ -338,7 +338,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                             autoEl: {
                                 tag: 'a',
                                 href: 'http://weber-gesamtausgabe.de/de/Suche?d=works&q=' + wegaId,
-                                html: 'Personinformationen auf der Weber-Gesamtausgabe Seite',
+                                html: 'Personeninformationen auf der Seite der Carl-Maria-von-Weber-Gesamtausgabe',
                                 target: "_blank"
                             }
                         });
@@ -364,7 +364,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                             autoEl: {
                                 tag: 'a',
                                 href: 'http://viaf.org/viaf/search?query=' + viafId + '&sortKeys=holdingscount&recordSchema=BriefVIAF',
-                                html: 'Personinformationen auf der Virtual International Authority File Seite',
+                                html: 'Personeninformationen in der Virtual International Authority File (VIAF)',
                                 target: "_blank"
                             }
                         });
@@ -450,20 +450,49 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 
                 
                  if(typeof json.summaryText[0] !== 'undefined'){
-                    var summary = me.createTextArea('Beschreibung');
+                    //var summary = me.createTextArea('Beschreibung');
                     var notes = json.summaryText[0];
                 
-                    summary.setValue(notes);
+                    //summary.setValue(notes);
                     //summary.setHeight(150);
                 
-                var annot_panel = Ext.create('Ext.panel.Panel', {
+                /*var annot_panel = Ext.create('Ext.panel.Panel', {
                     border: false,
                     //bodyPadding: 10,
                     margin: '0 10 0 10',
                     items:[]
                 });
                 me.add(annot_panel);
-                annot_panel.add(summary);
+                annot_panel.add(summary);*/
+                
+                var right_panel = Ext.create('Ext.panel.Panel', {
+						layout: {
+				        type: 'table',
+				        columns: 2,
+			             tdAttrs: {
+        			         valign: 'top'
+   				         }
+			},
+			margin: '0 0 10 0',
+			autoScroll: true,
+			border: false,
+						items:[
+						{
+        xtype: 'label',
+        html: '<b style="color:gray; font-size: 10px;">Beschreibung:</b>'
+    },
+						{
+                  html: notes,
+                  margin: '0 0 0 45',
+                  border: false
+                }
+						]
+					});
+                me.add(right_panel);
+                
+                
+                
+                
                 }
             
             

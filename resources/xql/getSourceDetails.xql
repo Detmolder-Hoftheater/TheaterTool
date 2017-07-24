@@ -1,5 +1,6 @@
 xquery version "3.0";
 
+import module namespace eutil="http://www.edirom.de/xquery/util" at "/db/apps/TheaterTool/resources/xqm/util.xqm";
 
 declare namespace request="http://exist-db.org/xquery/request";
 declare namespace mei="http://www.music-encoding.org/ns/mei";
@@ -8,14 +9,14 @@ declare namespace xmldb="http://exist-db.org/xquery/xmldb";
 declare namespace system="http://exist-db.org/xquery/system";
 declare namespace transform="http://exist-db.org/xquery/transform";
 
-declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";
-
+(:declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";:)
+declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";
 
 declare variable $sourceID := request:get-parameter('sourceID', '');
 declare variable $workPath := request:get-parameter('workPath', '/db/apps/theater-data/works/');
 declare variable $uri := concat('/db/apps/theater-data/sources/', $sourceID, '.xml');
-declare variable $file := doc($uri);
-declare variable $content := $file//mei:source;
+declare variable $content := eutil:getDoc($uri)/mei:source;
+(:let $content := $file/mei:source:)
 
 
 declare function local:jsonifyTitel($content) {
@@ -280,16 +281,41 @@ declare function local:jsonifyTitlePages($desc) {
 
 let $strings := for $elem_1 in $desc
 
-			let $page := normalize-space($elem_1)
+			let $pages := $elem_1/mei:titlePage
+			let $onepage := if($pages != '')then(local:jsonifyTitles($pages))else()
+			(:normalize-space($elem_1):)
 
 				return 
-if($page != '')then(concat('"',replace($page, '"', '\\"' ), '"'))else()
-
+if($onepage != '')then(
+concat('"', replace(normalize-space($onepage), '"', '\\"' ), '"')
+)else()
+ 
 
     return 
         string-join($strings,',')
+        
 
 };
+
+declare function local:jsonifyTitles($pages) {
+
+let $strings := for $elem in $pages
+
+			let $page := $elem//text()
+			(:normalize-space($elem_1):)
+
+				return 
+if($page != '')then(
+$page
+(:replace($page, '"', '\\"' ):)
+
+)else()
+return
+        string-join($strings,' ')
+
+};
+
+
 
 declare function local:jsonifyInhalt($items) {
 
@@ -347,7 +373,7 @@ let $strings := for $elem_1 in $s_list
 
 			let $inventarnummer :=normalize-space($elem_1/mei:identifier[@label="Inventarnummer"])
 
-			let $desc := $elem_1/mei:physDesc[1]/mei:titlePage			
+			let $desc := $elem_1/mei:physDesc			
 			let $titlePages := local:jsonifyTitlePages($desc)
 
 			let $medium := $elem_1/mei:physDesc[1]/mei:physMedium
@@ -474,7 +500,7 @@ let $strings := for $elem_1 in $source_el
 
 			let $inventarnummer :=normalize-space($elem_1/mei:identifier[@label="Inventarnummer"])
 
-			let $desc := $elem_1/mei:physDesc[1]/mei:titlePage			
+			let $desc := $elem_1/mei:physDesc	
 			let $titlePages := local:jsonifyTitlePages($desc)
 
 			let $medium := $elem_1/mei:physDesc[1]/mei:physMedium
@@ -487,8 +513,8 @@ let $strings := for $elem_1 in $source_el
 			let $persNames := $elem_1/mei:physDesc[1]/mei:inscription/mei:persName
 			let $inscription := local:jsonifyInscription($persNames)
 
-			let $handList := $elem_1/mei:physDesc[1]/mei:handList/mei:hand
-			let $hand := local:jsonifyHandList($handList)
+			(:let $handList := $elem_1/mei:physDesc[1]/mei:handList/mei:hand
+			let $hand := local:jsonifyHandList($handList):)
 
 			let $langList := $elem_1/mei:physDesc[1]/mei:langUsage/mei:language
 			let $language := local:jsonifyLanguage($langList)
@@ -524,7 +550,6 @@ let $strings := for $elem_1 in $source_el
 				return 
 
 concat(
-(:'"s_title":[',if($s_title != '')then($s_title)else(), '],',:)
 '"s_title":','"',$s_title, '",',
 '"inventarnummer":','"',$inventarnummer, '",',
 '"signatur":','"',normalize-space($signatur), '",',
@@ -535,7 +560,7 @@ concat(
 '"medium":','"',$medium, '",',
 '"source_hier":[',if($source_hier != '')then(concat('{"sources_1":[',$source_hier,']}'))else(), '],',
 '"inscription":[',if($inscription != '')then($inscription)else(), '],',
-'"schreiber":[',if($hand != '')then($hand)else(), '],',
+(:'"schreiber":[',if($hand != '')then($hand)else(), '],',:)
 '"sprache":[',if($language != '')then($language)else(), '],',
 '"seitenzahl":','"',$pages, '",',
 '"groesse":','"',$dimension, '",',
@@ -552,20 +577,23 @@ concat(
 
 declare function local:jsonifySources($content) {
 
-let $strings := for $elem in $content/mei:relationList/mei:relation
+let $test := $content
+
+let $strings := for $elem in $test/mei:relationList/mei:relation
 
 	let $rel := $elem[@rel = 'hasPart']/@target
 	let $source_id := substring-after($rel, '#')
 
-	let $source_el := $content/mei:componentGrp/mei:source[@xml:id = $source_id]
+	let $source_el := $test/mei:componentGrp/mei:source[@xml:id = $source_id]
 	let $content_source := local:jsonifyContenSource($source_el)
 
 	
                     return 
+                   
 if($content_source != '')then(concat('[{',$content_source,'}]'))else()
-
-
+               
     return 
+   
         string-join($strings,',')
  
 };
@@ -609,6 +637,7 @@ concat('["',$title, '","', $type, '","', $language,'"]')
 
 
  (
+ 
 '{"sources":[',
         local:jsonifySources($content),
 

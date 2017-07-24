@@ -67,12 +67,16 @@ let $strings := for $elem in $fileNames
 		let $expressionFileName := tokenize($expression, "#")[last()]
 		let $path_1 := concat('xmldb:exist:///apps/theater-data/expressions/', $expressionFileName, '.xml')
 		let $file_1 := doc($path_1)
+		
+		let $source := if($file_1 !='')
+			then($file_1//mei:relation[@rel ="hasEmbodiment"]/@target)
+			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target)
 
-		let $source := $file_1//mei:relation[@rel ="hasEmbodiment"]/@target
+		(:let $source := $file_1//mei:relation[@rel ="hasEmbodiment"]/@target
 		
 		let $source := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
 			then($file_1//mei:relation[@rel ="hasEmbodiment"]/@target)
-			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target)
+			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target):)
 		
 		let $sourceFileName := tokenize($source, "#")[last()]
 		let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')

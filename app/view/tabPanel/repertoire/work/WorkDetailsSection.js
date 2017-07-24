@@ -416,13 +416,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                                 autoEl: {
                                     tag: 'a',
                                     href: 'https://portal.dnb.de/opac.htm?method=simpleSearch&query=' + gndId,
-                                    html: 'Werkinformationen auf der Deutschen Nationalbibliothek Seite',
+                                    html: 'Datensatz in der Gemeinsamen Normdatei (GND)',
                                     target: "_blank"
                                 }
                             });
                         }
                     }
-                    if (json.wega.length > 0) {
+                    /*if (json.wega.length > 0) {
                         var wegaId = json.wega[0];
                         
                         var panel_101111 = Ext.create('Ext.panel.Panel', {
@@ -443,11 +443,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                             autoEl: {
                                 tag: 'a',
                                 href: 'http://weber-gesamtausgabe.de/de/Suche?d=works&q=' + wegaId,
-                                html: 'Werkinformationen auf der Weber-Gesamtausgabe Seite',
+                                html: 'Werkinformationen auf der Seite der Carl-Maria-von-Weber-Gesamtausgabe',
                                 target: "_blank"
                             }
                         });
-                    }
+                    }*/
                 }
                 
                     panel_011 = Ext.create('Ext.panel.Panel', {
@@ -477,11 +477,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         border: false,
                         bodyBorder: false,
                         //bodyPadding: 10,
-                        margin: '0 0 10 10',
+                        margin: '0 0 10 10'
                         //margin: '0 0 0 5',
-                        items:[
-                        /*left_panel,
-                        right_panel,*/]
+                       /* items:[
+                        /\*left_panel,
+                        right_panel,*\/]*/
                     });
                     panel_011.add(panel_101);
                     
@@ -492,7 +492,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                             spr += ', ' + json.sprachen[i];
                         }
                         me.language = me.createTextField('Sprache(n)', spr);
-                        panel_101.items.add(me.language);
+                        panel_101.add(me.language);
                     }
                     
                     if (typeof json.instr[0] !== 'undefined') {
@@ -500,20 +500,75 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         for (i = 1; i < json.instr.length; i++) {
                             spr += ', ' + json.instr[i];
                         }
-                        me.instr = me.createTextArea('Besetzung', spr);
-                        panel_101.items.add(me.instr);
+                        /*me.instr = me.createTextArea('Besetzung', spr);
+                        panel_101.items.add(me.instr);*/
+                        
+                        var right_panel = Ext.create('Ext.panel.Panel', {
+						layout: {
+				        type: 'table',
+				        columns: 2,
+			             tdAttrs: {
+        			         valign: 'top'
+   				         }
+			},
+			margin: '0 0 10 0',
+			autoScroll: true,
+			border: false,
+			bodyBorder: false,
+						items:[
+						{
+        xtype: 'label',
+        bodyBorder: false,
+        html: '<b style="color:gray; font-size: 10px;">Besetzung:</b>'
+    },
+						{
+                  html: spr,
+                  margin: '0 0 0 55',
+                  border: false,
+                  bodyBorder: false
+                }
+						]
+					});
+                panel_101.add(right_panel);
+                        
+                        
                     }
                     
                     
                     if (json.creation[0][0] !== '') {
                         console.log(json.creation[0]);
                         me.abs = me.createTextField('Entstehung', json.creation);
-                        panel_101.items.add(me.abs);
+                        panel_101.add(me.abs);
                     }
                     
                     if (typeof json.hoverview[0] !== 'undefined') {
-                        me.overview = me.createTextArea('Beschreibung', json.hoverview);
-                        panel_101.items.add(me.overview);
+                        /*me.overview = me.createTextArea('Beschreibung', json.hoverview);
+                        panel_101.items.add(me.overview);*/
+                        
+                         var right_panel = Ext.create('Ext.panel.Panel', {
+						layout: {
+				        type: 'table',
+				        columns: 2,
+			             tdAttrs: {
+        			         valign: 'top'
+   				         }
+			},
+			margin: '0 0 10 0',
+			autoScroll: true,
+			border: false,
+						items:[
+						{
+        xtype: 'label',
+        html: '<b style="color:gray; font-size: 10px;">Beschreibung:</b>'
+    },
+						{
+                  html: json.hoverview,
+                  margin: '0 0 0 40',
+                  border: false
+                }
+						]
+					});
+                panel_101.add(right_panel);
                     }
                     
                     
