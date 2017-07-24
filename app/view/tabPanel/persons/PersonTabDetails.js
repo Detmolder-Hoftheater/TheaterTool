@@ -574,21 +574,32 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 
                 if(json.worksRef.length > 0 || json.sourcesRef.length > 0 || json.journalRef.length > 0 
                 || json.issueRef.length > 0 || json.gagenRef.length > 0  || json.roleRef.length > 0){
+                
+                 var refSection = Ext.create('Ext.panel.Panel', {
+                    title: '<b style="color:gray; font-size: 12px;">Spielbetrieb und Verwaltung</b>',
+                    bodyBorder: false,
+                    border: false,
+                    collapsed: true,
+                    collapsible: true,
+                    margin: '15 0 0 0',
+                    bodyPadding:10
+                    })
                  
                    me.add(
-                    Ext.create('Ext.form.FieldSet', {
+                    refSection
+                    /*Ext.create('Ext.form.FieldSet', {
                     title: '<b style="color:gray; font-size: 13px;">Spielbetrieb und Verwaltung</b>',
                     bodyBorder: false,
                     collapsible: false,
                     collapsed: true,
                     margin: '15 0 10 0'
-                    }));
+                    })*/);
                     
                     
                 }
                 
                  if ( json.worksRef.length > 0) {
-                    me.add({
+                    refSection.add({
                         
                         xtype: 'label',
                         html: '<img src="resources/images/BooksVert-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Werke</b>',
@@ -603,7 +614,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         //colspan: 1,
                         //type: 'hbox',
                         border: false,
-                        margin: '0 10 0 10',
+                        //margin: '0 10 0 10',
                         //type: 'fit',
                         //bodyPadding: 10,
                         items:[
@@ -611,7 +622,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         worksTable]
                     });
                     
-                    me.add(work_panel);
+                    refSection.add(work_panel);
                 }
                 
                 /*var worksTable = new TheaterTool.view.tabPanel.WorksTable({
@@ -619,7 +630,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 });
                 ref_layout.add(worksTable);*/
                 if ( json.sourcesRef.length > 0) {
-                    me.add({
+                    refSection.add({
                         
                         xtype: 'label',
                         html: '<b style="color:gray; font-size: 12px;">Quellen</b>',
@@ -634,7 +645,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         //colspan: 1,
                         //type: 'hbox',
                         border: false,
-                        margin: '0 10 0 10',
+                       // margin: '0 10 0 10',
                         //type: 'fit',
                         //bodyPadding: 10,
                         items:[
@@ -642,7 +653,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         sourcesTable]
                     });
                     
-                    me.add(source_panel);
+                    refSection.add(source_panel);
                 }
                 
                 /*var sourcesTable = new TheaterTool.view.tabPanel.SourcesTable({
@@ -661,7 +672,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     });
                     me.add(journal_group);*/
                     
-                    me.add({
+                    refSection.add({
                         
                         xtype: 'label',
                         html: '<img src="resources/images/Presse-16.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Theaterjournal</b>',
@@ -677,7 +688,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         //colspan: 1,
                         //type: 'hbox',
                         border: false,
-                        margin: '0 10 0 10',
+                        //margin: '0 10 0 10',
                         //type: 'fit',
                         //bodyPadding: 10,
                         items:[
@@ -686,7 +697,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     });
                     
                     
-                    me.add(journal_panel);
+                    refSection.add(journal_panel);
                 }
                 
                /* var journalTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable({
@@ -705,7 +716,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     });
                     me.add(issue_group);*/
                     
-                    me.add({
+                    refSection.add({
                         
                         xtype: 'label',
                         html: '<img src="resources/images/MoneyTransfer-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Ausgaben</b>',
@@ -721,7 +732,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         //colspan: 1,
                         //type: 'hbox',
                         border: false,
-                        margin: '0 10 0 10',
+                        //margin: '0 10 0 10',
                         //type: 'fit',
                         //bodyPadding: 10,
                         items:[
@@ -729,7 +740,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         issueTable]
                     });
                     
-                    me.add(issue_panel);
+                    refSection.add(issue_panel);
                 }
                 
                 /* var issueTable = new TheaterTool.view.tabPanel.repertoire.work.IssueTable({
@@ -738,7 +749,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 ref_layout.add(issueTable);*/
                 
                 if (json.gagenRef.length > 0) {
-                    me.add({
+                    refSection.add({
                         
                         xtype: 'label',
                         html: '<img src="resources/images/Gift-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Gagen</b>',
@@ -753,7 +764,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         //colspan: 1,
                         //type: 'hbox',
                         border: false,
-                        margin: '0 10 0 10',
+                        //margin: '0 10 0 10',
                         //type: 'fit',
                         //bodyPadding: 10,
                         items:[
@@ -761,7 +772,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         gagenTable]
                     });
                     
-                    me.add(gagen_panel);
+                    refSection.add(gagen_panel);
                 }
                              
                /* var gagenTable = new TheaterTool.view.tabPanel.GagenTable({
@@ -781,7 +792,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     });
                     me.add(role_group);*/
                     
-                    me.add({
+                    refSection.add({
                         
                         xtype: 'label',
                         html: '<img src="resources/images/carnival.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Rollen- & Kostümbücher</b>',
@@ -797,7 +808,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         //colspan: 1,
                         //type: 'hbox',
                         border: false,
-                        margin: '0 10 0 10',
+                        //margin: '0 10 0 10',
                         //type: 'fit',
                         //bodyPadding: 10,
                         items:[
@@ -805,7 +816,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         roleTable]
                     });
                     
-                    me.add(role_panel);
+                    refSection.add(role_panel);
                 }
                  /*var roleTable = new TheaterTool.view.tabPanel.repertoire.work.RoleTable({
                     roleList: json.roleRef
