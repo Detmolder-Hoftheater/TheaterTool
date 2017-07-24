@@ -26,21 +26,34 @@ regieName: null,
 	
 	Ext.Ajax.request({
            // url: 'data/Output_Exist.xql',
- 			url: 'resources/xql/getJournal.xql',
+            url: 'resources/xql/getJournal.xql',
+ 			//url: 'resources/xql/getJournalContent.xql',
             method: 'GET',
             params: {
                 regieName: me.regieName
               
             },
             success: function(response){
-				//var idtemp = me.repertoireTab.getTextTab().id;
+            
+            //var idtemp = me.repertoireTab.getTextTab().id;
 
 				//$('#'+me.id).html(response.responseText);
 				me.setTextInfo(response.responseText);
  				//me.repertoireTab.setTextInfo(response.responseText);
 				//me.repertoireTab.setTextInfo1(response.responseText);
 			//$('#'+me.id+'-innerCt').html(response.responseText);
-
+			
+			
+                /*var textContent = response.responseText;
+                console.log(textContent);
+                me.add( [
+               { xtype: 'panel',
+               
+                        html: textContent
+                    }
+                   
+               // {html: 'Hallo'}
+                ]);*/
      		}
          
         });
