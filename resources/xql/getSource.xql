@@ -62,7 +62,7 @@ let $strings := for $elem in $id
                    
                     return 
                      if($id_1 != '')then(  
-				concat('["',$id_1, '",', '"',$role, '",', '"',$dbkey,'"]'))
+				concat('["',normalize-space($id_1), '",', '"',$role, '",', '"',$dbkey,'"]'))
 else()
     return 
         string-join($strings,',')
