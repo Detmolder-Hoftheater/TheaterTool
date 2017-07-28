@@ -38,7 +38,19 @@ Ext.define('TheaterTool.view.tabPanel.link.LinkPanelInTab', {
 		target: "_blank"
 		
     }
-    }	
+    },
+    
+		{
+    xtype: 'component',
+    margin: '10 0 10 10',
+    autoEl: {
+        tag: 'a',
+        href: 'http://nbn-resolving.de/urn:nbn:de:hbz:51:1-8807',
+        html: 'Theater-Journal des Fürstlichen Theaters zu Detmold',
+		target: "_blank"
+		
+    }
+    }		
 			
     ]
 
