@@ -2,6 +2,9 @@ xquery version "3.1";
 
 module namespace api = "http://www.hoftheater-detmold.de/xquery/api";
 declare namespace mei="http://www.music-encoding.org/ns/mei";
+declare namespace tei="http://www.tei-c.org/ns/1.0";
+
+(:import module namespace core="http://xquery.weber-gesamtausgabe.de/modules/core" at "core.xqm";:)
 
 declare variable $api:INVALID_PARAMETER := QName("http://www.hoftheater-detmold.de/xquery/api", "ParameterError");
 declare variable $api:UNSUPPORTED_ID_SCHEMA := QName("http://www.hoftheater-detmold.de/xquery/api", "UnsupportedIDSchema");
@@ -13,10 +16,61 @@ declare variable $api:UNSUPPORTED_ID_SCHEMA := QName("http://www.hoftheater-detm
 : @return The JSON representation
 :)
 declare function api:documents($model as map()) {
+    let $docs := collection('/db/apps/theater-data')
+    return
+    if(exists($model('docID')))
+    then(api:findByID($model('docID')))
+    else(api:document(api:subsequence($docs, $model), $model))
+        (:api:document(api:subsequence($docs, $model), $model):)
+};
+
+declare function api:works($model as map()) {
     let $docs := collection('/db/apps/theater-data/works')
     return
         api:document(api:subsequence($docs, $model), $model)
 };
+
+declare function api:persons($model as map()) {
+    let $docs := collection('/db/apps/theater-data/persons')
+    return
+        api:persons(api:subsequence($docs, $model), $model)
+};
+
+declare function api:sources($model as map()) {
+    let $docs := collection('/db/apps/theater-data/sources')
+    return
+        api:document(api:subsequence($docs, $model), $model)
+};
+
+declare function api:regie($model as map()) {
+    let $docs := collection('/db/apps/theater-data/regiebuecher')
+    return
+        api:theaterakten(api:subsequence($docs, $model), $model)
+};
+
+declare function api:gage($model as map()) {
+    let $docs := collection('/db/apps/theater-data/gagenbuecher')
+    return
+        api:theaterakten(api:subsequence($docs, $model), $model)
+};
+
+declare %private function api:findByID($id as xs:string) as document-node()* {
+    let $docs := collection('/db/apps/theater-data/works')
+    let $doc := for $elem in $docs
+        return $elem//mei:work[@xml:id = $id]
+    let $id := $doc/mei:work/data(@xml:id)
+    let $docType := substring-after(document-uri($doc), 'theater-data')
+    let $title := $doc/mei:work/mei:titleStmt[1]/mei:title   
+			 return
+			 $doc
+           (: map { 
+                (\:'uri' := $scheme || '://' || $host || substring-before($basePath, 'api') || $id,:\)
+                'docID' := $id,
+                'docType' := $docType,
+                'titleVariations' := $title
+            } :)
+};
+
 
 (:~
  :  Helper function for creating a subsequence based on external parameters
@@ -40,14 +94,54 @@ declare %private function api:document($documents as document-node()*, $model as
     let $scheme := $model('swagger:config')?schemes[1]
     return 
         for $doc in $documents
-        let $id := $doc/mei:work/data(@xml:id)
+        let $id := $doc//data(@xml:id)
         let $docType := substring-after(document-uri($doc), 'theater-data')
+        let $title := $doc//*:titleStmt[1]/*:title
         return
             map { 
                 'uri' := $scheme || '://' || $host || substring-before($basePath, 'api') || $id,
                 'docID' := $id,
                 'docType' := $docType,
-                'title' := 'some title'
+                'titleVariations' := $title
+            } 
+};
+
+declare %private function api:persons($documents as document-node()*, $model as map()) as map()* {
+    let $host := $model('swagger:config')?host
+    let $basePath := $model('swagger:config')?basePath
+    let $scheme := $model('swagger:config')?schemes[1]
+    return 
+        for $doc in $documents
+        let $id := $doc/tei:person/data(@xml:id)
+        let $docType := substring-after(document-uri($doc), 'theater-data')
+        let $title := $doc/tei:person/tei:persName/self::node()
+        return
+            map { 
+                'uri' := $scheme || '://' || $host || substring-before($basePath, 'api') || $id,
+                'docID' := $id,
+                'docType' := $docType,
+                'nameVariations' := $title
+            } 
+};
+
+declare %private function api:theaterakten($documents as document-node()*, $model as map()) as map()* {
+    let $host := $model('swagger:config')?host
+    let $basePath := $model('swagger:config')?basePath
+    let $scheme := $model('swagger:config')?schemes[1]
+    return 
+        for $doc in $documents
+      (:  let $id := $doc/tei:TEI/data(@xml:id)
+        let $docType := substring-after(document-uri($doc), 'theater-data'):)
+        
+        let $title := $doc/tei:TEI/tei:teiHeader//tei:titleStmt//tei:title/text()
+        let $desc :=  $doc/tei:TEI/tei:teiHeader/tei:encodingDesc/*
+        return
+            map { 
+                (:'uri' := $scheme || '://' || $host || substring-before($basePath, 'api') || $id,
+                'docID' := $id,
+                'docType' := $docType,:)
+                'title' := $title,
+                'desc' := $desc
             } 
 };
 
