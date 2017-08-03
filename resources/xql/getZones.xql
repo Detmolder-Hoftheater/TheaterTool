@@ -19,26 +19,17 @@ declare variable $workFolder := if(contains($selectedWork, 'H020149'))then('asch
 
 declare variable $path := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder, $fileName, '.xml');
 
-
-(:declare variable $path := 'xmldb:exist:///apps/theater-data/vertaktung/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586.xml';
-:)(:request:get-parameter('path', '');:)
-declare variable $typeString := request:get-parameter('types', 'all');
 declare variable $file := doc($path);
 
-declare variable $surface := $file//mei:surface[@n = $pageToLoad];
-             
-declare variable $graphic := $surface/mei:graphic[1];
+declare variable $surface := for $elem in $file//mei:surface
+
+         return if($elem/@n = $pageToLoad )then($elem)else();
+
+(:$file//mei:surface[@n = $pageToLoad];:)
 
 declare variable $graphic1 := $file//mei:surface[last()]/@n;
 
-
-(:declare variable $graphic1 := $surface/mei:graphic[last];:)
-
-
-(:declare variable $imgSrc := $freidi-pmd:ce-imageURI || substring-before(substring-after($surface/mei:graphic/@target, 'sources/'),'.jpg') || '/{z}-{x}-{y}.jpg';
-:)
-
-declare function local:getJson($surface,$types) {
+declare function local:getJson($surface) {
 
 
     let $page := $surface
@@ -53,9 +44,7 @@ declare function local:getJson($surface,$types) {
                          '}'
                      )
 
-    let $zones := if('all' = $types)
-                  then($page//mei:zone)
-                  else($page//mei:zone[@type = $types])
+    let $zones := $page//mei:zone
                   
     let $zonesJson := for $zone in $zones
                       let $ref := $zone/substring(@data,2)
@@ -81,16 +70,8 @@ declare function local:getJson($surface,$types) {
     
 };
 
-(:let $path := request:get-parameter('path', ''):)
-(:let $typeString := request:get-parameter('types', 'all'):)
 
-(:let $doc := doc('/db/apps/controlevents-data/' || $path):)
-(:let $doc := collection($freidi-pmd:ce-data)//mei:surface[@xml:id = $path]:)
-let $doc := $file//mei:surface[@n = $pageToLoad]
-
-let $types := tokenize($typeString,',')
-
-let $json := local:getJson($doc,$types)
+let $json := local:getJson($surface)
 
 return
     $json
