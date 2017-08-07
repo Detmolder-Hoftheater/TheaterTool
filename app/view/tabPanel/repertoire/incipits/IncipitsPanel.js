@@ -42,9 +42,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
     bodyBorder: false,
     border: false,*/
     
-    bodyStyle:{"background-color":"CCCCCC"},
+    bodyStyle: {
+        "background-color": "CCCCCC"
+    },
     
     sourceID: null,
+    in_panel: null,
     
     initComponent: function () {
         
@@ -77,8 +80,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
         }
         }
         });*/
-        var messageWindow =  Ext.MessageBox.show({
-           // title: 'Load Incipits',
+        var messageWindow = Ext.MessageBox.show({
+            // title: 'Load Incipits',
             msg: 'Loading...'
             //buttons: Ext.MessageBox.OK
         });
@@ -94,12 +97,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                 var text = response.responseText;
                 var splittest = text.split('<html>');
                 
-                var xPosition = 200 *(splittest.length -1 );
+                var xPosition = 200 *(splittest.length -1);
                 var reverseitemObjs = new Array();
                 
                 
                 for (i = splittest.length -1; i > -1; i--) {
-                    xPosition = xPosition-200;
+                    xPosition = xPosition -200;
                     
                     var meiE_tmp = splittest[i];
                     var meiE = meiE_tmp.replace('</html>', '');
@@ -109,15 +112,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                         
                         
                         var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({
-                            titlename: '<b style="color:gray;">' + meiElements[0].getAttribute('label') + '</b>',
-                            width: 200, 
-                            //height: 400, 
+                            titlename: /*'<font size="2" face="Arial" style="color:#A87678;">' +*/ meiElements[0].getAttribute('label')/* + '</b>'*/,
+                            width: 200,
+                            //height: 400,
                             x: xPosition, y: 50,
                             /*items:[ {
-                                
-                                xtype: 'label',
-                                html: '<b style="color:gray;">' + meiElements[0].getAttribute('label') + '</b>',
-                                margin: '0 5 0 10'
+                            
+                            xtype: 'label',
+                            html: '<b style="color:gray;">' + meiElements[0].getAttribute('label') + '</b>',
+                            margin: '0 5 0 10'
                             }],*/
                             listeners: {
                                 
@@ -125,7 +128,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                                     
                                     mouseenter: {
                                         
-                                        fn: function (event, html, eOpts) {                                           
+                                        fn: function (event, html, eOpts) {
                                             var me_me = this;
                                             var old_index = -1;
                                             var old_id = null;
@@ -155,36 +158,35 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                                             var newItemsArray = newReverseObjItems.concat(newObjItems);
                                             
                                             var elements = html.getElementsByTagName('b');
-                                            var one_el= elements[0];
+                                            var one_el = elements[0];
                                             for (i = 0; i < newItemsArray.length; i++) {
                                                 var reorderedItem = newItemsArray[i];
                                                 me.insert(i, reorderedItem);
-                                                if(i=== newItemsArray.length-1){
-                                                    reorderedItem.setDisabled(false); 
-                                                }
-                                                else{
+                                                if (i === newItemsArray.length -1) {
+                                                    reorderedItem.setDisabled(false);
+                                                    me.in_panel.setTitle(/*'<font size="2" face="Arial" style="color:#A87678;">' +*/ reorderedItem.titlename/* + '</b>'*/);
+                                                } else {
                                                     reorderedItem.setDisabled(true);
                                                 }
-                                              // console.log(one_el);
-                                               //console.log(reorderedItem.titlename);
-                                               // console.log('*********************');
-                                                 // console.log(one_el);
-                                                  // console.log(one_el.b);
-                                                 /*console.log('me_me.id');
-                                                 console.log(incipitSection.titlename);*/
-                                               
-                                               /* if(reorderedItem.titlename.indexOf(one_el) != -1){
-                                                 
-                                                    reorderedItem.setDisabled(false); 
+                                                // console.log(one_el);
+                                                //console.log(reorderedItem.titlename);
+                                                // console.log('*********************');
+                                                // console.log(one_el);
+                                                // console.log(one_el.b);
+                                                /*console.log('me_me.id');
+                                                console.log(incipitSection.titlename);*/
+                                                
+                                                /* if(reorderedItem.titlename.indexOf(one_el) != -1){
+                                                
+                                                reorderedItem.setDisabled(false);
                                                 }
                                                 else
                                                 
                                                 if(old_id === reorderedItem.id){
                                                 
-                                                    reorderedItem.setDisabled(true);
+                                                reorderedItem.setDisabled(true);
                                                 }*/
-                                               //console.log(me_me);
-                   
+                                                //console.log(me_me);
                                             }
                                         }
                                     }
@@ -195,26 +197,23 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                         
                         
                         
-			incipitSection.setTextInfo(meiE);
-			incipitSection.add({
-                                
-                                xtype: 'label',
-                                html: '<b style="color:gray;">' + meiElements[0].getAttribute('label') + '</b>'
-                                //margin: '15 15 15 15'
-                            });
+                        incipitSection.setTextInfo(meiE);
+                        incipitSection.add({
+                            
+                            xtype: 'label',
+                            html: '<b style="color:gray;">' + meiElements[0].getAttribute('label') + '</b>'
+                            //margin: '15 15 15 15'
+                        });
+                        me.in_panel.setTitle(/*'<font size="2" face="Arial" style="color:#A87678;">' + */meiElements[0].titlename/* + '</b>'*/);
                         reverseitemObjs[splittest.length -1 - i] = incipitSection;
-                        
-                        
-                    }
-                   
-                    if(i === 0){
-                        messageWindow.close();
-                        incipitSection.setDisabled(false);
-                    }
-                    else{
-                       incipitSection.setDisabled(true); 
                     }
                     
+                    if (i === 0) {
+                        messageWindow.close();
+                        incipitSection.setDisabled(false);
+                    } else {
+                        incipitSection.setDisabled(true);
+                    }
                 }
             }
         });

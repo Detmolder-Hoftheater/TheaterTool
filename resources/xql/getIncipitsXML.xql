@@ -12,13 +12,16 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";
 
 let $sourceID := request:get-parameter('sourceID', '')
-(:let $year := request:get-parameter('year', ''):)
+let $incipitName := request:get-parameter('incipitName', '')
 
 let $uri := concat('/db/apps/theater-data/expressions/', $sourceID, '_expr1.xml')
 
-(:, $year, '/', $year, '_', $month, '.xml'):)
-
 let $doc := doc($uri)/mei:expression
 
+let $template := for $elem in $doc
+                    return 
+                    if($elem/mei:expression/mei:componentGrp/mei:expression[@label =$incipitName]
+                    )then($elem)else() 
+
 return
-   $doc
+   $template

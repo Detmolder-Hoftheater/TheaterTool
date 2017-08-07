@@ -7,7 +7,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitDetailsSection'
    // collapsible: true,
     //collapsed: false,
    
-    title: '<b style="color:gray;">Übersicht</b>',
+   // title: '<b style="color:gray;">Übersicht</b>',
 border: true,
 	flex:1,
 bodyBorder: true,
@@ -19,13 +19,13 @@ autoScroll: true,
 	
 	bodyStyle:{"background-color":"CCCCCC"},
 	
+	in_panel: null,
 	
-
     initComponent: function() {
 
 	var me = this;
 
-me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel({sourceID: me.sourceID});
+me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel({sourceID: me.sourceID, in_panel: me.in_panel});
 						
     //me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsTabPanel({sourceID: me.sourceID});
 

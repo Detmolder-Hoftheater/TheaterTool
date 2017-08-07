@@ -121,7 +121,10 @@ declare function local:jsonifyRegs($content) {
 
 let $strings := for $elem in $content
 
-	let $titles := $elem//tei:persName[@type = 'reg']
+    let $titles := for $title in $elem//tei:persName
+    return if($title/@type = 'reg')then($title)else()
+
+	(:let $titles := $elem//tei:persName[@type = 'reg']:)
 	let $content_title := local:jsonifyRegNames($titles)
 	
                     return 
@@ -136,7 +139,10 @@ declare function local:jsonifyFulls($content) {
 
 let $strings := for $elem in $content
 
-	let $titles := $elem//tei:persName[@type = 'full']
+    let $titles := for $title in $elem//tei:persName
+    return if($title/@type = 'full')then($title)else()
+
+	(:let $titles := $elem//tei:persName[@type = 'full']:)
 	let $content_title := local:jsonifyRegNames($titles)
 	
                     return 
@@ -151,7 +157,10 @@ declare function local:jsonifyAlts($content) {
 
 let $strings := for $elem in $content
 
-	let $titles := $elem//tei:persName[@type = 'alt']
+    let $titles := for $title in $elem//tei:persName
+    return if($title/@type = 'alt')then($title)else()
+
+	(:let $titles := $elem//tei:persName[@type = 'alt']:)
 	let $content_title := local:jsonifyAltNames($titles)
 	
                     return 
@@ -166,7 +175,10 @@ declare function local:jsonifyPseuds($content) {
 
 let $strings := for $elem in $content
 
-	let $titles := $elem//tei:persName[@type = 'pseud']
+    let $titles := for $title in $elem//tei:persName
+    return if($title/@type = 'pseud')then($title)else()
+
+	(:let $titles := $elem//tei:persName[@type = 'pseud']:)
 	let $content_title := local:jsonifyPseudNames($titles)
 	
                     return 
