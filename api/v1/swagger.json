@@ -399,6 +399,9 @@
                         "persons",
                         "thematicCommentaries",
                         "works",
+                        "sources",
+                        "regiebuecher",
+                        "gagenbuecher",
                         "writings"
                     ]
                 }
