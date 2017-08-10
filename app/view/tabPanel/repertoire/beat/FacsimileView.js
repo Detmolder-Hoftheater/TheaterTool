@@ -44,7 +44,7 @@ xmlId: null,
 		
 		var me = this;
 
-var selFolder = null;
+/*var selFolder = null;
 console.log(me.selectedWork);
 if(me.selectedWork === 'H020149'){
 	selFolder = 'aschenbroedel';
@@ -52,7 +52,7 @@ if(me.selectedWork === 'H020149'){
 else if(me.selectedWork === 'H020263'){
 	selFolder = 'bettelstudent';
 }
-var folderForEO = selFolder + '/';
+var folderForEO = selFolder + '/';*/
 
 
 	
@@ -65,6 +65,20 @@ me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.repertoire.beat.PageSpinn
 //me.pageSpinner.setStore(25);
 
 		this.items =[ 
+		/*{
+    xtype: 'component',
+    autoEl: {
+        tag: 'a',
+        href: 'http://hoftheater-detmold.de/'+folderForEO,
+        html: 'Zur Erschließung mit Edirom Online',
+		target: "_blank"
+    }
+    },
+    
+    {
+xtype: 'label',
+   margin: '10 0 0 10'
+},*/
 me.leafletFacsimile,
 
 
@@ -73,16 +87,11 @@ me.leafletFacsimile,
 margin: '0 0 5 0'
 		},*/
 
-me.pageSpinner,
-{
-    xtype: 'component',
-    autoEl: {
-        tag: 'a',
-        href: 'http://hoftheater-detmold.de/'+folderForEO,
-        html: 'Zur Erschließung mit Edirom Online',
-		target: "_blank"
-    }
-}
+me.pageSpinner
+
+
+
+
 
 
 ];

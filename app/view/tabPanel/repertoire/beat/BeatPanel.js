@@ -41,14 +41,39 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         var me = this;
         
         
+        var selFolder = null;
+console.log(me.selectedWork);
+if(me.selectedWork === 'H020149'){
+	selFolder = 'aschenbroedel';
+}
+else if(me.selectedWork === 'H020263'){
+	selFolder = 'bettelstudent';
+}
+var folderForEO = selFolder + '/';
+        
+        
         me.tbar = {
         style: {
         background: '#dcdcdc'
         },
        border: false,
        fixed: true,
-        height: 30,
-        items:[{xtype: 'button',
+        height: 25,
+        items:[
+        {
+    xtype: 'component',
+    margin: '0 0 0 13',
+    autoEl: {
+        tag: 'a',
+        href: 'http://hoftheater-detmold.de/'+folderForEO,
+        html: 'Zur Erschließung mit Edirom Online',
+		target: "_blank"
+		
+    }
+    }
+        
+        
+       /* {xtype: 'button',
                 disabled: true,
         		text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
         		style: {
@@ -98,7 +123,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 					}
 				}
         		},
-        		{xtype: 'button',
+        */		/*{xtype: 'button',
         		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
         		disabled: true,
         		style: {
@@ -107,7 +132,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
 					 borderTop: '1px solid gray',
 					 borderBottom: '1px solid gray'
 				}
-        		}
+        		}*/
         		]
         };
     
