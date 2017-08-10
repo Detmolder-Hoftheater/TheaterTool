@@ -132,10 +132,13 @@ declare %private function api:document($documents as document-node()*, $model as
     return 
         for $doc in $documents
         let $id := $doc/*/data(@xml:id)
-        let $docType := if(exists($model('docType')))
+        let $docType := substring-before(substring-after(document-uri($doc), 'theater-data/'), '/')
+        (:let $docType := if(contains($docType_temp, '?'))then(substring-before($docType_temp, '?'))else($docType_temp):)
+        
+        (:if(exists($model('docType')))
     then(for $i in request:get-parameter-names() return request:get-parameter($i, '')   
-    )else(substring-before(substring-after(document-uri($doc), 'theater-data/'), '/'))
-        let $title := $doc//*:titleStmt[1]/*:title
+    )else(substring-before(substring-after(document-uri($doc), 'theater-data/'), '/')):)
+        let $title := if($docType ='persons')then($doc/tei:person/tei:persName/self::node())else($doc//*:titleStmt[1]/*:title)
         return
             map { 
                (: 'uri' := $scheme || '://' || $host || substring-before($basePath, 'api') || $id,:)

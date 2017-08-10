@@ -16,12 +16,12 @@ let $incipitName := request:get-parameter('incipitName', '')
 
 let $uri := concat('/db/apps/theater-data/expressions/', $sourceID, '_expr1.xml')
 
-let $doc := doc($uri)/mei:expression
+let $doc := doc($uri)
 
 let $template := for $elem in $doc
                     return 
-                    if($elem/mei:expression/mei:componentGrp/mei:expression[@label =$incipitName]
-                    )then($elem)else() 
+                    if($elem//mei:expression/mei:componentGrp/mei:expression[@label =$incipitName]
+                    )then($elem//mei:expression/mei:componentGrp/mei:expression[@label =$incipitName])else() 
 
 return
    $template

@@ -243,7 +243,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                 }]
             },
             {
-                text: 'Personen (1.106)',
+                text: 'Personen (1.200)',
                 icon: 'resources/images/Mask-19.png',
                 children:[ {
                     leaf: true, text: 'A-B-C',
@@ -988,7 +988,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Personen (1.106)') {
+                } else if (item.parentNode.data.text === 'Personen (1.200)') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Personen: ' + item.data.text + '</font>', icon: 'resources/images/Mask-19.png', selection: item.data.text
                     });

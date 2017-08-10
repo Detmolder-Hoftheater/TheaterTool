@@ -35,7 +35,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection', {
     },*/
     
     meiE: null,
-    
+    titlename: null,
     
     initComponent: function () {
         
@@ -62,7 +62,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection', {
                     var win = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitWindow({
                         bodyStyle: {
                             "background-color": "white"
-                        }
+                        }, title: me.titlename
                     });
                     win.show();
                     

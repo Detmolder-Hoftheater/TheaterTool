@@ -20,6 +20,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
     
     sourceID: null,
     werkTitle: null,
+    titleParameter: null,
     
     
     initComponent: function () {
@@ -51,7 +52,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
                     method: 'GET',
                     params: {
                         sourceID: me.sourceID,
-                        incipitName: me.title
+                        incipitName: me.titleParameter
                     },
                     success: function (response) {
                     var testText = response.responseText;
@@ -63,7 +64,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
         var tmp = hljs.highlightAuto($(tempDiv).html()).value;
         var htmlVersion = '<pre>' + tmp + '</<pre>';
                         var win = new Ext.window.Window({
-					       title: '<font style="color:gray;">XML for ' + me.title+', '+ me.year+ '</font>',
+					       title: '<font style="color:gray;">XML for ' + me.titleParameter+'</font>',
 					        html: htmlVersion,
 					        icon: 'resources/images/Calendar-17.png',
 					        bodyStyle:{"background-color":"white"},
@@ -121,5 +122,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
         }*/
         
         me.callParent();
+    },
+    
+    setTitleParameter: function(titleParameter){
+        this.titleParameter = titleParameter;
     }
 });

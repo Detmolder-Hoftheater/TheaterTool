@@ -112,7 +112,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                         
                         
                         var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({
-                            titlename: /*'<font size="2" face="Arial" style="color:#A87678;">' +*/ meiElements[0].getAttribute('label')/* + '</b>'*/,
+                            titlename: '<font size="2" face="Arial" style="color:#A87678;">' +meiElements[0].getAttribute('label') + '</b>',
                             width: 200,
                             //height: 400,
                             x: xPosition, y: 50,
@@ -164,7 +164,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                                                 me.insert(i, reorderedItem);
                                                 if (i === newItemsArray.length -1) {
                                                     reorderedItem.setDisabled(false);
-                                                    me.in_panel.setTitle(/*'<font size="2" face="Arial" style="color:#A87678;">' +*/ reorderedItem.titlename/* + '</b>'*/);
+                                                    me.in_panel.setTitle('<font size="2" face="Arial" style="color:#A87678;">' +reorderedItem.titlename + '</b>');
+                                                    me.in_panel.setTitleParameter(reorderedItem.titlename);
                                                 } else {
                                                     reorderedItem.setDisabled(true);
                                                 }
@@ -204,7 +205,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                             html: '<b style="color:gray;">' + meiElements[0].getAttribute('label') + '</b>'
                             //margin: '15 15 15 15'
                         });
-                        me.in_panel.setTitle(/*'<font size="2" face="Arial" style="color:#A87678;">' + */meiElements[0].titlename/* + '</b>'*/);
+                        me.in_panel.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + meiElements[0].getAttribute('label') + '</b>');
+                        me.in_panel.setTitleParameter(meiElements[0].getAttribute('label'));
                         reverseitemObjs[splittest.length -1 - i] = incipitSection;
                     }
                     
