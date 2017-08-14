@@ -19,6 +19,7 @@ sourceID: null,
     border: true,
     //bodyPadding: 10,
     flex: 1,
+    sourceID: null,
 	/*extend: 'Ext.tab.Panel',
 
 //autoScroll: true,
