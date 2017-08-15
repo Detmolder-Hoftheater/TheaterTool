@@ -119,7 +119,7 @@ let $strings := for $elem_2 in $cells
                         else(
                             if($onecell != '')
                             then(
-                            concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']}')
+                            concat('{"date":[', normalize-space($date), ']},','{"inhalt":[', $onecell, ']}')
                                  
                                 (:if($workPerson != '')
                                 then(
