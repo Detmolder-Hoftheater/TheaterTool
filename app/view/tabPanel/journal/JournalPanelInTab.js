@@ -20,7 +20,8 @@ Ext.define('TheaterTool.view.tabPanel.journal.JournalPanelInTab', {
     initComponent: function () {
         
         var me = this;
-        me.title = '<font size="2" face="Arial" style="color:#A87678;">Theaterjournal für : '+me.regieName +'</font>';
+        me.title = '<font size="2" face="Arial" style="color:#A87678;">Theaterjournal für '+me.regieName +'</font>';
+        me.icon =  'resources/images/Presse-16.png';
         me.section_details = new TheaterTool.view.tabPanel.journal.JournalTabDetails({
             regieName: me.regieName
         });

@@ -2,21 +2,26 @@
  * This example illustrates how to use the grouping feature of the Grid.
  */
 Ext.define('TheaterTool.view.tabPanel.abo.AboTabDetails', {
- extend: 'Ext.panel.Panel',
+extend: 'Ext.panel.Panel',
 	
-	/*border: false,
-
-	flex:1,
-
-	autoScroll: true,*/
-
-    title: '<b style="color:gray;">Übersicht</b>',
+   /*  title: '<b style="color:gray;">Übersicht</b>',
     
 	border: false,
 	flex:1,
-//bodyBorder: true,
+
 bodyPadding:10,
-autoScroll: true,
+autoScroll: true,*/
+
+layout: {
+        type: 'vbox',
+        pack: 'start',
+        align: 'stretch'
+    },
+    autoScroll: true,
+    border: false,
+    bodyPadding: 10,
+    flex: 1,
+
 
 regieName: null,
 
@@ -24,23 +29,99 @@ regieName: null,
 
 	var me = this;
 	
+	me.tbar = {
+        style: {
+        background: '#dcdcdc'
+        },
+       border: false,
+        height: 30,
+        items:[{xtype: 'button',
+        		text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
+        		style: {
+					borderRight: '1px solid gray',
+					borderLeft: '1px solid gray',
+					 borderTop: '1px solid gray',
+					 borderBottom: '1px solid gray'
+				},
+        		margin: '0 3 0 5',
+        		listeners: {
+					click: function (item, e, eOpts) {
+					
+                Ext.Ajax.request({
+                  
+                    url:'resources/xql/getAboXML.xql',
+                    method: 'GET',
+                    params: {
+                        regieName: me.regieName
+                    },
+                    success: function (response) {
+                    var testText = response.responseText;
+                      
+                       var fragment = document.createDocumentFragment('div');
+        var tempDiv = document.createElement('div');
+        fragment.appendChild(tempDiv);
+        tempDiv.innerHTML = testText;
+        
+        var tmp = hljs.highlightAuto($(tempDiv).html()).value;
+        var htmlVersion = '<pre>' + tmp + '</<pre>';
+                        var win = new Ext.window.Window({
+					       title: '<font style="color:gray;">XML für ' + me.regieName+'</font>',
+					        html: htmlVersion,
+					        icon: me.personIcon,
+					        bodyStyle:{"background-color":"white"},
+					        height: 600,
+                            width: 800,
+                            autoScroll: true,
+                            bodyPadding: 10
+					        });
+					   win.show();
+                     
+                    }
+                });
+				
+					   
+					}
+				}
+        		},
+        		{xtype: 'button',
+        		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
+        		disabled: true,
+        		style: {
+					borderRight: '1px solid gray',
+					borderLeft: '1px solid gray',
+					 borderTop: '1px solid gray',
+					 borderBottom: '1px solid gray'
+				}
+        		}
+        		]
+        };
+	
+	
 	Ext.Ajax.request({
            // url: 'data/Output_Exist.xql',
- 			url: 'resources/xql/getAbo.xql',
+ 			//url: 'resources/xql/getAbo.xql',
+ 			url: 'resources/xql/getAboContent.xql',
             method: 'GET',
             params: {
                 regieName: me.regieName
               
             },
             success: function(response){
-				//var idtemp = me.repertoireTab.getTextTab().id;
+				var tableInhalt = response.responseText;
+           
+me.add(
 
-				//$('#'+me.id).html(response.responseText);
-				me.setTextInfo(response.responseText);
- 				//me.repertoireTab.setTextInfo(response.responseText);
-				//me.repertoireTab.setTextInfo1(response.responseText);
-			//$('#'+me.id+'-innerCt').html(response.responseText);
+{
+    
+   html:  tableInhalt,
+   border: false
+   }
 
+);
+				
+				
+				//me.setTextInfo(response.responseText);
+ 				
      		}
          
         });
