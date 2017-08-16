@@ -616,27 +616,30 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     bodyPadding:10
                     })*/
                  
+                 
                   me.add(
-                   //refSection
-                   {
-                        
-                        xtype: 'label',
-                        html: '<img src="resources/images/Library-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;"> Spielbetrieb und </b><img src="resources/images/portfolio-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;"> Verwaltung</b>',
-                        margin: '20 0 0 0'
-                    }
-                  
-                    );
-                    
-                 me.add(
                    
                     Ext.create('Ext.form.FieldSet', {
                     //title: '<b style="color:gray; font-size: 15px;">Spielbetrieb und Verwaltung</b>',
                     bodyBorder: false,
                     collapsible: false,
                     collapsed: true,
-                    margin: '0 0 10 0'
+                    margin: '15 0 0 0'
                     })
                     );
+                 
+                  me.add(
+                   //refSection
+                   {
+                        
+                        xtype: 'label',
+                        html: '<b style="color:gray; font-size: 12px;"> Spielbetrieb und </b><b style="color:gray; font-size: 12px;"> Verwaltung</b>',
+                        margin: '5 0 10 0'
+                    }
+                  
+                    );
+                    
+                
                  
                   
                     
