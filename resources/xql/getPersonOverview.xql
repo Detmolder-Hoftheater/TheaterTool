@@ -450,7 +450,7 @@ declare function local:jsonifyPersNames($names, $file1) {
 
 let $strings := for $elem in $names
 
-					let $name :=if($elem[@dbkey=$workID])then($file1//mei:title[1])else()
+					let $name :=if($elem[@dbkey=$workID])then($file1/mei:title[1])else()
 					let $dbId :=if($elem[@dbkey=$workID])then($file1//mei:work/@xml:id)else()
 
  return 
