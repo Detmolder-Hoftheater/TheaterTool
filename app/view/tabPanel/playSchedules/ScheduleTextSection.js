@@ -97,7 +97,18 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                         year: me.year
                     },
                     success: function (response) {
-                    var testText = response.responseText;
+                    
+                    var testText = response.responseXML;
+                    
+                    var tempDiv = document.createElementNS('http://www.tei-c.org/ns/1.0l', 'div');
+                    var personArr = testText.getElementsByTagName('TEI');
+                    tempDiv.appendChild(personArr[0]);
+      
+                    var tmp = hljs.highlightAuto($(tempDiv).html()).value;
+                    var htmlVersion = '<pre>' + tmp + '</<pre>';
+                    
+                                       
+                    /*var testText = response.responseText;
                       
                        var fragment = document.createDocumentFragment('div');
         var tempDiv = document.createElement('div');
@@ -105,7 +116,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
         tempDiv.innerHTML = testText;
         
         var tmp = hljs.highlightAuto($(tempDiv).html()).value;
-        var htmlVersion = '<pre>' + tmp + '</<pre>';
+        var htmlVersion = '<pre>' + tmp + '</<pre>';*/
                         var win = new Ext.window.Window({
 					       title: '<font style="color:gray;">XML for ' + me.title+', '+ me.year+ '</font>',
 					        html: htmlVersion,
