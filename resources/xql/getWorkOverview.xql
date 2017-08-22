@@ -193,14 +193,14 @@ declare function local:jsonifyEventDetails($events) {
 
 let $strings := for $elem in $events
 
-					let $over :=$elem/mei:p
+					let $over :=normalize-space($elem/mei:p)
 					let $date := normalize-space($elem/mei:date)
 					let $geogNamesOrt :=$elem/mei:geogName[@type='venue']
 					let $geogNamesStadt := $elem/mei:geogName[@type='place']
                    
                     return 
                       
-				concat('["',$over, '",', '"',$date, '",', '"',$geogNamesOrt,'",','"',$geogNamesStadt,'"]')
+				concat('["',replace($over, '"', '\\"' ), '",', '"',$date, '",', '"',$geogNamesOrt,'",','"',$geogNamesStadt,'"]')
     return 
         string-join($strings,',')
   
