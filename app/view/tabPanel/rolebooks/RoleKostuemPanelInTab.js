@@ -1,10 +1,19 @@
 Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab', {
-    extend: 'Ext.tab.Panel',
+    /*extend: 'Ext.tab.Panel',
     
     border: true,
     
-    flex: 1,
+    flex: 1,*/
    // bodyPadding: 3,
+   
+   extend: 'Ext.panel.Panel',
+    
+    flex: 1,
+    border: true,
+    bodyBorder: false,
+   
+    autoScroll: true,
+    
     
     regieName: null,
     
@@ -15,21 +24,22 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab', {
         
         var me = this;
         
-        me.setTitle('<b style="color:#A87678;">'+me.regieName+'</b>');
+         me.title = '<font size="2" face="Arial" style="color:#A87678;">'+me.regieName +'</font>';
+        me.icon =  'resources/images/carnival.png';
         
         me.section_details = new TheaterTool.view.tabPanel.rolebooks.RoleTabDetails({
             regieName: me.regieName
         });
         
-        me.section_xml = new TheaterTool.view.tabPanel.rolebooks.RoleTabXML({
+       /* me.section_xml = new TheaterTool.view.tabPanel.rolebooks.RoleTabXML({
             regieName: me.regieName
-        });
+        });*/
         me.items =[      
-            me.section_details,
-            me.section_xml
+            me.section_details
+            //me.section_xml
         ]
         
-        me.listeners = {
+       /* me.listeners = {
             render: function () {
                 //if (Ext.browser.is('Firefox')) {
                 me.items.each(function (itm, idx) {
@@ -40,7 +50,7 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab', {
                 });
                 //}
             }
-        }
+        }*/
         
         me.callParent();
     }
