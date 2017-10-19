@@ -31,7 +31,7 @@ Ext.define('TheaterTool.view.tabPanel.zettel.TheaterZettelPanelInTab', {
         //href: 'http://www.llb-detmold.de/webOPACClient_lippe/searchHistory.do?searchHistory=Suchanfrage 2  Dokumententyp = Theaterzettel AND Jahr >= 1825 AND Jahr <= 1825',
         //'http://www.llb-detmold.de/webOPACClient_lippe/start.do&id=Dokumententyp&value=15',
         //?methodToCall=submit&Dokumententyp=Theaterzettel&searchRestrictionValue1=1825&searchRestrictionValue2=1825',
-        html: 'Theaterzettelsuche in Lippische Landesbibliothek Detmold',
+        html: 'Theaterzettelsuche in der Lippischen Landesbibliothek',
 		target: "_blank"
     }
     }	
