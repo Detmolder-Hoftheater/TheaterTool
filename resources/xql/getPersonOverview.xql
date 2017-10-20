@@ -433,7 +433,7 @@ let $strings := for $elem in $rolefile
 
         let $path1 := concat($rolepath, $elem, '.xml')
 		let $file1 := doc($path1)
-		let $names :=  $file1//mei:persName
+		let $names :=  $file1//mei:titleStmt//mei:persName
 		let $listNames := local:jsonifyPersNames($names, $file1)
        (: let $names := $elem/mei:work//mei:titlestmt[1]/mei:title[1]:)
 		(:let $names := if($elem/mei:work//mei:persname[@dbkey=$workID])then($elem//mei:titlestmt[1]/mei:title[1])else():)
@@ -450,7 +450,7 @@ declare function local:jsonifyPersNames($names, $file1) {
 
 let $strings := for $elem in $names
 
-					let $name :=if($elem[@dbkey=$workID])then($file1/mei:title[1])else()
+					let $name :=if($elem[@dbkey=$workID])then($file1//mei:titleStmt//mei:title[1])else()
 					let $dbId :=if($elem[@dbkey=$workID])then($file1//mei:work/@xml:id)else()
 
  return 
