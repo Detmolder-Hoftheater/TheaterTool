@@ -9,7 +9,7 @@ declare namespace system="http://exist-db.org/xquery/system";
 declare namespace transform="http://exist-db.org/xquery/transform";
 
 (:declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";:)
-declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=no indent=yes";
+declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=yes indent=yes";
 
 let $month := request:get-parameter('month', '')
 let $year := request:get-parameter('year', '')

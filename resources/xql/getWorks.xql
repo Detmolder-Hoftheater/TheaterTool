@@ -111,6 +111,8 @@ let $strings := for $elem in $titles
 		let $fileNameCut := substring($fileName, 1,4)
 		let $fileNameFiltered_0 :=  if(contains($fileNameCut, 'Der ') 
 								or contains($fileNameCut, 'Die ') 
+								or contains($fileNameCut, 'Les ')
+								or contains($fileNameCut, 'The ')
 								or contains($fileNameCut, 'Das '))
 			then(substring($fileName, 5))
 			else($fileName)
@@ -127,11 +129,14 @@ let $strings := for $elem in $titles
 			
 			let $fileNameFiltered :=  if($fileNameFiltered_1 != $fileName)then($fileNameFiltered_1)else($fileNameFiltered_0)
 			
-		let $fileName1 := if(contains(substring($fileNameFiltered, 1,1), $selection1) 
-								or contains(substring($fileNameFiltered, 1,1), $selection2) 
-								or contains(substring($fileNameFiltered, 1,1), $selection3)
-								or $selection4 != '' and contains(substring($fileNameFiltered, 1,1), $selection4)
-								or $selection5 != '' and contains(substring($fileNameFiltered, 1,1), $selection5))
+		let $subName_0 := substring($fileNameFiltered, 1,1)
+		let $subName := upper-case($subName_0)
+		
+		let $fileName1 := if(contains($subName, $selection1) 
+								or contains($subName, $selection2) 
+								or contains($subName, $selection3)
+								or $selection4 != '' and contains($subName, $selection4)
+								or $selection5 != '' and contains($subName, $selection5))
 			then($fileName)
 			else()
 

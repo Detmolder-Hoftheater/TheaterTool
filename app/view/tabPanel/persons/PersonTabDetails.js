@@ -86,12 +86,46 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
         		},
         		{xtype: 'button',
         		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
-        		disabled: true,
+        		//disabled: true,
         		style: {
 					borderRight: '1px solid gray',
 					borderLeft: '1px solid gray',
 					 borderTop: '1px solid gray',
 					 borderBottom: '1px solid gray'
+				},
+				listeners: {
+					click: function (item, e, eOpts) {
+					
+                Ext.Ajax.request({
+                  
+                    url:'resources/xql/getPersonXML.xql',
+                    method: 'GET',
+                    params: {
+                        dbkey: me.dbkey
+                    },
+                    success: function (response) {
+                    var xmltext = response.responseText;
+                   
+                    var pom = document.createElement('a');
+
+                    var filename = me.dbkey +".xml";
+                    var pom = document.createElement('a');
+                    var bb = new Blob([xmltext], {type: 'text/plain'});
+
+                    pom.setAttribute('href', window.URL.createObjectURL(bb));
+                    pom.setAttribute('download', filename);
+
+                    pom.dataset.downloadurl = ['text/plain', pom.download, pom.href].join(':');
+                    pom.draggable = true; 
+                    pom.classList.add('dragout');
+
+                    pom.click();
+                    
+                    }
+                });
+				
+					   
+					}
 				}
         		}
         		]
@@ -573,7 +607,8 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 me.add(ref_layout);*/
                 
                 if(json.worksRef.length > 0 || json.sourcesRef.length > 0 || json.journalRef.length > 0 
-                || json.issueRef.length > 0 || json.gagenRef.length > 0  || json.roleRef.length > 0){
+                || json.issueRef.length > 0 || json.gagenRef.length > 0  || json.roleRef.length > 0
+                || json.regieRef.length > 0){
                 
                 /* var refSection = Ext.create('Ext.panel.Panel', {
                     title: '<b style="color:gray; font-size: 12px;">Spielbetrieb und Verwaltung</b>',
@@ -793,7 +828,46 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     gagenList: json.gagenRef
                 });
                 ref_layout.add(gagenTable);*/
-                
+                if (json.regieRef.length > 0) {
+                    
+                   /* me.add({
+                        
+                        xtype: 'label',
+                        html: '<img src="resources/images/Crown-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Regiebücher</b>',
+                        margin: '10 0 10 0'
+                    });
+                    
+                    var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable({
+                        regieList: json.regieRef
+                    });
+                    
+                    var regie_panel = Ext.create('Ext.panel.Panel', {
+                        //colspan: 1,
+                        //type: 'hbox',
+                        border: false,
+                        margin: '0 10 0 10',
+                        //type: 'fit',
+                        //bodyPadding: 10,
+                        items:[
+                        
+                        regieTable]
+                    });
+                    
+                    me.add(regie_panel);*/
+                    var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable({
+                        regieList: json.regieRef
+                        //title: '<b style="color:gray;">Regiebücher</b>'
+                    });
+                   
+                    var regie_panel = Ext.create('Ext.panel.Panel', {
+                        border: false,
+                        items:[
+                        
+                        regieTable]
+                    });
+                    
+                    me.add(regie_panel);
+                }
                 
                 if (json.roleRef.length > 0) {
                     /* var role_group = Ext.create('Ext.form.FieldSet', {

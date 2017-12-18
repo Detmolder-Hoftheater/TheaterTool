@@ -399,6 +399,27 @@ concat('"',$names, '"')
     
 };
 
+declare function local:jsonifyRegieReferences($workID) {
+
+(:let $roleTailPath := request:get-parameter('regie', '')
+let $rolepath := if($roleTailPath != '')then(concat('/db/apps/', $roleTailPath, '/'))else():)
+let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+(:let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/':)
+
+let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:persName[@key=$workID])then($elem//tei:titleStmt/tei:title)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,',')
+   
+    
+};
+
 
 declare function local:jsonifySourcesReferences($workID) {
 
@@ -656,6 +677,8 @@ concat(
         local:jsonifyWorksReferences($workID),
      '],"journalRef":[',
         local:jsonifyJournalReferences($workID), 
+      '],"regieRef":[',
+        local:jsonifyRegieReferences($workID), 
      '],"gagenRef":[',
         local:jsonifyGagenRefReferences($workID), 
      '],"issueRef":[',

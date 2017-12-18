@@ -17,7 +17,9 @@ declare option exist:serialize "method=xml media-type=text/xml omit-xml-declarat
 let $uri := request:get-parameter('uri', '')
 let $type := request:get-parameter('type', 'work')
 let $docUri := if(contains($uri, '#')) then(substring-before($uri, '#')) else($uri)
-let $doc := if(contains($type, 'work'))then(eutil:getDoc($docUri)/mei:work)else(eutil:getDoc($docUri)/mei:source)
+(:let $doc := if(contains($type, 'work'))then(eutil:getDoc($docUri)/mei:work)else(eutil:getDoc($docUri)/mei:source):)
+let $doc := eutil:getDoc($docUri)
+
 
 return
    $doc

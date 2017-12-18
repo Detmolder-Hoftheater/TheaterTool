@@ -138,12 +138,47 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
         		},
         		{xtype: 'button',
         		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
-        		disabled: true,
+        		//disabled: true,
         		style: {
 					borderRight: '1px solid gray',
 					borderLeft: '1px solid gray',
 					 borderTop: '1px solid gray',
 					 borderBottom: '1px solid gray'
+				},
+				listeners: {
+					click: function (item, e, eOpts) {
+					
+                Ext.Ajax.request({
+                  
+                    url:'resources/xql/getScheduleXML.xql',
+                    method: 'GET',
+                    params: {
+                        month: me.monthNumber,
+                        year: me.year
+                    },
+                    success: function (response) {
+                    var xmltext = response.responseText;
+                   
+                    var pom = document.createElement('a');
+
+                    var filename = me.year+'_'+ me.monthNumber+".xml";
+                    var pom = document.createElement('a');
+                    var bb = new Blob([xmltext], {type: 'text/plain'});
+
+                    pom.setAttribute('href', window.URL.createObjectURL(bb));
+                    pom.setAttribute('download', filename);
+
+                    pom.dataset.downloadurl = ['text/plain', pom.download, pom.href].join(':');
+                    pom.draggable = true; 
+                    pom.classList.add('dragout');
+
+                    pom.click();
+                    
+                    }
+                });
+				
+					   
+					}
 				}
         		}
         		]
