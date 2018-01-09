@@ -115,6 +115,8 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.issue.IssueTable',
     'tabPanel.link.LinkPanelInTab',
     'tabPanel.zettel.TheaterZettelPanelInTab',
+    'tabPanel.zettel.TheaterZettelPanelInTabDresden',
+    'tabPanel.zettel.ZettelTextSection',
     'tabPanel.persons.PersonDetailsPanel',
     'tabPanel.persons.PersonNavigationTree',
     'tabPanel.search.SearchPanelInTab',

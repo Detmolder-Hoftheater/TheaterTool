@@ -240,7 +240,20 @@ var store = Ext.create('Ext.data.TreeStore', {
                 {
                     leaf: true, text: 'Theaterzettel',
                     icon: 'resources/images/Day-17.png'
-                }]
+                },
+                 {
+                    text: 'Theaterzettel Dresden',
+                    icon: 'resources/images/Day-17.png',
+                    children:[ {
+                        leaf: true, text: '1834',
+                        icon: 'resources/images/Day-17.png'
+                    },
+                    {
+                        leaf: true, text: '1846',
+                        icon: 'resources/images/Day-17.png'
+                    }]
+                }
+                ]
             },
             {
                 text: 'Personen (1.384)',
@@ -985,6 +998,24 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             regieName: item.data.text
                         });
                         repertoireTab.add(regieDetails);
+                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                    }
+                     } else if (item.parentNode.data.text === 'Theaterzettel Dresden') {
+                    var menuItem = historyButton.menu.add({
+                        text: '<font style="color:gray;">Theaterzettel Dresden: ' + item.data.text + '</font>', icon: 'resources/images/Day-17.png', selection: item.data.text
+                    });
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Theaterzettel Dresden: ' + item.data.text + '</font>', menuItem.id);
+                    if (! isFoundItem) {
+                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: '<font style="color:gray;">Theaterzettel Dresden: ' + item.data.text + '</font>',
+                            icon: 'resources/images/Day-17.png'
+                        });
+                        var scheduleDetails = new TheaterTool.view.tabPanel.zettel.TheaterZettelPanelInTabDresden({
+                            year: item.data.text
+                        });
+                        //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
+                        repertoireTab.add(scheduleDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
