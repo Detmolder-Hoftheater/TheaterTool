@@ -243,6 +243,8 @@ Ext.Ajax.request({
 					me.facsimileTile.addTo(map);
 
 					me.facsimileTile.fitInImage();
+					
+					map.setZoom(Math.round(maxZoomLevel/2-1));
 	
 				}
 			});

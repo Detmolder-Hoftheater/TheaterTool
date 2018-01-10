@@ -169,14 +169,15 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         
         
         var first_elem = imageData[selectedPage-1];
+        
         var image_px_h = first_elem[1];
         
         var image_h_split = image_px_h.split("px");
         facsimileHeight = image_h_split[0];
         //2992;
         
-        var image_px_w = first_elem[2]
-        var image_w_split = image_px_h.split("px");
+        var image_px_w = first_elem[2];
+        var image_w_split = image_px_w.split("px");
         facsimileWidth = image_w_split[0];
         //3991;
         
@@ -199,6 +200,8 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         var map = L.map(me.getId());
         
         map.setView([0, 0], Math.round(maxZoomLevel / 2));
+        //map.setView([0, 0], 0); 
+        
         
         me.setMap(map);
         
@@ -250,7 +253,8 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         me.facsimileTile.addTo(map);
         
         me.facsimileTile.fitInImage();
-        //map.setZoom(2);
+        
+        map.setZoom(Math.round(maxZoomLevel / 2-1));
     },
     
     getPageNumber: function () {

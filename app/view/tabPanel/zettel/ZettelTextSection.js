@@ -29,7 +29,7 @@ autoScroll: true,
     bodyBorder: false,
     flex: 1,
     autoScroll: true,
-     bodyPadding: 5,
+     bodyPadding: 15,
     
     minHeight: 500,
     
@@ -103,7 +103,7 @@ autoScroll: true,
                 }*/
                 
                 Ext.Ajax.request({
-                    url: 'resources/xql/getAboXML.xql',
+                    url: 'resources/xql/getZettelXML.xql',
                     method: 'GET',
                     params: {
                         regieName: me.regieName
@@ -161,7 +161,7 @@ autoScroll: true,
 					
                 Ext.Ajax.request({
                   
-                    url:'resources/xql/getAboXML.xql',
+                    url:'resources/xql/getZettelXML.xql',
                     method: 'GET',
                     params: {
                         regieName: me.regieName
@@ -171,7 +171,7 @@ autoScroll: true,
                    
                     var pom = document.createElement('a');
 
-                    var filename = me.year+'_'+me.monthNumber+".xml";
+                    var filename = me.regieName+".xml";
                     var pom = document.createElement('a');
                     var bb = new Blob([xmltext], {type: 'text/plain'});
 
