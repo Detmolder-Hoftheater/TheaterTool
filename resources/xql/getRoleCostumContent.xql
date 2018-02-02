@@ -184,7 +184,7 @@ declare function local:ref($node as element(tei:ref)) as element() {
 };
 
 declare function local:persName($node as element(tei:persName)) as element() {
-if($node/ancestor::node()/tei:add)then(
+if($node/parent::tei:add)then(
 if($node/@key != '')then(
   <persName><a style="color: inherit" href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
   )
@@ -199,8 +199,6 @@ if($node/@key != '')then(
   <persName>{$node}</persName>
   )
 )
-
-
 
 };
 
@@ -239,15 +237,17 @@ declare function local:delElement($node as element(tei:del)) as element() {
 
 declare function local:rs($node as element(tei:rs)) as element() {
 if($node/@key != '' and $node/tei:ref)then(
-  <rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a><p>{local:dispatch($node/node())}</p></rs>
- 
+  (:<rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a><p>{local:dispatch($node/node())}</p></rs>:)
+ <rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a><p>{local:dispatch($node/node())}</p></rs>
   )
   else(
     if($node/@key != '' )
-    then(<rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
+    (:then(<rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>:)
+    then(<rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs>
  )
     else(
-  <rs>{$node}</rs>
+ (: <rs>{$node}</rs>:)
+   <rs>{local:dispatch($node/node())}</rs>
   )
   )
 };
