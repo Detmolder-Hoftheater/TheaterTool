@@ -474,7 +474,7 @@ me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-al
                     me.add({
                         
                         xtype: 'label',
-                        html: '<b style="color:gray; font-size: 12px;">Uraufführungen</b>',
+                        html: '<b style="color:gray; font-size: 12px;">Nachgewiesene Aufführungen</b>',
                         margin: '10 0 10 0'
                     });
                     

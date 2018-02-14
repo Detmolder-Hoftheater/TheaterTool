@@ -625,7 +625,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     me.add({
                         
                         xtype: 'label',
-                        html: '<b style="color:gray; font-size: 12px;">Uraufführungen</b>',
+                        html: '<b style="color:gray; font-size: 12px;">Uraufführung</b>',
                         margin: '10 0 10 0'
                     });
                     
