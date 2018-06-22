@@ -5,7 +5,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
     border: true,
     bodyBorder: false,
     //bodyPadding:10,
-   
+    
     autoScroll: true,
     
     //reserveScrollbar: true,
@@ -81,42 +81,44 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
                     }
                 }
                 /* me.add(
-                 Ext.create('Ext.panel.Panel', 
-    { 
-            margin: '10 0 10 10',
-            border: false,
-    bodyBorder: false,
-            items: [ 
-            {
-    xtype: 'component',
-    autoEl: {
-        tag: 'a',       
-        href: 'http://www.llb-detmold.de/webOPACClient_lippe/search.do?Dokumententyp=Theaterzettel&Jahr='+me.year+'&Jahr='+me.year,
-        html: 'Theaterzettel in Lippische Landesbibliothek Detmold für '+me.year,
-		target: "_blank"
-    }
-    }	
-            
-        ]
-        })
-      
-    );*/
+                Ext.create('Ext.panel.Panel',
+                {
+                margin: '10 0 10 10',
+                border: false,
+                bodyBorder: false,
+                items: [
+                {
+                xtype: 'component',
+                autoEl: {
+                tag: 'a',
+                href: 'http://www.llb-detmold.de/webOPACClient_lippe/search.do?Dokumententyp=Theaterzettel&Jahr='+me.year+'&Jahr='+me.year,
+                html: 'Theaterzettel in Lippische Landesbibliothek Detmold für '+me.year,
+                target: "_blank"
+                }
+                }
+                
+                ]
+                })
+                
+                );*/
                 
                 for (i = 0; i < objs.length; i++) {
                     if (objs[i] !== undefined) {
-                    
-                      var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-            month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">'+objs[i]+'</b>', selectedMonth: me.monat,
-            selectedWorkID: me.selectedWorkID
-        });
-        me.add(detailSection);
-                
-                 
+                        
+                        var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+                            month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">' + objs[i] + '</b>', selectedMonth: me.monat,
+                            selectedWorkID: me.selectedWorkID
+                        });
+                        me.add(detailSection);
                     }
                 }
-           
-                
-                
+                if(parseInt(me.year) < 1825){
+                    var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+                            month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">' + me.year + '</b>', selectedMonth: me.monat,
+                            selectedWorkID: me.selectedWorkID
+                        });
+                        me.add(detailSection);
+                }
             }
         });
         

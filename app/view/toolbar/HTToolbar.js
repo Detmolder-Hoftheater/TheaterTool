@@ -14,9 +14,9 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
     
     
     style: {
-    borderLeft: '3px solid #A80016',
-    borderTop: '5px solid #A80016'
-   // borderBottom: '3px solid #A80016'
+        borderLeft: '3px solid #A80016',
+        borderTop: '5px solid #A80016'
+        // borderBottom: '3px solid #A80016'
     },
     bodyBorder: false,
     border: false,
@@ -32,21 +32,20 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
         this.searchFilterButton = this.creatButtonWithMenu();
         
         this.searchField = this.createSearchField(this.searchFilterButton);
-       
-        this.tbar = new Ext.Toolbar({           
+        
+        this.tbar = new Ext.Toolbar({
             style: {
                 background: '#A80016'
             },
             
-            items:[           
-            {
-                xtype: 'component',               
+            items:[ {
+                xtype: 'component',
                 margin: '0 0 0 3',
-               /* style: {
-                    borderRight: '2px solid #CC9FA7',
-                    borderLeft: '2px solid #CC9FA7',
-                    borderTop: '2px solid CC9FA7',
-                    borderBottom: '2px solid CC9FA7'
+                /* style: {
+                borderRight: '2px solid #CC9FA7',
+                borderLeft: '2px solid #CC9FA7',
+                borderTop: '2px solid CC9FA7',
+                borderBottom: '2px solid CC9FA7'
                 },*/
                 autoEl: {
                     tag: 'a',
@@ -54,14 +53,12 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                     html: '<img src="resources/images/TheaterBild.tif" style="width:21px;height:21px;" title="http://hoftheater-detmold.de">',
                     target: "_blank"
                 }
-            }, 
-            {
+            }, {
                 
                 xtype: 'label',
                 html: '<b style="color:#CC9FA7;">Theatre Tool</b>',
                 margin: '0 5 0 10'
-            },
-            {
+            }, {
                 xtype: 'button',
                 text: '<b style="color:#CC9FA7;size = 1;">Tabs anordnen</b>',
                 disabled: true,
@@ -69,25 +66,26 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                 menu:[ {
                     text: 'Horizontal verteilen',
                     icon: 'resources/images/Horizontal-17.png'
-                }, {
+                },
+                {
                     text: 'Vertikal verteilen',
                     icon: 'resources/images/Vertical-17.png'
-                }, {
+                },
+                {
                     text: 'Stapeln',
                     icon: 'resources/images/Sheets-17.png'
                 }]
                 //Desktop 173
-            },
-            {
+            }, {
                 xtype: 'button',
                 margin: '0 0 0 5',
                 text: '<b style="color:#CC9FA7; size = 1;">Tab duplizieren</b>',
                 disabled: true,
                 /*style: {
-                    borderRight: '1px solid #CC9FA7',
-                    borderLeft: '1px solid #CC9FA7',
-                    borderTop: '1px solid CC9FA7',
-                    borderBottom: '1px solid CC9FA7'
+                borderRight: '1px solid #CC9FA7',
+                borderLeft: '1px solid #CC9FA7',
+                borderTop: '1px solid CC9FA7',
+                borderBottom: '1px solid CC9FA7'
                 },*/
                 listeners: {
                     click: function (item, e, eOpts) {
@@ -112,17 +110,17 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                     }
                 }
             },
-            '->',            {
+            '->', {
                 xtype: 'button',
                 icon: 'resources/images/page-prev-disabled.gif',
                 id: 'prevHistoryButton',
                 disabled: true,
                 margin: '0 5 0 0',
                 /*style: {
-                    borderRight: '1px solid #CC9FA7',
-                    borderLeft: '1px solid #CC9FA7',
-                    borderTop: '1px solid CC9FA7',
-                    borderBottom: '1px solid CC9FA7'
+                borderRight: '1px solid #CC9FA7',
+                borderLeft: '1px solid #CC9FA7',
+                borderTop: '1px solid CC9FA7',
+                borderBottom: '1px solid CC9FA7'
                 },*/
                 listeners: {
                     click: function () {
@@ -158,8 +156,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                         me.handleHistoryButtons();
                     }
                 }
-            }, 
-            {
+            }, {
                 xtype: 'button',
                 id: 'historyButton',
                 selection: null,
@@ -167,10 +164,10 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                 text: '<b style="color:#CC9FA7;size = 1;">Verlauf</b>',
                 margin: '0 5 0 3',
                 /*style: {
-                    borderRight: '1px solid #CC9FA7',
-                    borderLeft: '1px solid #CC9FA7',
-                    borderTop: '1px solid CC9FA7',
-                    borderBottom: '1px solid CC9FA7'
+                borderRight: '1px solid #CC9FA7',
+                borderLeft: '1px solid #CC9FA7',
+                borderTop: '1px solid CC9FA7',
+                borderBottom: '1px solid CC9FA7'
                 },*/
                 menu: {
                     xtype: 'menu',
@@ -205,18 +202,17 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                         me.handleHistoryButtons();
                     }
                 }
-            }, 
-            {
+            }, {
                 xtype: 'button',
                 id: 'naxtHistoryButton',
                 disabled: true,
                 icon: 'resources/images/page-next-disabled.gif',
                 margin: '0 0 0 5',
                 /*style: {
-                    borderRight: '1px solid #CC9FA7',
-                    borderLeft: '1px solid #CC9FA7',
-                    borderTop: '1px solid CC9FA7',
-                    borderBottom: '1px solid CC9FA7'
+                borderRight: '1px solid #CC9FA7',
+                borderLeft: '1px solid #CC9FA7',
+                borderTop: '1px solid CC9FA7',
+                borderBottom: '1px solid CC9FA7'
                 },*/
                 listeners: {
                     click: function () {
@@ -258,16 +254,14 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
             
             this.searchFilterButton,
             
-            this.searchField, 
-           {
+            this.searchField, {
                 
                 xtype: 'button',
                 text: '<b style="color:#CC9FA7;size = 1;">Erweitert</b>',
                 //html: '<font size = "1"><b style="color:#CC9FA7;">Erweitert</b></font>',
                 margin: '0 10 0 10',
                 disabled: true
-            }, 
-            {
+            }, {
                 xtype: 'tbseparator',
                 style: {
                     borderRight: '1px solid #CC9FA7',
@@ -275,12 +269,11 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                     // borderTop: '1px solid black',
                     // borderBottom: '1px solid black'
                 }
-            }, 
-            {
+            }, {
                 xtype: 'button',
                 text: '<b style="color:#CC9FA7;size = 1;">Hilfe</b>',
                 margin: '0 5 0 0',
-                menu:[               
+                menu:[
                 /*{
                 xtype: 'component',
                 //margin: '0 10 0 10',
@@ -291,8 +284,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                 target: "_blank"
                 }
                 //style:{color: '#CC9FA7'}
-                },*/ 
-                {
+                },*/ {
                     text: 'Daten Relation',
                     
                     listeners: {
@@ -303,8 +295,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                             win.show();
                         }
                     }
-                }, 
-                {
+                }, {
                     xtype: 'component',
                     //margin: '0 10 0 10',
                     autoEl: {
@@ -316,12 +307,9 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                     //style:{color: '#CC9FA7'}
                 }]
                 //Desktop 173
-            }
-           
-           
-            ]
+            }]
         });
-       
+        
         this.callParent()
     },
     
@@ -339,10 +327,10 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
             margin: '0 0 0 10',
             
             /*style: {
-                borderRight: '1px solid #CC9FA7',
-                borderLeft: '1px solid #CC9FA7',
-                borderTop: '1px solid CC9FA7',
-                borderBottom: '1px solid CC9FA7'
+            borderRight: '1px solid #CC9FA7',
+            borderLeft: '1px solid #CC9FA7',
+            borderTop: '1px solid CC9FA7',
+            borderBottom: '1px solid CC9FA7'
             },*/
             
             
@@ -367,7 +355,8 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                         menuButton.setText(item.text);
                     }
                 }
-            }, {
+            },
+            {
                 text: 'Personen',
                 icon: 'resources/images/Mask-19.png',
                 listeners: {

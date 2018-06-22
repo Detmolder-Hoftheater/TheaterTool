@@ -123,6 +123,10 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.search.WorkResultTable',
     'tabPanel.search.PersonResultTable',
     'tabPanel.rolebooks.RoleTable',
+    'tabPanel.roles.RoleDetailsPanel',
+    'tabPanel.roles.RolesNavigationTree',
+    'tabPanel.roles.RolePanelInTab',
+    'tabPanel.roles.RoleTabDetails',
     'tabPanel.playSchedules.ScheduleTable',
     'tabPanel.NavigationHistory'],
     
@@ -153,24 +157,23 @@ Ext.define('TheaterTool.Application', {
     //extWorkKeys: null,
     
     launch: function () {
-    
+        
         renderer = new verovio.toolkit();
         
         var workPath;
         
-      Ext.Ajax.request({
+        Ext.Ajax.request({
             url: 'resources/xql/getDBStructure.xql',
             method: 'GET',
             success: function (response, options) {
                 var json = jQuery.parseJSON(response.responseText);
                 var dbPaths = json.dbPaths;
                 dbPathsMap = new Map();
-                for(var i = 0; i < dbPaths.length; i++){
-                    dbPathsMap.set(dbPaths[i].dbName, dbPaths[i].dbValue);                   
+                for (var i = 0; i < dbPaths.length; i++) {
+                    dbPathsMap. set (dbPaths[i].dbName, dbPaths[i].dbValue);
                 }
-               
+                
                 Ext.getCmp('NavigationTreeGlobal').getNavigationItems();
-
             }
         });
         

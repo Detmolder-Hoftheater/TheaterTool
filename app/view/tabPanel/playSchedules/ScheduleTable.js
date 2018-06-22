@@ -25,7 +25,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
     lineList: null,
     workDetailsColumn: null,
     inhaltColumn: null,
-   
+    
     selectedWorkID: null,
     workToFocus: null,
     
@@ -630,7 +630,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                     selection: workId, isSelected: true, workName: workName, workIcon: workIcon
                 });
                 
-               // personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
+                // personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
                 repertoireTab.add(personDetails);
                 
                 repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -663,7 +663,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                     icon: 'resources/images/Mask-19.png'
                 });
                 var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                    dbkey: personId,  title: '<font size="2" face="Arial" style="color:#A87678;">Person: '+personName+'</font>', icon: 'resources/images/Mask-19.png'
+                    dbkey: personId, title: '<font size="2" face="Arial" style="color:#A87678;">Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
                 });
                 //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                 repertoireTab.add(personDetails);
@@ -702,10 +702,9 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
                             workId = tail.work[1];
                             workName = tail.work[0];
                             
-                            if(selectedWorkID === workId){
-                               
-                                me.setWorkToFocus(record);
+                            if (selectedWorkID === workId) {
                                 
+                                me.setWorkToFocus(record);
                             }
                             //this.icon = 'resources/images/BookBlau-16.png';
                             presentationText = presentationText + /*'<img src="resources/images/Door-24.png" style="width:15px;height:14px;vertical-align:middle;">'*/
@@ -746,11 +745,11 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
         return eColumn;
     },
     
-    getWorkToFocus: function(){
+    getWorkToFocus: function () {
         return this.workToFocus;
     },
     
-    setWorkToFocus: function(workToFocus){
+    setWorkToFocus: function (workToFocus) {
         this.workToFocus = workToFocus;
     },
     

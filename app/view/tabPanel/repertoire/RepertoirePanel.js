@@ -3,35 +3,35 @@
  * @class
  */
 Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePanel', {
-	extend: 'Ext.panel.Panel',
+    extend: 'Ext.panel.Panel',
     
-	region: 'center',
-            flex: 6,
-
-layout: {
-		type: 'vbox',
-		pack: 'start',
-		align: 'stretch'
-	},
-		
-	//bodyPadding: 1,
-	
-border: false
-	
-
-
-/*	initComponent: function () {
-	
-	///this.workPanelDetails = new TheaterTool.view.tabPanel.repertoire.work.workPanelDetails();
-	
-	
+    region: 'center',
+    flex: 6,
+    
+    layout: {
+        type: 'vbox',
+        pack: 'start',
+        align: 'stretch'
+    },
+    
+    //bodyPadding: 1,
+    
+    border: false
+    
+    
+    
+    /*	initComponent: function () {
+    
+    ///this.workPanelDetails = new TheaterTool.view.tabPanel.repertoire.work.workPanelDetails();
+    
+    
     this.items = [
-       
-			//this.workPanelDetails
-			
-       
-      
+    
+    //this.workPanelDetails
+    
+    
+    
     ]
-    	this.callParent();
-	}*/
+    this.callParent();
+    }*/
 });

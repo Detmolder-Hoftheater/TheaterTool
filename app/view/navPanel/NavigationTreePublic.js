@@ -114,8 +114,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                 }
                 ]}
                 ]*/
-            },
-            {
+            }, {
                 text: 'Tiefenerschlossene Werke',
                 
                 icon: 'resources/images/AddFolder-16.png',
@@ -127,13 +126,11 @@ var store = Ext.create('Ext.data.TreeStore', {
                 {
                     leaf: true, text: 'Des Teufels Anteil',
                     icon: 'resources/images/BookBlau-16.png'
-                },
-                {
+                }, {
                     leaf: true, text: 'Der Bettelstudent',
                     icon: 'resources/images/BookBlau-16.png'
                 }]
-            },
-            {
+            }, {
                 text: 'Programm',
                 
                 icon: 'resources/images/Magazine-17.png',
@@ -141,172 +138,149 @@ var store = Ext.create('Ext.data.TreeStore', {
                     text: 'Spielpläne',
                     icon: 'resources/images/Calendar-17.png',
                     children:[ {
+                        leaf: true, text: '1820',
+                        icon: 'resources/images/Calendar-17.png'
+                    }, {
+                        leaf: true, text: '1821',
+                        icon: 'resources/images/Calendar-17.png'
+                    }, {
+                        leaf: true, text: '1822',
+                        icon: 'resources/images/Calendar-17.png'
+                    }, {
+                        leaf: true, text: '1823',
+                        icon: 'resources/images/Calendar-17.png'
+                    }, {
+                        leaf: true, text: '1824',
+                        icon: 'resources/images/Calendar-17.png'
+                    }, {
                         leaf: true, text: '1825',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1826',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1827',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1828',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1829',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1830',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1831',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1832',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1833',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1834',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1835',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1836',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1837',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1838',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1839',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1840',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1841',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1842',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1843',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1844',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1845',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1846',
                         icon: 'resources/images/Calendar-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1847',
                         icon: 'resources/images/Calendar-17.png'
                     }]
-                },
-                {
+                }, {
                     leaf: true, text: '<font style="color:gray;">Aufführungen</font>',
                     icon: 'resources/images/Time-17.png'
-                },
-                {
+                }, {
                     leaf: true, text: 'Theaterzettel',
                     icon: 'resources/images/Day-17.png'
-                },
-                 {
+                }, {
                     text: 'Theaterzettel Dresden',
                     icon: 'resources/images/Day-17.png',
                     children:[ {
                         leaf: true, text: '1834',
                         icon: 'resources/images/Day-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1846',
                         icon: 'resources/images/Day-17.png'
                     }]
-                }
-                ]
-            },
-            {
+                }]
+            }, {
                 text: 'Personen (1.384)',
                 icon: 'resources/images/Mask-19.png',
                 children:[ {
                     leaf: true, text: 'A-B-C',
                     icon: 'resources/images/Mask-19.png'
-                },
-                {
+                }, {
                     leaf: true, text: 'D-E-F',
                     icon: 'resources/images/Mask-19.png'
-                },
-                {
+                }, {
                     leaf: true, text: 'G-H-I',
                     icon: 'resources/images/Mask-19.png'
-                },
-                {
+                }, {
                     leaf: true, text: 'J-K-L',
                     icon: 'resources/images/Mask-19.png'
-                },
-                {
+                }, {
                     leaf: true, text: 'M-N-O',
                     icon: 'resources/images/Mask-19.png'
-                },
-                {
+                }, {
                     leaf: true, text: 'P-Q-R',
                     icon: 'resources/images/Mask-19.png'
-                },
-                {
+                }, {
                     leaf: true, text: 'S-T-U',
                     icon: 'resources/images/Mask-19.png'
-                },
-                {
+                }, {
                     leaf: true, text: 'V-W-X-Y-Z',
                     icon: 'resources/images/Mask-19.png'
                 }]
-            },
-            {
+            }, {
                 text: 'Presse',
                 icon: 'resources/images/Presse-16.png',
                 children:[ {
                     leaf: true, text: 'Linksammlung',
                     icon: 'resources/images/Presse-16.png'
                     /*icon: 'resources/images/Link-15.png'*/
-                },
-                {
+                }, {
                     leaf: true, text: 'Theaterjournal',
                     icon: 'resources/images/Presse-16.png'
                     /*icon: 'resources/images/Dossier-17.png'*/
                 }]
             }]
-        },
-        {
+        }, {
             text: 'Verwaltung',
             icon: 'resources/images/portfolio-17.png',
             expanded: true,
@@ -329,97 +303,74 @@ var store = Ext.create('Ext.data.TreeStore', {
                     children:[ {
                         leaf: true, text: '1825',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1826',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1827',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1828',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1829',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1830',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1831',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1832',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1833',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1834',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1835',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1836',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1837',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1838',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1839',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1840',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1841',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1842',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1843',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1844',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1845',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1846',
                         icon: 'resources/images/MoneyBox-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1847',
                         icon: 'resources/images/MoneyBox-17.png'
                     }]
-                },
-                {
+                }, {
                     text: 'Ausgaben',
                     icon: 'resources/images/MoneyTransfer-17.png',
                     children:[
@@ -428,98 +379,75 @@ var store = Ext.create('Ext.data.TreeStore', {
                     },*/ {
                         leaf: true, text: '1826',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1827',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1828',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1829',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1830',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1831',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1832',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1833',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1834',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1835',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1836',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1837',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1838',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1839',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1840',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1841',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1842',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1843',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1844',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1845',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1846',
                         icon: 'resources/images/MoneyTransfer-17.png'
-                    },
-                    {
+                    }, {
                         leaf: true, text: '1847',
                         icon: 'resources/images/MoneyTransfer-17.png'
                     }]
-                },
-                {
-                leaf: true,
-                text: 'Abonnement',
-                icon: 'resources/images/Ticket-14.png'
-            },
-                {
+                }, {
+                    leaf: true,
+                    text: 'Abonnement',
+                    icon: 'resources/images/Ticket-14.png'
+                }, {
                     leaf: true, text: 'Gagenbücher',
                     icon: 'resources/images/Gift-17.png'
                 }]
@@ -529,15 +457,45 @@ var store = Ext.create('Ext.data.TreeStore', {
                 text: 'Regiebücher',
                 icon: 'resources/images/Crown-17.png',
                 children:[]
-            },
-            {
+            }, {
                 leaf: true, text: 'Rollen- & Kostümbücher',
                 icon: 'resources/images/carnival.png'
-            },
-            {
-                leaf: true, text: '<font style="color:gray;">Theaterberufe</font>',
-                icon: 'resources/images/theatreB.png'
-            }]
+            }, {
+                text: 'Rollen',
+                icon: 'resources/images/theatreB.png',
+                children:[ {
+                    leaf: true, text: 'Zahlen',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'A-B-C',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'D-E-F',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'G-H-I',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'J-K-L',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'M-N-O',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'P-Q-R',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'S-T-U',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'V-W-X-Y-Z',
+                    icon: 'resources/images/theatreB.png'
+                }]
+            }
+            /*{
+            leaf: true, text: '<font style="color:gray;">Theaterberufe</font>',
+            icon: 'resources/images/theatreB.png'
+            }*/]
         }]
     }
 })
@@ -560,6 +518,9 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
     border: false,
     bodyborder: false,
     bodyPadding: 3,
+    bodyborder: true,
+    height: 700,
+    
     
     getNavigationItems: function () {
         var me = this;
@@ -594,7 +555,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
             url: 'resources/xql/getRegieMenu.xql',
             method: 'GET',
             params: {
-                path: dbPathsMap.get('regie')
+                path: dbPathsMap. get ('regie')
             },
             success: function (response, options) {
                 var json = jQuery.parseJSON(response.responseText);
@@ -616,7 +577,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
             url: 'resources/xql/getRollenKostuemMenu.xql',
             method: 'GET',
             params: {
-                path: dbPathsMap.get('role')
+                path: dbPathsMap. get ('role')
             },
             success: function (response, options) {
                 var json = jQuery.parseJSON(response.responseText);
@@ -638,7 +599,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
             url: 'resources/xql/getGagenMenu.xql',
             method: 'GET',
             params: {
-                path: dbPathsMap.get('gage')
+                path: dbPathsMap. get ('gage')
             },
             success: function (response, options) {
                 var json = jQuery.parseJSON(response.responseText);
@@ -660,7 +621,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
             url: 'resources/xql/getAboMenu.xql',
             method: 'GET',
             params: {
-                path: dbPathsMap.get('abo')
+                path: dbPathsMap. get ('abo')
             },
             success: function (response, options) {
                 var json = jQuery.parseJSON(response.responseText);
@@ -682,7 +643,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
             url: 'resources/xql/getJournalMenu.xql',
             method: 'GET',
             params: {
-                path: dbPathsMap.get('journal')
+                path: dbPathsMap. get ('journal')
             },
             success: function (response, options) {
                 var json = jQuery.parseJSON(response.responseText);
@@ -817,7 +778,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         selection: 'H020263'
                         });*/
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
-                            selection: 'H020263',workName: item.data.text, workIcon: 'resources/images/BookBlau-16.png'
+                            selection: 'H020263', workName: item.data.text, workIcon: 'resources/images/BookBlau-16.png'
                         });
                         //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
                         repertoireTab.add(repertoireDetails);
@@ -1001,7 +962,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                     } else if (item.parentNode.data.text === 'Theaterzettel Dresden') {
+                } else if (item.parentNode.data.text === 'Theaterzettel Dresden') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Theaterzettel Dresden: ' + item.data.text + '</font>', icon: 'resources/images/Day-17.png', selection: item.data.text
                     });
@@ -1036,21 +997,23 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                    
-                    /*var win = new TheaterTool.view.tabPanel.persons.PersonSelectionDialog({selection: item.data.text, tabPanel : this.tabPanel});
-                    win.show();
-                    if (typeof Ext.getCmp('infoDialog') !== 'undefined') {
-                    Ext.getCmp('infoDialog').close();
-                    }*/
-                    
-                    
-                    /*	repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                    title: '<font style="color:gray;">'+item.data.text+'</font>',
-                    icon: 'resources/images/Mask-19.png'
+                } else if (item.parentNode.data.text === 'Rollen') {
+                    var menuItem = historyButton.menu.add({
+                        text: '<font style="color:gray;">Rollen: ' + item.data.text + '</font>', icon: 'resources/images/theatreB.png', selection: item.data.text
                     });
-                    //var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({year: item.data.text});
-                    var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: item.data.text});
-                    repertoireTab.add(repertoireDetails);	*/
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Rollen: ' + item.data.text + '</font>', menuItem.id);
+                    if (! isFoundItem) {
+                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: '<font style="color:gray;">Rollen: ' + item.data.text + '</font>',
+                            icon: 'resources/images/theatreB.png'
+                        });
+                        var repertoireDetails = new TheaterTool.view.tabPanel.roles.RoleDetailsPanel({
+                            selection: item.data.text, navTreetitle: '<font style="color:#A87678;">Rollen: ' + item.data.text + '</font>'
+                        });
+                        repertoireTab.add(repertoireDetails);
+                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                    }
                 } else if (item.parentNode.data.text === 'Abonnement') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Ticket-14.png', selection: item.data.text
