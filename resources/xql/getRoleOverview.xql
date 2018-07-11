@@ -90,7 +90,7 @@ declare function local:passthru($node as node()*) as item()* {
 
 
 declare function local:roleName($node as element(tei:roleName)) as element() {
-let $roleType := $node/@type
+(:let $roleType := $node/@type
 let $roleTypeAsElem := if($roleType = 'reg')
     then(' (regulär)')
     else(if($roleType = 'full')
@@ -99,19 +99,31 @@ let $roleTypeAsElem := if($roleType = 'reg')
             then(' (alternativ)')
             else(if($roleType = 'nick')
                 then(' (nick)')
-                else())))
+                else()))):)
 
 let $roleId := $node/@key
 let $roleName := $node/text()
+let $parentRole := $node/parent::node()/local-name()
 return
-   if ( $roleId!= '') then
+    if($parentRole ='castItem')
+        then(if ( $roleId!= '') then
         (       
-        <a href="javascript:getRoleContent('{$roleId}', '{$roleName}');">{$roleName, $roleTypeAsElem}</a>
+        <dev><font size = "1"><b style="color:gray;">Rolenname: </b></font><a href="javascript:getRoleContent('{$roleId}', '{$roleName}');">{$roleName}</a></dev>
         )
     else
         (
-        <p>{$roleName, $roleTypeAsElem}</p>
+        <p><font size = "1"><b style="color:gray;">Rolenname: </b></font>{$roleName}</p>
+        ))
+        else(if ( $roleId!= '') then
+        (       
+        <a href="javascript:getRoleContent('{$roleId}', '{$roleName}');">{$roleName}</a>
         )
+    else
+        (
+        <p>{$roleName}</p>
+        ))
+
+   
     
 };
 

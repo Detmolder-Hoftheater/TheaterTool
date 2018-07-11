@@ -118,7 +118,7 @@ let $strings := for $elem_2 in $cells
 
     let $date := concat('"', replace($elem_2/ancestor::tei:row/tei:cell/tei:date, '"', '\\"' ), '"')
     
-    let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
+    let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2//node()))else()
     
     let $rthlr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']
    (: $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']:)

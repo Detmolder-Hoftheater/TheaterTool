@@ -93,7 +93,7 @@ declare function local:jsonifyroleNames($titles, $elem_1) {
     return
         if ($fileName3 != '') then
             (
-            concat('["', $fileName3, '",',
+            concat('["', normalize-space($fileName3), '",',
             '"', $personId, '",',
             '"', $type, '"',
             ']'))

@@ -160,8 +160,19 @@ let $strings := for $elem_2 in $cells
    let $date := concat('"', local:getDateContent($dateCells/@when), '"'):)
    (: let $date := concat('"', $dateCells[1]/@when, '"'):)
     
-    let $onecell := if($elem_2/tei:persName != '' or $elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
+    let $onecell := if($elem_2/tei:persName !='')
+                    then(local:getCellContent($elem_2/node()))
+                    else(
+                        if($elem_2/tei:rs/@type = 'work')
+                        then(local:getCellContent($elem_2//node()))else(
+                        if($elem_2/tei:rs/@type = 'persons')then(local:getCellContent($elem_2/node()))else()
+                        
+                        )
+ 
+    )
     
+    (:let $onecell := if($elem_2/tei:persName != '' or $elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
+    :)
     (:let $onecell_1 := if($elem_2/ancestor::tei:row/tei:cell/tei:persName != '' or $elem_2/ancestor::tei:row/tei:cell/tei:rs != '')then(local:getCellContent($elem_2/ancestor::tei:row/tei:cell/node()))else()
     :)
    (: let $rthlr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:persName)]/tei:measure[@unit='Rthlr'][1]
@@ -206,7 +217,7 @@ declare function local:getCellContent($elem_2) {
 
 let $strings := for $elem in $elem_2
     
-     let $content := if($elem[@type ='work'])then(
+     let $content := if($elem/@type ='work')then(
             concat('{"work":["', normalize-space(replace($elem, '"', '\\"' )), '"', ', "', $elem/@key, '"]}')
         )
         else( 

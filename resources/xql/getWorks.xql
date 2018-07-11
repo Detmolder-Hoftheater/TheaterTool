@@ -99,7 +99,7 @@ let $strings := for $elem in $titles
 		let $nametype := $elem/@type
 	    let $language := $elem/@xml:lang
 
-		let $fileID :=  $file1//mei:work/@xml:id
+		let $fileID :=  $file1/mei:work/@xml:id
 		
 		let $names :=$file1//mei:titleStmt//mei:persName
 
