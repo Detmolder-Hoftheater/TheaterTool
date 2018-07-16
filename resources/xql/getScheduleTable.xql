@@ -226,7 +226,7 @@ declare function local:getCellContent($elem_2) {
     
     
     
-    let $content := if ($elem[@type = 'work']) then
+    let $content := if ($elem/@type = 'work') then
         (
         (: $elem:)
         concat('{"work":["', normalize-space($elem), '"', ', "', $elem/@key, '"]}')

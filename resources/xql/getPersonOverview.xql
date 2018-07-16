@@ -588,7 +588,37 @@ declare function local:jsonifyGNDList($id) {
 
 let $strings := for $elem in $id
 
-					let $id :=$elem
+					let $id :=if($elem/@type = 'gnd')then($elem)else()
+                   
+                    return 
+                      if($id != '')then(        
+concat(
+							'"',$id,'"'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyWegaList($id) {
+
+let $strings := for $elem in $id
+
+					let $id :=if($elem/@type = 'wega')then($elem)else()
+                   
+                    return 
+                      if($id != '')then(        
+concat(
+							'"',$id,'"'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyIdnoList($id) {
+
+let $strings := for $elem in $id
+
+					let $id :=if($elem/@type = 'viaf')then($elem)else()
                    
                     return 
                       if($id != '')then(        
@@ -603,13 +633,16 @@ declare function local:jsonifyGND($content) {
 
 let $strings := for $elem in $content
 
-					let $id :=$elem//tei:idno[@type='gnd']
+					(:let $id :=$elem//tei:idno[@type='gnd']:)
+					let $id :=if($elem/tei:idno/@type = 'gnd')then($elem/tei:idno)else()
+					(:let $gndList :=if($elem/tei:idno/@type ='gnd')then(local:jsonifyGNDList($elem/tei:idno))else():)
 					
 					let $gndList := local:jsonifyGNDList($id)
                    
                     return 
+                    if($gndList != '')then(concat('[',$gndList,']'))else()
                         
-concat('[',$gndList,']')
+
     
     return 
         string-join($strings,',') 
@@ -619,12 +652,14 @@ declare function local:jsonifyWega($content) {
 
 let $strings := for $elem in $content
 
-					let $id :=$elem//tei:idno[@type='wega']
+					(:let $id :=$elem//tei:idno[@type='wega']:)
+					let $id :=if($elem/tei:idno/@type = 'wega')then($elem/tei:idno)else()
+                   
+                   let $gndList := local:jsonifyWegaList($id)
                    
                     return 
-                      if($id != '')then(        
-concat(
-							'"',$id,'"'))else()
+                        
+if($gndList != '')then(concat('[',$gndList,']'))else()
     
     return 
         string-join($strings,',') 
@@ -634,12 +669,14 @@ declare function local:jsonifyVIAF($content) {
 
 let $strings := for $elem in $content
 
-					let $id :=$elem//tei:idno[@type='viaf']
+					(:let $id :=$elem//tei:idno[@type='viaf']:)
+					let $id :=if($elem/tei:idno/@type = 'viaf')then($elem/tei:idno)else()
+                   
+                   let $gndList := local:jsonifyIdnoList($id)
                    
                     return 
-                      if($id != '')then(        
-concat(
-							'"',$id,'"'))else()
+                        
+if($gndList != '')then(concat('[',$gndList,']'))else()
     
     return 
         string-join($strings,',') 

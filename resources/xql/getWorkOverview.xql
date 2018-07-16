@@ -365,7 +365,22 @@ declare function local:jsonifyGNDList($id) {
 
 let $strings := for $elem in $id
 
-					let $id :=$elem
+					let $id :=if($elem/@type = 'gnd')then($elem)else()
+                   
+                    return 
+                      if($id != '')then(        
+concat(
+							'"',$id,'"'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyWegaList($id) {
+
+let $strings := for $elem in $id
+
+					let $id :=if($elem/@type = 'WeGA')then($elem)else()
                    
                     return 
                       if($id != '')then(        
@@ -380,9 +395,9 @@ declare function local:jsonifyGND($content) {
 
 let $strings := for $elem in $content
 
-					let $id :=$elem//mei:identifier[@type='gnd']
+					let $id :=if($elem/mei:identifier/@type = 'gnd')then($elem/mei:identifier)else()
 					
-					let $gndList := local:jsonifyGNDList($id)
+					let $gndList := if($id != '')then(local:jsonifyGNDList($id))else()
                    
                     return 
                         
@@ -396,12 +411,12 @@ declare function local:jsonifyWega($content) {
 
 let $strings := for $elem in $content
 
-					let $id :=$elem//mei:identifier[@type='WeGA']
-                   
+					let $id :=if($elem/mei:identifier/@type = 'WeGA')then($elem/mei:identifier)else()
+					
+					let $gndList := if($id != '')then(local:jsonifyWegaList($id))else()
+					
                     return 
-                      if($id != '')then(        
-concat(
-							'"',$id,'"'))else()
+                      concat('[',$gndList,']')
     
     return 
         string-join($strings,',') 
