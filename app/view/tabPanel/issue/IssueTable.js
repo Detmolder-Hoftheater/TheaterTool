@@ -9,6 +9,7 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
         pack: 'start',
         align: 'stretch'
     },
+   
  
     flex: 1.7,
     sortableColumns: false,
@@ -225,6 +226,9 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
             menuDisabled: true,
             dataIndex: dataind,
             //align: 'center',
+           /* renderer: function (value, metaData) {
+                 return '<div style="white-space:normal">' + value + '</div>';
+             },*/
             renderer: function (val, metadata, record) {
             //var me =this;
             var presentationText = '';
@@ -301,7 +305,7 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTable', {
                     
                 }
                // metadata.style = 'cursor: pointer;';
-                return presentationText;
+                return '<span style="white-space:normal; font-size: 32px; margin: 50px 0 50px 0;">' + presentationText + '</span>';
             
                 /*ret += '&lt;img alt=&quot;' + (testItem.altText || me.altText) + '&quot; src=&quot;' + (testItem.icon || Ext.BLANK_IMAGE_URL) +
                 '&quot; class=&quot;' + prefix + 'action-col-icon ' + prefix + 'action-col-' + String(i) + ' ' + (disabled ? prefix + 'item-disabled' : ' ') +

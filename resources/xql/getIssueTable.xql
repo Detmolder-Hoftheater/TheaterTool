@@ -164,7 +164,7 @@ let $strings := for $elem_2 in $cells
                     then(local:getCellContent($elem_2/node()))
                     else(
                         if($elem_2/tei:rs/@type = 'work')
-                        then(local:getCellContent($elem_2//node()))else(
+                        then(local:getCellContent($elem_2/node()))else(
                         if($elem_2/tei:rs/@type = 'persons')then(local:getCellContent($elem_2/node()))else()
                         
                         )
@@ -217,7 +217,7 @@ declare function local:getCellContent($elem_2) {
 
 let $strings := for $elem in $elem_2
     
-     let $content := if($elem/@type ='work')then(
+     let $content := if($elem/self::tei:rs/@type ='work')then(
             concat('{"work":["', normalize-space(replace($elem, '"', '\\"' )), '"', ', "', $elem/@key, '"]}')
         )
         else( 
@@ -227,11 +227,11 @@ let $strings := for $elem in $elem_2
              concat('{"workpersons":["', replace($elem, '"', '\\"' ), '"', ', "', $elem/@key, '"]}')
           )else()
           
-    let  $content_3_0 := normalize-space($elem[not(self::tei:persName) and not($elem[@type ='work'])])  
+    let  $content_3_0 := replace($elem, '"', '\\"' )
     
-    let  $content_3_1 := replace($content_3_0, '"', '\\"' )
+   (: let  $content_3_1 := replace($content_3_0, '"', '\\"' ):)
           
-   let  $content_3 := concat('{"celltext":["', $content_3_1, '"]}')
+   let  $content_3 := if($content_3_0 != '')then(concat('{"celltext":["', normalize-space($content_3_0), '"]}'))else()
  
                     return 
                     if($content != '')

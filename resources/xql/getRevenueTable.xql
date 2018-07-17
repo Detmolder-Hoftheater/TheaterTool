@@ -118,7 +118,7 @@ let $strings := for $elem_2 in $cells
 
     let $date := concat('"', replace($elem_2/ancestor::tei:row/tei:cell/tei:date, '"', '\\"' ), '"')
     
-    let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2//node()))else()
+    let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
     
     let $rthlr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']
    (: $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']:)
@@ -148,31 +148,30 @@ declare function local:getCellContent($elem_2) {
 
 let $strings := for $elem in $elem_2
     
-     let $content := if($elem[@type ='work'])then(
-           (: $elem:)
-            concat('{"work":["', normalize-space($elem), '"', ', "', $elem/@key, '"]}')
-            
-            (:local:getWork($elem/tei:rs[@type ='work']):)
+    let $content := if($elem/self::tei:rs/@type ='work')then(
+            concat('{"work":["', normalize-space(replace($elem, '"', '\\"' )), '"', ', "', $elem/@key, '"]}')
         )
-        else(
-          
+        else( 
         )
     
     let  $content_2 :=  if($elem/self::tei:persName)then(
-             concat('{"workpersons":["', $elem, '"', ', "', $elem/@key, '"]}')
+             concat('{"workpersons":["', replace($elem, '"', '\\"' ), '"', ', "', $elem/@key, '"]}')
           )else()
           
-    let  $content_3_0 := normalize-space($elem[not(self::tei:persName) and not($elem[@type ='work'])])  
+    let  $content_3_0 := replace($elem, '"', '\\"' )
     
-    let  $content_3_1 := replace($content_3_0, '"', '\\"' )
+   (: let  $content_3_1 := replace($content_3_0, '"', '\\"' ):)
           
-   let  $content_3 := concat('{"celltext":["', $content_3_1, '"]}')
-  
+   let  $content_3 := if($content_3_0 != '')then(concat('{"celltext":["', normalize-space($content_3_0), '"]}'))else()
+ 
                     return 
                     if($content != '')
                     then($content)                   
                     else(
-                        if($content_2 != '')then(normalize-space($content_2))else($content_3)
+                        if($content_2 != '')then(normalize-space($content_2))else(
+                        if($content_3 != '')then($content_3)else()
+                        
+                        )
                     
                     )
                                  

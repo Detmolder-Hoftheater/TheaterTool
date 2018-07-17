@@ -268,7 +268,9 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTable', {
                     
                 }
                // metadata.style = 'cursor: pointer;';
-                return presentationText;
+                return '<span style="white-space:normal; font-size: 32px; margin: 50px 0 50px 0;">' + presentationText + '</span>';
+            
+                //presentationText;
             
                 /*ret += '&lt;img alt=&quot;' + (testItem.altText || me.altText) + '&quot; src=&quot;' + (testItem.icon || Ext.BLANK_IMAGE_URL) +
                 '&quot; class=&quot;' + prefix + 'action-col-icon ' + prefix + 'action-col-' + String(i) + ' ' + (disabled ? prefix + 'item-disabled' : ' ') +
