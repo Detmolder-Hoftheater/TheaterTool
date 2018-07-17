@@ -138,7 +138,7 @@ declare function local:table_1($node as element(tei:table)) as element() {
 )else():)
 
 
-  <span><p></p><table border="1" cellpadding="10" cellspacing="0" style="font-size: 12px; width:100%; font-family: arial, sans-serif">{local:dispatch($node/node())}
+  <span><p></p><table border="1" cellpadding="10" cellspacing="0" style="font-size: 12px; table-layout:fixed; word-wrap:break-word; font-family: arial, sans-serif">{local:dispatch($node/node())}
   </table></span>
 
  
@@ -157,7 +157,7 @@ declare function local:row($node as element(tei:row)) as element() {
 };
 
 declare function local:cell($node as element(tei:cell)) as element() {
-  <td>{(local:dispatch($node/node()))}</td>
+  <td width="300px">{(local:dispatch($node/node()))}</td>
 };
 
 declare function local:ref($node as element(tei:ref)) as element() { 

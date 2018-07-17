@@ -118,7 +118,7 @@ declare function local:table($node as element(tei:table)) as element() {
 tr:nth-child(even) {
     background-color: #dddddd;:)
 
-  <span><p></p><table border="1" cellpadding="10" cellspacing="0" style="font-size: 12px; width:100%; border-collapse: collapse; font-family: arial, sans-serif">{local:dispatch($node/node())}</table></span>
+  <span><p></p><table border="1" cellpadding="10" cellspacing="0" style="font-size: 12px; border-collapse: collapse; table-layout:fixed; word-wrap:break-word; font-family: arial, sans-serif">{local:dispatch($node/node())}</table></span>
 };
 
 declare function local:head($node as element(tei:head)) as element() {
@@ -134,13 +134,14 @@ declare function local:row($node as element(tei:row)) as element() {
 };
 
 declare function local:cell($node as element(tei:cell)) as element() {
-  <td>{(local:dispatch($node/node()))}</td>
+    <td width="300px">{(local:dispatch($node/node()))}</td>
+    (:if($node//tei:rs/@type ='work')then(<td width="300px" bgcolor="red">{(local:dispatch($node/node()))}</td>)else(<td width="300px">{(local:dispatch($node/node()))}</td>)
+  :)
 };
 
 declare function local:persName($node as element(tei:persName)) as element() {
 (:if($node/@key != '')then(
   <persName><a href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
-  )
   else(
   <persName>{$node}</persName>
   ):)
