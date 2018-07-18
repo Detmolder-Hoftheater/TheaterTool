@@ -478,20 +478,45 @@ me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-al
                         margin: '10 0 10 0'
                     });
                     
-                     var eventsTable = new TheaterTool.view.tabPanel.repertoire.EventsTable({
+                    /* var eventsTable = new TheaterTool.view.tabPanel.repertoire.EventsTable({
                         eventList: json.events
-                    });
-                    
+                    });*/
+                    var content = '';
+                   
+                        for(i = 0; i < json.events.length; i++){
+                            
+			                 var eventObj = json.events[i];
+			                
+			                 if(eventObj[0] !== ''){
+			                     content = content + eventObj[0]+'  '	;	    
+			}
+			
+			if(eventObj[1] !== ''){
+			    content = content +eventObj[1]+'  ';			    
+			}
+			
+			
+			if(eventObj[2] !== ''){
+			    content = content + eventObj[2]+'  ';		    
+			}
+			
+			if(eventObj[3] !== ''){
+			    content = content +eventObj[3];
+		      		    
+			}
+			content = content +'</br>';
+			}
                     var left_panel_11 = Ext.create('Ext.panel.Panel', {
                         //colspan: 1,
                         //type: 'hbox',
                         border: false,
-                        margin: '0 10 0 10',
+                        margin: '0 0 10 10',
+                        html: content
                         //type: 'fit',
-                        //bodyPadding: 10,
-                        items:[
+                        //bodyPadding: 10
+                        /*items:[
                         
-                        eventsTable]
+                        eventsTable]*/
                     });
                     
                     me.add(left_panel_11);

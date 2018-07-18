@@ -616,10 +616,36 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         margin: '10 0 10 0'
                     });
                     
-                    var eventsTable = new TheaterTool.view.tabPanel.repertoire.EventsTable({
+                    /*var eventsTable = new TheaterTool.view.tabPanel.repertoire.EventsTable({
                         eventList: json.events
-                    });
-                    
+                    });*/
+                     var content = '';
+                   
+                        for(i = 0; i < json.events.length; i++){
+                            
+			                 var eventObj = json.events[i];
+			                
+			                 if(eventObj[0] !== ''){
+			                     content = content + eventObj[0]+'  '	;	    
+			}
+			
+			if(eventObj[1] !== ''){
+			    content = content +eventObj[1]+'  ';			    
+			}
+			
+			
+			if(eventObj[2] !== ''){
+			    content = content + eventObj[2]+'  ';		    
+			}
+			
+			if(eventObj[3] !== ''){
+			    content = content +eventObj[3];
+		      		    
+			}
+			            
+			                 
+			             }
+			       
                     var left_panel_11 = Ext.create('Ext.panel.Panel', {
                         //colspan: 1,
                         //type: 'hbox',
@@ -627,14 +653,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         margin: '0 10 0 10',
                         //type: 'fit',
                         //bodyPadding: 10,
-                        items:[
-                        
-                        eventsTable]
+                        html: content
                     });
                     
                     me.add(left_panel_11);
                 }
-                
+               
                 if (json.scheduleRef.length > 0 || json.revenueRef.length > 0 || json.journalRef.length > 0 || json.issueRef.length > 0 || json.regieRef.length > 0 || json.roleRef.length > 0) {
                     
                     /*var refSection = Ext.create('Ext.panel.Panel', {
