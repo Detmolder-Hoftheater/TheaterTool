@@ -166,13 +166,23 @@ let $strings := for $elem in $titles
 		let $sourceName := concat('Quelle: ', $rismLabel, ' , ' ,$physLoc)
 		let $extName := concat($fileName1, ': ',  $comp)
 		
-		let $workFolder := if(contains($fileID, 'H020149'))then('aschenbroedel/')else(
-        if(contains($fileID, 'H020263'))then('bettelstudent/')else('test/'))
+		(:let $workFolder := if(contains($fileID, 'H020149'))then('aschenbroedel/')else(
+        if(contains($fileID, 'H020263'))then('bettelstudent/')else('test/')):)
+        
+        let $workFolder := if (contains($fileID, 'H020149')) then
+        ('aschenbroedel/')
+    else
+        (
+        if (contains($fileID, 'H020263')) then
+            ('bettelstudent/')
+        else
+            (if(contains($fileID, 'H020048'))then('desTeufelsAnteil/')else('test/')))
+        
         let $path := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder, '/')
         let $file := collection($path)      
         let $facsimNames := concat('"children":[',local:getFacsimNames($file), ']' )
 				
-		let $isExtend := if(contains($fileID, 'H020149')  or contains($fileID, 'H020263'))
+		let $isExtend := if(contains($fileID, 'H020149')  or contains($fileID, 'H020263') or contains($fileID, 'H020048'))
 			then(concat('{',
 									'"leaf":"false",',
 									'"name":"Faksimiles",',

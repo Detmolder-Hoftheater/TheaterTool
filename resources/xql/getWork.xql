@@ -123,7 +123,7 @@ declare function local:jsonifySlurs($fileNames) {
     else
         ()
     
-    let $isOverwiew := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048'))
+    let $isOverwiew := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') (:or contains($fileID, 'H020048'):))
     then
         (concat('{',
         '"leaf":"true",',
