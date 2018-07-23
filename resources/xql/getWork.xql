@@ -90,8 +90,8 @@ declare function local:jsonifySlurs($fileNames) {
     let $sourceFileName := tokenize($source, "#")[last()]
     let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
     let $fileSource := doc($path2)
-    let $rismLabel := $fileSource//mei:identifier[@label = "RISM-label"][1]
-    let $physLoc := $fileSource//mei:identifier[@type = "shelfLocation"][1]
+    let $rismLabel := $fileSource//mei:identifier[@label = "RISM-ID"][1]
+    let $physLoc := normalize-space($fileSource//mei:identifier[@type = "shelfLocation"][1])
     let $sourceName := concat('Quelle: ', $rismLabel, ' , ', $physLoc)
     let $extName := concat($fileName1, ': ', $comp)
     
@@ -123,7 +123,7 @@ declare function local:jsonifySlurs($fileNames) {
     else
         ()
     
-    let $isOverwiew := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') (:or contains($fileID, 'H020048'):))
+    let $isOverwiew := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048'))
     then
         (concat('{',
         '"leaf":"true",',
