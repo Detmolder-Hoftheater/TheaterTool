@@ -283,11 +283,11 @@ let $strings := for $elem_1 in $desc
 
 			let $pages := $elem_1/mei:titlePage
 			let $onepage := if($pages != '')then(local:jsonifyTitles($pages))else()
-			(:normalize-space($elem_1):)
-
+			
 				return 
 if($onepage != '')then(
-concat('"', replace(normalize-space($onepage), '"', '\\"' ), '"')
+$onepage
+(:concat('"',replace(normalize-space($onepage), '"', '\\"' ), '"'):)
 )else()
  
 
@@ -300,14 +300,11 @@ concat('"', replace(normalize-space($onepage), '"', '\\"' ), '"')
 declare function local:jsonifyTitles($pages) {
 
 let $strings := for $elem in $pages
-
-			let $page := $elem//text()
-			(:normalize-space($elem_1):)
-
+    let $page := local:jsonifyPageTitle($elem/node())
+			
 				return 
 if($page != '')then(
 $page
-(:replace($page, '"', '\\"' ):)
 
 )else()
 return
@@ -315,6 +312,68 @@ return
 
 };
 
+declare function local:jsonifyPageTitle($pages) {
+
+let $strings := for $elem in $pages
+                  
+    let $page := local:jsonifyLB($elem/node())
+			
+				return 
+		$page	
+
+return
+        string-join($strings,' ')
+
+};
+
+(:declare function local:jsonifyLB($pages) {
+
+let $strings := for $elem in $pages
+
+    let $page := if($elem[self::mei:add])
+        then(concat('<span style="color:MediumSeaGreen;">', $elem, '</span>'))
+        else(
+            if($elem[self::mei:del])
+            then(concat('<span style="color:Tomato;">', $elem, '</span>'))
+            else(
+                if($elem/self::node() = '')
+                then('</br>')
+                else($elem/self::node())))
+				return 
+if($page != '')then(
+concat('"',replace(normalize-space($page), '"', '\\"' ), '"')
+ (\: concat('"',$page, '"'):\)
+
+)else()
+return
+        string-join($strings,',')
+
+};:)
+
+declare function local:jsonifyLB($pages) {
+
+let $strings := for $elem in $pages
+
+    let $page := if($elem[self::mei:add])
+        then(concat('["add","', $elem, '"]'))
+        else(
+            if($elem[self::mei:del])
+            then(concat('["del","', $elem, '"]'))
+            else(
+                if($elem/self::node() = '')
+                then('["br"]')
+                else(concat('["text","', $elem/self::node(), '"]'))))
+				return 
+if($page != '')then(
+normalize-space($page)
+(:concat('[{',(normalize-space($page)), '}]'):)
+ (: concat('"',$page, '"'):)
+
+)else()
+return
+        string-join($strings,',')
+
+};
 
 
 declare function local:jsonifyInhalt($items) {
@@ -496,7 +555,7 @@ let $strings := for $elem_1 in $source_el
 
 			let $s_title :=$elem_1/mei:titleStmt[1]/mei:title[1]
 
-			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
+			let $signatur :=$elem_1//mei:physLoc[1]/mei:identifier
 
 			let $inventarnummer :=normalize-space($elem_1/mei:identifier[@label="Inventarnummer"])
 
@@ -550,7 +609,7 @@ let $strings := for $elem_1 in $source_el
 				return 
 
 concat(
-'"s_title":','"',$s_title, '",',
+'"s_title":','"',normalize-space($s_title), '",',
 '"inventarnummer":','"',$inventarnummer, '",',
 '"signatur":','"',normalize-space($signatur), '",',
 '"titlePages":[',if($titlePages != '')then($titlePages)else(), '],',

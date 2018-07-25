@@ -144,21 +144,37 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
             me.source_group.add(phys_panel);
             
             
-            if (typeof selectedSource[0].data.titlePages[0] !== 'undefined') {
-                var bemLength = 1;
+            if (selectedSource[0].data.titlePages.length >0) {
                 var pages = '';
-                for (i = 0; i < selectedSource[0].data.titlePages.length; i++) {
-                    pages += selectedSource[0].data.titlePages[i] + '<br/><br/>';
-                    bemLength++;
+                var elArray = new Array();
+                var titlePage = selectedSource[0].data.titlePages;
+                console.log(titlePage);
+                for (i = 0; i < titlePage.length; i++) {
+                   var test_1 = titlePage[i];
+                   
+                   var oneElem = test_1[0];
+                   
+                        if(oneElem === 'text'){
+                            var textValue = test_1[1];
+                            console.log(textValue);
+                            pages = pages +textValue;
+                        }
+                        else if(oneElem === 'br'){
+                            pages = pages +'</br>';
+                            console.log('br');
+                        }
+                        else if(oneElem === 'add'){
+                            var addValue = test_1[1];
+                            console.log(addValue);
+                            pages = pages +'<span style="color:MediumSeaGreen;">'+addValue+'</span>';
+                        }
+                        else if(oneElem === 'del'){
+                            var delValue = test_1[1];
+                            console.log(delValue);
+                            pages = pages +'<span style="color:Tomato;">'+delValue+'</span>';
+                        }
                 }
-               /* var numOfRows = parseInt(14 * bemLength);
-                me.titel = me.createTextArea('Titelseite(n)', numOfRows);
-                phys_panel.add(               
-                    me.titel
-                );
-                this.titel.setValue(pages);*/
-                
-                
+              
                 var right_panel = Ext.create('Ext.panel.Panel', {
 						layout: {
 				        type: 'table',
@@ -168,6 +184,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
    				         }
 				
 			},
+			
 			margin: '0 0 10 0',
 			autoScroll: true,
 			border: false,
@@ -176,12 +193,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         xtype: 'label',
         html: '<b style="color:gray; font-size: 10px;">Titelseite(n):</b>'
     },
-						{
-                  html: pages,
-                  margin: '0 0 0 40',
-                  border: false
-                }
-						]
+   
+    {html: pages,
+    margin: '0 0 0 40',
+                  border: false}
+    
+    ]
+						
 					});
                 phys_panel.add(right_panel);
                 
@@ -221,7 +239,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 phys_panel.add(right_panel);
             }
             
-            console.log(selectedSource[0].data.schreiber);
+            //console.log(selectedSource[0].data.schreiber);
             if (typeof selectedSource[0].data.schreiber !== 'undefined') {
                 me.schreiber = me.createTextField('Schreiber');
                 var schr = '';
