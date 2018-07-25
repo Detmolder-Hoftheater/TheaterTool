@@ -308,7 +308,7 @@ $page
 
 )else()
 return
-        string-join($strings,' ')
+        string-join($strings,',')
 
 };
 
@@ -319,10 +319,11 @@ let $strings := for $elem in $pages
     let $page := local:jsonifyLB($elem/node())
 			
 				return 
-		$page	
+				if($page != '')then(
+		$page)else()	
 
 return
-        string-join($strings,' ')
+        string-join($strings,',')
 
 };
 
@@ -555,7 +556,7 @@ let $strings := for $elem_1 in $source_el
 
 			let $s_title :=$elem_1/mei:titleStmt[1]/mei:title[1]
 
-			let $signatur :=$elem_1//mei:physLoc[1]/mei:identifier
+			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
 
 			let $inventarnummer :=normalize-space($elem_1/mei:identifier[@label="Inventarnummer"])
 
