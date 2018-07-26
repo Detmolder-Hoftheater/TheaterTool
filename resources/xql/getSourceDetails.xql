@@ -426,8 +426,11 @@ declare function local:jsonifySourceHier($s_list) {
 
 let $strings := for $elem_1 in $s_list
 
-			
 			let $s_title :=$elem_1/mei:titleStmt[1]/mei:title[1]
+			
+		   (: let $s_title_1 :=replace($s_title_row, '"' , '\\"')
+			let $s_title_2 := translate($s_title_1, '[', '')
+			let $s_title := translate($s_title_2,']',''):)
 
 			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
 
@@ -554,7 +557,13 @@ declare function local:jsonifyContenSource($source_el) {
 
 let $strings := for $elem_1 in $source_el
 
-			let $s_title :=$elem_1/mei:titleStmt[1]/mei:title[1]
+			(:let $s_title :=$elem_1/mei:titleStmt[1]/mei:title[1]:)
+			let $s_title_row :=$elem_1/mei:titleStmt[1]/mei:title[1]
+			(:let $fr := ('"', '\[',  '\]')
+		    let $to := ('\\"', '\\[',  '\\]'):)
+		    let $s_title_1 :=replace($s_title_row, '"' , '\\"')
+			let $s_title_2 := translate($s_title_1, '[', '(')
+			let $s_title := translate($s_title_2 ,']', ')')
 
 			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
 
