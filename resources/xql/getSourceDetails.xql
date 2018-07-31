@@ -286,6 +286,7 @@ let $strings := for $elem_1 in $desc
 			
 				return 
 if($onepage != '')then(
+
 $onepage
 (:concat('"',replace(normalize-space($onepage), '"', '\\"' ), '"'):)
 )else()
@@ -356,14 +357,14 @@ declare function local:jsonifyLB($pages) {
 let $strings := for $elem in $pages
 
     let $page := if($elem[self::mei:add])
-        then(concat('["add","', $elem, '"]'))
+        then(concat('["add","', replace(normalize-space($elem), '"', '\\"' ), '"]'))
         else(
             if($elem[self::mei:del])
-            then(concat('["del","', $elem, '"]'))
+            then(concat('["del","', replace(normalize-space($elem), '"', '\\"' ), '"]'))
             else(
                 if($elem/self::node() = '')
                 then('["br"]')
-                else(concat('["text","', $elem/self::node(), '"]'))))
+                else(concat('["text","', replace(normalize-space($elem/self::node()), '"', '\\"' ), '"]'))))
 				return 
 if($page != '')then(
 normalize-space($page)
@@ -590,8 +591,8 @@ let $strings := for $elem_1 in $source_el
 			let $langList := $elem_1/mei:physDesc[1]/mei:langUsage/mei:language
 			let $language := local:jsonifyLanguage($langList)
 
-			let $pages :=$elem_1/mei:physDesc[1]/mei:extent[1]
-
+			let $pages :=concat($elem_1/mei:physDesc[1]/mei:extent[1], ' ', $elem_1/mei:physDesc[1]/mei:extent[1]/@unit)
+			
 			let $dimension :=$elem_1/mei:physDesc[1]/mei:dimensions[1]
 
 			let $items := $elem_1/mei:contents[1]/mei:contentItem
