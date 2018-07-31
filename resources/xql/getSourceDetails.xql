@@ -564,6 +564,8 @@ let $strings := for $elem_1 in $source_el
 		    let $s_title_1 :=replace($s_title_row, '"' , '\\"')
 			let $s_title_2 := translate($s_title_1, '[', '(')
 			let $s_title := translate($s_title_2 ,']', ')')
+			
+			let $sourcetype :=$elem_1/@type
 
 			let $signatur :=$elem_1/mei:physLoc[1]/mei:identifier
 
@@ -620,6 +622,7 @@ let $strings := for $elem_1 in $source_el
 
 concat(
 '"s_title":','"',normalize-space($s_title), '",',
+'"sourcetype":','"', $sourcetype, '",',
 '"inventarnummer":','"',$inventarnummer, '",',
 '"signatur":','"',normalize-space($signatur), '",',
 '"titlePages":[',if($titlePages != '')then($titlePages)else(), '],',

@@ -62,6 +62,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
             var source = Ext.create('TheaterTool.model.SourceDetails', {
                 "titel": source_details[0].s_title,
                 //'icon': 'resources/images/SourceBlue.png',
+                'sourcetype': source_details[0].sourcetype,
                'icon': Ext.BLANK_IMAGE_URL,
                 "signatur": source_details[0].signatur,
                 "inventarnummer": source_details[0].inventarnummer,

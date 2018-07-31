@@ -38,6 +38,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
     inventar: null,
     persStore: null,
     overview: null,
+    stypeField: null,
     
     source_group: null,
     
@@ -114,8 +115,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 //borderLeft: '5px solid #FFFFFF'
             },
             
-            fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">'+fieldName+'</b></font>',
-            anchor: '100%'
+            fieldLabel: '<b style="color:gray; vertical-align:text-top;">'+fieldName+'</b></font>'
+            //anchor: '100%'
         });
         
         return textArea;
@@ -124,6 +125,24 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
     setValues: function (selectedSource) {
         var me = this;
         me.source_group.removeAll(true);
+        
+        
+        if (selectedSource[0].data.sourcetype !== '') {
+        var stype_panel = Ext.create('Ext.panel.Panel', {
+                border: false,
+                //bodyPadding: 10,
+                margin: '0 0 10 0',
+                items:[]
+            });
+            me.source_group.add(stype_panel);
+                me.stypeField = me.createTextField('Quellentype');
+                me.stypeField.setValue(selectedSource[0].data.sourcetype);
+                console.log(selectedSource[0].data);
+                console.log(selectedSource[0].data.sourcetype);
+                stype_panel.add(me.stypeField);
+            }
+        
+        
         
         if (typeof selectedSource[0].data.titlePages[0] !== 'undefined' || selectedSource[0].data.medium !== '' || typeof selectedSource[0].data.schreiber !== 'undefined' ||
         typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '' || selectedSource[0].data.inventarnummer !== '' || selectedSource[0].data.seitenzahl !== '' || selectedSource[0].data.groesse !== '') {
@@ -143,17 +162,20 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
             });
             me.source_group.add(phys_panel);
             
-            
+            var pages = '';
             if (selectedSource[0].data.titlePages.length >0) {
-                var pages = '';
+                
                 var elArray = new Array();
                 var titlePage = selectedSource[0].data.titlePages;
                 console.log(titlePage);
                 for (i = 0; i < titlePage.length; i++) {
                    var test_1 = titlePage[i];
                    
+                   console.log(test_1);
                    var oneElem = test_1[0];
-                   
+                   //for(var j=0; j < test_1.length; j++){
+                        //var oneElem = test_1[j];
+                        
                         if(oneElem === 'text'){
                             var textValue = test_1[1];
                             console.log(textValue);
@@ -173,8 +195,35 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                             console.log(delValue);
                             pages = pages +'<span style="color:Tomato;">'+delValue+'</span>';
                         }
+                    //}
+                   //pages = pages +'<span style="color:MediumSeaGreen;">Catalani</span>';
+                   /* var onePage = {html: '<span style="color:MediumSeaGreen;">Catalani</span>',
+                    margin: '0 0 0 40',
+                  border: false}*/
+                    //{xtype: 'label',html: test_1, margin: '0 0 0 40',
+                 // border: false};
+                    //onePage = onePage.replace('"', '\'');
+                    
+                 //pages = pages + '\''+onePage +'\',';
+                // elArray.push(onePage);
+                
+                    /*for(var j=0; j < onePageArray.length; j++){
+                        var oneElem = onePageArray[j];
+                        pages += oneElem+' ';
+                        
+                    }
+                    
+                    pages = '"'+pages+'"';*/
+                    //bemLength++;
                 }
-              
+               /* var numOfRows = parseInt(14 * bemLength);
+                me.titel = me.createTextArea('Titelseite(n)', numOfRows);
+                phys_panel.add(               
+                    me.titel
+                );
+                this.titel.setValue(pages);*/
+                
+                
                 var right_panel = Ext.create('Ext.panel.Panel', {
 						layout: {
 				        type: 'table',
@@ -193,13 +242,31 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         xtype: 'label',
         html: '<b style="color:gray; font-size: 10px;">Titelseite(n):</b>'
     },
-   
+   // {html: '<span style="color:MediumSeaGreen;">Catalani</span>'}
+
     {html: pages,
     margin: '0 0 0 40',
                   border: false}
     
     ]
-						
+						/*{
+                  html: [elArray]*/
+                  //[pages]
+                 // ['Die','</br>','falsche Catalani','</br>','','<span style="color:MediumSeaGreen;">Catalani</span>','','<span style="color:Tomato;">BlaBla</span>','','</br>','','Klaus','',]
+                  
+                  /*[
+    '<span class="hopscotch-bubble-number">1</span>',
+    '<div class="hopscotch-bubble-content"><h3 class="hopscotch-title">Step 1</h3>',
+    '<div class="hopscotch-content">Step 1 Instructions here.</div>',
+    '</div>',
+    '<div class="hopscotch-actions">',
+    '<button id="hopscotch-prev" class="hopscotch-nav-button prev hide">Back</button>',
+    '<a class="hopscotch-bubble-close" href="#" title="Close">Close</a>'
+  ],*/
+                  /*margin: '0 0 0 40',
+                  border: false
+                }*/
+				//		]
 					});
                 phys_panel.add(right_panel);
                 
@@ -289,19 +356,19 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
             
             if (selectedSource[0].data.inventarnummer !== '') {
                 me.inventar = me.createTextField('Inverntarnummer');
-                this.inventar.setValue(selectedSource[0].data.inventarnummer);
+                me.inventar.setValue(selectedSource[0].data.inventarnummer);
                 phys_panel.add(me.inventar);
             }
             
             if (selectedSource[0].data.seitenzahl !== '') {
                 me.w_ein_titel = me.createTextField('Umfang');
-                this.w_ein_titel.setValue(selectedSource[0].data.seitenzahl);
+                me.w_ein_titel.setValue(selectedSource[0].data.seitenzahl);
                 phys_panel.add(me.w_ein_titel);
             }
             
             if (selectedSource[0].data.groesse !== '') {
                 me.w_titel = me.createTextField('Format');
-                this.w_titel.setValue(selectedSource[0].data.groesse);
+                me.w_titel.setValue(selectedSource[0].data.groesse);
                 phys_panel.add(me.w_titel);
             }
             
