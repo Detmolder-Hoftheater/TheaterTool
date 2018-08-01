@@ -126,6 +126,79 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         var me = this;
         me.source_group.removeAll(true);
         
+        var stitle_panel = Ext.create('Ext.panel.Panel', {
+                border: false,
+                //bodyPadding: 10,
+                margin: '0 0 10 0',
+                items:[]
+            });
+            me.source_group.add(stitle_panel);
+            
+            
+            for(var i = 0; i < selectedSource[0].data.titlecontent.length; i++){
+                var oneTitle = selectedSource[0].data.titlecontent[i];
+                var titleType = 'Titel (' + oneTitle[1]+ ')';
+                var titleValues = oneTitle[0];
+                
+                     
+                
+                var pages= '';
+                for (var j = 0; j < titleValues.length; j++) {
+                   var test_1 = titleValues[j];
+                   
+                   console.log(test_1);
+                   var oneElem = test_1[0];
+                   
+                        if(oneElem === 'text'){
+                            var textValue = test_1[1];
+                            //console.log(textValue);
+                            pages = pages +textValue;
+                        }
+                        else if(oneElem === 'br'){
+                            pages = pages +'</br>';
+                            //console.log('br');
+                        }
+                        }
+                        console.log(pages);
+                        var right_panel = Ext.create('Ext.panel.Panel', {
+						layout: {
+				        type: 'table',
+				        columns: 2,
+			             tdAttrs: {
+        			         valign: 'top'
+   				         }
+				
+			},
+			
+			margin: '0 0 10 0',
+			autoScroll: true,
+			border: false,
+						items:[
+						{xtype: 'label',
+        html: '<b style="color:gray; vertical-align:text-top;">'+titleType+': </b>'
+    },
+    {html: pages,
+    margin: '0 0 0 30',
+                  border: false}
+    
+    ]
+					
+					});
+                        
+      stitle_panel.add( right_panel );
+                      
+            }
+            
+            
+            
+            
+            
+         if (selectedSource[0].data.signatur !== '') {       
+                var signaturField = me.createTextField('Signatur');
+                signaturField.setValue(selectedSource[0].data.signatur);
+                stitle_panel.add(signaturField);
+            }   
+        
         
         if (selectedSource[0].data.sourcetype !== '') {
         var stype_panel = Ext.create('Ext.panel.Panel', {
@@ -137,8 +210,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
             me.source_group.add(stype_panel);
                 me.stypeField = me.createTextField('Quellentype');
                 me.stypeField.setValue(selectedSource[0].data.sourcetype);
-                console.log(selectedSource[0].data);
-                console.log(selectedSource[0].data.sourcetype);
                 stype_panel.add(me.stypeField);
             }
         
@@ -167,32 +238,32 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 
                 var elArray = new Array();
                 var titlePage = selectedSource[0].data.titlePages;
-                console.log(titlePage);
+                //console.log(titlePage);
                 for (i = 0; i < titlePage.length; i++) {
                    var test_1 = titlePage[i];
                    
-                   console.log(test_1);
+                   //console.log(test_1);
                    var oneElem = test_1[0];
                    //for(var j=0; j < test_1.length; j++){
                         //var oneElem = test_1[j];
                         
                         if(oneElem === 'text'){
                             var textValue = test_1[1];
-                            console.log(textValue);
+                           // console.log(textValue);
                             pages = pages +textValue;
                         }
                         else if(oneElem === 'br'){
                             pages = pages +'</br>';
-                            console.log('br');
+                            //console.log('br');
                         }
                         else if(oneElem === 'add'){
                             var addValue = test_1[1];
-                            console.log(addValue);
+                            //console.log(addValue);
                             pages = pages +'<span style="color:MediumSeaGreen;">'+addValue+'</span>';
                         }
                         else if(oneElem === 'del'){
                             var delValue = test_1[1];
-                            console.log(delValue);
+                            //console.log(delValue);
                             pages = pages +'<span style="color:Tomato;">'+delValue+'</span>';
                         }
                     //}
@@ -249,24 +320,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                   border: false}
     
     ]
-						/*{
-                  html: [elArray]*/
-                  //[pages]
-                 // ['Die','</br>','falsche Catalani','</br>','','<span style="color:MediumSeaGreen;">Catalani</span>','','<span style="color:Tomato;">BlaBla</span>','','</br>','','Klaus','',]
-                  
-                  /*[
-    '<span class="hopscotch-bubble-number">1</span>',
-    '<div class="hopscotch-bubble-content"><h3 class="hopscotch-title">Step 1</h3>',
-    '<div class="hopscotch-content">Step 1 Instructions here.</div>',
-    '</div>',
-    '<div class="hopscotch-actions">',
-    '<button id="hopscotch-prev" class="hopscotch-nav-button prev hide">Back</button>',
-    '<a class="hopscotch-bubble-close" href="#" title="Close">Close</a>'
-  ],*/
-                  /*margin: '0 0 0 40',
-                  border: false
-                }*/
-				//		]
+					
 					});
                 phys_panel.add(right_panel);
                 

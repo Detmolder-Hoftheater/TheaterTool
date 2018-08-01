@@ -554,17 +554,46 @@ let $strings := for $elem in $event_list
   
 };
 
+declare function local:jsonifySTitleInformation($titles) {
+
+let $strings := for $elem in $titles
+
+
+let $title := local:jsonifyLB($elem/node())
+
+(:if($elem/self::node() = '')
+                then('["br"]')
+                else(concat('["text","', translate(translate(replace(normalize-space($elem/self::node()), '"', '\\"' ),'[', '('),']', ')'), '"]'))
+:)	(:let $title_1 := normalize-space($elem)
+	let $title_2 := translate($title_1, '[', '(')
+	let $title := translate($title_2 ,']', ')'):)
+	
+	let $type := $elem/@type
+	
+                    return 
+concat('[[',$title, '],"', $type, '"]')
+    return 
+        string-join($strings,',')
+ 
+};
+
 declare function local:jsonifyContenSource($source_el) {
 
 let $strings := for $elem_1 in $source_el
 
-			(:let $s_title :=$elem_1/mei:titleStmt[1]/mei:title[1]:)
 			let $s_title_row :=$elem_1/mei:titleStmt[1]/mei:title[1]
-			(:let $fr := ('"', '\[',  '\]')
-		    let $to := ('\\"', '\\[',  '\\]'):)
-		    let $s_title_1 :=replace($s_title_row, '"' , '\\"')
+			let $s_title_1 :=replace($s_title_row, '"' , '\\"')
 			let $s_title_2 := translate($s_title_1, '[', '(')
 			let $s_title := translate($s_title_2 ,']', ')')
+			
+			let $titles :=$elem_1/mei:titleStmt[1]/mei:title
+			let $s_titlecontent := local:jsonifySTitleInformation($titles)
+			
+			(:let $fr := ('"', '\[',  '\]')
+		    let $to := ('\\"', '\\[',  '\\]'):)
+		    (:let $s_title_1 :=replace($s_title_row, '"' , '\\"')
+			let $s_title_2 := translate($s_title_1, '[', '(')
+			let $s_title := translate($s_title_2 ,']', ')'):)
 			
 			let $sourcetype :=$elem_1/@type
 
@@ -622,7 +651,8 @@ let $strings := for $elem_1 in $source_el
 				return 
 
 concat(
-'"s_title":','"',normalize-space($s_title), '",',
+'"s_title":','"',$s_title, '",',
+'"s_titlecontent":[',$s_titlecontent, '],',
 '"sourcetype":','"', $sourcetype, '",',
 '"inventarnummer":','"',$inventarnummer, '",',
 '"signatur":','"',normalize-space($signatur), '",',
