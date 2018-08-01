@@ -502,7 +502,7 @@ let $strings := for $elem in $names
  return 
     if($name != '')then(   
     
-concat('["',normalize-space($name), '",', '"',$dbId, '",', '"',$workRefId,'",', '"',$sourceName,'",', '"',$physLoc, '"]')
+concat('["',replace(normalize-space($name), '"' , '\\"'), '",', '"',$dbId, '",', '"',$workRefId,'",', '"',$sourceName,'",', '"',$physLoc, '"]')
     )else()
     return 
         string-join($strings,',')

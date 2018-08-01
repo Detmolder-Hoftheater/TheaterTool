@@ -294,7 +294,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         margin: '10 0 10 0'
                     });
                     
-                    if (json.gnd[0].length > 0 || json.wega.length > 0) {
+                    if (typeof json.gnd[0] !== 'undefined' || json.wega.length > 0) {
                         
                         var panel_1011 = Ext.create('Ext.panel.Panel', {
                             layout: {
@@ -315,7 +315,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                             items:[]
                         });
                         me.add(panel_1011);
-                        if (json.gnd[0].length > 0) {
+                        if (typeof json.gnd[0] !== 'undefined') {
                             var gndList = json.gnd[0];
                             for (i = 0; i < gndList.length; i++) {
                                 var gndId = gndList[i];
