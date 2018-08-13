@@ -8,6 +8,7 @@ declare namespace tei = "http://www.tei-c.org/ns/1.0";
 declare namespace xmldb = "http://exist-db.org/xquery/xmldb";
 declare namespace system = "http://exist-db.org/xquery/system";
 declare namespace transform = "http://exist-db.org/xquery/transform";
+declare namespace edirom = "http://www.edirom.de/ns/1.3";
 (: 
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";:)
 declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";
@@ -23,8 +24,11 @@ declare function local:getFacsimNames($file) {
     
     let $strings := for $elem in $file
     
-    let $navItem := $elem//mei:sourceDesc//mei:title
-    let $xmlid := $elem//mei:mei/@xml:id
+    let $navItem := $elem//edirom:name[1] (://mei:sourceDesc//mei:title:)
+    let $sourcePath := $elem//@targets
+    let $sourceDov := doc($sourcePath)
+    let $xmlid := $sourceDov/mei:mei/@xml:id
+    
     return
         if ($navItem != '') then
             (
@@ -96,16 +100,22 @@ declare function local:jsonifySlurs($fileNames) {
     let $extName := concat($fileName1, ': ', $comp)
     
     let $workFolder := if (contains($fileID, 'H020149')) then
-        ('aschenbroedel/')
+        ('aschenbroedel/edition-HT_Isouard.xml')
     else
         (
         if (contains($fileID, 'H020263')) then
-            ('bettelstudent/')
+            ('bettelstudent/edition-HT_Bettelstudent.xml')
         else
-            (if(contains($fileID, 'H020048'))then('desTeufelsAnteil/')else('test/')))
-    let $path := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder, '/')
-    let $file := collection($path)
-    let $facsimNames := concat('"children":[', local:getFacsimNames($file), ']')
+            (if (contains($fileID, 'H020048')) then
+                ('desTeufelsAnteil/edition-Auber_DesTeufelsAnteil.xml')
+            else
+                ('test/')))
+    let $edpath := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder)
+    (:let $file := collection($path):)
+    let $file_1 := doc($edpath)
+    let $file_2 := $file_1/edirom:edition
+    let $file_3 := $file_2//edirom:works[1]/edirom:work/edirom:navigatorDefinition//edirom:navigatorCategory[2]/edirom:navigatorItem
+    let $facsimNames := concat('"children":[', local:getFacsimNames($file_3), ']')
     
     let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048'))
     then
