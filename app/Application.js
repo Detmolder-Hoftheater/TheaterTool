@@ -194,7 +194,7 @@ Ext.define('TheaterTool.Application', {
         });
         
         // temporary global
-        storeField = new Array("Aschenbrödel", "Der Bettelstudent", 'Des Teufels Anteil');
+        storeField = new Array("Aschenbrödel", "Der Bettelstudent", 'Des Teufels Anteil', 'Die Unbekannte');
     },
     
     getDBPaths: function () {

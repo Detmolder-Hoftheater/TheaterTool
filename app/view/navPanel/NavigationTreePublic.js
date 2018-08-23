@@ -124,12 +124,17 @@ var store = Ext.create('Ext.data.TreeStore', {
                 },
                 //icon: 'resources/images/BookTiefWerk.png'},
                 {
-                    leaf: true, text: 'Des Teufels Anteil',
-                    icon: 'resources/images/BookBlau-16.png'
-                }, {
                     leaf: true, text: 'Der Bettelstudent',
                     icon: 'resources/images/BookBlau-16.png'
-                }]
+                },
+                {
+                    leaf: true, text: 'Des Teufels Anteil',
+                    icon: 'resources/images/BookBlau-16.png'
+                },
+                {
+                    leaf: true, text: 'Die Unbekannte',
+                    icon: 'resources/images/BookBlau-16.png'
+                } ]
             }, {
                 text: 'Programm',
                 
@@ -785,7 +790,28 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'A-B-C') {
+                } else if (item.data.text === 'Die Unbekannte') {
+                    var menuItem = historyButton.menu.add({
+                        text: '<font style="color:gray;">Die Unbekannte</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H020076'
+                    });
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Die Unbekannte</font>', menuItem.id);
+                    if (! isFoundItem) {
+                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: '<font style="color:gray;">Die Unbekannte</font>',
+                            icon: 'resources/images/BookBlau-16.png'
+                        });
+                        /* var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
+                        selection: 'H020263'
+                        });*/
+                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
+                            selection: 'H020076', workName: item.data.text, workIcon: 'resources/images/BookBlau-16.png'
+                        });
+                        //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
+                        repertoireTab.add(repertoireDetails);
+                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                    }
+                }else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'A-B-C') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Werke: A-B-C</font>', icon: 'resources/images/BooksVert-17.png', selection: 1
                     });

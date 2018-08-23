@@ -109,7 +109,10 @@ declare function local:jsonifySlurs($fileNames) {
             (if (contains($fileID, 'H020048')) then
                 ('desTeufelsAnteil/edition-Auber_DesTeufelsAnteil.xml')
             else
-                ('test/')))
+                (if (contains($fileID, 'H020076')) then
+                    ('unbekannte/edition.xml')
+                else
+                    ('test/'))))
     let $edpath := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder)
     (:let $file := collection($path):)
     let $file_1 := doc($edpath)
@@ -117,7 +120,7 @@ declare function local:jsonifySlurs($fileNames) {
     let $file_3 := $file_2//edirom:works[1]/edirom:work/edirom:navigatorDefinition//edirom:navigatorCategory[2]/edirom:navigatorItem
     let $facsimNames := concat('"children":[', local:getFacsimNames($file_3), ']')
     
-    let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048'))
+    let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020076'))
     then
         (concat('{',
         '"leaf":"false",',
@@ -148,19 +151,19 @@ declare function local:jsonifySlurs($fileNames) {
     else
         ()
     
-    let $iconWork := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil'))
+    let $iconWork := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
     then
         ('resources/images/BookBlau-17.png')
     else
         ('resources/images/Books1-17.png')
     
-    let $iconSource := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil'))
+    let $iconSource := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
     then
         ('resources/images/SourceBlue.png')
     else
         ('resources/images/SourceRed.png')
     
-    let $iconIncipits := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil'))
+    let $iconIncipits := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
     then
         ('resources/images/IncBlue.png')
     else

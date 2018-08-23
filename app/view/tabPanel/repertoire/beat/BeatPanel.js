@@ -47,14 +47,35 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
             selFolder = 'aschenbroedel';
         } else if (me.selectedWork === 'H020263') {
             selFolder = 'bettelstudent';
-        }
-        else if (me.selectedWork === 'H020048') {
+        } else if (me.selectedWork === 'H020048') {
             selFolder = 'desTeufelsAnteil';
+        } else if (me.selectedWork === 'H020076') {
+            selFolder = 'unbekannte';
         }
         var folderForEO = selFolder + '/';
         
-        
-        me.tbar = {
+        if(me.selectedWork === 'H020076'){
+            me.tbar = {
+            style: {
+                background: '#dcdcdc'
+            },
+            border: false,
+            fixed: true,
+            height: 25,
+            items:[ {
+                xtype: 'component',
+                margin: '0 0 0 13',
+                autoEl: {
+                    tag: 'a',
+                    href: 'http://nashira.upb.de:7107/exist/apps/EdiromOnline/',
+                    html: 'Zur Erschließung mit Edirom Online',
+                    target: "_blank"
+                }
+            }]
+        };
+        }
+        else{
+            me.tbar = {
             style: {
                 background: '#dcdcdc'
             },
@@ -70,70 +91,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
                     html: 'Zur Erschließung mit Edirom Online',
                     target: "_blank"
                 }
-            }
-            
-            
-            /* {xtype: 'button',
-            disabled: true,
-            text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
-            style: {
-            borderRight: '1px solid gray',
-            borderLeft: '1px solid gray',
-            borderTop: '1px solid gray',
-            borderBottom: '1px solid gray'
-            },
-            margin: '0 3 0 5',
-            listeners: {
-            click: function (item, e, eOpts) {
-            
-            Ext.Ajax.request({
-            
-            url:'resources/xql/getXML.xql',
-            method: 'GET',
-            params: {
-            uri: '/db/apps/theater-data/works/'+me.workID+'.xml',
-            type: 'work'
-            },
-            success: function (response) {
-            var testText = response.responseText;
-            
-            var fragment = document.createDocumentFragment('div');
-            var tempDiv = document.createElement('div');
-            fragment.appendChild(tempDiv);
-            tempDiv.innerHTML = testText;
-            
-            var tmp = hljs.highlightAuto($(tempDiv).html()).value;
-            var htmlVersion = '<pre>' + tmp + '</<pre>';
-            var win = new Ext.window.Window({
-            title: '<font style="color:gray;">XML for ' + me.workName+'</font>',
-            html: htmlVersion,
-            icon: me.workIcon,
-            bodyStyle:{"background-color":"white"},
-            height: 600,
-            width: 800,
-            autoScroll: true,
-            bodyPadding: 10
-            });
-            win.show();
-            
-            }
-            });
-            
-            
-            }
-            }
-            },
-             */ /*{xtype: 'button',
-            text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
-            disabled: true,
-            style: {
-            borderRight: '1px solid gray',
-            borderLeft: '1px solid gray',
-            borderTop: '1px solid gray',
-            borderBottom: '1px solid gray'
-            }
-            }*/]
+            }]
         };
+            
+            
+        }
+        
         
         
         
