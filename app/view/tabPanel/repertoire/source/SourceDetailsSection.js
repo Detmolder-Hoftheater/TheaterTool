@@ -186,38 +186,49 @@ panel_10 = Ext.create('Ext.panel.Panel', {
                     for(i = 0; i < json.autoren.length; i++){
                         var autor = json.autoren[i];
                         var persRole = '';
-                        if (autor[1] === 'arr') {
-                            persRole = 'Arrangeur';
-                        } else if (autor[1] === 'aut') {
-                            persRole = 'Autor';
-                        } else if (autor[1] === 'cmp') {
-                            persRole = 'Komponist';
-                        } else if (autor[1] === 'cre') {
-                            persRole = 'Urheber ';
-                        } else if (autor[1] === 'lbt') {
+                        if (autor[1] === 'marc:cre') {
+                            persRole = 'Urheber';
+                        } else if (autor[1] === 'marc:lbt') {
                             persRole = 'Librettist';
-                        } else if (autor[1] === 'edt') {
-                            persRole = 'Verfasser';
-                        } else if (autor[1] === 'lyr') {
-                            persRole = 'Textdichter';
-                        } else if (autor[1] === 'trl') {
+                        } else if (autor[1] === 'marc:trl') {
                             persRole = 'Übersetzer';
-                        } else if (autor[1] === 'scr') {
-                            persRole = 'Schreiber';
-                        } else if (autor[1] === 'fmo') {
-                            persRole = 'former owner';
-                        } else if (autor[1] === 'asn') {
-                            persRole = 'associated name';
-                        } else if (autor[1] === 'prf') {
+                        } else if (autor[1] === 'marc:arr') {
+                            persRole = 'Bearbeiter ';
+                        } else if (autor[1] === 'marc:asn') {
+                            persRole = 'Zugehöriger Name';
+                        } else if (autor[1] === 'marc:act') {
                             persRole = 'Schauspieler';
-                        } else if (autor[1] === 'clb') {
-                            persRole = 'Kollaborator';
+                        } else if (autor[1] === 'marc:aut') {
+                            persRole = 'Autor';
+                        } else if (autor[1] === 'marc:ats') {
+                            persRole = 'Autor der Textquelle';
+                        } else if (autor[1] === 'marc:clb') {
+                            persRole = 'Mitarbeiter';
+                        } else if (autor[1] === 'marc:cmp') {
+                            persRole = 'Komponist';
+                        } else if (autor[1] === 'marc:dte') {
+                            persRole = 'Widmungsträger';
+                        } else if (autor[1] === 'marc:egr') {
+                            persRole = 'Stecher';
+                        } else if (autor[1] === 'marc:fmo') {
+                            persRole = 'Ehemaliger Besitzer';
+                        }else if (autor[1] === 'marc:edt') {
+                            persRole = 'Editor';
+                        }else if (autor[1] === 'marc:lyr') {
+                            persRole = 'Textdichter';
+                        }else if (autor[1] === 'marc:mcp') {
+                            persRole = 'Kopist';
+                        }else if (autor[1] === 'marc:prf') {
+                            persRole = 'Darsteller';
+                        }else if (autor[1] === 'marc:scr') {
+                            persRole = 'Schreiber';
                         } else {
                             persRole = autor[1];
                         }
                         if(persRole === '' ){
                             persRole = 'Funktion nicht definiert';
                         }
+                        
                         var autorName = autor[0];                        
                        var dbkey = autor[2];
                         var name = null;
@@ -396,6 +407,88 @@ me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-al
 		me.prov.setValue(provText);
 		right_panel.add(me.prov);
         }
+        
+         if (json.schreiber.length>0) {
+               
+                right_panel.add({                
+                //xtype: 'label',
+                html: '<font size = "1"><b style="color:gray; vertical-align:top;">Schreiber:</b></font>',
+                //margin: '30 0 10 0',
+                border: false,
+                bodyPadding: 10,
+                colspan: 2
+            });
+            for (i = 0; i < json.schreiber.length; i++) {
+                
+                var autor = json.schreiber[i];
+                var autorName = autor[0];
+                var dbkey = autor[3];
+                var medium = autor[1];
+                var ini = autor[2];
+                if(ini = 'true'){
+                    ini = 'vollständig';
+                }
+                else{
+                    ini = 'teilweise';
+                }
+                var name = null;
+                if (dbkey !== '') {
+                    getPersonContent = function (personId, personName) {
+                        var toolBarGlobal = Ext.getCmp('toolbar');
+                        var historyButton = Ext.getCmp('historyButton');
+                        // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
+                        //if(!isHistoryItemExist){
+                        var menuItem = historyButton.menu.add({
+                            text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
+                        });
+                        
+                        //}
+                        
+                        var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+                        var existItems = navTreeGlobal.items;
+                        var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId, menuItem.id);
+                        if (! isFoundItem) {
+                            
+                            var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                                title: '<font style="color:gray;">' + personName + '</font>',
+                                icon: 'resources/images/Mask-19.png'
+                            });
+                            var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
+                                dbkey: personId, icon: 'resources/images/Mask-19.png'
+                            });
+                            personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
+                            repertoireTab.add(personDetails);
+                            
+                            repertoireTab.setActiveMenuItemId(menuItem.id);
+                            repertoireTab.setMenuAdded(true);
+                            
+                            navTreeGlobal.add(repertoireTab);
+                            navTreeGlobal.setActiveTab(repertoireTab);
+                            navTreeGlobal.fireEvent('render', navTreeGlobal);
+                        }
+                    };
+                    name = {
+                        xtype: 'displayfield',
+                        margin: '0 0 0 10',
+                        // fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
+                        value: '<img src="resources/images/Mask-19.png" style="vertical-align:middle;"><span>'+'  '+'<a href="javascript:getPersonContent(\'' + dbkey + '\'' + ', \'' + autorName + '\');">' + autorName + '</a>; Schreibmittel: Tinte, Anteil: '+ini+ '</span>'
+                    };
+                } else {
+                    name = {
+                        xtype: 'displayfield',
+                        margin: '0 0 0 10',
+                        // fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + persRole + '</b></font>',
+                        value: '<span>' + autorName +'; Schreibmittel: Tinte, Anteil: '+ini+ '</span>'
+                    };
+                }
+              
+                right_panel.add({border: false}, name);
+            }
+        
+            
+            
+            
+            }
        
        
         if(typeof json.creation[0] !== 'undefined'){
@@ -433,7 +526,7 @@ me.sign = me.createTextField('<font size = "1"><b style="color:gray; vertical-al
     },
 						{
                   html: beschrValue,
-                  margin: '0 0 0 30',
+                  margin: '0 0 0 35',
                   border: false
                 }
 						]

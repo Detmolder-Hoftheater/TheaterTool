@@ -259,7 +259,7 @@ declare function local:jsonifyInscription($persNames) {
     
     let $strings := for $elem_1 in $persNames
     
-    let $persName := $elem_1
+    let $persName := replace($elem_1, '"', '\\"')
     
     let $dbkey := $elem_1/@dbkey
     
@@ -279,17 +279,42 @@ declare function local:jsonifyHandList($handList) {
     
     let $strings := for $elem_1 in $handList
     
-    let $persName := $elem_1
+    let $persId := $elem_1/@resp
+    let $persIdCon := substring-after($persId, '#')
+    let $uri := concat('/db/apps/theater-data/persons/', $persIdCon, '.xml')
+    let $file := doc($uri)
+    let $content := $file//tei:person
+    let $persNames := $content/tei:persName
+    let $persName := local:jsonifyPersNamesContent($persNames)   
+    let $medium := $elem_1/@medium
+    let $initial := $elem_1/@initial
     
     return
-        if ($persName != '') then
-            (concat('"', normalize-space($persName), '"'))
+    if($persName != '')then(concat('["', $persName, '","',$medium, '","', $initial,'","', $persIdCon, '"]'))else()
+    
+        (:if ($persId != '') then
+            (concat('"', normalize-space($persId), '"'))
         else
             ()
-    
+    :)
     
     return
         string-join($strings, ',')
+
+};
+
+declare function local:jsonifyPersNamesContent($persNames) {
+    
+    let $strings := for $elem in $persNames
+    
+    let $typeName := $elem/@type
+    let $title :=  if($typeName = 'reg')then($elem/tei:surname)else()
+    
+    return
+        if($title != '')then($title)else()
+        
+    return
+        string-join($strings, ' ,')
 
 };
 
@@ -535,8 +560,8 @@ declare function local:jsonifySourceHier($s_list) {
     let $p_list := $elem_1/mei:history/mei:p
     let $hover := local:jsonifyHOverview($p_list)
     
-    let $creat_date := $elem_1/mei:history/creation/mei:date
-    let $creat_place := $elem_1/mei:history/creation/mei:geogName
+    let $creat_date := $elem_1/mei:history/mei:creation/mei:date/@isodate
+    let $creat_place := $elem_1/mei:history/mei:creation/mei:geogName
     let $creation := if ($creat_date != '')
     then
         (if ($creat_place != '')
@@ -711,15 +736,17 @@ declare function local:jsonifyContenSource($source_el) {
     let $persNames := $elem_1/mei:physDesc[1]/mei:inscription/mei:persName
     let $inscription := local:jsonifyInscription($persNames)
     
-    (:let $handList := $elem_1/mei:physDesc[1]/mei:handList/mei:hand
-			let $hand := local:jsonifyHandList($handList):)
+    let $handList := $elem_1/mei:physDesc[1]/mei:handList/mei:hand
+			let $hand := local:jsonifyHandList($handList)
     
     let $langList := $elem_1/mei:physDesc[1]/mei:langUsage/mei:language
     let $language := local:jsonifyLanguage($langList)
     
     let $pages := concat($elem_1/mei:physDesc[1]/mei:extent[1], ' ', $elem_1/mei:physDesc[1]/mei:extent[1]/@unit)
     
-    let $dimension := $elem_1/mei:physDesc[1]/mei:dimensions[1]
+    let $dimUnit := $elem_1/mei:physDesc[1]/mei:dimensions[1]/@unit
+    let $dim := $elem_1/mei:physDesc[1]/mei:dimensions[1]
+    let $dimension := concat($dim, ' ', $dimUnit)
     
     let $items := $elem_1/mei:contents[1]/mei:contentItem
     
@@ -735,8 +762,8 @@ declare function local:jsonifyContenSource($source_el) {
     let $p_list := $elem_1/mei:history/mei:p
     let $hover := local:jsonifyHOverview($p_list)
     
-    let $creat_date := $elem_1/mei:history/creation/mei:date
-    let $creat_place := $elem_1/mei:history/creation/mei:geogName
+    let $creat_date := $elem_1/mei:history/mei:creation/mei:date/@isodate
+    let $creat_place := $elem_1/mei:history/mei:creation/mei:geogName
     let $creation := if ($creat_date != '')
     then
         (if ($creat_place != '')
@@ -779,7 +806,7 @@ declare function local:jsonifyContenSource($source_el) {
             ($inscription)
         else
             (), '],',
-        (:'"schreiber":[',if($hand != '')then($hand)else(), '],',:)
+        '"schreiber":[',if($hand != '')then($hand)else(), '],',
         '"sprache":[', if ($language != '') then
             ($language)
         else

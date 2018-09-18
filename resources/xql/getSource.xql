@@ -258,7 +258,7 @@ declare function local:jsonifyInscription($persNames) {
     
     let $strings := for $elem_1 in $persNames
     
-    let $persName := $elem_1
+    let $persName := replace($elem_1, '"', '\\"')
     
     let $dbkey := $elem_1/@dbkey
     
@@ -496,7 +496,7 @@ declare function local:jsonifyCreation($content) {
     
     let $strings := for $elem in $content
     
-    let $date := $elem//mei:history[not(ancestor::mei:componentGrp)]/mei:creation/mei:date
+    let $date := $elem//mei:history[not(ancestor::mei:componentGrp)]/mei:creation/mei:date//@isodate
     
     let $place := $elem//mei:history[not(ancestor::mei:componentGrp)]/mei:creation/mei:geogName
     
@@ -563,6 +563,61 @@ declare function local:jsonifyEvents($content) {
 
 };
 
+declare function local:jsonifyHandList($content) {
+    let $strings := for $elem_1 in $content
+    let $handList := $elem_1/mei:physDesc[1]/mei:handList[not(ancestor::mei:componentGrp)]/mei:hand
+			let $hand := local:jsonifyHands($handList)
+    
+    return
+    if($hand != '')then($hand)else()
+   
+    return
+        string-join($strings, ',')
+
+};
+
+declare function local:jsonifyHands($handList) {
+    
+    let $strings := for $elem_1 in $handList
+    
+    let $persId := $elem_1/@resp
+    let $persIdCon := substring-after($persId, '#')
+    let $uri := concat('/db/apps/theater-data/persons/', $persIdCon, '.xml')
+    let $file := doc($uri)
+    let $content := $file//tei:person
+    let $persNames := $content/tei:persName
+    let $persName := local:jsonifyPersNamesContent($persNames) 
+    let $medium := $elem_1/@medium
+    let $initial := $elem_1/@initial
+    
+    return
+    if($persName != '')then(concat('["', $persName, '","',$medium, '","', $initial,'","', $persIdCon, '"]'))else()
+    
+        (:if ($persId != '') then
+            (concat('"', normalize-space($persId), '"'))
+        else
+            ()
+    :)
+    
+    return
+        string-join($strings, ',')
+
+};
+
+declare function local:jsonifyPersNamesContent($persNames) {
+    
+    let $strings := for $elem in $persNames
+    
+    let $typeName := $elem/@type
+    let $title :=  if($typeName = 'reg')then($elem/tei:surname)else()
+    
+    return
+         if($title != '')then($title)else()
+    return
+        string-join($strings, ' ,')
+
+};
+
 
 
 (
@@ -586,6 +641,7 @@ local:jsonifyEvents($content),
         local:jsonifySprachen($content),:)
 '],"bibliotheken":[',
 local:jsonifyBib($content),
+ '], "schreiber":[',local:jsonifyHandList($content),
 (:'],"bemerkungen":[',
         local:jsonifyBemerkungen($content),:)
 '],"sources":[',

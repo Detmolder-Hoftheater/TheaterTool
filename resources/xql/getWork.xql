@@ -46,11 +46,11 @@ declare function local:getFacsimNames($file) {
 
 };
 
-declare function local:jsonifySlurs($fileNames) {
+declare function local:jsonifySlurs() {
     
-    let $strings := for $elem in $fileNames
+    (:let $strings := for $elem in $fileNames:)
     
-    let $path1 := concat($path, $elem, '.xml')
+    let $path1 := concat($path, $selection1, '.xml')
     let $file1 := doc($path1)
     let $fileName1 := $file1//mei:title[not(@type)][1]
     
@@ -77,11 +77,11 @@ declare function local:jsonifySlurs($fileNames) {
     let $expression := $file1//mei:relation[@rel = "hasRealization"]/@target
     let $expressionFileName := tokenize($expression, "#")[last()]
     let $path_1 := concat('xmldb:exist:///apps/theater-data/expressions/', $expressionFileName, '.xml')
-    let $file_1 := doc($path_1)
+    let $file_exp := doc($path_1)
     
-    let $source := if ($file_1 != '')
+    let $source := if ($file_exp != '')
     then
-        ($file_1//mei:relation[@rel = "hasEmbodiment"]/@target)
+        ($file_exp//mei:relation[@rel = "hasEmbodiment"]/@target)
     else
         ($file1//mei:relation[@rel = "hasEmbodiment"]/@target)
         
@@ -91,7 +91,12 @@ declare function local:jsonifySlurs($fileNames) {
 			then($file_1//mei:relation[@rel ="hasEmbodiment"]/@target)
 			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target):)
     
-    let $sourceFileName := tokenize($source, "#")[last()]
+    (:let $sourceFileName := tokenize($source, "#")[last()]
+    let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
+    let $fileSource := doc($path2):)
+    
+        
+        let $sourceFileName := tokenize($source, "#")[last()]
     let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
     let $fileSource := doc($path2)
     let $rismLabel := $fileSource//mei:identifier[@label = "RISM-ID"][1]
@@ -150,6 +155,26 @@ declare function local:jsonifySlurs($fileNames) {
         )
     else
         ()
+        
+         let $iconIncipits := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
+    then
+        ('resources/images/IncBlue.png')
+    else
+        ('resources/images/IncRed.png')
+         let $isIncipit := if ($file_exp//mei:score and $file_exp//mei:score/child::mei:scoreDef)
+    then
+        (concat('{',
+        '"leaf":"true",',
+        '"name":"Incipits",',
+        '"extName":"Incipits",',
+        'incipits:"', "true", '",',
+        'details:"', "false", '",',
+        'icon:"', $iconIncipits, '",',
+        'xml:"', "false", '",',
+        '},')
+        )
+    else
+        ()  
     
     let $iconWork := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
     then
@@ -163,11 +188,7 @@ declare function local:jsonifySlurs($fileNames) {
     else
         ('resources/images/SourceRed.png')
     
-    let $iconIncipits := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
-    then
-        ('resources/images/IncBlue.png')
-    else
-        ('resources/images/IncRed.png')
+   
         
         (:let $iconRISM := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
 			then('resources/images/RismBlue.png')
@@ -196,7 +217,8 @@ declare function local:jsonifySlurs($fileNames) {
                             		'xml:"',"true",'",',
 								'},',:)
         $isOverwiew,
-        '{',
+        $isIncipit,
+        (:'{',
         '"leaf":"true",',
         '"name":"Incipits",',
         '"extName":"Incipits",',
@@ -204,7 +226,7 @@ declare function local:jsonifySlurs($fileNames) {
         'details:"', "false", '",',
         'icon:"', $iconIncipits, '",',
         'xml:"', "false", '",',
-        '},',
+        '},',:)
         
         $isExtend,
         ']',
@@ -233,139 +255,20 @@ declare function local:jsonifySlurs($fileNames) {
             $isLeaf,
             $isSource,
             
-            (:'"children":[{',
-								'name:"',$sourceName,'",',
-								'extName:"',$sourceName,'",',
-								'incipits:"',"true",'",',
-								'sourceID:"',$sourceFileName,'",',
-								'icon:"',$iconSource,'",', 
-								'details:"',"true",'",',                          
-                            	'xml:"',"true",'",',
-								'"children":[',
-									'{',
-									'"leaf":"true",',
-									'"name":"RISM",',
-									'"extName":"RISM",',
-									'incipits:"',"false",'",',
-									'details:"',"false",'",', 
-									'icon:"',$iconRISM,'",',                         
-                            		'xml:"',"true",'",',
-								'},',
-								'{',
-									'"leaf":"true",',
-									'"name":"Incipits",',
-									'"extName":"Incipits",',
-									'incipits:"',"true",'",',
-									'details:"',"false",'",', 
-									'icon:"',$iconIncipits,'",',                         
-                            		'xml:"',"false",'",',
-								'},',
-								$isExtend,
-								']',
-							'}]',:)
+           
             '}'))
         else
             ()
-    return
-        string-join($strings, ',')
-        
-        
-        
-        (: return 
-						if($fileName1 != '')then(
-                        concat('{name:"',$fileName1,'",',
-							'details:"',"true",'",',                          
-                            'xml:"',"true",'",',
-							'componist:"',$comp,'",',
-							'expanded:"',"true",'",',
-							'extName:"',$extName,'",',
-							'werkID:"',$fileID,'",',   
-							'incipits:"',"false",'",',
-							'"icon":"resources/images/BookBlau-17.png",',
- 							
-							'"children":[{',
-								'name:"',$sourceName,'",',
-								'extName:"',$sourceName,'",',
-								'incipits:"',"true",'",',
-								'expanded:"',"true",'",',
-								'sourceID:"',$sourceFileName,'",',
-								'details:"',"true",'",',  
-								'expanded:"',"true",'",',                         
-                            	'xml:"',"true",'",',
-								'"icon":"resources/images/SourceBlue.png",', 
-								'"children":[',
-									'{',
-									'"leaf":"true",',
-									'"name":"RISM",',
-									'"extName":"RISM",',
-									'incipits:"',"false",'",',
-									'details:"',"false",'",',                          
-                            		'xml:"',"true",'",',
-									'"icon":"resources/images/RismBlue.png",', 
-								'},',
-								'{',
-									'"leaf":"true",',
-									'"name":"Incipits",',
-									'"extName":"Incipits",',
-									'incipits:"',"true",'",',
-									'details:"',"false",'",',                          
-                            		'xml:"',"false",'",',
-									'"icon":"resources/images/IncBlue.png",', 
-								'},',
-								'{',
-									'"leaf":"true",',
-									'"name":"Faksimiles",',
-									'"extName":"Faksimiles",',
-									'incipits:"',"false",'",',
-									'details:"',"false",'",',                          
-                            		'xml:"',"true",'",',
-									'"icon":"resources/images/Images-17.png",', 
-								'}',
-								']',
-							'}]',
-                            '}'))
-else ()
-    return 
-        string-join($strings,',')
-:)
-
-
+    (:return
+        string-join($strings, ','):)
+    
 };
-
-(:declare function local:jsonifySlurs($path) {
-
-let $local-doctypes := collection($path)
-
-let $strings1 := for $elem1 in $local-doctypes
-					(\:let $fileTest := doc($elem1):\)
-				let $surname := $elem1
-                   (\: let $strings := for $elem in $elem1
-                    	let $surname := $elem//mei:persName:\)
-					
-                    	return 
-                        	concat('{name:"',$surname,'",',
-							'details:"',"true",'",',                          
-                            'xml:"',"true",'"',
-                            '}')
-   (\: return 
-        string-join($strings,','):\)
-    return 
-        string-join($strings1,',')
-
-};:)
-
-
 
 
 (
 
-(: '[',
-        local:jsonifySlurs($persName),
-
-    ']':)
-
 '{"children":[',
-local:jsonifySlurs($fileNames),
+local:jsonifySlurs(),
 ']}'
 
 

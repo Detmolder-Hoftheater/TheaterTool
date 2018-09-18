@@ -12,11 +12,7 @@ declare namespace transform = "http://exist-db.org/xquery/transform";
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";:)
 declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";
 
-declare variable $selection1 := request:get-parameter('selection1', '');
-declare variable $selection2 := request:get-parameter('selection2', '');
-declare variable $selection3 := request:get-parameter('selection3', '');
-declare variable $selection4 := request:get-parameter('selection4', '');
-declare variable $selection5 := request:get-parameter('selection5', '');
+declare variable $selection := request:get-parameter('selection', '');
 
 declare variable $path := 'xmldb:exist:///apps/theater-data/works/';
 declare variable $file := collection($path);
@@ -110,74 +106,54 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
     let $names := $file1//mei:titleStmt//mei:persName
     
     let $comp := local:jsonifyRoles($names)
-    
-    (:let $comp := $file1//mei:persName[@role ="cmp"] :)
-    (:or @role ="cre"  or @role ="aut"]:)
-    
-    let $fileNameCut := substring($fileName, 1, 4)
-    let $fileNameFiltered_0 := if (contains($fileNameCut, 'Der ')
+   
+        
+    let $fileNameCut := concat(substring-before($fileName, ' '), ' ')
+    let $fileNameFiltered := if (contains($fileNameCut, 'Der ')
     or contains($fileNameCut, 'Die ')
     or contains($fileNameCut, 'Les ')
     or contains($fileNameCut, 'The ')
-    or contains($fileNameCut, 'Das '))
+    or contains($fileNameCut, 'Des ')
+    or contains($fileNameCut, 'Das ')
+    or contains($fileNameCut, 'die ')
+    or contains($fileNameCut, 'Le ')
+    or contains($fileNameCut, 'La ')
+    or contains($fileNameCut, "L' ")
+    or contains($fileNameCut, 'les ')
+    or contains($fileNameCut, 'the ')
+    or contains($fileNameCut, 'des ')
+    or contains($fileNameCut, 'das '))
     then
-        (substring($fileName, 5))
+        (substring-after($fileName, ' '))
     else
         ($fileName)
-    
-    let $fileNameCut_1 := if ($fileNameFiltered_0 = $fileName)
-    then
-        (substring($fileName, 1, 3))
-    else
-        ($fileName)
-    let $fileNameFiltered_1 := if (contains($fileNameCut_1, 'Le ')
-    or contains($fileNameCut_1, 'La ')
-    (:or contains($fileNameCut_1, 'L' '):)
-    )
-    then
-        (substring($fileName, 4))
-    else
-        ($fileName)
-    
-    let $fileNameFiltered := if ($fileNameFiltered_1 != $fileName) then
-        ($fileNameFiltered_1)
-    else
-        ($fileNameFiltered_0)
-    
+  
     let $subName_0 := substring($fileNameFiltered, 1, 1)
     let $subName := upper-case($subName_0)
     
-    let $fileName1 := if (contains($subName, $selection1)
-    or contains($subName, $selection2)
-    or contains($subName, $selection3)
-    or $selection4 != '' and contains($subName, $selection4)
-    or $selection5 != '' and contains($subName, $selection5))
+    let $fileName1 := if (contains($selection, $subName))
     then
         ($fileName)
     else
         ()
     
+    let $expPath := concat('xmldb:exist:///apps/theater-data/expressions/', $fileID, '_expr1', '.xml')
+    let $file_1 := doc($expPath)
+    let $source := $file_1//mei:relation[@rel = "hasEmbodiment"]/@target
     
-    let $expression := $file1//mei:relation[@rel = "hasRealization"]/@target
+    let $sourceFileName := substring-after($source, '#')
+    (:let $expression := $file1//mei:relation[@rel = "hasRealization"]/@target
     let $expressionFileName := tokenize($expression, "#")[last()]
     let $path_1 := concat('xmldb:exist:///apps/theater-data/expressions/', $expressionFileName, '.xml')
-    let $file_1 := doc($path_1)
+    let $file_1 := doc($path_1):)
     
-    let $source := if ($file_1 != '')
+    (:let $source := if ($file_1 != '')
     then
         ($file_1//mei:relation[@rel = "hasEmbodiment"]/@target)
     else
         ($file1//mei:relation[@rel = "hasEmbodiment"]/@target)
-        
-        
-        (:let $source := if(contains($fileID, 'H020149') or contains($fileID, 'H020048')  or contains($fileID, 'H020263')
-		or contains($fileID, 'H020010'))
-			then($file_1//mei:relation[@rel ="hasEmbodiment"]/@target)
-			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target):)
-        
-        
-        (:let $source := $file1//mei:relation[@rel ="hasEmbodiment"]/@target:)
-    let $sourceFileName := tokenize($source, "#")[last()]
+    let $sourceFileName := tokenize($source, "#")[last()]:)
+    
     let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
     let $fileSource := doc($path2)
     let $rismLabel := $fileSource//mei:identifier[@label = "RISM-ID"][1]
@@ -234,6 +210,27 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
         )
     else
         ()
+        
+         let $iconIncipits := if (contains($fileID, 'H020149') or contains($fileID, 'H020048') or contains($fileID, 'H020263')or contains($fileID, 'H020076'))
+    then
+        ('resources/images/IncBlue.png')
+    else
+        ('resources/images/IncRed.png')
+       
+      let $isIncipit := if ($file_1//mei:score != '' and $file_1//mei:score/child::mei:scoreDef !='')
+    then
+        (concat('{',
+        '"leaf":"true",',
+        '"name":"Incipits",',
+        '"extName":"Incipits",',
+        'incipits:"', "true", '",',      
+        'details:"', "false", '",',
+        'icon:"', $iconIncipits, '",',
+        'xml:"', "false", '",',
+        '},')
+        )
+    else
+        ()  
     
     let $iconWork := if (contains($fileID, 'H020149') or contains($fileID, 'H020048') or contains($fileID, 'H020263')or contains($fileID, 'H020076'))
     then
@@ -247,17 +244,6 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
     else
         ('resources/images/SourceRed.png')
     
-    let $iconIncipits := if (contains($fileID, 'H020149') or contains($fileID, 'H020048') or contains($fileID, 'H020263')or contains($fileID, 'H020076'))
-    then
-        ('resources/images/IncBlue.png')
-    else
-        ('resources/images/IncRed.png')
-        
-        (:let $iconRISM := if(contains($fileID, 'H020149') or contains($fileID, 'H020048')  or contains($fileID, 'H020263'))
-			then('resources/images/RismBlue.png')
-			else('resources/images/Literature-17.png'):)
-    
-    
     let $isSource := if ($sourceFileName != '')
     then
         (concat('"children":[{',
@@ -270,25 +256,8 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
         'details:"', "true", '",',
         'xml:"', "true", '",',
         '"children":[',
-        (:'{',
-									'"leaf":"true",',
-									'"name":"RISM",',
-									'"extName":"RISM",',
-									'incipits:"',"false",'",',
-									'details:"',"false",'",', 
-									'icon:"',$iconRISM,'",',                         
-                            		'xml:"',"true",'",',
-								'},',:)
         $isOverwiew,
-        '{',
-        '"leaf":"true",',
-        '"name":"Incipits",',
-        '"extName":"Incipits",',
-        'incipits:"', "true", '",',
-        'details:"', "false", '",',
-        'icon:"', $iconIncipits, '",',
-        'xml:"', "false", '",',
-        '},',
+        $isIncipit,
         $isExtend,
         ']',
         '}]')
@@ -317,36 +286,7 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
             $isLeaf,
             $isSource,
             
-            (:'"children":[{',
-								'name:"',$sourceName,'",',
-								'extName:"',$sourceName,'",',
-								'incipits:"',"true",'",',
-								'sourceID:"',$sourceFileName,'",',
-								'icon:"',$iconSource,'",', 
-								'details:"',"true",'",',                          
-                            	'xml:"',"true",'",',
-								'"children":[',
-									'{',
-									'"leaf":"true",',
-									'"name":"RISM",',
-									'"extName":"RISM",',
-									'incipits:"',"false",'",',
-									'details:"',"false",'",', 
-									'icon:"',$iconRISM,'",',                         
-                            		'xml:"',"true",'",',
-								'},',
-								'{',
-									'"leaf":"true",',
-									'"name":"Incipits",',
-									'"extName":"Incipits",',
-									'incipits:"',"true",'",',
-									'details:"',"false",'",', 
-									'icon:"',$iconIncipits,'",',                         
-                            		'xml:"',"false",'",',
-								'},',
-								$isExtend,
-								']',
-							'}]',:)
+            
             '}'))
         else
             ()

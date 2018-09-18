@@ -36,11 +36,13 @@ for $elem in $doc return
     </meiHead>
     <music>
         <body>
-            <mdiv>{
+             <mdiv>{
                                
                                 $elem//mei:score
 
-                             } </mdiv>
+                             }
+           
+            </mdiv>
         </body>
     </music>
 </mei>

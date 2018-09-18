@@ -811,7 +811,25 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                }else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'A-B-C') {
+                }else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)') {
+                    var menuItem = historyButton.menu.add({
+                        text: '<font style="color:gray;">Werke: '+item.data.text+'</font>', icon: 'resources/images/BooksVert-17.png', selection: 1
+                    });
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: '+item.data.text+'</font>', menuItem.id);
+                    if (! isFoundItem) {
+                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: '<font style="color:gray;">Werke: '+item.data.text+'</font>',
+                            icon: 'resources/images/BooksVert-17.png'
+                        });
+                        
+                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
+                            selection: item.data.text, navTreetitle: '<font style="color:#A87678;">Werke: '+item.data.text+'</font>'
+                        });
+                        repertoireTab.add(repertoireDetails);
+                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                    }
+                }/*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'A-B-C') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Werke: A-B-C</font>', icon: 'resources/images/BooksVert-17.png', selection: 1
                     });
@@ -829,7 +847,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'D-E-F') {
+                }*/ /*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'D-E-F') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Werke: D-E-F</font>', icon: 'resources/images/BooksVert-17.png', selection: 2
                     });
@@ -846,7 +864,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'G-H-I') {
+                }*/ /*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'G-H-I') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Werke: G-H-I</font>', icon: 'resources/images/BooksVert-17.png', selection: 3
                     });
@@ -863,7 +881,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'J-K-L') {
+                } *//*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'J-K-L') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Werke: J-K-L</font>', icon: 'resources/images/BooksVert-17.png', selection: 4
                     });
@@ -880,7 +898,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'M-N-O') {
+                }*//* else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'M-N-O') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Werke: M-N-O</font>', icon: 'resources/images/BooksVert-17.png', selection: 5
                     });
@@ -897,7 +915,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'P-Q-R') {
+                }*/ /*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'P-Q-R') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Werke: P-Q-R</font>', icon: 'resources/images/BooksVert-17.png', selection: 6
                     });
@@ -914,7 +932,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'S-T-U') {
+                }*/ /*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'S-T-U') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Werke: S-T-U</font>', icon: 'resources/images/BooksVert-17.png', selection: 7
                     });
@@ -931,7 +949,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'V-W-X-Y-Z') {
+                } *//*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'V-W-X-Y-Z') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Werke: V-W-X-Y-Z</font>', icon: 'resources/images/BooksVert-17.png', selection: 8
                     });
@@ -948,7 +966,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Spielpläne') {
+                } */else if (item.parentNode.data.text === 'Spielpläne') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Spielpläne: ' + item.data.text + '</font>', icon: 'resources/images/Calendar-17.png', selection: item.data.text
                     });
