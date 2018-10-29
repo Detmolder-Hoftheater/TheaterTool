@@ -259,9 +259,11 @@ declare function local:jsonifyAltNames($titles) {
     let $strings := for $elem in $titles
     
     let $title := $elem
+    let $subtype := $elem/@subtype
     
     return
-        concat('["', normalize-space($title), '"]')
+        if($subtype != "")then(concat('["', normalize-space($title), ' (',$subtype, ')', '"]'))else(concat('["', normalize-space($title), '"]'))
+     
     return
         string-join($strings, ',')
 

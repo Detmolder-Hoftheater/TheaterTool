@@ -496,6 +496,22 @@ var store = Ext.create('Ext.data.TreeStore', {
                     leaf: true, text: 'V-W-X-Y-Z',
                     icon: 'resources/images/theatreB.png'
                 }]
+            }, {
+                text: 'Tagesberichte',
+                icon: 'resources/images/news1-16.png',
+                children:[ {
+                    leaf: true, text: '1843',
+                    icon: 'resources/images/news1-16.png'
+                }, {
+                    leaf: true, text: '1844',
+                    icon: 'resources/images/news1-16.png'
+                }, {
+                    leaf: true, text: '1845',
+                    icon: 'resources/images/news1-16.png'
+                }, {
+                    leaf: true, text: '1846',
+                    icon: 'resources/images/news1-16.png'
+                }]
             }
             /*{
             leaf: true, text: '<font style="color:gray;">Theaterberufe</font>',
@@ -1188,7 +1204,24 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Gagenbücher') {
+                } else if (item.parentNode.data.text === 'Tagesberichte') {
+                    var menuItem = historyButton.menu.add({
+                        text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/news1-16.png', selection: item.data.text
+                    });
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">' + item.data.text + '</font>', menuItem.id);
+                    if (! isFoundItem) {
+                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: '<font style="color:gray;">' + item.data.text + '</font>',
+                            icon: 'resources/images/news1-16.png'
+                        });
+                        var issueDetails = new TheaterTool.view.tabPanel.dailyreport.DailyreportPanelInTab({
+                            regieName: item.data.text
+                        });
+                        repertoireTab.add(issueDetails);
+                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                    }
+                }else if (item.parentNode.data.text === 'Gagenbücher') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Gift-17.png', selection: item.data.text
                     });

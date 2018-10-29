@@ -13,7 +13,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.OccupationTable', {
 	},
 	flex:1,
 	
-	title: '<b style="color:gray;">Berufliche Werdegang</b>',
+	title: '<b style="color:gray;">Tätigkeiten</b>',
 	//icon: 'resources/images/Time-17.png',
 	margin: '0 0 10 0',
 	sortableColumns: false,
