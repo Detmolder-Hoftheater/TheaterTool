@@ -233,7 +233,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                 }, {
                     leaf: true, text: 'Theaterzettel',
                     icon: 'resources/images/Day-17.png'
-                }, {
+                }/*, {
                     text: 'Theaterzettel Dresden',
                     icon: 'resources/images/Day-17.png',
                     children:[ {
@@ -243,7 +243,8 @@ var store = Ext.create('Ext.data.TreeStore', {
                         leaf: true, text: '1846',
                         icon: 'resources/images/Day-17.png'
                     }]
-                }]
+                }*/
+                ]
             }, {
                 text: 'Personen (1.384)',
                 icon: 'resources/images/Mask-19.png',
@@ -273,6 +274,37 @@ var store = Ext.create('Ext.data.TreeStore', {
                     icon: 'resources/images/Mask-19.png'
                 }]
             }, {
+                text: 'Rollen',
+                icon: 'resources/images/theatreB.png',
+                children:[ {
+                    leaf: true, text: 'Zahlen',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'A-B-C',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'D-E-F',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'G-H-I',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'J-K-L',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'M-N-O',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'P-Q-R',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'S-T-U',
+                    icon: 'resources/images/theatreB.png'
+                }, {
+                    leaf: true, text: 'V-W-X-Y-Z',
+                    icon: 'resources/images/theatreB.png'
+                }]
+            },{
                 text: 'Presse',
                 icon: 'resources/images/Presse-16.png',
                 children:[ {
@@ -466,37 +498,6 @@ var store = Ext.create('Ext.data.TreeStore', {
                 leaf: true, text: 'Rollen- & Kostümbücher',
                 icon: 'resources/images/carnival.png'
             }, {
-                text: 'Rollen',
-                icon: 'resources/images/theatreB.png',
-                children:[ {
-                    leaf: true, text: 'Zahlen',
-                    icon: 'resources/images/theatreB.png'
-                }, {
-                    leaf: true, text: 'A-B-C',
-                    icon: 'resources/images/theatreB.png'
-                }, {
-                    leaf: true, text: 'D-E-F',
-                    icon: 'resources/images/theatreB.png'
-                }, {
-                    leaf: true, text: 'G-H-I',
-                    icon: 'resources/images/theatreB.png'
-                }, {
-                    leaf: true, text: 'J-K-L',
-                    icon: 'resources/images/theatreB.png'
-                }, {
-                    leaf: true, text: 'M-N-O',
-                    icon: 'resources/images/theatreB.png'
-                }, {
-                    leaf: true, text: 'P-Q-R',
-                    icon: 'resources/images/theatreB.png'
-                }, {
-                    leaf: true, text: 'S-T-U',
-                    icon: 'resources/images/theatreB.png'
-                }, {
-                    leaf: true, text: 'V-W-X-Y-Z',
-                    icon: 'resources/images/theatreB.png'
-                }]
-            }, {
                 text: 'Tagesberichte',
                 icon: 'resources/images/news1-16.png',
                 children:[ {
@@ -671,7 +672,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                 
                 //console.log(json);
                 var navTreeStoreRoot = me.store.getRootNode();
-                var regieMenu = navTreeStoreRoot.childNodes[0].childNodes[4].childNodes[1];
+                var regieMenu = navTreeStoreRoot.childNodes[0].childNodes[5].childNodes[1];
                 for (i = 0; i < json.names.length; i++) {
                     var regName = json.names[i];
                     regieMenu.appendChild({
@@ -1022,7 +1023,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Theaterzettel Dresden') {
+                } /*else if (item.parentNode.data.text === 'Theaterzettel Dresden') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Theaterzettel Dresden: ' + item.data.text + '</font>', icon: 'resources/images/Day-17.png', selection: item.data.text
                     });
@@ -1040,7 +1041,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Personen (1.384)') {
+                }*/ else if (item.parentNode.data.text === 'Personen (1.384)') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Personen: ' + item.data.text + '</font>', icon: 'resources/images/Mask-19.png', selection: item.data.text
                     });

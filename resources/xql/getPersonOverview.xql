@@ -525,6 +525,45 @@ declare function local:jsonifySourcesReferences($workID) {
 
 };
 
+declare function local:jsonifyRollenReferences($workID) {
+    
+    let $rolepath := 'xmldb:exist:///apps/theater-data/sources/'
+    let $rolefiles := collection($rolepath)
+    
+    let $strings := for $elem in $rolefiles  
+    let $tailSources := $elem/mei:source/mei:componentGrp/mei:source[descendant::*[@dbkey = $workID]]/mei:physDesc/mei:titlePage
+       
+    let $tailSource := local:getRoleData($tailSources)
+    
+    return
+        if ($tailSource != '') then
+           $tailSource
+        else
+            ()
+    return
+        string-join($strings, ',')
+
+
+};
+
+declare function local:getRoleData($tailSources) {
+   
+    let $strings := for $elem in $tailSources  
+    let $roleName := $elem/mei:p/mei:name
+    let $roleKey := $elem/mei:p/mei:name/@dbkey
+    return
+        if ($roleName != '') then
+            (
+             concat('["', $roleName, '",', '"', $roleKey, '"]')
+            )
+        else
+            ()
+    return
+        string-join($strings, ',')
+
+
+};
+
 
 declare function local:jsonifyWorksReferences($workID) {
     
@@ -885,6 +924,8 @@ local:jsonifySummaryText($content),
 local:jsonifyRoleReferences($workID),
 '],"sourcesRef":[',
 local:jsonifySourcesReferences($workID),
+'],"rollen":[',
+local:jsonifyRollenReferences($workID),
 '],"worksRef":[',
 local:jsonifyWorksReferences($workID),
 '],"journalRef":[',

@@ -588,7 +588,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 });
                 me.add(ref_layout);*/
                 
-                if (json.worksRef.length > 0 || json.sourcesRef.length > 0 || json.journalRef.length > 0 || json.issueRef.length > 0 || json.gagenRef.length > 0 || json.roleRef.length > 0 || json.regieRef.length > 0) {
+                if (json.worksRef.length > 0 || json.sourcesRef.length > 0 || json.journalRef.length > 0 
+                || json.issueRef.length > 0 || json.gagenRef.length > 0 || json.roleRef.length > 0 
+                || json.regieRef.length > 0 || json.rollen.length > 0) {
                     
                     /* var refSection = Ext.create('Ext.panel.Panel', {
                     title: '<b style="color:gray; font-size: 12px;">Spielbetrieb und Verwaltung</b>',
@@ -682,6 +684,33 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 sourcesList: json.sourcesRef
                 });
                 ref_layout.add(sourcesTable);*/
+                
+                if (json.rollen.length > 0) {
+                    /*refSection.add({
+                    
+                    xtype: 'label',
+                    html: '<b style="color:gray; font-size: 12px;">Quellen</b>',
+                    margin: '10 0 10 0'
+                    });
+                     */
+                    var roleTable = new TheaterTool.view.tabPanel.RoleTable({
+                        rollenList: json.rollen
+                    });
+                    
+                    var role_panel = Ext.create('Ext.panel.Panel', {
+                        //colspan: 1,
+                        //type: 'hbox',
+                        border: false,
+                        // margin: '0 10 0 10',
+                        //type: 'fit',
+                        //bodyPadding: 10,
+                        items:[
+                        
+                        roleTable]
+                    });
+                    
+                    me.add(role_panel);
+                }
                 
                 if (json.journalRef.length > 0) {
                     /*var journal_group = Ext.create('Ext.form.FieldSet', {

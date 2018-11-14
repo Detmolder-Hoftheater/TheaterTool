@@ -235,5 +235,40 @@ getWorkContent = function (workId, workName) {
                 });
             }
         });
+        
+        getPersonContent = function (personId, personName) {
+    var toolBarGlobal = Ext.getCmp('toolbar');
+            var historyButton = Ext.getCmp('historyButton');
+            // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
+            //if(!isHistoryItemExist){
+            var menuItem = historyButton.menu.add({
+                text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
+            });
+            
+            //}
+            
+            var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+            var existItems = navTreeGlobal.items;
+            var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId, menuItem.id);
+            if (! isFoundItem) {
+                
+                var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                    title: '<font style="color:gray;">' + personName + '</font>',
+                    icon: 'resources/images/Mask-19.png'
+                });
+                var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
+                    dbkey: personId,  title: '<font size="2" face="Arial" style="color:#A87678;">Person: '+personName+'</font>', icon: 'resources/images/Mask-19.png'
+                });
+                //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
+                repertoireTab.add(personDetails);
+                
+                repertoireTab.setActiveMenuItemId(menuItem.id);
+                repertoireTab.setMenuAdded(true);
+                
+                navTreeGlobal.add(repertoireTab);
+                navTreeGlobal.setActiveTab(repertoireTab);
+                navTreeGlobal.fireEvent('render', navTreeGlobal);
+            }
+}
     }
 });

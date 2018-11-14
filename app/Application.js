@@ -61,6 +61,7 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.repertoire.RepertoireMenuItemTree',
     'tabPanel.repertoire.beat.FacsimileNavTree',
     'tabPanel.repertoire.PersonTable',
+    'tabPanel.RoleTable',
     'tabPanel.playSchedules.SchedulePanelInTab',
     'tabPanel.playSchedules.ScheduleMenuItemTree',
     'tabPanel.playSchedules.SchedulePanelDetails',
@@ -198,7 +199,9 @@ Ext.define('TheaterTool.Application', {
                 projectName = json.name;
                 this.projectYears = json.years;
                 Ext.getCmp('htNavigationPanel').setTitle('<b style="color:#A87678;">' + projectName + ' ' + this.projectYears + '</b>');
-            }
+                dbTheaterPath = json.dbpath;
+           
+           }
         });
         
         // temporary global

@@ -16,6 +16,13 @@ declare variable $file := doc($path);
 declare variable $html_1 := $file//tei:castItem;
 declare variable $html := local:dispatch($html_1);
 
+(:declare variable  $allSourceFiles := collection('/db/apps/theater-data/sources/');:)
+declare variable $sorcepath := 'xmldb:exist:///apps/theater-data/sources/';
+declare variable $allSourceFiles := collection($sorcepath);
+declare variable $strings := for $elem in $allSourceFiles  
+    return $elem/mei:source/mei:componentGrp/mei:source[descendant::*[@dbkey = $bookName]]/mei:physDesc/mei:inscription/mei:persName;
+
+declare variable $htmlPerson := local:dispatch($strings);
 
 declare function local:dispatch($html_1 as node()*) as item()* {
     for $node in $html_1
@@ -41,6 +48,9 @@ declare function local:dispatch($html_1 as node()*) as item()* {
             case element(tei:ref)
                 return
                     local:workRef($node)
+            case element(mei:persName) 
+                return 
+                    local:persName($node)
                     (:case element(tei:hi)
                 return
                     local:hi($node)
@@ -86,6 +96,16 @@ declare function local:passthru($node as node()*) as item()* {
 { if($node/@*!= '')then(
   ($node/@*,local:dispatch($node/node()))
   )else()}:)
+};
+
+declare function local:persName($node as element(mei:persName)) as element() {
+
+if($node/@dbkey != '')then(
+  <div><persName><a href="javascript:getPersonContent('{$node/@dbkey}', '{$node/text()}');">{$node}</a></persName></div>
+  )
+  else(
+  <div><persName>{$node}</persName></div>
+  )
 };
 
 
@@ -150,5 +170,11 @@ declare function local:roleActor($node as element(tei:actor)) as element() {
 
 
 (
-$html
+$html,
+if($htmlPerson != '')then(
+(<font size = "1"><b style="color:gray;">Personen: </b></font>),
+$htmlPerson)else()
+  
+        (:local:getPersons($allSourceFiles):)
+
 )
