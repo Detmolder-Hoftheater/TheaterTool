@@ -171,6 +171,8 @@ Ext.define('TheaterTool.Application', {
         
         var workPath;
         
+        window.onbeforeunload = function() { return "Your work will be lost."; };
+        
         Ext.Ajax.request({
             url: 'resources/xql/getDBStructure.xql',
             method: 'GET',
