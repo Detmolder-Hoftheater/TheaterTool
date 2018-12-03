@@ -161,7 +161,12 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                                 
                                 var pom = document.createElement('a');
                                 
-                                var filename = me.year + '_' + me.monthNumber + ".xml";
+                                var month = '';
+                                if(me.monthNumber != null){
+                                    month = me.monthNumber;
+                                }
+                                
+                                var filename = me.year + '_' + month + ".xml";
                                 var pom = document.createElement('a');
                                 var bb = new Blob([xmltext], {
                                     type: 'text/plain'
@@ -174,7 +179,10 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                                 pom.draggable = true;
                                 pom.classList.add('dragout');
                                 
+                                //apply the click on to download the file
+                                document.body.appendChild(pom);
                                 pom.click();
+                                document.body.removeChild(pom);
                             }
                         });
                     }
@@ -228,8 +236,6 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
             });
                 
                 for(var k = 0; k < arr.length; k++){
-                console.log(arr.length);
-                console.log(k);
                     var oneTable = arr[k];
                     var scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({
                     lineList: oneTable, selectedWorkID: me.selectedWorkID

@@ -130,7 +130,10 @@ regieName: null,
                     pom.draggable = true; 
                     pom.classList.add('dragout');
 
+                    //apply the click on to download the file
+                    document.body.appendChild(pom);
                     pom.click();
+                    document.body.removeChild(pom);
                     
                     }
                 });

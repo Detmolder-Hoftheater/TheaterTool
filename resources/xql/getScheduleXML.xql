@@ -23,12 +23,16 @@ let $uri_1 := concat('/db/apps/theater-data/ausgaben/', $year, '/')
 
 let $file_1 := collection($uri_1)
 
+let $path_2 := concat('xmldb:exist:///apps/theater-data/spielplaene/', $year, '/')
+let $file_2 := collection($path_2)
+
 let $selectedDate := concat($year, '-', $month)
 
-let $schedule := for $elem in ($file, $file_1)
+let $schedule := for $elem in ($file, $file_1, $file_2)
                     return 
-                    if($elem/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
-                     and $elem/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title//tei:date[@when = $selectedDate]
+                    if(($elem/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
+                     and $elem/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title//tei:date[@when = $selectedDate])
+                     or $year = '1820' or $year = '1821' or $year = '1822' or $year = '1823' or $year = '1824'
                     )then($elem)else() 
 
 (:let $doc := eutil:getDoc($schedule)/tei:TEI:)
