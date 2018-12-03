@@ -40,7 +40,7 @@ declare function local:getSchedulePlace($schedule) {
     
     let $strings := for $elem in $schedule
     
-    let $place := $elem//tei:text/tei:body//tei:head//tei:table//tei:settlement[0]
+    let $place := local:getPlace($elem//tei:head//tei:table//tei:settlement)
     
     return
         if ($place != '') then
@@ -53,12 +53,26 @@ declare function local:getSchedulePlace($schedule) {
 
 };
 
+declare function local:getPlace($place) {
+    
+    let $strings := for $elem in $place
+    
+    let $settl := $elem
+    
+    return
+        $settl
+    
+    return
+        string-join($strings, ' ,')
+
+};
+
 
 declare function local:getTableInformation($schedule) {
     
     let $strings := for $elem in $schedule
     
-    let $rows := $elem//tei:text/tei:body//tei:table/tei:row
+    let $rows := $elem//tei:row
     
     let $row := if ($rows != '') then
         (local:getTableRow($rows))
@@ -286,16 +300,40 @@ declare function local:getCellContent($elem_2) {
 
 };
 
+declare function local:getTables($schedule) {
+    
+    let $strings := for $elem_3 in $schedule
+    
+    let $tables := $elem_3
+    
+    let $rows := local:getTableInformation($tables)
+    
+    let $places := local:getSchedulePlace($tables)
+    
+    return
+        concat('{"rows":[',
 
-(
-'{"rows":[',
-
-local:getTableInformation($schedule),
+$rows,
 
 '],',
 '"settlement":[',
-local:getSchedulePlace($schedule),
+$places,
+
+']}')
+    
+    return
+        string-join($strings, ',')
+
+};
+
+
+(
+'{"tables":[',
+
+local:getTables($schedule//tei:text//tei:body//tei:table),
+
 
 ']}'
+
 
 )

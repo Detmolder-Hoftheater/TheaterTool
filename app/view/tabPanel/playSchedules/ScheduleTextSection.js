@@ -12,7 +12,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     autoScroll: true,*/
     
     layout: {
-        type: 'hbox',
+        type: 'vbox',
         pack: 'start',
         align: 'stretch'
     },
@@ -34,7 +34,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     
     xmlSection: null,
     
-    scheduleTable: null,
+   // scheduleTable: null,
     
     selectedMonth: null,
     
@@ -222,23 +222,34 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                 
                 var json = jQuery.parseJSON(response.responseText);
                 
-                me.scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({
-                    lineList: json, selectedWorkID: me.selectedWorkID
-                });
-                if (json.settlement.length > 0) {
-                    me.scheduleTable.setTitle('<font style="color:#A87678;">Spielort: ' + json.settlement + '</font>');
-                }
-                me.scheduleTable.setTablePanel(me);
+                var jsonTables = json.tables;
+                var arr = Object.keys(jsonTables).map(function (key) {
+                return jsonTables[key];
+            });
                 
-                me.add(me.scheduleTable);
-                me.tableheight = me.scheduleTable.height;
-                me.tablewidth = me.scheduleTable.width;
+                for(var k = 0; k < arr.length; k++){
+                console.log(arr.length);
+                console.log(k);
+                    var oneTable = arr[k];
+                    var scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({
+                    lineList: oneTable, selectedWorkID: me.selectedWorkID
+                });
+                if (oneTable.settlement.length > 0) {
+                    scheduleTable.setTitle('<font style="color:#A87678;">Spielort(e): ' + oneTable.settlement + '</font>');
+                }
+                scheduleTable.setTablePanel(me);
+                
+                me.add(scheduleTable);
+                me.tableheight = scheduleTable.height;
+                me.tablewidth = scheduleTable.width;
                 
                 if (me.selectedMonth === me.month) {
-                    var workToFocus = me.scheduleTable.getWorkToFocus();
-                    me.scheduleTable.getSelectionModel().select(workToFocus);
-                    me.scheduleTable.getView().focusRow(workToFocus);
+                    var workToFocus = scheduleTable.getWorkToFocus();
+                    scheduleTable.getSelectionModel().select(workToFocus);
+                    scheduleTable.getView().focusRow(workToFocus);
                 }
+                }
+                
             }
         });
         
