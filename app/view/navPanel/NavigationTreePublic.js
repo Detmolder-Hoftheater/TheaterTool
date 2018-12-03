@@ -485,7 +485,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                     text: 'Abonnement',
                     icon: 'resources/images/Ticket-14.png'
                 }, {
-                    leaf: true, text: 'Gagenbücher',
+                    leaf: true, text: 'Gagenhefte',
                     icon: 'resources/images/Gift-17.png'
                 }]
             },
@@ -1222,7 +1222,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                }else if (item.parentNode.data.text === 'Gagenbücher') {
+                }else if (item.parentNode.data.text === 'Gagenhefte') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Gift-17.png', selection: item.data.text
                     });

@@ -128,11 +128,11 @@ return
     if($parentRole ='castItem')
         then(if ( $roleId!= '') then
         (       
-        <dev><font size = "1"><b style="color:gray;">Rolenname: </b></font><a href="javascript:getRoleContent('{$roleId}', '{$roleName}');">{$roleName}</a></dev>
+        <dev><font size = "1"><b style="color:gray;">Rollenname: </b></font><a href="javascript:getRoleContent('{$roleId}', '{$roleName}');">{$roleName}</a></dev>
         )
     else
         (
-        <p><font size = "1"><b style="color:gray;">Rolenname: </b></font>{$roleName}</p>
+        <p><font size = "1"><b style="color:gray;">Rollenname: </b></font>{$roleName}</p>
         ))
         else(if ( $roleId!= '') then
         (       
@@ -159,7 +159,7 @@ declare function local:workRef($node as element(tei:ref)) as element() {
 };
 
 declare function local:roleDesc($node as element(tei:roleDesc)) as element() {
-    <p><font size = "1"><b style="color:gray;">Beschreibung: </b></font>{local:dispatch($node/node())}</p>
+    <p><font size = "1"><b style="color:gray;">Rollenbeschreibung: </b></font>{local:dispatch($node/node())}</p>
     (:<p>Beschreibung: {local:dispatch($node/node())}</p>:)
     (:{$node/text()[not($node/descendant::node())]}{local:dispatch($node/descendant::node())}{$node/descendant::text()}:)
 };
