@@ -549,7 +549,7 @@ declare function local:jsonifyRollenReferences($workID) {
 declare function local:getRoleData($tailSources) {
    
     let $strings := for $elem in $tailSources  
-    let $roleName := $elem/mei:p/mei:name
+    let $roleName := local:getRoleNames($elem/mei:p/mei:name/node())
     let $roleKey := $elem/mei:p/mei:name/@dbkey
     return
         if ($roleName != '') then
@@ -560,6 +560,18 @@ declare function local:getRoleData($tailSources) {
             ()
     return
         string-join($strings, ',')
+
+
+};
+
+declare function local:getRoleNames($roleName) {
+   
+    let $strings := for $elem in $roleName  
+    let $roleNames := $elem
+    return
+        $roleNames
+    return
+        string-join($strings, ' ')
 
 
 };

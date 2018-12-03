@@ -172,7 +172,7 @@ declare function local:roleActor($node as element(tei:actor)) as element() {
 (
 $html,
 if($htmlPerson != '')then(
-(<font size = "1"><b style="color:gray;">Personen: </b></font>),
+(<font size = "1"><b style="color:gray;">Personen (generiert aus den Quellenmaterialien): </b></font>),
 $htmlPerson)else()
   
         (:local:getPersons($allSourceFiles):)
