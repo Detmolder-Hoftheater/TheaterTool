@@ -285,14 +285,17 @@ declare function local:jsonifyHandList($handList) {
     let $file := doc($uri)
     let $content := $file//tei:person
     let $persNames := $content/tei:persName
-    let $persName := local:jsonifyPersNamesContent($persNames)   
+    let $persName := local:jsonifyPersNamesContent($persNames)
     let $medium := $elem_1/@medium
     let $initial := $elem_1/@initial
     
     return
-    if($persName != '')then(concat('["', $persName, '","',$medium, '","', $initial,'","', $persIdCon, '"]'))else()
-    
-        (:if ($persId != '') then
+        if ($persName != '') then
+            (concat('["', $persName, '","', $medium, '","', $initial, '","', $persIdCon, '"]'))
+        else
+            ()
+            
+            (:if ($persId != '') then
             (concat('"', normalize-space($persId), '"'))
         else
             ()
@@ -308,11 +311,17 @@ declare function local:jsonifyPersNamesContent($persNames) {
     let $strings := for $elem in $persNames
     
     let $typeName := $elem/@type
-    let $title :=  if($typeName = 'reg')then($elem/tei:surname)else()
+    let $title := if ($typeName = 'reg') then
+        ($elem/tei:surname)
+    else
+        ()
     
     return
-        if($title != '')then($title)else()
-        
+        if ($title != '') then
+            ($title)
+        else
+            ()
+    
     return
         string-join($strings, ' ,')
 
@@ -737,7 +746,7 @@ declare function local:jsonifyContenSource($source_el) {
     let $inscription := local:jsonifyInscription($persNames)
     
     let $handList := $elem_1/mei:physDesc[1]/mei:handList/mei:hand
-			let $hand := local:jsonifyHandList($handList)
+    let $hand := local:jsonifyHandList($handList)
     
     let $langList := $elem_1/mei:physDesc[1]/mei:langUsage/mei:language
     let $language := local:jsonifyLanguage($langList)
@@ -791,7 +800,7 @@ declare function local:jsonifyContenSource($source_el) {
             ($titlePages)
         else
             (), '],',
-        '"hoverview":', '"', $hover, '",',
+        '"hoverview":[',if($creation != '')then($hover)else() , '],',
         '"creation":', '"', $creation, '",',
         '"events":[', if ($events != '') then
             ($events)
@@ -806,7 +815,10 @@ declare function local:jsonifyContenSource($source_el) {
             ($inscription)
         else
             (), '],',
-        '"schreiber":[',if($hand != '')then($hand)else(), '],',
+        '"schreiber":[', if ($hand != '') then
+            ($hand)
+        else
+            (), '],',
         '"sprache":[', if ($language != '') then
             ($language)
         else
