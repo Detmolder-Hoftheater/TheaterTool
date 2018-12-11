@@ -262,8 +262,11 @@ declare function local:jsonifyAltNames($titles) {
     let $subtype := $elem/@subtype
     
     return
-        if($subtype != "")then(concat('["', normalize-space($title), ' (',$subtype, ')', '"]'))else(concat('["', normalize-space($title), '"]'))
-     
+        if ($subtype != "") then
+            (concat('["', normalize-space($title), ' (', $subtype, ')', '"]'))
+        else
+            (concat('["', normalize-space($title), '"]'))
+    
     return
         string-join($strings, ',')
 
@@ -530,14 +533,14 @@ declare function local:jsonifyRollenReferences($workID) {
     let $rolepath := 'xmldb:exist:///apps/theater-data/sources/'
     let $rolefiles := collection($rolepath)
     
-    let $strings := for $elem in $rolefiles  
+    let $strings := for $elem in $rolefiles
     let $tailSources := $elem/mei:source/mei:componentGrp/mei:source[descendant::*[@dbkey = $workID]]/mei:physDesc/mei:titlePage
-       
+    
     let $tailSource := local:getRoleData($tailSources)
     
     return
         if ($tailSource != '') then
-           $tailSource
+            $tailSource
         else
             ()
     return
@@ -547,17 +550,14 @@ declare function local:jsonifyRollenReferences($workID) {
 };
 
 declare function local:getRoleData($tailSources) {
-   
-    let $strings := for $elem in $tailSources  
-    let $roleName := local:getRoleNames($elem/mei:p/mei:name/node())
-    let $roleKey := $elem/mei:p/mei:name/@dbkey
+    
+    let $strings := for $elem in $tailSources
+    let $roleName := local:getRoleNames($elem/mei:p/mei:name)
+    (:local:getRoleNames($elem/mei:p/mei:name/node()):)
+    (:let $roleKey := $elem/mei:p/mei:name/@dbkey:)
     return
-        if ($roleName != '') then
-            (
-             concat('["', $roleName, '",', '"', $roleKey, '"]')
-            )
-        else
-            ()
+        if($roleName != '')then($roleName)else()
+        
     return
         string-join($strings, ',')
 
@@ -565,13 +565,19 @@ declare function local:getRoleData($tailSources) {
 };
 
 declare function local:getRoleNames($roleName) {
-   
-    let $strings := for $elem in $roleName  
+    
+    let $strings := for $elem in $roleName
     let $roleNames := $elem
+    let $roleKey := $elem/@dbkey
     return
-        $roleNames
+        if ($roleNames != '') then
+            (
+            concat('["', $roleNames, '",', '"', $roleKey, '"]')
+            )
+        else
+            ()
     return
-        string-join($strings, ' ')
+        string-join($strings, ',')
 
 
 };
@@ -653,13 +659,13 @@ declare function local:jsonifyPersNamesForSources($names, $file1) {
         ($file1/mei:source//mei:identifier[@label = "RISM-label"][1])
     else
         ()
-        
-   let $physLoc_tmp := if ($elem[@dbkey = $workID]) then
+    
+    let $physLoc_tmp := if ($elem[@dbkey = $workID]) then
         ($file1/mei:source//mei:identifier[@type = "shelfLocation"][1])
     else
-        ()         
-    let $physLoc := replace($physLoc_tmp, '\n', '')     
-        
+        ()
+    let $physLoc := replace($physLoc_tmp, '\n', '')
+    
     let $sourceName := concat('Quelle: ', $rismLabel, ' , ', $physLoc)
     
     return
