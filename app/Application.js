@@ -10,6 +10,7 @@ Ext.define('TheaterTool.Application', {
     
     views:[
     'main.Main',
+    'main.Main',
     'toolbar.HTToolbar',
     'panel.ViewPanel',
     'navPanel.HTNavigationPanel',
