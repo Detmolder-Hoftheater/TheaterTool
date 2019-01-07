@@ -11,28 +11,37 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 
 declare variable $selectedYear := request:get-parameter('selectedYear', '');
 
-declare variable $path := concat('xmldb:exist:///apps/theater-data/einnahmen/', $selectedYear, '/');
+(:declare variable $path := concat('xmldb:exist:///apps/theater-data/einnahmen/', $selectedYear, '/');
 declare variable $file := collection($path);
 
 declare variable $path_1 := concat('xmldb:exist:///apps/theater-data/ausgaben/', $selectedYear, '/');
-declare variable $file_1 := collection($path_1);
+declare variable $file_1 := collection($path_1);:)
 
-declare function local:getMonths($file, $file_1) {
+declare variable $issuetailPath := request:get-parameter('dbPath', '');
+declare variable $path := concat('/db/apps/', $issuetailPath, '/', $selectedYear, '/');
+declare variable $file := collection($path);
+declare variable $oneFile := $file//tei:TEI;
 
-let $strings := for $elem in ($file, $file_1)
+declare function local:getMonths($oneFile) {
 
-                    let $monthName := if($elem/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan'])then(
+let $strings := for $elem in $oneFile
+
+                    (:let $monthName := if($elem/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan'])then(
 
 					$elem//tei:fileDesc//tei:title/tei:date)else()
 
-					let $month := if($monthName != '')then(substring-before($monthName, " "))else()
+					let $month := if($monthName != '')then(substring-before($monthName, " "))else():)
+					
+					let $month := $elem/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title
+					let $issueId := $elem/@xml:id
 					
                     return 
-						if($month != '')then(
+                        if($month!= '')then(concat('["',normalize-space($month),  '",', '"', $issueId, '"]'))else()
+						(:if($month != '')then(
                         concat('"',$month,
 							
                             '"')
-						)else()
+						)else():)
     return 
         string-join($strings,',')   
 };
@@ -42,7 +51,7 @@ let $strings := for $elem in ($file, $file_1)
    (
 
   '{"names":[',
-        local:getMonths($file, $file_1),
+        local:getMonths($oneFile),
 
      ']}'
    

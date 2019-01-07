@@ -18,9 +18,14 @@ let $docUri := if(contains($uri, '#')) then(substring-before($uri, '#')) else($u
 let $doc := if(contains($type, 'work'))then(eutil:getDoc($docUri)/mei:work)else(eutil:getDoc($docUri)/mei:source)
 :)
 let $workID := request:get-parameter('sourceID', '')
-let $path := concat('/db/apps/theater-data/expressions/', $workID, '_expr1.xml')
-(:let $path := 'xmldb:exist:///apps/theater-data/expressions/H020263_expr1.xml':)
-let $doc :=  doc($path)//mei:expression[child::mei:incip]
+let $dbexpPath := request:get-parameter('dbexpPath', '')
+let $uri := concat('xmldb:exist:///apps/', $dbexpPath, '/')
+let $file := collection($uri)
+let $content := for $elem in $file
+                    return 
+                    if($elem/mei:expression[contains(@xml:id,$workID)])then($elem)else()
+
+let $doc :=  $content//mei:expression[child::mei:incip]
 
 let $snippet := 
 for $elem in $doc return
@@ -36,13 +41,11 @@ for $elem in $doc return
     </meiHead>
     <music>
         <body>
-             <mdiv>{
+            <mdiv>{
                                
                                 $elem//mei:score
 
-                             }
-           
-            </mdiv>
+                             } </mdiv>
         </body>
     </music>
 </mei>

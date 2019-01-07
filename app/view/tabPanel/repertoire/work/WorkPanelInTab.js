@@ -40,6 +40,10 @@ extend: 'Ext.panel.Panel',
         var navTree = new TheaterTool.view.tabPanel.repertoire.RepertoireMenuItemTree();
         var navTreeStore = new TheaterTool.store.work.ExtWork();
         navTreeStore.getProxy().extraParams.workName = me.selection;
+        navTreeStore.getProxy().extraParams.dbsourcePath = dbPathsMap.get('sources');
+        navTreeStore.getProxy().extraParams.dbPath = dbPathsMap.get('works');
+        navTreeStore.getProxy().extraParams.dbexpPath = dbPathsMap.get('expressions');
+        navTreeStore.getProxy().extraParams.eoutPath = dbPathsMap.get('eoutPath');
         navTreeStore.load();       
         navTree.getView().bindStore(navTreeStore);
         navTree.setRepertoirePanel(me);
@@ -61,7 +65,7 @@ extend: 'Ext.panel.Panel',
 		}
 		else{
 		  
-		    workPanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: me.sourceId, werkTitle:'<font size="2" face="Arial" style="color:#A87678;">Werk: '+me.workName+'</font>', title: '<font size="2" face="Arial" style="color:#A87678;">'+me.sourceTitle+'</font>',firstTabTitle:me.selLocation, icon: me.workIcon});
+		    workPanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: me.sourceId, werkTitle:'<font size="2" face="Arial" style="color:#A87678;">Werk: '+me.workName+'</font>', title: '<font size="2" face="Arial" style="color:#A87678;">'+me.sourceTitle+'</font>',firstTabTitle:me.selLocation, icon: me.workIcon, workId: me.slection});
 					repertoirePanel.add(workPanel);
 					
 					 

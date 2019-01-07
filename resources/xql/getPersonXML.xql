@@ -8,22 +8,21 @@ declare namespace xmldb="http://exist-db.org/xquery/xmldb";
 declare namespace system="http://exist-db.org/xquery/system";
 declare namespace transform="http://exist-db.org/xquery/transform";
 
-(:declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=yes indent=yes";:)
-(:declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=no indent=yes";:)
-
-declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=yes indent=yes";
-
+(:declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";:)
+declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=no indent=yes";
 
 let $dbkey := request:get-parameter('dbkey', '')
-(:let $year := request:get-parameter('year', ''):)
+let $persontailPath := request:get-parameter('dbPath', '')
+(:let $path := concat('xmldb:exist:///apps/', $persontailPath, '/'):)
 
-let $uri := concat('/db/apps/theater-data/persons/', $dbkey, '.xml')
+let $uri := concat('/db/apps/', $persontailPath, '/')
+let $file := collection($uri)
+let $doc := for $elem in $file
+                    return 
+                    if($elem/tei:person[@xml:id = $dbkey])then($elem)else()
 
-(:, $year, '/', $year, '_', $month, '.xml'):)
-
-let $doc := eutil:getDoc($uri)
-
-(:let $doc_1 := eutil:getDoc($uri)/root():)
+(:let $uri := concat('/db/apps/', $persontailPath, '/', $dbkey, '.xml')
+let $doc := eutil:getDoc($uri)/tei:person:)
 
 return
    $doc

@@ -20,12 +20,7 @@ Ext.define('TheaterTool.model.Theaterakte', {
         name: 'works', type: 'auto'
     }, {
         name: 'work_2', type: 'auto'
-    }, {  
-        name: 'Rthlr', type: 'auto'
-    }, {   
-        name: 'ggr', type: 'auto'
-    }, {   
-        name: 'd', type: 'auto'
-    }
-    ]
+    }, {
+        name: 'measure', type: 'auto'
+    }]
 });

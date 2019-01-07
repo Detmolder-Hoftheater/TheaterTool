@@ -99,7 +99,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
         
         var colDate = Ext.create('Ext.grid.column.Column', {
             xtype: 'gridcolumn',
-            header: 'Datum',
+            header: GUI_NAMES.schedul_table_date,
             flex: 0.15,
             menuDisabled: true,
             dataIndex: 'date'
@@ -107,7 +107,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
         tableColumns = tableColumns + 1;
         objs[tableColumns] = colDate;
         
-        var col_inhalt = this.createColumn('Vorstellungen', 'resources/images/Note-15.png', 'works', me.selectedWorkID);
+        var col_inhalt = this.createColumn(GUI_NAMES.schedul_table_performance, 'resources/images/Note-15.png', 'works', me.selectedWorkID);
         tableColumns = tableColumns + 1;
         objs[tableColumns] = col_inhalt;
         
@@ -601,13 +601,13 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
         getWorkContent = function (workId, workName) {
             var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');
-            
-            var workIcon = '';
+            var workIcon = 'resources/images/Books1-17.png';
+            /*var workIcon = '';
             if (extWorkKeys.indexOf(workId) > -1) {
                 workIcon = 'resources/images/BookBlau-16.png';
             } else {
                 workIcon = 'resources/images/Books1-17.png';
-            }
+            }*/
             
             var menuItem = historyButton.menu.add({
                 text: '<font style="color:gray;">' + workName + '</font>', icon: workIcon, dbkey: workId

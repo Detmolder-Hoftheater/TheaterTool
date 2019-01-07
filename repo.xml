@@ -2,7 +2,7 @@
 <meta xmlns="http://exist-db.org/xquery/repo">
     <description>TheaterTool</description>
     <author>Elena</author>
-	<website>http://hoftheater-detmold.de/TheaterTool</website>
+    <website>http://hoftheater-detmold.de/TheaterTool</website>
     <status>alpha</status>
     <license>GNU-LGPL</license>
     <copyright>true</copyright>

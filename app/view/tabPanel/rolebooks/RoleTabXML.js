@@ -33,7 +33,7 @@ Ext.Ajax.request({
             },        
     			success: function (response, options) {
  					
-        			var object = response.responseText;
+        			//var object = response.responseText;
 					me.setTextInfo(response);       			
     			}
 			});
@@ -47,10 +47,9 @@ Ext.Ajax.request({
         },
 
 
-setTextInfo: function(response){
+setTextInfo: function(infoText){
 
 var me = this;
-
 var testText = response.responseXML;
                     
                     var tempDiv = document.createElementNS('http://www.tei-c.org/ns/1.0l', 'div');

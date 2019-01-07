@@ -10,17 +10,28 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";
 
 declare variable $month := request:get-parameter('month', '');
+(:declare variable $year := request:get-parameter('year', '');
+declare variable $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/', $year, '_', $month, '.xml');:)
+
+declare variable $issueID := request:get-parameter('revID', '');
 declare variable $year := request:get-parameter('year', '');
+declare variable $issuetailPath := request:get-parameter('dbPath', '');
+declare variable $uri := concat('/db/apps/', $issuetailPath, '/', $year, '/');
 
-declare variable $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/', $year, '_', $month, '.xml');
 
-declare variable $file := doc($uri);
+declare variable $file := collection($uri);
 
-declare variable $headName := $file//tei:profileDesc//tei:keywords/tei:term['Einnahmebeleg'];
+(:declare variable $headName := $file//tei:profileDesc//tei:keywords/tei:term['Einnahmebeleg'];
 
 declare variable $schedule := if($headName != '')then($file)else();
 
-declare variable $images := if($headName != '')then($schedule//tei:facsimile/tei:graphic)else();
+declare variable $images := if($headName != '')then($schedule//tei:facsimile/tei:graphic)else();:)
+
+declare variable $allFiles := $file//tei:TEI;
+declare variable $schedule := for $elem in $allFiles
+                    return      
+                    if($elem[@xml:id = $issueID])then($elem)else();
+
 
 declare function local:getGraphicsInformation($schedule) {
 
@@ -112,6 +123,25 @@ let $strings := for $elem_1 in $rows
  
 };
 
+declare function local:getMeasureCells($measures) {
+
+let $strings := for $oneMeasure in $measures
+
+    let $measureUnit := $oneMeasure/@unit
+    let $measure := $oneMeasure
+   (: replace($oneDate, '"', '\\"' ):)
+    
+   
+                    return 
+                     if($measureUnit  != '')then(
+                    concat($measureUnit, ': ',$measure))else()
+                    (:concat('"', $dateContent, '"'):)
+                    
+    return 
+        string-join($strings,', ')
+ 
+};
+
 declare function local:getTableCell($cells) {
 
 let $strings := for $elem_2 in $cells
@@ -120,12 +150,15 @@ let $strings := for $elem_2 in $cells
     
     let $onecell := if($elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
     
-    let $rthlr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']
+    let $measures := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure
+    let $measure := local:getMeasureCells($measures)
+    
+   (: let $rthlr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']:)
    (: $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/tei:measure[@unit='Rthlr']:)
     
-    let $ggr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/child::tei:measure[@unit='ggr']
+   (: let $ggr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/child::tei:measure[@unit='ggr']
     
-    let $d := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/child::tei:measure[@unit='d']
+    let $d := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:rs)]/child::tei:measure[@unit='d']:)
            
                     return 
                     
@@ -134,7 +167,9 @@ let $strings := for $elem_2 in $cells
                         else(
                             if($onecell != '')
                             then(concat('{"date":[', $date, ']},','{"inhalt":[', $onecell, ']},',
-                                '{"rthlr":["', $rthlr, '"]},', '{"ggr":["', $ggr, '"]},', '{"d":["', $d, '"]}' ))
+                            '{"measure":["', $measure, '"]}'
+                               (: '{"rthlr":["', $rthlr, '"]},', '{"ggr":["', $ggr, '"]},', '{"d":["', $d, '"]}' :)
+                                ))
                             else()
                         )
                                                             
@@ -148,30 +183,31 @@ declare function local:getCellContent($elem_2) {
 
 let $strings := for $elem in $elem_2
     
-    let $content := if($elem/self::tei:rs/@type ='work')then(
-            concat('{"work":["', normalize-space(replace($elem, '"', '\\"' )), '"', ', "', $elem/@key, '"]}')
+     let $content := if($elem[@type ='work'])then(
+           (: $elem:)
+            concat('{"work":["', normalize-space($elem), '"', ', "', $elem/@key, '"]}')
+            
+            (:local:getWork($elem/tei:rs[@type ='work']):)
         )
-        else( 
+        else(
+          
         )
     
     let  $content_2 :=  if($elem/self::tei:persName)then(
-             concat('{"workpersons":["', replace($elem, '"', '\\"' ), '"', ', "', $elem/@key, '"]}')
+             concat('{"workpersons":["', $elem, '"', ', "', $elem/@key, '"]}')
           )else()
           
-    let  $content_3_0 := replace($elem, '"', '\\"' )
+    let  $content_3_0 := normalize-space($elem[not(self::tei:persName) and not($elem[@type ='work'])])  
     
-   (: let  $content_3_1 := replace($content_3_0, '"', '\\"' ):)
+    let  $content_3_1 := replace($content_3_0, '"', '\\"' )
           
-   let  $content_3 := if($content_3_0 != '')then(concat('{"celltext":["', normalize-space($content_3_0), '"]}'))else()
- 
+   let  $content_3 := concat('{"celltext":["', $content_3_1, '"]}')
+  
                     return 
                     if($content != '')
                     then($content)                   
                     else(
-                        if($content_2 != '')then(normalize-space($content_2))else(
-                        if($content_3 != '')then($content_3)else()
-                        
-                        )
+                        if($content_2 != '')then(normalize-space($content_2))else($content_3)
                     
                     )
                                  
@@ -182,9 +218,7 @@ let $strings := for $elem in $elem_2
                     
  (                   
   '{"rows":[',
- 
-        local:getTableInformation($schedule),
-
+  local:getTableInformation($schedule),
      '],',
      '"graphics":[',
        local:getGraphicsInformation($schedule),

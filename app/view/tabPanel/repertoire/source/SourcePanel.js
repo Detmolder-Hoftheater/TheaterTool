@@ -19,7 +19,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
     
     extend: 'Ext.panel.Panel',
     
-   // title: '<b style="color:gray;">Übersicht</b>',
+    // title: '<b style="color:gray;">Übersicht</b>',
     
     layout: {
         type: 'vbox',
@@ -49,123 +49,77 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
         var me = this;
         
         me.tbar = {
-        style: {
-        background: '#dcdcdc'
-        },
-       border: false,
-        height: 30,
-        items:[{xtype: 'button',
-        		text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
-        		style: {
-					borderRight: '1px solid gray',
-					borderLeft: '1px solid gray',
-					 borderTop: '1px solid gray',
-					 borderBottom: '1px solid gray'
-				},
-        		margin: '0 3 0 5',
-        		listeners: {
-					click: function (item, e, eOpts) {
-					
-                Ext.Ajax.request({
-                  
-                    url:'resources/xql/getXML.xql',
-                    method: 'GET',
-                    params: {
-                        uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
-                        type: 'source'
-                    },
-                    success: function (response) {
-                    
-                    
-                    var testText = response.responseXML;
-                    
-                    var tempDiv = document.createElementNS('http://www.music-encoding.org/ns/mei', 'div');
-                    var personArr = testText.getElementsByTagName('source');
-                    tempDiv.appendChild(personArr[0]);
-      
-                    var tmp = hljs.highlightAuto($(tempDiv).html()).value;
-                    var htmlVersion = '<pre>' + tmp + '</<pre>';
-                    
-                                       
-                    /*var testText = response.responseText;
-                      
-                       var fragment = document.createDocumentFragment('div');
-        var tempDiv = document.createElement('div');
-        fragment.appendChild(tempDiv);
-        tempDiv.innerHTML = testText;
-        
-        var tmp = hljs.highlightAuto($(tempDiv).html()).value;
-        var htmlVersion = '<pre>' + tmp + '</<pre>';*/
-                        var win = new Ext.window.Window({
-					       title: '<font style="color:gray;">XML for ' + me.title+'</font>',
-					        html: htmlVersion,
-					        icon: me.workIcon,
-					        bodyStyle:{"background-color":"white"},
-					        height: 600,
-                            width: 800,
-                            autoScroll: true,
-                            bodyPadding: 10
-					        });
-					   win.show();
-                     
+            style: {
+                background: '#dcdcdc'
+            },
+            border: false,
+            height: 30,
+            items:[ {
+                xtype: 'button',
+                text: '<font size = "1"><b style="color:gray;">'+GUI_NAMES.xml_show+'</b></font>',
+                style: {
+                    borderRight: '1px solid gray',
+                    borderLeft: '1px solid gray',
+                    borderTop: '1px solid gray',
+                    borderBottom: '1px solid gray'
+                },
+                margin: '0 3 0 5',
+                listeners: {
+                    click: function (item, e, eOpts) {
+                        
+                        Ext.Ajax.request({
+                            
+                            url: 'resources/xql/getXML.xql',
+                            method: 'GET',
+                            params: {
+                                /*uri: '/db/apps/theater-data/sources/' + me.sourceID + '.xml',*/
+                                type: 'source',
+                                dbkey: me.sourceID,
+                                dbPath: dbPathsMap.get('sources')
+                            },
+                            success: function (response) {
+                                var testText = response.responseXML;
+                                
+                               /* var fragment = document.createDocumentFragment('div');
+                                var tempDiv = document.createElement('div');
+                                fragment.appendChild(tempDiv);
+                                tempDiv.innerHTML = testText;*/
+                                var tempDiv = document.createElementNS('http://www.music-encoding.org/ns/mei', 'div');
+                                var personArr = testText.getElementsByTagName('source');
+                                tempDiv.appendChild(personArr[0]);
+                                
+                                var tmp = hljs.highlightAuto($(tempDiv).html()).value;
+                                var htmlVersion = '<pre>' + tmp + '</<pre>';
+                                var win = new Ext.window.Window({
+                                    title: '<font style="color:gray;">XML for ' + me.title + '</font>',
+                                    html: htmlVersion,
+                                    icon: me.workIcon,
+                                    bodyStyle: {
+                                        "background-color": "white"
+                                    },
+                                    height: 600,
+                                    width: 800,
+                                    autoScroll: true,
+                                    bodyPadding: 10
+                                });
+                                win.show();
+                            }
+                        });
                     }
-                });
-				
-					   
-					}
-				}
-        		},
-        		{xtype: 'button',
-        		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
-        		//disabled: true,
-        		style: {
-					borderRight: '1px solid gray',
-					borderLeft: '1px solid gray',
-					 borderTop: '1px solid gray',
-					 borderBottom: '1px solid gray'
-				},
-				listeners: {
-					click: function (item, e, eOpts) {
-					
-                Ext.Ajax.request({
-                  
-                    url:'resources/xql/getXML.xql',
-                    method: 'GET',
-                    params: {
-                        uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
-                        type: 'source'
-                    },
-                    success: function (response) {
-                    var xmltext = response.responseText;
-                   
-                    var pom = document.createElement('a');
-
-                    var filename = me.sourceID +".xml";
-                    var pom = document.createElement('a');
-                    var bb = new Blob([xmltext], {type: 'text/plain'});
-
-                    pom.setAttribute('href', window.URL.createObjectURL(bb));
-                    pom.setAttribute('download', filename);
-
-                    pom.dataset.downloadurl = ['text/plain', pom.download, pom.href].join(':');
-                    pom.draggable = true; 
-                    pom.classList.add('dragout');
-
-                    //apply the click on to download the file
-                    document.body.appendChild(pom);
-                    pom.click();
-                    document.body.removeChild(pom);
-                    
-                    }
-                });
-				
-					   
-					}
-				}
-        		}
-        		]
+                }
+            }, {
+                xtype: 'button',
+                text: '<font size = "1"><b style="color:gray;">'+GUI_NAMES.xml_load+'</b></font>',
+                disabled: true,
+                style: {
+                    borderRight: '1px solid gray',
+                    borderLeft: '1px solid gray',
+                    borderTop: '1px solid gray',
+                    borderBottom: '1px solid gray'
+                }
+            }]
         };
-
+        
         
         /*var app = TheaterTool.getApplication();
         var sourceStore = app.createStoreForSource();
@@ -175,58 +129,58 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
         //this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
         
         var detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel({
-            sourceID: me.sourceID, werkTitle: me.werkTitle, firstTabTitle: me.firstTabTitle
+            sourceID: me.sourceID, werkTitle: me.werkTitle, firstTabTitle: me.firstTabTitle, workId: me.workId
         });
         
         
         me.items =[
-            detailSection]
+        detailSection]
         
-       /* me.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({
-            sourceID: me.sourceID
+        /* me.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({
+        sourceID: me.sourceID
         });
         
         me.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({
-            sourceID: me.sourceID
+        sourceID: me.sourceID
         });
         //console.log(this.werkTitle);
         if (storeField.indexOf(me.werkTitle) > -1 && me.werkTitle === 'Aschenbrödel') {
-            me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
-                path: 'Einleitung_Mus-n120_Aschenbroedel'
-            });
+        me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
+        path: 'Einleitung_Mus-n120_Aschenbroedel'
+        });
         } else if (storeField.indexOf(me.werkTitle) > -1 && me.werkTitle === 'Der Bettelstudent') {
-            me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
-                path: 'Einleitung_Mus-n237_Bettelstudent'
-            });
+        me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
+        path: 'Einleitung_Mus-n237_Bettelstudent'
+        });
         }
         
         if (me.overviewSection !== null) {
-            me.items =[
-            me.overviewSection,
-            me.detailSection,
-            me.sourcesSection,
-            me.detailSection_xml]
+        me.items =[
+        me.overviewSection,
+        me.detailSection,
+        me.sourcesSection,
+        me.detailSection_xml]
         } else {
-            me.items =[
-            me.detailSection,
-            me.sourcesSection,
-            me.detailSection_xml]
+        me.items =[
+        me.detailSection,
+        me.sourcesSection,
+        me.detailSection_xml]
         };
         
         me.detailSection.setTitelValue();
         me.sourcesSection.createContent();
         
         me.listeners = {
-            render: function () {
-                //if (Ext.browser.is('Firefox')) {
-                me.items.each(function (itm, idx) {
-                    itm.tab.on('focus', function (tab) {
-                        var tabpanel = tab.up('tabpanel');
-                        tabpanel.setActiveTab(idx);
-                    });
-                });
-                //}
-            }
+        render: function () {
+        //if (Ext.browser.is('Firefox')) {
+        me.items.each(function (itm, idx) {
+        itm.tab.on('focus', function (tab) {
+        var tabpanel = tab.up('tabpanel');
+        tabpanel.setActiveTab(idx);
+        });
+        });
+        //}
+        }
         }*/
         
         /*this.on({

@@ -9,21 +9,26 @@ declare namespace system="http://exist-db.org/xquery/system";
 declare namespace transform="http://exist-db.org/xquery/transform";
 
 (:declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";:)
-declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=yes indent=yes";
-
+declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=no indent=yes";
 
 let $month := request:get-parameter('month', '')
+let $issueID := request:get-parameter('revID', '')
 let $year := request:get-parameter('year', '')
+let $issuetailPath := request:get-parameter('dbPath', '')
+let $uri := concat('/db/apps/', $issuetailPath, '/', $year, '/')
 
-let $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/')
+(:let $year := request:get-parameter('year', '')
+
+let $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/'):)
 let $file := collection($uri)
 
-let $selectedDate := concat($year, '-', $month)
+(:let $selectedDate := concat($year, '-', $month)
 
 let $schedule := for $elem in $file
                     return 
                     if($elem/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title//tei:date[@when = $selectedDate]
-                    )then($elem)else() 
+                    )then($elem)else() :)
+let $schedule := $file//tei:TEI[@xml:id = $issueID]                  
 
 return
    $schedule

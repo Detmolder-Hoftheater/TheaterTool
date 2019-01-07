@@ -1,0 +1,1 @@
+<hairpin xmlns="http://www.music-encoding.org/ns/mei" tstamp="1" staff="1" form="cres" tstamp2="0m+6.5" place="below" xml:id="A_mov6_measure122_ce1" sameas="../core.xml#core_mov6_measure122_ce1"/>

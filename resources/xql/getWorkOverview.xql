@@ -12,10 +12,17 @@ declare option exist:serialize "method=text media-type=text/plain omit-xml-decla
 
 
 declare variable $workID := request:get-parameter('workID', '');
-declare variable $uri := concat('/db/apps/theater-data/works/', $workID, '.xml');
-declare variable $file := doc($uri);
-declare variable $content := $file//mei:work;
 
+declare variable $worktailPath := request:get-parameter('dbPath', '');
+declare variable $uri := concat('/db/apps/', $worktailPath, '/');
+declare variable $file := collection($uri);
+declare variable $content := for $elem in $file
+                    return 
+                    if($elem/mei:work[@xml:id = $workID])then($elem)else();
+
+(:declare variable $uri := concat('/db/apps/theater-data/works/', $workID, '.xml');
+declare variable $file := doc($uri);
+declare variable $content := $file//mei:work;:)
 
 declare function local:jsonifyRoles($id) {
 
@@ -193,14 +200,14 @@ declare function local:jsonifyEventDetails($events) {
 
 let $strings := for $elem in $events
 
-					let $over :=normalize-space($elem/mei:p)
+					let $over :=$elem/mei:p
 					let $date := normalize-space($elem/mei:date)
 					let $geogNamesOrt :=$elem/mei:geogName[@type='venue']
 					let $geogNamesStadt := $elem/mei:geogName[@type='place']
                    
                     return 
                       
-				concat('["',replace($over, '"', '\\"' ), '",', '"',$date, '",', '"',$geogNamesOrt,'",','"',$geogNamesStadt,'"]')
+				concat('["',$over, '",', '"',$date, '",', '"',$geogNamesOrt,'",','"',$geogNamesStadt,'"]')
     return 
         string-join($strings,',')
   
@@ -226,9 +233,12 @@ $names
 
 declare function local:jsonifyRoleReferences($workID) {
 
-let $rolepath := 'xmldb:exist:///apps/theater-data/rollen_kostuem/'
+let $roleTailPath := request:get-parameter('role', '')
+let $rolepath := if($roleTailPath != '')then(concat('/db/apps/', $roleTailPath, '/'))else()
 let $rolefiles := collection($rolepath)
 let $rolefile := $rolefiles//tei:TEI
+
+(:let $rolepath := 'xmldb:exist:///apps/theater-data/rollen_kostuem/':)
 (:if($rolefiles//tei:TEI//tei:rs[@key=$workID])then($rolefiles//tei:TEI)else():)
 (:let $rolefileTest := if($rolefile[@key=$workID != ''])then($rolefile)else():)
 (:let $refData := local:jsonifyRefDataRoles($rolefile):)
@@ -247,9 +257,14 @@ concat('"',$names, '"')
 
 declare function local:jsonifyScheduleReferences($workID) {
 
-let $rolepath := 'xmldb:exist:///apps/theater-data/einnahmen/'
+let $roleTailPath := request:get-parameter('playschedule', '')
+let $rolepath := if($roleTailPath != '')then(concat('/db/apps/', $roleTailPath, '/'))else()
 let $rolefiles := collection($rolepath)
-let $rolefile := if($rolefiles//tei:profileDesc//tei:keywords/tei:term['Spielplan'])then($rolefiles//tei:TEI)else()
+let $rolefile := $rolefiles//tei:TEI
+
+(:let $rolepath := 'xmldb:exist:///apps/theater-data/einnahmen/'
+let $rolefiles := collection($rolepath)
+let $rolefile := if($rolefiles//tei:profileDesc//tei:keywords/tei:term['Spielplan'])then($rolefiles//tei:TEI)else():)
 (:$rolefiles//tei:TEI:)
 (:if($rolefiles//tei:TEI//tei:rs[@key=$workID])then($rolefiles//tei:TEI)else():)
 (:let $rolefileTest := if($rolefile[@key=$workID != ''])then($rolefile)else():)
@@ -272,7 +287,9 @@ concat('"',$names, '"')
 
 declare function local:jsonifyRevenueReferences($workID) {
 
-let $rolepath := 'xmldb:exist:///apps/theater-data/einnahmen/'
+let $roleTailPath := request:get-parameter('dbEinnahmenPath', '')
+let $rolepath := if($roleTailPath != '')then(concat('/db/apps/', $roleTailPath, '/'))else()
+(:let $rolepath := 'xmldb:exist:///apps/theater-data/einnahmen/':)
 let $rolefiles := collection($rolepath)
 let $rolefile := $rolefiles//tei:TEI
 
@@ -290,7 +307,9 @@ concat('"',$names, '"')
 
 declare function local:jsonifyJournalReferences($workID) {
 
-let $rolepath := 'xmldb:exist:///apps/theater-data/theaterjournal/'
+let $roleTailPath := request:get-parameter('dbJournalPath', '')
+let $rolepath := if($roleTailPath != '')then(concat('/db/apps/', $roleTailPath, '/'))else()
+(:let $rolepath := 'xmldb:exist:///apps/theater-data/theaterjournal/':)
 let $rolefiles := collection($rolepath)
 let $rolefile := $rolefiles//tei:TEI
 
@@ -308,9 +327,11 @@ concat('"',$names, '"')
 
 declare function local:jsonifyRegieReferences($workID) {
 
-let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/'
+let $roleTailPath := request:get-parameter('regie', '')
+let $rolepath := if($roleTailPath != '')then(concat('/db/apps/', $roleTailPath, '/'))else()
 let $rolefiles := collection($rolepath)
 let $rolefile := $rolefiles//tei:TEI
+(:let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/':)
 
 let $strings := for $elem in $rolefile
 		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title)else()
@@ -342,7 +363,9 @@ let $strings := for $elem in $dates
 
 declare function local:jsonifyIssueReferences($workID) {
 
-let $rolepath := 'xmldb:exist:///apps/theater-data/ausgaben/'
+let $roleTailPath := request:get-parameter('dbAusgabePath', '')
+let $rolepath := if($roleTailPath != '')then(concat('/db/apps/', $roleTailPath, '/'))else()
+(:let $rolepath := 'xmldb:exist:///apps/theater-data/ausgaben/':)
 let $rolefiles := collection($rolepath)
 let $rolefile := $rolefiles//tei:TEI
 
@@ -365,22 +388,7 @@ declare function local:jsonifyGNDList($id) {
 
 let $strings := for $elem in $id
 
-					let $id :=if($elem/@type = 'gnd')then($elem)else()
-                   
-                    return 
-                      if($id != '')then(        
-concat(
-							'"',$id,'"'))else()
-    
-    return 
-        string-join($strings,',') 
-};
-
-declare function local:jsonifyWegaList($id) {
-
-let $strings := for $elem in $id
-
-					let $id :=if($elem/@type = 'WeGA')then($elem)else()
+					let $id :=$elem
                    
                     return 
                       if($id != '')then(        
@@ -395,9 +403,9 @@ declare function local:jsonifyGND($content) {
 
 let $strings := for $elem in $content
 
-					let $id :=if($elem/mei:identifier/@type = 'gnd')then($elem/mei:identifier)else()
+					let $id :=$elem//mei:identifier[@type='gnd']
 					
-					let $gndList := if($id != '')then(local:jsonifyGNDList($id))else()
+					let $gndList := local:jsonifyGNDList($id)
                    
                     return 
                         
@@ -411,12 +419,12 @@ declare function local:jsonifyWega($content) {
 
 let $strings := for $elem in $content
 
-					let $id :=if($elem/mei:identifier/@type = 'WeGA')then($elem/mei:identifier)else()
-					
-					let $gndList := if($id != '')then(local:jsonifyWegaList($id))else()
-					
+					let $id :=$elem//mei:identifier[@type='WeGA']
+                   
                     return 
-                      concat('[',$gndList,']')
+                      if($id != '')then(        
+concat(
+							'"',$id,'"'))else()
     
     return 
         string-join($strings,',') 

@@ -33,7 +33,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
     
     sortableColumns: false,
     //columnLines: true,
-   // rowLines: true,
+    // rowLines: true,
     selected_node: null,
     source_list: null,
     tablePanel: null,
@@ -62,9 +62,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
             var source = Ext.create('TheaterTool.model.SourceDetails', {
                 "titel": source_details[0].s_title,
                 //'icon': 'resources/images/SourceBlue.png',
-                'sourcetype': source_details[0].sourcetype,
-                'titlecontent': source_details[0].s_titlecontent,
-               'icon': Ext.BLANK_IMAGE_URL,
+                'icon': Ext.BLANK_IMAGE_URL,
                 "signatur": source_details[0].signatur,
                 "inventarnummer": source_details[0].inventarnummer,
                 'titlePages': source_details[0].titlePages,
@@ -141,13 +139,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
         }
         me.columns =[ {
             xtype: 'treecolumn', //this is so we know which column will show the tree
-            text: 'Titel',
+            text: GUI_NAMES.singlesourcesTab_table_title,
             flex: 2,
             menuDisabled: true,
             dataIndex: 'titel'
-        },
-        {
-            text: 'Signatur',
+        }, {
+            text: GUI_NAMES.singlesourcesTab_table_signature,
             flex: 1.7,
             menuDisabled: true,
             dataIndex: 'signatur'

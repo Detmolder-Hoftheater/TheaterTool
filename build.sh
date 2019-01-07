@@ -6,6 +6,5 @@ sencha ant clean
 # building the app
 sencha app build
 
-
 # build xar
 ant xar

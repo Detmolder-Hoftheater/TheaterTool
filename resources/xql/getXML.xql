@@ -14,12 +14,22 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=no indent=yes";
 
 
-let $uri := request:get-parameter('uri', '')
+(:let $uri := request:get-parameter('uri', ''):)
+
+let $dbkey := request:get-parameter('dbkey', '')
+let $tailPath := request:get-parameter('dbPath', '')
 let $type := request:get-parameter('type', 'work')
-let $docUri := if(contains($uri, '#')) then(substring-before($uri, '#')) else($uri)
-(:let $doc := if(contains($type, 'work'))then(eutil:getDoc($docUri)/mei:work)else(eutil:getDoc($docUri)/mei:source):)
-let $doc := eutil:getDoc($docUri)
 
+let $uri := concat('/db/apps/', $tailPath, '/')
+let $file := collection($uri)
+let $doc := for $elem in $file
+                    return 
+                    if(contains($type, 'work') and $elem/mei:work[@xml:id = $dbkey])then($elem)else(
+                        if(contains($type, 'source') and $elem/mei:source[@xml:id = $dbkey])then($elem)else()                   
+                    )
+(:let $docUri := if(contains($uri, '#')) then(substring-before($uri, '#')) else($uri):)
 
+(:let $doc := if(contains($type, 'work'))then(eutil:getDoc($docUri)/mei:work)else(eutil:getDoc($docUri)/mei:source)
+:)
 return
    $doc

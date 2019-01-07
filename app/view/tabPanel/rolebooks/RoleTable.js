@@ -365,14 +365,14 @@ for(i = 0; i < me.lineList.rows.length; i++){
 			 if(colIndex === me.workDetailsColumn && rec.data.workKey != ''){
 					var dbkey = rec.data.workKey;
 					if(dbkey != ''){
-					
-					var workIcon = '';
+					var workIcon = 'resources/images/Books1-17.png';
+					/*var workIcon = '';
 					if(extWorkKeys.indexOf('dbkey') > -1){
 					    workIcon = 'resources/images/BookBlau-16.png';
 					}
 					else{
 					    workIcon = 'resources/images/Books1-17.png';
-					}
+					}*/
 					
 					
 					var toolBarGlobal = Ext.getCmp('toolbar');

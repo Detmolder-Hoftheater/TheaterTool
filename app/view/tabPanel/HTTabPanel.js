@@ -1,41 +1,43 @@
 Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
-    extend: 'Ext.tab.Panel',
-    
-    id: 'tabpanel',
-    
-    defaults: {
-        autoScroll: true
+	extend: 'Ext.tab.Panel',
+	
+	id: 'tabpanel',
+	
+	defaults: {
+		autoScroll: true
+		
+	},
+	 style: {
+      
+      borderTop: '3px solid #A80016'
     },
-    style: {
-        
-        borderTop: '3px solid #A80016'
-    },
-    
-    collapsible: false,
-    region: 'center',
-    
-    flex: 1,
-    /*border:false,
-    bodyBorder: false,
-    
-    split: false,*/
-    
-    
-    /**
-     * Create items
-     * @overrides
-     */
-    initComponent: function () {
-        
-        var me = this;
-        
-        var win = new TheaterTool.view.main.InformationDialog();
-        win.show();
-        
-        me.items =[
-        win],
-        
-        me.listeners = {
+	
+	collapsible: false,
+	region: 'center',
+	
+	flex: 1,
+/*border:false,
+bodyBorder: false,
+   
+ split: false,*/
+	
+
+	/**
+	 * Create items
+	 * @overrides
+	 */
+	initComponent: function () {
+	
+	   var me = this;
+
+		var win = new TheaterTool.view.main.InformationDialog();
+				win.show();
+	
+		me.items =[
+		win
+		],
+		
+		me.listeners = {
             render: function () {
                 //if (Ext.browser.is('Firefox')) {
                 me.items.each(function (itm, idx) {
@@ -48,34 +50,35 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
             },
             
             
-            beforetabchange: function (newCard, oldCard, eOpts) {
+            beforetabchange: function(newCard, oldCard, eOpts ){
                 var historyButton = Ext.getCmp('historyButton');
-                if (! oldCard.isMenuAdded) {
+                if(!oldCard.isMenuAdded){
                     var isFound = me.foundHistoryitem(historyButton.menu.items, oldCard);
-                    
-                    var menuItem = historyButton.menu.add({
-                        text: oldCard.title, icon: oldCard.icon
-                    });
+                   
+                    var menuItem = historyButton.menu.add({text: oldCard.title, icon: oldCard.icon});
                     oldCard.setActiveMenuItemId(menuItem.id);
-                    oldCard.setMenuAdded(true);
-                } else {
-                    oldCard.setMenuAdded(false);
+                    oldCard.setMenuAdded(true); 
+                   
+                }
+                else{
+                    oldCard.setMenuAdded(false);  
                 }
                 
-                // var isFound = me.foundHistoryitem(historyButton.menu.items, oldCard);
-                // if(!isFound){
-                //     var menuItem = historyButton.menu.add({text: oldCard.title, icon: oldCard.icon});
-                //     oldCard.setActiveMenuItemId(menuItem.id);
-                // }
-                var toolBar = Ext.getCmp('toolbar');
+               // var isFound = me.foundHistoryitem(historyButton.menu.items, oldCard);
+               // if(!isFound){
+               //     var menuItem = historyButton.menu.add({text: oldCard.title, icon: oldCard.icon});
+               //     oldCard.setActiveMenuItemId(menuItem.id);
+               // }
+                var toolBar = Ext.getCmp('toolbar'); 
                 toolBar.handleHistoryButtons();
+                
             }
         }
-        
-        me.callParent()
-    },
-    
-    foundHistoryitem: function (menuItems, card) {
+		
+		me.callParent()
+	},
+	
+	foundHistoryitem: function(menuItems, card){
         for (i = 0; i < menuItems.items.length; i++) {
             var existItem = menuItems.items[i];
             if (existItem.text === card.title && existItem.id === card.activeMenuItemId) {
@@ -84,8 +87,8 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
         }
         return false;
     },
-    
-    isItemFoundWithId: function (existItems, dbId, activeMenuItemId) {
+	
+	isItemFoundWithId: function (existItems, dbId, activeMenuItemId) {
         for (i = 0; i < existItems.items.length; i++) {
             var existItem = existItems.items[i];
             if (existItem.items.items[0].dbkey === dbId || existItem.items.items[0].selection === dbId) {
@@ -98,8 +101,8 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
         }
         return false;
     },
-    
-    isItemFound: function (existItems, titletext, activeMenuItemId) {
+	
+	isItemFound: function (existItems, titletext, activeMenuItemId) {
         for (i = 0; i < existItems.items.length; i++) {
             var existItem = existItems.items[i];
             if (existItem.title === titletext) {
@@ -112,4 +115,5 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
         }
         return false;
     }
+    
 });

@@ -18,7 +18,7 @@ declare variable $db_path := request:get-parameter('path', '');
 declare variable $path := concat('xmldb:exist:///apps/', $db_path, '/');
 
 declare variable $file := collection($path);
-declare variable $fileNames := $file/tei:person;
+declare variable $fileNames := $file//tei:person;
 
 declare function local:jsonifyNormalizeCharacter($titles, $fileID) {
 
@@ -67,7 +67,7 @@ declare function local:jsonifyTitels($fileNames) {
 
 let $strings := for $elem_1 in $fileNames
 
-let $titles := $elem_1/tei:persName
+let $titles := $elem_1//tei:persName
 
 let $fileID :=  $elem_1/@xml:id
 

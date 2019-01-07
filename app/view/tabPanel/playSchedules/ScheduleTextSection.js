@@ -12,7 +12,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     autoScroll: true,*/
     
     layout: {
-        type: 'vbox',
+        type: 'hbox',
         pack: 'start',
         align: 'stretch'
     },
@@ -21,6 +21,8 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     bodyBorder: false,
     //bodyPadding:10,
     flex: 1,
+    
+    minHeight: 500,
     //autoScroll: true,
     
     repertoireTab: null,
@@ -34,11 +36,17 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     
     xmlSection: null,
     
-   // scheduleTable: null,
+    scheduleTable: null,
     
     selectedMonth: null,
     
     selectedWorkID: null,
+    schedID: null,
+    
+    messageWindow: null,
+    rev_index: -1,
+    rev_length: -1,
+
     
     initComponent: function () {
         
@@ -52,7 +60,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
             height: 30,
             items:[ {
                 xtype: 'button',
-                text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
+                text: '<font size = "1"><b style="color:gray;">' + GUI_NAMES.xml_show + '</b></font>',
                 style: {
                     borderRight: '1px solid gray',
                     borderLeft: '1px solid gray',
@@ -95,23 +103,22 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                             method: 'GET',
                             params: {
                                 month: me.monthNumber,
-                                year: me.year
+                                year: me.year,
+                                schedID: me.schedID,
+                                dbPath: dbPathsMap.get('playschedule')
                             },
                             success: function (response) {
-                                
                                 var testText = response.responseXML;
+                                
                                 
                                 var tempDiv = document.createElementNS('http://www.tei-c.org/ns/1.0l', 'div');
                                 var personArr = testText.getElementsByTagName('TEI');
                                 tempDiv.appendChild(personArr[0]);
-                                
+      
                                 var tmp = hljs.highlightAuto($(tempDiv).html()).value;
                                 var htmlVersion = '<pre>' + tmp + '</<pre>';
-                                
-                                
-                                /*var testText = response.responseText;
-                                
-                                var fragment = document.createDocumentFragment('div');
+                    
+                                /*var fragment = document.createDocumentFragment('div');
                                 var tempDiv = document.createElement('div');
                                 fragment.appendChild(tempDiv);
                                 tempDiv.innerHTML = testText;
@@ -119,7 +126,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                                 var tmp = hljs.highlightAuto($(tempDiv).html()).value;
                                 var htmlVersion = '<pre>' + tmp + '</<pre>';*/
                                 var win = new Ext.window.Window({
-                                    title: '<font style="color:gray;">XML for ' + me.title + ', ' + me.year + '</font>',
+                                    title: '<font style="color:gray;">' + GUI_NAMES.xml_show_tailtitle + me.title + '</font>',
                                     html: htmlVersion,
                                     icon: 'resources/images/Calendar-17.png',
                                     bodyStyle: {
@@ -135,57 +142,16 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                         });
                     }
                 }
-            }, {
+            },
+            {
                 xtype: 'button',
-                text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
-                //disabled: true,
+                text: '<font size = "1"><b style="color:gray;">' + GUI_NAMES.xml_load + '</b></font>',
+                disabled: true,
                 style: {
                     borderRight: '1px solid gray',
                     borderLeft: '1px solid gray',
                     borderTop: '1px solid gray',
                     borderBottom: '1px solid gray'
-                },
-                listeners: {
-                    click: function (item, e, eOpts) {
-                        
-                        Ext.Ajax.request({
-                            
-                            url: 'resources/xql/getScheduleXML.xql',
-                            method: 'GET',
-                            params: {
-                                month: me.monthNumber,
-                                year: me.year
-                            },
-                            success: function (response) {
-                                var xmltext = response.responseText;
-                                
-                                var pom = document.createElement('a');
-                                
-                                var month = '';
-                                if(me.monthNumber != null){
-                                    month = me.monthNumber;
-                                }
-                                
-                                var filename = me.year + '_' + month + ".xml";
-                                var pom = document.createElement('a');
-                                var bb = new Blob([xmltext], {
-                                    type: 'text/plain'
-                                });
-                                
-                                pom.setAttribute('href', window.URL.createObjectURL(bb));
-                                pom.setAttribute('download', filename);
-                                
-                                pom.dataset.downloadurl =[ 'text/plain', pom.download, pom.href].join(':');
-                                pom.draggable = true;
-                                pom.classList.add('dragout');
-                                
-                                //apply the click on to download the file
-                                document.body.appendChild(pom);
-                                pom.click();
-                                document.body.removeChild(pom);
-                            }
-                        });
-                    }
                 }
             }]
         };
@@ -224,38 +190,43 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
             method: 'GET',
             params: {
                 month: me.monthNumber,
-                year: me.year
+                year: me.year,
+                schedID: me.schedID,
+                dbPath: dbPathsMap.get('playschedule')
             },
             success: function (response) {
                 
                 var json = jQuery.parseJSON(response.responseText);
                 
-                var jsonTables = json.tables;
-                var arr = Object.keys(jsonTables).map(function (key) {
-                return jsonTables[key];
-            });
-                
-                for(var k = 0; k < arr.length; k++){
-                    var oneTable = arr[k];
-                    var scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({
-                    lineList: oneTable, selectedWorkID: me.selectedWorkID
+                me.scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({
+                    lineList: json, selectedWorkID: me.selectedWorkID
                 });
-                if (oneTable.settlement.length > 0) {
-                    scheduleTable.setTitle('<font style="color:#A87678;">Spielort(e): ' + oneTable.settlement + '</font>');
+                if (json.settlement.length > 0) {
+                    me.scheduleTable.setTitle('<font style="color:#A87678;">' + GUI_NAMES.schedul_settlement + ': ' + json.settlement + '</font>');
                 }
-                scheduleTable.setTablePanel(me);
+                me.scheduleTable.setTablePanel(me);
                 
-                me.add(scheduleTable);
-                me.tableheight = scheduleTable.height;
-                me.tablewidth = scheduleTable.width;
+                me.add(me.scheduleTable);
+                me.tableheight = me.scheduleTable.height;
+                me.tablewidth = me.scheduleTable.width;
                 
                 if (me.selectedMonth === me.month) {
-                    var workToFocus = scheduleTable.getWorkToFocus();
-                    scheduleTable.getSelectionModel().select(workToFocus);
-                    scheduleTable.getView().focusRow(workToFocus);
-                }
+                    var workToFocus = me.scheduleTable.getWorkToFocus();
+                    me.scheduleTable.getSelectionModel().select(workToFocus);
+                    me.scheduleTable.getView().focusRow(workToFocus);
                 }
                 
+                if (json.graphics.length > 0) {
+                    me.detailSection = new TheaterTool.view.tabPanel.playSchedules.FacsimileView({
+                        imageData: json.graphics
+                    });
+                    me.add(me.detailSection);
+                }
+                if(me.rev_index === me.rev_length){
+                        me.messageWindow.close();
+                        
+                    }
+
             }
         });
         

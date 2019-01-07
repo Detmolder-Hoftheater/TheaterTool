@@ -23,7 +23,7 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
 	
 	var me = this;
 	
-	if(me.type === 'Werke'){
+	if(me.type === GUI_NAMES.filterworks){
 	    Ext.Ajax.request({
             url: 'resources/xql/searchWorks.xql',
             method: 'GET',
@@ -56,10 +56,10 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
 		
 		var tableTitle = '';
 		if(me.searchValue === ''){
-		    tableTitle = '<b style="color:gray;">Alle Werke</b>';
+		    tableTitle = '<b style="color:gray;">'+GUI_NAMES.search_all_works+'</b>';
 		}
 		else{
-		    tableTitle = '<b style="color:gray;">Werke mit "'+me.searchValue+'"</b>';
+		    tableTitle = '<b style="color:gray;">'+GUI_NAMES.search_works_with+' "'+me.searchValue+'"</b>';
 		}
 		
 		var worksTable = new TheaterTool.view.tabPanel.search.WorkResultTable({worksList: json, 
@@ -70,7 +70,7 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
             }
         });
 	}
-	else if(me.type === 'Personen'){
+	else if(me.type === GUI_NAMES.filterpersons){
 	    Ext.Ajax.request({
             url: 'resources/xql/searchPersons.xql',
             method: 'GET',
@@ -102,10 +102,10 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
 		
 		var tableTitle = '';
 		if(me.searchValue === ''){
-		    tableTitle = '<b style="color:gray;">Alle Personen</b>';
+		    tableTitle = '<b style="color:gray;">'+GUI_NAMES.search_all_persons+'</b>';
 		}
 		else{
-		    tableTitle = '<b style="color:gray;">Personnamen mit "'+me.searchValue+'"</b>';
+		    tableTitle = '<b style="color:gray;">'+GUI_NAMES.search_persons_with+' "'+me.searchValue+'"</b>';
 		}
 		
 		var personTable = new TheaterTool.view.tabPanel.search.PersonResultTable({personList: json, 

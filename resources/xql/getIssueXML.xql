@@ -9,13 +9,14 @@ declare namespace system="http://exist-db.org/xquery/system";
 declare namespace transform="http://exist-db.org/xquery/transform";
 
 (:declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";:)
-declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=yes indent=yes";
+declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=no indent=yes";
 
 let $month := request:get-parameter('issueName', '')
+let $issueID := request:get-parameter('issueID', '')
 let $year := request:get-parameter('year', '')
-
-let $uri := concat('/db/apps/theater-data/ausgaben/', $year, '/')
-
+let $issuetailPath := request:get-parameter('dbPath', '')
+let $uri := concat('/db/apps/', $issuetailPath, '/', $year, '/')
+(:let $uri := concat('/db/apps/theater-data/ausgaben/', $year, '/'):)
 (:let $file := doc($uri):)
 let $file := collection($uri)
 
@@ -23,9 +24,7 @@ let $file := collection($uri)
 let $schedule := if($headName != '')then($file//tei:TEI)else()
 let $doc := eutil:getDoc($schedule)/tei:TEI:)
 
-let $fileNames := for $elem in $file
-                    return
-if($elem//tei:TEI[tei:teiHeader//tei:titleStmt[1][tei:title = $month]])then($elem)else()
+let $fileNames := $file//tei:TEI[@xml:id = $issueID]
 
 
 return

@@ -1,5 +1,5 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
-	extend: 'Ext.tab.Panel',
+    extend: 'Ext.tab.Panel',
     
     //autoScroll: true,
     
@@ -15,7 +15,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
     
     sourceID: null,
     werkTitle: null,
-    firstTabTitle:null,
+    firstTabTitle: null,
+    workId: null,
     
     headerPosition: 'right',
     
@@ -23,7 +24,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
         
         var me = this;
         
-       
+        
         /*var app = TheaterTool.getApplication();
         var sourceStore = app.createStoreForSource();
         sourceStore.getProxy().extraParams.sourceID = this.sourceID;
@@ -32,7 +33,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
         //this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
         
         me.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({
-            sourceID: me.sourceID, title: '<b style="color:gray;">'+me.firstTabTitle+'</b>'
+            sourceID: me.sourceID, title: '<b style="color:gray;">' + me.firstTabTitle + '</b>', workId: me.workId
         });
         
         me.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({
@@ -40,34 +41,32 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
         });
         
         /*me.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSectionXML({
-            sourceID: me.sourceID
+        sourceID: me.sourceID
         });*/
         //console.log(this.werkTitle);
         /*if (storeField.indexOf(me.werkTitle) > -1 && me.werkTitle === 'Aschenbrödel') {
-            me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
-                path: 'Einleitung_Mus-n120_Aschenbroedel'
-            });
+        me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
+        path: 'Einleitung_Mus-n120_Aschenbroedel'
+        });
         } else if (storeField.indexOf(me.werkTitle) > -1 && me.werkTitle === 'Der Bettelstudent') {
-            me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
-                path: 'Einleitung_Mus-n237_Bettelstudent'
-            });
+        me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
+        path: 'Einleitung_Mus-n237_Bettelstudent'
+        });
         }*/
         
         /*if (me.overviewSection !== null) {
-            me.items =[
-            me.overviewSection,
-            me.detailSection,
-            me.sourcesSection
-            //me.detailSection_xml
-            ]
+        me.items =[
+        me.overviewSection,
+        me.detailSection,
+        me.sourcesSection
+        //me.detailSection_xml
+        ]
         } else {*/
-            me.items =[
-            me.detailSection,
-            me.sourcesSection
-           // me.detailSection_xml
-            ]
-      //  };
-        
+        me.items =[
+        me.detailSection,
+        me.sourcesSection      
+        ]
+       
         me.detailSection.setTitelValue();
         me.sourcesSection.createContent();
         

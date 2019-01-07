@@ -25,6 +25,7 @@ voiceID: null,
 number: null,  
 selectedWork: null,
 pageSpinner: null,
+sourceID: null,
 
 	zones: null,
 	facsimileTile: null,
@@ -164,7 +165,9 @@ Ext.Ajax.request({
 				params: {
 					fileName: voiceID,
 					pageNr: number,
-					selectedWork: selectedWork
+					selectedWork: selectedWork,
+					eoutPath: dbPathsMap.get('eoutPath'),
+					sourceId: me.sourceID
 				},
 				success: function (result) {
 					
@@ -212,8 +215,10 @@ Ext.Ajax.request({
 
 					var fields = page.path.split('.');
 					var name = fields[0];
-					//leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
-					leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/" + name;
+					var imagePath = dbPathsMap.get('liPath');
+					leaflet_path = "/exist/rest/db/apps/" +imagePath+'/'+ name;
+					
+					/*leaflet_path = "/exist/rest/db/apps/"+imagePath+"/" + me.sourceID+ "/"+voiceID;*/
 /*"http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/" + name;*/
 					
 					 //var path = 'http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/edition-HT_Isouard/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586/MUS-N_120_BASS-VIOLONCELLO_001/{z}-{x}-{y}.jpg';
@@ -243,8 +248,6 @@ Ext.Ajax.request({
 					me.facsimileTile.addTo(map);
 
 					me.facsimileTile.fitInImage();
-					
-					map.setZoom(Math.round(maxZoomLevel/2-1));
 	
 				}
 			});
