@@ -10,9 +10,8 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";
                  
 declare variable  $bookName := request:get-parameter('regieName', '');
-
-declare variable  $path := 'xmldb:exist:///apps/theater-data/abonnement/';
-
+declare variable $db_path := request:get-parameter('path', '');
+declare variable $path := concat('xmldb:exist:///apps/', $db_path);
 declare variable $file := collection($path);
 declare variable $fileNames := $file/tei:TEI[tei:teiHeader//tei:titleStmt[1][tei:title = $bookName]];
 declare variable $html_1 := $fileNames/tei:text/tei:body/child::*;

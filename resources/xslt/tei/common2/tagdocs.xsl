@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:s="http://www.ascc.net/xml/schematron" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:teix="http://www.tei-c.org/ns/Examples" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="fo s a tei html rng teix xs sch" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:s="http://www.ascc.net/xml/schematron" xmlns:teix="http://www.tei-c.org/ns/Examples" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="fo s a tei html rng teix xs sch" version="2.0">
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
     <desc>
       <p> TEI stylesheet for weaving TEI ODD documents</p>
@@ -50,8 +49,7 @@ of this software, even if advised of the possibility of such damage.
           <xsl:when test="starts-with(@target,'#') and id(substring(@target,2))">
             <xsl:call-template name="makeInternalLink">
               <xsl:with-param name="target" select="substring(@target,2)"/>
-              <xsl:with-param name="ptr" select="if (self::tei:ptr)
-						 then true() else false()"/>
+              <xsl:with-param name="ptr" select="if (self::tei:ptr)        then true() else false()"/>
               <xsl:with-param name="dest">
                 <xsl:call-template name="generateEndLink">
                   <xsl:with-param name="where">
@@ -68,8 +66,7 @@ of this software, even if advised of the possibility of such damage.
             <xsl:choose>
               <xsl:when test="$Chapter='AB' or        $Chapter='AI' or        $Chapter='CC' or        $Chapter='CE' or        $Chapter='CH' or        $Chapter='CO' or        $Chapter='DI' or        $Chapter='DR' or        $Chapter='DS' or        $Chapter='FS' or        $Chapter='FT' or        $Chapter='GD' or        $Chapter='HD' or        $Chapter='MS' or        $Chapter='ND' or        $Chapter='NH' or        $Chapter='PH' or        $Chapter='SA' or        $Chapter='SG' or        $Chapter='ST' or        $Chapter='TC' or        $Chapter='TD' or        $Chapter='TS' or        $Chapter='USE' or        $Chapter='VE' or        $Chapter='WD'">
                 <xsl:call-template name="makeExternalLink">
-		  <xsl:with-param name="ptr" select="if (self::tei:ptr)
-						 then true() else false()"/>
+		  <xsl:with-param name="ptr" select="if (self::tei:ptr)        then true() else false()"/>
                   <xsl:with-param name="dest">
                     <xsl:text>http://www.tei-c.org/release/doc/tei-p5-doc/</xsl:text>
                     <xsl:value-of select="$documentationLanguage"/>
@@ -335,7 +332,19 @@ of this software, even if advised of the possibility of such damage.
   </doc>
   <xsl:template match="tei:classSpec">
     <xsl:if test="parent::tei:specGrp">
-      <xsl:element namespace="{$outputNS}" name="{$dtName}"><xsl:element namespace="{$outputNS}" name="{$hiName}"><xsl:attribute name="{$rendName}"><xsl:text>label</xsl:text></xsl:attribute><xsl:attribute name="xml:lang"><xsl:value-of select="$documentationLanguage"/></xsl:attribute><xsl:call-template name="i18n"><xsl:with-param name="word">Class</xsl:with-param></xsl:call-template></xsl:element>: <xsl:value-of select="@ident"/></xsl:element>
+      <xsl:element namespace="{$outputNS}" name="{$dtName}">
+                <xsl:element namespace="{$outputNS}" name="{$hiName}">
+                    <xsl:attribute name="{$rendName}">
+                        <xsl:text>label</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="xml:lang">
+                        <xsl:value-of select="$documentationLanguage"/>
+                    </xsl:attribute>
+                    <xsl:call-template name="i18n">
+                        <xsl:with-param name="word">Class</xsl:with-param>
+                    </xsl:call-template>
+                </xsl:element>: <xsl:value-of select="@ident"/>
+            </xsl:element>
       <xsl:element namespace="{$outputNS}" name="{$ddName}">
         <xsl:apply-templates mode="tangle" select="."/>
         <xsl:text>(</xsl:text>
@@ -397,7 +406,7 @@ of this software, even if advised of the possibility of such damage.
                 <xsl:value-of select="$name"/>
               </xsl:with-param>
             </xsl:call-template>
-            <xsl:text>&#160;</xsl:text>
+            <xsl:text> </xsl:text>
             <xsl:call-template name="makeDescription"/>
           </xsl:element>
         </xsl:element>
@@ -1171,7 +1180,7 @@ of this software, even if advised of the possibility of such damage.
               </xsl:attribute>
               <xsl:value-of select="$name"/>
             </xsl:element>
-            <xsl:text>&#160;</xsl:text>
+            <xsl:text> </xsl:text>
             <xsl:call-template name="makeDescription"/>
           </xsl:element>
         </xsl:element>
@@ -1252,7 +1261,7 @@ of this software, even if advised of the possibility of such damage.
                 </xsl:for-each>
               </xsl:variable>
               <xsl:choose>
-                <xsl:when test=".=&quot;TEI.singleBase&quot;"/>
+                <xsl:when test=".=&#34;TEI.singleBase&#34;"/>
                 <xsl:otherwise>
                   <rng:define name="{../@ident}">
                     <xsl:if test="starts-with(.,'component')">
@@ -1448,7 +1457,7 @@ of this software, even if advised of the possibility of such damage.
           <xsl:attribute name="{$rendName}">
             <xsl:text>wovenodd-col2</xsl:text>
           </xsl:attribute>
-          <xsl:comment>&#160;</xsl:comment>
+          <xsl:comment> </xsl:comment>
           <xsl:apply-templates/>
         </xsl:element>
       </xsl:element>
@@ -1757,7 +1766,8 @@ of this software, even if advised of the possibility of such damage.
               <xsl:call-template name="linkTogether">
                 <xsl:with-param name="name" select="$name"/>
                 <xsl:with-param name="reftext" select="$alt"/>
-                <xsl:with-param name="class">link_odd_<xsl:value-of select="$type"/></xsl:with-param>
+                <xsl:with-param name="class">link_odd_<xsl:value-of select="$type"/>
+                                </xsl:with-param>
               </xsl:call-template>
             </xsl:for-each>
             <xsl:if test="not(position() = last())">
@@ -2210,7 +2220,7 @@ of this software, even if advised of the possibility of such damage.
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="op" mode="keep">
-    <xsl:value-of select="translate (., ' ', '&#160;')"/>
+    <xsl:value-of select="translate (., ' ', ' ')"/>
   </xsl:template>
   <xsl:template match="atom" mode="keep">
     <xsl:call-template name="showRNC">
@@ -2610,7 +2620,8 @@ of this software, even if advised of the possibility of such damage.
                       <xsl:call-template name="linkTogether">
                         <xsl:with-param name="name" select="$me"/>
                         <xsl:with-param name="reftext" select="$alt"/>
-                        <xsl:with-param name="class">link_odd_<xsl:value-of select="$type"/></xsl:with-param>
+                        <xsl:with-param name="class">link_odd_<xsl:value-of select="$type"/>
+                                                </xsl:with-param>
                       </xsl:call-template>
                     </xsl:for-each>
                     <xsl:if test="not(position() = last())">
@@ -2681,8 +2692,7 @@ of this software, even if advised of the possibility of such damage.
     <xsl:for-each select="key('CLASSMEMBERS',@ident)">
       <xsl:choose>
         <xsl:when test="self::tei:elementSpec">
-          <Element name="{@ident}" module="{@module}"
-		   type="{local-name()}">
+          <Element name="{@ident}" module="{@module}" type="{local-name()}">
 	    <xsl:attribute name="altName">
 	      <xsl:choose>
 		<xsl:when test="tei:altIdent">

@@ -1,16 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" 
-                xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-                xmlns:fo="http://www.w3.org/1999/XSL/Format"
-                xmlns:html="http://www.w3.org/1999/xhtml"
-
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                xmlns:tei="http://www.tei-c.org/ns/1.0"
-                xmlns:teix="http://www.tei-c.org/ns/Examples"
-                
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                version="2.0"
-                exclude-result-prefixes="a fo rng tei teix">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:teix="http://www.tei-c.org/ns/Examples" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:html="http://www.w3.org/1999/xhtml" version="2.0" exclude-result-prefixes="a fo rng tei teix">
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
       <desc>
          <p> TEI stylesheet dealing with elements from the header module,
@@ -54,8 +42,8 @@ of this software, even if advised of the possibility of such damage.
    </doc>
 
   <xsl:key name="ALL-EXTRENDITION" match="@rendition[not(starts-with(.,'#'))]" use="1"/>
-  <xsl:key name="EXTRENDITION"     match="@rendition[not(starts-with(.,'#'))]" use="."/>
-  <xsl:key name="ALL-LOCALRENDITION" match="tei:rendition" use='1'/>
+  <xsl:key name="EXTRENDITION" match="@rendition[not(starts-with(.,'#'))]" use="."/>
+  <xsl:key name="ALL-LOCALRENDITION" match="tei:rendition" use="1"/>
 
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl">
       <desc>Process element teiHeader</desc>
@@ -70,13 +58,17 @@ of this software, even if advised of the possibility of such damage.
       <xsl:if test="key('ALL-LOCALRENDITION',1)">
          <style type="text/css">
 	   <xsl:for-each select="key('ALL-LOCALRENDITION',1)">
-	     <xsl:text>&#10;.</xsl:text>
+	     <xsl:text>
+.</xsl:text>
 	     <xsl:value-of select="@xml:id"/>
-	     <xsl:text> {&#10;	</xsl:text>
+	     <xsl:text> {
+	</xsl:text>
 	     <xsl:value-of select="."/>
-	     <xsl:text>;&#10;}</xsl:text>
+	     <xsl:text>;
+}</xsl:text>
 	   </xsl:for-each>
-	   <xsl:text>&#10;</xsl:text>
+	   <xsl:text>
+</xsl:text>
          </style>
       </xsl:if>
       <xsl:if test="key('ALL-EXTRENDITION',1)">
@@ -87,11 +79,14 @@ of this software, even if advised of the possibility of such damage.
 	     </xsl:variable>
 	     <xsl:for-each select="key('RENDITION',$pointer)[1]">
 	       <xsl:for-each select="document($pointer)">
-		 <xsl:text>&#10;.</xsl:text>
+		 <xsl:text>
+.</xsl:text>
 		 <xsl:value-of select="@xml:id"/>
-		 <xsl:text> {&#10;</xsl:text>
+		 <xsl:text> {
+</xsl:text>
 		 <xsl:value-of select="."/>
-		 <xsl:text>;&#10;}</xsl:text>
+		 <xsl:text>;
+}</xsl:text>
 	       </xsl:for-each>
 	     </xsl:for-each>
 	   </xsl:for-each>
@@ -102,11 +97,11 @@ of this software, even if advised of the possibility of such damage.
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl">
     <desc>[html] processing licence</desc>
   </doc>
-  <xsl:template match="tei:availability"  mode="copyrighttext">
+  <xsl:template match="tei:availability" mode="copyrighttext">
     <xsl:apply-templates mode="copyrighttext"/>
   </xsl:template>
 
-  <xsl:template match="tei:licence"  mode="copyrighttext">
+  <xsl:template match="tei:licence" mode="copyrighttext">
     <xsl:if test="@target">
       <xsl:text>[</xsl:text>
       <xsl:value-of select="@target"/>

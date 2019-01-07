@@ -22,7 +22,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
     werkTitle: null,
     titleParameter: null,
     
-    
     initComponent: function () {
         
         var me = this;
@@ -52,7 +51,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
                     method: 'GET',
                     params: {
                         sourceID: me.sourceID,
-                        incipitName: me.titleParameter
+                        incipitName: me.titleParameter,
+                        dbexpPath: dbPathsMap.get('expressions')
                     },
                     success: function (response) {
                     var testText = response.responseText;
@@ -64,7 +64,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
         var tmp = hljs.highlightAuto($(tempDiv).html()).value;
         var htmlVersion = '<pre>' + tmp + '</<pre>';
                         var win = new Ext.window.Window({
-					       title: '<font style="color:gray;">XML for ' + me.titleParameter+'</font>',
+					      // title: '<font style="color:gray;">XML for ' + me.titleParameter+'</font>',
+					       title: me.titleParameter,
 					        html: htmlVersion,
 					        icon: 'resources/images/Calendar-17.png',
 					        bodyStyle:{"background-color":"white"},
@@ -84,51 +85,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
         		},
         		{xtype: 'button',
         		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
-        		//disabled: true,
+        		disabled: true,
         		style: {
 					borderRight: '1px solid gray',
 					borderLeft: '1px solid gray',
 					 borderTop: '1px solid gray',
 					 borderBottom: '1px solid gray'
-				},
-				listeners: {
-					click: function (item, e, eOpts) {
-					
-                Ext.Ajax.request({
-                  
-                    url:'resources/xql/getIncipitsXML.xql',
-                    method: 'GET',
-                    params: {
-                        sourceID: me.sourceID,
-                        incipitName: me.titleParameter
-                    },
-                    success: function (response) {
-                    var xmltext = response.responseText;
-                   
-                    var pom = document.createElement('a');
-
-                    var filename = me.titleParameter +".xml";
-                    var pom = document.createElement('a');
-                    var bb = new Blob([xmltext], {type: 'text/plain'});
-
-                    pom.setAttribute('href', window.URL.createObjectURL(bb));
-                    pom.setAttribute('download', filename);
-
-                    pom.dataset.downloadurl = ['text/plain', pom.download, pom.href].join(':');
-                    pom.draggable = true; 
-                    pom.classList.add('dragout');
-
-                    //apply the click on to download the file
-                    document.body.appendChild(pom);
-                    pom.click();
-                    document.body.removeChild(pom);
-                    
-                     
-                    }
-                });
-				
-					   
-					}
 				}
         		}
         		]

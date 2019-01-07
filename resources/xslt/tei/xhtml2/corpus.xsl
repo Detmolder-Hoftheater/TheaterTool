@@ -1,16 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" 
-                xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-                xmlns:fo="http://www.w3.org/1999/XSL/Format"
-                xmlns:html="http://www.w3.org/1999/xhtml"
-
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                xmlns:tei="http://www.tei-c.org/ns/1.0"
-                xmlns:teix="http://www.tei-c.org/ns/Examples"
-                
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                exclude-result-prefixes="a fo rng tei teix"
-                version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:teix="http://www.tei-c.org/ns/Examples" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:html="http://www.w3.org/1999/xhtml" exclude-result-prefixes="a fo rng tei teix" version="2.0">
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
       <desc>
          <p> TEI stylesheet dealing with elements from the corpus module,
@@ -129,11 +117,7 @@ of this software, even if advised of the possibility of such damage.
          <xsl:message>Opening file <xsl:value-of select="$outName"/>
          </xsl:message>
       </xsl:if>
-      <xsl:result-document doctype-public="{$doctypePublic}" 
-			   doctype-system="{$doctypeSystem}"
-                           encoding="{$outputEncoding}"
-                           href="{$outName}"
-                           method="{$outputMethod}">
+      <xsl:result-document doctype-public="{$doctypePublic}" doctype-system="{$doctypeSystem}" encoding="{$outputEncoding}" href="{$outName}" method="{$outputMethod}">
       
          <xsl:element name="html" namespace="{$outputNamespace}">
 	   <xsl:call-template name="addLangAtt"/>

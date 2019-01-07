@@ -1,14 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" 
-                xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-                xmlns:fo="http://www.w3.org/1999/XSL/Format"
-                xmlns:html="http://www.w3.org/1999/xhtml"
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                xmlns:tei="http://www.tei-c.org/ns/1.0"
-                xmlns:teix="http://www.tei-c.org/ns/Examples"                
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                exclude-result-prefixes=" a fo rng tei teix html"
-                version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:teix="http://www.tei-c.org/ns/Examples" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:html="http://www.w3.org/1999/xhtml" exclude-result-prefixes=" a fo rng tei teix html" version="2.0">
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
       <desc>
          <p> TEI stylesheet dealing with elements from the drama module,
@@ -246,8 +236,7 @@ of this software, even if advised of the possibility of such damage.
       <xsl:call-template name="rendToClass">
 	<xsl:with-param name="default">
 	  <xsl:choose>
-	    <xsl:when
-		test="ancestor::tei:text/@rend='firstfolio'">stage</xsl:when>
+	    <xsl:when test="ancestor::tei:text/@rend='firstfolio'">stage</xsl:when>
 	    <xsl:otherwise>stage it</xsl:otherwise>
 	  </xsl:choose>
 	</xsl:with-param>

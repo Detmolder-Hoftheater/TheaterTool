@@ -1,14 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format"
-                xmlns:s="http://www.ascc.net/xml/schematron"
-                xmlns:fotex="http://www.tug.org/fotex"
-                xmlns:tei="http://www.tei-c.org/ns/1.0"
-                
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                exclude-result-prefixes="s tei fotex xsi sch fo"
-                version="2.0">
+<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:fotex="http://www.tug.org/fotex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://www.ascc.net/xml/schematron" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" exclude-result-prefixes="s tei fotex xsi sch fo" version="2.0">
 <!--  <xsl:import href="tei-param.xsl"/>-->
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
       <desc>
@@ -103,8 +93,7 @@ of this software, even if advised of the possibility of such damage.
     <xsl:choose>
       	<xsl:when test="$useFixedDate='true'">1970-01-01</xsl:when>
 	<xsl:otherwise>
-	  <xsl:value-of
-	      select="format-dateTime(current-dateTime(),'[Y]-[M02]-[D02]T[H02]:[m02]:[s02]Z')"/>
+	  <xsl:value-of select="format-dateTime(current-dateTime(),'[Y]-[M02]-[D02]T[H02]:[m02]:[s02]Z')"/>
 	</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -117,8 +106,7 @@ of this software, even if advised of the possibility of such damage.
 	              <xsl:choose>
 	                 <xsl:when test="contains(@rend,'POST')">
 	                    <xsl:call-template name="getQuote">
-	                       <xsl:with-param name="quote"
-                                        select="normalize-space(substring-before(substring-after(@rend,'PRE'),'POST'))"/>
+	                       <xsl:with-param name="quote" select="normalize-space(substring-before(substring-after(@rend,'PRE'),'POST'))"/>
 	                    </xsl:call-template>
 	                 </xsl:when>
 	                 <xsl:otherwise>

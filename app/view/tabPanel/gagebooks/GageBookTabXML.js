@@ -32,8 +32,8 @@ Ext.Ajax.request({
             },        
     			success: function (response, options) {
  					
-        			var object = response.responseText;
-					me.setTextInfo(response);       			
+        			//var object = response.responseText;
+					me.setTextInfo(objresponseect);       			
     			}
 			});
 
@@ -46,7 +46,7 @@ Ext.Ajax.request({
         },
 
 
-setTextInfo: function(response){
+setTextInfo: function(infoText){
 
 var me = this;
 

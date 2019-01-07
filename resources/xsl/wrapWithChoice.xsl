@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs xd mei" version="2.0">
+<xsl:stylesheet xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs xd mei" version="2.0">
     <xd:doc scope="stylesheet">
         <xd:desc>
-            <xd:p><xd:b>Created on:</xd:b> Apr 23, 2014</xd:p>
-            <xd:p><xd:b>Author:</xd:b> johannes</xd:p>
+            <xd:p>
+                <xd:b>Created on:</xd:b> Apr 23, 2014</xd:p>
+            <xd:p>
+                <xd:b>Author:</xd:b> johannes</xd:p>
             <xd:p>This sytelsheet wraps a control element with a choice</xd:p>
         </xd:desc>
     </xd:doc>
@@ -15,9 +16,7 @@
     <xsl:variable name="elem" select="/mei:*"/>
     <xsl:variable name="starts" select="tokenize($startIDs,',')" as="xs:string*"/>
     <xsl:variable name="ends" select="tokenize($endIDs,',')" as="xs:string*"/>
-    <xsl:variable name="ceType"
-        select="if(local-name($elem) = 'choice') then(local-name($elem/mei:orig/mei:*)) else(local-name($elem))"
-        as="xs:string"/>
+    <xsl:variable name="ceType" select="if(local-name($elem) = 'choice') then(local-name($elem/mei:orig/mei:*)) else(local-name($elem))" as="xs:string"/>
     <xsl:variable name="tstamped" select="$tstamp != '' or $tstamp2 != ''" as="xs:boolean"/>
     <xsl:variable name="singleElem" select="count($starts) = 1 and count($ends) = 1" as="xs:boolean"/>
     <xsl:variable name="wasChoiced" select="local-name($elem) = 'choice'" as="xs:boolean"/>
@@ -27,13 +26,10 @@
             <xsl:when test="$singleElem and not($tstamped)">
                 <xsl:choose>
                     <xsl:when test="$ceType = 'slur'">
-                        <slur xmlns="http://www.music-encoding.org/ns/mei" startid="#{$startIDs[1]}"
-                            endid="#{$endIDs[1]}">
+                        <slur xmlns="http://www.music-encoding.org/ns/mei" startid="#{$startIDs[1]}" endid="#{$endIDs[1]}">
                             <xsl:attribute name="xml:id" select="$elem/@xml:id"/>
                             <xsl:attribute name="sameas" select="$sameas"/>
-                            <xsl:apply-templates
-                                select="$elem//(@* except (@tstamp,@tstamp2,@xml:id,@startid,@endid,@sameas,@xmlns))"
-                            />
+                            <xsl:apply-templates select="$elem//(@* except (@tstamp,@tstamp2,@xml:id,@startid,@endid,@sameas,@xmlns))"/>
                         </slur>
                     </xsl:when>
                 </xsl:choose>
@@ -48,8 +44,7 @@
                                     <xsl:attribute name="xml:id" select="$elem/@xml:id"/>
                                     <orig>
                                         <slur>
-                                            <xsl:apply-templates
-                                                select="$origElem/(@* except (@xml:id,@startid,@endid,@sameas))"/>
+                                            <xsl:apply-templates select="$origElem/(@* except (@xml:id,@startid,@endid,@sameas))"/>
                                             <xsl:if test="not($tstamp = '')">
                                                 <xsl:attribute name="tstamp" select="$tstamp"/>
                                             </xsl:if>
@@ -63,8 +58,7 @@
                                         <xsl:for-each select="$ends">
                                             <xsl:variable name="currentEnd" select="."/>
                                             <reg>
-                                                <slur startid="#{$currentStart}"
-                                                  endid="#{$currentEnd}" sameas="{$sameas}"/>
+                                                <slur startid="#{$currentStart}" endid="#{$currentEnd}" sameas="{$sameas}"/>
                                             </reg>
                                         </xsl:for-each>
                                     </xsl:for-each>
@@ -77,8 +71,7 @@
                             <xsl:attribute name="xml:id" select="$elem/@xml:id"/>
                             <orig>
                                 <slur>
-                                    <xsl:apply-templates
-                                        select="$elem/(@* except (@xml:id,@startid,@endid,@sameas))"/>
+                                    <xsl:apply-templates select="$elem/(@* except (@xml:id,@startid,@endid,@sameas))"/>
                                     <xsl:if test="not($tstamp = '')">
                                         <xsl:attribute name="tstamp" select="$tstamp"/>
                                     </xsl:if>
@@ -92,8 +85,7 @@
                                 <xsl:for-each select="$ends">
                                     <xsl:variable name="currentEnd" select="."/>
                                     <reg>
-                                        <slur startid="#{$currentStart}" endid="#{$currentEnd}"
-                                            sameas="{$sameas}"/>
+                                        <slur startid="#{$currentStart}" endid="#{$currentEnd}" sameas="{$sameas}"/>
                                     </reg>
                                 </xsl:for-each>
                             </xsl:for-each>

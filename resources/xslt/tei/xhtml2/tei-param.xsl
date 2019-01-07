@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml"                 
-    xmlns:html="http://www.w3.org/1999/xhtml"                
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"                
-    xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    exclude-result-prefixes="tei html xs"
-    version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="tei html xs" version="2.0">
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
       <desc>     <p>
     TEI stylesheet customization module for HTML output.</p>
@@ -48,12 +41,8 @@ of this software, even if advised of the possibility of such damage.
    </doc>
   <xsl:key name="INDEX" use="1" match="tei:index"/>
   <xsl:key name="PB" match="tei:pb" use="1"/>
-  <xsl:key name="NOTES" use="1"
-	   match="tei:note[@place='foot' or @place='bottom' or @place='end'
-		  and not(parent::tei:bibl or ancestor::tei:teiHeader)]"/>
-  <xsl:key name="ALLNOTES" use="1"
-	   match="tei:note[not(@place='margin' or @place='inline' or @place='display')
-		  and not(parent::tei:bibl or  ancestor::tei:teiHeader)]"/>
+  <xsl:key name="NOTES" use="1" match="tei:note[@place='foot' or @place='bottom' or @place='end'     and not(parent::tei:bibl or ancestor::tei:teiHeader)]"/>
+  <xsl:key name="ALLNOTES" use="1" match="tei:note[not(@place='margin' or @place='inline' or @place='display')     and not(parent::tei:bibl or  ancestor::tei:teiHeader)]"/>
 
   <xsl:key name="TAGREND" match="tei:tagUsage[@render]" use="@gi"/>
 
@@ -92,8 +81,7 @@ of this software, even if advised of the possibility of such damage.
    </doc>
   <xsl:param name="footnoteBackLink">false</xsl:param>
 
-  <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" class="cssFileInclude"
-        type="boolean">
+  <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" class="cssFileInclude" type="boolean">
       <desc>Whether to include CSS by reference or by XInclusion</desc>
 
    </doc>
@@ -114,11 +102,11 @@ of this software, even if advised of the possibility of such damage.
 so that it does not affect printing. It should be used for screen layout.
   </desc>
    </doc>
-    <xsl:param name="cssSecondaryFile"  as="xs:string" select="''"/>
+    <xsl:param name="cssSecondaryFile" as="xs:string" select="''"/>
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" class="CSS" type="anyURI">
       <desc>CSS file to include in the output file directly</desc>
    </doc>
-    <xsl:param name="cssInlineFile"  as="xs:string" select="''"/>
+    <xsl:param name="cssInlineFile" as="xs:string" select="''"/>
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" class="figures" type="integer">
       <desc>Resolution of images. This is needed to calculate
 HTML width and height (in pixels) from supplied dimensions.</desc>
@@ -147,7 +135,7 @@ HTML width and height (in pixels) from supplied dimensions.</desc>
   <xsl:template name="bodyJavascriptHook"/>
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" class="hook">
       <desc>     <p>[html] Hook where extra CSS can be inserted</p>
-         <p>&#160; </p>
+         <p>  </p>
       </desc>
    </doc>
   <xsl:template name="cssHook"/>
@@ -298,10 +286,7 @@ will generate an &lt;h2&gt;</p>
    </doc>
   <xsl:template name="logoPicture">
       <a class="framelogo" href="http://www.tei-c.org/Stylesheets/">
-         <img src="http://www.tei-c.org/release/common2/doc/tei-xsl-common/teixsl.png" vspace="5" width="124"
-              height="161"
-              border="0"
-              alt="created by TEI XSL Stylesheets"/>
+         <img src="http://www.tei-c.org/release/common2/doc/tei-xsl-common/teixsl.png" vspace="5" width="124" height="161" border="0" alt="created by TEI XSL Stylesheets"/>
       </a>
   </xsl:template>
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" class="layout">
@@ -322,14 +307,13 @@ will generate an &lt;h2&gt;</p>
       <meta name="generator" content="Text Encoding Initiative Consortium XSLT stylesheets"/>
       <xsl:choose>
 	<xsl:when test="$outputTarget='html5'">
-	  <meta charset="utf-8" />
+	  <meta charset="utf-8"/>
 	</xsl:when>
 	<xsl:otherwise>
-	  <meta http-equiv="Content-Type" content="text/html;
-						   charset={$outputEncoding}"/>
+	  <meta http-equiv="Content-Type" content="text/html;          charset={$outputEncoding}"/>
 	  <meta name="DC.Title">
 	    <xsl:attribute name="content">
-	      <xsl:value-of select="normalize-space(translate($title,'&lt;&gt;','&#x2329;&#x3009;'))"/>
+	      <xsl:value-of select="normalize-space(translate($title,'&lt;&gt;','〈〉'))"/>
 	    </xsl:attribute>
 	  </meta>
 	  <meta name="DC.Type" content="Text"/>
@@ -382,8 +366,7 @@ of &lt;item&gt; elements, each containing an &lt;xref&gt; link.</p>
          <xsl:when test="$mode='table'">
             <table width="100%" border="0">
                <tr>
-                  <td height="98" class="bgimage" onclick="window.location='{$homeURL}'"
-                      cellpadding="0">
+                  <td height="98" class="bgimage" onclick="window.location='{$homeURL}'" cellpadding="0">
 
 	                    <xsl:call-template name="makeHTMLHeading">
 		                      <xsl:with-param name="class">subtitle</xsl:with-param>
@@ -518,8 +501,7 @@ of &lt;item&gt; elements, each containing an &lt;xref&gt; link.</p>
   <xsl:param name="generateParagraphIDs">false</xsl:param>
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" class="misc" type="string">
       <desc>     <p>Character separating values in a rend attribute.</p>
-         <p>Some projects use multiple values in <tt
-         xmlns="http://www.w3.org/1999/xhtml">rend</tt>
+         <p>Some projects use multiple values in <tt xmlns="http://www.w3.org/1999/xhtml">rend</tt>
          attributes. These are handled, but the separator character(s)
          must be specified.</p>
       </desc>

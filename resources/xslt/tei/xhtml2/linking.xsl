@@ -1,15 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" 
-                xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-                xmlns:fo="http://www.w3.org/1999/XSL/Format"
-                xmlns:html="http://www.w3.org/1999/xhtml"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"                
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                xmlns:tei="http://www.tei-c.org/ns/1.0"
-                xmlns:teix="http://www.tei-c.org/ns/Examples"                
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                version="2.0"
-                exclude-result-prefixes="a fo rng tei html teix xs">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:teix="http://www.tei-c.org/ns/Examples" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0" exclude-result-prefixes="a fo rng tei html teix xs">
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
       <desc>
          <p> TEI stylesheet dealing with elements from the linking module,
@@ -64,8 +53,7 @@ of this software, even if advised of the possibility of such damage.
          <xsl:when test="@xml:id and $useIDs='true'">
             <xsl:value-of select="@xml:id"/>
          </xsl:when>
-         <xsl:when test="starts-with(local-name(.),'div') or
-			 self::tei:text">
+         <xsl:when test="starts-with(local-name(.),'div') or     self::tei:text">
             <xsl:variable name="xpath">
                <xsl:for-each select="ancestor-or-self::tei:*">
 	                 <xsl:value-of select="local-name()"/>
@@ -111,8 +99,7 @@ of this software, even if advised of the possibility of such damage.
 	<xsl:when test="$filePerPage='true'">
 	  <xsl:choose>
 	    <xsl:when test="preceding::tei:pb">
-	      <xsl:apply-templates select="preceding::tei:pb[1]"
-				   mode="ident"/>
+	      <xsl:apply-templates select="preceding::tei:pb[1]" mode="ident"/>
 	    </xsl:when>
 	    <xsl:otherwise>
 	      <xsl:text>index</xsl:text>
@@ -148,8 +135,7 @@ of this software, even if advised of the possibility of such damage.
 	   <xsl:value-of select="$ident"/>
 	   <xsl:value-of select="$standardSuffix"/>
 	 </xsl:when>
-         <xsl:when test="number($splitLevel)= -1 and
-			 ancestor::tei:teiCorpus">
+         <xsl:when test="number($splitLevel)= -1 and     ancestor::tei:teiCorpus">
             <xsl:value-of select="$masterFile"/>
             <xsl:call-template name="addCorpusID"/>
             <xsl:value-of select="$standardSuffix"/>
@@ -206,14 +192,12 @@ of this software, even if advised of the possibility of such damage.
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl">
       <desc>Process extra elements in generateLink mode</desc>
    </doc>
-  <xsl:template match="tei:label|tei:figure|tei:table|tei:item|tei:p|tei:bibl|tei:anchor|tei:cell|tei:lg|tei:list|tei:sp"
-                 mode="generateLink">
+  <xsl:template match="tei:label|tei:figure|tei:table|tei:item|tei:p|tei:bibl|tei:anchor|tei:cell|tei:lg|tei:list|tei:sp" mode="generateLink">
       <xsl:variable name="ident">
          <xsl:apply-templates mode="ident" select="."/>
       </xsl:variable>
       <xsl:variable name="file">
-         <xsl:apply-templates mode="generateLink"
-                              select="ancestor::tei:*[starts-with(local-name(),'div')][1]"/>
+         <xsl:apply-templates mode="generateLink" select="ancestor::tei:*[starts-with(local-name(),'div')][1]"/>
       </xsl:variable>
       <xsl:choose>
          <xsl:when test="starts-with($file,'#')">
@@ -237,8 +221,7 @@ of this software, even if advised of the possibility of such damage.
    </doc>
   <xsl:template match="tei:note" mode="generateLink">
     <xsl:variable name="file">
-      <xsl:apply-templates mode="generateLink"
-			   select="ancestor::tei:*[starts-with(local-name(),'div')][1]"/>
+      <xsl:apply-templates mode="generateLink" select="ancestor::tei:*[starts-with(local-name(),'div')][1]"/>
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="starts-with($file,'#')"/>
@@ -278,8 +261,7 @@ of this software, even if advised of the possibility of such damage.
 
       <xsl:choose>
 
-	<xsl:when
-	     test="ancestor-or-self::tei:body/parent::tei:text/ancestor::tei:group">
+	<xsl:when test="ancestor-or-self::tei:body/parent::tei:text/ancestor::tei:group">
             <xsl:apply-templates mode="ident" select="ancestor::tei:text[1]"/>
          </xsl:when>
 
@@ -298,29 +280,14 @@ of this software, even if advised of the possibility of such damage.
          <xsl:when test="ancestor-or-self::tei:div">
 	   <xsl:variable name="ancestors" select="count(ancestor-or-self::tei:div)"/>
 	   <xsl:variable name="diff" select="$ancestors - number($splitLevel)"/>
-	   <xsl:variable name="what" select="if ($diff &lt;= 1) then 1
-					     else $diff "/>
+	   <xsl:variable name="what" select="if ($diff &lt;= 1) then 1           else $diff "/>
 	   <xsl:apply-templates mode="ident" select="ancestor-or-self::tei:div[$what]"/>
          </xsl:when>
 
          <xsl:otherwise>
-	   <xsl:variable name="ancestors" select="count(ancestor-or-self::tei:*[local-name()='div1'
-				 or local-name()='div2'
-				 or local-name()='div3'
-				 or local-name()='div4'
-				 or local-name()='div5'
-				 or local-name()='div6'])"/>
-	   <xsl:variable name="what"
-			 select="if
-				 ($ancestors &lt; number($splitLevel)) then 1 else
-				 $ancestors - number($splitLevel) + 1"/>
-            <xsl:apply-templates mode="ident"
-				 select="ancestor-or-self::tei:*[local-name()='div1'
-				 or local-name()='div2'
-				 or local-name()='div3'
-				 or local-name()='div4'
-				 or local-name()='div5'
-				 or local-name()='div6'][$what]"/>
+	   <xsl:variable name="ancestors" select="count(ancestor-or-self::tei:*[local-name()='div1'      or local-name()='div2'      or local-name()='div3'      or local-name()='div4'      or local-name()='div5'      or local-name()='div6'])"/>
+	   <xsl:variable name="what" select="if      ($ancestors &lt; number($splitLevel)) then 1 else      $ancestors - number($splitLevel) + 1"/>
+            <xsl:apply-templates mode="ident" select="ancestor-or-self::tei:*[local-name()='div1'      or local-name()='div2'      or local-name()='div3'      or local-name()='div4'      or local-name()='div5'      or local-name()='div6'][$what]"/>
          </xsl:otherwise>
       </xsl:choose>
 
@@ -332,7 +299,7 @@ of this software, even if advised of the possibility of such damage.
       </desc>
    </doc>
   <xsl:template name="makeExternalLink">
-      <xsl:param name="ptr" as="xs:boolean"  select="false()"/>
+      <xsl:param name="ptr" as="xs:boolean" select="false()"/>
       <xsl:param name="dest"/>
       <xsl:param name="class">link_<xsl:value-of select="local-name(.)"/>
       </xsl:param>
@@ -516,8 +483,7 @@ of this software, even if advised of the possibility of such damage.
 		     <xsl:choose>
 		       <xsl:when test="starts-with(local-name(.),'div')">
 			 <xsl:attribute name="title">
-			   <xsl:value-of
-			       select="translate(normalize-space(tei:head[1]),'&gt;&lt;','')"/>
+			   <xsl:value-of select="translate(normalize-space(tei:head[1]),'&gt;&lt;','')"/>
 			 </xsl:attribute>
 		       </xsl:when>
 		     </xsl:choose>

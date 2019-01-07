@@ -1,15 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
-    xmlns:eof="http://www.edirom.de/xslt/ediromOnlineFunctions"
-    xmlns:functx="http://www.functx.com"
-    exclude-result-prefixes="xs xd"
-    version="2.0">
+<xsl:stylesheet xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:functx="http://www.functx.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:eof="http://www.edirom.de/xslt/ediromOnlineFunctions" exclude-result-prefixes="xs xd" version="2.0">
     <xd:doc scope="stylesheet">
         <xd:desc>
-            <xd:p><xd:b>Created on:</xd:b> Mar 14, 2012</xd:p>
-            <xd:p><xd:b>Author:</xd:b> bwb</xd:p>
+            <xd:p>
+                <xd:b>Created on:</xd:b> Mar 14, 2012</xd:p>
+            <xd:p>
+                <xd:b>Author:</xd:b> bwb</xd:p>
             <xd:p>XSL-Module to include all global XSL:FUNCTIONs derived of the Edirom Online Project.</xd:p>
         </xd:desc>
     </xd:doc>
@@ -36,7 +31,7 @@
                 <xsl:value-of select="$language/id($key)/text()"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="$key"></xsl:value-of>
+                <xsl:value-of select="$key"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>

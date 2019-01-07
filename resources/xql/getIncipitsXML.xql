@@ -13,12 +13,18 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 
 let $sourceID := request:get-parameter('sourceID', '')
 let $incipitName := request:get-parameter('incipitName', '')
+let $dbexpPath := request:get-parameter('dbexpPath', '')
+(:let $uri := concat('/db/apps/theater-data/expressions/', $sourceID, '_expr1.xml')
 
-let $uri := concat('/db/apps/theater-data/expressions/', $sourceID, '_expr1.xml')
+let $doc := doc($uri):)
 
-let $doc := doc($uri)
+let $uri := concat('xmldb:exist:///apps/', $dbexpPath, '/')
+let $file := collection($uri)
+let $content := for $elem in $file
+                    return 
+                    if($elem/mei:expression[contains(@xml:id,$sourceID)])then($elem)else()
 
-let $template := for $elem in $doc
+let $template := for $elem in $content
                     return 
                     if($elem//mei:expression/mei:componentGrp/mei:expression[@label =$incipitName]
                     )then($elem//mei:expression/mei:componentGrp/mei:expression[@label =$incipitName])else() 

@@ -6,7 +6,9 @@
 			<xsl:for-each select="mei:source/mei:titleStmt/mei:title">	
 				<tr>			
 					<td style="text-align:center">
-						<b><xsl:value-of select="."/></b>
+						<b>
+                            <xsl:value-of select="."/>
+                        </b>
 						(<xsl:value-of select="@*"/>)
 					</td>
 				</tr>		

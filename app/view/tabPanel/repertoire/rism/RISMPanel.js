@@ -19,7 +19,6 @@ sourceID: null,
     border: true,
     //bodyPadding: 10,
     flex: 1,
-    sourceID: null,
 	/*extend: 'Ext.tab.Panel',
 
 //autoScroll: true,
@@ -52,13 +51,11 @@ autoScroll: true,*/
 	initComponent: function () {
 	var me = this;
 	var ovPath = '';
-                    if (me.sourceID === 'H020149') {
+                    if (me.sourceID === 'H020119') {
                         ovPath = 'Einleitung_Mus-n120_Aschenbroedel';
-                    } else if(me.sourceID === 'H020263'){
+                    } /*else {
                         ovPath = 'Einleitung_Mus-n237_Bettelstudent';
-                    } else{
-                        ovPath = 'Einleitung_Mus-n16_TeufelsAnteil';
-                    }
+                    }*/
 		
 	
             me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({

@@ -1,17 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" 
-                xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-                xmlns:fo="http://www.w3.org/1999/XSL/Format"
-                xmlns:svg="http://www.w3.org/2000/svg"
-                xmlns:html="http://www.w3.org/1999/xhtml"
-                xmlns:teidocx="http://www.tei-c.org/ns/teidocx/1.0"
-                xmlns:m="http://www.w3.org/1998/Math/MathML"
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                xmlns:tei="http://www.tei-c.org/ns/1.0"
-                xmlns:teix="http://www.tei-c.org/ns/"                
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                exclude-result-prefixes="svg a fo html rng tei teidocx teix m"
-                version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:svg="http://www.w3.org/2000/svg" xmlns:teix="http://www.tei-c.org/ns/" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:teidocx="http://www.tei-c.org/ns/teidocx/1.0" xmlns:m="http://www.w3.org/1998/Math/MathML" exclude-result-prefixes="svg a fo html rng tei teidocx teix m" version="2.0">
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
       <desc>
          <p> TEI stylesheet dealing with elements from the figures module,
@@ -84,9 +71,7 @@ of this software, even if advised of the possibility of such damage.
       <xsl:attribute name="valign">top</xsl:attribute>
       <xsl:for-each select="@*">
 	<xsl:choose>
-	  <xsl:when test="name(.) = 'width' or name(.) =
-			  'border' or name(.) = 'cellspacing'
-			  or name(.) = 'cellpadding'">
+	  <xsl:when test="name(.) = 'width' or name(.) =      'border' or name(.) = 'cellspacing'      or name(.) = 'cellpadding'">
 	    <xsl:copy-of select="."/>
 	  </xsl:when>
 	  <xsl:when test="name(.)='rend' and starts-with(.,'width:')">
@@ -231,8 +216,7 @@ of this software, even if advised of the possibility of such damage.
 	  </xsl:call-template>
 	  <xsl:text> </xsl:text>
 	  <xsl:for-each select="..">
-	    <xsl:number count="tei:figure[tei:head]" from="tei:body"
-			level="any"/>
+	    <xsl:number count="tei:figure[tei:head]" from="tei:body" level="any"/>
 	    </xsl:for-each>
 	  <xsl:text>. </xsl:text>
 	</xsl:when>
@@ -322,8 +306,7 @@ of this software, even if advised of the possibility of such damage.
 	    <xsl:choose>
 	      <xsl:when test="tei:row[@rend='thead']">
 		<thead>
-		  <xsl:apply-templates
-		      select="tei:row[@rend='thead']"/>
+		  <xsl:apply-templates select="tei:row[@rend='thead']"/>
 		</thead>
 		<tbody>
 		  <xsl:apply-templates select="tei:row[not(@rend='thead')]"/>
@@ -443,8 +426,7 @@ of this software, even if advised of the possibility of such damage.
 	  <xsl:choose>
 	    <xsl:when test="@type='thumbnail'"/>
 	    <xsl:when test="starts-with(@mimeType, 'video')">
-	      <video src="{$graphicsPrefix}{$File}"
-		     controls="controls">
+	      <video src="{$graphicsPrefix}{$File}" controls="controls">
 		<xsl:if test="../tei:graphic[@type='thumbnail']">
 		  <xsl:attribute name="poster">
 		    <xsl:value-of select="../tei:graphic[@type='thumbnail']/@url"/>

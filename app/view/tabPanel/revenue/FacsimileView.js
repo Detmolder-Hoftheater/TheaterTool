@@ -160,7 +160,8 @@ Ext.define('TheaterTool.view.tabPanel.revenue.PageSpinner', {
             xtype: 'label',
             text: 'Seite',
             margin: '3 5 0 5'
-        }, {
+        },
+        {
             xtype: 'button',
             icon: 'resources/images/page-prev-disabled.gif',
             margin: '0 5 0 5',
@@ -179,7 +180,8 @@ Ext.define('TheaterTool.view.tabPanel.revenue.PageSpinner', {
                 scope: this,
                 click: this.next
             }
-        }, {
+        },
+        {
             xtype: 'label',
             text: 'von ' + test,
             margin: '3 5 0 5'

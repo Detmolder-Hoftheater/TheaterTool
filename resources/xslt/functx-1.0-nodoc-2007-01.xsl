@@ -25,9 +25,9 @@
  @version 1.0
  @see     http://www.xsltfunctions.com
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:dxmlf="http://www.datypic.com/xmlf" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:local="http://www.datypic.com/local" xmlns:functx="http://www.functx.com" exclude-result-prefixes="dxmlf xs" version="2.0">
+<xsl:stylesheet xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:dxmlf="http://www.datypic.com/xmlf" xmlns:local="http://www.datypic.com/local" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:functx="http://www.functx.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="dxmlf xs" version="2.0">
  
-<xsl:function name="functx:add-attributes" as="element()?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:add-attributes" as="element()?">
   <xsl:param name="elements" as="element()*"/> 
   <xsl:param name="attrNames" as="xs:QName*"/> 
   <xsl:param name="attrValues" as="xs:anyAtomicType*"/> 
@@ -48,7 +48,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:add-months" as="xs:date?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:add-months" as="xs:date?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
   <xsl:param name="months" as="xs:integer"/> 
  
@@ -57,7 +57,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:add-or-update-attributes" as="element()?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:add-or-update-attributes" as="element()?">
   <xsl:param name="elements" as="element()*"/> 
   <xsl:param name="attrNames" as="xs:QName*"/> 
   <xsl:param name="attrValues" as="xs:anyAtomicType*"/> 
@@ -75,7 +75,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:all-whitespace" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:all-whitespace" as="xs:boolean">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     normalize-space($arg) = ''  "/>
@@ -83,7 +83,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:are-distinct-values" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:are-distinct-values" as="xs:boolean">
   <xsl:param name="seq" as="xs:anyAtomicType*"/> 
  
   <xsl:sequence select="     count(distinct-values($seq)) = count($seq)  "/>
@@ -91,7 +91,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:atomic-type" as="xs:string*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:atomic-type" as="xs:string*">
   <xsl:param name="values" as="xs:anyAtomicType*"/> 
  
   <xsl:sequence select="   for $val in $values  return  (if ($val instance of xs:untypedAtomic) then 'xs:untypedAtomic'  else if ($val instance of xs:anyURI) then 'xs:anyURI'  else if ($val instance of xs:string) then 'xs:string'  else if ($val instance of xs:QName) then 'xs:QName'  else if ($val instance of xs:boolean) then 'xs:boolean'  else if ($val instance of xs:base64Binary) then 'xs:base64Binary'  else if ($val instance of xs:hexBinary) then 'xs:hexBinary'  else if ($val instance of xs:integer) then 'xs:integer'  else if ($val instance of xs:decimal) then 'xs:decimal'  else if ($val instance of xs:float) then 'xs:float'  else if ($val instance of xs:double) then 'xs:double'  else if ($val instance of xs:date) then 'xs:date'  else if ($val instance of xs:time) then 'xs:time'  else if ($val instance of xs:dateTime) then 'xs:dateTime'  else if ($val instance of xs:dayTimeDuration)          then 'xs:dayTimeDuration'  else if ($val instance of xs:yearMonthDuration)          then 'xs:yearMonthDuration'  else if ($val instance of xs:duration) then 'xs:duration'  else if ($val instance of xs:gMonth) then 'xs:gMonth'  else if ($val instance of xs:gYear) then 'xs:gYear'  else if ($val instance of xs:gYearMonth) then 'xs:gYearMonth'  else if ($val instance of xs:gDay) then 'xs:gDay'  else if ($val instance of xs:gMonthDay) then 'xs:gMonthDay'  else 'unknown')  "/>
@@ -99,7 +99,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:avg-empty-is-zero" as="xs:double" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:avg-empty-is-zero" as="xs:double">
   <xsl:param name="values" as="xs:anyAtomicType*"/> 
   <xsl:param name="allNodes" as="node()*"/> 
  
@@ -108,7 +108,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:between-exclusive" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:between-exclusive" as="xs:boolean">
   <xsl:param name="value" as="xs:anyAtomicType?"/> 
   <xsl:param name="minValue" as="xs:anyAtomicType"/> 
   <xsl:param name="maxValue" as="xs:anyAtomicType"/> 
@@ -118,7 +118,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:between-inclusive" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:between-inclusive" as="xs:boolean">
   <xsl:param name="value" as="xs:anyAtomicType?"/> 
   <xsl:param name="minValue" as="xs:anyAtomicType"/> 
   <xsl:param name="maxValue" as="xs:anyAtomicType"/> 
@@ -128,7 +128,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:camel-case-to-words" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:camel-case-to-words" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="delim" as="xs:string"/> 
  
@@ -137,7 +137,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:capitalize-first" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:capitalize-first" as="xs:string?">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     concat(upper-case(substring($arg,1,1)),              substring($arg,2))  "/>
@@ -145,7 +145,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:change-element-names-deep" as="node()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:change-element-names-deep" as="node()*">
   <xsl:param name="nodes" as="node()*"/> 
   <xsl:param name="oldNames" as="xs:QName*"/> 
   <xsl:param name="newNames" as="xs:QName*"/> 
@@ -176,7 +176,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:change-element-ns-deep" as="node()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:change-element-ns-deep" as="node()*">
   <xsl:param name="nodes" as="node()*"/> 
   <xsl:param name="newns" as="xs:string"/> 
   <xsl:param name="prefix" as="xs:string"/> 
@@ -203,7 +203,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:change-element-ns" as="element()?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:change-element-ns" as="element()?">
   <xsl:param name="elements" as="element()*"/> 
   <xsl:param name="newns" as="xs:string"/> 
   <xsl:param name="prefix" as="xs:string"/> 
@@ -218,7 +218,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:chars" as="xs:string*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:chars" as="xs:string*">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     for $ch in string-to-codepoints($arg)    return codepoints-to-string($ch)  "/>
@@ -226,7 +226,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:contains-any-of" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:contains-any-of" as="xs:boolean">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="searchStrings" as="xs:string*"/> 
  
@@ -235,7 +235,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:contains-case-insensitive" as="xs:boolean?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:contains-case-insensitive" as="xs:boolean?">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="substring" as="xs:string"/> 
  
@@ -244,7 +244,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:contains-word" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:contains-word" as="xs:boolean">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="word" as="xs:string"/> 
  
@@ -253,7 +253,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:copy-attributes" as="element()" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:copy-attributes" as="element()">
   <xsl:param name="copyTo" as="element()"/> 
   <xsl:param name="copyFrom" as="element()"/> 
  
@@ -264,7 +264,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:date" as="xs:date" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:date" as="xs:date">
   <xsl:param name="year" as="xs:anyAtomicType"/> 
   <xsl:param name="month" as="xs:anyAtomicType"/> 
   <xsl:param name="day" as="xs:anyAtomicType"/> 
@@ -274,7 +274,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:dateTime" as="xs:dateTime" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:dateTime" as="xs:dateTime">
   <xsl:param name="year" as="xs:anyAtomicType"/> 
   <xsl:param name="month" as="xs:anyAtomicType"/> 
   <xsl:param name="day" as="xs:anyAtomicType"/> 
@@ -287,7 +287,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:day-in-year" as="xs:integer?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:day-in-year" as="xs:integer?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="    days-from-duration(       xs:date($date) - functx:first-day-of-year($date)) + 1  "/>
@@ -295,7 +295,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:day-of-week-abbrev-en" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:day-of-week-abbrev-en" as="xs:string?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     ('Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat')    [functx:day-of-week($date) + 1]  "/>
@@ -303,7 +303,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:day-of-week-name-en" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:day-of-week-name-en" as="xs:string?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     ('Sunday', 'Monday', 'Tuesday', 'Wednesday',     'Thursday', 'Friday', 'Saturday')       [functx:day-of-week($date) + 1]  "/>
@@ -311,7 +311,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:day-of-week" as="xs:integer?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:day-of-week" as="xs:integer?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="    if (empty($date))   then ()   else xs:integer((xs:date($date) - xs:date('1901-01-06'))           div xs:dayTimeDuration('P1D')) mod 7  "/>
@@ -319,7 +319,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:dayTimeDuration" as="xs:dayTimeDuration" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:dayTimeDuration" as="xs:dayTimeDuration">
   <xsl:param name="days" as="xs:decimal?"/> 
   <xsl:param name="hours" as="xs:decimal?"/> 
   <xsl:param name="minutes" as="xs:decimal?"/> 
@@ -330,7 +330,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:days-in-month" as="xs:integer?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:days-in-month" as="xs:integer?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     if (month-from-date(xs:date($date)) = 2 and        functx:is-leap-year($date))    then 29    else    (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)     [month-from-date(xs:date($date))]  "/>
@@ -338,7 +338,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:depth-of-node" as="xs:integer" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:depth-of-node" as="xs:integer">
   <xsl:param name="node" as="node()?"/> 
  
   <xsl:sequence select="     count($node/ancestor-or-self::node())  "/>
@@ -346,7 +346,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:distinct-attribute-names" as="xs:string*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:distinct-attribute-names" as="xs:string*">
   <xsl:param name="nodes" as="node()*"/> 
  
   <xsl:sequence select="     distinct-values($nodes//@*/name(.))  "/>
@@ -354,7 +354,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:distinct-deep" as="node()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:distinct-deep" as="node()*">
   <xsl:param name="nodes" as="node()*"/> 
  
   <xsl:sequence select="      for $seq in (1 to count($nodes))     return $nodes[$seq][not(functx:is-node-in-sequence-deep-equal(                           .,$nodes[position() &lt; $seq]))]  "/>
@@ -362,7 +362,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:distinct-element-names" as="xs:string*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:distinct-element-names" as="xs:string*">
   <xsl:param name="nodes" as="node()*"/> 
  
   <xsl:sequence select="     distinct-values($nodes/descendant-or-self::*/name(.))  "/>
@@ -370,7 +370,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:distinct-element-paths" as="xs:string*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:distinct-element-paths" as="xs:string*">
   <xsl:param name="nodes" as="node()*"/> 
  
   <xsl:sequence select="     distinct-values(functx:path-to-node($nodes/descendant-or-self::*))  "/>
@@ -378,7 +378,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:distinct-nodes" as="node()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:distinct-nodes" as="node()*">
   <xsl:param name="nodes" as="node()*"/> 
  
   <xsl:sequence select="      for $seq in (1 to count($nodes))     return $nodes[$seq][not(functx:is-node-in-sequence(                                 .,$nodes[position() &lt; $seq]))]  "/>
@@ -386,7 +386,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:duration-from-timezone" as="xs:dayTimeDuration" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:duration-from-timezone" as="xs:dayTimeDuration">
   <xsl:param name="timezone" as="xs:string"/> 
  
   <xsl:sequence select="     xs:dayTimeDuration(      if (not(matches($timezone,'Z|[\+\-]\d{2}:\d{2}')))      then error(xs:QName('functx:Invalid_Timezone_Value'))      else if ($timezone = 'Z')      then 'PT0S'      else replace($timezone,'\+?(\d{2}):\d{2}','PT$1H')         )  "/>
@@ -394,7 +394,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:dynamic-path" as="item()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:dynamic-path" as="item()*">
   <xsl:param name="parent" as="node()"/> 
   <xsl:param name="path" as="xs:string"/> 
  
@@ -408,7 +408,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:escape-for-regex" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:escape-for-regex" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     replace($arg,            '(\.|\[|\]|\\|\||\-|\^|\$|\?|\*|\+|\{|\}|\(|\))','\\$1')  "/>
@@ -416,7 +416,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:exclusive-or" as="xs:boolean?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:exclusive-or" as="xs:boolean?">
   <xsl:param name="arg1" as="xs:boolean?"/> 
   <xsl:param name="arg2" as="xs:boolean?"/> 
  
@@ -425,7 +425,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:first-day-of-month" as="xs:date?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:first-day-of-month" as="xs:date?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     functx:date(year-from-date(xs:date($date)),             month-from-date(xs:date($date)),             1)  "/>
@@ -433,7 +433,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:first-day-of-year" as="xs:date?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:first-day-of-year" as="xs:date?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     functx:date(year-from-date(xs:date($date)), 1, 1)  "/>
@@ -441,7 +441,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:first-node" as="node()?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:first-node" as="node()?">
   <xsl:param name="nodes" as="node()*"/> 
  
   <xsl:sequence select="     ($nodes/.)[1]  "/>
@@ -449,7 +449,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:follows-not-descendant" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:follows-not-descendant" as="xs:boolean">
   <xsl:param name="a" as="node()?"/> 
   <xsl:param name="b" as="node()?"/> 
  
@@ -458,7 +458,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:format-as-title-en" as="xs:string*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:format-as-title-en" as="xs:string*">
   <xsl:param name="titles" as="xs:string*"/> 
  
    <xsl:variable name="wordsToMoveToEnd" select="('A', 'An', 'The')"/>
@@ -471,7 +471,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:fragment-from-uri" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:fragment-from-uri" as="xs:string?">
   <xsl:param name="uri" as="xs:string?"/> 
  
   <xsl:sequence select="     substring-after($uri,'#')  "/>
@@ -479,7 +479,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:has-element-only-content" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:has-element-only-content" as="xs:boolean">
   <xsl:param name="element" as="element()"/> 
  
   <xsl:sequence select="     not($element/text()[normalize-space(.) != '']) and $element/*  "/>
@@ -487,7 +487,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:has-empty-content" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:has-empty-content" as="xs:boolean">
   <xsl:param name="element" as="element()"/> 
  
   <xsl:sequence select="     not($element/node())  "/>
@@ -495,7 +495,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:has-mixed-content" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:has-mixed-content" as="xs:boolean">
   <xsl:param name="element" as="element()"/> 
  
   <xsl:sequence select="     $element/text()[normalize-space(.) != ''] and $element/*  "/>
@@ -503,7 +503,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:has-simple-content" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:has-simple-content" as="xs:boolean">
   <xsl:param name="element" as="element()"/> 
  
   <xsl:sequence select="     $element/text() and not($element/*)  "/>
@@ -511,7 +511,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:id-from-element" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:id-from-element" as="xs:string?">
   <xsl:param name="element" as="element()?"/> 
  
   <xsl:sequence select="    data(($element/@*[id(.) is ..])[1])  "/>
@@ -519,7 +519,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:id-untyped" as="element()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:id-untyped" as="element()*">
   <xsl:param name="node" as="node()*"/> 
   <xsl:param name="id" as="xs:anyAtomicType"/> 
  
@@ -528,7 +528,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:if-absent" as="item()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:if-absent" as="item()*">
   <xsl:param name="arg" as="item()*"/> 
   <xsl:param name="value" as="item()*"/> 
  
@@ -537,7 +537,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:if-empty" as="item()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:if-empty" as="item()*">
   <xsl:param name="arg" as="item()?"/> 
   <xsl:param name="value" as="item()*"/> 
  
@@ -546,7 +546,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:index-of-deep-equal-node" as="xs:integer*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:index-of-deep-equal-node" as="xs:integer*">
   <xsl:param name="nodes" as="node()*"/> 
   <xsl:param name="nodeToFind" as="node()"/> 
  
@@ -555,7 +555,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:index-of-match-first" as="xs:integer?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:index-of-match-first" as="xs:integer?">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="pattern" as="xs:string"/> 
  
@@ -564,7 +564,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:index-of-node" as="xs:integer*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:index-of-node" as="xs:integer*">
   <xsl:param name="nodes" as="node()*"/> 
   <xsl:param name="nodeToFind" as="node()"/> 
  
@@ -573,7 +573,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:index-of-string-first" as="xs:integer?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:index-of-string-first" as="xs:integer?">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="substring" as="xs:string"/> 
  
@@ -582,7 +582,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:index-of-string-last" as="xs:integer?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:index-of-string-last" as="xs:integer?">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="substring" as="xs:string"/> 
  
@@ -591,7 +591,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:index-of-string" as="xs:integer*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:index-of-string" as="xs:integer*">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="substring" as="xs:string"/> 
  
@@ -600,7 +600,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:insert-string" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:insert-string" as="xs:string">
   <xsl:param name="originalString" as="xs:string?"/> 
   <xsl:param name="stringToInsert" as="xs:string?"/> 
   <xsl:param name="pos" as="xs:integer"/> 
@@ -610,7 +610,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:is-a-number" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:is-a-number" as="xs:boolean">
   <xsl:param name="value" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     string(number($value)) != 'NaN'  "/>
@@ -618,7 +618,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:is-absolute-uri" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:is-absolute-uri" as="xs:boolean">
   <xsl:param name="uri" as="xs:string?"/> 
  
   <xsl:sequence select="     matches($uri,'^[a-z]+:')  "/>
@@ -626,7 +626,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:is-ancestor" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:is-ancestor" as="xs:boolean">
   <xsl:param name="node1" as="node()"/> 
   <xsl:param name="node2" as="node()"/> 
  
@@ -635,7 +635,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:is-descendant" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:is-descendant" as="xs:boolean">
   <xsl:param name="node1" as="node()"/> 
   <xsl:param name="node2" as="node()"/> 
  
@@ -644,7 +644,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:is-leap-year" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:is-leap-year" as="xs:boolean">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="      for $year in xs:integer(substring(string($date),1,4))     return ($year mod 4 = 0 and             $year mod 100 != 0) or             $year mod 400 = 0  "/>
@@ -652,7 +652,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:is-node-among-descendants-deep-equal" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:is-node-among-descendants-deep-equal" as="xs:boolean">
   <xsl:param name="node" as="node()?"/> 
   <xsl:param name="seq" as="node()*"/> 
  
@@ -661,7 +661,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:is-node-among-descendants" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:is-node-among-descendants" as="xs:boolean">
   <xsl:param name="node" as="node()?"/> 
   <xsl:param name="seq" as="node()*"/> 
  
@@ -670,7 +670,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:is-node-in-sequence-deep-equal" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:is-node-in-sequence-deep-equal" as="xs:boolean">
   <xsl:param name="node" as="node()?"/> 
   <xsl:param name="seq" as="node()*"/> 
  
@@ -679,7 +679,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:is-node-in-sequence" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:is-node-in-sequence" as="xs:boolean">
   <xsl:param name="node" as="node()?"/> 
   <xsl:param name="seq" as="node()*"/> 
  
@@ -688,7 +688,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:is-value-in-sequence" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:is-value-in-sequence" as="xs:boolean">
   <xsl:param name="value" as="xs:anyAtomicType?"/> 
   <xsl:param name="seq" as="xs:anyAtomicType*"/> 
  
@@ -697,7 +697,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:last-day-of-month" as="xs:date?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:last-day-of-month" as="xs:date?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     functx:date(year-from-date(xs:date($date)),             month-from-date(xs:date($date)),             functx:days-in-month($date))  "/>
@@ -705,7 +705,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:last-day-of-year" as="xs:date?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:last-day-of-year" as="xs:date?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     functx:date(year-from-date(xs:date($date)), 12, 31)  "/>
@@ -713,7 +713,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:last-node" as="node()?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:last-node" as="node()?">
   <xsl:param name="nodes" as="node()*"/> 
  
   <xsl:sequence select="     ($nodes/.)[last()]  "/>
@@ -721,7 +721,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:leaf-elements" as="element()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:leaf-elements" as="element()*">
   <xsl:param name="root" as="node()?"/> 
  
   <xsl:sequence select="     $root/descendant-or-self::*[not(*)]  "/>
@@ -729,7 +729,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:left-trim" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:left-trim" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     replace($arg,'^\s+','')  "/>
@@ -737,7 +737,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:line-count" as="xs:integer" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:line-count" as="xs:integer">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     count(functx:lines($arg))  "/>
@@ -745,7 +745,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:lines" as="xs:string*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:lines" as="xs:string*">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     tokenize($arg, '(\r\n?|\n\r?)')  "/>
@@ -753,7 +753,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:max-depth" as="xs:integer?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:max-depth" as="xs:integer?">
   <xsl:param name="root" as="node()?"/> 
  
   <xsl:sequence select="     if ($root/*)    then max($root/*/functx:max-depth(.)) + 1    else 1  "/>
@@ -761,7 +761,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:max-determine-type" as="xs:anyAtomicType?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:max-determine-type" as="xs:anyAtomicType?">
   <xsl:param name="seq" as="xs:anyAtomicType*"/> 
  
   <xsl:sequence select="     if (every $value in $seq satisfies ($value castable as xs:double))    then max(for $value in $seq return xs:double($value))    else max(for $value in $seq return xs:string($value))  "/>
@@ -769,7 +769,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:max-line-length" as="xs:integer" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:max-line-length" as="xs:integer">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     max(      for $line in functx:lines($arg)      return string-length($line))  "/>
@@ -777,7 +777,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:max-node" as="node()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:max-node" as="node()*">
   <xsl:param name="nodes" as="node()*"/> 
  
   <xsl:sequence select="     $nodes[. = max($nodes)]  "/>
@@ -785,7 +785,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:max-string" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:max-string" as="xs:string?">
   <xsl:param name="strings" as="xs:anyAtomicType*"/> 
  
   <xsl:sequence select="     max(for $string in $strings return string($string))  "/>
@@ -793,7 +793,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:min-determine-type" as="xs:anyAtomicType?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:min-determine-type" as="xs:anyAtomicType?">
   <xsl:param name="seq" as="xs:anyAtomicType*"/> 
  
   <xsl:sequence select="     if (every $value in $seq satisfies ($value castable as xs:double))    then min(for $value in $seq return xs:double($value))    else min(for $value in $seq return xs:string($value))  "/>
@@ -801,7 +801,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:min-node" as="node()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:min-node" as="node()*">
   <xsl:param name="nodes" as="node()*"/> 
  
   <xsl:sequence select="     $nodes[. = min($nodes)]  "/>
@@ -809,7 +809,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:min-non-empty-string" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:min-non-empty-string" as="xs:string?">
   <xsl:param name="strings" as="xs:string*"/> 
  
   <xsl:sequence select="     min($strings[. != ''])  "/>
@@ -817,7 +817,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:min-string" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:min-string" as="xs:string?">
   <xsl:param name="strings" as="xs:anyAtomicType*"/> 
  
   <xsl:sequence select="     min(for $string in $strings return string($string))  "/>
@@ -825,7 +825,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:mmddyyyy-to-date" as="xs:date?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:mmddyyyy-to-date" as="xs:date?">
   <xsl:param name="dateString" as="xs:string?"/> 
  
   <xsl:sequence select="     if (empty($dateString))    then ()    else if (not(matches($dateString,                         '^\D*(\d{2})\D*(\d{2})\D*(\d{4})\D*$')))    then error(xs:QName('functx:Invalid_Date_Format'))    else xs:date(replace($dateString,                         '^\D*(\d{2})\D*(\d{2})\D*(\d{4})\D*$',                         '$3-$1-$2'))  "/>
@@ -833,7 +833,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:month-abbrev-en" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:month-abbrev-en" as="xs:string?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')     [month-from-date(xs:date($date))]  "/>
@@ -841,7 +841,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:month-name-en" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:month-name-en" as="xs:string?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     ('January', 'February', 'March', 'April', 'May', 'June',     'July', 'August', 'September', 'October', 'November', 'December')    [month-from-date(xs:date($date))]  "/>
@@ -849,7 +849,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:name-test" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:name-test" as="xs:boolean">
   <xsl:param name="testname" as="xs:string?"/> 
   <xsl:param name="names" as="xs:string*"/> 
  
@@ -858,7 +858,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:namespaces-in-use" as="xs:anyURI*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:namespaces-in-use" as="xs:anyURI*">
   <xsl:param name="root" as="node()?"/> 
  
   <xsl:sequence select="     distinct-values(       $root/descendant-or-self::*/(.|@*)/namespace-uri(.))  "/>
@@ -866,7 +866,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:next-day" as="xs:date?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:next-day" as="xs:date?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     xs:date($date) + xs:dayTimeDuration('P1D')  "/>
@@ -874,7 +874,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:node-kind" as="xs:string*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:node-kind" as="xs:string*">
   <xsl:param name="nodes" as="node()*"/> 
  
   <xsl:sequence select="   for $node in $nodes  return  if ($node instance of element()) then 'element'  else if ($node instance of attribute()) then 'attribute'  else if ($node instance of text()) then 'text'  else if ($node instance of document-node()) then 'document-node'  else if ($node instance of comment()) then 'comment'  else if ($node instance of processing-instruction())          then 'processing-instruction'  else 'unknown'  "/>
@@ -882,7 +882,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:non-distinct-values" as="xs:anyAtomicType*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:non-distinct-values" as="xs:anyAtomicType*">
   <xsl:param name="seq" as="xs:anyAtomicType*"/> 
  
   <xsl:sequence select="     for $val in distinct-values($seq)    return $val[count($seq[. = $val]) &gt; 1]  "/>
@@ -890,7 +890,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:number-of-matches" as="xs:integer" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:number-of-matches" as="xs:integer">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="pattern" as="xs:string"/> 
  
@@ -899,7 +899,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:open-ref-document" as="document-node()" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:open-ref-document" as="document-node()">
   <xsl:param name="refNode" as="node()"/> 
  
   <xsl:sequence select="     if (base-uri($refNode))    then doc(resolve-uri($refNode, base-uri($refNode)))    else doc(resolve-uri($refNode))  "/>
@@ -907,7 +907,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:ordinal-number-en" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:ordinal-number-en" as="xs:string">
   <xsl:param name="num" as="xs:integer?"/> 
  
   <xsl:sequence select="     concat(xs:string($num),          if (matches(xs:string($num),'[04-9]$|1[1-3]$')) then 'th'          else if (ends-with(xs:string($num),'1')) then 'st'          else if (ends-with(xs:string($num),'2')) then 'nd'          else if (ends-with(xs:string($num),'3')) then 'rd'          else '')  "/>
@@ -915,7 +915,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:pad-integer-to-length" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:pad-integer-to-length" as="xs:string">
   <xsl:param name="integerToPad" as="xs:anyAtomicType?"/> 
   <xsl:param name="length" as="xs:integer"/> 
  
@@ -924,7 +924,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:pad-string-to-length" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:pad-string-to-length" as="xs:string">
   <xsl:param name="stringToPad" as="xs:string?"/> 
   <xsl:param name="padChar" as="xs:string"/> 
   <xsl:param name="length" as="xs:integer"/> 
@@ -934,7 +934,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:path-to-node-with-pos" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:path-to-node-with-pos" as="xs:string">
   <xsl:param name="node" as="node()?"/> 
  
  <xsl:variable name="names" as="xs:string*">
@@ -949,7 +949,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:path-to-node" as="xs:string*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:path-to-node" as="xs:string*">
   <xsl:param name="nodes" as="node()*"/> 
  
   <xsl:sequence select="  $nodes/string-join(ancestor-or-self::*/name(.), '/')  "/>
@@ -957,7 +957,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:precedes-not-ancestor" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:precedes-not-ancestor" as="xs:boolean">
   <xsl:param name="a" as="node()?"/> 
   <xsl:param name="b" as="node()?"/> 
  
@@ -966,7 +966,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:previous-day" as="xs:date?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:previous-day" as="xs:date?">
   <xsl:param name="date" as="xs:anyAtomicType?"/> 
  
   <xsl:sequence select="     xs:date($date) - xs:dayTimeDuration('P1D')  "/>
@@ -974,7 +974,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:remove-attributes-deep" as="node()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:remove-attributes-deep" as="node()*">
   <xsl:param name="nodes" as="node()*"/> 
   <xsl:param name="names" as="xs:string*"/> 
  
@@ -999,7 +999,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:remove-attributes" as="element()" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:remove-attributes" as="element()">
   <xsl:param name="elements" as="element()*"/> 
   <xsl:param name="names" as="xs:string*"/> 
  
@@ -1012,7 +1012,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:remove-elements-deep" as="node()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:remove-elements-deep" as="node()*">
   <xsl:param name="nodes" as="node()*"/> 
   <xsl:param name="names" as="xs:string*"/> 
  
@@ -1039,7 +1039,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:remove-elements-not-contents" as="node()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:remove-elements-not-contents" as="node()*">
   <xsl:param name="nodes" as="node()*"/> 
   <xsl:param name="names" as="xs:string*"/> 
  
@@ -1071,7 +1071,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:remove-elements" as="element()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:remove-elements" as="element()*">
   <xsl:param name="elements" as="element()*"/> 
   <xsl:param name="names" as="xs:string*"/> 
  
@@ -1084,7 +1084,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:repeat-string" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:repeat-string" as="xs:string">
   <xsl:param name="stringToRepeat" as="xs:string?"/> 
   <xsl:param name="count" as="xs:integer"/> 
  
@@ -1093,7 +1093,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:replace-beginning" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:replace-beginning" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="pattern" as="xs:string"/> 
   <xsl:param name="replacement" as="xs:string"/> 
@@ -1103,7 +1103,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:replace-element-values" as="element()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:replace-element-values" as="element()*">
   <xsl:param name="elements" as="element()*"/> 
   <xsl:param name="values" as="xs:anyAtomicType*"/> 
  
@@ -1117,7 +1117,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:replace-first" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:replace-first" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="pattern" as="xs:string"/> 
   <xsl:param name="replacement" as="xs:string"/> 
@@ -1127,7 +1127,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:replace-multi" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:replace-multi" as="xs:string?">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="changeFrom" as="xs:string*"/> 
   <xsl:param name="changeTo" as="xs:string*"/> 
@@ -1137,7 +1137,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:reverse-string" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:reverse-string" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     codepoints-to-string(reverse(string-to-codepoints($arg)))  "/>
@@ -1145,7 +1145,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:right-trim" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:right-trim" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     replace($arg,'\s+$','')  "/>
@@ -1153,7 +1153,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:scheme-from-uri" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:scheme-from-uri" as="xs:string?">
   <xsl:param name="uri" as="xs:string?"/> 
  
   <xsl:sequence select="     substring-before($uri,':')  "/>
@@ -1161,7 +1161,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:sequence-deep-equal" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:sequence-deep-equal" as="xs:boolean">
   <xsl:param name="seq1" as="item()*"/> 
   <xsl:param name="seq2" as="item()*"/> 
  
@@ -1170,7 +1170,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:sequence-node-equal-any-order" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:sequence-node-equal-any-order" as="xs:boolean">
   <xsl:param name="seq1" as="node()*"/> 
   <xsl:param name="seq2" as="node()*"/> 
  
@@ -1179,7 +1179,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:sequence-node-equal" as="xs:boolean" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:sequence-node-equal" as="xs:boolean">
   <xsl:param name="seq1" as="node()*"/> 
   <xsl:param name="seq2" as="node()*"/> 
  
@@ -1188,7 +1188,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:sequence-type" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:sequence-type" as="xs:string">
   <xsl:param name="items" as="item()*"/> 
  
   <xsl:sequence select="  concat(   if (empty($items))   then 'empty-sequence()'   else if (every $val in $items            satisfies $val instance of xs:anyAtomicType)   then if (count(distinct-values(functx:atomic-type($items)))            &gt; 1)   then 'xs:anyAtomicType'   else functx:atomic-type($items[1])   else if (some $val in $items            satisfies $val instance of xs:anyAtomicType)   then 'item()'   else if (count(distinct-values(functx:node-kind($items))) &gt; 1)   then 'node()'   else concat(functx:node-kind($items[1]),'()')   ,   if (count($items) &gt; 1)   then '+' else '')    "/>
@@ -1196,7 +1196,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:siblings-same-name" as="element()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:siblings-same-name" as="element()*">
   <xsl:param name="element" as="element()?"/> 
  
   <xsl:sequence select="     $element/../*[node-name(.) = node-name($element)]    except $element  "/>
@@ -1204,7 +1204,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:siblings" as="node()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:siblings" as="node()*">
   <xsl:param name="node" as="node()?"/> 
  
   <xsl:sequence select="     $node/../node() except $node  "/>
@@ -1212,7 +1212,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:sort-as-numeric" as="item()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:sort-as-numeric" as="item()*">
   <xsl:param name="seq" as="item()*"/> 
  
    <xsl:for-each select="$seq">
@@ -1223,7 +1223,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:sort-case-insensitive" as="item()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:sort-case-insensitive" as="item()*">
   <xsl:param name="seq" as="item()*"/> 
  
    <xsl:for-each select="$seq">
@@ -1234,7 +1234,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:sort-document-order" as="node()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:sort-document-order" as="node()*">
   <xsl:param name="seq" as="node()*"/> 
  
   <xsl:sequence select="     $seq/.  "/>
@@ -1242,7 +1242,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:sort" as="item()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:sort" as="item()*">
   <xsl:param name="seq" as="item()*"/> 
  
    <xsl:for-each select="$seq">
@@ -1253,7 +1253,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:substring-after-if-contains" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:substring-after-if-contains" as="xs:string?">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="delim" as="xs:string"/> 
  
@@ -1262,7 +1262,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:substring-after-last-match" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:substring-after-last-match" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="regex" as="xs:string"/> 
  
@@ -1271,7 +1271,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:substring-after-last" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:substring-after-last" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="delim" as="xs:string"/> 
  
@@ -1280,7 +1280,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:substring-after-match" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:substring-after-match" as="xs:string?">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="regex" as="xs:string"/> 
  
@@ -1289,7 +1289,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:substring-before-if-contains" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:substring-before-if-contains" as="xs:string?">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="delim" as="xs:string"/> 
  
@@ -1298,7 +1298,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:substring-before-last-match" as="xs:string?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:substring-before-last-match" as="xs:string?">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="regex" as="xs:string"/> 
  
@@ -1307,7 +1307,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:substring-before-last" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:substring-before-last" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="delim" as="xs:string"/> 
  
@@ -1316,7 +1316,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:substring-before-match" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:substring-before-match" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
   <xsl:param name="regex" as="xs:string"/> 
  
@@ -1325,7 +1325,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:time" as="xs:time" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:time" as="xs:time">
   <xsl:param name="hour" as="xs:anyAtomicType"/> 
   <xsl:param name="minute" as="xs:anyAtomicType"/> 
   <xsl:param name="second" as="xs:anyAtomicType"/> 
@@ -1335,7 +1335,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:timezone-from-duration" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:timezone-from-duration" as="xs:string">
   <xsl:param name="duration" as="xs:dayTimeDuration"/> 
  
   <xsl:sequence select="     if (string($duration) = ('PT0S','-PT0S'))    then 'Z'    else if (matches(string($duration),'-PT[1-9]H'))    then replace(string($duration),'PT([1-9])H','0$1:00')    else if (matches(string($duration),'PT[1-9]H'))    then replace(string($duration),'PT([1-9])H','+0$1:00')    else if (matches(string($duration),'-PT1[0-4]H'))    then replace(string($duration),'PT(1[0-4])H','$1:00')    else if (matches(string($duration),'PT1[0-4]H'))    then replace(string($duration),'PT(1[0-4])H','+$1:00')    else error(xs:QName('functx:Invalid_Duration_Value'))  "/>
@@ -1343,7 +1343,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:total-days-from-duration" as="xs:decimal?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:total-days-from-duration" as="xs:decimal?">
   <xsl:param name="duration" as="xs:dayTimeDuration?"/> 
  
   <xsl:sequence select="     $duration div xs:dayTimeDuration('P1D')  "/>
@@ -1351,7 +1351,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:total-hours-from-duration" as="xs:decimal?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:total-hours-from-duration" as="xs:decimal?">
   <xsl:param name="duration" as="xs:dayTimeDuration?"/> 
  
   <xsl:sequence select="     $duration div xs:dayTimeDuration('PT1H')  "/>
@@ -1359,7 +1359,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:total-minutes-from-duration" as="xs:decimal?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:total-minutes-from-duration" as="xs:decimal?">
   <xsl:param name="duration" as="xs:dayTimeDuration?"/> 
  
   <xsl:sequence select="     $duration div xs:dayTimeDuration('PT1M')  "/>
@@ -1367,7 +1367,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:total-months-from-duration" as="xs:decimal?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:total-months-from-duration" as="xs:decimal?">
   <xsl:param name="duration" as="xs:yearMonthDuration?"/> 
  
   <xsl:sequence select="     $duration div xs:yearMonthDuration('P1M')  "/>
@@ -1375,7 +1375,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:total-seconds-from-duration" as="xs:decimal?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:total-seconds-from-duration" as="xs:decimal?">
   <xsl:param name="duration" as="xs:dayTimeDuration?"/> 
  
   <xsl:sequence select="     $duration div xs:dayTimeDuration('PT1S')  "/>
@@ -1383,7 +1383,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:total-years-from-duration" as="xs:decimal?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:total-years-from-duration" as="xs:decimal?">
   <xsl:param name="duration" as="xs:yearMonthDuration?"/> 
  
   <xsl:sequence select="     $duration div xs:yearMonthDuration('P1Y')  "/>
@@ -1391,7 +1391,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:trim" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:trim" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     replace(replace($arg,'\s+$',''),'^\s+','')  "/>
@@ -1399,7 +1399,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:update-attributes" as="element()?" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:update-attributes" as="element()?">
   <xsl:param name="elements" as="element()*"/> 
   <xsl:param name="attrNames" as="xs:QName*"/> 
   <xsl:param name="attrValues" as="xs:anyAtomicType*"/> 
@@ -1420,7 +1420,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:value-except" as="xs:anyAtomicType*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:value-except" as="xs:anyAtomicType*">
   <xsl:param name="arg1" as="xs:anyAtomicType*"/> 
   <xsl:param name="arg2" as="xs:anyAtomicType*"/> 
  
@@ -1429,7 +1429,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:value-intersect" as="xs:anyAtomicType*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:value-intersect" as="xs:anyAtomicType*">
   <xsl:param name="arg1" as="xs:anyAtomicType*"/> 
   <xsl:param name="arg2" as="xs:anyAtomicType*"/> 
  
@@ -1438,7 +1438,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:value-union" as="xs:anyAtomicType*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:value-union" as="xs:anyAtomicType*">
   <xsl:param name="arg1" as="xs:anyAtomicType*"/> 
   <xsl:param name="arg2" as="xs:anyAtomicType*"/> 
  
@@ -1447,7 +1447,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:word-count" as="xs:integer" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:word-count" as="xs:integer">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="     count(tokenize($arg, '\W+')[. != ''])  "/>
@@ -1455,7 +1455,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:words-to-camel-case" as="xs:string" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:words-to-camel-case" as="xs:string">
   <xsl:param name="arg" as="xs:string?"/> 
  
   <xsl:sequence select="       string-join((tokenize($arg,'\s+')[1],        for $word in tokenize($arg,'\s+')[position() &gt; 1]        return functx:capitalize-first($word))       ,'')  "/>
@@ -1463,7 +1463,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:wrap-values-in-elements" as="element()*" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:wrap-values-in-elements" as="element()*">
   <xsl:param name="values" as="xs:anyAtomicType*"/> 
   <xsl:param name="elementName" as="xs:QName"/> 
  
@@ -1476,7 +1476,7 @@
 </xsl:function>
 
 
-<xsl:function name="functx:yearMonthDuration" as="xs:yearMonthDuration" xmlns:functx="http://www.functx.com">
+<xsl:function name="functx:yearMonthDuration" as="xs:yearMonthDuration">
   <xsl:param name="years" as="xs:decimal?"/> 
   <xsl:param name="months" as="xs:integer?"/> 
  

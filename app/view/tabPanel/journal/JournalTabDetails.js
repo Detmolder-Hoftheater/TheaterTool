@@ -50,7 +50,8 @@ regieName: null,
                     url:'resources/xql/getJournalXML.xql',
                     method: 'GET',
                     params: {
-                        regieName: me.regieName
+                        regieName: me.regieName,
+                        path: dbPathsMap.get('journal')
                     },
                     success: function (response) {
                     
@@ -93,49 +94,12 @@ regieName: null,
         		},
         		{xtype: 'button',
         		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
-        		//disabled: true,
+        		disabled: true,
         		style: {
 					borderRight: '1px solid gray',
 					borderLeft: '1px solid gray',
 					 borderTop: '1px solid gray',
 					 borderBottom: '1px solid gray'
-				},
-				listeners: {
-					click: function (item, e, eOpts) {
-					
-                Ext.Ajax.request({
-                  
-                    url:'resources/xql/getJournalXML.xql',
-                    method: 'GET',
-                    params: {
-                        regieName: me.regieName
-                    },
-                    success: function (response) {
-                    var xmltext = response.responseText;
-                   
-                    var pom = document.createElement('a');
-
-                    var filename = me.regieName +".xml";
-                    var pom = document.createElement('a');
-                    var bb = new Blob([xmltext], {type: 'text/plain'});
-
-                    pom.setAttribute('href', window.URL.createObjectURL(bb));
-                    pom.setAttribute('download', filename);
-
-                    pom.dataset.downloadurl = ['text/plain', pom.download, pom.href].join(':');
-                    pom.draggable = true; 
-                    pom.classList.add('dragout');
-
-                    //apply the click on to download the file
-                    document.body.appendChild(pom);
-                    pom.click();
-                    document.body.removeChild(pom);
-                    
-                    }
-                });
-				
-					   
-					}
 				}
         		}
         		]
@@ -147,7 +111,8 @@ regieName: null,
  			url: 'resources/xql/getJournalContent.xql',
             method: 'GET',
             params: {
-                regieName: me.regieName
+                regieName: me.regieName,
+                path: dbPathsMap.get('journal')
               
             },
             success: function(response){

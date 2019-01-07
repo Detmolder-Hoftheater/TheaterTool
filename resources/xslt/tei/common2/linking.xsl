@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:tei="http://www.tei-c.org/ns/1.0"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"                
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                exclude-result-prefixes="tei xs"
-                version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="tei xs" version="2.0">
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
       <desc>
          <p> TEI stylesheet dealing with elements from the linking module. </p>
@@ -94,8 +89,7 @@ of this software, even if advised of the possibility of such damage.
       text too</param>
       </desc>
    </doc>
-  <xsl:template match="tei:div|tei:div1|tei:div2|tei:div3|tei:div4|tei:div5|tei:div6"
-                 mode="xref">
+  <xsl:template match="tei:div|tei:div1|tei:div2|tei:div3|tei:div4|tei:div5|tei:div6" mode="xref">
       <xsl:param name="minimal">false</xsl:param>
       <xsl:call-template name="header">
          <xsl:with-param name="minimal" select="$minimal"/>
@@ -222,8 +216,7 @@ of this software, even if advised of the possibility of such damage.
             </xsl:when>
             <xsl:when test="$autoHead='true'">
 	      <xsl:choose>
-		<xsl:when test="$outputTarget='epub' and
-				not(tei:head)"/>
+		<xsl:when test="$outputTarget='epub' and     not(tei:head)"/>
 		<xsl:otherwise>
 		  <xsl:call-template name="autoMakeHead">
 		    <xsl:with-param name="display" select="$display"/>

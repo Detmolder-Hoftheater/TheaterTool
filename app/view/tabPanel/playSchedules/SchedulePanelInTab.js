@@ -26,6 +26,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
     
     selectedWorkID: null,
     
+    
     initComponent: function () {
         var me = this;
         
@@ -41,83 +42,34 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
         me.navButton = me.createButton(navTree);
         navTree.setNavButton(me.navButton);*/
         
+        var messageWindow =  Ext.MessageBox.show({
+           // title: 'Load Incipits',
+            msg: 'Loading...'
+            //buttons: Ext.MessageBox.OK
+        });
+        
         Ext.Ajax.request({
             url: 'resources/xql/getMonthsForSelectedYear.xql',
             method: 'GET',
             params: {
-                selectedYear: me.year
+                selectedYear: me.year,
+                dbPath: dbPathsMap.get('playschedule')
             },
             success: function (response) {
                 
                 var json = jQuery.parseJSON(response.responseText);
                 
-                var objs = new Array();
                 for (i = 0; i < json.names.length; i++) {
-                    var name = json.names[i];
-                    if (name === 'Januar') {
-                        objs[1] = name;
-                    } else if (name === 'Februar') {
-                        objs[2] = name;
-                    } else if (name === 'März') {
-                        objs[3] = name;
-                    } else if (name === 'April') {
-                        objs[4] = name;
-                    } else if (name === 'Mai') {
-                        objs[5] = name;
-                    } else if (name === 'Juni') {
-                        objs[6] = name;
-                    } else if (name === 'Juli') {
-                        objs[7] = name;
-                    } else if (name === 'August') {
-                        objs[8] = name;
-                    } else if (name === 'September') {
-                        objs[9] = name;
-                    } else if (name === 'Oktober') {
-                        objs[10] = name;
-                    } else if (name === 'November') {
-                        objs[11] = name;
-                    } else {
-                        objs[12] = name;
-                    }
-                }
-                /* me.add(
-                Ext.create('Ext.panel.Panel',
-                {
-                margin: '10 0 10 10',
-                border: false,
-                bodyBorder: false,
-                items: [
-                {
-                xtype: 'component',
-                autoEl: {
-                tag: 'a',
-                href: 'http://www.llb-detmold.de/webOPACClient_lippe/search.do?Dokumententyp=Theaterzettel&Jahr='+me.year+'&Jahr='+me.year,
-                html: 'Theaterzettel in Lippische Landesbibliothek Detmold für '+me.year,
-                target: "_blank"
-                }
-                }
-                
-                ]
-                })
-                
-                );*/
-                
-                for (i = 0; i < objs.length; i++) {
-                    if (objs[i] !== undefined) {
-                        
+                    if (json.names[i] !== undefined) {
+                        var nameArray = json.names[i];
+                        var name = nameArray[0];
+                        var schedID = nameArray[1];
                         var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-                            month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">' + objs[i] + '</b>', selectedMonth: me.monat,
-                            selectedWorkID: me.selectedWorkID
+                            month: name, year: me.year, value: 2, title: '<b style="color:#A87678;">' + name + '</b>', selectedMonth: me.monat,
+                            selectedWorkID: me.selectedWorkID, schedID: schedID, messageWindow: messageWindow, rev_index: i, rev_length:json.names.length-1
                         });
                         me.add(detailSection);
                     }
-                }
-                if(parseInt(me.year) < 1825){
-                    var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-                            month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">' + me.year + '</b>', selectedMonth: me.monat,
-                            selectedWorkID: me.selectedWorkID
-                        });
-                        me.add(detailSection);
                 }
             }
         });

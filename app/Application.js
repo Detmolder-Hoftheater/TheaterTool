@@ -61,12 +61,13 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.repertoire.RepertoireMenuItemTree',
     'tabPanel.repertoire.beat.FacsimileNavTree',
     'tabPanel.repertoire.PersonTable',
-    'tabPanel.RoleTable',
     'tabPanel.playSchedules.SchedulePanelInTab',
     'tabPanel.playSchedules.ScheduleMenuItemTree',
     'tabPanel.playSchedules.SchedulePanelDetails',
     'tabPanel.playSchedules.ScheduleTextSection',
     'tabPanel.playSchedules.XMLSectionSchedule',
+    'tabPanel.playSchedules.LeafletFacsimile',
+    'tabPanel.playSchedules.FacsimileView',
     'tabPanel.revenue.XMLSectionRevenue',
     'tabPanel.revenue.RevenueTextSection',
     'tabPanel.revenue.RevenuePanelDetails',
@@ -98,7 +99,6 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.gagebooks.GageBookTabXML',
     'tabPanel.abo.AboPanelInTab',
     'tabPanel.abo.AboTabDetails',
-    'tabPanel.abo.AboTabXML',
     'tabPanel.journal.JournalPanelInTab',
     'tabPanel.journal.JournalTabDetails',
     'tabPanel.journal.JournalTabXML',
@@ -113,30 +113,18 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.WorksTable',
     'tabPanel.issue.FacsimileView',
     'tabPanel.issue.LeafletFacsimile',
-    'tabPanel.issue.IssueTable',   
-    'tabPanel.dailyreport.FacsimileView',
-    'tabPanel.dailyreport.LeafletFacsimile',
-    'tabPanel.dailyreport.DailyreportTable',
-    'tabPanel.dailyreport.DailyreportPanelInTab',
-    'tabPanel.dailyreport.DailyreportMenuItemTree',
-    'tabPanel.dailyreport.DailyreportPanelDetails',
-    'tabPanel.dailyreport.DailyreportTextSection',
-    'tabPanel.dailyreport.XMLSectionDailyreport',
+    'tabPanel.issue.IssueTable',
     'tabPanel.link.LinkPanelInTab',
     'tabPanel.zettel.TheaterZettelPanelInTab',
-    'tabPanel.zettel.TheaterZettelPanelInTabDresden',
-    'tabPanel.zettel.ZettelTextSection',
     'tabPanel.persons.PersonDetailsPanel',
     'tabPanel.persons.PersonNavigationTree',
     'tabPanel.search.SearchPanelInTab',
     'tabPanel.search.WorkResultTable',
     'tabPanel.search.PersonResultTable',
     'tabPanel.rolebooks.RoleTable',
-    'tabPanel.roles.RoleDetailsPanel',
-    'tabPanel.roles.RolesNavigationTree',
-    'tabPanel.roles.RolePanelInTab',
-    'tabPanel.roles.RoleTabDetails',
     'tabPanel.playSchedules.ScheduleTable',
+    'tabPanel.customitems.CustomItemPanelInTab',
+    'tabPanel.customitems.CustomItemTextSection',
     'tabPanel.NavigationHistory'],
     
     models:[
@@ -152,7 +140,8 @@ Ext.define('TheaterTool.Application', {
     'RefData',
     'PersonData',
     'SearchWork',
-    'Theaterakte'],
+    'Theaterakte',
+    'CustomItem'],
     
     stores:[
     'issue.IssueNames',
@@ -162,52 +151,79 @@ Ext.define('TheaterTool.Application', {
     'work.ExtWork',
     'work.Works'],
     
-    projectYears: null,
+    //projectYears: null,
     //extWorkKeys: null,
     
     launch: function () {
         
         renderer = new verovio.toolkit();
         
-        var workPath;
-        
-        window.onbeforeunload = function() { return "Your work will be lost."; };
-        
         Ext.Ajax.request({
             url: 'resources/xql/getDBStructure.xql',
             method: 'GET',
             success: function (response, options) {
                 var json = jQuery.parseJSON(response.responseText);
-                var dbPaths = json.dbPaths;
-                dbPathsMap = new Map();
-                for (var i = 0; i < dbPaths.length; i++) {
-                    dbPathsMap. set (dbPaths[i].dbName, dbPaths[i].dbValue);
-                }
-                
-                Ext.getCmp('NavigationTreeGlobal').getNavigationItems();
+                var languageType = json.language;
+                languagePath = 'app/view/' + languageType + '.json';
+                Ext.Ajax.request({
+                    url: languagePath,
+                    method: 'GET',
+                    success: function (response1) {
+                        GUI_NAMES = jQuery.parseJSON(response1.responseText);
+                        
+                        CUS_ITEMS = new Array();
+                        var customItems = json.customItems;
+                        for (var i = 0; i < customItems.length; i++) {
+                            var oneItem = customItems[i];
+                            var navItem = Ext.create('TheaterTool.model.CustomItem', {
+                                dbValue: oneItem.dbValue,
+                                dbPath: oneItem.dbPath
+                            });
+                            
+                            CUS_ITEMS.push(navItem);
+                        }
+                        
+                        // EXT_WORKS = json.extendedWorks;
+                        
+                        var dbPaths = json.dbPaths;
+                        dbPathsMap = new Map();
+                        for (var i = 0; i < dbPaths.length; i++) {
+                            dbPathsMap.set(dbPaths[i].dbName, dbPaths[i].dbValue);
+                        }
+                        projectName = json.name;
+                        projectStartYear = json.startyear;
+                        projectEndYear = json.endyear;
+                        var time_inteval = '';
+                        if(projectStartYear != undefined && projectEndYear != undefined){
+                            time_inteval = ' ' + projectStartYear + '-' + projectEndYear;
+                        }
+                        projectNavType = json.navigation_type;
+                        Ext.getCmp('htNavigationPanel').setTitle('<b style="color:#A87678;">' + projectName + time_inteval + '</b>');
+                        Ext.getCmp('NavigationTreeGlobal').createNavigationItems();
+                        Ext.getCmp('toolbar').createToolbarItems();
+                    }
+                });
             }
         });
         
         
-        Ext.Ajax.request({
-            url: 'resources/xql/getTheaterData.xql',
-            method: 'GET',
-            params: {
-                uri: workPath
-            },
-            success: function (response, options) {
-                var json = jQuery.parseJSON(response.responseText);
-                extWorkKeys = json.dbkeys;
-                projectName = json.name;
-                this.projectYears = json.years;
-                Ext.getCmp('htNavigationPanel').setTitle('<b style="color:#A87678;">' + projectName + ' ' + this.projectYears + '</b>');
-                dbTheaterPath = json.dbpath;
-           
-           }
+        
+        
+        
+        /*Ext.Ajax.request({
+        url: 'resources/xql/getTheaterData.xql',
+        method: 'GET',
+        /\*params: {
+        uri: workPath
+        },*\/
+        success: function (response, options) {
+        var json = jQuery.parseJSON(response.responseText);
+        extWorkKeys = json.dbkeys;
+        }
         });
         
         // temporary global
-        storeField = new Array("Aschenbrödel", "Der Bettelstudent", 'Des Teufels Anteil', 'Die Unbekannte');
+        storeField = new Array("Aschenbrödel", "Der Bettelstudent", 'Des Teufels Anteil');*/
     },
     
     getDBPaths: function () {

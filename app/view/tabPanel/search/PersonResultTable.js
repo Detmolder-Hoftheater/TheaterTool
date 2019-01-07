@@ -83,14 +83,14 @@ for(i = 0; i < me.personList.length; i++){
             },
 		
 		{
-			text: 'Name',
+			text: GUI_NAMES.search_persons_name_pseud,
 			flex: 2,
 			menuDisabled: true,
 			dataIndex: 'name'
 			
 		},
 		{
-			text: 'Name Type',
+			text: GUI_NAMES.personTabTableColumn_2,
 			flex: 0.7,
 			menuDisabled: true,
 			dataIndex: 'type'

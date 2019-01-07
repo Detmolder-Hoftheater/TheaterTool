@@ -9,21 +9,23 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";
 
-declare variable $month := request:get-parameter('issueName', '');
+declare variable $issueID := request:get-parameter('issueID', '');
 declare variable $year := request:get-parameter('year', '');
+declare variable $issuetailPath := request:get-parameter('dbPath', '');
+declare variable $uri := concat('/db/apps/', $issuetailPath, '/', $year, '/');
 
-declare variable $uri := concat('/db/apps/theater-data/ausgaben/', $year, '/');
+(:declare variable $uri := concat('/db/apps/theater-data/ausgaben/', $year, '/');:)
 
 declare variable $file := collection($uri);
 
 declare variable $allFiles := $file//tei:TEI;
 
-declare variable $allNames := $file//tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title;
+(:declare variable $allNames := $file//tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title;:)
 
 declare variable $schedule := for $elem in $allFiles
                     return
                     
-                 if($elem/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title = $month)then($elem)else();
+                 if($elem/@xml:id = $issueID)then($elem)else();
                  
 declare function local:getGraphicsInformation($schedule) {
 
@@ -96,6 +98,25 @@ let $strings := for $oneDate in $dateCells
  
 };
 
+declare function local:getMeasureCells($measures) {
+
+let $strings := for $oneMeasure in $measures
+
+    let $measureUnit := $oneMeasure/@unit
+    let $measure := $oneMeasure
+   (: replace($oneDate, '"', '\\"' ):)
+    
+   
+                    return 
+                     if($measureUnit  != '')then(
+                    concat($measureUnit, ': ',$measure))else()
+                    (:concat('"', $dateContent, '"'):)
+                    
+    return 
+        string-join($strings,', ')
+ 
+};
+
 declare function local:getTableRow($rows) {
 
 let $strings := for $elem_1 in $rows
@@ -108,12 +129,15 @@ let $strings := for $elem_1 in $rows
     
     let $onecell := if($elem_1/tei:cell/tei:persName != '' or $elem_1/tei:cell/tei:rs != '')then(local:getCellContent($elem_1/tei:cell/node()))else():)
     
-     let $rthlr := $elem_1/tei:cell/tei:measure[@unit='Rthlr'][1]
+    let $measures := $elem_1/tei:cell/tei:measure
+    let $measure := local:getMeasureCells($measures)
+     
+    (: let $rthlr := $elem_1/tei:cell/tei:measure[@unit='Rthlr'][1]
  
     
     let $ggr := $elem_1/tei:cell/tei:measure[@unit='ggr'][1]
     
-    let $d := $elem_1/tei:cell/tei:measure[@unit='d']
+    let $d := $elem_1/tei:cell/tei:measure[@unit='d']:)
            
    (: let $cell := local:getTableCell($cells):)
 
@@ -121,11 +145,12 @@ let $strings := for $elem_1 in $rows
                     if($onecell  != '')then(
                    concat('{"cells":[', '{"date":[', $date, ']},', 
                   (: '{"inhalt":[', $onecell, ']},',:)
-                  
-                             '{"rthlr":["', $rthlr, '"]},', 
+                  '{"measure":["', $measure, '"]},', 
+                             (:'{"rthlr":["', $rthlr, '"]},', 
                                '{"ggr":["', $ggr, '"]},', 
-                                 '{"d":["', $d, '"]},' , 
+                                 '{"d":["', $d, '"]},' , :)
                                  $onecell,
+                                 
                                 ']}'))else()
                     (:if($cell  != '')then(concat('{"cells":[', $cell, ']}'))else():)
                     
@@ -160,19 +185,8 @@ let $strings := for $elem_2 in $cells
    let $date := concat('"', local:getDateContent($dateCells/@when), '"'):)
    (: let $date := concat('"', $dateCells[1]/@when, '"'):)
     
-    let $onecell := if($elem_2/tei:persName !='')
-                    then(local:getCellContent($elem_2/node()))
-                    else(
-                        if($elem_2/tei:rs/@type = 'work')
-                        then(local:getCellContent($elem_2/node()))else(
-                        if($elem_2/tei:rs/@type = 'persons')then(local:getCellContent($elem_2/node()))else()
-                        
-                        )
- 
-    )
+    let $onecell := if($elem_2/tei:persName != '' or $elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
     
-    (:let $onecell := if($elem_2/tei:persName != '' or $elem_2/tei:rs != '')then(local:getCellContent($elem_2/node()))else()
-    :)
     (:let $onecell_1 := if($elem_2/ancestor::tei:row/tei:cell/tei:persName != '' or $elem_2/ancestor::tei:row/tei:cell/tei:rs != '')then(local:getCellContent($elem_2/ancestor::tei:row/tei:cell/node()))else()
     :)
    (: let $rthlr := $elem_2/ancestor::tei:row/tei:cell[not(child::tei:persName)]/tei:measure[@unit='Rthlr'][1]
@@ -217,7 +231,7 @@ declare function local:getCellContent($elem_2) {
 
 let $strings := for $elem in $elem_2
     
-     let $content := if($elem/self::tei:rs/@type ='work')then(
+     let $content := if($elem[@type ='work'])then(
             concat('{"work":["', normalize-space(replace($elem, '"', '\\"' )), '"', ', "', $elem/@key, '"]}')
         )
         else( 
@@ -227,11 +241,11 @@ let $strings := for $elem in $elem_2
              concat('{"workpersons":["', replace($elem, '"', '\\"' ), '"', ', "', $elem/@key, '"]}')
           )else()
           
-    let  $content_3_0 := replace($elem, '"', '\\"' )
+    let  $content_3_0 := normalize-space($elem[not(self::tei:persName) and not($elem[@type ='work'])])  
     
-   (: let  $content_3_1 := replace($content_3_0, '"', '\\"' ):)
+    let  $content_3_1 := replace($content_3_0, '"', '\\"' )
           
-   let  $content_3 := if($content_3_0 != '')then(concat('{"celltext":["', normalize-space($content_3_0), '"]}'))else()
+   let  $content_3 := concat('{"celltext":["', $content_3_1, '"]}')
  
                     return 
                     if($content != '')

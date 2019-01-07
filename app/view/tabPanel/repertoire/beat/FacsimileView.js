@@ -35,6 +35,7 @@ leafletFacsimile: null,
 
 selectedWork: null,
 xmlId: null,
+sourceID: null,
 
 	/**
 	 * Set title for view and create leaflet component.
@@ -46,17 +47,17 @@ xmlId: null,
 
 /*var selFolder = null;
 console.log(me.selectedWork);
-if(me.selectedWork === 'H020149'){
+if(me.selectedWork === 'H020119'){
 	selFolder = 'aschenbroedel';
 }
 else if(me.selectedWork === 'H020263'){
 	selFolder = 'bettelstudent';
-}
-var folderForEO = selFolder + '/';*/
+}*/
+var folderForEO = me.sourceID + '/';
 
 
 	
-		me.leafletFacsimile = new TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile({margin: '0 0 5 0', voiceID:me.xmlId, number: 1, selectedWork: me.selectedWork})
+		me.leafletFacsimile = new TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile({margin: '0 0 5 0', voiceID:me.xmlId, number: 1, sourceID:me.sourceID, selectedWork: me.selectedWork})
 
 me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
 			leafletFacsimile : me.leafletFacsimile,
@@ -65,20 +66,6 @@ me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.repertoire.beat.PageSpinn
 //me.pageSpinner.setStore(25);
 
 		this.items =[ 
-		/*{
-    xtype: 'component',
-    autoEl: {
-        tag: 'a',
-        href: 'http://hoftheater-detmold.de/'+folderForEO,
-        html: 'Zur Erschließung mit Edirom Online',
-		target: "_blank"
-    }
-    },
-    
-    {
-xtype: 'label',
-   margin: '10 0 0 10'
-},*/
 me.leafletFacsimile,
 
 
@@ -88,10 +75,15 @@ margin: '0 0 5 0'
 		},*/
 
 me.pageSpinner
-
-
-
-
+/*{
+    xtype: 'component',
+    autoEl: {
+        tag: 'a',
+        href: 'http://hoftheater-detmold.de/'+folderForEO,
+        html: 'Zur Erschließung mit Edirom Online',
+		target: "_blank"
+    }
+}*/
 
 
 ];

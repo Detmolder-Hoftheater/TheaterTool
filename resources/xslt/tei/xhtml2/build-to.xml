@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="dist" name="teitohtml">
 <!--
 	This library is free software; you can redistribute it and/or
@@ -30,7 +29,7 @@
   <!-- where does oxygen keep stuff -->
   <property name="oxygenlib" value=""/>
   <!-- Stylesheet for transformation -->
-  <property name="stylesheetFile"  value="../profiles/${profile}/html/to.xsl"/>
+  <property name="stylesheetFile" value="../profiles/${profile}/html/to.xsl"/>
   <dirname property="inputFileDir" file="${inputFile}"/>
   <dirname property="outputDir" file="${outputFile}"/>
   <property name="outputTempDir" value="${outputDir}/temp-dir-for-ant"/>

@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:tei="http://www.tei-c.org/ns/1.0"
-                
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                exclude-result-prefixes="tei"
-                version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="tei" version="2.0">
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
       <desc>
          <p> TEI stylesheet dealing with elements from the header module. </p>
@@ -51,12 +46,11 @@ of this software, even if advised of the possibility of such damage.
   <xsl:template name="generateEditor">
     <xsl:choose>
       <xsl:when test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:editor">
-        <xsl:for-each
-          select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:editor">
+        <xsl:for-each select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:editor">
           <xsl:apply-templates/>
           <xsl:choose>
             <xsl:when test="count(following-sibling::tei:editor)=1">
-              <xsl:if test="count(preceding-sibling::tei:editor)>=1">
+              <xsl:if test="count(preceding-sibling::tei:editor)&gt;=1">
                 <xsl:text>,</xsl:text>
               </xsl:if>
               <xsl:call-template name="i18n">
@@ -67,11 +61,8 @@ of this software, even if advised of the possibility of such damage.
           </xsl:choose>
         </xsl:for-each>
       </xsl:when>
-      <xsl:when
-        test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/tei:change/tei:respStmt[tei:resp='editor']">
-        <xsl:apply-templates
-          select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/tei:change/tei:respStmt[tei:resp='editor'][1]/tei:name"
-        />
+      <xsl:when test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/tei:change/tei:respStmt[tei:resp='editor']">
+        <xsl:apply-templates select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/tei:change/tei:respStmt[tei:resp='editor'][1]/tei:name"/>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -82,15 +73,14 @@ of this software, even if advised of the possibility of such damage.
   <xsl:template name="generateAuthor">
       <xsl:choose>
          <xsl:when test="$useHeaderFrontMatter='true' and ancestor-or-self::tei:TEI/tei:text/tei:front//tei:docAuthor">
-            <xsl:apply-templates mode="author"
-                                 select="ancestor-or-self::tei:TEI/tei:text/tei:front//tei:docAuthor"/>
+            <xsl:apply-templates mode="author" select="ancestor-or-self::tei:TEI/tei:text/tei:front//tei:docAuthor"/>
          </xsl:when>
          <xsl:when test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:author">
             <xsl:for-each select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:author">
                <xsl:apply-templates/>
                <xsl:choose>
             <xsl:when test="count(following-sibling::tei:author)=1">
-              <xsl:if test="count(preceding-sibling::tei:author)>1">
+              <xsl:if test="count(preceding-sibling::tei:author)&gt;1">
                 <xsl:text>,</xsl:text>
               </xsl:if>
               <xsl:call-template name="i18n">
@@ -105,8 +95,7 @@ of this software, even if advised of the possibility of such damage.
             <xsl:apply-templates select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/tei:change/tei:respStmt[tei:resp='author'][1]/tei:name"/>
          </xsl:when>
          <xsl:when test="ancestor-or-self::tei:TEI/tei:text/tei:front//tei:docAuthor">
-            <xsl:apply-templates mode="author"
-                                 select="ancestor-or-self::tei:TEI/tei:text/tei:front//tei:docAuthor"/>
+            <xsl:apply-templates mode="author" select="ancestor-or-self::tei:TEI/tei:text/tei:front//tei:docAuthor"/>
          </xsl:when>
       </xsl:choose>
   </xsl:template>
@@ -163,7 +152,7 @@ of this software, even if advised of the possibility of such damage.
         </p>
       </xsl:if>
       <xsl:if test="not($revauthor = '')">
-      <p class="mainRevAuthor" xmlns="http://www.w3.org/1999/xhtml">
+      <p xmlns="http://www.w3.org/1999/xhtml" class="mainRevAuthor">
          <xsl:text> (</xsl:text>
          <xsl:call-template name="i18n">
             <xsl:with-param name="word">revisedWord</xsl:with-param>
@@ -174,7 +163,7 @@ of this software, even if advised of the possibility of such damage.
       </p>
     </xsl:if>
     <xsl:if test="not($editor = '')">
-      <p class="mainEditor" xmlns="http://www.w3.org/1999/xhtml">
+      <p xmlns="http://www.w3.org/1999/xhtml" class="mainEditor">
          <xsl:call-template name="i18n">
             <xsl:with-param name="word">editorWord</xsl:with-param>
          </xsl:call-template>
@@ -195,8 +184,7 @@ of this software, even if advised of the possibility of such damage.
             <xsl:when test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/descendant::tei:date">
                <xsl:value-of select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/descendant::tei:date[1]"/>
             </xsl:when>
-            <xsl:when
-		test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/descendant::tei:date">
+            <xsl:when test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/descendant::tei:date">
 	      <xsl:value-of select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/descendant::tei:date"/>
 	    </xsl:when>	    
          </xsl:choose>
@@ -229,8 +217,7 @@ of this software, even if advised of the possibility of such damage.
          <xsl:when test="$useHeaderFrontMatter='true' and ancestor-or-self::tei:TEI/tei:text/tei:front//tei:docDate">
             <xsl:apply-templates mode="date" select="ancestor-or-self::tei:TEI/tei:text/tei:front//tei:docDate"/>
          </xsl:when>
-         <xsl:when
-	     test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:editionStmt/descendant::tei:date[@when]">
+         <xsl:when test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:editionStmt/descendant::tei:date[@when]">
             <xsl:value-of select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:editionStmt/descendant::tei:date[@when][1]/@when"/>
          </xsl:when>
          <xsl:when test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:editionStmt/descendant::tei:date">
@@ -242,11 +229,8 @@ of this software, even if advised of the possibility of such damage.
          <xsl:when test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:editionStmt/tei:edition">
             <xsl:apply-templates select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:editionStmt/tei:edition"/>
          </xsl:when>
-	 <xsl:when
-	     test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/tei:change[@when
-		   or tei:date]">
-            <xsl:for-each
-		select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/tei:change[1]">
+	 <xsl:when test="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/tei:change[@when      or tei:date]">
+            <xsl:for-each select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/tei:change[1]">
 	      <xsl:choose>
 		<xsl:when test="@when">
 		  <xsl:value-of select="@when"/>
@@ -286,8 +270,7 @@ of this software, even if advised of the possibility of such damage.
          </xsl:when>
 
          <xsl:otherwise>
-            <xsl:for-each
-		select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt">
+            <xsl:for-each select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt">
 	      <xsl:choose>
 		<xsl:when test="tei:title[@type='main']">
 		  <xsl:apply-templates select="tei:title[@type='main']"/>
@@ -309,16 +292,13 @@ of this software, even if advised of the possibility of such damage.
   <xsl:template name="generateSimpleTitle">
       <xsl:choose>
          <xsl:when test="$useHeaderFrontMatter='true' and ancestor-or-self::tei:TEI/tei:text/tei:front//tei:docTitle">
-            <xsl:apply-templates select="ancestor-or-self::tei:TEI/tei:text/tei:front//tei:docTitle"
-                                 mode="simple"/>
+            <xsl:apply-templates select="ancestor-or-self::tei:TEI/tei:text/tei:front//tei:docTitle" mode="simple"/>
          </xsl:when>
          <xsl:otherwise>
-            <xsl:for-each
-		select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt">
+            <xsl:for-each select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt">
 	      <xsl:choose>
 		<xsl:when test="tei:title[@type='main']">
-		  <xsl:apply-templates
-		      select="tei:title[@type='main']" mode="simple"/>
+		  <xsl:apply-templates select="tei:title[@type='main']" mode="simple"/>
 		</xsl:when>
 		<xsl:otherwise>
 		  <xsl:apply-templates select="tei:title[1]" mode="simple"/>

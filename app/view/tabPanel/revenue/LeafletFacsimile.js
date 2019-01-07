@@ -159,25 +159,24 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         var me = this;
         
         me.pageNumber = 1;
-        //console.log(imageData);
+        console.log(imageData);
         
-        if(me.pageSpinner !== null){
+        if (me.pageSpinner !== null) {
             //me.pageSpinner.setStore(imageData.length);
             me.pageSpinner.setPage(selectedPage);
             me.pageSpinner.setPageID(selectedPage);
         }
         
         
-        var first_elem = imageData[selectedPage-1];
-        
+        var first_elem = imageData[selectedPage -1];
         var image_px_h = first_elem[1];
         
         var image_h_split = image_px_h.split("px");
         facsimileHeight = image_h_split[0];
         //2992;
         
-        var image_px_w = first_elem[2];
-        var image_w_split = image_px_w.split("px");
+        var image_px_w = first_elem[2]
+        var image_w_split = image_px_h.split("px");
         facsimileWidth = image_w_split[0];
         //3991;
         
@@ -200,30 +199,22 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         var map = L.map(me.getId());
         
         map.setView([0, 0], Math.round(maxZoomLevel / 2));
-        //map.setView([0, 0], 0); 
-        
         
         me.setMap(map);
         
         var original_imagepath = first_elem[0];
-        /*var image_directory_array = original_imagepath.split(".");
-        var image_directory = image_directory_array[0];*/
-        
-       /* var splitted_array = original_imagepath.split("/");
-        var last_elem_array = splitted_array[splitted_array.length -1];
-        var image_directory_parent = splitted_array[splitted_array.length -2];
-        var image_directory_array = last_elem_array.split(".");
-        var image_directory = image_directory_array[0];*/
-        
-        //leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/" + image_directory;
-        
-        var splitted_array = original_imagepath.split("/");
-        var last_elem_array = splitted_array[splitted_array.length -1];
-        var image_directory_parent = splitted_array[splitted_array.length -2];
-        var image_directory_array = last_elem_array.split(".");
+        var image_directory_array = original_imagepath.split(".");
         var image_directory = image_directory_array[0];
+        var image_type = image_directory_array[1];
         
-        leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
+        /* var splitted_array = original_imagepath.split("/");
+        var last_elem_array = splitted_array[splitted_array.length -1];
+        var image_directory_parent = splitted_array[splitted_array.length -2];
+        var image_directory_array = last_elem_array.split(".");
+        var image_directory = image_directory_array[0];*/
+        var pathroot = dbPathsMap.get('leafletimagesRevenue');
+        leaflet_path = "/exist/rest/db/apps/"+pathroot+'/' + image_directory;
+        //leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
         
         //leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
         //leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/TA_30/TA_30_066";
@@ -240,7 +231,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         });*/
         
         
-        L.tileLayer.facsimileLayer(leaflet_path + '/{z}-{x}-{y}.jpg', {
+        L.tileLayer.facsimileLayer(leaflet_path + '/{z}-{x}-{y}.'+image_type, {
             minZoom: 0,
             maxZoom: maxZoomLevel,
             continuousWorld: true
@@ -253,8 +244,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         me.facsimileTile.addTo(map);
         
         me.facsimileTile.fitInImage();
-        
-        map.setZoom(Math.round(maxZoomLevel / 2-1));
+        //map.setZoom(2);
     },
     
     getPageNumber: function () {

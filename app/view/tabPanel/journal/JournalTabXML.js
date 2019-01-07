@@ -32,8 +32,8 @@ Ext.Ajax.request({
             },        
     			success: function (response, options) {
  					
-        			var object = response.responseText;
-					me.setTextInfo(object);       			
+        			//var object = response.responseText;
+					me.setTextInfo(response);       			
     			}
 			});
 
@@ -50,13 +50,24 @@ setTextInfo: function(infoText){
 
 var me = this;
 
- var fragment = document.createDocumentFragment('div');
+var testText = response.responseXML;
+                    
+                    var tempDiv = document.createElementNS('http://www.tei-c.org/ns/1.0l', 'div');
+                    var personArr = testText.getElementsByTagName('TEI');
+                    tempDiv.appendChild(personArr[0]);
+      
+                    var tmp = hljs.highlightAuto($(tempDiv).html()).value;
+                    var htmlVersion = '<pre>' + tmp + '</<pre>';
+                    
+                    $('#'+me.id+'-innerCt').html(htmlVersion);
+
+ /*var fragment = document.createDocumentFragment('div');
 		var tempDiv = document.createElement('div');
 		fragment.appendChild(tempDiv);
 		tempDiv.innerHTML = infoText;
  		var tmp = hljs.highlightAuto($(tempDiv).html()).value;
  
-	$('#'+me.id+'-innerCt').html('<pre>' + tmp + '</pre>');
+	$('#'+me.id+'-innerCt').html('<pre>' + tmp + '</pre>');*/
 
 	}
 

@@ -18,13 +18,13 @@ declare variable $db_path := request:get-parameter('path', '');
 declare variable $path := concat('xmldb:exist:///apps/', $db_path, '/');
 
 declare variable $file := collection($path);
-declare variable $fileNames := $file/tei:person;
+declare variable $fileNames := $file//tei:person;
 
 declare function local:jsonifyNormalizeCharacter($titles, $fileID) {
 
 let $strings := for $elem in $titles
 
-    (:let $title_tmp := substring($elem, 2):)
+     (:let $title_tmp := substring($elem, 2):)
     let $serchvalue_tmp := substring($searchValue, 1, 1)
     let $serchvalue_uppercase_tmp := upper-case($serchvalue_tmp)
     let $serchvalue_uppercase := concat($serchvalue_uppercase_tmp, substring($searchValue, 2)) 
@@ -67,7 +67,7 @@ declare function local:jsonifyTitels($fileNames) {
 
 let $strings := for $elem_1 in $fileNames
 
-let $titles := $elem_1/tei:persName
+let $titles := $elem_1//tei:persName
 
 let $fileID :=  $elem_1/@xml:id
 

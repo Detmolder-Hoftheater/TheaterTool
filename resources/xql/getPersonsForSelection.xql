@@ -1,7 +1,5 @@
 xquery version "3.0";
 
-(:import module namespace freidi-pmd="http://www.freischuetz-digital.de/TheaterTool-new" at "../../modules/app.xql";:)
-
 declare namespace request="http://exist-db.org/xquery/request";
 declare namespace mei="http://www.music-encoding.org/ns/mei";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -13,17 +11,17 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";
 
 declare variable $selection := request:get-parameter('selection', '');
-
-declare variable $path := 'xmldb:exist:///apps/theater-data/persons/';
+declare variable $persontailPath := request:get-parameter('dbPath', '');
+declare variable $path := concat('xmldb:exist:///apps/', $persontailPath, '/');
 declare variable $file := collection($path);
 declare variable $fileNames := $file//tei:person;
 
-declare function local:jsonifyRegs($fileNames) {
+declare function local:getPersons($fileNames) {
 
 let $strings := for $elem_1 in $fileNames
 
 	let $titles := $elem_1//tei:persName
-	let $content_title := local:jsonifyPersons($titles, $elem_1)
+	let $content_title := local:getPerson($titles, $elem_1)
 	
                     return 
 if($content_title != '')then($content_title)else()
@@ -33,7 +31,7 @@ if($content_title != '')then($content_title)else()
  
 };
 
-declare function local:jsonifyPersons($titles, $elem_1) {
+declare function local:getPerson($titles, $elem_1) {
 
 let $strings := for $elem in $titles
 
@@ -97,7 +95,7 @@ let $strings := for $elem in $foreNameList
  (
 
      '{"persons":[',
-        local:jsonifyRegs($fileNames),
+        local:getPersons($fileNames),
     ']}' 
    
 )

@@ -27,17 +27,6 @@ Ext.define('TheaterTool.view.tabPanel.link.LinkPanelInTab', {
 		
     }
     },
-    {
-    xtype: 'component',
-    margin: '10 0 10 10',
-    autoEl: {
-        tag: 'a',
-        href: 'http://nbn-resolving.de/urn:nbn:de:hbz:51:1-10750',
-        html: 'Ein Rückblick auf das Fürstliche Theater in Detmold unter der Direktion von H. Steffen von 1877–1892',
-		target: "_blank"
-		
-    }
-    },
     
 		{
     xtype: 'component',
@@ -49,19 +38,7 @@ Ext.define('TheaterTool.view.tabPanel.link.LinkPanelInTab', {
 		target: "_blank"
 		
     }
-    },
-    
-		{
-    xtype: 'component',
-    margin: '10 0 10 10',
-    autoEl: {
-        tag: 'a',
-        href: 'http://nbn-resolving.de/urn:nbn:de:hbz:51:1-8807',
-        html: 'Theater-Journal des Fürstlichen Theaters zu Detmold',
-		target: "_blank"
-		
-    }
-    }		
+    }	
 			
     ]
 

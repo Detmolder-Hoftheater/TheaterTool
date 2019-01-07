@@ -10,9 +10,8 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";
                  
 declare variable  $bookName := request:get-parameter('regieName', '');
-
-declare variable  $path := 'xmldb:exist:///apps/theater-data/regiebuecher/';
-
+declare variable $db_path := request:get-parameter('path', '');
+declare variable $path := concat('xmldb:exist:///apps/', $db_path);
 declare variable $file := collection($path);
 declare variable $fileNames := $file/tei:TEI[tei:teiHeader//tei:titleStmt[1][tei:title = $bookName]];
 declare variable $html_1 := $fileNames/tei:text/tei:body/child::*;
@@ -33,8 +32,6 @@ declare variable $html := local:dispatch($html_1);
   case element(tei:body) return local:body($node)
   case element(tei:persName) return local:persName($node)
   case element(tei:rs) return local:rs($node)
-  case element(tei:add) return local:addElement($node)
-  case element(tei:del) return local:delElement($node)
   case element(tei:head) return local:head($node)
  (: case element(tei:hi) return local:hi($node):)
   case element(tei:row) return local:row($node)
@@ -118,7 +115,7 @@ declare function local:table($node as element(tei:table)) as element() {
 tr:nth-child(even) {
     background-color: #dddddd;:)
 
-  <span><p></p><table border="1" cellpadding="10" cellspacing="0" style="font-size: 12px; border-collapse: collapse; table-layout:fixed; word-wrap:break-word; font-family: arial, sans-serif">{local:dispatch($node/node())}</table></span>
+  <table border="1" cellpadding="10" cellspacing="0" style="font-size: 12px; width:100%; border-collapse: collapse; font-family: arial, sans-serif">{local:dispatch($node/node())}</table>
 };
 
 declare function local:head($node as element(tei:head)) as element() {
@@ -134,67 +131,24 @@ declare function local:row($node as element(tei:row)) as element() {
 };
 
 declare function local:cell($node as element(tei:cell)) as element() {
-    <td width="300px">{(local:dispatch($node/node()))}</td>
-    (:if($node//tei:rs/@type ='work')then(<td width="300px" bgcolor="red">{(local:dispatch($node/node()))}</td>)else(<td width="300px">{(local:dispatch($node/node()))}</td>)
-  :)
+  <td>{(local:dispatch($node/node()))}</td>
 };
 
 declare function local:persName($node as element(tei:persName)) as element() {
-(:if($node/@key != '')then(
-  <persName><a href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
-  else(
-  <persName>{$node}</persName>
-  ):)
-  
-  if($node/parent::tei:add)then(
-if($node/@key != '')then(
-  <persName><a style="color: inherit" href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
-  )
-  else(
-  <persName>{$node}</persName>
-  )
-)else(
 if($node/@key != '')then(
   <persName><a href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
   )
   else(
   <persName>{$node}</persName>
   )
-)
-};
-
-declare function local:addElement($node as element(tei:add)) as element() {
-
-(:<form>
- <fieldset style="border:1px; border-style:solid; border-color:LightGray; padding: 5px;">
-  <legend style="color:LightGray; text-align:left; font-size:8pt;">add</legend>
-  <text>{local:dispatch($node/node())}</text>
- </fieldset>
-</form>:)
-
-    <span style="color:MediumSeaGreen;">{local:dispatch($node/node())}</span>
-
-
-};
-
-declare function local:delElement($node as element(tei:del)) as element() {
-(:<form>
- <fieldset style="border:1px; border-style:solid; border-color:LightGray; padding: 5px;">
-  <legend style="color:LightGray; text-align:left; font-size:8pt;">del</legend>
-  <text>{local:dispatch($node/node())}</text>
- </fieldset>
-</form>:)
-<s style="color:Tomato;">{local:dispatch($node/node())}</s>
 };
 
 declare function local:rs($node as element(tei:rs)) as element() {
 if($node/@key != '')then(
-  (:<rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>:)
-  <rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs>
+  <rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
   )
   else(
-  (:<rs>{$node}</rs>:)
-  <rs>{local:dispatch($node/node())}</rs>
+  <rs>{$node}</rs>
   )
 };
 

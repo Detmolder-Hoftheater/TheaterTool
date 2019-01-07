@@ -20,13 +20,13 @@ declare variable $headName := $file//tei:profileDesc//tei:keywords/tei:term['Spi
 
 declare variable $schedule := if($headName != '')then($file)else();:)
 
-
 declare variable $selectedYear := request:get-parameter('selectedYear', '');
-declare variable $path := concat('xmldb:exist:///apps/theater-data/ausgaben/', $selectedYear, '/');
+declare variable $issuetailPath := request:get-parameter('dbPath', '');
+declare variable $path := concat('/db/apps/', $issuetailPath, '/', $selectedYear, '/');
+(:declare variable $path := concat('xmldb:exist:///apps/theater-data-exs/ausgaben/', $selectedYear, '/');:)
 declare variable $file := collection($path);
-(:declare variable $fileNames := $file//mei:work/@xml:id;:)
 (:declare variable $headName := $file//tei:profileDesc//tei:keywords/tei:term['Einnahmebeleg'];:)
-declare variable $oneFile := $file//tei:TEI/tei:teiHeader;
+declare variable $oneFile := $file//tei:TEI;
 
 
 declare function local:getMonths($oneFile) {
@@ -41,11 +41,12 @@ let $strings := for $elem in $oneFile
 					let $month := if($headName != '')then(substring-before($monthName, " "))else():)
 
 
-					let $month := $elem/tei:fileDesc/tei:titleStmt[1]/tei:title
+					let $month := $elem/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title
+					let $issueId := $elem/@xml:id
                     return
-						if($month!= '')then(concat('"',$month,
+						if($month!= '')then(concat('["',normalize-space($month),  '",', '"', $issueId,
 							
-                            '"'))else()
+                            '"]'))else()
                         
 						
     return 

@@ -1,8 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:exist="http://exist.sourceforge.net/NS/exist"
-    exclude-result-prefixes="#default xs tei xhtml" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exist="http://exist.sourceforge.net/NS/exist" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#default xs tei xhtml" version="2.0">
     <xsl:import href="tei/common2/tei-param.xsl"/>
     <xsl:import href="tei/common2/tei.xsl"/>
     <xsl:import href="tei/xhtml2/tei-param.xsl"/>
@@ -466,8 +462,7 @@
                     <xsl:call-template name="rendToClass"/>
                 </div>
             </xsl:when>
-            <xsl:when
-                test="$pagebreakStyle='visible' and (parent::tei:body         or parent::tei:front or parent::tei:back or parent::tei:group)">
+            <xsl:when test="$pagebreakStyle='visible' and (parent::tei:body         or parent::tei:front or parent::tei:back or parent::tei:group)">
                 <xsl:if test="@rend='-'">
                     <span class="hyphen">
                         <xsl:text>-</xsl:text>
@@ -512,12 +507,10 @@
             <xsl:call-template name="makeAnchor"/>
             <xsl:apply-templates select="tei:speaker"/>
             <xsl:if test="tei:speaker/following-sibling::*[1][@rend = 'inline']">
-                    &#160;<xsl:apply-templates
-                    select="tei:speaker/following-sibling::tei:stage[@rend = 'inline'][1]"
-                /></xsl:if>
+                     <xsl:apply-templates select="tei:speaker/following-sibling::tei:stage[@rend = 'inline'][1]"/>
+            </xsl:if>
         </div>
-        <xsl:apply-templates
-            select="tei:*[not(self::tei:speaker) and not(self::tei:stage[@rend = 'inline'][1])]"/>
+        <xsl:apply-templates select="tei:*[not(self::tei:speaker) and not(self::tei:stage[@rend = 'inline'][1])]"/>
     </xsl:template>
     <xsl:template match="tei:del">
         <span class="del">
@@ -530,19 +523,18 @@
             <xsl:when test="parent::tei:back"/>
             <xsl:when test="parent::tei:front"/>
             <xsl:when test="parent::tei:p and count(./preceding-sibling::node()) = 0"/>
-            <xsl:when
-                test="./following-sibling::element()[1][local-name(.) = 'stage' and not(contains(./@rend, 'inline'))]"/>
+            <xsl:when test="./following-sibling::element()[1][local-name(.) = 'stage' and not(contains(./@rend, 'inline'))]"/>
             <xsl:when test="@type='hyphenInWord' and @rend='hidden'"/>
             <xsl:when test="@type='indent' and @rend='-'">
                 <span class="hyphen">
                     <xsl:text>-</xsl:text>
                 </span>
                 <br/>
-                <span class="lb_indent">&#160;</span>
+                <span class="lb_indent"> </span>
             </xsl:when>
             <xsl:when test="@type='indent'">
                 <br/>
-                <span class="lb_indent">&#160;</span>
+                <span class="lb_indent"> </span>
             </xsl:when>
             <xsl:when test="@rend='hidden'">
                 <xsl:text> </xsl:text>
@@ -571,8 +563,7 @@
         <desc>Process element l</desc>
     </doc>
     <xsl:template match="tei:l" priority="5">
-        <xsl:variable name="inlineStage"
-            select="exists(./following-sibling::*[1][@rend = 'inline'])" as="xs:boolean"/>
+        <xsl:variable name="inlineStage" select="exists(./following-sibling::*[1][@rend = 'inline'])" as="xs:boolean"/>
         <xsl:element name="{if (ancestor::tei:head or ancestor::tei:hi) then 'span' else 'div'}">
             <xsl:call-template name="rendToClass">
                 <xsl:with-param name="default">l</xsl:with-param>
@@ -587,7 +578,7 @@
                             <xsl:when test="$n mod 5 = 0">
                                 <xsl:value-of select="$n"/>
                             </xsl:when>
-                            <xsl:otherwise>&#160;</xsl:otherwise>
+                            <xsl:otherwise> </xsl:otherwise>
                         </xsl:choose>
                     </div>
                     <xsl:apply-templates/>
@@ -596,15 +587,14 @@
                     <xsl:apply-templates/>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:if test="$inlineStage"> &#160;<xsl:apply-templates
-                    select="./following-sibling::tei:stage[@rend = 'inline'][1]"/></xsl:if>
+            <xsl:if test="$inlineStage">  <xsl:apply-templates select="./following-sibling::tei:stage[@rend = 'inline'][1]"/>
+            </xsl:if>
         </xsl:element>
     </xsl:template>
     <xsl:template match="tei:l[@part = 'F']">
         <xsl:variable name="init" select="preceding::tei:l[@part = 'I'][1]"/>
         <xsl:element name="{if (ancestor::tei:head or ancestor::tei:hi) then 'span' else 'div'}">
-            <xsl:attribute name="style"
-                select="concat('padding-left: ', (string-length(normalize-space(string-join($init/text() | $init//*[not(./ancestor-or-self::tei:stage)]/text(), ''))) * 0.45), 'em;')"/>
+            <xsl:attribute name="style" select="concat('padding-left: ', (string-length(normalize-space(string-join($init/text() | $init//*[not(./ancestor-or-self::tei:stage)]/text(), ''))) * 0.45), 'em;')"/>
             <xsl:call-template name="rendToClass">
                 <xsl:with-param name="default">l</xsl:with-param>
             </xsl:call-template>
@@ -618,7 +608,7 @@
                             <xsl:when test="$n mod 5 = 0">
                                 <xsl:value-of select="$n"/>
                             </xsl:when>
-                            <xsl:otherwise>&#160;</xsl:otherwise>
+                            <xsl:otherwise> </xsl:otherwise>
                         </xsl:choose>
                     </div>
                     <xsl:apply-templates/>
@@ -630,8 +620,7 @@
         </xsl:element>
     </xsl:template>
     <xsl:template match="tei:stage" priority="5">
-        <xsl:element
-            name="{if (tei:blockContext(.) or *[not(tei:is-inline(.))]) then 'div' else 'span' }">
+        <xsl:element name="{if (tei:blockContext(.) or *[not(tei:is-inline(.))]) then 'div' else 'span' }">
             <xsl:call-template name="rendToClass">
                 <xsl:with-param name="default">
                     <xsl:choose>
@@ -656,17 +645,13 @@
         </xsl:element>
     </xsl:template>
     <xsl:template match="tei:add" priority="5">
-        <xsl:element
-            name="{if (tei:blockContext(.) or *[not(tei:is-inline(.))]) then 'div' else 'span' }">
+        <xsl:element name="{if (tei:blockContext(.) or *[not(tei:is-inline(.))]) then 'div' else 'span' }">
             <xsl:if test="./parent::tei:subst and @place='above'">
                 <xsl:variable name="del" select="preceding-sibling::tei:del"/>
                 <xsl:variable name="delLines" select="count($del//tei:lb)"/>
-                <xsl:variable name="firstLine"
-                    select="if($delLines gt 0) then(normalize-space(string-join($del//tei:lb/preceding-sibling::node()//text(),''))) else(normalize-space(string-join($del//text(),'')))"/>
+                <xsl:variable name="firstLine" select="if($delLines gt 0) then(normalize-space(string-join($del//tei:lb/preceding-sibling::node()//text(),''))) else(normalize-space(string-join($del//text(),'')))"/>
                 <xsl:variable name="offset" select="string-length($firstLine) * 0.45"/>
-                <xsl:attribute name="style"
-                    select="concat('margin-left:-',$offset,'em; margin-top:-',$delLines * 2,'em;')"
-                />
+                <xsl:attribute name="style" select="concat('margin-left:-',$offset,'em; margin-top:-',$delLines * 2,'em;')"/>
             </xsl:if>
             <xsl:call-template name="rendToClass">
                 <xsl:with-param name="default">
@@ -681,8 +666,7 @@
         </xsl:element>
     </xsl:template>
     <xsl:template match="tei:subst" priority="5">
-        <xsl:element
-            name="{if (tei:blockContext(.) or *[not(tei:is-inline(.))]) then 'div' else 'span' }">
+        <xsl:element name="{if (tei:blockContext(.) or *[not(tei:is-inline(.))]) then 'div' else 'span' }">
             <xsl:call-template name="rendToClass">
                 <xsl:with-param name="default"> subst </xsl:with-param>
             </xsl:call-template>
@@ -737,7 +721,8 @@
     </xsl:template>
     <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl">
         <desc>[html] <param name="value">the current segment of the value of the rend
-                attribute</param><param name="rest">the remainder of the attribute</param> modified
+                attribute</param>
+            <param name="rest">the remainder of the attribute</param> modified
             2014-04-28 in order to include 'spaced_out' in template for 'expanded'; removed @style;
             added @class='expanded' </desc>
     </doc>
@@ -768,8 +753,7 @@
                     </tt>
                 </b>
             </xsl:when>
-            <xsl:when
-                test="$value='italics' or $value='italic' or $value='cursive' or         $value='it' or $value='ital'">
+            <xsl:when test="$value='italics' or $value='italic' or $value='cursive' or         $value='it' or $value='ital'">
                 <i>
                     <xsl:call-template name="applyRend">
                         <xsl:with-param name="value" select="$rest"/>

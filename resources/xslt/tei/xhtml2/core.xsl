@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:teix="http://www.tei-c.org/ns/Examples" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:teidocx="http://www.tei-c.org/ns/teidocx/1.0" exclude-result-prefixes="a fo html rng tei teix teidocx" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:teix="http://www.tei-c.org/ns/Examples" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:teidocx="http://www.tei-c.org/ns/teidocx/1.0" exclude-result-prefixes="a fo html rng tei teix teidocx" version="2.0">
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
     <desc>
       <p> TEI stylesheet dealing with elements from the core module, making
@@ -810,8 +809,27 @@ of this software, even if advised of the possibility of such damage.
       <p>Process element list</p>
       <p>
         <p xmlns="http://www.w3.org/1999/xhtml">Lists. Depending on the value of the 'type' attribute, various HTML
-        lists are generated: <dl><dt>bibl</dt><dd>Items are processed in mode 'bibl'</dd><dt>catalogue</dt><dd>A gloss list is created, inside a paragraph</dd><dt>gloss</dt><dd>A gloss list is created, expecting alternate label and item
-            elements</dd><dt>glosstable</dt><dd>Label and item pairs are laid out in a two-column table</dd><dt>inline</dt><dd>A comma-separate inline list</dd><dt>runin</dt><dd>An inline list with bullets between items</dd><dt>unordered</dt><dd>A simple unordered list</dd><dt>ordered</dt><dd>A simple ordered list</dd><dt>valList</dt><dd>(Identical to glosstable)</dd></dl>
+        lists are generated: <dl>
+                        <dt>bibl</dt>
+                        <dd>Items are processed in mode 'bibl'</dd>
+                        <dt>catalogue</dt>
+                        <dd>A gloss list is created, inside a paragraph</dd>
+                        <dt>gloss</dt>
+                        <dd>A gloss list is created, expecting alternate label and item
+            elements</dd>
+                        <dt>glosstable</dt>
+                        <dd>Label and item pairs are laid out in a two-column table</dd>
+                        <dt>inline</dt>
+                        <dd>A comma-separate inline list</dd>
+                        <dt>runin</dt>
+                        <dd>An inline list with bullets between items</dd>
+                        <dt>unordered</dt>
+                        <dd>A simple unordered list</dd>
+                        <dt>ordered</dt>
+                        <dd>A simple ordered list</dd>
+                        <dt>valList</dt>
+                        <dd>(Identical to glosstable)</dd>
+                    </dl>
             </p>
       </p>
     </desc>
@@ -1212,7 +1230,8 @@ of this software, even if advised of the possibility of such damage.
       <xsl:call-template name="noteID"/>
     </xsl:variable>
     <xsl:if test="$verbose='true'">
-      <xsl:message>Make note <xsl:value-of select="$identifier"/></xsl:message>
+      <xsl:message>Make note <xsl:value-of select="$identifier"/>
+            </xsl:message>
     </xsl:if>
     <div class="note">
       <xsl:call-template name="makeAnchor">
@@ -1238,8 +1257,12 @@ of this software, even if advised of the possibility of such damage.
     <desc>Process element note[@type='action']</desc>
   </doc>
   <xsl:template match="tei:note[@type='action']">
-    <div class="right"><b>Action <xsl:number count="tei:note[@type='action']" level="any"/>
-         </b>: <i><xsl:apply-templates/></i></div>
+    <div class="right">
+            <b>Action <xsl:number count="tei:note[@type='action']" level="any"/>
+         </b>: <i>
+                <xsl:apply-templates/>
+            </i>
+        </div>
   </xsl:template>
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl">
     <desc>
@@ -1732,7 +1755,9 @@ of this software, even if advised of the possibility of such damage.
       <xsl:value-of select="text()"/>
       <br/>
       <xsl:apply-templates select="tei:biblStruct"/>
-      <xsl:if test="child::tei:note"><br/>See: <xsl:apply-templates select="child::tei:note"/></xsl:if>
+      <xsl:if test="child::tei:note">
+                <br/>See: <xsl:apply-templates select="child::tei:note"/>
+            </xsl:if>
     </p>
   </xsl:template>
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl">
@@ -2308,7 +2333,9 @@ of this software, even if advised of the possibility of such damage.
         <xsl:attribute name="id" select="@xml:id"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:variable name="me"><xsl:value-of select="$masterFile"/>-<xsl:value-of select="local-name(.)"/>-<xsl:value-of select="generate-id()"/></xsl:variable>
+        <xsl:variable name="me">
+                    <xsl:value-of select="$masterFile"/>-<xsl:value-of select="local-name(.)"/>-<xsl:value-of select="generate-id()"/>
+                </xsl:variable>
         <xsl:attribute name="id" select="$me"/>
       </xsl:otherwise>
     </xsl:choose>

@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:tei="http://www.tei-c.org/ns/1.0"
-                
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                exclude-result-prefixes="tei"
-                version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="tei" version="2.0">
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet" type="stylesheet">
       <desc>
          <p> TEI stylesheet dealing with elements from the textstructure
@@ -51,11 +46,9 @@ of this software, even if advised of the possibility of such damage.
   <xsl:template match="tei:text" mode="depth">
     <xsl:value-of select="count(ancestor::tei:text)-1"/>
   </xsl:template>
-  <xsl:template match="tei:div|tei:div1|tei:div2|tei:div3|tei:div4|tei:div5|tei:div6"
-                 mode="depth">
+  <xsl:template match="tei:div|tei:div1|tei:div2|tei:div3|tei:div4|tei:div5|tei:div6" mode="depth">
       <xsl:choose>
-	<xsl:when test="ancestor::tei:text/parent::tei:group and
-			self::tei:div">
+	<xsl:when test="ancestor::tei:text/parent::tei:group and    self::tei:div">
 	   <xsl:value-of select="count(ancestor::tei:div) + 1"/>
 	</xsl:when>
          <xsl:when test="local-name(.) = 'div'">
@@ -78,15 +71,20 @@ of this software, even if advised of the possibility of such damage.
   </doc>
   <xsl:template match="tei:divGen[@type='revHist']">
     <xsl:variable name="r">
-      <div xmlns="http://www.tei-c.org/ns/1.0" rend='nonumber'>
+      <div xmlns="http://www.tei-c.org/ns/1.0" rend="nonumber">
 	<head>Revision history</head>
-	<table rend="rules" >
-	  <xsl:for-each
-	      select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/tei:change">
+	<table rend="rules">
+	  <xsl:for-each select="ancestor-or-self::tei:TEI/tei:teiHeader/tei:revisionDesc/tei:change">
 	    <row>
-	      <cell><xsl:value-of select="@when"/></cell>
-	      <cell><xsl:value-of select="@who"/></cell>
-	      <cell><xsl:value-of select="."/></cell>
+	      <cell>
+                                <xsl:value-of select="@when"/>
+                            </cell>
+	      <cell>
+                                <xsl:value-of select="@who"/>
+                            </cell>
+	      <cell>
+                                <xsl:value-of select="."/>
+                            </cell>
 	    </row>
 	  </xsl:for-each>
 	</table>
