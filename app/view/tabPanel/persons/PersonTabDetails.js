@@ -115,502 +115,1365 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
             },
             success: function (result) {
                 
-                var json = jQuery.parseJSON(result.responseText);
+                var personData = jQuery.parseJSON(result.responseText);
                 
-                me.add({
-                    
-                    xtype: 'label',
-                    html: '<b style="color:gray; font-size: 12px;">' + GUI_NAMES.person_SectionName + '</b>',
-                    margin: '0 0 10 0'
-                });
+                // References
+                if (personData !== null && personData.references.length > 0) {
+                    me.createReferenceSection(personData, me);
+                }
                 
-                panel_10 = Ext.create('Ext.panel.Panel', {
-                    colspan: 1,
-                    //type: 'hbox',
-                    border: false,
-                    bodyBorder: false,
-                    margin: '0 10 0 10',
-                    //margin: '0 0 0 5',
-                    items:[]
-                });
-                me.add(panel_10);
-                
-                var name_panel = Ext.create('Ext.panel.Panel', {
+                // name Variations
+                if (personData !== null && personData.persNameBlocks.length > 0) {
+                    me.createNameVariationSection(personData, me);
+                }
+                // general information
+                if (personData !== null && (personData.gender !== '' || personData.birthdates.length > 0 || personData.deathdates.length > 0 || personData.birthplaces.length > 0 || personData.deathplaces.length > 0)) {
+                    var genInfoLabel = {
+                        xtype: 'label',
+                        html: '<b style="color:gray; font-size: 12px;">' + 'General Information' + '</b>',
+                        margin: '8 0 10 0'
+                    };
+                    me.add(genInfoLabel);
+                    // gender
+                    if (personData.gender !== '') {
+                        me.createGenderSection(personData, me);
+                    }
+                    // birth data
+                    if (personData.birthdates.length > 0 || personData.birthplaces.length > 0) {
+                        me.createBirthSection(personData, me);
+                    }
+                    // death data
+                    if (personData.deathdates.length > 0 || personData.deathplaces.length > 0) {
+                        me.createDeathSection(personData, me);
+                    }
+                    var lineLabel = {
+                        xtype: 'label',
+                        //html: '<b style="color:gray; font-size: 12px;">' + 'General Information' + '</b>',
+                        margin: '5 0 0 0',
+                        style: {
+                            borderBottom: '1px solid #f0f0f0'
+                        }
+                    };
+                    me.add(lineLabel);
+                }
+                // occupations
+                if (personData !== null && personData.occupations.length > 0) {
+                    me.createOccupationsSection(personData, me);
+                }
+                // residences
+                if (personData !== null && personData.residences.length > 0) {
+                    me.createResidencesSection(personData, me);
+                }
+                // affiliations
+                if (personData !== null && personData.affiliations.length > 0) {
+                    me.createAffiliationsSection(personData, me);
+                }
+                // relations
+                if (personData !== null && personData.relations.length > 0) {
+                    me.createRelationsSection(personData, me);
+                }
+                // notes
+                if (personData !== null && personData.notes.length > 0) {
+                    me.createNotesSection(personData, me);
+                }
+            }
+        });
+    },
+    
+    createNotesSection(personData, me){
+        me.add({
+            xtype: 'label',
+            html: '<b style="color:gray; font-size: 12px;">' + 'Notes' + '</b>',
+            margin: '12 0 5 0'
+        });
+        
+        var notesPanel = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 1,
+                tdAttrs: {
+                    valign: 'top'
+                }
+            },
+            bodyBorder: false,
+            border: false,
+            margin: '5 0 0 0',
+            items:[]
+        });
+        me.add(notesPanel);
+        
+        var notes = personData.notes;
+            var arrNotes = Object.keys(notes).map(function (key) {
+                return notes[key];
+            });
+            
+            for (var i = 0; i < arrNotes.length; i++) {
+                var relation = arrNotes[i];
+                var titlePanel = Ext.create('Ext.panel.Panel', {
                     layout: {
                         type: 'table',
                         columns: 1,
                         tdAttrs: {
                             valign: 'top'
-                        },
-                        tableAttrs: {
-                            style: {
-                                width: '100%'
-                            }
                         }
                     },
-                    // margin: '0 23 0 10',
-                    //bodyPadding: 10,
+                    bodyBorder: false,
+                    border: false,
+                    margin: '5 0 0 3',
+                    items:[]
+                });
+                
+                notesPanel.add(titlePanel);
+                
+                titlePanel.add({
+                    
+                    xtype: 'label',
+                    html: '<b style="color:gray; font-size: 12px;">' + relation.notetype + ': </b>',
+                    style: 'display:block; padding:0px 0px 5px 0px'
+                });
+                
+                var pars = relation.par;
+                for (var j = 0; j < pars.length; j++) {
+                    var par = pars[j];
+                    
+                    notesPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + par + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
+                }
+                var notes = relation.refNotes;
+                
+                for (var j = 0; j < notes.length; j++) {
+                    var oneNote = notes[j];
+                    notesPanel.add({
+                        
+                        xtype: 'label',
+                        html: '<b style="color:gray; font-size: 11px;">' + 'Reference(s):' + '</b>',
+                        style: 'display:block; padding:5px 0px 5px 10px'
+                    });
+                    var refPanel = Ext.create('Ext.panel.Panel', {
+                        layout: {
+                            type: 'table',
+                            columns: 1,
+                            tdAttrs: {
+                                valign: 'top'
+                            }
+                        },
+                        bodyBorder: false,
+                        border: false,
+                        //margin: '10 0 0 5',
+                        items:[]
+                    });
+                    notesPanel.add(refPanel);
+                    
+                    var arrRef = Object.keys(oneNote).map(function (key) {
+                        return oneNote[key];
+                    });
+                    for (var k = 0; k < arrRef.length; k++) {
+                        var ref = arrRef[k];
+                        refPanel.add({
+                            xtype: 'label',
+                            html: '<div style="color:gray; font-size: 12px;">' + ref.bibltype + ': ' + ref.biblvalue + '</div>',
+                            style: 'display:block; padding:3px 0px 0px 15px'
+                        });
+                    }
+                }
+            }     
+    },
+    
+    createRelationsSection(personData, me){
+        me.add({
+            xtype: 'label',
+            html: '<b style="color:gray; font-size: 12px;">' + 'Social Relations' + '</b>',
+            margin: '12 0 5 0'
+        });
+        
+        var relationPanel = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 1,
+                tdAttrs: {
+                    valign: 'top'
+                }
+            },
+            bodyBorder: false,
+            border: false,
+            //margin: '5 0 0 0',
+            style: {
+                borderBottom: '1px solid #f0f0f0'
+            },
+            bodyPadding: 3,
+            items:[]
+        });
+        me.add(relationPanel);
+        for (var i = 0; i < personData.relations.length; i++) {
+                var relation = personData.relations[i];
+                var titlePanel = Ext.create('Ext.panel.Panel', {
+                    layout: {
+                        type: 'table',
+                        columns: 1,
+                        tdAttrs: {
+                            valign: 'top'
+                        }
+                    },
+                    bodyBorder: false,
+                    border: false,
+                    margin: '5 0 0 3',
+                    items:[]
+                });
+                
+                relationPanel.add(titlePanel);
+                
+                titlePanel.add({
+                    xtype: 'label',
+                    html: '<b style="color:gray; font-size: 12px;">' + 'Relation: ' + '</b>',
+                    style: 'display:block; padding:0px 0px 5px 0px'
+                });
+                
+                var contentPanel = Ext.create('Ext.panel.Panel', {
+                    layout: {
+                        type: 'table',
+                        columns: 3,
+                        tdAttrs: {
+                            valign: 'top'
+                        }
+                    },
                     bodyBorder: false,
                     border: false,
                     items:[]
                 });
+                relationPanel.add(contentPanel);
                 
-                panel_10.add(name_panel);
-                console.log(json);
-                var persNameBlocks = json.persNameBlocks;
-                var arr = Object.keys(persNameBlocks).map(function (key) {
-                    return persNameBlocks[key];
+                if (relation[1] !== '') {
+                    contentPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + relation[1] + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
+                }
+                
+                if (relation[2] !== '') {
+                    contentPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Activ: ' + relation[2] + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
+                }
+                
+                if (relation[3] !== '') {
+                    contentPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Passiv: ' + relation[3] + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
+                }
+            }       
+    },
+    
+    createAffiliationsSection(personData, me) {
+        me.add({
+            xtype: 'label',
+            html: '<b style="color:gray; font-size: 12px;">' + 'Affiliations' + '</b>',
+            margin: '12 0 5 0'
+        });
+        
+        var affiliationsPanel = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 1,
+                tdAttrs: {
+                    valign: 'top'
+                }
+            },
+            bodyBorder: false,
+            border: false,
+            bodyPadding: 3,
+            style: {
+                borderBottom: '1px solid #f0f0f0'
+            },
+            //margin: '5 5 5 5',
+            items:[]
+        });
+        me.add(affiliationsPanel);
+        
+        var affilistions = personData.affiliations;
+        var arrAff = Object.keys(affilistions).map(function (key) {
+            return affilistions[key];
+        });
+        for (var i = 0; i < affilistions.length; i++) {
+            var oneAff = affilistions[i];
+            
+            var titlePanel = Ext.create('Ext.panel.Panel', {
+                layout: {
+                    type: 'table',
+                    columns: 1,
+                    tdAttrs: {
+                        valign: 'top'
+                    }
+                },
+                bodyBorder: false,
+                border: false,
+                margin: '10 0 0 5',
+                items:[]
+            });
+            
+            affiliationsPanel.add(titlePanel);
+            
+            var dates = oneAff.dates;
+            var org = oneAff.org;
+            var notes = oneAff.notes;
+            
+            titlePanel.add({
+                xtype: 'label',
+                html: '<b style="color:gray; font-size: 12px;">' + 'Affiliation: ' + org[0] + '</b>'
+                //margin: '10 0 0 5'
+            });
+            
+            
+            var contentPanel = Ext.create('Ext.panel.Panel', {
+                layout: {
+                    type: 'table',
+                    columns: 1,
+                    tdAttrs: {
+                        valign: 'top'
+                    }
+                },
+                bodyBorder: false,
+                border: false,
+                // margin: '5 0 0 15',
+                items:[]
+            });
+            affiliationsPanel.add(contentPanel);
+            
+            /*if (org[1] !== '') {
+            contentPanel.add({
+            xtype: 'label',
+            html: '<div style="color:gray; font-size: 12px;">' + 'Identifier: ' + org[1] + '</div>',
+            style: 'display:block; padding:5px 0px 5px 10px'
+            });
+            }*/
+            
+            for (var j = 0; j < dates.length; j++) {
+                contentPanel.add({
+                    xtype: 'label',
+                    html: '<b style="color:gray; font-size: 12px;">' + 'Date:' + '</b>',
+                    style: 'display:block; padding:5px 0px 5px 10px'
+                    //margin: '0 0 0 10'
                 });
-               
-                    
-                    for (var i = 0; i < arr.length; i++) {
-                        
-                        var persNameBlocks = arr[i];
-                        
-                        
-                        if(persNameBlocks.alt.length > 0){
-                            for(var j = 0; j < persNameBlocks.alt.length; j++){
-                                var oneReg = persNameBlocks.alt[j];
-                                var lang = '';
-                            if(oneReg[2] !== undefined){
-                                lang = '('+oneReg[2]+')';
-                            }
-                            var regular = me.createTextField(GUI_NAMES.personNameField_alt + lang);
-                            var regText = '';
-                            if(oneReg[0] !== undefined){
-                                regText = oneReg[0];
-                            }
-                            if(oneReg[1] !== undefined){
-                                regText += ', '+oneReg[1];
-                            }
-                            regular.setValue(regText);
-                            name_panel.add(regular);
-                            
-                                
-                            }
-                            
-                        }
-                        if(persNameBlocks.full.length > 0){
-                            for(var j = 0; j < persNameBlocks.full.length; j++){
-                                var oneReg = persNameBlocks.full[j];
-                                var lang = '';
-                            if(oneReg[2] !== ''){
-                                lang = '('+oneReg[2]+')';
-                            }
-                            var regular = me.createTextField(GUI_NAMES.personNameField_full + lang);
-                            var regText = '';
-                            if(oneReg[0] !== ''){
-                                regText = oneReg[0];
-                            }
-                            if(oneReg[1] !== ''){
-                                regText += ', '+oneReg[1];
-                            }
-                            regular.setValue(regText);
-                            name_panel.add(regular);
-                            }                           
-                        }                        
-                        if(persNameBlocks.regs.length > 0){  
-                            for(var j = 0; j < persNameBlocks.regs.length; j++){
-                                var oneReg = persNameBlocks.regs[j];
-                                var lang = '';
-                            if(oneReg[2] !== ''){
-                                lang = '('+oneReg[2]+')';
-                            }
-                            var regular = me.createTextField(GUI_NAMES.personNameField_reg + lang);
-                            var regText = '';
-                            if(oneReg[0] !== ''){
-                                regText = oneReg[0];
-                            }
-                            if(oneReg !== ''){
-                                regText += ', '+oneReg[1];
-                            }
-                            regular.setValue(regText);
-                            name_panel.add(regular);
-                            }
-                            
-                        }
                 
+                var datePanel = Ext.create('Ext.panel.Panel', {
+                    layout: {
+                        type: 'table',
+                        columns: 3,
+                        tdAttrs: {
+                            valign: 'top'
+                        }
+                    },
+                    bodyBorder: false,
+                    border: false,
+                    //margin: '10 0 0 5',
+                    items:[]
+                });
+                contentPanel.add(datePanel);
+                
+                var oneDate = dates[j];
+                
+                if (oneDate[0] !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'From: ' + oneDate[0] + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                    /*var oneDateField = me.createTextField_1('From');
+                    oneDateField.setValue(oneDate[0]);
+                    affiliationsPanel.add(oneDateField);*/
+                }
+                if (oneDate[1] !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'To: ' + oneDate[2] + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                    /*var oneDateField = me.createTextField_1('To');
+                    oneDateField.setValue(oneDate[1]);
+                    affiliationsPanel.add(oneDateField);*/
+                }
+                if (oneDate[2] !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'When: ' + oneDate[1] + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                    /*var oneDateField = me.createTextField_1('When');
+                    oneDateField.setValue(oneDate[2]);
+                    affiliationsPanel.add(oneDateField);*/
+                }
+                
+                var worksArr = oneDate[3];
+                for (var k = 0; k < worksArr.works.length; k++) {
+                    var work = worksArr.works[k];
+                    
+                    var workPanel = Ext.create('Ext.panel.Panel', {
+                        layout: {
+                            type: 'table',
+                            columns: 1,
+                            tdAttrs: {
+                                valign: 'top'
+                            }
+                        },
+                        bodyBorder: false,
+                        border: false,
+                        //margin: '10 0 0 5',
+                        items:[]
+                    });
+                    contentPanel.add(workPanel);
+                    if (work[0] !== '') {
+                        workPanel.add({
+                            xtype: 'label',
+                            html: '<div style="color:gray; font-size: 12px;">' + 'Work: ' + work[0] + '</div>',
+                            style: 'display:block; padding:5px 0px 5px 15px'
+                        });
                     }
                     
-               
-                if (json.gender.length > 0 || json.birthdates !== undefined || json.deathdates !== undefined || json.occupations.length > 0 || json.residences.length > 0 || json.references.length > 0) {
-                    me.add({
+                    /* if (work[2] !== '') {
+                    workPanel.add({
+                    xtype: 'label',
+                    html: '<div style="color:gray; font-size: 12px;">' + 'Workreference: ' + work[2] + '</div>',
+                    style: 'display:block; padding:5px 0px 5px 10px'
+                    });
+                    }*/
+                }
+                
+                var occArr = oneDate[4];
+                
+                for (var k = 0; k < occArr.occ.length; k++) {
+                    var oneOcc = occArr.occ[k];
+                    
+                    var occValue = '';
+                    if (oneOcc[1] === 'marc:arr') {
+                        occValue = 'Arranger';
+                    } else if (oneOcc[1] === 'marc:cmp') {
+                        occValue = 'Composer';
+                    } else if (oneOcc[1] === 'marc:lbt') {
+                        occValue = 'Librettist';
+                    } else if (oneOcc[1] === 'marc:cnd') {
+                        occValue = 'Conductor';
+                    } else if (oneOcc[1] === 'marc:act') {
+                        occValue = 'Actor';
+                    } else if (oneOcc[1] === 'marc:itr') {
+                        occValue = 'Instrumentalist';
+                    } else if (oneOcc[1] === 'marc:mcp') {
+                        occValue = 'Music copyist';
+                    } else if (oneOcc[1] === 'marc:msd') {
+                        occValue = 'Musical director';
+                    } else if (oneOcc[1] === 'marc:sng') {
+                        occValue = 'Singer';
+                    }
+                    
+                    contentPanel.add({
                         
                         xtype: 'label',
-                        html: '<b style="color:gray; font-size: 12px;">' + GUI_NAMES.person_SectionGenerally + '</b>',
-                        margin: '10 0 10 0'
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Occupation: ' + occValue + '</div>',
+                        style: 'display:block; padding:5px 0px 5px 15px'
                     });
                     
-                    if (json.references.length > 0) {
-                        
-                        var panel_1011 = Ext.create('Ext.panel.Panel', {
-                            layout: {
-                                type: 'table',
-                                columns: 1,
-                                tdAttrs: {
-                                    valign: 'top'
-                                },
-                                tableAttrs: {
-                                    style: {
-                                        width: '100%'
-                                    }
-                                }
-                            },
-                            bodyBorder: false,
-                            border: false,
-                            
-                            items:[]
-                        });
-                        me.add(panel_1011);
-                        if (json.references.length > 0) {
-                            
-                            for (i = 0; i < json.references.length; i++) {
-                                var ref = json.references[i];
-                                var refName = ref[0];
-                                var gndId = ref[1];
-                                
-                                var panel_10111 = Ext.create('Ext.panel.Panel', {
-                                    colspan: 1,
-                                    // type: 'vbox',
-                                    border: false,
-                                    bodyBorder: false,
-                                    // bodyPadding: 10,
-                                    margin: '0 0 10 10',
-                                    //margin: '0 0 0 5',
-                                    items:[]
-                                });
-                                panel_1011.add(panel_10111);
-                                if(refName === 'gnd'){
-                                panel_10111.add({
-                                    xtype: 'component',
-                                    bodyPadding: 10,
-                                    margin: '0 0 0 107',
-                                    autoEl: {
-                                        tag: 'a',
-                                        href: 'https://portal.dnb.de/opac.htm?method=simpleSearch&query=' + gndId,
-                                        html: 'Datensatz in der Gemeinsamen Normdatei (GND)',
-                                        target: "_blank"
-                                    }
-                                });
-                                }else if(refName === 'viaf'){
-                                    panel_10111.add({
-                                    xtype: 'component',
-                                    bodyPadding: 10,
-                                    margin: '0 0 0 107',
-                                    autoEl: {
-                                        tag: 'a',
-                                         href: 'http://viaf.org/viaf/search?query=' + gndId + '&sortKeys=holdingscount&recordSchema=BriefVIAF',
-                                    html: 'Personinformationen auf der Virtual International Authority File Seite',
-                                    target: "_blank"
-                                    }
-                                });
-                                    
-                                
-                                }
-                            }
-                        }
-                         }
+                    /*var oneDateField = me.createTextField_1('Occupation');
+                    oneDateField.setValue(oneOcc[1]);
+                    me.add(oneDateField);*/
                     
-                    panel_011 = Ext.create('Ext.panel.Panel', {
+                    var occPanel = Ext.create('Ext.panel.Panel', {
+                        layout: {
+                            type: 'table',
+                            columns: 1,
+                            tdAttrs: {
+                                valign: 'top'
+                            }
+                        },
+                        bodyBorder: false,
+                        border: false,
+                        //margin: '10 0 0 5',
+                        items:[]
+                    });
+                    contentPanel.add(occPanel);
+                    
+                    if (oneOcc[3] !== undefined) {
+                        var oneEl = oneOcc[3];
+                        /*if (oneEl.comp[2] !== '') {
+                        occPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Component: ' + oneEl.comp[2] + '</div>',
+                        style: 'display:block; padding:5px 0px 5px 15px'
+                        });
+                        }*/
+                        for (var l = 0; l < oneEl.comp.length; l++) {
+                            var oneComp = oneEl.comp[l];
+                            
+                            occPanel.add({
+                                xtype: 'label',
+                                html: '<div style="color:gray; font-size: 12px;">' + 'Componenttitle: ' + oneComp[2] + '</div>',
+                                style: 'display:block; padding:5px 0px 5px 15px'
+                            });
+                        }
+                        
+                        
+                        // for (var l = 0; l < oneEl.comp.length; l++) {
+                        //var oneSng  = oneEl.comp[l];
+                        /* var oneDateField = me.createTextField_1(oneEl.comp[2]);
+                        oneDateField.setValue(oneEl.comp[1]);
+                        contentPanel.add(oneDateField);*/
+                        //  }
+                    }
+                    
+                    var rolePanel = Ext.create('Ext.panel.Panel', {
+                        layout: {
+                            type: 'table',
+                            columns: 3,
+                            tdAttrs: {
+                                valign: 'top'
+                            }
+                        },
+                        bodyBorder: false,
+                        border: false,
+                        //margin: '10 0 0 5',
+                        items:[]
+                    });
+                    contentPanel.add(rolePanel);
+                    
+                    if (oneOcc[2] !== undefined) {
+                        var oneEl = oneOcc[2];
+                        if (oneEl.sng[1] !== '') {
+                            rolePanel.add({
+                                xtype: 'label',
+                                html: '<div style="color:gray; font-size: 12px;">' + 'Role: ' + oneEl.sng[1] + '</div>',
+                                style: 'display:block; padding:5px 0px 5px 15px'
+                            });
+                        }
+                        
+                        if (oneEl.sng[2] !== '') {
+                            rolePanel.add({
+                                xtype: 'label',
+                                html: '<div style="color:gray; font-size: 12px;">' + 'Clef: ' + oneEl.sng[2] + '</div>',
+                                style: 'display:block; padding:5px 0px 5px 10px'
+                            });
+                        }
+                        if (oneEl.sng[3] !== '') {
+                            rolePanel.add({
+                                xtype: 'label',
+                                html: '<div style="color:gray; font-size: 12px;">' + 'Ambitus: ' + oneEl.sng[3] + '</div>',
+                                style: 'display:block; padding:5px 0px 5px 10px'
+                            });
+                        }
+                    }
+                }
+                var refArr = oneDate[5];
+                
+                for (var k = 0; k < refArr.refs.length; k++) {
+                    
+                    var oneNote = refArr.refs[k];
+                    console.log(oneNote);
+                    var oneNoteText = '';
+                    contentPanel.add({
+                        
+                        xtype: 'label',
+                        html: '<b style="color:gray; font-size: 12px;">' + 'Reference(s):' + '</b>',
+                        style: 'display:block; padding:5px 0px 5px 10px'
+                    });
+                    var refPanel = Ext.create('Ext.panel.Panel', {
+                        layout: {
+                            type: 'table',
+                            columns: 1,
+                            tdAttrs: {
+                                valign: 'top'
+                            }
+                        },
+                        bodyBorder: false,
+                        border: false,
+                        //margin: '10 0 0 5',
+                        items:[]
+                    });
+                    contentPanel.add(refPanel);
+                    
+                    var arrRef = Object.keys(oneNote).map(function (key) {
+                        return oneNote[key];
+                    });
+                    for (var l = 0; l < arrRef.length; l++) {
+                        var ref = arrRef[l];
+                        refPanel.add({
+                            xtype: 'label',
+                            html: '<div style="color:gray; font-size: 12px;">' + ref.bibltype + ': ' + ref.biblvalue + '</div>',
+                            style: 'display:block; padding:5px 0px 5px 15px'
+                        });
+                    }
+                }
+            }
+        }
+    },
+    
+    createResidencesSection(personData, me) {
+        me.add({
+            xtype: 'label',
+            html: '<b style="color:gray; font-size: 12px;">' + 'Residences' + '</b>',
+            margin: '12 0 5 0'
+        });
+        
+        var residencesPanel = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 1,
+                tdAttrs: {
+                    valign: 'top'
+                }
+            },
+            bodyBorder: false,
+            border: false,
+            style: {
+                borderBottom: '1px solid #f0f0f0'
+            },
+            bodyPadding: 3,
+            items:[]
+        });
+        me.add(residencesPanel);
+        
+        var residenceBlocks = personData.residences;
+        var arr = Object.keys(residenceBlocks).map(function (key) {
+            return residenceBlocks[key];
+        });
+        for (var i = 0; i < arr.length; i++) {
+            var titlePanel = Ext.create('Ext.panel.Panel', {
+                layout: {
+                    type: 'table',
+                    columns: 1,
+                    tdAttrs: {
+                        valign: 'top'
+                    }
+                },
+                bodyBorder: false,
+                border: false,
+                margin: '5 0 0 3',
+                items:[]
+            });
+            
+            residencesPanel.add(titlePanel);
+            var residenceBlock = arr[i];
+            titlePanel.add({
+                xtype: 'label',
+                html: '<b style="color:gray; font-size: 12px;">' + 'Residence: ' + '</b>',
+                style: 'display:block; padding:0px 0px 5px 0px'
+            });
+            
+            var dates = residenceBlock.datesTo;
+            var settl = residenceBlock.settl;
+            var genNote = residenceBlock.genNote;
+            var notes = residenceBlock.notes;
+            
+            for (var j = 0; j < dates.length; j++) {
+                var oneDate = dates[j];
+                
+                var datePanel = Ext.create('Ext.panel.Panel', {
+                    layout: {
+                        type: 'table',
+                        columns: 3,
+                        tdAttrs: {
+                            valign: 'top'
+                        }
+                    },
+                    bodyBorder: false,
+                    border: false,
+                    //margin: '0 0 0 5',
+                    items:[]
+                });
+                residencesPanel.add(datePanel);
+                
+                if (oneDate[1] !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'From: ' + oneDate[1] + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
+                }
+                
+                if (oneDate[0] !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'To: ' + oneDate[0] + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
+                }
+                
+                if (oneDate[2] !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Certainty: ' + oneDate[2] + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
+                }
+            }
+            for (var j = 0; j < settl.length; j++) {
+                var oneSettl = settl[j];
+                var settlPanel = Ext.create('Ext.panel.Panel', {
+                    layout: {
+                        type: 'table',
+                        columns: 3,
+                        tdAttrs: {
+                            valign: 'top'
+                        }
+                    },
+                    bodyBorder: false,
+                    border: false,
+                    //margin: '0 0 0 5',
+                    items:[]
+                });
+                residencesPanel.add(settlPanel);
+                
+                if (oneSettl.settlement !== '') {
+                    settlPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Settlement: ' + oneSettl.settlement + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
+                }
+                if (oneSettl.ref !== '') {
+                    settlPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Geoname ID: ' + oneSettl.ref + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
+                }
+                if (oneSettl.cert !== '') {
+                    settlPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Cert: ' + oneSettl.cert + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
+                }
+            }
+            
+            for (var j = 0; j < genNote.length; j++) {
+                var oneGenNote = genNote[j];
+                residencesPanel.add({
+                    xtype: 'label',
+                    html: '<div style="color:gray; font-size: 12px;">' + 'General Note: ' + oneGenNote + '</div>',
+                    style: 'display:block; padding:0px 0px 5px 10px'
+                });
+            }
+            
+            for (var j = 0; j < notes.length; j++) {
+                var oneNote = notes[j];
+                residencesPanel.add({
+                    xtype: 'label',
+                    html: '<b style="color:gray; font-size: 11px;">' + 'Reference(s):' + '</b>',
+                    style: 'display:block; padding:5px 0px 5px 10px'
+                });
+                var refPanel = Ext.create('Ext.panel.Panel', {
+                    layout: {
+                        type: 'table',
+                        columns: 1,
+                        tdAttrs: {
+                            valign: 'top'
+                        }
+                    },
+                    bodyBorder: false,
+                    border: false,
+                    items:[]
+                });
+                residencesPanel.add(refPanel);
+                
+                var arrRef = Object.keys(oneNote).map(function (key) {
+                    return oneNote[key];
+                });
+                for (var k = 0; k < arrRef.length; k++) {
+                    var ref = arrRef[k];
+                    refPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + ref.bibltype + ': ' + ref.biblvalue + '</div>',
+                        style: 'display:block; padding:3px 0px 0px 15px'
+                    });
+                }
+            }
+        }
+    },
+    
+    createOccupationsSection(personData, me) {
+        me.add({
+            xtype: 'label',
+            html: '<b style="color:gray; font-size: 12px;">' + 'Occupations' + '</b>',
+            margin: '8 0 10 0'
+        });
+        
+        var occContentPanel = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 1,
+                tdAttrs: {
+                    valign: 'top'
+                }
+            },
+            bodyBorder: false,
+            border: false,
+            bodyPadding: 3,
+            style: {
+                borderBottom: '1px solid #f0f0f0'
+            },
+            items:[]
+        });
+        me.add(occContentPanel);
+        for (var i = 0; i < personData.occupations.length; i++) {
+            var occupationBlock = personData.occupations[i];
+            var occupationPanel = Ext.create('Ext.panel.Panel', {
+                layout: {
+                    type: 'table',
+                    columns: 2,
+                    tdAttrs: {
+                        valign: 'top'
+                    }
+                },
+                bodyBorder: false,
+                border: false,
+                margin: '5 0 0 3',
+                items:[]
+            });
+            occContentPanel.add(occupationPanel);
+            if (occupationBlock[1] !== undefined && occupationBlock[1] !== '') {
+                var occValue = '';
+                if (occupationBlock[1] === 'marc:arr') {
+                    occValue = 'Arranger';
+                } else if (occupationBlock[1] === 'marc:cmp') {
+                    occValue = 'Composer';
+                } else if (occupationBlock[1] === 'marc:lbt') {
+                    occValue = 'Librettist';
+                } else if (occupationBlock[1] === 'marc:cnd') {
+                    occValue = 'Conductor';
+                } else if (occupationBlock[1] === 'marc:act') {
+                    occValue = 'Actor';
+                } else if (occupationBlock[1] === 'marc:itr') {
+                    occValue = 'Instrumentalist';
+                } else if (occupationBlock[1] === 'marc:mcp') {
+                    occValue = 'Music copyist';
+                } else if (occupationBlock[1] === 'marc:msd') {
+                    occValue = 'Musical director';
+                } else if (occupationBlock[1] === 'marc:sng') {
+                    occValue = 'Singer';
+                }
+                occupationPanel.add({
+                    xtype: 'label',
+                    html: '<div style="color:gray; font-size: 12px;">' + occValue + '</div>',
+                    style: 'display:block; padding:0px 0px 5px 3px'
+                });
+            }
+            if (occupationBlock[2] !== undefined && occupationBlock[2] !== '') {
+                occupationPanel.add({
+                    xtype: 'label',
+                    html: '<div style="color:gray; font-size: 12px;">' + occupationBlock[2] + '</div>',
+                    style: 'display:block; padding:0px 0px 5px 3px'
+                });
+            }
+        }
+    },
+    
+    createDeathSection(personData, me) {
+        var titleDeathSection = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 1
+            },
+            margin: '0 0 0 10',
+            bodyBorder: false,
+            border: false,
+            items:[]
+        });
+        me.add(titleDeathSection);
+        
+        var crossImage = {
+            xtype: 'image',
+            src: 'resources/images/Cross1.png',
+            width: '23px',
+            height: '19px'
+        };
+        titleDeathSection.add(crossImage);
+        
+        var deathdatesPanel = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 1,
+                tdAttrs: {
+                    valign: 'top'
+                }
+            },
+            bodyBorder: false,
+            border: false,
+            items:[]
+        });
+        me.add(deathdatesPanel);
+        
+        if (personData.deathdates !== undefined) {
+            var deathdateBlocks = personData.deathdates;
+            var arr = Object.keys(deathdateBlocks).map(function (key) {
+                return deathdateBlocks[key];
+            });
+            for (var i = 0; i < arr.length; i++) {
+                var datePanel = Ext.create('Ext.panel.Panel', {
+                    layout: {
+                        type: 'table',
+                        columns: 4,
+                        tdAttrs: {
+                            valign: 'top'
+                        }
+                    },
+                    bodyBorder: false,
+                    border: false,
+                    items:[]
+                });
+                deathdatesPanel.add(datePanel);
+                
+                var deathdateBlock = arr[i];
+                if (deathdateBlock.when !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'When: ' + deathdateBlock.when + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+                
+                if (deathdateBlock.notBefore !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Not before: ' + deathdateBlock.notBefore + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+                
+                if (deathdateBlock.notAfter !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Not after: ' + deathdateBlock.notAfter + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+                
+                if (deathdateBlock.cert !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Certainty: ' + deathdateBlock.cert + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+            }
+        }
+        if (personData.deathplaces !== undefined) {
+            var deathplaceBlocks = personData.deathplaces;
+            var arr = Object.keys(deathplaceBlocks).map(function (key) {
+                return deathplaceBlocks[key];
+            });
+            for (var i = 0; i < arr.length; i++) {
+                var settlPanel = Ext.create('Ext.panel.Panel', {
+                    layout: {
+                        type: 'table',
+                        columns: 3,
+                        tdAttrs: {
+                            valign: 'top'
+                        }
+                    },
+                    bodyBorder: false,
+                    border: false,
+                    items:[]
+                });
+                deathdatesPanel.add(settlPanel);
+                var deathplaceBlock = arr[i];
+                if (deathplaceBlock.settlement !== '') {
+                    settlPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Settlement: ' + deathplaceBlock.settlement + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+                if (deathplaceBlock.ref !== '') {
+                    settlPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Geoname ID: ' + deathplaceBlock.ref + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+                if (deathplaceBlock.cert !== '') {
+                    settlPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Cert: ' + deathplaceBlock.cert + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+            }
+        }
+    },
+    
+    createReferenceSection(personData, me) {
+        var referencesBlocksJson = personData.references;
+        
+        me.add({
+            xtype: 'label',
+            html: '<b style="color:gray; font-size: 12px;">' + 'References' + '</b>',
+            margin: '0 0 10 0'
+        });
+        
+        var referencesPanel = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 1,
+                tdAttrs: {
+                    valign: 'top'
+                }
+            },
+            bodyBorder: false,
+            border: false,
+            items:[]
+        });
+        me.add(referencesPanel);
+        for (var i = 0; i < referencesBlocksJson.length; i++) {
+            var oneReference = referencesBlocksJson[i];
+            if (oneReference[0] === 'viaf') {
+                referencesPanel.add({
+                    xtype: 'component',
+                    style: 'display:block; padding:0px 0px 10px 10px',
+                    autoEl: {
+                        tag: 'a',
+                        href: 'http://viaf.org/viaf/search?query=' + oneReference[1] + '&sortKeys=holdingscount&recordSchema=BriefVIAF',
+                        html: 'Personinformation on the Virtual International Authority File (VIAF)',
+                        target: "_blank"
+                    }
+                });
+            } else if (oneReference[0] === 'gnd') {
+                referencesPanel.add({
+                    xtype: 'component',
+                    style: 'display:block; padding:0px 0px 10px 10px',
+                    autoEl: {
+                        tag: 'a',
+                        href: 'https://portal.dnb.de/opac.htm?method=simpleSearch&query=' + oneReference[1],
+                        html: 'Record in the Common Authority File (GND)',
+                        target: "_blank"
+                    }
+                });
+            } else if (oneReference[0] === 'isni') {
+                referencesPanel.add({
+                    xtype: 'component',
+                    style: 'display:block; padding:0px 0px 10px 10px',
+                    autoEl: {
+                        tag: 'a',
+                        href: 'http://isni.org/isni/' + oneReference[1],
+                        html: 'Personinformation on the International Standard Name Identifier (ISNI)',
+                        target: "_blank"
+                    }
+                });
+            }
+        }
+    },
+    
+    createNameVariationSection(personData, me) {
+        me.add({
+            xtype: 'label',
+            html: '<b style="color:gray; font-size: 12px;">' + GUI_NAMES.person_SectionName + '</b>',
+            margin: '0 0 10 0'
+        });
+        
+        var namesPanel = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 1,
+                tdAttrs: {
+                    valign: 'top'
+                }
+            },
+            bodyBorder: false,
+            border: false,
+            items:[]
+        });
+        me.add(namesPanel);
+        var persNameBlocksJson = personData.persNameBlocks;
+        for (var i = 0; i < persNameBlocksJson.length; i++) {
+            var persNameBlocks = persNameBlocksJson[i];
+            if (persNameBlocks.reg.length > 0) {
+                
+                for (var j = 0; j < persNameBlocks.reg.length; j++) {
+                    var regPanel = Ext.create('Ext.panel.Panel', {
                         layout: {
                             type: 'table',
                             columns: 2,
                             tdAttrs: {
                                 valign: 'top'
-                            },
-                            tableAttrs: {
-                                style: {
-                                    width: '100%'
-                                }
                             }
                         },
-                        // margin: '0 23 0 10',
-                        bodyPadding: 10,
                         bodyBorder: false,
                         border: false,
                         items:[]
                     });
-                    //titel_group.add(panel_0);
-                    me.add(panel_011);
-                 
-                    if (json.gender.length > 0) {
-                        var gender = me.createTextFieldWithoutLabel();
-                        if (json.gender[0] === 'm') {
-                            gender.setValue(GUI_NAMES.person_male);
-                        } else if (json.gender[0] === 'f') {
-                            gender.setValue(GUI_NAMES.person_female);
-                        } else {
-                            gender.setValue(GUI_NAMES.person_unknown);
-                        }
-                        panel_011.add({
-                            html: '<img src="resources/images/Gender.png" style="width:23px;height:23px;">',
-                            border: false
-                            //margin: '0 0 -11 0'
-                        });
-                        panel_011.add(gender);
+                    namesPanel.add(regPanel);
+                    var oneReg = persNameBlocks.reg[j];
+                    var lang = '';
+                    if (oneReg.language !== '') {
+                        lang = ' (' + oneReg.language + ')';
                     }
-                    
-                    if (json.birthdates !== undefined) {
-                        var birthdateBlocks = json.birthdates;
-                        var arr = Object.keys(birthdateBlocks).map(function (key) {
-                            return birthdateBlocks[key];
-                        });
-               
-                    
-                    for (var i = 0; i < arr.length; i++) {
-                        
-                        var birthdateBlock = arr[i];
-                        var dateText = '';
-                            if(birthdateBlock.when !== ''){
-                                dateText += ' when: ' +birthdateBlock.when;
-                            }
-                            if(birthdateBlock.notAfter !== ''){
-                                dateText += ', notAfter: ' +birthdateBlock.notAfter;
-                            }
-                            if(birthdateBlock.notBefore !== ''){
-                                dateText += ', notBefore: ' +birthdateBlock.notBefore;
-                            }
-                            if(birthdateBlock.cert !== ''){
-                                dateText += ', cert: ' +birthdateBlock.cert;
-                            }
-                  
-                        var birth = me.createTextFieldWithoutLabel();
-                        birth.setValue(dateText);
-                        panel_011.add({
-                            html: '<img src="resources/images/Snowflake.png" style="width:25px;height:25px;">',
-                            border: false
-                            //margin: '0 0 -11 0'
-                        });
-                        panel_011.add(birth);
-                        }
+                    var regText = '';
+                    for (var k = 0; k < oneReg.names.length; k++) {
+                        var oneValue = oneReg.names[k];
+                        regText = regText + ' ' + oneValue[1];
                     }
-                    
-                    if (json.birthplaces !== undefined) {
-                        var birthplaceBlocks = json.birthplaces;
-                        var arr = Object.keys(birthplaceBlocks).map(function (key) {
-                            return birthplaceBlocks[key];
-                        });
-               
-                    
-                    for (var i = 0; i < arr.length; i++) {
-                        
-                        var birthplaceBlock = arr[i];
-                        var dateText = '';
-                            if(birthplaceBlock.settlement !== ''){
-                                dateText += ' settlement: ' +birthplaceBlock.settlement;
+                    regPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Regular' + lang + ': ' + regText + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
+                }
+            }
+            if (persNameBlocks.full.length > 0) {
+                for (var j = 0; j < persNameBlocks.full.length; j++) {
+                    var fullPanel = Ext.create('Ext.panel.Panel', {
+                        layout: {
+                            type: 'table',
+                            columns: 2,
+                            tdAttrs: {
+                                valign: 'top'
                             }
-                            if(birthplaceBlock.ref !== ''){
-                                dateText += ', ref: ' +birthplaceBlock.ref;
-                            }
-                            if(birthplaceBlock.cert !== ''){
-                                dateText += ', cert: ' +birthplaceBlock.cert;
-                            }
-                  
-                        var birth = me.createTextFieldWithoutLabel();
-                        birth.setValue(dateText);
-                        panel_011.add({
-                            html: '<img src="resources/images/Snowflake.png" style="width:25px;height:25px;">',
-                            border: false
-                            //margin: '0 0 -11 0'
-                        });
-                        panel_011.add(birth);
-                        }
-                    }
-                    
-                    if (json.deathdates !== undefined) {
-                    
-                         var deathdateBlocks = json.deathdates;
-                        var arr = Object.keys(deathdateBlocks).map(function (key) {
-                            return deathdateBlocks[key];
-                        });
-               
-                    
-                    for (var i = 0; i < arr.length; i++) {
-                        
-                        var deathdateBlock = arr[i];
-                        var dateText = '';
-                            if(deathdateBlock.when !== ''){
-                                dateText += ' when: ' +deathdateBlock.when;
-                            }
-                            if(deathdateBlock.notAfter !== ''){
-                                dateText += ', notAfter: ' +deathdateBlock.notAfter;
-                            }
-                            if(deathdateBlock.notBefore !== ''){
-                                dateText += ', notBefore: ' +deathdateBlock.notBefore;
-                            }
-                            if(deathdateBlock.cert !== ''){
-                                dateText += ', cert: ' +deathdateBlock.cert;
-                            }
-                  
-                        var death = me.createTextFieldWithoutLabel();
-                        death.setValue(dateText);
-                        panel_011.add({
-                            html: '<img src="resources/images/Cross.png" style="width:23px;height:19px;">',
-                            border: false
-                            //margin: '0 0 -11 0'
-                        });
-                        panel_011.add(death);
-                        }
-          
-                    }
-                    
-                    if (json.deathplaces !== undefined) {
-                        var deathplaceBlocks = json.deathplaces;
-                        var arr = Object.keys(deathplaceBlocks).map(function (key) {
-                            return deathplaceBlocks[key];
-                        });
-               
-                    
-                    for (var i = 0; i < arr.length; i++) {
-                        
-                        var deathplaceBlock = arr[i];
-                        var dateText = '';
-                            if(deathplaceBlock.settlement !== ''){
-                                dateText += ' settlement: ' +deathplaceBlock.settlement;
-                            }
-                            if(deathplaceBlock.ref !== ''){
-                                dateText += ', ref: ' +deathplaceBlock.ref;
-                            }
-                            if(deathplaceBlock.cert !== ''){
-                                dateText += ', cert: ' +deathplaceBlock.cert;
-                            }
-                  
-                        var birth = me.createTextFieldWithoutLabel();
-                        birth.setValue(dateText);
-                        panel_011.add({
-                            html: '<img src="resources/images/Cross.png" style="width:23px;height:19px;">',
-                            border: false
-                            //margin: '0 0 -11 0'
-                        });
-                        panel_011.add(birth);
-                        }
-                    }
-                    
-                    
-                   if(json.residences !== undefined){
-                        var residenceBlocks = json.residences;
-                var arr = Object.keys(residenceBlocks).map(function (key) {
-                    return residenceBlocks[key];
-                });
-               
-                    
-                    for (var i = 0; i < arr.length; i++) {
-                        
-                        var residenceBlock = arr[i];
-                        
-                        
-                       /* if(persNameBlocks.alt.length > 0){
-                            for(var j = 0; j < persNameBlocks.alt.length; j++){
-                                var oneReg = persNameBlocks.alt[j];
-                                var lang = '';
-                            if(oneReg[2] !== undefined){
-                                lang = '('+oneReg[2]+')';
-                            }
-                            var regular = me.createTextField(GUI_NAMES.personNameField_alt + lang);
-                            var regText = '';
-                            if(oneReg[0] !== undefined){
-                                regText = oneReg[0];
-                            }
-                            if(oneReg[1] !== undefined){
-                                regText += ', '+oneReg[1];
-                            }
-                            regular.setValue(regText);
-                            name_panel.add(regular);
-                            
-                                
-                            }
-                            
-                        }*/
-                                          
-                        
-                
-                    }
-                    
-               
-                       
-                   }
-                    if (json.occupations.length > 0) {
-                        
-                    for (var i = 0; i < json.occupations.length; i++) {
-                        
-                        var residenceBlock = json.occupations[i];
-                        
-                        
-                        /*if(persNameBlocks.alt.length > 0){
-                            for(var j = 0; j < persNameBlocks.alt.length; j++){
-                                var oneReg = persNameBlocks.alt[j];
-                                var lang = '';
-                            if(oneReg[2] !== undefined){
-                                lang = '('+oneReg[2]+')';
-                            }
-                            var regular = me.createTextField(GUI_NAMES.personNameField_alt + lang);
-                            var regText = '';
-                            if(oneReg[0] !== undefined){
-                                regText = oneReg[0];
-                            }
-                            if(oneReg[1] !== undefined){
-                                regText += ', '+oneReg[1];
-                            }
-                            regular.setValue(regText);
-                            name_panel.add(regular);
-                            
-                                
-                            }
-                            
-                        }*/
-                                          
-                        
-                
-                    }
-                    
-               
-                        
-                       
-                    }
-                    
-                     /*if (typeof json.summaryText[0] !== 'undefined') {
-                        //var summary = me.createTextArea(GUI_NAMES.person_description);
-                        var notes = json.summaryText[0];
-                        
-                        //summary.setValue(notes);
-                        //summary.setHeight(150);
-                        
-                        /\*var annot_panel = Ext.create('Ext.panel.Panel', {
+                        },
+                        bodyBorder: false,
                         border: false,
-                        //bodyPadding: 10,
-                        margin: '0 10 0 10',
                         items:[]
-                        });
-                        me.add(annot_panel);
-                        annot_panel.add(summary);*\/
-                        var right_panel = Ext.create('Ext.panel.Panel', {
-                            layout: {
-                                type: 'table',
-                                columns: 2,
-                                tdAttrs: {
-                                    valign: 'top'
-                                }
-                            },
-                            margin: '0 0 10 0',
-                            autoScroll: true,
-                            border: false,
-                            items:[ {
-                                xtype: 'label',
-                                html: '<b style="color:gray; font-size: 10px;">' + GUI_NAMES.person_description + ':</b>'
-                            }, {
-                                html: notes,
-                                margin: '0 0 0 65',
-                                border: false
-                            }]
-                        });
-                        me.add(right_panel);
+                    });
+                    namesPanel.add(fullPanel);
+                    var oneReg = persNameBlocks.full[j];
+                    var lang = '';
+                    if (oneReg.language !== '') {
+                        lang = ' (' + oneReg.language + ')';
                     }
-                    
-                    */
+                    var regText = '';
+                    for (var k = 0; k < oneReg.names.length; k++) {
+                        var oneValue = oneReg.names[k];
+                        regText = regText + ' ' + oneValue[1];
+                    }
+                    fullPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Full' + lang + ': ' + regText + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 10px'
+                    });
                 }
-              
+            }
+            for (var j = 0; j < persNameBlocks.alt.length; j++) {
+                var altPanel = Ext.create('Ext.panel.Panel', {
+                    layout: {
+                        type: 'table',
+                        columns: 2,
+                        tdAttrs: {
+                            valign: 'top'
+                        }
+                    },
+                    bodyBorder: false,
+                    border: false,
+                    items:[]
+                });
+                namesPanel.add(altPanel);
+                var oneReg = persNameBlocks.alt[j];
+                var lang = '';
+                if (oneReg.language !== '' && oneReg.language !== undefined) {
+                    lang = ' (' + oneReg.language + ')';
                 }
+                var regText = '';
+                for (var k = 0; k < oneReg.names.length; k++) {
+                    var oneValue = oneReg.names[k];
+                    regText = regText + ' ' + oneValue[1];
+                }
+                
+                if (oneReg.subtype !== '') {
+                    regText = regText + ' (' + oneReg.subtype + ')';
+                }
+                
+                altPanel.add({
+                    xtype: 'label',
+                    html: '<div style="color:gray; font-size: 12px;">' + 'Alternative' + lang + ': ' + regText + '</div>',
+                    style: 'display:block; padding:0px 0px 5px 10px'
+                });
+            }
+        }
+    },
+    
+    createGenderSection: function (personData, me) {
+        var genderSection = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 2
+            },
+            margin: '0 0 0 10',
+            bodyBorder: false,
+            border: false,
+            items:[]
         });
+        me.add(genderSection);
+        
+        var genderImage = {
+            xtype: 'image',
+            src: 'resources/images/customer-15.png',
+            margin: '0 0 0 5',
+            width: '14px',
+            height: '14px'
+        };
+        genderSection.add(genderImage);
+        var gender = me.createTextFieldWithoutLabel();
+        var genderValue = '';
+        if (personData.gender[0] === 'm') {
+            genderValue = 'male';
+        } else if (personData.gender[0] === 'f') {
+            genderValue = 'female';
+        } else {
+            genderValue = 'unknown';
+        }
+        genderSection.add({
+            xtype: 'label',
+            html: '<div style="color:gray; font-size: 12px;">' + genderValue + '</div>',
+            style: 'display:block; padding:0px 0px 4px 5px'
+        });
+    },
+    
+    createBirthSection: function (personData, me) {
+        var titleBirthSection = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 1
+            },
+            margin: '0 0 0 10',
+            bodyBorder: false,
+            border: false,
+            items:[]
+        });
+        me.add(titleBirthSection);
+        
+        var birthImage = {
+            xtype: 'image',
+            src: 'resources/images/Snowflake.png',
+            width: '25px',
+            height: '25px'
+        };
+        titleBirthSection.add(birthImage);
+        var birthdatesPanel = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'table',
+                columns: 1,
+                tdAttrs: {
+                    valign: 'top'
+                }
+            },
+            bodyBorder: false,
+            border: false,
+            items:[]
+        });
+        me.add(birthdatesPanel);
+        if (personData.birthdates !== undefined) {
+            var birthdateBlocks = personData.birthdates;
+            var arr = Object.keys(birthdateBlocks).map(function (key) {
+                return birthdateBlocks[key];
+            });
+            for (var i = 0; i < arr.length; i++) {
+                var datePanel = Ext.create('Ext.panel.Panel', {
+                    layout: {
+                        type: 'table',
+                        columns: 5,
+                        tdAttrs: {
+                            valign: 'top'
+                        }
+                    },
+                    bodyBorder: false,
+                    border: false,
+                    //margin: '10 0 0 5',
+                    items:[]
+                });
+                birthdatesPanel.add(datePanel);
+                
+                var birthdateBlock = arr[i];
+                
+                if (birthdateBlock.type !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Type: ' + birthdateBlock.type + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+                
+                if (birthdateBlock.when !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'When: ' + birthdateBlock.when + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+                
+                if (birthdateBlock.notBefore !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Not before: ' + birthdateBlock.notBefore + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+                
+                if (birthdateBlock.notAfter !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Not after: ' + birthdateBlock.notAfter + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+                
+                if (birthdateBlock.cert !== '') {
+                    datePanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Certainty: ' + birthdateBlock.cert + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+            }
+        }
+        if (personData.birthplaces !== undefined) {
+            var birthplaceBlocks = personData.birthplaces;
+            var arr = Object.keys(birthplaceBlocks).map(function (key) {
+                return birthplaceBlocks[key];
+            });
+            
+            for (var i = 0; i < arr.length; i++) {
+                
+                var settlPanel = Ext.create('Ext.panel.Panel', {
+                    layout: {
+                        type: 'table',
+                        columns: 3,
+                        tdAttrs: {
+                            valign: 'top'
+                        }
+                    },
+                    bodyBorder: false,
+                    border: false,
+                    //margin: '10 0 0 5',
+                    items:[]
+                });
+                birthdatesPanel.add(settlPanel);
+                
+                var birthplaceBlock = arr[i];
+                
+                if (birthplaceBlock.settlement !== '') {
+                    settlPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Settlement: ' + birthplaceBlock.settlement + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+                if (birthplaceBlock.ref !== '') {
+                    settlPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Geoname ID: ' + birthplaceBlock.ref + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+                if (birthplaceBlock.cert !== '') {
+                    settlPanel.add({
+                        xtype: 'label',
+                        html: '<div style="color:gray; font-size: 12px;">' + 'Cert: ' + birthplaceBlock.cert + '</div>',
+                        style: 'display:block; padding:0px 0px 5px 15px'
+                    });
+                }
+            }
+        }
     },
     
     createTextArea: function (fieldName) {
