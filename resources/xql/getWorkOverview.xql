@@ -324,6 +324,43 @@ concat('"',$names, '"')
     
 };
 
+declare function local:jsonifyTaxReferences($workID) {
+    
+    let $rolepath := 'xmldb:exist:///apps/theater-data/taxation/'
+    let $rolefiles := collection($rolepath)
+    let $rolefile := $rolefiles//tei:TEI
+    (:let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/':)
+    let $nameList := $rolefile//tei:TEI//tei:rs[@key = $workID]
+    let $names := local:jsonifyTaxPersNames($nameList)
+     
+     return
+        if ($names != '') then
+            (
+            concat('', $names, '')
+            )
+        else
+            ()
+
+};
+
+declare function local:jsonifyTaxPersNames($nameList) {
+    
+    
+    let $strings := for $elem in $nameList
+    let $names := concat('Garderobe: ', normalize-space($elem/parent::element()/parent::element()))
+   
+    return
+        if ($names != '') then
+            (
+            concat('"', $names, '"')
+            )
+        else
+            ()
+    return
+        string-join($strings, ',')
+
+};
+
 
 declare function local:getDates($dates) {
 
@@ -449,7 +486,9 @@ let $strings := for $elem in $content
      '],"journalRef":[',
         local:jsonifyJournalReferences($workID), 
      '],"regieRef":[',
-        local:jsonifyRegieReferences($workID), 
+        local:jsonifyRegieReferences($workID),
+      '],"taxation":[',
+        local:jsonifyTaxReferences($workID),
      '],"issueRef":[',
         local:jsonifyIssueReferences($workID), 
 	'],"workTitel":[',

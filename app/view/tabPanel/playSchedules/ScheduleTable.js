@@ -2,8 +2,9 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTable', {
     extend: 'Ext.grid.Panel',
     requires:[
     'Ext.grid.column.Action',
-    'TheaterTool.model.Theaterakte',
-    'Ext.ux.grid.SubTable'],
+    'TheaterTool.model.Theaterakte'
+    //'Ext.ux.grid.SubTable'
+    ],
     layout: {
         type: 'hbox',
         pack: 'start',

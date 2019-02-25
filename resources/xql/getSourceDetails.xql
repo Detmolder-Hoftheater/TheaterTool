@@ -285,17 +285,14 @@ declare function local:jsonifyHandList($handList) {
     let $file := doc($uri)
     let $content := $file//tei:person
     let $persNames := $content/tei:persName
-    let $persName := local:jsonifyPersNamesContent($persNames)
+    let $persName := local:jsonifyPersNamesContent($persNames)   
     let $medium := $elem_1/@medium
     let $initial := $elem_1/@initial
     
     return
-        if ($persName != '') then
-            (concat('["', $persName, '","', $medium, '","', $initial, '","', $persIdCon, '"]'))
-        else
-            ()
-            
-            (:if ($persId != '') then
+    if($persName != '')then(concat('["', $persName, '","',$medium, '","', $initial,'","', $persIdCon, '"]'))else()
+    
+        (:if ($persId != '') then
             (concat('"', normalize-space($persId), '"'))
         else
             ()
@@ -311,17 +308,11 @@ declare function local:jsonifyPersNamesContent($persNames) {
     let $strings := for $elem in $persNames
     
     let $typeName := $elem/@type
-    let $title := if ($typeName = 'reg') then
-        ($elem/tei:surname)
-    else
-        ()
+    let $title :=  if($typeName = 'reg')then($elem/tei:surname)else()
     
     return
-        if ($title != '') then
-            ($title)
-        else
-            ()
-    
+        if($title != '')then($title)else()
+        
     return
         string-join($strings, ' ,')
 
@@ -606,7 +597,7 @@ declare function local:jsonifySourceHier($s_list) {
             ($events)
         else
             (), '],',
-        '"medium":', '"', $medium, '",',
+        '"medium":', '"', replace($medium, '"', '\\"'), '",',
         '"inventarnummer":', '"', $inventarnummer, '",',
         '"inscription":[', if ($inscription != '') then
             ($inscription)
@@ -624,8 +615,8 @@ declare function local:jsonifySourceHier($s_list) {
             ($inhalt)
         else
             (), '],',
-        '"seitenzahl":', '"', $pages, '",',
-        '"groesse":', '"', $dimension, '",',
+        '"seitenzahl":', '"', normalize-space($pages), '",',
+        '"groesse":', '"', normalize-space($dimension), '",',
         '"condition":', '"', $condition, '",',
         '"s_bemerkungen":[', if ($s_bemerkungen != '') then
             ($s_bemerkungen)
@@ -730,7 +721,7 @@ declare function local:jsonifyContenSource($source_el) {
     
     let $signatur := $elem_1/mei:physLoc[1]/mei:identifier
     
-    let $inventarnummer := normalize-space($elem_1/mei:identifier[@label = "Inventarnummer"])
+    let $inventarnummer := normalize-space($elem_1/mei:identifier[@label = "Inventarnummer"][0])
     
     let $desc := $elem_1/mei:physDesc
     let $titlePages := local:jsonifyTitlePages($desc)
@@ -746,7 +737,7 @@ declare function local:jsonifyContenSource($source_el) {
     let $inscription := local:jsonifyInscription($persNames)
     
     let $handList := $elem_1/mei:physDesc[1]/mei:handList/mei:hand
-    let $hand := local:jsonifyHandList($handList)
+			let $hand := local:jsonifyHandList($handList)
     
     let $langList := $elem_1/mei:physDesc[1]/mei:langUsage/mei:language
     let $language := local:jsonifyLanguage($langList)
@@ -800,13 +791,13 @@ declare function local:jsonifyContenSource($source_el) {
             ($titlePages)
         else
             (), '],',
-        '"hoverview":[',if($creation != '')then($hover)else() , '],',
+        '"hoverview":', '"', $hover, '",',
         '"creation":', '"', $creation, '",',
         '"events":[', if ($events != '') then
             ($events)
         else
             (), '],',
-        '"medium":', '"', $medium, '",',
+        '"medium":', '"', replace($medium, '"', '\\"'), '",',
         '"source_hier":[', if ($source_hier != '') then
             (concat('{"sources_1":[', $source_hier, ']}'))
         else
@@ -815,16 +806,13 @@ declare function local:jsonifyContenSource($source_el) {
             ($inscription)
         else
             (), '],',
-        '"schreiber":[', if ($hand != '') then
-            ($hand)
-        else
-            (), '],',
+        '"schreiber":[',if($hand != '')then($hand)else(), '],',
         '"sprache":[', if ($language != '') then
             ($language)
         else
             (), '],',
-        '"seitenzahl":', '"', $pages, '",',
-        '"groesse":', '"', $dimension, '",',
+        '"seitenzahl":', '"', normalize-space($pages), '",',
+        '"groesse":', '"', normalize-space($dimension), '",',
         '"condition":', '"', $condition, '",',
         '"inhalt":[', if ($inhalt != '') then
             ($inhalt)

@@ -106,8 +106,8 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
     let $names := $file1//mei:titleStmt//mei:persName
     
     let $comp := local:jsonifyRoles($names)
-   
-        
+    
+    
     let $fileNameCut := concat(substring-before($fileName, ' '), ' ')
     let $fileNameFiltered := if (contains($fileNameCut, 'Der ')
     or contains($fileNameCut, 'Die ')
@@ -127,7 +127,7 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
         (substring-after($fileName, ' '))
     else
         ($fileName)
-  
+    
     let $subName_0 := substring($fileNameFiltered, 1, 1)
     let $subName := upper-case($subName_0)
     
@@ -174,13 +174,22 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
             (if (contains($fileID, 'H020048')) then
                 ('desTeufelsAnteil/')
             else
-                (if(contains($fileID, 'H020076'))then('unbekannte/')else('test/'))))
+                (if (contains($fileID, 'H020076')) then
+                    ('unbekannte/')
+                else 
+                    (if(contains($fileID, 'H020166'))then('joseph/')
+                        else 
+                            (if(contains($fileID, 'H020224'))then('yelvaLortzing/')
+                            else 
+                                (if(contains($fileID, 'H021013'))then('yelvaReissiger/')
+                                else
+                                ('test/')))))))
     
     let $path := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder, '/')
     let $file := collection($path)
     let $facsimNames := concat('"children":[', local:getFacsimNames($file), ']')
     
-    let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020076'))
+    let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020166')or contains($fileID, 'H021013')or contains($fileID, 'H020224') or contains($fileID, 'H020076'))
     then
         (concat('{',
         '"leaf":"false",',
@@ -210,35 +219,35 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
         )
     else
         ()
-        
-         let $iconIncipits := if (contains($fileID, 'H020149') or contains($fileID, 'H020048') or contains($fileID, 'H020263')or contains($fileID, 'H020076'))
+    
+    let $iconIncipits := if (contains($fileID, 'H020149') or contains($fileID, 'H020048') or contains($fileID, 'H020263') or contains($fileID, 'H020166')or contains($fileID, 'H020224')or contains($fileID, 'H021013') or contains($fileID, 'H020076'))
     then
         ('resources/images/IncBlue.png')
     else
         ('resources/images/IncRed.png')
-       
-      let $isIncipit := if ($file_1//mei:score != '' and $file_1//mei:score/child::mei:scoreDef !='')
+    
+    let $isIncipit := if ($file_1//mei:score != '' and $file_1//mei:score/child::mei:scoreDef != '')
     then
         (concat('{',
         '"leaf":"true",',
         '"name":"Incipits",',
         '"extName":"Incipits",',
-        'incipits:"', "true", '",',      
+        'incipits:"', "true", '",',
         'details:"', "false", '",',
         'icon:"', $iconIncipits, '",',
         'xml:"', "false", '",',
         '},')
         )
     else
-        ()  
+        ()
     
-    let $iconWork := if (contains($fileID, 'H020149') or contains($fileID, 'H020048') or contains($fileID, 'H020263')or contains($fileID, 'H020076'))
+    let $iconWork := if (contains($fileID, 'H020149') or contains($fileID, 'H020048') or contains($fileID, 'H020263') or contains($fileID, 'H020224')or contains($fileID, 'H021013')or contains($fileID, 'H020166') or contains($fileID, 'H020076'))
     then
         ('resources/images/BookBlau-17.png')
     else
         ('resources/images/Books1-17.png')
     
-    let $iconSource := if (contains($fileID, 'H020149') or contains($fileID, 'H020048') or contains($fileID, 'H020263')or contains($fileID, 'H020076'))
+    let $iconSource := if (contains($fileID, 'H020149') or contains($fileID, 'H020048') or contains($fileID, 'H020263') or contains($fileID, 'H020166') or contains($fileID, 'H020224')or contains($fileID, 'H021013')or contains($fileID, 'H020076'))
     then
         ('resources/images/SourceBlue.png')
     else

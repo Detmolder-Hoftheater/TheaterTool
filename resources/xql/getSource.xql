@@ -62,7 +62,7 @@ declare function local:jsonifyRoles($id) {
     
     let $strings := for $elem in $id
     
-    let $id_1 := $elem
+    let $id_1 := replace($elem, '"', '\\"')
     let $role := $elem/@role
     let $dbkey := $elem/@dbkey
     
@@ -178,7 +178,7 @@ declare function local:jsonifyBib($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem//mei:physLoc[not(ancestor::mei:componentGrp)]/mei:repository/mei:name
+    let $id := $elem//mei:physLoc[not(ancestor::mei:componentGrp)]/mei:repository[0]/mei:name
     let $sign := $elem//mei:physLoc[not(ancestor::mei:componentGrp)]/mei:identifier
     
     return
@@ -391,10 +391,10 @@ declare function local:jsonifyContenSource($elem) {
             (), '],',
         '"subtitle":', '"', $subtitle, '",',
         '"sourcetype":', '"', $sourcetype, '",',
-        '"seitenzahl":', '"', $pages, '",',
-        '"groesse":', '"', $dimension, '",',
+        '"seitenzahl":', '"', normalize-space($pages), '",',
+        '"groesse":', '"', normalize-space($dimension), '",',
         '"signatur":', '"', normalize-space($signatur), '",',
-        '"beschreibung":', '"', $beschreibung, '",',
+        '"beschreibung":', '"', replace($beschreibung, '"', '\\"'), '",',
         '"inscription":[', if ($inscription != '') then
             ($inscription)
         else
@@ -434,7 +434,7 @@ declare function local:jsonifyWorkTitel($content) {
     
     let $strings := for $elem in $content/mei:relationList/mei:relation
     
-    let $targetWork := $elem[@rel = 'isEmbodimentOf']/@target
+    let $targetWork := if($elem/@rel = 'isEmbodimentOf')then($elem/@target)else()
     let $origId_1 := substring-after($targetWork, '#')
     let $origId := if (contains($origId_1, '_')) then
         (substring-before($origId_1, '_'))
@@ -445,7 +445,7 @@ declare function local:jsonifyWorkTitel($content) {
     let $titles := $fileWork//mei:titleStmt[1]/mei:title
     let $content_title := local:jsonifyTitleInformation($titles)
     
-    return
+    return   
         if ($content_title != '') then
             ($content_title)
         else
@@ -466,7 +466,7 @@ declare function local:jsonifyTitleInformation($titles) {
     let $language := $elem/@xml:lang
     
     return
-        concat('["', $title, '","', $type, '","', $language, '"]')
+        concat('["', normalize-space($title), '","', $type, '","', $language, '"]')
     return
         string-join($strings, ',')
 
@@ -532,7 +532,7 @@ declare function local:jsonifyEventDetails($events) {
     let $over := $elem/mei:p
     let $date := $elem/mei:date
     let $geogNamesOrt := ''
-    let $geogNamesStadt := $elem/mei:geogName
+    let $geogNamesStadt := $elem/mei:geogName[0]
     
     return
         

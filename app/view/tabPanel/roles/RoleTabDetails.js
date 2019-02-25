@@ -154,7 +154,7 @@ Ext.define('TheaterTool.view.tabPanel.roles.RoleTabDetails', {
                     icon: 'resources/images/theatreB.png'
                 });
                 var personDetails = new TheaterTool.view.tabPanel.roles.RolePanelInTab({
-                    dbkey: personId, icon: 'resources/images/theatreB.png', title: '<font size="2" face="Arial" style="color:#A87678;">Role: ' + personName + '</font>'
+                    dbkey: personId, icon: 'resources/images/theatreB.png', title: '<font size="2" face="Arial" style="color:#A87678;">Rolle: ' + personName + '</font>'
                 });
                 //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                 repertoireTab.add(personDetails);

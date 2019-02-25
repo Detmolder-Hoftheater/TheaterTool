@@ -593,7 +593,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 
                 if (json.worksRef.length > 0 || json.sourcesRef.length > 0 || json.journalRef.length > 0 
                 || json.issueRef.length > 0 || json.gagenRef.length > 0 || json.roleRef.length > 0 
-                || json.regieRef.length > 0 || json.rollen.length > 0) {
+                || json.regieRef.length > 0 || json.rollen.length > 0 || json.taxation.length > 0) {
                     
                     /* var refSection = Ext.create('Ext.panel.Panel', {
                     title: '<b style="color:gray; font-size: 12px;">Spielbetrieb und Verwaltung</b>',
@@ -834,31 +834,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 });
                 ref_layout.add(gagenTable);*/
                 if (json.regieRef.length > 0) {
-                    
-                    /* me.add({
-                    
-                    xtype: 'label',
-                    html: '<img src="resources/images/Crown-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Regiebücher</b>',
-                    margin: '10 0 10 0'
-                    });
-                    
-                    var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable({
-                    regieList: json.regieRef
-                    });
-                    
-                    var regie_panel = Ext.create('Ext.panel.Panel', {
-                    //colspan: 1,
-                    //type: 'hbox',
-                    border: false,
-                    margin: '0 10 0 10',
-                    //type: 'fit',
-                    //bodyPadding: 10,
-                    items:[
-                    
-                    regieTable]
-                    });
-                    
-                    me.add(regie_panel);*/
+                   
                     var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable({
                         regieList: json.regieRef
                         //title: '<b style="color:gray;">Regiebücher</b>'
@@ -872,6 +848,22 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     });
                     
                     me.add(regie_panel);
+                }
+                if (json.taxation.length > 0) {
+                   
+                    var taxTable = new TheaterTool.view.tabPanel.TaxationTable({
+                        taxList: json.taxation, dbkey: me.dbkey
+                        //title: '<b style="color:gray;">Regiebücher</b>'
+                    });
+                    
+                    var tax_panel = Ext.create('Ext.panel.Panel', {
+                        border: false,
+                        items:[
+                        
+                        taxTable]
+                    });
+                    
+                    me.add(tax_panel);
                 }
                 
                 if (json.roleRef.length > 0) {

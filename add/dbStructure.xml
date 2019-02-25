@@ -13,5 +13,6 @@
 		<entry key="gage" value="theater-data/gagenbuecher"/>
 		<entry key="abo" value="theater-data/abonnement"/>
 		<entry key="journal" value="theater-data/theaterjournal"/>
+		<entry key="tax" value="theater-data/taxation"/>
 	</entries>
 </prefs>

@@ -90,13 +90,13 @@ declare function local:jsonifySlurs() {
 		let $source := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
 			then($file_1//mei:relation[@rel ="hasEmbodiment"]/@target)
 			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target):)
-    
-    (:let $sourceFileName := tokenize($source, "#")[last()]
+        
+        (:let $sourceFileName := tokenize($source, "#")[last()]
     let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
     let $fileSource := doc($path2):)
     
-        
-        let $sourceFileName := tokenize($source, "#")[last()]
+    
+    let $sourceFileName := tokenize($source, "#")[last()]
     let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
     let $fileSource := doc($path2)
     let $rismLabel := $fileSource//mei:identifier[@label = "RISM-ID"][1]
@@ -116,8 +116,9 @@ declare function local:jsonifySlurs() {
             else
                 (if (contains($fileID, 'H020076')) then
                     ('unbekannte/edition.xml')
-                else
-                    ('test/'))))
+                else (if(contains($fileID, 'H020166'))then('joseph/')
+                    else
+                    ('test/')))))
     let $edpath := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder)
     (:let $file := collection($path):)
     let $file_1 := doc($edpath)
@@ -125,7 +126,7 @@ declare function local:jsonifySlurs() {
     let $file_3 := $file_2//edirom:works[1]/edirom:work/edirom:navigatorDefinition//edirom:navigatorCategory[2]/edirom:navigatorItem
     let $facsimNames := concat('"children":[', local:getFacsimNames($file_3), ']')
     
-    let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020076'))
+    let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020166') or contains($fileID, 'H021013')or contains($fileID, 'H020224')or contains($fileID, 'H020076'))
     then
         (concat('{',
         '"leaf":"false",',
@@ -155,13 +156,13 @@ declare function local:jsonifySlurs() {
         )
     else
         ()
-        
-         let $iconIncipits := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
+    
+    let $iconIncipits := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileID, 'H020224')or contains($fileID, 'H021013')or contains($fileID, 'H020166') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
     then
         ('resources/images/IncBlue.png')
     else
         ('resources/images/IncRed.png')
-         let $isIncipit := if ($file_exp//mei:score and $file_exp//mei:score/child::mei:scoreDef)
+    let $isIncipit := if ($file_exp//mei:score and $file_exp//mei:score/child::mei:scoreDef)
     then
         (concat('{',
         '"leaf":"true",',
@@ -174,21 +175,21 @@ declare function local:jsonifySlurs() {
         '},')
         )
     else
-        ()  
+        ()
     
-    let $iconWork := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
+    let $iconWork := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Joseph') or contains($fileID, 'H020224')or contains($fileID, 'H021013') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
     then
         ('resources/images/BookBlau-17.png')
     else
         ('resources/images/Books1-17.png')
     
-    let $iconSource := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
+    let $iconSource := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Joseph') or contains($fileID, 'H020224')or contains($fileID, 'H021013') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
     then
         ('resources/images/SourceBlue.png')
     else
         ('resources/images/SourceRed.png')
-    
-   
+        
+        
         
         (:let $iconRISM := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
 			then('resources/images/RismBlue.png')
@@ -255,13 +256,13 @@ declare function local:jsonifySlurs() {
             $isLeaf,
             $isSource,
             
-           
+            
             '}'))
         else
             ()
-    (:return
+            (:return
         string-join($strings, ','):)
-    
+
 };
 
 

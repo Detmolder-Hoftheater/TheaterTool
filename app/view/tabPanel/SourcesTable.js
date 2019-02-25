@@ -16,7 +16,7 @@ Ext.define('TheaterTool.view.tabPanel.SourcesTable', {
 	collapsible: true,
 	collapsed: true,
 	title: '<b style="color:gray; font-size: 12px;">Quellen</b>',
-	icon: 'resources/images/Presse-16.png',
+	icon: 'resources/images/BooksVert-17.png',
 	store: null,
 	columnLines: true,	
 	detailsColumn: null,

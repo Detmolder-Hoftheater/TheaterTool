@@ -74,7 +74,7 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolesNavigationTree', {
             selectionchange: function (selected, eOpts) {
                 me.repertoirePanel.removeAll(true);
                 me.workPanel = new TheaterTool.view.tabPanel.roles.RolePanelInTab({
-                    dbkey: eOpts[0].data.persId, icon: 'resources/images/theatreB.png', title: '<font size="2" face="Arial" style="color:#A87678;">Role: ' + eOpts[0].data.name + '</font>'
+                    dbkey: eOpts[0].data.persId, icon: 'resources/images/theatreB.png', title: '<font size="2" face="Arial" style="color:#A87678;">Rolle: ' + eOpts[0].data.name + '</font>'
                 });
                 me.repertoirePanel.add(me.workPanel);
                 //me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name +'</b>');

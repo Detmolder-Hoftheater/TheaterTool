@@ -662,7 +662,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     me.add(left_panel_11);
                 }
                
-                if (json.scheduleRef.length > 0 || json.revenueRef.length > 0 || json.journalRef.length > 0 || json.issueRef.length > 0 || json.regieRef.length > 0 || json.roleRef.length > 0) {
+                if (json.scheduleRef.length > 0 || json.revenueRef.length > 0 || json.journalRef.length > 0 || json.issueRef.length > 0 || json.regieRef.length > 0 || json.roleRef.length > 0 || json.taxation.length > 0) {
                     
                     /*var refSection = Ext.create('Ext.panel.Panel', {
                     title: '<b style="color:gray; font-size: 12px;">Spielbetrieb und Verwaltung</b>',
@@ -869,22 +869,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                 me.add(ref_layout);
                  */
                 if (json.regieRef.length > 0) {
-                    /*var regie_group = Ext.create('Ext.form.FieldSet', {
-                    title: '<img src="resources/images/Crown-17.png" style="vertical-align:middle;"><b style="color:gray;">Regiebücher</b>',
-                    // icon: 'resources/images/Mask-19.png',
-                    bodyBorder: false,
-                    collapsible: false,
-                    collapsed: true,
-                    margin: '10 0 0 0'
-                    });
-                    me.add(regie_group);*/
-                    
-                    /* refSection.add({
-                    
-                    xtype: 'label',
-                    html: '<img src="resources/images/Crown-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Regiebücher</b>',
-                    margin: '10 0 10 0'
-                    });*/
                     
                     var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable({
                         regieList: json.regieRef
@@ -905,6 +889,23 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     me.add(regie_panel);
                 }
+                if (json.taxation.length > 0) {
+                   
+                    var taxTable = new TheaterTool.view.tabPanel.TaxationTable({
+                        taxList: json.taxation, dbkey: me.workID
+                        //title: '<b style="color:gray;">Regiebücher</b>'
+                    });
+                    
+                    var tax_panel = Ext.create('Ext.panel.Panel', {
+                        border: false,
+                        items:[
+                        
+                        taxTable]
+                    });
+                    
+                    me.add(tax_panel);
+                }
+                
                 
                 if (json.roleRef.length > 0) {
                     /* var role_group = Ext.create('Ext.form.FieldSet', {

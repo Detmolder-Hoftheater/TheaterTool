@@ -122,19 +122,25 @@ var store = Ext.create('Ext.data.TreeStore', {
                     leaf: true, text: 'Aschenbrödel',
                     icon: 'resources/images/BookBlau-16.png'
                 },
-                //icon: 'resources/images/BookTiefWerk.png'},
                 {
                     leaf: true, text: 'Der Bettelstudent',
                     icon: 'resources/images/BookBlau-16.png'
-                },
-                {
+                },{
+                    leaf: true, text: 'Joseph',
+                    icon: 'resources/images/BookBlau-16.png'
+                }, {
                     leaf: true, text: 'Des Teufels Anteil',
                     icon: 'resources/images/BookBlau-16.png'
-                },
-                {
+                }, {
                     leaf: true, text: 'Die Unbekannte',
                     icon: 'resources/images/BookBlau-16.png'
-                } ]
+                }, {
+                    leaf: true, text: 'Yelva (Lortzing)',
+                    icon: 'resources/images/BookBlau-16.png'
+                }, {
+                    leaf: true, text: 'Yelva (Reissiger)',
+                    icon: 'resources/images/BookBlau-16.png'
+                }]
             }, {
                 text: 'Programm',
                 
@@ -233,18 +239,18 @@ var store = Ext.create('Ext.data.TreeStore', {
                 }, {
                     leaf: true, text: 'Theaterzettel',
                     icon: 'resources/images/Day-17.png'
-                }/*, {
-                    text: 'Theaterzettel Dresden',
-                    icon: 'resources/images/Day-17.png',
-                    children:[ {
-                        leaf: true, text: '1834',
-                        icon: 'resources/images/Day-17.png'
-                    }, {
-                        leaf: true, text: '1846',
-                        icon: 'resources/images/Day-17.png'
-                    }]
-                }*/
-                ]
+                }
+                /*, {
+                text: 'Theaterzettel Dresden',
+                icon: 'resources/images/Day-17.png',
+                children:[ {
+                leaf: true, text: '1834',
+                icon: 'resources/images/Day-17.png'
+                }, {
+                leaf: true, text: '1846',
+                icon: 'resources/images/Day-17.png'
+                }]
+                }*/]
             }, {
                 text: 'Personen (1.384)',
                 icon: 'resources/images/Mask-19.png',
@@ -304,7 +310,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                     leaf: true, text: 'V-W-X-Y-Z',
                     icon: 'resources/images/theatreB.png'
                 }]
-            },{
+            }, {
                 text: 'Presse',
                 icon: 'resources/images/Presse-16.png',
                 children:[ {
@@ -487,6 +493,9 @@ var store = Ext.create('Ext.data.TreeStore', {
                 }, {
                     leaf: true, text: 'Gagenhefte',
                     icon: 'resources/images/Gift-17.png'
+                }, {
+                    leaf: true, text: 'Taxation',
+                    icon: 'resources/images/tax.png'
                 }]
             },
             /*{ leaf:true, text: '<font style="color:gray;">Dekoration</font>',
@@ -571,6 +580,27 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
         }
         });*/
         
+        Ext.Ajax.request({
+            url: 'resources/xql/getTaxMenu.xql',
+            method: 'GET',
+            params: {
+                path: dbPathsMap. get ('tax')
+            },
+            success: function (response, options) {
+                var json = jQuery.parseJSON(response.responseText);
+                
+                var navTreeStoreRoot = me.store.getRootNode();
+                 var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[0].childNodes[4];
+                
+                for (i = 0; i < json.names.length; i++) {
+                    var regName = json.names[i];
+                    regieMenu.appendChild({
+                        leaf: true, text: regName,
+                        icon: 'resources/images/tax.png'
+                    });
+                }
+            }
+        });
         
         
         Ext.Ajax.request({
@@ -807,6 +837,69 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
+                }else if (item.data.text === 'Joseph') {
+                    var menuItem = historyButton.menu.add({
+                        text: '<font style="color:gray;">Joseph</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H020166'
+                    });
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Joseph</font>', menuItem.id);
+                    if (! isFoundItem) {
+                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: '<font style="color:gray;">Joseph</font>',
+                            icon: 'resources/images/BookBlau-16.png'
+                        });
+                        /* var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
+                        selection: 'H020263'
+                        });*/
+                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
+                            selection: 'H020166', workName: item.data.text, workIcon: 'resources/images/BookBlau-16.png'
+                        });
+                        //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
+                        repertoireTab.add(repertoireDetails);
+                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                    }
+                } else if (item.data.text === 'Yelva (Lortzing)') {
+                    var menuItem = historyButton.menu.add({
+                        text: '<font style="color:gray;">Yelva (Lortzing)</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H020224'
+                    });
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Yelva (Lortzing)</font>', menuItem.id);
+                    if (! isFoundItem) {
+                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: '<font style="color:gray;">Yelva (Lortzing)</font>',
+                            icon: 'resources/images/BookBlau-16.png'
+                        });
+                        /* var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
+                        selection: 'H020263'
+                        });*/
+                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
+                            selection: 'H020224', workName: item.data.text, workIcon: 'resources/images/BookBlau-16.png'
+                        });
+                        //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
+                        repertoireTab.add(repertoireDetails);
+                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                    }
+                }else if (item.data.text === 'Yelva (Reissiger)') {
+                    var menuItem = historyButton.menu.add({
+                        text: '<font style="color:gray;">Yelva (Reissiger)</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H021013'
+                    });
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Yelva (Reissiger)</font>', menuItem.id);
+                    if (! isFoundItem) {
+                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: '<font style="color:gray;">Yelva (Reissiger)</font>',
+                            icon: 'resources/images/BookBlau-16.png'
+                        });
+                        /* var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
+                        selection: 'H020263'
+                        });*/
+                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
+                            selection: 'H021013', workName: item.data.text, workIcon: 'resources/images/BookBlau-16.png'
+                        });
+                        //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
+                        repertoireTab.add(repertoireDetails);
+                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                    }
                 } else if (item.data.text === 'Die Unbekannte') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Die Unbekannte</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H020076'
@@ -830,160 +923,24 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 }else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)') {
                     var menuItem = historyButton.menu.add({
-                        text: '<font style="color:gray;">Werke: '+item.data.text+'</font>', icon: 'resources/images/BooksVert-17.png', selection: 1
+                        text: '<font style="color:gray;">Werke: ' + item.data.text + '</font>', icon: 'resources/images/BooksVert-17.png', selection: 1
                     });
-                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: '+item.data.text+'</font>', menuItem.id);
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: ' + item.data.text + '</font>', menuItem.id);
                     if (! isFoundItem) {
                         repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                            title: '<font style="color:gray;">Werke: '+item.data.text+'</font>',
+                            title: '<font style="color:gray;">Werke: ' + item.data.text + '</font>',
                             icon: 'resources/images/BooksVert-17.png'
                         });
                         
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: item.data.text, navTreetitle: '<font style="color:#A87678;">Werke: '+item.data.text+'</font>'
+                            selection: item.data.text, navTreetitle: '<font style="color:#A87678;">Werke: ' + item.data.text + '</font>'
                         });
                         repertoireTab.add(repertoireDetails);
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                }/*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'A-B-C') {
-                    var menuItem = historyButton.menu.add({
-                        text: '<font style="color:gray;">Werke: A-B-C</font>', icon: 'resources/images/BooksVert-17.png', selection: 1
-                    });
-                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: A-B-C</font>', menuItem.id);
-                    if (! isFoundItem) {
-                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                            title: '<font style="color:gray;">Werke: A-B-C</font>',
-                            icon: 'resources/images/BooksVert-17.png'
-                        });
-                        
-                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 1, navTreetitle: '<font style="color:#A87678;">Werke: A-B-C</font>'
-                        });
-                        repertoireTab.add(repertoireDetails);
-                        repertoireTab.setActiveMenuItemId(menuItem.id);
-                        repertoireTab.setMenuAdded(true);
-                    }
-                }*/ /*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'D-E-F') {
-                    var menuItem = historyButton.menu.add({
-                        text: '<font style="color:gray;">Werke: D-E-F</font>', icon: 'resources/images/BooksVert-17.png', selection: 2
-                    });
-                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: D-E-F</font>', menuItem.id);
-                    if (! isFoundItem) {
-                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                            title: '<font style="color:gray;">Werke: D-E-F</font>',
-                            icon: 'resources/images/BooksVert-17.png'
-                        });
-                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 2, navTreetitle: '<font style="color:#A87678;">Werke: D-E-F</font>'
-                        });
-                        repertoireTab.add(repertoireDetails);
-                        repertoireTab.setActiveMenuItemId(menuItem.id);
-                        repertoireTab.setMenuAdded(true);
-                    }
-                }*/ /*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'G-H-I') {
-                    var menuItem = historyButton.menu.add({
-                        text: '<font style="color:gray;">Werke: G-H-I</font>', icon: 'resources/images/BooksVert-17.png', selection: 3
-                    });
-                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: G-H-I</font>', menuItem.id);
-                    if (! isFoundItem) {
-                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                            title: '<font style="color:gray;">Werke: G-H-I</font>',
-                            icon: 'resources/images/BooksVert-17.png'
-                        });
-                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 3, navTreetitle: '<font style="color:#A87678;">Werke: G-H-I</font>'
-                        });
-                        repertoireTab.add(repertoireDetails);
-                        repertoireTab.setActiveMenuItemId(menuItem.id);
-                        repertoireTab.setMenuAdded(true);
-                    }
-                } *//*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'J-K-L') {
-                    var menuItem = historyButton.menu.add({
-                        text: '<font style="color:gray;">Werke: J-K-L</font>', icon: 'resources/images/BooksVert-17.png', selection: 4
-                    });
-                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: J-K-L</font>', menuItem.id);
-                    if (! isFoundItem) {
-                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                            title: '<font style="color:gray;">Werke: J-K-L</font>',
-                            icon: 'resources/images/BooksVert-17.png'
-                        });
-                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 4, navTreetitle: '<font style="color:#A87678;">Werke: J-K-L</font>'
-                        });
-                        repertoireTab.add(repertoireDetails);
-                        repertoireTab.setActiveMenuItemId(menuItem.id);
-                        repertoireTab.setMenuAdded(true);
-                    }
-                }*//* else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'M-N-O') {
-                    var menuItem = historyButton.menu.add({
-                        text: '<font style="color:gray;">Werke: M-N-O</font>', icon: 'resources/images/BooksVert-17.png', selection: 5
-                    });
-                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: M-N-O</font>', menuItem.id);
-                    if (! isFoundItem) {
-                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                            title: '<font style="color:gray;">Werke: M-N-O</font>',
-                            icon: 'resources/images/BooksVert-17.png'
-                        });
-                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 5, navTreetitle: '<font style="color:#A87678;">Werke: M-N-O</font>'
-                        });
-                        repertoireTab.add(repertoireDetails);
-                        repertoireTab.setActiveMenuItemId(menuItem.id);
-                        repertoireTab.setMenuAdded(true);
-                    }
-                }*/ /*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'P-Q-R') {
-                    var menuItem = historyButton.menu.add({
-                        text: '<font style="color:gray;">Werke: P-Q-R</font>', icon: 'resources/images/BooksVert-17.png', selection: 6
-                    });
-                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: P-Q-R</font>', menuItem.id);
-                    if (! isFoundItem) {
-                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                            title: '<font style="color:gray;">Werke: P-Q-R</font>',
-                            icon: 'resources/images/BooksVert-17.png'
-                        });
-                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 6, navTreetitle: '<font style="color:#A87678;">Werke: P-Q-R</font>'
-                        });
-                        repertoireTab.add(repertoireDetails);
-                        repertoireTab.setActiveMenuItemId(menuItem.id);
-                        repertoireTab.setMenuAdded(true);
-                    }
-                }*/ /*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'S-T-U') {
-                    var menuItem = historyButton.menu.add({
-                        text: '<font style="color:gray;">Werke: S-T-U</font>', icon: 'resources/images/BooksVert-17.png', selection: 7
-                    });
-                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: S-T-U</font>', menuItem.id);
-                    if (! isFoundItem) {
-                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                            title: '<font style="color:gray;">Werke: S-T-U</font>',
-                            icon: 'resources/images/BooksVert-17.png'
-                        });
-                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 7, navTreetitle: '<font style="color:#A87678;">Werke: S-T-U</font>'
-                        });
-                        repertoireTab.add(repertoireDetails);
-                        repertoireTab.setActiveMenuItemId(menuItem.id);
-                        repertoireTab.setMenuAdded(true);
-                    }
-                } *//*else if (item.parentNode.data.text === 'Repertoire (1.041 Werke)' && item.data.text === 'V-W-X-Y-Z') {
-                    var menuItem = historyButton.menu.add({
-                        text: '<font style="color:gray;">Werke: V-W-X-Y-Z</font>', icon: 'resources/images/BooksVert-17.png', selection: 8
-                    });
-                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werke: V-W-X-Y-Z</font>', menuItem.id);
-                    if (! isFoundItem) {
-                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                            title: '<font style="color:gray;">Werke: V-W-X-Y-Z</font>',
-                            icon: 'resources/images/BooksVert-17.png'
-                        });
-                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({
-                            selection: 8, navTreetitle: '<font style="color:#A87678;">Werke: V-W-X-Y-Z</font>'
-                        });
-                        repertoireTab.add(repertoireDetails);
-                        repertoireTab.setActiveMenuItemId(menuItem.id);
-                        repertoireTab.setMenuAdded(true);
-                    }
-                } */else if (item.parentNode.data.text === 'Spielpläne') {
+                }
+                else if (item.parentNode.data.text === 'Spielpläne') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Spielpläne: ' + item.data.text + '</font>', icon: 'resources/images/Calendar-17.png', selection: item.data.text
                     });
@@ -1023,24 +980,25 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } /*else if (item.parentNode.data.text === 'Theaterzettel Dresden') {
-                    var menuItem = historyButton.menu.add({
-                        text: '<font style="color:gray;">Theaterzettel Dresden: ' + item.data.text + '</font>', icon: 'resources/images/Day-17.png', selection: item.data.text
-                    });
-                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Theaterzettel Dresden: ' + item.data.text + '</font>', menuItem.id);
-                    if (! isFoundItem) {
-                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                            title: '<font style="color:gray;">Theaterzettel Dresden: ' + item.data.text + '</font>',
-                            icon: 'resources/images/Day-17.png'
-                        });
-                        var scheduleDetails = new TheaterTool.view.tabPanel.zettel.TheaterZettelPanelInTabDresden({
-                            year: item.data.text
-                        });
-                        //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
-                        repertoireTab.add(scheduleDetails);
-                        repertoireTab.setActiveMenuItemId(menuItem.id);
-                        repertoireTab.setMenuAdded(true);
-                    }
+                }
+                /*else if (item.parentNode.data.text === 'Theaterzettel Dresden') {
+                var menuItem = historyButton.menu.add({
+                text: '<font style="color:gray;">Theaterzettel Dresden: ' + item.data.text + '</font>', icon: 'resources/images/Day-17.png', selection: item.data.text
+                });
+                var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Theaterzettel Dresden: ' + item.data.text + '</font>', menuItem.id);
+                if (! isFoundItem) {
+                repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                title: '<font style="color:gray;">Theaterzettel Dresden: ' + item.data.text + '</font>',
+                icon: 'resources/images/Day-17.png'
+                });
+                var scheduleDetails = new TheaterTool.view.tabPanel.zettel.TheaterZettelPanelInTabDresden({
+                year: item.data.text
+                });
+                //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Aschenbrödel'});
+                repertoireTab.add(scheduleDetails);
+                repertoireTab.setActiveMenuItemId(menuItem.id);
+                repertoireTab.setMenuAdded(true);
+                }
                 }*/ else if (item.parentNode.data.text === 'Personen (1.384)') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Personen: ' + item.data.text + '</font>', icon: 'resources/images/Mask-19.png', selection: item.data.text
@@ -1086,6 +1044,23 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/Ticket-14.png'
                         });
                         var regieDetails = new TheaterTool.view.tabPanel.abo.AboPanelInTab({
+                            regieName: item.data.text
+                        });
+                        repertoireTab.add(regieDetails);
+                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                    }
+                }else if (item.parentNode.data.text === 'Taxation') {
+                    var menuItem = historyButton.menu.add({
+                        text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/tax.png', selection: item.data.text
+                    });
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">' + item.data.text + '</font>', menuItem.id);
+                    if (! isFoundItem) {
+                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: '<font style="color:gray;">' + item.data.text + '</font>',
+                            icon: 'resources/images/tax.png'
+                        });
+                        var regieDetails = new TheaterTool.view.tabPanel.taxation.TaxPanelInTab({
                             regieName: item.data.text
                         });
                         repertoireTab.add(regieDetails);
@@ -1222,7 +1197,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                }else if (item.parentNode.data.text === 'Gagenhefte') {
+                } else if (item.parentNode.data.text === 'Gagenhefte') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Gift-17.png', selection: item.data.text
                     });
