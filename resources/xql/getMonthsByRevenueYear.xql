@@ -22,9 +22,28 @@ let $strings := for $elem in $file
 
 					let $month := if($monthName != '')then(substring-before($monthName, " "))else()
 					
+					let $title := $elem//tei:fileDesc//tei:title
+					
                     return 
 						if($month != '')then(
-                        concat('"',$month,
+                        concat('["',$month, '", "', $title,
+							
+                            '"]')
+						)else()
+    return 
+        string-join($strings,',')   
+};
+
+declare function local:getTitle($file) {
+
+let $strings := for $elem in $file
+
+                    let $monthName := $elem//tei:fileDesc//tei:title
+
+					
+                    return 
+						if($monthName != '')then(
+                        concat('"',$monthName,
 							
                             '"')
 						)else()
@@ -38,6 +57,8 @@ let $strings := for $elem in $file
 
   '{"names":[',
         local:getMonths($file),
+        '],"title":[',
+local:getTitle($file),
 
      ']}'
    

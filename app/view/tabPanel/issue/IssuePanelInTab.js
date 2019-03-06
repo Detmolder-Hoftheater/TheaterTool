@@ -25,10 +25,16 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssuePanelInTab', {
     workPanel: null,
         
     selectedWorkID: null,
+    selectedReport: null,
+    count: null,
     
     initComponent: function () {
         var me = this;
-        
+        var messageWindow =  Ext.MessageBox.show({
+           // title: 'Load Incipits',
+            msg: 'Loading...'
+            //buttons: Ext.MessageBox.OK
+        });
         Ext.Ajax.request({
             url: 'resources/xql/getIssueNames.xql',
             method: 'GET',
@@ -40,47 +46,34 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssuePanelInTab', {
                 var json = jQuery.parseJSON(response.responseText);
               
                 for (i = 0; i < json.names.length; i++) {
-                    if (json.names[i] !== undefined) {
+                    var nameMonth = json.names[i];//[0];
                     
-                      var detailSection = new TheaterTool.view.tabPanel.issue.IssueTextSection({
-            issueName: json.names[i], year: me.year, title: '<b style="color:#A87678;">'+json.names[i]+'</b>', selectedIssueName: me.issueName,
-            selectedWorkID: me.selectedWorkID
+                    if(me.selectedReport !== null){
+                        var title = json.names[i];//[1];
+                        if(me.selectedReport === title){
+                             
+            var detailSection = new TheaterTool.view.tabPanel.issue.IssueTextSection({
+            issueName: title, year: me.year, title: '<b style="color:#A87678;">'+title+'</b>', selectedIssueName: me.issueName, count:me.count, selectedReport: me.selectedReport,
+            selectedWorkID: me.selectedWorkID, rev_index: i, rev_length:i, messageWindow: messageWindow, parentPanel:me
         });
         me.add(detailSection);
+        break;
+                        }
                     }
+                    else{
+                        
+        var detailSection = new TheaterTool.view.tabPanel.issue.IssueTextSection({
+            issueName: nameMonth, year: me.year, title: '<b style="color:#A87678;">'+nameMonth+'</b>', selectedIssueName: me.issueName, count:me.count, selectedReport: me.selectedReport,
+            selectedWorkID: me.selectedWorkID, rev_index: i, rev_length:json.names.length-1, messageWindow: messageWindow, parentPanel:me
+        });
+        me.add(detailSection);
+                        
+                    }
+             
                 }
             }
         });
-        
-        
-        
-        /*var navTree = new TheaterTool.view.tabPanel.issue.IssueMenuItemTree({ year: me.year });
-        var store = new TheaterTool.store.issue.IssueNames();
-        store.getProxy().extraParams.selectedYear = me.year;
-        store.load();
-        navTree.getView().bindStore(store);       
-        navTree.setRepertoirePanel(me);
-        
-        me.navButton = me.createButton(navTree);        
-        navTree.setNavButton(me.navButton);
-        
-        if (me.issueName !== null) {           
-            var issuePanel = new TheaterTool.view.tabPanel.issue.IssuePanelDetails({
-                issueName: me.issueName, 
-                year: me.year
-            });
-            me.items =[issuePanel]
-            me.navButton.setText('<font size="2" face="Arial" style="color:#A87678;"><b>' + me.issueName + '</b></font>');
-        }
-        
-        me.tbar = {
-            style: {              
-                background: '#dcdcdc'
-            },           
-            height: 33,            
-            items:[me.navButton]
-        };*/
-        
+     
         me.callParent();
     },
     

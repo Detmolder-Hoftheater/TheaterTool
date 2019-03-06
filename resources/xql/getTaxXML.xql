@@ -19,8 +19,8 @@ let $path := 'xmldb:exist:///apps/theater-data/taxation/'
 let $file := collection($path)
 let $fileNames := for $elem in $file
                     return
-(:if($elem//tei:TEI[tei:teiHeader//tei:titleStmt[1][tei:title = $bookName]])then($elem)else():)
-$elem
+if($elem//tei:TEI[tei:teiHeader//tei:titleStmt[1][tei:title = $bookName]])then($elem)else()
+
 
 
 return $fileNames

@@ -15,12 +15,15 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportPanelInTab', {
     bodyBorder: false,
    
     autoScroll: true,
-   
+  
     year: null,
     regieName: null,
     workPanel: null,
         
     selectedWorkID: null,
+    count: null,
+    dbkey: null,
+    selectedReport: null,
     
     
     initComponent: function () {
@@ -40,11 +43,26 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportPanelInTab', {
                 for (i = 0; i < json.names.length; i++) {
                     if (json.names[i] !== undefined) {
                      var singleNamePath = json.names[i];
-                      var detailSection = new TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection({
-            regieName: singleNamePath[0], year: me.regieName, title: '<b style="color:#A87678;">'+singleNamePath[0]+'</b>', selectedIssueName: me.regieName,
-            selectedWorkID: me.selectedWorkID, reportPath: singleNamePath[1]
+                     
+                     if(me.selectedReport !== null && me.selectedReport === singleNamePath[0]){
+                         var detailSection = new TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection({
+            regieName: singleNamePath[0], year: me.regieName, title: '<b style="color:#A87678;">'+singleNamePath[0]+'</b>',
+            selectedWorkID: me.selectedWorkID, reportPath: singleNamePath[1], count: me.count, dbkey: me.selectedWorkID
         });
         me.add(detailSection);
+        break;
+                     }
+                     else{
+                         
+                          var detailSection = new TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection({
+            regieName: singleNamePath[0], year: me.regieName, title: '<b style="color:#A87678;">'+singleNamePath[0]+'</b>',
+            selectedWorkID: me.selectedWorkID, reportPath: singleNamePath[1], count: me.count, dbkey: me.selectedWorkID
+        });
+        me.add(detailSection);
+                     }
+                     
+                     
+                     
                     }
                 }
             }

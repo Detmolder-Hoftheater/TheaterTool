@@ -62,6 +62,7 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.repertoire.beat.FacsimileNavTree',
     'tabPanel.repertoire.PersonTable',
     'tabPanel.RoleTable',
+    'tabPanel.DayReportTable',
     'tabPanel.TaxationTable',
     'tabPanel.playSchedules.SchedulePanelInTab',
     'tabPanel.playSchedules.ScheduleMenuItemTree',

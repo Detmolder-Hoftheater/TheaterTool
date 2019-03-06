@@ -9,17 +9,6 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";
 
-(:declare variable $month := request:get-parameter('month', '');
-declare variable $year := request:get-parameter('year', '');
-
-declare variable $uri := concat('/db/apps/theater-data/einnahmen/', $year, '/', $year, '_', $month, '.xml');
-
-declare variable $file := doc($uri);
-
-declare variable $headName := $file//tei:profileDesc//tei:keywords/tei:term['Spielplan'];
-
-declare variable $schedule := if($headName != '')then($file)else();:)
-
 
 declare variable $selectedYear := request:get-parameter('selectedYear', '');
 declare variable $path := concat('xmldb:exist:///apps/theater-data/ausgaben/', $selectedYear, '/');

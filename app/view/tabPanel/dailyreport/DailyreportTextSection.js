@@ -1,48 +1,7 @@
 Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
- /*extend: 'Ext.panel.Panel',
-  requires:[
-	'TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile'],
-	
- title: '<b style="color:gray;">Übersicht</b>',
  
-  layout: 'border',
-  
-	flex: 1,
-    bodyBorder: false,
-border: false,
- style: {
-      borderRight: '7px solid white',
-      borderLeft: '7px solid white',
-      borderTop: '7px solid white',
-     borderBottom: '7px solid white'
-    },
-    
-   
-   defaults: {
-		autoScroll: true,
-		split: true
-	},
-
-detailSection: null,
-
-	issueName: null,
-	year: null,
-	
-	imagePath: null,*/
-	
-	
 	extend: 'Ext.panel.Panel',
-    /*collapsible: true,
     
-    layout: {
-        type: 'hbox',
-        pack: 'start',
-        align: 'stretch'
-    },
-    border: false,
-    bodyBorder: false,
-    flex: 1,*/
-      
     layout: {
         type: 'vbox',
         pack: 'start',
@@ -53,10 +12,8 @@ detailSection: null,
     bodyPadding: 10,
     flex: 1,
    collapsible: true,
-   collapsed: true,
-    repertoireTab: null,
+   //collapsed: true,
     
-    month: null,
     issueName: null,
     year: null,
     
@@ -65,18 +22,25 @@ detailSection: null,
     
     xmlSection: null,
     
-    revenueTable: null,
-    
-	selectedIssueName: null,
-    
     selectedWorkID: null,
     
     regieName: null,
     reportPath: null,
+    
+    count: null,
+dbkeyPerson: null,
+dbkey: null,
+
+elementList: null,
+workelements: null,
 	
     initComponent: function() {
 
 	var me = this;
+	
+	if(me.count === null){
+	    me.collapsed =true;
+	}
 	
 	me.tbar = {
         style: {
@@ -201,38 +165,59 @@ detailSection: null,
                 regieName: me.reportPath               
             },
             success: function (response) {
-            
-           /* var json = jQuery.parseJSON(response.responseText);
-                
-                me.scheduleTable = new TheaterTool.view.tabPanel.dailyreport.DailyreportTable({
-                    lineList: json, selectedWorkID: me.selectedWorkID
-                });
-                me.scheduleTable.setTablePanel(me);
-                me.add(me.scheduleTable);
-                 me.tableheight =  me.scheduleTable.height;
-	             me.tablewidth =  me.scheduleTable.width;
-	             
-	              if(me.selectedIssueName === me.issueName){
-	                 var workToFocus = me.scheduleTable.getWorkToFocus();
-	                 me.scheduleTable.getSelectionModel().select(workToFocus);
-	                 me.scheduleTable.getView().focusRow(workToFocus);
-	             }
-	             
-	             
-	             if( me.issueName === 'Außerordentliche Ausgaben 1840 (Auszug 1)'){
- 				    me.detailSection = new TheaterTool.view.tabPanel.dailyreport.FacsimileView({imagePath: me.imagePath});
- 				    me.add(me.detailSection);
- 				}*/
                 var tableInhalt = response.responseText;
                 me.add(
 
 {
     
    html:  tableInhalt,
-   border: false
+   border: false,
+    listeners:{           
+            afterrender: function (panel) {
+                me.elementList = panel.el.dom.getElementsByTagName('persname');
+                me.workelements = panel.el.dom.getElementsByTagName('rs');
+                
+            }
+        }
    }
 
 );
+
+if(me.dbkey !== null){
+            var elementToFocus = '';
+           
+                var filteredList = new Array();
+                for(var i = 0; i < me.elementList.length; i++){
+                var oneElement = me.elementList[i];
+                if(oneElement.id === me.dbkey && filteredList.indexOf(oneElement) === -1){
+                    filteredList.push(oneElement);
+                }
+            
+            }
+            console.log(me.workelements);
+            for(var i = 0; i < me.workelements.length; i++){
+                var element = me.workelements[i];
+                if(element.id === me.dbkey){
+                    filteredList.push(element);
+                }
+            }
+            
+            for (var i = 0; i < filteredList.length; i++) {
+                    var element = filteredList[i];                                      
+                    element.style.backgroundColor = "lightgray"; 
+                    
+                    if(elementToFocus === '' && parseInt(me.count) === parseInt(i)){
+                        
+                        element.style.border = "thick solid lightgray";
+                        elementToFocus = element;
+                    }
+                  
+                    }
+                   
+               elementToFocus.scrollIntoView();
+            
+        }
+        
 getWorkContent = function (workId, workName) {
             var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');

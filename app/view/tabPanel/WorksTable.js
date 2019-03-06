@@ -54,7 +54,6 @@ for(i = 0; i < me.worksList.length; i++){
             var work = me.worksList[i];
             var iconPath = '';
             var workId = work[1];
-            console.log(workId);
             if (extWorkKeys.indexOf(workId) > -1) {
                 iconPath = 'resources/images/BookBlau-16.png';
             } else {

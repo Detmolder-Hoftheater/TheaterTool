@@ -177,7 +177,7 @@ declare function local:item($node as element(tei:item)) as element() {
 
 declare function local:persName($node as element(tei:persName)) as element() {
 if($node/@key != '')then(
-  <persName><a href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
+  <persName id='{$node/@key}'><a href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
   )
   else(
   <persName>{$node}</persName>
@@ -186,7 +186,7 @@ if($node/@key != '')then(
 
 declare function local:rs($node as element(tei:rs)) as element() {
 if($node/@key != '')then(
-  <rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
+  <rs  id='{$node/@key}'><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
   )
   else(
   <rs>{$node}</rs>

@@ -447,6 +447,47 @@ declare function local:jsonifyOccupationDetails($events) {
 
 };
 
+declare function local:jsonifyDayReport($workID) {
+    
+    let $rolepath := 'xmldb:exist:///apps/theater-data/tagesberichte/'
+    let $rolefiles := collection($rolepath)
+    
+    let $rolefile := $rolefiles//tei:TEI
+    let $nameList := $rolefile//tei:TEI//tei:persName[@key=$workID]	
+    let $names := local:jsonifyReportRefNames($nameList)
+
+    return
+        if ($names != '') then
+            (
+            concat('', $names, '')
+            )
+        else
+            ()
+
+
+};
+
+declare function local:jsonifyReportRefNames($nameList) {
+       
+    let $strings := for $elem in $nameList
+    let $titleName := $elem/root()//tei:titleStmt/tei:title
+    let $volldate := $elem/root()//tei:titleStmt/tei:title/tei:date[1]/@when
+   
+    let $dateSplit := tokenize($volldate, '-')
+    let $names := concat($titleName, ': '  , normalize-space($elem))
+   
+    return
+        if ($names != '') then
+            (
+           concat('["', $names, '", "', $dateSplit[1], '"]')
+            )
+        else
+            ()
+    return
+        string-join($strings, ',')
+
+};
+
 
 declare function local:jsonifyRoleReferences($workID) {
     
@@ -457,60 +498,9 @@ declare function local:jsonifyRoleReferences($workID) {
     (:let $rolefileTest := if($rolefile[@key=$workID != ''])then($rolefile)else():)
     (:let $refData := local:jsonifyRefDataRoles($rolefile):)
     
-    let $strings := for $elem in $rolefile
-    let $names := if ($elem//tei:TEI//tei:persName[@key = $workID]) then
-        ($elem//tei:titleStmt/tei:title)
-    else
-        ()
-    return
-        if ($names != '') then
-            (
-            concat('"', $names, '"')
-            )
-        else
-            ()
-    return
-        string-join($strings, ',')
+    let $nameList := $rolefile//tei:TEI//tei:persName[@key=$workID]	
+    let $names := local:jsonifyRoleRefNames($nameList)
 
-
-};
-
-declare function local:jsonifyRegieReferences($workID) {
-    
-    (:let $roleTailPath := request:get-parameter('regie', '')
-let $rolepath := if($roleTailPath != '')then(concat('/db/apps/', $roleTailPath, '/'))else():)
-    let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/'
-    let $rolefiles := collection($rolepath)
-    let $rolefile := $rolefiles//tei:TEI
-    (:let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/':)
-    
-    let $strings := for $elem in $rolefile
-    let $names := if ($elem//tei:TEI//tei:persName[@key = $workID]) then
-        ($elem//tei:titleStmt/tei:title)
-    else
-        ()
-    return
-        if ($names != '') then
-            (
-            concat('"', $names, '"')
-            )
-        else
-            ()
-    return
-        string-join($strings, ',')
-
-
-};
-
-declare function local:jsonifyTaxReferences($workID) {
-    
-    let $rolepath := 'xmldb:exist:///apps/theater-data/taxation/'
-    let $rolefiles := collection($rolepath)
-    let $rolefile := $rolefiles//tei:TEI
-    (:let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/':)
-    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
-    let $names := local:jsonifyTaxPersNames($nameList)
-    
     return
         if ($names != '') then
             (
@@ -521,16 +511,16 @@ declare function local:jsonifyTaxReferences($workID) {
     
 };
 
-declare function local:jsonifyTaxPersNames($nameList) {
-    
-    
+declare function local:jsonifyRoleRefNames($nameList) {
+       
     let $strings := for $elem in $nameList
-    let $names := concat('Garderobe: ', normalize-space($elem/parent::element()/parent::element()))
+    let $titleName := $elem/root()//tei:titleStmt/tei:title
+    let $names := concat($titleName, ': '  , normalize-space($elem))
    
     return
         if ($names != '') then
             (
-            concat('"', $names, '"')
+           concat('"', $names, '"')
             )
         else
             ()
@@ -539,6 +529,43 @@ declare function local:jsonifyTaxPersNames($nameList) {
 
 };
 
+declare function local:jsonifyRegieReferences($workID) {
+    
+    (:let $roleTailPath := request:get-parameter('regie', '')
+let $rolepath := if($roleTailPath != '')then(concat('/db/apps/', $roleTailPath, '/'))else():)
+    let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/'
+    let $rolefiles := collection($rolepath)
+    let $rolefile := $rolefiles//tei:TEI
+    let $nameList := $rolefile//tei:TEI//tei:persName[@key=$workID]	
+    let $names := local:jsonifyRoleRefNames($nameList)
+
+    return
+        if ($names != '') then
+            (
+            concat('', $names, '')
+            )
+        else
+            ()
+};
+
+declare function local:jsonifyTaxReferences($workID) {
+    
+    let $rolepath := 'xmldb:exist:///apps/theater-data/taxation/'
+    let $rolefiles := collection($rolepath)
+    let $rolefile := $rolefiles//tei:TEI
+    (:let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/':)
+    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $names := local:jsonifyRoleRefNames($nameList)
+    
+    return
+        if ($names != '') then
+            (
+            concat('', $names, '')
+            )
+        else
+            ()
+    
+};
 
 declare function local:jsonifySourcesReferences($workID) {
     
@@ -720,6 +747,35 @@ declare function local:jsonifyPersNamesForSources($names, $file1) {
 
 };
 
+declare function local:jsonifyRevenueReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/einnahmen/'
+let $rolefiles := collection($rolepath)
+let $rolefile := $rolefiles//tei:TEI
+
+let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $names := local:jsonifyReportRefNames($nameList)
+    
+    return
+        if ($names != '') then
+            (
+             concat('', $names, '')
+            )
+        else
+            ()
+
+(:let $strings := for $elem in $rolefile
+		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title/tei:date)else()
+ return 
+    if($names != '')then(                     
+concat('"',$names, '"')
+    )else()
+    return 
+        string-join($strings,','):)
+   
+    
+};
+
 
 declare function local:jsonifyJournalReferences($workID) {
     
@@ -727,6 +783,17 @@ declare function local:jsonifyJournalReferences($workID) {
     let $rolefiles := collection($rolepath)
     let $rolefile := $rolefiles//tei:TEI
     
+     let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $names := local:jsonifyRoleRefNames($nameList)
+    
+    return
+        if ($names != '') then
+            (
+            concat('', $names, '')
+            )
+        else
+            ()
+    (:
     let $strings := for $elem in $rolefile
     let $names := if ($elem//tei:TEI//tei:persName[@key = $workID]) then
         ($elem//tei:titleStmt/tei:title/tei:date)
@@ -741,7 +808,7 @@ declare function local:jsonifyJournalReferences($workID) {
             ()
     return
         string-join($strings, ',')
-
+:)
 
 };
 
@@ -750,23 +817,16 @@ declare function local:jsonifyGagenRefReferences($workID) {
     let $rolepath := 'xmldb:exist:///apps/theater-data/gagenbuecher/'
     let $rolefiles := collection($rolepath)
     let $rolefile := $rolefiles//tei:TEI
+    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $names := local:jsonifyRoleRefNames($nameList)
     
-    let $strings := for $elem in $rolefile
-    let $names := if ($elem//tei:TEI//tei:persName[@key = $workID]) then
-        ($elem//tei:titleStmt/tei:title)
-    else
-        ()
     return
         if ($names != '') then
             (
-            concat('"', $names, '"')
+            concat('', $names, '')
             )
         else
             ()
-    return
-        string-join($strings, ',')
-
-
 };
 
 declare function local:getDateString($dates) {
@@ -793,7 +853,18 @@ declare function local:jsonifyIssueReferences($workID) {
     let $rolefiles := collection($rolepath)
     let $rolefile := $rolefiles//tei:TEI
     
-    let $strings := for $elem in $rolefile
+    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $names := local:jsonifyReportRefNames($nameList)
+    
+    return
+        if ($names != '') then
+            (
+             concat('', $names, '')
+            )
+        else
+            ()
+    
+    (:let $strings := for $elem in $rolefile
     return
         let $dates := if ($elem//tei:TEI//tei:persName[@key = $workID]) then
             ($elem//tei:titleStmt/tei:title/tei:date)
@@ -813,7 +884,7 @@ declare function local:jsonifyIssueReferences($workID) {
             else
                 ()
     return
-        string-join($strings, ',')
+        string-join($strings, ','):)
 
 
 };
@@ -952,6 +1023,59 @@ declare function local:jsonifyVIAF($content) {
         string-join($strings, ',')
 };
 
+declare function local:jsonifyScheduleReferences($workID) {
+
+let $rolepath := 'xmldb:exist:///apps/theater-data/einnahmen/'
+let $rolepath_1 := 'xmldb:exist:///apps/theater-data/ausgaben/'
+let $rolepath_2 := 'xmldb:exist:///apps/theater-data/spielplaene/'
+
+let $rolefiles := collection($rolepath)
+let $rolefile := if($rolefiles/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
+)then($rolefiles/tei:TEI)else()
+
+let $rolefiles_1 := collection($rolepath_1)
+let $rolefile_1:= if($rolefiles_1/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
+)then($rolefiles_1/tei:TEI)else()
+
+let $rolefiles_2 := collection($rolepath_2)
+let $rolefile_2 := $rolefiles_2/tei:TEI
+
+let $nameList := $rolefile//tei:rs[@key=$workID]	
+let $nameList_1 := $rolefile_1//tei:rs[@key=$workID]	
+let $nameList_2 := $rolefile_2//tei:rs[@key=$workID]
+
+let $names := local:jsonifyScheduleRefNames($nameList, $nameList_1, $nameList_2)
+
+return
+        if ($names != '') then
+            (
+            concat('', $names, '')
+            )
+        else
+            ()
+};
+
+declare function local:jsonifyScheduleRefNames($nameList, $nameList_1, $nameList_2) {
+       
+    let $strings := for $elem in ($nameList, $nameList_1, $nameList_2)
+    let $titleName := $elem/root()//tei:titleStmt/tei:title
+    let $volldate := $elem/root()//tei:titleStmt/tei:title/tei:date[1]/@when
+   
+    let $dateSplit := tokenize($volldate, '-')
+    let $names := concat($titleName, ': '  , normalize-space($elem))
+   
+    return
+        if ($names != '') then
+            (
+           concat('["', $names, '", "', $dateSplit[1], '"]')
+            )
+        else
+            ()
+    return
+        string-join($strings, ',')
+
+};
+
 
 (
 '{"autoren":[',
@@ -982,6 +1106,8 @@ local:jsonifyRoleReferences($workID),
 local:jsonifySourcesReferences($workID),
 '],"rollen":[',
 local:jsonifyRollenReferences($workID),
+'],"dayReport":[',
+local:jsonifyDayReport($workID),
 '],"taxation":[',
 local:jsonifyTaxReferences($workID),
 '],"worksRef":[',
@@ -992,8 +1118,12 @@ local:jsonifyJournalReferences($workID),
 local:jsonifyRegieReferences($workID),
 '],"gagenRef":[',
 local:jsonifyGagenRefReferences($workID),
+ '],"revenueRef":[',
+local:jsonifyRevenueReferences($workID), 
 '],"issueRef":[',
 local:jsonifyIssueReferences($workID),
+'],"scheduleRef":[',
+ local:jsonifyScheduleReferences($workID),
 '],"pseuds":[',
 local:jsonifyPseuds($content),
 '],"alts":[',

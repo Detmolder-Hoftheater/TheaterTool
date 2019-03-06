@@ -593,7 +593,8 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 
                 if (json.worksRef.length > 0 || json.sourcesRef.length > 0 || json.journalRef.length > 0 
                 || json.issueRef.length > 0 || json.gagenRef.length > 0 || json.roleRef.length > 0 
-                || json.regieRef.length > 0 || json.rollen.length > 0 || json.taxation.length > 0) {
+                || json.regieRef.length > 0 || json.rollen.length > 0 || json.taxation.length > 0 
+                || json.dayReport.length > 0 || json.revenueRef.length > 0 || json.scheduleRef.length > 0) {
                     
                     /* var refSection = Ext.create('Ext.panel.Panel', {
                     title: '<b style="color:gray; font-size: 12px;">Spielbetrieb und Verwaltung</b>',
@@ -687,6 +688,43 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 sourcesList: json.sourcesRef
                 });
                 ref_layout.add(sourcesTable);*/
+                if (json.scheduleRef.length > 0) {
+                    /*var plan_group = Ext.create('Ext.form.FieldSet', {
+                    title: '<img src="resources/images/Calendar-17.png" style="vertical-align:middle;"><b style="color:gray;">Spielpläne</b>',
+                    // icon: 'resources/images/Mask-19.png',
+                    bodyBorder: false,
+                    collapsible: false,
+                    collapsed: true,
+                    margin: '10 0 0 0'
+                    });
+                    me.add(plan_group);*/
+                    
+                    /* refSection.add({
+                    
+                    xtype: 'label',
+                    html: '<img src="resources/images/Calendar-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Spielpläne</b>',
+                    margin: '10 0 10 0'
+                    });*/
+                    
+                    var playscheduleTable = new TheaterTool.view.tabPanel.repertoire.work.PlanTable({
+                        scheduleList: json.scheduleRef, selectedWorkID: me.dbkey
+                    });
+                    //ref_layout.add(playscheduleTable);
+                    
+                    var plan_panel = Ext.create('Ext.panel.Panel', {
+                        //colspan: 1,
+                        //type: 'hbox',
+                        border: false,
+                        //margin: '0 10 0 10',
+                        //type: 'fit',
+                        //bodyPadding: 10,
+                        items:[
+                        
+                        playscheduleTable]
+                    });
+                    
+                    me.add(plan_panel);
+                }
                 
                 if (json.rollen.length > 0) {
                     /*refSection.add({
@@ -714,7 +752,19 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     
                     me.add(role_panel);
                 }
-                
+                if (json.revenueRef.length > 0) {
+                    
+                    var revenueTable = new TheaterTool.view.tabPanel.repertoire.work.RevenueTable({
+                        revenueList: json.revenueRef, selectedWorkID: me.dbkey
+                    });
+                    
+                    var revenue_panel = Ext.create('Ext.panel.Panel', {
+                        border: false,
+                        items:[                       
+                        revenueTable]
+                    });                    
+                    me.add(revenue_panel);
+                }
                 if (json.journalRef.length > 0) {
                     /*var journal_group = Ext.create('Ext.form.FieldSet', {
                     title: '<img src="resources/images/Presse-16.png" style="vertical-align:middle;"><b style="color:gray;">Theaterjournal</b>',
@@ -734,7 +784,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     });*/
                     
                     var journalTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable({
-                        journalList: json.journalRef
+                        journalList: json.journalRef, dbkey: me.dbkey
                     });
                     //ref_layout.add(journalTable);
                     
@@ -811,7 +861,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     });*/
                     
                     var gagenTable = new TheaterTool.view.tabPanel.GagenTable({
-                        gagenList: json.gagenRef
+                        gagenList: json.gagenRef, dbkey: me.dbkey
                     });
                     
                     var gagen_panel = Ext.create('Ext.panel.Panel', {
@@ -836,7 +886,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 if (json.regieRef.length > 0) {
                    
                     var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable({
-                        regieList: json.regieRef
+                        regieList: json.regieRef, dbkey: me.dbkey
                         //title: '<b style="color:gray;">Regiebücher</b>'
                     });
                     
@@ -866,47 +916,29 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     me.add(tax_panel);
                 }
                 
-                if (json.roleRef.length > 0) {
-                    /* var role_group = Ext.create('Ext.form.FieldSet', {
-                    title: '<img src="resources/images/carnival.png" style="vertical-align:middle;"><b style="color:gray;">Rollen- & Kostümbücher</b>',
-                    // icon: 'resources/images/Mask-19.png',
-                    bodyBorder: false,
-                    collapsible: false,
-                    collapsed: true,
-                    margin: '10 0 0 0'
-                    });
-                    me.add(role_group);*/
-                    
-                    /*refSection.add({
-                    
-                    xtype: 'label',
-                    html: '<img src="resources/images/carnival.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Rollen- & Kostümbücher</b>',
-                    margin: '10 0 10 0'
-                    });*/
-                    
+                if (json.dayReport.length > 0) {                  
+                    var dayReportTable = new TheaterTool.view.tabPanel.DayReportTable({
+                        dayReportList: json.dayReport, dbkey: me.dbkey
+                    });                    
+                    var dayReport_panel = Ext.create('Ext.panel.Panel', {                       
+                        border: false,                        
+                        items:[                        
+                        dayReportTable]
+                    });                    
+                    me.add(dayReport_panel);
+                }
+                if (json.roleRef.length > 0) {                  
                     var roleTable = new TheaterTool.view.tabPanel.repertoire.work.RoleTable({
-                        roleList: json.roleRef
-                    });
-                    //ref_layout.add(roleTable);
-                    
-                    var role_panel = Ext.create('Ext.panel.Panel', {
-                        //colspan: 1,
-                        //type: 'hbox',
-                        border: false,
-                        //margin: '0 10 0 10',
-                        //type: 'fit',
-                        //bodyPadding: 10,
-                        items:[
-                        
+                        roleList: json.roleRef, dbkey: me.dbkey
+                    });                    
+                    var role_panel = Ext.create('Ext.panel.Panel', {                       
+                        border: false,                        
+                        items:[                        
                         roleTable]
-                    });
-                    
+                    });                    
                     me.add(role_panel);
                 }
-                /*var roleTable = new TheaterTool.view.tabPanel.repertoire.work.RoleTable({
-                roleList: json.roleRef
-                });
-                ref_layout.add(roleTable);*/
+               
             }
         });
     },

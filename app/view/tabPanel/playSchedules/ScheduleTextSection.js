@@ -3,25 +3,19 @@
  */
 Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     extend: 'Ext.panel.Panel',
-    //title: '<b style="color:gray;">Übersicht</b>',
-    collapsible: true,
-    /*border: true,
-    flex:1,
-    bodyBorder: true,
-    bodyPadding:10,
-    autoScroll: true,*/
     
+    /*collapsible: true,
+   
     layout: {
         type: 'vbox',
         pack: 'start',
         align: 'stretch'
     },
-    //autoScroll: true,
+    
     border: false,
     bodyBorder: false,
-    //bodyPadding:10,
+    
     flex: 1,
-    //autoScroll: true,
     
     repertoireTab: null,
     
@@ -33,13 +27,41 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
     tablewidth: null,
     
     xmlSection: null,
-    
-   // scheduleTable: null,
-    
+   
     selectedMonth: null,
     
-    selectedWorkID: null,
+    selectedWorkID: null,*/
     
+    layout: {
+        type: 'hbox',
+        pack: 'start',
+        align: 'stretch'
+    },
+    autoScroll: true,
+    border: false,
+    bodyBorder: false,
+    flex: 1,
+    parentPanel: null,
+    
+    month: null,
+    monthNumber: null,
+    year: null,
+    collapsible: true,
+    
+    xmlSection: null,
+    selectedReport: null,
+    revenueTable: null,
+    selectedWorkID: null,
+    messageWindow: null,
+    rev_index: -1,
+    rev_length: -1,
+    
+    count: null,
+    elementList: null,
+    workelements: null,    
+    
+    parentPanel:null,
+     
     initComponent: function () {
         
         var me = this;
@@ -223,50 +245,166 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
             url: 'resources/xql/getScheduleTable.xql',
             method: 'GET',
             params: {
-                month: me.monthNumber,
+                month: me.month,
                 year: me.year
             },
             success: function (response) {
                 
-                var json = jQuery.parseJSON(response.responseText);
+                var json = response.responseText;//jQuery.parseJSON(response.responseText);
                 
-                var jsonTables = json.tables;
-                var arr = Object.keys(jsonTables).map(function (key) {
-                return jsonTables[key];
+                 me.add(
+
+{
+    
+   //html:  json,
+   
+   flex: 1.5,
+   layout: {
+        type: 'vbox',
+        pack: 'start',
+        align: 'stretch'
+    },
+    items:[{html:  json}],
+    listeners:{           
+            afterrender: function (panel) {
+                me.elementList = panel.el.dom.getElementsByTagName('persname');
+                me.workelements = panel.el.dom.getElementsByTagName('rs');
+               
+            }
+        }
+   }
+
+);
+         if(me.selectedWorkID !== null){
+            var elementToFocus = '';
+                var filteredList = new Array();
+                for(var i = 0; i < me.elementList.length; i++){
+                var oneElement = me.elementList[i];
+                if(oneElement.id === me.selectedWorkID && filteredList.indexOf(oneElement) === -1){
+                    filteredList.push(oneElement);
+                }
+            
+            }
+            
+            
+            for(var i = 0; i < me.workelements.length; i++){
+                var element = me.workelements[i];
+                if(element.id === me.selectedWorkID){
+                    filteredList.push(element);
+                }
+            }
+            
+            for (var i = 0; i < filteredList.length; i++) {
+                    var element = filteredList[i];                                      
+                    element.style.backgroundColor = "lightgray"; 
+                    
+                    if(elementToFocus === '' && parseInt(me.count) === parseInt(i)){
+                        
+                        element.style.border = "thick solid lightgray";
+                        elementToFocus = element;
+                    }
+                  
+                    }
+                   
+               elementToFocus.scrollIntoView();
+            }
+            else{
+               if(me.parentPanel != null){
+                    var itemsList = me.parentPanel.items.getRange();
+                        for(var i = 0; i < itemsList.length; i++){
+                         var panelToCollapse = itemsList[i];
+                            panelToCollapse.collapse();
+                        }
+               }
+                        
+                       
+            }
+            getWorkContent = function (workId, workName) {
+            var toolBarGlobal = Ext.getCmp('toolbar');
+            var historyButton = Ext.getCmp('historyButton');
+            
+            var workIcon = '';
+            if (extWorkKeys.indexOf(workId) > -1) {
+                workIcon = 'resources/images/BookBlau-16.png';
+            } else {
+                workIcon = 'resources/images/Books1-17.png';
+            }
+            
+            var menuItem = historyButton.menu.add({
+                text: '<font style="color:gray;">' + workName + '</font>', icon: workIcon, dbkey: workId
             });
+            
+            var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+            var existItems = navTreeGlobal.items;
+            var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, workId, menuItem.id);
+            if (! isFoundItem) {
                 
-                for(var k = 0; k < arr.length; k++){
-                    var oneTable = arr[k];
-                    var scheduleTable = new TheaterTool.view.tabPanel.playSchedules.ScheduleTable({
-                    lineList: oneTable, selectedWorkID: me.selectedWorkID
+                var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                    title: '<font style="color:gray;">' + workName + '</font>',
+                    icon: workIcon
                 });
-                if (oneTable.settlement.length > 0) {
-                    scheduleTable.setTitle('<font style="color:#A87678;">Spielort(e): ' + oneTable.settlement + '</font>');
-                }
-                scheduleTable.setTablePanel(me);
                 
-                me.add(scheduleTable);
-                me.tableheight = scheduleTable.height;
-                me.tablewidth = scheduleTable.width;
+                /*var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
+                selection: workId, isSelected: true
+                });*/
+                var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
+                    selection: workId, isSelected: true, workName: workName, workIcon: workIcon
+                });
                 
-                if (me.selectedMonth === me.month) {
-                    var workToFocus = scheduleTable.getWorkToFocus();
-                    scheduleTable.getSelectionModel().select(workToFocus);
-                    scheduleTable.getView().focusRow(workToFocus);
-                }
-                }
+               // personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
+                repertoireTab.add(personDetails);
                 
+                repertoireTab.setActiveMenuItemId(menuItem.id);
+                repertoireTab.setMenuAdded(true);
+                
+                navTreeGlobal.add(repertoireTab);
+                navTreeGlobal.setActiveTab(repertoireTab);
+                navTreeGlobal.fireEvent('render', navTreeGlobal);
+            }
+        };
+
+/**/
+getPersonContent = function (personId, personName) {
+    var toolBarGlobal = Ext.getCmp('toolbar');
+            var historyButton = Ext.getCmp('historyButton');
+            // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
+            //if(!isHistoryItemExist){
+            var menuItem = historyButton.menu.add({
+                text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
+            });
+            
+            //}
+            
+            var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
+            var existItems = navTreeGlobal.items;
+            var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId, menuItem.id);
+            if (! isFoundItem) {
+                
+                var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                    title: '<font style="color:gray;">' + personName + '</font>',
+                    icon: 'resources/images/Mask-19.png'
+                });
+                var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
+                    dbkey: personId,  title: '<font size="2" face="Arial" style="color:#A87678;">Person: '+personName+'</font>', icon: 'resources/images/Mask-19.png'
+                });
+                //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
+                repertoireTab.add(personDetails);
+                
+                repertoireTab.setActiveMenuItemId(menuItem.id);
+                repertoireTab.setMenuAdded(true);
+                
+                navTreeGlobal.add(repertoireTab);
+                navTreeGlobal.setActiveTab(repertoireTab);
+                navTreeGlobal.fireEvent('render', navTreeGlobal);
+            }
+}
+
+               
+               
             }
         });
         
-        
-        /*me.items =[
-        this.repertoireTab
-        ],*/
-        
-        
-        
-        
+       
         me.callParent();
     },
     

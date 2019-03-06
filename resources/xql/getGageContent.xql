@@ -32,7 +32,7 @@ declare variable $html := local:dispatch($html_1);
   case element(tei:table) return local:table($node)
   case element(tei:body) return local:body($node)
   case element(tei:persName) return local:persName($node)
-  case element(tei:rs) return local:rs($node)
+  (:case element(tei:rs) return local:rs($node):)
   case element(tei:head) return local:head($node)
  (: case element(tei:hi) return local:hi($node):)
   case element(tei:row) return local:row($node)
@@ -137,21 +137,21 @@ declare function local:cell($node as element(tei:cell)) as element() {
 
 declare function local:persName($node as element(tei:persName)) as element() {
 if($node/@key != '')then(
-  <persName><a href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
+  <persName id='{$node/@key}'><a href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
   )
   else(
   <persName>{$node}</persName>
   )
 };
 
-declare function local:rs($node as element(tei:rs)) as element() {
+(:declare function local:rs($node as element(tei:rs)) as element() {
 if($node/@key != '')then(
-  <rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
+  <rs id='{$node/@key}'><a href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
   )
   else(
   <rs>{$node}</rs>
   )
-};
+};:)
 
 (
     $html

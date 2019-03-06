@@ -3,20 +3,7 @@
  */
 Ext.define('TheaterTool.view.tabPanel.regiebooks.RegieTabDetails', {
  extend: 'Ext.panel.Panel',
-	
-	/*border: false,
 
-	flex:1,
-
-	autoScroll: true,*/
-
-    /*title: '<b style="color:gray;">Übersicht</b>',
-
-	border: false,
-	flex:1,
-//bodyBorder: true,
-bodyPadding:10,
-autoScroll: true,*/
 layout: {
         type: 'vbox',
         pack: 'start',
@@ -28,6 +15,12 @@ layout: {
     flex: 1,
 
 regieName: null,
+
+count: null,
+dbkey: null,
+
+elementList: null,
+workelements: null,
 
     initComponent: function() {
 
@@ -166,10 +159,53 @@ me.add(
 {
     
    html:  tableInhalt,
-   border: false
+   border: false,
+    listeners:{           
+            afterrender: function (panel) {
+                me.elementList = panel.el.dom.getElementsByTagName('persname');
+                me.workelements = panel.el.dom.getElementsByTagName('rs');
+                
+            }
+        }
    }
 
 );
+
+if(me.dbkey !== null){
+            var elementToFocus = '';
+                var filteredList = new Array();
+                for(var i = 0; i < me.elementList.length; i++){
+                var oneElement = me.elementList[i];
+                if(oneElement.id === me.dbkey && filteredList.indexOf(oneElement) === -1){
+                    filteredList.push(oneElement);
+                }
+            
+            }
+            
+            
+            for(var i = 0; i < me.workelements.length; i++){
+                var element = me.workelements[i];
+                if(element.id === me.dbkey){
+                    filteredList.push(element);
+                }
+            }
+            
+            for (var i = 0; i < filteredList.length; i++) {
+                    var element = filteredList[i];                                      
+                    element.style.backgroundColor = "lightgray"; 
+                    
+                    if(elementToFocus === '' && parseInt(me.count) === parseInt(i)){
+                        
+                        element.style.border = "thick solid lightgray";
+                        elementToFocus = element;
+                    }
+                  
+                    }
+                   
+               elementToFocus.scrollIntoView();
+            
+        }
+   
 getWorkContent = function (workId, workName) {
             var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');

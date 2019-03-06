@@ -21,6 +21,9 @@ Ext.define('TheaterTool.view.tabPanel.regiebooks.RegiePanelInTab', {
     
     regieName: null,
     
+    count: null, 
+    dbkey: null,
+    
     initComponent: function () {
         
         var me = this;
@@ -29,7 +32,7 @@ Ext.define('TheaterTool.view.tabPanel.regiebooks.RegiePanelInTab', {
         me.icon =  'resources/images/Crown-17.png';
         
         me.section_details = new TheaterTool.view.tabPanel.regiebooks.RegieTabDetails({
-            regieName: me.regieName
+            regieName: me.regieName, count:me.count, dbkey:me.dbkey
         });
         
        /* me.section_xml = new TheaterTool.view.tabPanel.regiebooks.RegieTabXML({

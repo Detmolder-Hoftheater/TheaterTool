@@ -20,6 +20,9 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab', {
     section_xml: null,
     section_details: null,
     
+    count: null,
+    dbkey: null,
+    
     initComponent: function () {
         
         var me = this;
@@ -28,7 +31,7 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab', {
         me.icon =  'resources/images/carnival.png';
         
         me.section_details = new TheaterTool.view.tabPanel.rolebooks.RoleTabDetails({
-            regieName: me.regieName
+            regieName: me.regieName, count:me.count, dbkey:me.dbkey
         });
         
        /* me.section_xml = new TheaterTool.view.tabPanel.rolebooks.RoleTabXML({

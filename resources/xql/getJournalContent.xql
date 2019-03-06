@@ -14,7 +14,7 @@ declare variable  $bookName := request:get-parameter('regieName', '');
 declare variable  $path := 'xmldb:exist:///apps/theater-data/theaterjournal/';
 
 declare variable $file := collection($path);
-declare variable $fileNames := $file/tei:TEI[tei:teiHeader//tei:titleStmt[1]/tei:title[tei:date = $bookName]];
+declare variable $fileNames := $file/tei:TEI[tei:teiHeader//tei:titleStmt[1][tei:title = $bookName]];
 declare variable $html_1 := $fileNames/tei:text/tei:body/child::*;
 declare variable $html := local:dispatch($html_1);
 
@@ -134,7 +134,7 @@ declare function local:cell($node as element(tei:cell)) as element() {
 
 declare function local:persName($node as element(tei:persName)) as element() {
 if($node/@key != '')then(
-  <persName><a href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
+  <persName id='{$node/@key}'><a href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
   )
   else(
   <persName>{$node}</persName>
@@ -143,7 +143,7 @@ if($node/@key != '')then(
 
 declare function local:rs($node as element(tei:rs)) as element() {
 if($node/@key != '')then(
-  <rs><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
+  <rs id='{$node/@key}'><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
   )
   else(
   <rs>{$node}</rs>

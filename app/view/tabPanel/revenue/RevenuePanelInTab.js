@@ -13,7 +13,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
     navButton: null,
     year: null,
     monat: null,*/
-       
+     
     flex: 1,
     border: true,
     bodyBorder: false,
@@ -25,6 +25,8 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
     workPanel: null,
     
     selectedWorkID: null,  
+    selectedReport: null,
+    count: null,
     
     initComponent: function () {
         var me = this;
@@ -73,16 +75,32 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
                     }
                 }
                 
-                for (i = 0; i < objs.length; i++) {
-                    if (objs[i] !== undefined) {
+                for (i = 0; i < json.names.length; i++) {
+                    //if (objs[i] !== undefined) {
+                    var nameMonth = json.names[i][0];
                     
-                      var detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({
-            month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">'+objs[i]+'</b>', selectedMonth: me.monat,
-            selectedWorkID: me.selectedWorkID, messageWindow: messageWindow, rev_index: i, rev_length:objs.length-1
+                    if(me.selectedReport !== null){
+                        var title = json.names[i][1];
+                        if(me.selectedReport === title){
+                             var detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({
+            month: nameMonth, year: me.year, value: 2, title: '<b style="color:#A87678;">'+nameMonth+'</b>', /*selectedMonth: me.monat,*/
+            selectedWorkID: me.selectedWorkID, messageWindow: messageWindow, rev_index: i, rev_length:i, count:me.count, selectedReport: me.selectedReport
         });
         me.add(detailSection);
-        
+        break;
+                        }
                     }
+                    else{
+                        var detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({
+            month: nameMonth, year: me.year, value: 2, title: '<b style="color:#A87678;">'+nameMonth+'</b>', /*selectedMonth: me.monat,*/
+            selectedWorkID: me.selectedWorkID, messageWindow: messageWindow, rev_index: i, rev_length:json.names.length-1, count:me.count, selectedReport: me.selectedReport
+        });
+        me.add(detailSection);
+                        
+                    }
+                      
+        
+                   // }
                 }
             }
         });

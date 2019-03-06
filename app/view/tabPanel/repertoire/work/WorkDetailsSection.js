@@ -662,7 +662,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     me.add(left_panel_11);
                 }
                
-                if (json.scheduleRef.length > 0 || json.revenueRef.length > 0 || json.journalRef.length > 0 || json.issueRef.length > 0 || json.regieRef.length > 0 || json.roleRef.length > 0 || json.taxation.length > 0) {
+                if (json.scheduleRef.length > 0 || json.revenueRef.length > 0 || json.journalRef.length > 0 
+                    || json.issueRef.length > 0 || json.regieRef.length > 0 || json.roleRef.length > 0 
+                    || json.taxation.length > 0 || json.dayReport.length > 0) {
                     
                     /*var refSection = Ext.create('Ext.panel.Panel', {
                     title: '<b style="color:gray; font-size: 12px;">Spielbetrieb und Verwaltung</b>',
@@ -733,40 +735,16 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                 }
                 
                 if (json.revenueRef.length > 0) {
-                    /*var revenue_group = Ext.create('Ext.form.FieldSet', {
-                    title: '<img src="resources/images/MoneyBox-17.png" style="vertical-align:middle;"><b style="color:gray;">Einnahmen</b>',
-                    // icon: 'resources/images/Mask-19.png',
-                    bodyBorder: false,
-                    collapsible: false,
-                    collapsed: true,
-                    margin: '10 0 0 0'
-                    });
-                    me.add(revenue_group);*/
-                    
-                    /* refSection.add({
-                    
-                    xtype: 'label',
-                    html: '<img src="resources/images/MoneyBox-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Einnahmen</b>',
-                    margin: '10 0 10 0'
-                    });*/
                     
                     var revenueTable = new TheaterTool.view.tabPanel.repertoire.work.RevenueTable({
                         revenueList: json.revenueRef, selectedWorkID: me.workID
                     });
-                    //ref_layout.add(revenueTable);
                     
                     var revenue_panel = Ext.create('Ext.panel.Panel', {
-                        //colspan: 1,
-                        //type: 'hbox',
                         border: false,
-                        //margin: '0 10 0 10',
-                        //type: 'fit',
-                        //bodyPadding: 10,
-                        items:[
-                        
+                        items:[                       
                         revenueTable]
-                    });
-                    
+                    });                    
                     me.add(revenue_panel);
                 }
                 
@@ -789,7 +767,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     });*/
                     
                     var journalTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable({
-                        journalList: json.journalRef
+                        journalList: json.journalRef, dbkey: me.workID
                     });
                     //ref_layout.add(journalTable);
                     
@@ -871,7 +849,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                 if (json.regieRef.length > 0) {
                     
                     var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable({
-                        regieList: json.regieRef
+                        regieList: json.regieRef, dbkey: me.workID
                     });
                     //ref_layout.add(regieTable);
                     
@@ -905,7 +883,17 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     me.add(tax_panel);
                 }
-                
+                if (json.dayReport.length > 0) {                  
+                    var dayReportTable = new TheaterTool.view.tabPanel.DayReportTable({
+                        dayReportList: json.dayReport, dbkey: me.workID
+                    });                    
+                    var dayReport_panel = Ext.create('Ext.panel.Panel', {                       
+                        border: false,                        
+                        items:[                        
+                        dayReportTable]
+                    });                    
+                    me.add(dayReport_panel);
+                }
                 
                 if (json.roleRef.length > 0) {
                     /* var role_group = Ext.create('Ext.form.FieldSet', {
@@ -926,7 +914,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     });*/
                     
                     var roleTable = new TheaterTool.view.tabPanel.repertoire.work.RoleTable({
-                        roleList: json.roleRef
+                        roleList: json.roleRef, dbkey: me.workID
                     });
                     //ref_layout.add(roleTable);
                     

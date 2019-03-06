@@ -1,4 +1,4 @@
-Ext.define('TheaterTool.view.tabPanel.TaxationTable', {
+Ext.define('TheaterTool.view.tabPanel.DayReportTable', {
 	extend: 'Ext.grid.Panel',
 	
 	requires:[
@@ -14,21 +14,21 @@ Ext.define('TheaterTool.view.tabPanel.TaxationTable', {
 	flex:1,
 	sortableColumns: false,
 	hideHeaders: true,
-	columnLines: true,
 	collapsible: true,
 	collapsed: true,
-	title: '<b style="color:gray; font-size: 12px;">Taxation</b>',
-	icon: 'resources/images/tax.png',
-	margin: '0 0 10 0',
-	store: null,
-	
+	title: '<b style="color:gray; font-size: 12px;">Tagesberichte</b>',
+	icon: 'resources/images/news1-16.png',
+	margin: '0 0 10 0',	
+	store: null,	
 	detailsColumn: null,
-	taxList: null,
+	columnLines: true,
+	dayReportList: null,
+	
 	dbkey: null,
 	
 	initComponent: function () {
 	
-	   var me = this;
+	var me = this;
 	
 	me.store = Ext.create('Ext.data.Store', {
 	model: 'TheaterTool.model.RefData',
@@ -37,8 +37,12 @@ Ext.define('TheaterTool.view.tabPanel.TaxationTable', {
 
 var nameForCount = '';
 var selectionCount = 0;
-for(var i = 0; i < me.taxList.length; i++){
-            var nameForLoad = me.taxList[i].split(':');
+for(i = 0; i < me.dayReportList.length; i++){
+            var dailyArray = me.dayReportList[i];
+            var dailyName = dailyArray[0];
+            var selectedJahr= dailyArray[1];
+
+            var nameForLoad = dailyName.split(':');
             var roleName = nameForLoad[0];
             if(nameForCount === roleName){
                 selectionCount = selectionCount +1;
@@ -49,8 +53,9 @@ for(var i = 0; i < me.taxList.length; i++){
             }
       
 			var role = Ext.create('TheaterTool.model.RefData', {
-    			name : me.taxList[i],
-    			countFoSelection: selectionCount
+    			name : dailyName,
+    			countFoSelection: selectionCount,
+    			selectedJahr: selectedJahr
 			});
 			me.store.add(role);
 			}
@@ -58,7 +63,6 @@ for(var i = 0; i < me.taxList.length; i++){
 		this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png', me);
 		
 		this.columns =[ 
-		
 		
 		this.detailsColumn
 		];
@@ -68,17 +72,17 @@ for(var i = 0; i < me.taxList.length; i++){
 	
 	createColumn: function (headerName, path, me) {
 	
-	getRegieContent = function (regieName, countFoSelection) {
+	getDayReportContent = function (vollName, countFoSelection, selectedJahr) {
             var toolBarGlobal = Ext.getCmp('toolbar');
-            var nameForLoad = regieName.split(':');
+                    var nameForLoad = vollName.split(':');
 			        var roleName = nameForLoad[0];
 			        var countNumber = parseInt(countFoSelection)+1;
-			        var roleNameToHistory = regieName + ' (' + countNumber + ')';
-                  			        
+			        var roleNameToHistory = vollName + ' (' + countNumber + ')';
+                    
                     var historyButton = Ext.getCmp('historyButton'); 
-                   // var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.name + '</font>');
-                   // if(!isHistoryItemExist){
-                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + roleNameToHistory + '</font>', icon: 'resources/images/tax.png'});  //, selection: 3
+                    //var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.name + '</font>');
+                    //if(!isHistoryItemExist){
+                          var menuItem = historyButton.menu.add({text: '<font style="color:gray;">' + roleNameToHistory + '</font>', icon: 'resources/images/news1-16.png'});  //, selection: 3
 
                     // }
 			
@@ -88,13 +92,13 @@ for(var i = 0; i < me.taxList.length; i++){
                     if (! isFoundItem) {
 					var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
 						title: '<font style="color:gray;">'+roleNameToHistory+'</font>',
-						icon: 'resources/images/tax.png'
+						icon: 'resources/images/news1-16.png'
 					});
 					
-                    var selectedRow = me.getSelectionModel().getSelection()[0];
-                    var count = me.store.indexOf(selectedRow);
-                   
-					var personDetails = new TheaterTool.view.tabPanel.taxation.TaxPanelInTab({regieName: roleName, count: countFoSelection, dbkey: me.dbkey});
+					/*var selectedRow = me.getSelectionModel().getSelection()[0];
+                    var count = selectedRow.countFoSelection;*/
+					
+					var personDetails = new TheaterTool.view.tabPanel.dailyreport.DailyreportPanelInTab({regieName: selectedJahr, count: countFoSelection, selectedWorkID: me.dbkey, selectedReport: roleName});
 					repertoireTab.add(personDetails);
 
 					repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -102,8 +106,7 @@ for(var i = 0; i < me.taxList.length; i++){
                     
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);	
-                    navTreeGlobal.fireEvent('render', navTreeGlobal);
-              
+					navTreeGlobal.fireEvent('render', navTreeGlobal);
                 }
         };
 		
@@ -112,25 +115,27 @@ for(var i = 0; i < me.taxList.length; i++){
 			//header: headerName,
 			flex:1,
 			//align: 'center',
-			menuDisabled: true,
 			dataIndex: 'name',
+			menuDisabled: true,
 			renderer: function (val, metadata, record) {
-			
 			var presentationText = '';
+			
                                 if (record.data.dbkey !== '') {
                                     // this.items[0].icon = 'resources/images/Door-24.png';
                                     var countNumber = parseInt(record.data.countFoSelection)+1;
-                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getRegieContent(\'' + record.data.name +'\',\'' + record.data.countFoSelection+  '\');">' + record.data.name+'('+countNumber+')' + '</a></small>';
+                                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getDayReportContent(\'' + record.data.name +'\',\'' + record.data.countFoSelection + '\',\'' + record.data.selectedJahr+ '\');">' + record.data.name+'('+countNumber+')' + '</a></small>';
                                 } else {
                                     //this.items[0].icon = '';
                                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.name + ' </small>';
                                 }
                                 // metadata.style = 'cursor: pointer;';
-                               
                                 return presentationText;
-			
 			}
 			});
 		return eColumn;
 	}
+
+
 });
+
+

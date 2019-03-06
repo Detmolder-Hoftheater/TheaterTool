@@ -31,8 +31,6 @@ dbkey: null,
 elementList: null,
 workelements: null,
 
-taxtable: null,
-
     initComponent: function() {
 
 	var me = this;
@@ -205,8 +203,8 @@ me.add(
             for (var i = 0; i < filteredList.length; i++) {
                     var element = filteredList[i];                                      
                     element.style.backgroundColor = "lightgray";                   
-                    if(elementToFocus === '' && me.count === i){
-                        console.log('tofocus');
+                    if(elementToFocus === '' && parseInt(me.count) === parseInt(i)){
+                        
                         element.style.border = "thick solid lightgray";
                         elementToFocus = element;
                     }

@@ -16,6 +16,8 @@ Ext.define('TheaterTool.view.tabPanel.gagebooks.GageBookPanelInTab', {
     
     
     regieName: null,
+    count: null,
+    dbkey: null,
     
     section_xml: null,
     section_details: null,
@@ -28,7 +30,7 @@ Ext.define('TheaterTool.view.tabPanel.gagebooks.GageBookPanelInTab', {
         me.icon =  'resources/images/Gift-17.png';
         
         me.section_details = new TheaterTool.view.tabPanel.gagebooks.GageBookTabDetails({
-            regieName: me.regieName
+            regieName: me.regieName, dbkey: me.dbkey, count: me.count
         });
         
        /* me.section_xml = new TheaterTool.view.tabPanel.gagebooks.GageBookTabXML({

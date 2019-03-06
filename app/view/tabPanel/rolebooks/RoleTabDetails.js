@@ -27,6 +27,12 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
 
 regieName: null,
 
+count: null,
+dbkey: null,
+
+elementList: null,
+workelements: null,
+
     initComponent: function() {
 
 	var me = this;
@@ -156,32 +162,58 @@ regieName: null,
             
             var tableInhalt = response.responseText;
             
-            console.log(tableInhalt);
            
 me.add(
 
 {
     
    html:  tableInhalt,
-   border: false
-   }
-   );
+   border: false,
+    listeners:{           
+            afterrender: function (panel) {
+                me.elementList = panel.el.dom.getElementsByTagName('persname');
+                me.workelements = panel.el.dom.getElementsByTagName('rs');
+                
+            }
+        }
+   } );
    
-   //var angezeigt = false;
-   /*toggle = function(){
-       if (angezeigt)
-    {
-        document.getElementById('Details_H020263').style.display = 'none';
-        angezeigt = false;
-    }
-    else
-    {
-        document.getElementById('Details_H020263').style.display = 'block';
-        angezeigt = true;
-    }
-       
-       
-   };*/
+    if(me.dbkey !== null){
+            var elementToFocus = '';
+           
+                var filteredList = new Array();
+                for(var i = 0; i < me.elementList.length; i++){
+                var oneElement = me.elementList[i];
+                if(oneElement.id === me.dbkey && filteredList.indexOf(oneElement) === -1){
+                    filteredList.push(oneElement);
+                }
+            
+            }
+            
+            
+            for(var i = 0; i < me.workelements.length; i++){
+                var element = me.workelements[i];
+                if(element.id === me.dbkey){
+                    filteredList.push(element);
+                }
+            }
+            
+            for (var i = 0; i < filteredList.length; i++) {
+                    var element = filteredList[i];                                      
+                    element.style.backgroundColor = "lightgray"; 
+                    
+                    if(elementToFocus === '' && parseInt(me.count) === parseInt(i)){
+                        
+                        element.style.border = "thick solid lightgray";
+                        elementToFocus = element;
+                    }
+                  
+                    }
+                   
+               elementToFocus.scrollIntoView();
+            
+        }
+   
    
    getWorkContent = function (workId, workName) {
             var toolBarGlobal = Ext.getCmp('toolbar');

@@ -21,7 +21,7 @@ declare function local:jsonifySlurs($fileNames) {
 
 let $strings := for $elem in $fileNames
 
-		let $name := $elem//tei:titleStmt[1]//tei:title/tei:date[1]		
+		let $name := $elem//tei:titleStmt[1]//tei:title	
                     return 
 						concat('"', $name, '"')
     return 

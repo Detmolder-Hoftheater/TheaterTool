@@ -17,13 +17,16 @@ Ext.define('TheaterTool.view.tabPanel.journal.JournalPanelInTab', {
     section_xml: null,
     section_details: null,
     
+    count:null,
+    dbkey: null,
+    
     initComponent: function () {
         
         var me = this;
         me.title = '<font size="2" face="Arial" style="color:#A87678;">Theaterjournal für '+me.regieName +'</font>';
         me.icon =  'resources/images/Presse-16.png';
         me.section_details = new TheaterTool.view.tabPanel.journal.JournalTabDetails({
-            regieName: me.regieName
+            regieName: me.regieName, count:me.count, dbkey:me.dbkey
         });
         
         

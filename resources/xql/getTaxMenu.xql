@@ -17,12 +17,12 @@ declare variable $path := concat('xmldb:exist:///apps/', $db_path);
 declare variable $file := collection($path);
 declare variable $fileNames := $file//tei:TEI/tei:teiHeader;
 
-declare function local:jsonifySlurs($file) {
+declare function local:jsonifySlurs($fileNames) {
 
-let $strings := for $elem in $file
+let $strings := for $elem in $fileNames
 
-		(:let $name := $elem//tei:titleStmt[1]//tei:title:)
-        let $name := 'Garderobe'
+		let $name := $elem//tei:titleStmt[1]//tei:title
+
                     return 
 						concat('"', $name, '"')
     return 

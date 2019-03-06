@@ -4,20 +4,8 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
     flex: 1,
     border: true,
     bodyBorder: false,
-    //bodyPadding:10,
     
     autoScroll: true,
-    
-    //reserveScrollbar: true,
-    
-    /*layout: {
-    type: 'hbox',
-    pack: 'start',
-    align: 'stretch'
-    },*/
-    
-    /* flex: 1,
-    border: false,*/
     
     navButton: null,
     year: null,
@@ -25,22 +13,12 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
     workPanel: null,
     
     selectedWorkID: null,
+    selectedReport: null,
+    count: null,
     
     initComponent: function () {
         var me = this;
-        
-        /*var navTree = new TheaterTool.view.tabPanel.playSchedules.ScheduleMenuItemTree({
-        year: me.year
-        });
-        var store = new TheaterTool.store.schedule.ScheduleMonths();
-        store.getProxy().extraParams.selectedYear = me.year;
-        store.load();
-        navTree.getView().bindStore(store);
-        navTree.setRepertoirePanel(me);
-        
-        me.navButton = me.createButton(navTree);
-        navTree.setNavButton(me.navButton);*/
-        
+      
         Ext.Ajax.request({
             url: 'resources/xql/getMonthsForSelectedYear.xql',
             method: 'GET',
@@ -80,64 +58,49 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
                         objs[12] = name;
                     }
                 }
-                /* me.add(
-                Ext.create('Ext.panel.Panel',
-                {
-                margin: '10 0 10 10',
-                border: false,
-                bodyBorder: false,
-                items: [
-                {
-                xtype: 'component',
-                autoEl: {
-                tag: 'a',
-                href: 'http://www.llb-detmold.de/webOPACClient_lippe/search.do?Dokumententyp=Theaterzettel&Jahr='+me.year+'&Jahr='+me.year,
-                html: 'Theaterzettel in Lippische Landesbibliothek Detmold für '+me.year,
-                target: "_blank"
-                }
-                }
-                
-                ]
-                })
-                
-                );*/
-                
-                for (i = 0; i < objs.length; i++) {
-                    if (objs[i] !== undefined) {
+               
+                for (i = 0; i < json.names.length; i++) {
+                   
+                        var nameMonth = json.names[i];
                         
-                        var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-                            month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">' + objs[i] + '</b>', selectedMonth: me.monat,
-                            selectedWorkID: me.selectedWorkID
-                        });
-                        me.add(detailSection);
+                         if(me.selectedReport !== null){
+                        var title = json.names[i];//[1];
+                        if(me.selectedReport === title){
+                             
+            var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+            issueName: title, year: me.year, value: 2, title: '<b style="color:#A87678;">'+title+'</b>', selectedIssueName: me.issueName, count:me.count, selectedReport: me.selectedReport,
+            selectedWorkID: me.selectedWorkID, selectedMonth: me.issueName, month: nameMonth
+        });
+        me.add(detailSection);
+        break;
+                        }
                     }
+                    else{
+                    var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+            month: nameMonth, year: me.year, value: 2, title: '<b style="color:#A87678;">'+nameMonth+'</b>', selectedIssueName: me.issueName, count:me.count, selectedReport: me.selectedReport,
+            selectedWorkID: me.selectedWorkID, selectedMonth: nameMonth, issueName: nameMonth, month: nameMonth, parentPanel:me
+        });
+        me.add(detailSection);
+                    
+                    }
+                      
+                
                 }
                 if(parseInt(me.year) < 1825){
                     var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+            month: title, year: me.year, value: 2, title: '<b style="color:#A87678;">'+me.year+'</b>', selectedMonth: title, selectedIssueName: me.issueName, count:me.count, selectedReport: me.selectedReport,
+            selectedWorkID: me.selectedWorkID
+        });
+        me.add(detailSection);
+                   /* var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
                             month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">' + me.year + '</b>', selectedMonth: me.monat,
                             selectedWorkID: me.selectedWorkID
                         });
-                        me.add(detailSection);
+                        me.add(detailSection);*/
                 }
             }
         });
-        
-        /* if (me.monat !== null) {
-        me.workPanel = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelDetails({
-        month: me.monat, year: me.year
-        });
-        me.items =[me.workPanel]
-        me.navButton.setText('<b style="color:gray;">' + me.monat + '</b>');
-        }
-        
-        me.tbar = {
-        style: {
-        background: '#dcdcdc'
-        },
-        height: 33,
-        items:[me.navButton]
-        };*/
-        
+     
         this.callParent();
     },
     
