@@ -18,7 +18,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
     
     initComponent: function () {
         var me = this;
-      
+        
         Ext.Ajax.request({
             url: 'resources/xql/getMonthsForSelectedYear.xql',
             method: 'GET',
@@ -58,49 +58,45 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
                         objs[12] = name;
                     }
                 }
-               
-                for (i = 0; i < json.names.length; i++) {
-                   
-                        var nameMonth = json.names[i];
-                        
-                         if(me.selectedReport !== null){
-                        var title = json.names[i];//[1];
-                        if(me.selectedReport === title){
-                             
-            var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-            issueName: title, year: me.year, value: 2, title: '<b style="color:#A87678;">'+title+'</b>', selectedIssueName: me.issueName, count:me.count, selectedReport: me.selectedReport,
-            selectedWorkID: me.selectedWorkID, selectedMonth: me.issueName, month: nameMonth
-        });
-        me.add(detailSection);
-        break;
-                        }
-                    }
-                    else{
-                    var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-            month: nameMonth, year: me.year, value: 2, title: '<b style="color:#A87678;">'+nameMonth+'</b>', selectedIssueName: me.issueName, count:me.count, selectedReport: me.selectedReport,
-            selectedWorkID: me.selectedWorkID, selectedMonth: nameMonth, issueName: nameMonth, month: nameMonth, parentPanel:me
-        });
-        me.add(detailSection);
-                    
-                    }
-                      
                 
-                }
-                if(parseInt(me.year) < 1825){
-                    var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-            month: title, year: me.year, value: 2, title: '<b style="color:#A87678;">'+me.year+'</b>', selectedMonth: title, selectedIssueName: me.issueName, count:me.count, selectedReport: me.selectedReport,
-            selectedWorkID: me.selectedWorkID
-        });
-        me.add(detailSection);
-                   /* var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-                            month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">' + me.year + '</b>', selectedMonth: me.monat,
-                            selectedWorkID: me.selectedWorkID
+                for (i = 0; i < json.names.length; i++) {
+                    
+                    var nameMonth = json.names[i];
+                    
+                    if (me.selectedReport !== null) {
+                        var title = json.names[i];//[1];
+                        if (me.selectedReport === title) {
+                            
+                            var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+                                issueName: title, year: me.year, value: 2, title: '<b style="color:#A87678;">' + title + '</b>', selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
+                                selectedWorkID: me.selectedWorkID, selectedMonth: me.issueName, month: nameMonth
+                            });
+                            me.add(detailSection);
+                            break;
+                        }
+                    } else {
+                        var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+                            month: nameMonth, year: me.year, value: 2, title: '<b style="color:#A87678;">' + nameMonth + '</b>', selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
+                            selectedWorkID: me.selectedWorkID, selectedMonth: nameMonth, issueName: nameMonth, month: nameMonth, parentPanel: me
                         });
-                        me.add(detailSection);*/
+                        me.add(detailSection);
+                    }
+                }
+                if (parseInt(me.year) < 1825) {
+                    var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+                        month: title, year: me.year, value: 2, title: '<b style="color:#A87678;">' + me.year + '</b>', selectedMonth: title, selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
+                        selectedWorkID: me.selectedWorkID
+                    });
+                    me.add(detailSection);
+                    /* var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+                    month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">' + me.year + '</b>', selectedMonth: me.monat,
+                    selectedWorkID: me.selectedWorkID
+                    });
+                    me.add(detailSection);*/
                 }
             }
         });
-     
+        
         this.callParent();
     },
     
