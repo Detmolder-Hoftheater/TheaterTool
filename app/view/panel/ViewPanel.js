@@ -1,7 +1,3 @@
-/**
- * Creates class TheaterTool.view.tabPanel.CEPanel that extend from Ext.panel.Panel.
- * @class
- */
 Ext.define('TheaterTool.view.panel.ViewPanel', {
     extend: 'Ext.panel.Panel',
     id: 'cepanel',
@@ -10,25 +6,17 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
     layout: 'border',
     flex: 1,
     
-    
     bodyBorder: false,
     //border: false,
     
     border: false,
     style: {
-        borderRight: '5px solid #A80016',
-        borderLeft: '5px solid #A80016',
-        borderTop: '3px solid #A80016',
-        borderBottom: '5px solid #A80016'
+        borderRight: '5px solid #F2EEE1',
+        borderLeft: '5px solid #F2EEE1',
+        borderTop: '3px solid #F2EEE1',
+        borderBottom: '5px solid #F2EEE1'
     },
     // split:true,
-    
-    /* defaults: {
-    //autoScroll: true,
-    split: true
-    },
-     */
-    
     
     ceTabView: null,
     facsimileView: null,
@@ -38,20 +26,25 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
     
     initComponent: function () {
         
-        //this.ceTabView = new TheaterTool.view.tabPanel.CETabPanel(),
-        //this.htTabView = new TheaterTool.view.tabPanel.HTTabPanel({bodyStyle:{"background-image":"url(resources/images/curtain-Fotor_1.jpg)", "background-size": "100%;"}});
+        var labelPanel  = Ext.create('Ext.panel.Panel', {
+                        border: false,
+                        region: 'north',
+                        height: 33,
+                        style: 'display:block; background-color:white; padding:8px 0px 5px 17px',
+                        html: '<font style="color:gray; font-size: 14px;">Detmolder Hoftheater (1825-1875)</font>'
+                        
+                    });
+        
+        
         this.htTabView = new TheaterTool.view.tabPanel.HTTabPanel();
-        //this.htTabView.getTabBar().setVisible(false);
-        //this.htNavPanel = new TheaterTool.view.navPanel.HTNavigationPanel({bodyStyle:{"background-color":"#A80016"}});
         
         this.htNavPanel = new TheaterTool.view.navPanel.HTNavigationPanel();
         
         this.htNavPanel.setHTTabPanel(this.htTabView);
-        //var navigationHistory = new TheaterTool.view.tabPanel.NavigationHistory();
         
         this.items =[
+        labelPanel,
         this.htTabView,
-        //navigationHistory,
         this.htNavPanel],
         
         this.callParent();

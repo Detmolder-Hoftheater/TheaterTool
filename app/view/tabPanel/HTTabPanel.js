@@ -6,25 +6,12 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
     defaults: {
         autoScroll: true
     },
-    style: {
-        
-        borderTop: '3px solid #A80016'
-    },
-    
+   
     collapsible: false,
     region: 'center',
     
     flex: 1,
-    /*border:false,
-    bodyBorder: false,
-    
-    split: false,*/
-    
-    
-    /**
-     * Create items
-     * @overrides
-     */
+   
     initComponent: function () {
         
         var me = this;
@@ -62,11 +49,6 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
                     oldCard.setMenuAdded(false);
                 }
                 
-                // var isFound = me.foundHistoryitem(historyButton.menu.items, oldCard);
-                // if(!isFound){
-                //     var menuItem = historyButton.menu.add({text: oldCard.title, icon: oldCard.icon});
-                //     oldCard.setActiveMenuItemId(menuItem.id);
-                // }
                 var toolBar = Ext.getCmp('toolbar');
                 toolBar.handleHistoryButtons();
             }

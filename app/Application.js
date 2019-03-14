@@ -117,7 +117,7 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.WorksTable',
     'tabPanel.issue.FacsimileView',
     'tabPanel.issue.LeafletFacsimile',
-    'tabPanel.issue.IssueTable',   
+    'tabPanel.issue.IssueTable',
     'tabPanel.dailyreport.FacsimileView',
     'tabPanel.dailyreport.LeafletFacsimile',
     'tabPanel.dailyreport.DailyreportTable',
@@ -175,7 +175,9 @@ Ext.define('TheaterTool.Application', {
         
         var workPath;
         
-        window.onbeforeunload = function() { return "Your work will be lost."; };
+        window.onbeforeunload = function () {
+            return "Your work will be lost.";
+        };
         
         Ext.Ajax.request({
             url: 'resources/xql/getDBStructure.xql',
@@ -204,10 +206,9 @@ Ext.define('TheaterTool.Application', {
                 extWorkKeys = json.dbkeys;
                 projectName = json.name;
                 this.projectYears = json.years;
-                Ext.getCmp('htNavigationPanel').setTitle('<b style="color:#A87678;">' + projectName + ' ' + this.projectYears + '</b>');
+              //  Ext.getCmp('htNavigationPanel').setTitle('<span style="font-family:Tahoma; color:gray;">' + projectName + ' ' + this.projectYears + '</span>');
                 dbTheaterPath = json.dbpath;
-           
-           }
+            }
         });
         
         // temporary global

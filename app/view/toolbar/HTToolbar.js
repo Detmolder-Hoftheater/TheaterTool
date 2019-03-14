@@ -1,7 +1,3 @@
-/**
- * Creates class TheaterTool.view.toolbar.CEToolbar that extend from Ext.panel.Panel.
- * @class
- */
 Ext.define('TheaterTool.view.toolbar.HTToolbar', {
     extend: 'Ext.panel.Panel',
     
@@ -11,12 +7,10 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
     'Ext.window.MessageBox'],
     
     id: 'toolbar',
-    
-    
+       
     style: {
-        borderLeft: '3px solid #A80016',
-        borderTop: '5px solid #A80016'
-        // borderBottom: '3px solid #A80016'
+        borderLeft: '3px solid #F2EEE1',
+        borderTop: '5px solid #F2EEE1'
     },
     bodyBorder: false,
     border: false,
@@ -34,94 +28,35 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
         this.searchField = this.createSearchField(this.searchFilterButton);
         
         this.tbar = new Ext.Toolbar({
+            height: 33,
             style: {
-                background: '#A80016'
+                background: '#F2EEE1'
             },
             
             items:[ {
                 xtype: 'component',
                 margin: '0 0 0 3',
-                /* style: {
-                borderRight: '2px solid #CC9FA7',
-                borderLeft: '2px solid #CC9FA7',
-                borderTop: '2px solid CC9FA7',
-                borderBottom: '2px solid CC9FA7'
-                },*/
                 autoEl: {
                     tag: 'a',
                     href: 'http://hoftheater-detmold.de',
-                    html: '<img src="resources/images/TheaterBild.tif" style="width:21px;height:21px;" title="http://hoftheater-detmold.de">',
+                    html: '<img src="resources/images/TheaterBild.tif" style="width:27px;height:27px;padding:2px;border:thin solid #CCC8C2; border-radius: 50%" title="http://hoftheater-detmold.de">',
                     target: "_blank"
                 }
             }, {
                 
-                xtype: 'label',
-                html: '<b style="color:#CC9FA7;">Theatre Tool</b>',
-                margin: '0 5 0 10'
-            }, {
-                xtype: 'button',
-                text: '<b style="color:#CC9FA7;size = 1;">Tabs anordnen</b>',
-                disabled: true,
-                margin: '0 0 0 10',
-                menu:[ {
-                    text: 'Horizontal verteilen',
-                    icon: 'resources/images/Horizontal-17.png'
-                },
-                {
-                    text: 'Vertikal verteilen',
-                    icon: 'resources/images/Vertical-17.png'
-                },
-                {
-                    text: 'Stapeln',
-                    icon: 'resources/images/Sheets-17.png'
-                }]
-                //Desktop 173
-            }, {
-                xtype: 'button',
-                margin: '0 0 0 5',
-                text: '<b style="color:#CC9FA7; size = 1;">Tab duplizieren</b>',
-                disabled: true,
-                /*style: {
-                borderRight: '1px solid #CC9FA7',
-                borderLeft: '1px solid #CC9FA7',
-                borderTop: '1px solid CC9FA7',
-                borderBottom: '1px solid CC9FA7'
-                },*/
-                listeners: {
-                    click: function (item, e, eOpts) {
-                        var activeTab = me.htPanel.getHTTabPanel().getActiveTab();
-                        if (activeTab !== null) {
-                            var clone = activeTab.cloneConfig();
-                            var childClone = activeTab.items.items[0].cloneConfig();
-                            clone.add(childClone);
-                            
-                            var historyButton = Ext.getCmp('historyButton');
-                            var menuItem = historyButton.menu.add({
-                                text: clone.title, icon: clone.icon
-                            });
-                            
-                            clone.setActiveMenuItemId(menuItem.id);
-                            clone.setMenuAdded(true);
-                            
-                            me.htPanel.getHTTabPanel().add(clone);
-                            me.htPanel.getHTTabPanel().setActiveTab(clone);
-                            me.htPanel.getHTTabPanel().fireEvent('render', me.htPanel.getHTTabPanel());
-                        }
-                    }
-                }
-            },
+                xtype: 'label',              
+                //html: '<font style="color:#CCC1C2; font-size: 19px;" face="Brush Script MT">Theatre Tool</font>',
+                html: '<font style="color:#CCC1C2; font-size: 14px;">Theatre Tool</font>',
+                margin: '0 0 0 5'
+            }, 
             '->', {
                 xtype: 'button',
+                border: false,
+                glyph: null,
                 icon: 'resources/images/page-prev-disabled.gif',
                 id: 'prevHistoryButton',
                 disabled: true,
-                margin: '0 5 0 0',
-                /*style: {
-                borderRight: '1px solid #CC9FA7',
-                borderLeft: '1px solid #CC9FA7',
-                borderTop: '1px solid CC9FA7',
-                borderBottom: '1px solid CC9FA7'
-                },*/
+                //margin: '0 5 0 0',
                 listeners: {
                     click: function () {
                         var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
@@ -160,15 +95,9 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                 xtype: 'button',
                 id: 'historyButton',
                 selection: null,
-                disabled: true,
-                text: '<b style="color:#CC9FA7;size = 1;">Verlauf</b>',
-                margin: '0 5 0 3',
-                /*style: {
-                borderRight: '1px solid #CC9FA7',
-                borderLeft: '1px solid #CC9FA7',
-                borderTop: '1px solid CC9FA7',
-                borderBottom: '1px solid CC9FA7'
-                },*/
+                //disabled: true,
+                text: '<span style="font-family:Tahoma; color:gray;">Verlauf</span>',
+                margin: '0 3 0 3',
                 menu: {
                     xtype: 'menu',
                     items:[],
@@ -206,14 +135,9 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                 xtype: 'button',
                 id: 'naxtHistoryButton',
                 disabled: true,
+                border: false,
                 icon: 'resources/images/page-next-disabled.gif',
-                margin: '0 0 0 5',
-                /*style: {
-                borderRight: '1px solid #CC9FA7',
-                borderLeft: '1px solid #CC9FA7',
-                borderTop: '1px solid CC9FA7',
-                borderBottom: '1px solid CC9FA7'
-                },*/
+                //margin: '0 0 0 5',
                 listeners: {
                     click: function () {
                         var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
@@ -254,38 +178,16 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
             
             this.searchFilterButton,
             
-            this.searchField, {
-                
+            this.searchField, 
+            '->',
+            {
                 xtype: 'button',
-                text: '<b style="color:#CC9FA7;size = 1;">Erweitert</b>',
-                //html: '<font size = "1"><b style="color:#CC9FA7;">Erweitert</b></font>',
-                margin: '0 10 0 10',
-                disabled: true
-            }, {
-                xtype: 'tbseparator',
-                style: {
-                    borderRight: '1px solid #CC9FA7',
-                    borderLeft: '1px solid #CC9FA7'
-                    // borderTop: '1px solid black',
-                    // borderBottom: '1px solid black'
-                }
-            }, {
-                xtype: 'button',
-                text: '<b style="color:#CC9FA7;size = 1;">Hilfe</b>',
+                text: '<span style="font-family:Tahoma; color:gray;">Hilfe</span>',
                 margin: '0 5 0 0',
+                
                 menu:[
-                /*{
-                xtype: 'component',
-                //margin: '0 10 0 10',
-                autoEl: {
-                tag: 'a',
-                href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu/Info_Hoftheaterdaten2.pdf',
-                html: 'Navigation Hilfe',
-                target: "_blank"
-                }
-                //style:{color: '#CC9FA7'}
-                },*/ {
-                    text: 'Daten Relation',
+                {
+                    text: '<span style="font-family:Tahoma; color:gray;">Daten Relation</span>',
                     
                     listeners: {
                         
@@ -321,32 +223,11 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
         var me = this;
         var menuButton = Ext.create('Ext.button.Button', {
             
-            
             xtype: 'button',
-            text: '<b style="color:#CC9FA7; size = 1;">Filter</b>',
-            margin: '0 0 0 10',
-            
-            /*style: {
-            borderRight: '1px solid #CC9FA7',
-            borderLeft: '1px solid #CC9FA7',
-            borderTop: '1px solid CC9FA7',
-            borderBottom: '1px solid CC9FA7'
-            },*/
-            
-            
-            /*xtype: 'button',
-            width: 110,
-            
-            //text: '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>',
-            style: {
-            borderRight: '3px solid #A80016',
-            borderLeft: '3px solid #A80016',
-            borderTop: '3px solid #A80016',
-            borderBottom: '3px solid #A80016',
-            background: 'white'
-            },*/
+            text: '<span style="font-family:Tahoma; color:gray;">Suchfilter</span>',
+           
             menu:[ {
-                text: 'Werke',
+                text: '<span style="font-family:Tahoma; color:gray;">Werke</span>',
                 icon: 'resources/images/BooksVert-17.png',
                 listeners: {
                     
@@ -355,9 +236,8 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                         menuButton.setText(item.text);
                     }
                 }
-            },
-            {
-                text: 'Personen',
+            }, {
+                text: '<span style="font-family:Tahoma; color:gray;">Personen</span>',
                 icon: 'resources/images/Mask-19.png',
                 listeners: {
                     
@@ -377,7 +257,8 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
         
         var searchField = Ext.create('Ext.form.field.Text', {
             labelWidth: 0,
-            
+          
+           fieldStyle: 'padding:1px;border:#CCC8C2;',
             triggers: {
                 clear: {
                     weight: 0,
@@ -424,26 +305,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                 var me = this,
                 value = me.getValue();
                 searchType = searchFilterButton.getText();
-                console.log(value);
-                console.log(searchType);
-                /*if(!value.trim()){
-                Ext.MessageBox.show({
-                title: 'Suche',
-                msg: 'Bitte tragen Sie das Suchwort oder den Suchtext ein!',
-                buttons: Ext.MessageBox.OK
-                });
-                return;
-                }
-                else if(value.length < 3 && value !== '*'){
-                Ext.MessageBox.show({
-                title: 'Suche',
-                msg: 'Das Suchwiort oder der Suchtext sollte länder als drei Zeichen sein!',
-                buttons: Ext.MessageBox.OK
-                });
-                return;
-                }
-                else */
-                if (searchType === '<font size = "1"><b style="color:#CC9FA7;">Filter</b></font>') {
+                if (searchType === '<span style="font-family:Tahoma; color:gray;">Suchfilter</span>') {
                     Ext.MessageBox.show({
                         title: 'Suche',
                         msg: 'Bitte wählen Sie den Suchfilter aus!',
@@ -454,11 +316,11 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                 var historyButton = Ext.getCmp('historyButton');
                 
                 var menuItem = historyButton.menu.add({
-                    text: '<font style="color:gray;">' + searchType + ': ' + value + '</font>', icon: 'resources/images/Search-16.png', selection: value
+                    text: '<font style="font-family:Tahoma; color:gray;">' + searchType + ': ' + value + '</font>', icon: 'resources/images/Search-16.png', selection: value
                 });
                 
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                    title: '<font style="color:gray;">' + searchType + ': ' + value + '</font>',
+                    title: '<font style="font-family:Tahoma; color:gray;">' + searchType + ': ' + value + '</font>',
                     icon: 'resources/images/Search-16.png'
                 });
                 var regieDetails = new TheaterTool.view.tabPanel.search.SearchPanelInTab({

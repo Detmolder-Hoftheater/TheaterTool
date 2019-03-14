@@ -5,45 +5,35 @@
  *
  */
 Ext.define('TheaterTool.view.main.Main', {
-	extend: 'Ext.panel.Panel',
-	requires:[
-	'Ext.layout.container.VBox'],
-	xtype: 'layout-vertical-box',
-	id: 'cemain',
-	
-	layout: {
-		type: 'vbox',
-		pack: 'start',
-		align: 'stretch'
-	},
-		
-	bodyPadding: 1,
-	
-	/*defaults: {
-		border: false
-	},*/
-	
-    //border: false,
-	htToolbar: null,
-	htPanel: null,
-	
-	initComponent: function () {
-		
-		this.htToolbar = new TheaterTool.view.toolbar.HTToolbar(
-		{bodyStyle:{"background-color":"#A80016"}}
-		);
-		
-		this.htPanel = new TheaterTool.view.panel.ViewPanel(),
-
-		this.htToolbar.setViewPanel(this.htPanel);
-		
-		this.items =[
-		this.htToolbar,
-		this.htPanel
-		]
-		
-		this.callParent()
-	}
-	
-	
+    extend: 'Ext.panel.Panel',
+    requires:[
+    'Ext.layout.container.VBox'],
+    xtype: 'layout-vertical-box',
+    id: 'cemain',
+    
+    layout: {
+        type: 'vbox',
+        pack: 'start',
+        align: 'stretch'
+    },
+    
+    bodyPadding: 1,
+   
+    htToolbar: null,
+    htPanel: null,
+    
+    initComponent: function () {
+        
+        this.htToolbar = new TheaterTool.view.toolbar.HTToolbar();
+        
+        this.htPanel = new TheaterTool.view.panel.ViewPanel(),
+        
+        this.htToolbar.setViewPanel(this.htPanel);
+        
+        this.items =[
+        this.htToolbar,
+        this.htPanel]
+        
+        this.callParent()
+    }
 });
