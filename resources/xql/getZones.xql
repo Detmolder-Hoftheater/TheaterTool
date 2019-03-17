@@ -28,7 +28,14 @@ else
             (if (contains($selectedWork, 'H020076')) then
                 ('unbekannte/')
             else
-                ())));
+                (if(contains($selectedWork, 'H020166'))then
+                    ('joseph/')
+                else
+                    (if(contains($selectedWork, 'H020224'))then
+                        ('yelvaLortzing/')
+                    else(if(contains($selectedWork, 'H021013'))then
+                        ('yelvaReissiger/')
+                    else()))))));
 
 declare variable $path := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder, $fileName, '.xml');
 

@@ -24,8 +24,8 @@ declare function local:getFacsimNames($file) {
     
     let $strings := for $elem in $file
     
-    let $navItem := $elem//edirom:name[1] (://mei:sourceDesc//mei:title:)
-    let $sourcePath := $elem//@targets
+    let $navItem := $elem/edirom:names[1]/edirom:name[1] (://mei:sourceDesc//mei:title:)
+    let $sourcePath := $elem/@targets
     let $sourceDov := doc($sourcePath)
     let $xmlid := $sourceDov/mei:mei/@xml:id
     
@@ -116,17 +116,26 @@ declare function local:jsonifySlurs() {
             else
                 (if (contains($fileID, 'H020076')) then
                     ('unbekannte/edition.xml')
-                else (if(contains($fileID, 'H020166'))then('joseph/')
+                else
+                    (if (contains($fileID, 'H020166')) then
+                        ('joseph/edition_Joseph_DT.xml')
                     else
-                    ('test/')))))
+                        if(contains($fileID, 'H020224'))then
+                            ('yelvaLortzing/edition_Yelva_Lortzing.xml')
+                        else(
+                            if(contains($fileID, 'H021013'))then    
+                                ('yelvaReissiger/edition_Yelva_Reissiger.xml')
+                            else(
+                                ('test/')))))))
+                            
     let $edpath := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder)
     (:let $file := collection($path):)
     let $file_1 := doc($edpath)
     let $file_2 := $file_1/edirom:edition
-    let $file_3 := $file_2//edirom:works[1]/edirom:work/edirom:navigatorDefinition//edirom:navigatorCategory[2]/edirom:navigatorItem
+    let $file_3 := $file_2/edirom:works[1]/edirom:work/edirom:navigatorDefinition/edirom:navigatorCategory[2]/edirom:navigatorItem
     let $facsimNames := concat('"children":[', local:getFacsimNames($file_3), ']')
     
-    let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020166') or contains($fileID, 'H021013')or contains($fileID, 'H020224')or contains($fileID, 'H020076'))
+    let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020166') or contains($fileID, 'H021013') or contains($fileID, 'H020224') or contains($fileID, 'H020076'))
     then
         (concat('{',
         '"leaf":"false",',
@@ -157,7 +166,7 @@ declare function local:jsonifySlurs() {
     else
         ()
     
-    let $iconIncipits := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileID, 'H020224')or contains($fileID, 'H021013')or contains($fileID, 'H020166') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
+    let $iconIncipits := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileID, 'H020224') or contains($fileID, 'H021013') or contains($fileID, 'H020166') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
     then
         ('resources/images/IncBlue.png')
     else
@@ -177,13 +186,13 @@ declare function local:jsonifySlurs() {
     else
         ()
     
-    let $iconWork := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Joseph') or contains($fileID, 'H020224')or contains($fileID, 'H021013') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
+    let $iconWork := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Joseph') or contains($fileID, 'H020224') or contains($fileID, 'H021013') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
     then
         ('resources/images/BookBlau-17.png')
     else
         ('resources/images/Books1-17.png')
     
-    let $iconSource := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Joseph') or contains($fileID, 'H020224')or contains($fileID, 'H021013') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
+    let $iconSource := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Joseph') or contains($fileID, 'H020224') or contains($fileID, 'H021013') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076'))
     then
         ('resources/images/SourceBlue.png')
     else
