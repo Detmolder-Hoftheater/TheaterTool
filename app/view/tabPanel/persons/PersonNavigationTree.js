@@ -44,11 +44,11 @@ header: false,
 	flex: 3.3,
 	region:'east',
 	//title: '<b style="color:gray;">Personen</b>',
-	icon: 'resources/images/Mask-19.png',
+	//icon: 'resources/images/Mask-19.png',
 	collapsible: true,
-	//header: false,
-	sortableColumns: false,
-	rowLines: true,
+	header: false,
+	//sortableColumns: false,
+	rowLines: false,
     columnLines: true,
 	
 	repertoirePanel:null,
@@ -99,16 +99,30 @@ me.store.sort('name');
 
 		me.columns = [
             {
-            text: 'Name Variante/Pseudonym',
+            
+            header: '<font style="color:#585858;">Name/Pseudonym</font>',
 			flex: 2,
 			menuDisabled: true,
-			dataIndex: 'name'
+			dataIndex: 'name',
+			 style: {
+         paddingLeft: 6,
+         paddingTop: 6,
+         paddingRight: 6,
+         paddingBottom: 6
+    }
             },
             {
-                text: 'Name Variante',
+                
+                header: '<font style="color:#585858;">Nametype</font>',
                 flex: 1.3,
                 menuDisabled: true,
-                dataIndex: 'type'
+                dataIndex: 'type',
+                 style: {
+         paddingLeft: 6,
+         paddingTop: 6,
+         paddingRight: 6,
+         paddingBottom: 6
+    }
                 
             }
         ]
@@ -118,7 +132,7 @@ me.store.sort('name');
 			
 			selectionchange: function (selected, eOpts) {
 			        me.repertoirePanel.removeAll(true);
-					me.workPanel = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: eOpts[0].data.persId, icon: 'resources/images/Mask-19.png', title:'<font size="2" face="Arial" style="color:#A87678;">Person: '+eOpts[0].data.name +'</font>'});
+					me.workPanel = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: eOpts[0].data.persId, icon: 'resources/images/Mask-19.png', title:'<font size="2" face="Tahoma" style="color:#909090;">Person: '+eOpts[0].data.name +'</font>'});
 					me.repertoirePanel.add(me.workPanel);	
 					//me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name +'</b>');
 

@@ -10,8 +10,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
     },
     autoScroll: true,
     border: false,
+    bodyBorder: false,
     bodyPadding: 10,
     flex: 1,
+    
+   
     
     repertoireTab: null,
     personSection: null,
@@ -39,123 +42,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
     
     initComponent: function () {
         var me = this;
-        me.tbar = {
-            style: {
-                background: '#dcdcdc'
-            },
-            border: false,
-            height: 30,
-            items:[ {
-                xtype: 'button',
-                text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
-                style: {
-                    borderRight: '1px solid gray',
-                    borderLeft: '1px solid gray',
-                    borderTop: '1px solid gray',
-                    borderBottom: '1px solid gray'
-                },
-                margin: '0 3 0 5',
-                listeners: {
-                    click: function (item, e, eOpts) {
-                        
-                        Ext.Ajax.request({
-                            
-                            url: 'resources/xql/getXML.xql',
-                            method: 'GET',
-                            params: {
-                                uri: '/db/apps/theater-data/works/' + me.workID + '.xml',
-                                type: 'work'
-                            },
-                            success: function (response) {
-                                
-                                var testText = response.responseXML;
-                                
-                                var tempDiv = document.createElementNS('http://www.music-encoding.org/ns/mei', 'div');
-                                var personArr = testText.getElementsByTagName('work');
-                                tempDiv.appendChild(personArr[0]);
-                                
-                                var tmp = hljs.highlightAuto($(tempDiv).html()).value;
-                                var htmlVersion = '<pre>' + tmp + '</<pre>';
-                                
-                                
-                                /*var testText = response.responseText;
-                                
-                                var fragment = document.createDocumentFragment('div');
-                                var tempDiv = document.createElement('div');
-                                fragment.appendChild(tempDiv);
-                                tempDiv.innerHTML = testText;
-                                
-                                var tmp = hljs.highlightAuto($(tempDiv).html()).value;
-                                var htmlVersion = '<pre>' + tmp + '</<pre>';*/
-                                var win = new Ext.window.Window({
-                                    title: '<font style="color:gray;">XML for ' + me.workName + '</font>',
-                                    html: htmlVersion,
-                                    icon: me.workIcon,
-                                    bodyStyle: {
-                                        "background-color": "white"
-                                    },
-                                    height: 600,
-                                    width: 800,
-                                    autoScroll: true,
-                                    bodyPadding: 10
-                                });
-                                win.show();
-                            }
-                        });
-                    }
-                }
-            },
-            {
-                xtype: 'button',
-                text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
-                //disabled: true,
-                style: {
-                    borderRight: '1px solid gray',
-                    borderLeft: '1px solid gray',
-                    borderTop: '1px solid gray',
-                    borderBottom: '1px solid gray'
-                },
-                listeners: {
-                    click: function (item, e, eOpts) {
-                        
-                        Ext.Ajax.request({
-                            
-                            url: 'resources/xql/getXML.xql',
-                            method: 'GET',
-                            params: {
-                                uri: '/db/apps/theater-data/works/' + me.workID + '.xml',
-                                type: 'work'
-                            },
-                            success: function (response) {
-                                var xmltext = response.responseText;
-                                
-                                var pom = document.createElement('a');
-                                
-                                var filename = me.workID + ".xml";
-                                var pom = document.createElement('a');
-                                var bb = new Blob([xmltext], {
-                                    type: 'text/plain'
-                                });
-                                
-                                pom.setAttribute('href', window.URL.createObjectURL(bb));
-                                pom.setAttribute('download', filename);
-                                
-                                pom.dataset.downloadurl =[ 'text/plain', pom.download, pom.href].join(':');
-                                pom.draggable = true;
-                                pom.classList.add('dragout');
-                                
-                                //apply the click on to download the file
-                                document.body.appendChild(pom);
-                                pom.click();
-                                document.body.removeChild(pom);
-                            }
-                        });
-                    }
-                }
-            }]
-        };
-        
-        
         
         me.callParent();
     },
@@ -303,36 +189,36 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         var persRole = '';
                         if (autor[1] === 'arr') {
                             persRole = 'Arrangeur';
-                        } else if (autor[1] === 'aut') {
+                        } else if (autor[1] === 'marc:aut') {
                             persRole = 'Autor';
-                        } else if (autor[1] === 'cmp') {
+                        } else if (autor[1] === 'marc:cmp') {
                             persRole = 'Komponist';
-                        } else if (autor[1] === 'cre') {
+                        } else if (autor[1] === 'marc:cre') {
                             persRole = 'Urheber ';
-                        } else if (autor[1] === 'lbt') {
+                        } else if (autor[1] === 'marc:lbt') {
                             persRole = 'Librettist';
-                        } else if (autor[1] === 'edt') {
+                        } else if (autor[1] === 'marc:edt') {
                             persRole = 'Verfasser';
-                        } else if (autor[1] === 'lyr') {
+                        } else if (autor[1] === 'marc:lyr') {
                             persRole = 'Textdichter';
-                        } else if (autor[1] === 'trl') {
+                        } else if (autor[1] === 'marc:trl') {
                             persRole = 'Übersetzer';
-                        } else if (autor[1] === 'scr') {
+                        } else if (autor[1] === 'marc:scr') {
                             persRole = 'Schreiber';
-                        } else if (autor[1] === 'fmo') {
+                        } else if (autor[1] === 'marc:fmo') {
                             persRole = 'former owner';
-                        } else if (autor[1] === 'asn') {
+                        } else if (autor[1] === 'marc:asn') {
                             persRole = 'associated name';
-                        } else if (autor[1] === 'prf') {
+                        } else if (autor[1] === 'marc:prf') {
                             persRole = 'Schauspieler';
-                        } else if (autor[1] === 'clb') {
+                        } else if (autor[1] === 'marc:clb') {
                             persRole = 'Kollaborator';
                         } else {
                             persRole = autor[1];
                         }
-                        if (persRole === '') {
+                        /*if (persRole === '') {
                             persRole = 'Funktion nicht definiert';
-                        }
+                        }*/
                         var autorName = autor[0];
                         var dbkey = autor[2];
                         var name = null;
@@ -401,9 +287,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         me.add(left_panel_1);
                     }
                 }
-                
-                
-                if (typeof json.sprachen[0] !== 'undefined' || typeof json.instr[0] !== 'undefined' || json.creation[0][0] !== '' || typeof json.hoverview[0] !== 'undefined' || json.gnd[0].length > 0 || json.wega.length > 0) {
+               
+                if (json.sprachen.length > 0 || json.instr.length > 0 || json.creation[0][0] !== '' || json.hoverview.length > 0 || json.gnd[0].length > 0 || json.wega[0].length > 0) {
                     
                     me.add({
                         
@@ -414,7 +299,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     
                     
-                    if (json.gnd[0].length > 0 || json.wega.length > 0) {
+                    if (json.gnd[0].length > 0 || json.wega[0].length > 0) {
                         
                         var panel_1011 = Ext.create('Ext.panel.Panel', {
                             layout: {
@@ -530,7 +415,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     panel_011.add(panel_101);
                     
                     
-                    if (typeof json.sprachen[0] !== 'undefined') {
+                    if (json.sprachen.length > 0) {
                         var spr = json.sprachen[0];
                         for (i = 1; i < json.sprachen.length; i++) {
                             spr += ', ' + json.sprachen[i];
@@ -539,7 +424,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         panel_101.add(me.language);
                     }
                     
-                    if (typeof json.instr[0] !== 'undefined') {
+                    if (json.instr.length > 0) {
                         var spr = json.instr[0];
                         for (i = 1; i < json.instr.length; i++) {
                             spr += ', ' + json.instr[i];
@@ -563,8 +448,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                                 xtype: 'label',
                                 bodyBorder: false,
                                 html: '<b style="color:gray; font-size: 10px;">Besetzung:</b>'
-                            },
-                            {
+                            }, {
                                 html: spr,
                                 margin: '0 0 0 55',
                                 border: false,
@@ -576,15 +460,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     
                     if (json.creation[0][0] !== '') {
-                        console.log(json.creation[0]);
+                        
                         me.abs = me.createTextField('Entstehung', json.creation);
                         panel_101.add(me.abs);
                     }
                     
-                    if (typeof json.hoverview[0] !== 'undefined') {
-                        /*me.overview = me.createTextArea('Beschreibung', json.hoverview);
-                        panel_101.items.add(me.overview);*/
-                        
+                    if (json.hoverview.length > 0) {
+                       
                         var right_panel = Ext.create('Ext.panel.Panel', {
                             layout: {
                                 type: 'table',
@@ -599,9 +481,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                             items:[ {
                                 xtype: 'label',
                                 html: '<b style="color:gray; font-size: 10px;">Beschreibung:</b>'
-                            },
-                            {
-                                html: json.hoverview,
+                            }, {
+                                html: json.hoverview[0],
                                 margin: '0 0 0 40',
                                 border: false
                             }]
@@ -620,35 +501,32 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     });
                     
                     /*var eventsTable = new TheaterTool.view.tabPanel.repertoire.EventsTable({
-                        eventList: json.events
+                    eventList: json.events
                     });*/
-                     var content = '';
-                   
-                        for(i = 0; i < json.events.length; i++){
-                            
-			                 var eventObj = json.events[i];
-			                
-			                 if(eventObj[0] !== ''){
-			                     content = content + eventObj[0]+'  '	;	    
-			}
-			
-			if(eventObj[1] !== ''){
-			    content = content +eventObj[1]+'  ';			    
-			}
-			
-			
-			if(eventObj[2] !== ''){
-			    content = content + eventObj[2]+'  ';		    
-			}
-			
-			if(eventObj[3] !== ''){
-			    content = content +eventObj[3];
-		      		    
-			}
-			            
-			                 
-			             }
-			       
+                    var content = '';
+                    
+                    for (i = 0; i < json.events.length; i++) {
+                        
+                        var eventObj = json.events[i];
+                        
+                        if (eventObj[0] !== '') {
+                            content = content + eventObj[0] + '  ';
+                        }
+                        
+                        if (eventObj[1] !== '') {
+                            content = content + eventObj[1] + '  ';
+                        }
+                        
+                        
+                        if (eventObj[2] !== '') {
+                            content = content + eventObj[2] + '  ';
+                        }
+                        
+                        if (eventObj[3] !== '') {
+                            content = content + eventObj[3];
+                        }
+                    }
+                    
                     var left_panel_11 = Ext.create('Ext.panel.Panel', {
                         //colspan: 1,
                         //type: 'hbox',
@@ -661,10 +539,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     me.add(left_panel_11);
                 }
-               
-                if (json.scheduleRef.length > 0 || json.revenueRef.length > 0 || json.journalRef.length > 0 
-                    || json.issueRef.length > 0 || json.regieRef.length > 0 || json.roleRef.length > 0 
-                    || json.taxation.length > 0 || json.dayReport.length > 0) {
+                
+                if (json.scheduleRef.length > 0 || json.revenueRef.length > 0 || json.journalRef.length > 0 || json.issueRef.length > 0 || json.regieRef.length > 0 || json.roleRef.length > 0 || json.taxation.length > 0 || json.dayReport.length > 0) {
                     
                     /*var refSection = Ext.create('Ext.panel.Panel', {
                     title: '<b style="color:gray; font-size: 12px;">Spielbetrieb und Verwaltung</b>',
@@ -692,7 +568,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     {
                         
                         xtype: 'label',
-                        html: '<b style="color:gray; font-size: 12px;"> Spielbetrieb und </b><b style="color:gray; font-size: 12px;"> Verwaltung</b>',
+                        html: '<b style="color:gray; font-size: 12px;">Referenzen in Spielbetrieb und Verwaltung</b>',
                         margin: '5 0 10 0'
                     });
                 }
@@ -742,9 +618,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     var revenue_panel = Ext.create('Ext.panel.Panel', {
                         border: false,
-                        items:[                       
+                        items:[
                         revenueTable]
-                    });                    
+                    });
                     me.add(revenue_panel);
                 }
                 
@@ -868,7 +744,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     me.add(regie_panel);
                 }
                 if (json.taxation.length > 0) {
-                   
+                    
                     var taxTable = new TheaterTool.view.tabPanel.TaxationTable({
                         taxList: json.taxation, dbkey: me.workID
                         //title: '<b style="color:gray;">Regiebücher</b>'
@@ -883,15 +759,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     me.add(tax_panel);
                 }
-                if (json.dayReport.length > 0) {                  
+                if (json.dayReport.length > 0) {
                     var dayReportTable = new TheaterTool.view.tabPanel.DayReportTable({
                         dayReportList: json.dayReport, dbkey: me.workID
-                    });                    
-                    var dayReport_panel = Ext.create('Ext.panel.Panel', {                       
-                        border: false,                        
-                        items:[                        
+                    });
+                    var dayReport_panel = Ext.create('Ext.panel.Panel', {
+                        border: false,
+                        items:[
                         dayReportTable]
-                    });                    
+                    });
                     me.add(dayReport_panel);
                 }
                 

@@ -9,8 +9,13 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
    
     collapsible: false,
     region: 'center',
-    
+    cls: 'navigationTabPanel',
+    bodyCls: 'navigationTabPanelBody',
     flex: 1,
+    border:false,
+    style: {       
+        borderLeft: '1px solid lightgray'
+    },
    
     initComponent: function () {
         

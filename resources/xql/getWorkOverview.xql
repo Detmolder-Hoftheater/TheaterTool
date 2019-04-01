@@ -339,26 +339,16 @@ declare function local:jsonifyScheduleReferences($workID) {
     let $rolepath_1 := 'xmldb:exist:///apps/theater-data/ausgaben/'
     let $rolepath_2 := 'xmldb:exist:///apps/theater-data/spielplaene/'
     
-    let $rolefiles := collection($rolepath)
-    let $rolefile := if ($rolefiles/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
-    ) then
-        ($rolefiles/tei:TEI)
-    else
-        ()
+    let $rolefiles := collection($rolepath)  
+    let $rolefile := $rolefiles//tei:TEI//tei:term['Spielplan']
+    let $nameList := $rolefile/root()//tei:rs[@key = $workID]
     
     let $rolefiles_1 := collection($rolepath_1)
-    let $rolefile_1 := if ($rolefiles_1/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
-    ) then
-        ($rolefiles_1/tei:TEI)
-    else
-        ()
+    let $rolefile_1 := $rolefiles_1//tei:TEI//tei:term['Spielplan']
+    let $nameList_1 := $rolefile_1/root()//tei:rs[@key = $workID]
     
     let $rolefiles_2 := collection($rolepath_2)
-    let $rolefile_2 := $rolefiles_2/tei:TEI
-    
-    let $nameList := $rolefile//tei:rs[@key = $workID]
-    let $nameList_1 := $rolefile_1//tei:rs[@key = $workID]
-    let $nameList_2 := $rolefile_2//tei:rs[@key = $workID]
+    let $nameList_2 := $rolefiles_2//tei:TEI//tei:rs[@key = $workID]
     
     let $names := local:jsonifyScheduleRefNames($nameList, $nameList_1, $nameList_2)
     
@@ -369,39 +359,23 @@ declare function local:jsonifyScheduleReferences($workID) {
             )
         else
             ()
-            (:$rolefiles//tei:TEI:)
-            (:if($rolefiles//tei:TEI//tei:rs[@key=$workID])then($rolefiles//tei:TEI)else():)
-            (:let $rolefileTest := if($rolefile[@key=$workID != ''])then($rolefile)else():)
-            (:let $refData := local:jsonifyRefDataRoles($rolefile):)
             
-            (:let $strings := for $elem in $rolefile
-		let $names := if($elem//tei:TEI//tei:rs[@key=$workID])then($elem//tei:titleStmt/tei:title/tei:date)else()
-		(\:let $dates := if($names != '')then(tokenize($names, " "))else()
-		let $datum := if($dates != '')then($dates[0])else()
-		let $jahr := if($dates != '')then($dates[1])else():\)
- return 
-    if($names != '')then(                     
-concat('"',$names, '"')
-    )else()
-    return 
-        string-join($strings,','):)
-
-
 };
 
 declare function local:jsonifyScheduleRefNames($nameList, $nameList_1, $nameList_2) {
     
     let $strings := for $elem in ($nameList, $nameList_1, $nameList_2)
     let $titleName := $elem/root()//tei:titleStmt/tei:title
-    let $volldate := $elem/root()//tei:titleStmt/tei:title/tei:date[1]/@when
+    (:let $volldate := $elem/root()//tei:titleStmt/tei:title/tei:date[1]/@when:)
+    let $volldate := document-uri($elem/root())
     
-    let $dateSplit := tokenize($volldate, '-')
-    let $names := concat($titleName, ': ', normalize-space(replace($elem, '"', '\\"')))
+    let $dateSplit := tokenize($volldate, '/')
+    let $names := concat(normalize-space($titleName), ': ', normalize-space(replace($elem, '"', '\\"')))
     
     return
         if ($names != '') then
             (
-            concat('["', $names, '", "', $dateSplit[1], '"]')
+            concat('["', $names, '", "', $dateSplit[6], '"]')
             )
         else
             ()

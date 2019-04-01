@@ -16,10 +16,17 @@ sourceID: null,
         align: 'stretch'
     },
     autoScroll: true,
-    border: true,
+    border: false,
     //bodyPadding: 10,
     flex: 1,
     sourceID: null,
+     header:{
+   style: {
+      backgroundColor:'#FFFFFF',
+      backgroundImage:'none'
+     // borderBottom: '5px solid #F2EEE1'
+   }
+},
 	/*extend: 'Ext.tab.Panel',
 
 //autoScroll: true,

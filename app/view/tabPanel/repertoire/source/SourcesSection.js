@@ -14,8 +14,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         align: 'stretch'
     },
     autoScroll: true,
-    border: true,
-    bodyPadding: 15,
+    border: false,
+    bodyBorder: false,
+   // bodyPadding: 15,
     flex: 1,
     
     sourceID: null,
@@ -69,8 +70,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 
                 me.source_group = Ext.create('Ext.panel.Panel', {
                     flex: 2.5,
-                    border: true,
-                    bodyPadding: 15,
+                    border: false,
+                    bodyPadding: 10,
                     autoScroll: true,
                     items:[]
                 });

@@ -8,16 +8,20 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitDetailsSection'
     //collapsed: false,
    
    // title: '<b style="color:gray;">Übersicht</b>',
-border: true,
+border: false,
 	flex:1,
-bodyBorder: true,
-bodyPadding:10,
+bodyBorder: false,
+style: {
+      
+     borderLeft: '25px solid white'
+   },
+//bodyPadding:25,
 autoScroll: true,
     repertoireTab:null,
 
 	sourceID: null,
 	
-	bodyStyle:{"background-color":"CCCCCC"},
+	bodyStyle:{"background-color":"white"},
 	
 	in_panel: null,
 	

@@ -1,39 +1,3 @@
-/**
- * Creates class TheaterTool.view.tabPanel.ControlEventsItem that extend from Ext.panel.Panel.
- * @class
- * @classdesc TheaterTool.view.tabPanel.ControlEventsItem for create hairpins-, dirs-, dynams- and slurs- items.
- */
-/*Ext.define('TheaterTool.view.tabPanel.HTTab', {
-extend: 'Ext.panel.Panel',
-
-requires:[
-'Ext.layout.container.VBox'],
-flex: 1,
-
-layout: {
-type: 'vbox',
-pack: 'start',
-align: 'stretch'
-},
-
-bodyPadding: 10,
-autoScroll: true,
-
-closable: true,
-
-repertoireNavigation: null,
-repertoireDetails: null,
-
-initComponent: function () {
-
-this.callParent();
-}
-});*/
-/**
- * Creates class TheaterTool.view.tabPanel.ControlEventsItem that extend from Ext.panel.Panel.
- * @class
- * @classdesc TheaterTool.view.tabPanel.ControlEventsItem for create hairpins-, dirs-, dynams- and slurs- items.
- */
 Ext.define('TheaterTool.view.tabPanel.HTTab', {
     extend: 'Ext.panel.Panel',
     requires:[
@@ -48,10 +12,10 @@ Ext.define('TheaterTool.view.tabPanel.HTTab', {
     },
     
     
-    bodyPadding: 10,
+    //bodyPadding: 10,
     
     border: false,
-    bodyBorder: true,
+    bodyBorder: false,
     
     closable: true,
     

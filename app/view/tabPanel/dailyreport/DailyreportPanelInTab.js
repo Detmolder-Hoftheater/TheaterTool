@@ -2,8 +2,8 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportPanelInTab', {
     extend: 'Ext.panel.Panel',
     
     flex: 1,
-    border: true,
-    bodyBorder: false,    
+    border: false,
+    //bodyBorder: false,    
     autoScroll: true,
     
     regieName: null,   
@@ -32,8 +32,9 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportPanelInTab', {
                             
                             if (me.selectedReport === singleNamePath[0]) {
                                 var detailSection = new TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection({
-                                    year: me.regieName, title: '<b style="color:#A87678;">' + singleNamePath[0] + '</b>',
-                                    reportPath: singleNamePath[1], count: me.count, dbkey: me.selectedWorkID
+                                    year: me.regieName, title: '<b style="color:gray; font-size: 12px;">' + singleNamePath[0] + '</b>',
+                                    reportPath: singleNamePath[1], count: me.count, dbkey: me.selectedWorkID,
+                                    icon: 'resources/images/news1-16.png'
                                 });
                                 me.add(detailSection);
                                 break;
@@ -45,8 +46,9 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportPanelInTab', {
                         if (json.names[i] !== undefined) {
                             var singleNamePath = json.names[i];
                             var detailSection = new TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection({
-                                year: me.regieName, title: '<b style="color:#A87678;">' + singleNamePath[0] + '</b>',
-                                reportPath: singleNamePath[1], count: me.count, dbkey: me.selectedWorkID
+                                year: me.regieName, title: '<b style="color:gray; font-size: 12px;">' + singleNamePath[0] + '</b>',
+                                reportPath: singleNamePath[1], count: me.count, dbkey: me.selectedWorkID,
+                                icon: 'resources/images/news1-16.png'
                             });
                             me.add(detailSection);
                         }

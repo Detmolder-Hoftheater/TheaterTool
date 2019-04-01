@@ -9,8 +9,16 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
     requires:[ 'TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile'],
     
     flex: 1,
-    border: true,
+    border: false,
     bodyBorder: false,
+    
+     header:{
+   style: {
+      backgroundColor:'#FFFFFF',
+      backgroundImage:'none'
+     // borderBottom: '5px solid #F2EEE1'
+   }
+},
     
     //autoScroll: true,
     
@@ -52,50 +60,62 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         } else if (me.selectedWork === 'H020076') {
             selFolder = 'unbekannte';
         }
+        
         var folderForEO = selFolder + '/';
         
-        if(me.selectedWork === 'H020076'){
+        /*if (me.selectedWork === 'H020076') {
             me.tbar = {
-            style: {
-                background: '#dcdcdc'
-            },
-            border: false,
-            fixed: true,
-            height: 25,
-            items:[ {
-                xtype: 'component',
-                margin: '0 0 0 13',
-                autoEl: {
-                    tag: 'a',
-                    href: 'http://nashira.upb.de:7107/exist/apps/EdiromOnline/',
-                    html: 'Zur Erschließung mit Edirom Online',
-                    target: "_blank"
-                }
-            }]
-        };
+                style: {
+                    background: '#dcdcdc'
+                },
+                border: false,
+                fixed: true,
+                height: 25,
+                items:[ {
+                    xtype: 'component',
+                    margin: '0 0 0 13',
+                    autoEl: {
+                        tag: 'a',
+                        href: 'http://nashira.upb.de:7107/exist/apps/EdiromOnline/',
+                        html: 'Zur Erschließung mit Edirom Online',
+                        target: "_blank"
+                    }
+                }]
+            };
+        } else {*/
+        if(me.selectedWork === 'H020166' || me.selectedWork === 'H020224' || me.selectedWork === 'H021013'){
+            me.tbar = {
+                style: {
+                    background: 'white'
+                },
+                border: false,
+                fixed: true,
+                height: 30,
+                html: '<i>Die Faksimiles werden noch nicht angezeigt. Die Seite ist noch in Bearbeitung.</i>',
+                style: 'display:block; padding:5px 0px 5px 10px; background: white;'
+            };
         }
         else{
             me.tbar = {
-            style: {
-                background: '#dcdcdc'
-            },
-            border: false,
-            fixed: true,
-            height: 25,
-            items:[ {
-                xtype: 'component',
-                margin: '0 0 0 13',
-                autoEl: {
-                    tag: 'a',
-                    href: 'http://hoftheater-detmold.de/' + folderForEO,
-                    html: 'Zur Erschließung mit Edirom Online',
-                    target: "_blank"
-                }
-            }]
-        };
-            
-            
-        }
+                style: {
+                    background: 'white'
+                },
+                border: false,
+                fixed: true,
+                height: 25,
+                items:[ {
+                    xtype: 'component',
+                    margin: '0 0 0 13',
+                    autoEl: {
+                        tag: 'a',
+                        href: 'https://edirom.hoftheater-detmold.de/' + folderForEO,
+                        html: 'Zur Erschließung mit Edirom Online',
+                        target: "_blank"
+                    }
+                }]
+            };
+            }
+        //}
         
         
         

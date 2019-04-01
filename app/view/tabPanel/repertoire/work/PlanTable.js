@@ -14,7 +14,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
     sortableColumns: false,
     collapsible: true,
     collapsed: true,
-    title: '<b style="color:gray; font-size: 12px;">Spielpläne</b>',
+    title: '<b style="color:gray; font-size: 12px;">Spielpläne (Generiert aus Einnahmen, Ausgaben und Rollen- und Kostümbüchern))</b>',
     icon: 'resources/images/Calendar-17.png',
     margin: '0 0 10 0',
     hideHeaders: true,
@@ -92,6 +92,19 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
         
         this.detailsColumn];
         
+        this.listeners = { afterrender: function (panel) {
+                    //console.log(panel.header.el);
+                    panel.header.el.on('click', function () {
+                        // panel.header.el.on('click', function () {
+                        if (panel.collapsed) {
+                            panel.expand();
+                        } else {
+                            panel.collapse();
+                        }
+                    });
+                }
+            };
+        
         this.callParent();
     },
     
@@ -124,7 +137,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
                     icon: 'resources/images/Calendar-17.png'
                 });
-                
+                console.log(selectedJahr);
                 var personDetails = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab({
                     year: selectedJahr, monat: selectedJahr, selectedWorkID: me.selectedWorkID, count: countFoSelection, selectedReport: roleName
                 });

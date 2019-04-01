@@ -11,6 +11,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
     flex: 1,
     border: false,
     //bodyPadding:15,
+    header:{
+   style: {
+      backgroundColor:'#FFFFFF',
+      backgroundImage:'none'
+     // borderBottom: '5px solid #F2EEE1'
+   }
+},
     
     personSection: null,
     detailSection: null,
@@ -27,26 +34,31 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
         
         var me = this;
         
-        me.tbar = {
-        style: {
-        background: '#dcdcdc'
-        },
-       border: false,
-        height: 30,
-        items:[{xtype: 'button',
-        		text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
-        		style: {
-					borderRight: '1px solid gray',
-					borderLeft: '1px solid gray',
-					 borderTop: '1px solid gray',
-					 borderBottom: '1px solid gray'
-				},
-        		margin: '0 3 0 5',
-        		listeners: {
-					click: function (item, e, eOpts) {
-					
-					
-                Ext.Ajax.request({
+        
+        me.detailSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitDetailsSection({
+            sourceID: me.sourceID, in_panel: me
+        });
+       
+      
+        me.items =[        
+            me.detailSection
+           // me.detailSection_xml
+        ]
+        
+      me.listeners = {
+           
+       afterrender: function (panel) {
+                
+                this.header.insert(1, {
+                xtype: 'button',
+                text: '<font size="1" face="Tahoma" style="color:#909090;">XML ansehen</font>',
+                style: 'background:white;',
+                
+                margin: '0 3 0 5',
+                listeners: {
+                    click: function (item, e, eOpts) {
+                        
+                        Ext.Ajax.request({
                     // url: 'data/Output_Exist.xql',
                     url: 'resources/xql/getIncipitsXML.xql',
                     method: 'GET',
@@ -78,23 +90,20 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
                     }
                 });
 				
-					   
-					}
 				}
-        		},
-        		{xtype: 'button',
-        		text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
-        		//disabled: true,
-        		style: {
-					borderRight: '1px solid gray',
-					borderLeft: '1px solid gray',
-					 borderTop: '1px solid gray',
-					 borderBottom: '1px solid gray'
-				},
-				listeners: {
-					click: function (item, e, eOpts) {
-					
-                Ext.Ajax.request({
+                }
+            });
+               
+                this.header.insert(2, {
+                xtype: 'button',
+                /*text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',*/
+                text: '<font size="1" face="Tahoma" style="color:#909090;">XML laden</font>',
+                style: 'background:white;',
+                
+                listeners: {
+                    click: function (item, e, eOpts) {
+                        
+                        Ext.Ajax.request({
                   
                     url:'resources/xql/getIncipitsXML.xql',
                     method: 'GET',
@@ -127,39 +136,16 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel', {
                     }
                 });
 				
-					   
-					}
+					
 				}
-        		}
-        		]
-        };
-        
-        me.detailSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitDetailsSection({
-            sourceID: me.sourceID, in_panel: me
-        });
-       
-       /* me.detailSection_xml = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitDetailsSectionXML({
-            sourceID: me.sourceID
-        });*/
-        
-        me.items =[        
-            me.detailSection
-           // me.detailSection_xml
-        ]
-        
-       /* me.listeners = {
-            render: function () {
-                //if (Ext.browser.is('Firefox')) {
-                me.items.each(function (itm, idx) {
-                    itm.tab.on('focus', function (tab) {
-                        var tabpanel = tab.up('tabpanel');
-                        tabpanel.setActiveTab(idx);
-                    });
-                });
-                //}
+                }
+            });
+               
+               
             }
-        }*/
-        
+       
+        }
+       
         me.callParent();
     },
     

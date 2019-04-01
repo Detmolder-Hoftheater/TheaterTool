@@ -7,11 +7,11 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolesNavigationTree', {
     flex: 3.3,
     region: 'east',
     //title: '<b style="color:gray;">Personen</b>',
-    icon: 'resources/images/theatreB.png',
+    //icon: 'resources/images/theatreB.png',
     collapsible: true,
-    //header: false,
-    sortableColumns: false,
-    rowLines: true,
+    header: false,
+    //sortableColumns: false,
+    rowLines: false,
     columnLines: true,
     
     repertoirePanel: null,
@@ -33,18 +33,18 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolesNavigationTree', {
         for (i = 0; i < me.persons_list.length; i++) {
             var person_details = me.persons_list[i];
             var typeValue = '';
-            if (person_details[3] === 'reg') {
+            if (person_details[2] === 'reg') {
                 typeValue = 'regulär';
-            } else if (person_details[3] === 'alt') {
+            } else if (person_details[2] === 'alt') {
                 typeValue = 'alternativ';
-            } else if (person_details[3] === 'full') {
+            } else if (person_details[2] === 'full') {
                 typeValue = 'vollständig';
-            } else if (person_details[3] === 'pseud') {
+            } else if (person_details[2] === 'pseud') {
                 typeValue = 'pseudonym';
             }
             
             var person = Ext.create('TheaterTool.model.Person', {
-                'name': person_details[0] + ', ' + person_details[2],
+                'name': person_details[0],
                 'persId': person_details[1],
                 //'forename': person_details[2],
                 'type': typeValue,
@@ -57,15 +57,29 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolesNavigationTree', {
         
         
         me.columns =[ {
-            text: 'Name Variante/Pseudonym',
+            
+            header: '<font style="color:#585858;">Name Variante/Pseudonym</font>',
             flex: 2,
             menuDisabled: true,
-            dataIndex: 'name'
+            dataIndex: 'name',
+            style: {
+         paddingLeft: 6,
+         paddingTop: 6,
+         paddingRight: 6,
+         paddingBottom: 6
+    }
         }, {
-            text: 'Name Variante',
+           
+            header: '<font style="color:#585858;">Name Variante</font>',
             flex: 1.3,
             menuDisabled: true,
-            dataIndex: 'type'
+            dataIndex: 'type',
+            style: {
+         paddingLeft: 6,
+         paddingTop: 6,
+         paddingRight: 6,
+         paddingBottom: 6
+    }
         }]
         
         
@@ -74,7 +88,7 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolesNavigationTree', {
             selectionchange: function (selected, eOpts) {
                 me.repertoirePanel.removeAll(true);
                 me.workPanel = new TheaterTool.view.tabPanel.roles.RolePanelInTab({
-                    dbkey: eOpts[0].data.persId, icon: 'resources/images/theatreB.png', title: '<font size="2" face="Arial" style="color:#A87678;">Rolle: ' + eOpts[0].data.name + '</font>'
+                    dbkey: eOpts[0].data.persId, icon: 'resources/images/theatreB.png', title: '<font size="2" face="Tahoma" style="color:#909090;">Rolle: ' + eOpts[0].data.name + '</font>'
                 });
                 me.repertoirePanel.add(me.workPanel);
                 //me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name +'</b>');

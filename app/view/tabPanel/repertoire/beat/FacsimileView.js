@@ -18,7 +18,7 @@ layout: {
 		
 	//bodyPadding: 1,
 	
-border: true,
+border: false,
 
 /*border: true,
 	flex:1,

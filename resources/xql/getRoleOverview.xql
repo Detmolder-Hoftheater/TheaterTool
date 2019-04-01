@@ -172,7 +172,13 @@ declare function local:roleActor($node as element(tei:actor)) as element() {
 (
 $html,
 if($htmlPerson != '')then(
-(<font size = "1"><b style="color:gray;">Personen (generiert aus den Quellenmaterialien): </b></font>),
+(<hr size="1"color="#909090"></hr>),
+(<b style="color:gray; font-size: 12px;">Referenzen in Spielbetrieb und Verwaltung</b>),
+(<br></br>),
+(:(<img src="resources/images/Mask-19.png"align="middle"/>),:)
+(<br></br>),
+(<b style="color:gray; font-size: 12px;">Personen (generiert aus den Quellenmaterialien)</b>),
+(<br></br>),
 $htmlPerson)else()
   
         (:local:getPersons($allSourceFiles):)

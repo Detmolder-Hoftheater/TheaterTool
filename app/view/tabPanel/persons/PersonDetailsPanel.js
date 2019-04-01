@@ -32,12 +32,12 @@ border: false,
 	
 	bodyBorder: false,
     border: false,
-    style: {
+    /*style: {
         borderRight: '7px solid white',
         borderLeft: '7px solid white',
         borderTop: '7px solid white',
         borderBottom: '7px solid white'
-    },
+    },*/
     
     defaults: {
         autoScroll: true,

@@ -11,8 +11,9 @@ layout: {
 		pack: 'start',
 		align: 'stretch'
 	},
+	
 	autoScroll: true,
-	border: true,
+	border: false,
 bodyPadding:10,
 flex:1,
 

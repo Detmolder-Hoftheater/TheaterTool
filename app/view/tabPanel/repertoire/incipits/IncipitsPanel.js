@@ -43,7 +43,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
     border: false,*/
     
     bodyStyle: {
-        "background-color": "CCCCCC"
+        "background-color": "white"
     },
     
     sourceID: null,
@@ -116,7 +116,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                             titlename: meiElements[0].getAttribute('label'),
                             width: 200,
                             //height: 400,
-                            x: xPosition, y: 50,
+                            x: xPosition, y: 25,
                             /*items:[ {
                             
                             xtype: 'label',
@@ -140,6 +140,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                                             var titlename = oneItem.titlename;
                                             if(titlename === one_value){
                                                 oneItem.setDisabled(false);
+                                                me.in_panel.setTitleParameter(titlename);
                                             }
                                             else{
                                                 oneItem.setDisabled(true);
@@ -166,11 +167,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                             
                             xtype: 'label',
                             html: '<b style="color:gray;">' + meiElements[0].getAttribute('label') + '</b>'
+                            
                             //margin: '15 15 15 15'
                         });
                         //me.in_panel.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + meiElements[0].getAttribute('label') + '</b>');
-                        me.in_panel.setTitle(meiElements[0].getAttribute('label'));
+                        //me.in_panel.setTitle(meiElements[0].getAttribute('label'));
                         me.in_panel.setTitleParameter(meiElements[0].getAttribute('label'));
+                        
                         //reverseitemObjs[splittest.length -1 - i] = incipitSection;
                     }
                     

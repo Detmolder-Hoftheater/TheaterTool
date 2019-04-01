@@ -30,109 +30,6 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
     
     initComponent: function () {
         var me = this;
-        me.tbar = {
-            style: {
-                background: '#dcdcdc'
-            },
-            border: false,
-            height: 30,
-            items:[ {
-                xtype: 'button',
-                text: '<font size = "1"><b style="color:gray;">XML ansehen</b></font>',
-                style: {
-                    borderRight: '1px solid gray',
-                    borderLeft: '1px solid gray',
-                    borderTop: '1px solid gray',
-                    borderBottom: '1px solid gray'
-                },
-                margin: '0 3 0 5',
-                listeners: {
-                    click: function (item, e, eOpts) {
-                        
-                        Ext.Ajax.request({
-                            
-                            url: 'resources/xql/getPersonXML.xql',
-                            method: 'GET',
-                            params: {
-                                dbkey: me.dbkey
-                            },
-                            success: function (response) {
-                                var testText = response.responseXML;
-                                console.log(testText);
-                                var tempDiv = document.createElementNS('http://www.tei-c.org/ns/1.0l', 'div');
-                                var personArr = testText.getElementsByTagName('person');
-                                tempDiv.appendChild(personArr[0]);
-                                
-                                var tmp = hljs.highlightAuto($(tempDiv).html()).value;
-                                var htmlVersion = '<pre>' + tmp + '</<pre>';
-                                
-                                var win = new Ext.window.Window({
-                                    title: '<font style="color:gray;">XML for ' + me.personName + '</font>',
-                                    html: htmlVersion,
-                                    icon: me.personIcon,
-                                    bodyStyle: {
-                                        "background-color": "white"
-                                    },
-                                    height: 600,
-                                    width: 800,
-                                    autoScroll: true,
-                                    bodyPadding: 10
-                                });
-                                win.show();
-                            }
-                        });
-                    }
-                }
-            }, {
-                xtype: 'button',
-                text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
-                //disabled: true,
-                style: {
-                    borderRight: '1px solid gray',
-                    borderLeft: '1px solid gray',
-                    borderTop: '1px solid gray',
-                    borderBottom: '1px solid gray'
-                },
-                listeners: {
-                    click: function (item, e, eOpts) {
-                        
-                        Ext.Ajax.request({
-                            
-                            url: 'resources/xql/getPersonXML.xql',
-                            method: 'GET',
-                            params: {
-                                dbkey: me.dbkey
-                            },
-                            success: function (response) {
-                                var xmltext = response.responseText;
-                                
-                                var pom = document.createElement('a');
-                                
-                                var filename = me.dbkey + ".xml";
-                                var pom = document.createElement('a');
-                                var bb = new Blob([xmltext], {
-                                    type: 'text/plain'
-                                });
-                                
-                                pom.setAttribute('href', window.URL.createObjectURL(bb));
-                                pom.setAttribute('download', filename);
-                                
-                                pom.dataset.downloadurl =[ 'text/plain', pom.download, pom.href].join(':');
-                                pom.draggable = true;
-                                pom.classList.add('dragout');
-                                
-                                //apply the click on to download the file
-                                document.body.appendChild(pom);
-                                pom.click();
-                                document.body.removeChild(pom);
-                            }
-                        });
-                    }
-                }
-            }]
-        };
-        
-        
         
         me.callParent();
     },
@@ -586,16 +483,15 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                             occType = occupationBlock[1]
                         }
                     } else {
-                        occType = occupationBlock[1];
+                        
                     }
                     
                     var occContent = '';
-                    if (occType !== '' && occValue !== '') {
-                        occContent = occType + ': ' + occValue;
-                    } else if (occType !== '' && occValue === '') {
-                        occContent = occType;
-                    } else if (occType === '' && occValue !== '') {
+                    if(occValue !== ''){
                         occContent = occValue;
+                    }
+                    else{
+                        occContent = occType;
                     }
                     
                     occupationPanel.add({
@@ -725,7 +621,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     {
                         
                         xtype: 'label',
-                        html: '<b style="color:gray; font-size: 12px;"> Spielbetrieb und </b><b style="color:gray; font-size: 12px;"> Verwaltung</b>',
+                        html: '<b style="color:gray; font-size: 12px;">Referenzen in Spielbetrieb und Verwaltung</b>',
                         margin: '5 0 10 0'
                     });
                 }

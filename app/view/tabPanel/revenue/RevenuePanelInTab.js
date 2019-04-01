@@ -2,7 +2,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
     extend: 'Ext.panel.Panel',
  
     flex: 1,
-    border: true,
+    border: false,
     bodyBorder: false,
     
     autoScroll: true,
@@ -67,8 +67,9 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
                         var title = json.names[i][1];
                         if (me.selectedReport === title) {
                             var detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({
-                                month: nameMonth, year: me.year, value: 2, title: '<b style="color:#A87678;">' + nameMonth + '</b>', /*selectedMonth: me.monat,*/
-                                selectedWorkID: me.selectedWorkID, messageWindow: messageWindow, rev_index: i, rev_length: i, count: me.count, selectedReport: me.selectedReport, parentPanel: me
+                                month: nameMonth, year: me.year, value: 2, title: '<b style="color:gray; font-size: 12px;">' + nameMonth + '</b>', /*selectedMonth: me.monat,*/
+                                selectedWorkID: me.selectedWorkID, messageWindow: messageWindow, rev_index: i, rev_length: i, count: me.count, selectedReport: me.selectedReport, parentPanel: me,
+                                icon: 'resources/images/MoneyBox-17.png'
                             });
                             me.add(detailSection);
                             break;
@@ -81,8 +82,9 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
                     var nameMonth = json.names[i][0];                   
                     
                         var detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({
-                            month: nameMonth, year: me.year, value: 2, title: '<b style="color:#A87678;">' + nameMonth + '</b>', /*selectedMonth: me.monat,*/
-                            selectedWorkID: me.selectedWorkID, messageWindow: messageWindow, rev_index: i, rev_length: json.names.length -1, count: me.count, selectedReport: me.selectedReport, parentPanel: me
+                            month: nameMonth, year: me.year, value: 2, title: '<b style="color:gray; font-size: 12px;">' + nameMonth + '</b>', /*selectedMonth: me.monat,*/
+                            selectedWorkID: me.selectedWorkID, messageWindow: messageWindow, rev_index: i, rev_length: json.names.length -1, count: me.count, selectedReport: me.selectedReport, parentPanel: me,
+                            icon: 'resources/images/MoneyBox-17.png'
                         });
                         me.add(detailSection);
                    

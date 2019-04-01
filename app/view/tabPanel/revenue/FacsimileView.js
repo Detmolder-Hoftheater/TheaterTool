@@ -11,7 +11,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.FacsimileView', {
         align: 'stretch'
     },
     
-    border: true,
+    border: false,
     
     pageSpinner: null,
     

@@ -26,14 +26,13 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
     
     initComponent: function () {
         
-        var labelPanel  = Ext.create('Ext.panel.Panel', {
-                        border: false,
-                        region: 'north',
-                        height: 33,
-                        style: 'display:block; background-color:white; padding:8px 0px 5px 17px',
-                        html: '<font style="color:gray; font-size: 14px;">Detmolder Hoftheater (1825-1875)</font>'
-                        
-                    });
+        var labelPanel = Ext.create('Ext.panel.Panel', {
+            border: false,
+            region: 'north',
+            height: 33,
+            style: 'display:block; background-color:white; padding:8px 0px 5px 17px',
+            html: '<font style="color:gray; font-size: 14px;">Detmolder Hoftheater (1825-1875)</font>'
+        });
         
         
         this.htTabView = new TheaterTool.view.tabPanel.HTTabPanel();

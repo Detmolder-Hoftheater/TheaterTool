@@ -2,7 +2,7 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssuePanelInTab', {
     extend: 'Ext.panel.Panel',
     
     flex: 1,
-    border: true,
+    border: false,
     bodyBorder: false,
     autoScroll: true,
     
@@ -32,8 +32,9 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssuePanelInTab', {
                         var nameMonth = json.names[i];//[0];
                         if (me.selectedReport === nameMonth) {
                             var detailSection = new TheaterTool.view.tabPanel.issue.IssueTextSection({
-                                issueName: nameMonth, year: me.year, title: '<b style="color:#A87678;">' + nameMonth + '</b>', selectedIssueName: me.issueName, count: me.count,
-                                selectedWorkID: me.selectedWorkID, rev_index: i, rev_length: i, messageWindow: messageWindow, parentPanel: me
+                                issueName: nameMonth, year: me.year, title: '<b style="color:gray; font-size: 12px;">' + nameMonth + '</b>', selectedIssueName: me.issueName, count: me.count,
+                                selectedWorkID: me.selectedWorkID, rev_index: i, rev_length: i, messageWindow: messageWindow, parentPanel: me,
+                                icon: 'resources/images/MoneyTransfer-17.png'
                             });
                             me.add(detailSection);
                             break;
@@ -43,8 +44,9 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssuePanelInTab', {
                     for (i = 0; i < json.names.length; i++) {
                         var nameMonth = json.names[i];//[0];
                         var detailSection = new TheaterTool.view.tabPanel.issue.IssueTextSection({
-                            issueName: nameMonth, year: me.year, title: '<b style="color:#A87678;">' + nameMonth + '</b>', selectedIssueName: me.issueName, count: me.count,
-                            selectedWorkID: me.selectedWorkID, rev_index: i, rev_length: json.names.length -1, messageWindow: messageWindow, parentPanel: me
+                            issueName: nameMonth, year: me.year, title: '<b style="color:gray; font-size: 12px;">' + nameMonth + '</b>', selectedIssueName: me.issueName, count: me.count,
+                            selectedWorkID: me.selectedWorkID, rev_index: i, rev_length: json.names.length -1, messageWindow: messageWindow, parentPanel: me,
+                            icon: 'resources/images/MoneyTransfer-17.png'
                         });
                         me.add(detailSection);
                     }

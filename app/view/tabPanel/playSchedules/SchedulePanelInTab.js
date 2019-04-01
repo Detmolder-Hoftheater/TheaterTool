@@ -2,7 +2,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
     extend: 'Ext.panel.Panel',
     
     flex: 1,
-    border: true,
+    border: false,
     bodyBorder: false,
     
     autoScroll: true,
@@ -16,8 +16,30 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
     selectedReport: null,
     count: null,
     
+    
+    
     initComponent: function () {
         var me = this;
+        
+         me.tbar = {
+            style: {
+                background: 'white'
+            },
+            border: false,
+            
+            //height: 30,
+            items:[ {
+                style: {
+                    background: 'white'
+                },
+                border: false,
+                fixed: true,
+                //height: 30,
+                html: '<font size="2" face="Tahoma" style="color:#909090;">Die Spielpläne wurden aus Einnahmen, Ausgaben, Rollen- und Kostümbüchern generiert</font>',
+                style: 'display:block; padding:5px 0px 5px 10px; background: white;'
+            }
+                ]
+        };
         
         Ext.Ajax.request({
             url: 'resources/xql/getMonthsForSelectedYear.xql',
@@ -59,33 +81,48 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
                     }
                 }
                 
+                /*me.add({
+                style: {
+                    background: 'white'
+                },
+                border: false,
+                fixed: true,
+                height: 30,
+                html: '<font size="2" face="Tahoma" style="color:#909090;">Die Spielpläne wurden aus Einnahmen, Ausgaben, Rollen- und Kostümbüchern generiert</font>',
+                style: 'display:block; padding:5px 0px 0px 10px; background: white;'
+            });*/
+            
+           
+        
+        
+                
                 for (i = 0; i < json.names.length; i++) {
                     
                     var nameMonth = json.names[i];
-                    
+                    console.log(me.selectedReport);
                     if (me.selectedReport !== null) {
                         var title = json.names[i];//[1];
                         if (me.selectedReport === title) {
                             
                             var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-                                issueName: title, year: me.year, value: 2, title: '<b style="color:#A87678;">' + title + '</b>', selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
-                                selectedWorkID: me.selectedWorkID, selectedMonth: me.issueName, month: nameMonth
+                                issueName: title, year: me.year, value: 2, title: '<b style="color:gray; font-size: 12px;">' + title + '</b>', selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
+                                selectedWorkID: me.selectedWorkID, selectedMonth: me.issueName, month: nameMonth, icon: 'resources/images/Calendar-17.png'
                             });
                             me.add(detailSection);
                             break;
                         }
                     } else {
                         var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-                            month: nameMonth, year: me.year, value: 2, title: '<b style="color:#A87678;">' + nameMonth + '</b>', selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
-                            selectedWorkID: me.selectedWorkID, selectedMonth: nameMonth, issueName: nameMonth, month: nameMonth, parentPanel: me
+                            month: nameMonth, year: me.year, value: 2, title: '<b style="color:gray; font-size: 12px;">' + nameMonth + '</b>', selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
+                            selectedWorkID: me.selectedWorkID, selectedMonth: nameMonth, issueName: nameMonth, month: nameMonth, parentPanel: me, icon: 'resources/images/Calendar-17.png'
                         });
                         me.add(detailSection);
                     }
                 }
                 if (parseInt(me.year) < 1825) {
                     var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-                        month: title, year: me.year, value: 2, title: '<b style="color:#A87678;">' + me.year + '</b>', selectedMonth: title, selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
-                        selectedWorkID: me.selectedWorkID
+                        month: title, year: me.year, value: 2, title: '<b style="color:gray; font-size: 12px;">' + me.year + '</b>', selectedMonth: title, selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
+                        selectedWorkID: me.selectedWorkID, icon: 'resources/images/Calendar-17.png'
                     });
                     me.add(detailSection);
                     /* var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({

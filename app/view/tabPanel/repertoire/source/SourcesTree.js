@@ -20,9 +20,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
     //title: 'Core Team Projects',
     flex: 1.3,
     style: {
-        borderRight: '5px solid #f4f4f4'
+        borderRight: '2px solid lightgray'
     },
-    border: true,
+    
+    border: false,
     autoScroll: true,
     height: 100,
     useArrows: true,
@@ -37,6 +38,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
     selected_node: null,
     source_list: null,
     tablePanel: null,
+    
+    header: false,
     
     initComponent: function () {
         var me = this;
@@ -141,16 +144,32 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
         }
         me.columns =[ {
             xtype: 'treecolumn', //this is so we know which column will show the tree
-            text: 'Titel',
-            flex: 2,
+           // text: 'Titel',
+            header: '<font style="color:#585858;">Titel</font>',
+            flex: 2.5,
+            
             menuDisabled: true,
-            dataIndex: 'titel'
+            dataIndex: 'titel',
+            style: {
+         paddingLeft: 1,
+         paddingTop: 1,
+         paddingRight: 1,
+         paddingBottom: 1
+         
+    }
         },
         {
-            text: 'Signatur',
+            //text: 'Signatur',
+            header: '<font style="color:#585858;">Signatur</font>',
             flex: 1.7,
             menuDisabled: true,
-            dataIndex: 'signatur'
+            dataIndex: 'signatur',
+            style: {
+         paddingLeft: 1,
+         paddingTop: 1,
+         paddingRight: 1,
+         paddingBottom: 1
+    }
         }
         /*,{
         text: 'Inventarnummer',

@@ -37,7 +37,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
         
         me.tbar = {
             style: {
-                background: '#dcdcdc'
+                background: 'white'
             },
             border: false,
             height: 30,
@@ -211,6 +211,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
                         pack: 'start',
                         align: 'stretch'
                     },
+                    border: false,
                     items:[ {
                         html: json
                     }],
@@ -348,7 +349,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
                             icon: 'resources/images/Mask-19.png'
                         });
                         var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                            dbkey: personId, title: '<font size="2" face="Arial" style="color:#A87678;">Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
+                            dbkey: personId, title: '<font style="color:gray;"">Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
                         });
                         //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                         repertoireTab.add(personDetails);
@@ -363,6 +364,20 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
                 }
             }
         });
+        
+         me.listeners = { afterrender: function (panel) {
+                    //console.log(panel.header.el);
+                    panel.header.el.on('click', function () {
+                        // panel.header.el.on('click', function () {
+                        if (panel.collapsed) {
+                            panel.expand();
+                        } else {
+                            panel.collapse();
+                        }
+                    });
+                   
+                }
+            };
         
         me.callParent();
     }
