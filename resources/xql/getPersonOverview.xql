@@ -479,7 +479,7 @@ declare function local:jsonifyReportRefNames($nameList) {
     return
         if ($names != '') then
             (
-            concat('["', $names, '", "', $dateSplit[1], '"]')
+            concat('["', normalize-space($names), '", "', $dateSplit[1], '"]')
             )
         else
             ()
@@ -1032,7 +1032,7 @@ declare function local:jsonifyScheduleReferences($workID) {
     let $rolepath_1 := 'xmldb:exist:///apps/theater-data/ausgaben/'
     let $rolepath_2 := 'xmldb:exist:///apps/theater-data/spielplaene/'
     
-    let $rolefiles := collection($rolepath)  
+    let $rolefiles := collection($rolepath)
     let $rolefile := $rolefiles//tei:TEI//tei:term['Spielplan']
     let $nameList := $rolefile/root()//tei:rs[@key = $workID]
     
@@ -1048,7 +1048,7 @@ declare function local:jsonifyScheduleReferences($workID) {
     return
         if ($names != '') then
             (
-            concat('', $names, '')
+            concat('', normalize-space($names), '')
             )
         else
             ()
@@ -1062,12 +1062,12 @@ declare function local:jsonifyScheduleRefNames($nameList, $nameList_1, $nameList
     let $volldate := document-uri($elem/root())
     
     let $dateSplit := tokenize($volldate, '/')
-    let $names := concat($titleName, ': ', normalize-space($elem))
+    let $names := concat(normalize-space($titleName), ': ', normalize-space($elem))
     
     return
         if ($names != '') then
             (
-            concat('["', $names, '", "', $dateSplit[6], '"]')
+            concat('["', normalize-space($names), '", "', $dateSplit[6], '"]')
             )
         else
             ()
@@ -1133,5 +1133,4 @@ local:jsonifyFulls($content),
 '],"regs":[',
 local:jsonifyRegs($content),
 ']}'
-
 )

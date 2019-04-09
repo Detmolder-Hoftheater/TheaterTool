@@ -225,15 +225,13 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTextSection', {
                     
                     for (var i = 0; i < filteredList.length; i++) {
                         var element = filteredList[i];
-                        element.style.backgroundColor = "lightgray";                        
-                        if (elementToFocus === '' && parseInt(me.count) === parseInt(i)) {                           
+                        element.style.backgroundColor = "lightgray";
+                        if (elementToFocus === '' && parseInt(me.count) === parseInt(i)) {
                             element.style.border = "thick solid lightgray";
                             elementToFocus = element;
                             elementToFocus.scrollIntoView();
                         }
                     }
-                    
-                    
                 }
                 
                 getWorkContent = function (workId, workName) {
@@ -318,19 +316,18 @@ Ext.define('TheaterTool.view.tabPanel.issue.IssueTextSection', {
             }
         });
         
-         me.listeners = { afterrender: function (panel) {
-                    //console.log(panel.header.el);
-                    panel.header.el.on('click', function () {
-                        // panel.header.el.on('click', function () {
-                        if (panel.collapsed) {
-                            panel.expand();
-                        } else {
-                            panel.collapse();
-                        }
-                    });
-                   
-                }
-            };
+        me.listeners = { afterrender: function (panel) {
+                //console.log(panel.header.el);
+                panel.header.el.on('click', function () {
+                    // panel.header.el.on('click', function () {
+                    if (panel.collapsed) {
+                        panel.expand();
+                    } else {
+                        panel.collapse();
+                    }
+                });
+            }
+        };
         
         me.callParent();
     }

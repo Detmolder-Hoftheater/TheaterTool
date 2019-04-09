@@ -21,7 +21,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
     initComponent: function () {
         var me = this;
         
-         me.tbar = {
+        me.tbar = {
             style: {
                 background: 'white'
             },
@@ -37,10 +37,21 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
                 //height: 30,
                 html: '<font size="2" face="Tahoma" style="color:#909090;">Die Spielpläne wurden aus Einnahmen, Ausgaben, Rollen- und Kostümbüchern generiert</font>',
                 style: 'display:block; padding:5px 0px 5px 10px; background: white;'
-            }
-                ]
+            }]
         };
         
+         if (parseInt(me.year) < 1825) {
+                console.log(me.year);
+                console.log(me.selectedReport);
+                 var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+                        month: me.year, year: me.year, title: '<b style="color:gray; font-size: 12px;">' + me.year + '</b>', selectedMonth: me.year, count: me.count, selectedReport: me.selectedReport,
+                        selectedWorkID: me.selectedWorkID, icon: 'resources/images/Calendar-17.png', parentPanel: me, rev_index: 0, rev_length: 1
+                    });
+                    me.items =[detailSection];
+                  
+         }
+         else{
+         
         Ext.Ajax.request({
             url: 'resources/xql/getMonthsForSelectedYear.xql',
             method: 'GET',
@@ -51,90 +62,46 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
                 
                 var json = jQuery.parseJSON(response.responseText);
                 
-                var objs = new Array();
-                for (i = 0; i < json.names.length; i++) {
-                    var name = json.names[i];
-                    if (name === 'Januar') {
-                        objs[1] = name;
-                    } else if (name === 'Februar') {
-                        objs[2] = name;
-                    } else if (name === 'März') {
-                        objs[3] = name;
-                    } else if (name === 'April') {
-                        objs[4] = name;
-                    } else if (name === 'Mai') {
-                        objs[5] = name;
-                    } else if (name === 'Juni') {
-                        objs[6] = name;
-                    } else if (name === 'Juli') {
-                        objs[7] = name;
-                    } else if (name === 'August') {
-                        objs[8] = name;
-                    } else if (name === 'September') {
-                        objs[9] = name;
-                    } else if (name === 'Oktober') {
-                        objs[10] = name;
-                    } else if (name === 'November') {
-                        objs[11] = name;
-                    } else {
-                        objs[12] = name;
-                    }
-                }
+                var objs = json.names;
                 
-                /*me.add({
-                style: {
-                    background: 'white'
-                },
-                border: false,
-                fixed: true,
-                height: 30,
-                html: '<font size="2" face="Tahoma" style="color:#909090;">Die Spielpläne wurden aus Einnahmen, Ausgaben, Rollen- und Kostümbüchern generiert</font>',
-                style: 'display:block; padding:5px 0px 0px 10px; background: white;'
-            });*/
-            
-           
-        
-        
-                
-                for (i = 0; i < json.names.length; i++) {
-                    
-                    var nameMonth = json.names[i];
-                    console.log(me.selectedReport);
-                    if (me.selectedReport !== null) {
-                        var title = json.names[i];//[1];
-                        if (me.selectedReport === title) {
-                            
+                var months = ["01", "02", "03", "04", "05", "06","07", "08", "09", "10", "11", "12"];
+                objs.sort(function(a,b){      
+                    return months.indexOf(a[1]) - months.indexOf(b[1])
+                });
+                   // var objs = me.sortByMonth(objs_1);
+                    console.log(objs);
+                    for (i = 0; i < objs.length; i++) {
+                        var nameMonthVoll = objs[i];
+                        console.log(nameMonthVoll);
+                        var nameMonth = nameMonthVoll[0];
+                        
+                        if (me.selectedReport !== null) {
+                            //var title = json.names[i];//[1];
+                            if (me.selectedReport === nameMonth) {
+                                var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
+                                    year: me.year, title: '<b style="color:gray; font-size: 12px;">' + nameMonth + '</b>', count: me.count, selectedReport: me.selectedReport,
+                                    selectedWorkID: me.selectedWorkID, selectedMonth: me.issueName, month: nameMonth, icon: 'resources/images/Calendar-17.png', parentPanel: me
+                                });
+                                me.add(detailSection);
+                                break;
+                            }
+                        } else {
                             var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-                                issueName: title, year: me.year, value: 2, title: '<b style="color:gray; font-size: 12px;">' + title + '</b>', selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
-                                selectedWorkID: me.selectedWorkID, selectedMonth: me.issueName, month: nameMonth, icon: 'resources/images/Calendar-17.png'
+                                month: nameMonth, year: me.year, title: '<b style="color:gray; font-size: 12px;">' + nameMonth + '</b>', count: me.count,
+                                selectedWorkID: me.selectedWorkID, selectedMonth: nameMonth, parentPanel: me, rev_index: i, rev_length: objs.length -1,
+                                icon: 'resources/images/Calendar-17.png'
                             });
+                            
                             me.add(detailSection);
-                            break;
                         }
-                    } else {
-                        var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-                            month: nameMonth, year: me.year, value: 2, title: '<b style="color:gray; font-size: 12px;">' + nameMonth + '</b>', selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
-                            selectedWorkID: me.selectedWorkID, selectedMonth: nameMonth, issueName: nameMonth, month: nameMonth, parentPanel: me, icon: 'resources/images/Calendar-17.png'
-                        });
-                        me.add(detailSection);
                     }
                 }
-                if (parseInt(me.year) < 1825) {
-                    var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-                        month: title, year: me.year, value: 2, title: '<b style="color:gray; font-size: 12px;">' + me.year + '</b>', selectedMonth: title, selectedIssueName: me.issueName, count: me.count, selectedReport: me.selectedReport,
-                        selectedWorkID: me.selectedWorkID, icon: 'resources/images/Calendar-17.png'
-                    });
-                    me.add(detailSection);
-                    /* var detailSection = new TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection({
-                    month: objs[i], year: me.year, value: 2, title: '<b style="color:#A87678;">' + me.year + '</b>', selectedMonth: me.monat,
-                    selectedWorkID: me.selectedWorkID
-                    });
-                    me.add(detailSection);*/
-                }
-            }
+           // }
         });
         
-        this.callParent();
+        }
+        
+        me.callParent();
     },
     
     createButton: function (navTree) {

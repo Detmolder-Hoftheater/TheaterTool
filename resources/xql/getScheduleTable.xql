@@ -13,30 +13,29 @@ declare variable $month := request:get-parameter('month', '');
 declare variable $year := request:get-parameter('year', '');
 
 
-declare variable $rolepath :=  if ($year != '') then(concat('xmldb:exist:///apps/theater-data/einnahmen/', $year, '/'))else();
-    declare variable $rolepath_1 := if ($year != '') then(concat('xmldb:exist:///apps/theater-data/ausgaben/', $year, '/'))else();
-    declare variable $rolepath_2 := if ($year != '') then(concat('xmldb:exist:///apps/theater-data/spielplaene/', $year, '/'))else('xmldb:exist:///apps/theater-data/spielplaene/');
+declare variable $rolepath := if ($year != '') then
+    (concat('xmldb:exist:///apps/theater-data/einnahmen/', $year, '/'))
+else
+    ();
+declare variable $rolepath_1 := if ($year != '') then
+    (concat('xmldb:exist:///apps/theater-data/ausgaben/', $year, '/'))
+else
+    ();
     
-    declare variable $rolefiles := collection($rolepath);
-    declare variable $file := if ($rolefiles/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
-    ) then
-        ($rolefiles)
-    else
-        ();
-    
-    declare variable $rolefiles_1 := collection($rolepath_1);
-    declare variable $file_1 := if ($rolefiles_1/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
-    ) then
-        ($rolefiles_1)
-    else
-        ();
-    
-    declare variable $file_2 := collection($rolepath_2);
-    
+declare variable $rolepath_2 := if ($year != '') then
+    (concat('xmldb:exist:///apps/theater-data/spielplaene/', $year, '/'))
+else
+    ('xmldb:exist:///apps/theater-data/spielplaene/');
 
-declare variable $schedule := for $elem in ($file, $file_1, $file_2)
+declare variable $rolefiles := collection($rolepath);
+
+declare variable $rolefiles_1 := collection($rolepath_1);
+
+declare variable $rolefiles_2 := collection($rolepath_2);
+
+declare variable $schedule := for $elem in ($rolefiles, $rolefiles_1, $rolefiles_2)
 return
-    if ($elem/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title = $month
+    if ($elem/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title = $month 
     or $year = '1820' or $year = '1821' or $year = '1822' or $year = '1823' or $year = '1824' or $year = ''
     ) then
         ($elem)

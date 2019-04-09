@@ -101,9 +101,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                             if (regs[j] !== '') {
                                 if (regText !== '') {
                                     regText += ', ' + regs[j];
-                                    if (j === 2) {
+                                    /*if (j === 2) {
                                         regText += '; ';
-                                    }
+                                    }*/
                                 } else {
                                     regText = regs[j];
                                 }
@@ -111,6 +111,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         }
                     }
                     regular.setValue(regText);
+                                  
                     name_panel.add(regular);
                 }
                 
@@ -415,185 +416,171 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     
                     
                     if (json.occupation.length > 0) {
-                    
-                     me.add({
                         
-                        xtype: 'label',
-                        html: '<b style="color:gray; font-size: 12px;">Tätigkeiten</b>',
-                        margin: '10 0 10 0'
-                    });
-                    
-                    var occContentPanel = Ext.create('Ext.panel.Panel', {
-            layout: {
-                type: 'table',
-                columns: 1,
-                tdAttrs: {
-                    valign: 'top'
-                }
-            },
-            bodyBorder: false,
-            border: false,
-            //bodyPadding: 3,
-            items:[]
-        });
-        me.add(occContentPanel);
-                    
-                       for (var i = 0; i < json.occupation.length; i++) {
-                var occupationBlock = json.occupation[i];
-                
-                var occupationPanel = Ext.create('Ext.panel.Panel', {
-                    layout: {
-                        type: 'table',
-                        columns: 4,
-                        tdAttrs: {
-                            valign: 'top'
+                        me.add({
+                            
+                            xtype: 'label',
+                            html: '<b style="color:gray; font-size: 12px;">Tätigkeiten</b>',
+                            margin: '10 0 10 0'
+                        });
+                        
+                        var occContentPanel = Ext.create('Ext.panel.Panel', {
+                            layout: {
+                                type: 'table',
+                                columns: 1,
+                                tdAttrs: {
+                                    valign: 'top'
+                                }
+                            },
+                            bodyBorder: false,
+                            border: false,
+                            //bodyPadding: 3,
+                            items:[]
+                        });
+                        me.add(occContentPanel);
+                        
+                        for (var i = 0; i < json.occupation.length; i++) {
+                            var occupationBlock = json.occupation[i];
+                            
+                            var occupationPanel = Ext.create('Ext.panel.Panel', {
+                                layout: {
+                                    type: 'table',
+                                    columns: 4,
+                                    tdAttrs: {
+                                        valign: 'top'
+                                    }
+                                },
+                                bodyBorder: false,
+                                border: false,
+                                margin: '5 0 0 3',
+                                items:[]
+                            });
+                            occContentPanel.add(occupationPanel);
+                            
+                            if (occupationBlock[1] !== undefined && occupationBlock[1] !== '' || occupationBlock[0] !== undefined && occupationBlock[0] !== '') {
+                                var occValue = occupationBlock[0];
+                                var occType = '';
+                                if (occValue === '') {
+                                    
+                                    if (occupationBlock[1] === 'arr') {
+                                        occType = 'Arranger';
+                                    } else if (occupationBlock[1] === 'cmp') {
+                                        occType = 'Composer';
+                                    } else if (occupationBlock[1] === 'lbt') {
+                                        occType = 'Librettist';
+                                    } else if (occupationBlock[1] === 'cnd') {
+                                        occType = 'Conductor';
+                                    } else if (occupationBlock[1] === 'act') {
+                                        occType = 'Actor';
+                                    } else if (occupationBlock[1] === 'itr') {
+                                        occType = 'Instrumentalist';
+                                    } else if (occupationBlock[1] === 'mcp') {
+                                        occType = 'Music copyist';
+                                    } else if (occupationBlock[1] === 'msd') {
+                                        occType = 'Musical director';
+                                    } else if (occupationBlock[1] === 'sng') {
+                                        occType = 'Singer';
+                                    } else {
+                                        occType = occupationBlock[1]
+                                    }
+                                } else {
+                                }
+                                
+                                var occContent = '';
+                                if (occValue !== '') {
+                                    occContent = occValue;
+                                } else {
+                                    occContent = occType;
+                                }
+                                
+                                occupationPanel.add({
+                                    xtype: 'label',
+                                    html: occContent,
+                                    style: 'display:block; padding:0px 0px 5px 15px'
+                                });
+                            }
                         }
-                    },
-                    bodyBorder: false,
-                    border: false,
-                    margin: '5 0 0 3',
-                    items:[]
-                });
-                occContentPanel.add(occupationPanel);
-               
-                if (occupationBlock[1] !== undefined && occupationBlock[1] !== '' || occupationBlock[0] !== undefined && occupationBlock[0] !== '') {
-                    var occValue = occupationBlock[0];
-                    var occType = '';
-                    if (occValue === '') {
+                    }
+                    if (json.residence.length > 0) {
                         
-                        if (occupationBlock[1] === 'arr') {
-                            occType = 'Arranger';
-                        } else if (occupationBlock[1] === 'cmp') {
-                            occType = 'Composer';
-                        } else if (occupationBlock[1] === 'lbt') {
-                            occType = 'Librettist';
-                        } else if (occupationBlock[1] === 'cnd') {
-                            occType = 'Conductor';
-                        } else if (occupationBlock[1] === 'act') {
-                            occType = 'Actor';
-                        } else if (occupationBlock[1] === 'itr') {
-                            occType = 'Instrumentalist';
-                        } else if (occupationBlock[1] === 'mcp') {
-                            occType = 'Music copyist';
-                        } else if (occupationBlock[1] === 'msd') {
-                            occType = 'Musical director';
-                        } else if (occupationBlock[1] === 'sng') {
-                            occType = 'Singer';
-                        } else {
-                            occType = occupationBlock[1]
+                        me.add({
+                            
+                            xtype: 'label',
+                            html: '<b style="color:gray; font-size: 12px;">Wohnsitz(e)</b>',
+                            margin: '10 0 10 0'
+                        });
+                        
+                        var residencesPanel = Ext.create('Ext.panel.Panel', {
+                            layout: {
+                                type: 'table',
+                                columns: 1,
+                                tdAttrs: {
+                                    valign: 'top'
+                                }
+                            },
+                            bodyBorder: false,
+                            border: false,
+                            //bodyPadding: 3,
+                            items:[]
+                        });
+                        me.add(residencesPanel);
+                        var residenceBlocks = json.residence;
+                        var arr = Object.keys(residenceBlocks).map(function (key) {
+                            return residenceBlocks[key];
+                        });
+                        for (var i = 0; i < arr.length; i++) {
+                            var datePanel = Ext.create('Ext.panel.Panel', {
+                                layout: {
+                                    type: 'table',
+                                    columns: 4,
+                                    tdAttrs: {
+                                        valign: 'top'
+                                    }
+                                },
+                                bodyBorder: false,
+                                border: false,
+                                margin: '5 0 0 3',
+                                items:[]
+                            });
+                            
+                            residencesPanel.add(datePanel);
+                            var residenceBlock = arr[i];
+                            
+                            if (residenceBlock[0] !== '') {
+                                datePanel.add({
+                                    xtype: 'label',
+                                    html: residenceBlock[0] + ' ',
+                                    style: 'display:block; padding:0px 0px 5px 15px'
+                                });
+                            }
+                            
+                            if (residenceBlock[3] !== '') {
+                                datePanel.add({
+                                    xtype: 'label',
+                                    html: 'When: ' + residenceBlock[3] + '  ',
+                                    style: 'display:block; padding:0px 0px 5px 15px'
+                                });
+                            }
+                            
+                            if (residenceBlock[1] !== '') {
+                                datePanel.add({
+                                    xtype: 'label',
+                                    html: 'From: ' + residenceBlock[1] + '  ',
+                                    style: 'display:block; padding:0px 0px 5px 15px'
+                                });
+                            }
+                            
+                            if (residenceBlock[2] !== '') {
+                                datePanel.add({
+                                    xtype: 'label',
+                                    html: 'To: ' + residenceBlock[2],
+                                    style: 'display:block; padding:0px 0px 5px 15px'
+                                });
+                            }
                         }
-                    } else {
-                        
                     }
-                    
-                    var occContent = '';
-                    if(occValue !== ''){
-                        occContent = occValue;
-                    }
-                    else{
-                        occContent = occType;
-                    }
-                    
-                    occupationPanel.add({
-                        xtype: 'label',
-                        html: occContent,
-                        style: 'display:block; padding:0px 0px 5px 15px'
-                    });
                 }
                 
-            
-            }
-              
-                    }
-                if (json.residence.length > 0) {
-                    
-                     me.add({
-                        
-                        xtype: 'label',
-                        html: '<b style="color:gray; font-size: 12px;">Wohnsitz(e)</b>',
-                        margin: '10 0 10 0'
-                    });
-                    
-                    var residencesPanel = Ext.create('Ext.panel.Panel', {
-            layout: {
-                type: 'table',
-                columns: 1,
-                tdAttrs: {
-                    valign: 'top'
-                }
-            },
-            bodyBorder: false,
-            border: false,
-            //bodyPadding: 3,
-            items:[]
-        });
-        me.add(residencesPanel);
-                     var residenceBlocks = json.residence;
-            var arr = Object.keys(residenceBlocks).map(function (key) {
-                return residenceBlocks[key];
-            });
-                       for (var i = 0; i < arr.length; i++) {
-                var datePanel = Ext.create('Ext.panel.Panel', {
-                    layout: {
-                        type: 'table',
-                        columns: 4,
-                        tdAttrs: {
-                            valign: 'top'
-                        }
-                    },
-                    bodyBorder: false,
-                    border: false,
-                    margin: '5 0 0 3',
-                    items:[]
-                });
-                
-                residencesPanel.add(datePanel);
-                var residenceBlock = arr[i];
-                
-                if (residenceBlock[0] !== '') {
-                    datePanel.add({
-                        xtype: 'label',
-                        html:residenceBlock[0]+ ' ',
-                        style: 'display:block; padding:0px 0px 5px 15px'
-                    });
-                }
-                
-                if (residenceBlock[3] !== '') {
-                    datePanel.add({
-                        xtype: 'label',
-                        html: 'When: ' + residenceBlock[3]+'  ',
-                        style: 'display:block; padding:0px 0px 5px 15px'
-                    });
-                }
-                
-                if (residenceBlock[1] !== '') {
-                    datePanel.add({
-                        xtype: 'label',
-                        html: 'From: ' + residenceBlock[1]+'  ' ,
-                        style: 'display:block; padding:0px 0px 5px 15px'
-                    });
-                }
-                
-                if (residenceBlock[2] !== '') {
-                    datePanel.add({
-                        xtype: 'label',
-                        html: 'To: ' + residenceBlock[2],
-                        style: 'display:block; padding:0px 0px 5px 15px'
-                    });
-                }
-                
-                
-                
-                
-                
-                
-                }
-        
-                       
-                    }
-                
-                }
-              
                 if (json.worksRef.length > 0 || json.sourcesRef.length > 0 || json.journalRef.length > 0 || json.issueRef.length > 0 || json.gagenRef.length > 0 || json.roleRef.length > 0 || json.regieRef.length > 0 || json.rollen.length > 0 || json.taxation.length > 0 || json.dayReport.length > 0 || json.revenueRef.length > 0 || json.scheduleRef.length > 0) {
                     
                     /* var refSection = Ext.create('Ext.panel.Panel', {

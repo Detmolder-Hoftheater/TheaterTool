@@ -1,35 +1,91 @@
 Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
     extend: 'Ext.tab.Panel',
+    requires:[
+    'Ext.util.History'],
     
     id: 'tabpanel',
     
     defaults: {
         autoScroll: true
     },
-   
+    
     collapsible: false,
     region: 'center',
     cls: 'navigationTabPanel',
     bodyCls: 'navigationTabPanelBody',
     flex: 1,
-    border:false,
-    style: {       
+    border: false,
+    style: {
         borderLeft: '1px solid lightgray'
     },
-   
+    
+    
     initComponent: function () {
         
         var me = this;
-        
-        var win = new TheaterTool.view.main.InformationDialog();
-        win.show();
+        Ext.History.init();
+        var tokenDelimiter = ':';
+        /*var win = new TheaterTool.view.main.InformationDialog();
+        win.show();*/
         
         me.items =[
-        win],
+        //win
+        ],
         
         me.listeners = {
+            tabchange: function (tabPanel, tab) {
+                var tabs =[],
+                ownerCt = tabPanel.ownerCt, oldToken, newToken;
+                
+                tabs.push(tab.id);
+                tabs.push(tabPanel.id);
+                
+                while (ownerCt && ownerCt.is('tabpanel')) {
+                    tabs.push(ownerCt.id);
+                    ownerCt = ownerCt.ownerCt;
+                }
+                
+                var newToken = tabs.reverse().join(tokenDelimiter);
+                
+                var oldToken = Ext.History.getToken();
+                
+                if (oldToken === null || oldToken.search(newToken) === -1) {
+                    console.log('add');
+                    Ext.History.add(newToken);
+                }
+            },
+            afterrender: function () {
+                Ext.History.on('change', function (token) {
+                    var parts, tabPanel, length, i;
+                    
+                    if (token) {
+                        parts = token.split(tokenDelimiter);
+                        length = parts.length;
+                        console.log(parts);
+                          
+                        
+                        
+                        // setActiveTab in all nested tabs
+                        for (i = 0; i < length - 1; i++) {
+                            Ext.getCmp(parts[i]).setActiveTab(Ext.getCmp(parts[i + 1]));
+                        }
+                    }
+                    
+                   
+                });
+                
+                // This is the initial default state.  Necessary if you navigate starting from the
+                // page without any existing history token params and go back to the start state.
+                var activeTab1 = Ext.getCmp('tabpanel').getActiveTab();
+                console.log(activeTab1);
+                if (activeTab1 !== null) {
+                    var activeTab2 = activeTab1.getActiveTab();
+                   me.tabchange(activeTab1, activeTab2);
+                }
+            },
             render: function () {
                 //if (Ext.browser.is('Firefox')) {
+                
                 me.items.each(function (itm, idx) {
                     itm.tab.on('focus', function (tab) {
                         var tabpanel = tab.up('tabpanel');
@@ -57,6 +113,8 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
                 var toolBar = Ext.getCmp('toolbar');
                 toolBar.handleHistoryButtons();
             }
+            
+            
         }
         
         me.callParent()

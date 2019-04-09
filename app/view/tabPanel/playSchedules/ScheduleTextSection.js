@@ -117,9 +117,9 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                         pack: 'start',
                         align: 'stretch'
                     },
-                   margin: '0 15 15 15',
-                   bodyBorder: false,
-                   border: false,
+                    margin: '0 15 15 15',
+                    bodyBorder: false,
+                    border: false,
                     items:[ {
                         html: json,
                         border: false,
@@ -161,14 +161,22 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
                             elementToFocus.scrollIntoView();
                         }
                     }
-                    
-                    
                 } else {
-                   if (me.parentPanel != null) {
-                        var itemsList = me.parentPanel.items.getRange();
-                        for (var i = 0; i < itemsList.length; i++) {
-                            var panelToCollapse = itemsList[i];
-                            panelToCollapse.collapse();
+                    /* if (me.parentPanel != null) {
+                    var itemsList = me.parentPanel.items.getRange();
+                    for (var i = 0; i < itemsList.length; i++) {
+                    var panelToCollapse = itemsList[i];
+                    panelToCollapse.collapse();
+                    }
+                    }*/
+                    if (me.rev_index === me.rev_length) {
+                        
+                        if (me.selectedWorkID === null) {
+                            var itemsList = me.parentPanel.items.getRange();
+                            for (var i = 0; i < itemsList.length; i++) {
+                                var panelToCollapse = itemsList[i];
+                                panelToCollapse.collapse();
+                            }
                         }
                     }
                 }
@@ -255,18 +263,18 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.ScheduleTextSection', {
         });
         
         me.listeners = { afterrender: function (panel) {
-                    //console.log(panel.header.el);
-                    panel.header.el.on('click', function () {
-                        // panel.header.el.on('click', function () {
-                        if (panel.collapsed) {
-                            panel.expand();
-                        } else {
-                            panel.collapse();
-                        }
-                    });
-                   
-                }
-            };
+                //console.log(panel.header.el);
+                panel.header.el.on('click', function () {
+                    // panel.header.el.on('click', function () {
+                    if (panel.collapsed) {
+                        panel.expand();
+                    } else {
+                        panel.collapse();
+                    }
+                });
+            }
+        };
+        
         me.callParent();
     },
     

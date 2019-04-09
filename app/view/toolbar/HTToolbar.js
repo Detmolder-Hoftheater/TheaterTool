@@ -49,8 +49,10 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                 html: '<font style="color:#CCC1C2; font-size: 14px;">Theatre Tool</font>',
                 margin: '0 0 0 5'
             }, 
-            '->', {
+            '->', 
+            {
                 xtype: 'button',
+                hidden:true,
                 border: false,
                 glyph: null,
                 icon: 'resources/images/page-prev-disabled.gif',
@@ -91,9 +93,11 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                         me.handleHistoryButtons();
                     }
                 }
-            }, {
+            }, 
+            {
                 xtype: 'button',
                 id: 'historyButton',
+                hidden:true,
                 selection: null,
                 //disabled: true,
                 text: '<span style="font-family:Tahoma; color:gray;">Verlauf</span>',
@@ -131,9 +135,11 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                         me.handleHistoryButtons();
                     }
                 }
-            }, {
+            },
+            {
                 xtype: 'button',
                 id: 'naxtHistoryButton',
+                hidden:true,
                 disabled: true,
                 border: false,
                 icon: 'resources/images/page-next-disabled.gif',

@@ -12,39 +12,31 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 declare variable $selectedYear := request:get-parameter('selectedYear', '');
 
 declare variable $rolepath := concat('xmldb:exist:///apps/theater-data/einnahmen/', $selectedYear, '/');
-    declare variable $rolepath_1 := concat('xmldb:exist:///apps/theater-data/ausgaben/', $selectedYear, '/');
-    declare variable $rolepath_2 := concat('xmldb:exist:///apps/theater-data/spielplaene/', $selectedYear, '/');
+declare variable $rolepath_1 := concat('xmldb:exist:///apps/theater-data/ausgaben/', $selectedYear, '/');
+
+declare variable $rolefiles := collection($rolepath);
+
+declare variable $rolefiles_1 := collection($rolepath_1);
+
+declare function local:getMonths($rolefiles, $rolefiles_1) {
     
-    declare variable $rolefiles := collection($rolepath);
-    declare variable $file := if ($rolefiles/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
-    ) then
-        ($rolefiles/tei:TEI)
+    let $strings := for $elem in ($rolefiles, $rolefiles_1)
+    
+    let $title := if ($elem/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term = 'Spielplan')
+    then
+        ($elem/tei:TEI//tei:fileDesc//tei:titleStmt[1]/tei:title)
     else
-        ();
+        ()
     
-    declare variable $rolefiles_1 := collection($rolepath_1);
-    declare variable $file_1 := if ($rolefiles_1/tei:TEI/tei:teiHeader/tei:profileDesc//tei:keywords/tei:term['Spielplan']
-    ) then
-        ($rolefiles_1/tei:TEI)
-    else
-        ();
-    
-    declare variable $rolefiles_2 := collection($rolepath_2);
-    declare variable $file_2 := $rolefiles_2/tei:TEI;
-    
-   
-declare function local:getMonths($file, $file_1, $file_2) {
-    
-    let $strings := for $elem in ($file, $file_1, $file_2)
-    
-    let $month := $elem//tei:fileDesc//tei:titleStmt[1]/tei:title
+    let $date := $elem//tei:fileDesc//tei:titleStmt[1]/tei:title/tei:date/@when
+    let $month := substring-after($date, '-')
     
     return
-        if ($month != '') then
+        if ($title != '') then
             (
-            concat('"', $month,
+            concat('["', normalize-space($title), '","', $month,
             
-            '"')
+            '"]')
             )
         else
             ()
@@ -57,7 +49,7 @@ declare function local:getMonths($file, $file_1, $file_2) {
 (
 
 '{"names":[',
-local:getMonths($file, $file_1, $file_2),
+local:getMonths($rolefiles, $rolefiles_1),
 
 ']}'
 

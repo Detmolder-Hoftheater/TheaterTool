@@ -72,6 +72,10 @@ Ext.define('TheaterTool.view.tabPanel.HTTab', {
                 for (i = 0; i < itemsToDelete.length; i++) {
                     var itemToDelete = itemsToDelete[i];
                     historyButton.menu.remove(itemToDelete, true);
+                    //console.log(panel);
+                    //var toDelete = 'tabpanel:'+ Ext.History.getToken();
+                    //console.log(Ext.History.getToken());
+                    //Ext.History.destroyMembers(panel.id);
                 }
                 if (menuItems.items.length === 0) {
                     historyButton.setDisabled(true);
