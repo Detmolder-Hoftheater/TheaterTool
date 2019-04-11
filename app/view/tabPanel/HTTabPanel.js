@@ -3,7 +3,7 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
     requires:[
     'Ext.util.History'],
     
-    id: 'tabpanel',
+    id: 'HoftheaterDetmold',
     
     defaults: {
         autoScroll: true
@@ -28,8 +28,26 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
         /*var win = new TheaterTool.view.main.InformationDialog();
         win.show();*/
         
+         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: //'<font style="color:gray;">Aus dem Bestand</font>',
+                          '<div style="color:gray; font-size: 12px;">Aus dem Bestand</div>',
+                            id: 'Mediathek',
+                            closable: false
+                        });
+                        /*var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
+                        selection: 'H020149'
+                        });*/
+                        var repertoireDetails = new TheaterTool.view.tabPanel.media.MediaPanelInTab({
+                            
+                        });
+                        repertoireTab.add(repertoireDetails);
+             /* var navTreeGlobal = me.getHTTabPanel();          
+        navTreeGlobal.add(repertoireTab);
+                        navTreeGlobal.setActiveTab(repertoireTab);
+                        navTreeGlobal.fireEvent('render', this.tabPanel);*/
+        
         me.items =[
-        //win
+        repertoireTab
         ],
         
         me.listeners = {
@@ -40,7 +58,7 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
                 tabs.push(tab.id);
                 tabs.push(tabPanel.id);
                 
-                while (ownerCt && ownerCt.is('tabpanel')) {
+                while (ownerCt && ownerCt.is('HoftheaterDetmold')) {
                     tabs.push(ownerCt.id);
                     ownerCt = ownerCt.ownerCt;
                 }
@@ -62,7 +80,7 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
                         parts = token.split(tokenDelimiter);
                         length = parts.length;
                         console.log(parts);
-                          
+                        
                         
                         
                         // setActiveTab in all nested tabs
@@ -70,26 +88,24 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
                             Ext.getCmp(parts[i]).setActiveTab(Ext.getCmp(parts[i + 1]));
                         }
                     }
-                    
-                   
                 });
                 
                 // This is the initial default state.  Necessary if you navigate starting from the
                 // page without any existing history token params and go back to the start state.
-                var activeTab1 = Ext.getCmp('tabpanel').getActiveTab();
+                /*var activeTab1 = Ext.getCmp('HoftheaterDetmold').getActiveTab();
                 console.log(activeTab1);
                 if (activeTab1 !== null) {
                     var activeTab2 = activeTab1.getActiveTab();
-                   me.tabchange(activeTab1, activeTab2);
-                }
+                    me.tabchange(activeTab1, activeTab2);
+                }*/
             },
             render: function () {
                 //if (Ext.browser.is('Firefox')) {
                 
                 me.items.each(function (itm, idx) {
                     itm.tab.on('focus', function (tab) {
-                        var tabpanel = tab.up('tabpanel');
-                        tabpanel.setActiveTab(idx);
+                        //var tabpanel = tab.up('HoftheaterDetmold');
+                        me.setActiveTab(idx);
                     });
                 });
                 //}
@@ -113,8 +129,6 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
                 var toolBar = Ext.getCmp('toolbar');
                 toolBar.handleHistoryButtons();
             }
-            
-            
         }
         
         me.callParent()

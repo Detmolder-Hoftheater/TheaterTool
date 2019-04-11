@@ -1132,81 +1132,17 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 }
             }
-       // };
-          /*afterrender: function (panel) {
-        if (window.location.href.indexOf('#') !== -1) {
-            var linkArray = window.location.href.split(':');
-            var tailPathSrray = linkArray[linkArray.length -1].split('_');
-            var idName = tailPathSrray[1];
-            var folderName = tailPathSrray[0];
-            console.log(idName);
-            console.log(folderName);
             
-            //var existItems = panel.items;
-            //var repertoireTab = null;
-            //var historyButton = Ext.getCmp('historyButton');
-            
-            if (folderName === 'werk') {
-            } else if (folderName === 'person') {
-                var me = this;
-                /\* Ext.Ajax.request({
-                url: 'resources/xql/getPersonName.xql',
-                async: false,
-                method: 'GET',
-                params: {
-                dbkey: idName
-                },
-                success: function (result) {
-                
-                var json = jQuery.parseJSON(result.responseText);
-                var persName = json.person[0];*\/
-                // #tabpanel:person_H000001
-                // var historyButton = Ext.getCmp('historyButton');
-                /\* var menuItem = historyButton.menu.add({
-                text: '<font style="color:gray;">' + 'H000001' + '</font>', icon: 'resources/images/Mask-19.png', dbkey: 'H000001'
-                });
-                var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
-                var existItems = navTreeGlobal.items;
-                var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, 'H000001', menuItem.id);
-                if (! isFoundItem) {  *\/
-                var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                    title: '<font style="color:gray;">' + 'H000001' + '</font>',
-                    icon: 'resources/images/Mask-19.png',
-                    id: 'person_' + 'H000001'
-                });
-                var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                    dbkey: 'H000001', title: '<font size="2" face="Tahoma" style="color:#909090;">Person: ' + 'H000001' + '</font>',
-                    icon: 'resources/images/Mask-19.png'
-                });
-                repertoireTab.add(personDetails);
-                
-                // repertoireTab.setActiveMenuItemId(menuItem.id);
-                //repertoireTab.setMenuAdded(true);
-                var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
-                navTreeGlobal.add(repertoireTab);
-                //  navTreeGlobal.setActiveTab(repertoireTab);
-                // navTreeGlobal.fireEvent('render', navTreeGlobal);
-                
-                //   }
-                
-                // }
-                //  });
-            } else if (folderName === 'rolle') {
-            }
-            
-            if (typeof Ext.getCmp('infoDialog') !== 'undefined') {
-                Ext.getCmp('infoDialog').close();
-            }
-        }
-        }
-         */};
-         
+        };
+        
         
         me.items =[ {
             title: 'Spielbetrieb',
             useArrows: true
         }];
         
+        
+       
         
         me.callParent();
     },

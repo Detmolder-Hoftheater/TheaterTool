@@ -196,7 +196,7 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
                         
                         navTreeGlobal.add(repertoireTab);
                         navTreeGlobal.setActiveTab(repertoireTab);
-                        navTreeGlobal.fireEvent('render', Ext.getCmp('tabpanel'));
+                        navTreeGlobal.fireEvent('render', Ext.getCmp('HoftheaterDetmold'));
                     }
                 }
             }

@@ -162,7 +162,7 @@ for(i = 0; i < me.personList.length; i++){
                     
 					navTreeGlobal.add(repertoireTab);
 					navTreeGlobal.setActiveTab(repertoireTab);
-					navTreeGlobal.fireEvent('render', Ext.getCmp('tabpanel'));
+					navTreeGlobal.fireEvent('render', Ext.getCmp('HoftheaterDetmold'));
 					}
 							     
 			 }

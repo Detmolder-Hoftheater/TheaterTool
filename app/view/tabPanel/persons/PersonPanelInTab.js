@@ -33,7 +33,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
         var me = this;
         
         me.section_details = new TheaterTool.view.tabPanel.persons.PersonTabDetails({
-            dbkey: me.dbkey, personName: me.title, 
+            dbkey: me.dbkey, personName: me.title,
             personIcon: me.icon
         });
         me.section_details.createContent();
@@ -44,12 +44,33 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
         me.listeners = {
             
             afterrender: function (panel) {
-                /* this.header.insert(1,[ {
-                xtype: 'component',
-                html: '<font size = "1"><b style="color:gray;">'+me.titleName+'</b></font>'
-                //flex: 1
-                }]);*/
-                this.header.insert(1, {
+                this.header.insert(1,[ {
+                xtype: 'button',
+                border: false,
+                glyph: null,
+                icon: 'resources/images/link-16.png',
+                style: 'background:white;',
+               
+                margin: '0 5 0 0',
+                arrowCls: '',
+                showSeparator: false,
+               menu:[ 
+               {
+               xtype: 'textarea',
+                    value: 'https://edirom.hoftheater-detmold.de/exist/apps/TheaterTool/index.html#HoftheaterDetmold:person_'+me.dbkey,
+                    plain: true,
+                    readOnly: true,
+                    inputWrapCls: '',
+                    triggerWrapCls: '',
+            fieldStyle: 'background:white;',
+           border: false,
+            margin: '0 0 0 0',
+            selected: true
+                }]
+                
+                }
+                ]);
+                this.header.insert(2, {
                     xtype: 'button',
                     text: '<font size="1" face="Tahoma" style="color:#909090;">XML ansehen</font>',
                     style: 'background:white;',
@@ -99,7 +120,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
                     }
                 });
                 
-                this.header.insert(2, {
+                this.header.insert(3, {
                     xtype: 'button',
                     /*text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',*/
                     text: '<font size="1" face="Tahoma" style="color:#909090;">XML laden</font>',

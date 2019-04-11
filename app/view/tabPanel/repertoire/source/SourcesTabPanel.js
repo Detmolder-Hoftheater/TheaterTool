@@ -1,5 +1,5 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
-	extend: 'Ext.tab.Panel',
+    extend: 'Ext.tab.Panel',
     
     //autoScroll: true,
     
@@ -17,25 +17,24 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTabPanel', {
     
     sourceID: null,
     werkTitle: null,
-    firstTabTitle:null,
+    firstTabTitle: null,
     
     //headerPosition: 'right',
     
-   /*  header:{
-   style: {
-      backgroundColor:'#FFFFFF',
-      backgroundImage:'none',
-      borderBottom: '5px solid #F2EEE1'
-   }
-},*/
-
-tabBar: {
+    /*  header:{
+    style: {
+    backgroundColor:'#FFFFFF',
+    backgroundImage:'none',
+    borderBottom: '5px solid #F2EEE1'
+    }
+    },*/
+    
+    tabBar: {
         style: {
-                background: 'white'
-               // backgroundImage:'none'
-                //borderBottom: '3px solid #A80016'
-            }
-            
+            background: 'white'
+            // backgroundImage:'none'
+            //borderBottom: '3px solid #A80016'
+        }
     },
     cls: 'navigationTabPanel1',
     /*bodyCls: 'navigationTabPanelBody',*/
@@ -44,7 +43,7 @@ tabBar: {
         
         var me = this;
         
-       
+        
         /*var app = TheaterTool.getApplication();
         var sourceStore = app.createStoreForSource();
         sourceStore.getProxy().extraParams.sourceID = this.sourceID;
@@ -53,150 +52,148 @@ tabBar: {
         //this.personSection = new TheaterTool.view.tabPanel.repertoire.RepertoirePersonSection({workID: this.sourceID, type: 'source'});
         
         me.detailSection = new TheaterTool.view.tabPanel.repertoire.source.SourceDetailsSection({
-            sourceID: me.sourceID, title: '<b style="color:gray;">'+me.firstTabTitle+'</b>'
+            sourceID: me.sourceID, title: '<b style="color:gray;">' + me.firstTabTitle + '</b>'
         });
         
         me.sourcesSection = new TheaterTool.view.tabPanel.repertoire.source.SourcesSection({
             sourceID: me.sourceID
         });
         
-       
-            me.items =[
-            me.detailSection,
-            me.sourcesSection
-          
-            ]
-      
+        
+        me.items =[
+        me.detailSection,
+        me.sourcesSection]
+        
         me.detailSection.setTitelValue();
         me.sourcesSection.createContent();
         
         /*me.listeners = {
+        render: function () {
+        //if (Ext.browser.is('Firefox')) {
+        me.items.each(function (itm, idx) {
+        itm.tab.on('focus', function (tab) {
+        var tabpanel = tab.up('HoftheaterDetmold');
+        tabpanel.setActiveTab(idx);
+        });
+        });
+        //}
+        }
+        };*/
+        
+        me.listeners = {
             render: function () {
                 //if (Ext.browser.is('Firefox')) {
                 me.items.each(function (itm, idx) {
                     itm.tab.on('focus', function (tab) {
-                        var tabpanel = tab.up('tabpanel');
-                        tabpanel.setActiveTab(idx);
+                        //var tabpanel = tab.up('HoftheaterDetmold');
+                        me.setActiveTab(idx);
                     });
                 });
                 //}
             }
-        };*/
-        
-        me.listeners = {
-           render: function () {
-                //if (Ext.browser.is('Firefox')) {
-                me.items.each(function (itm, idx) {
-                    itm.tab.on('focus', function (tab) {
-                        var tabpanel = tab.up('tabpanel');
-                        tabpanel.setActiveTab(idx);
-                    });
-                });
-                //}
-            }
-       /*afterrender: function (panel) {
-                var bar = panel.tabBar;
-                bar.insert(2, {
-                    xtype: 'component',
-                    flex: 1
-                });
-                bar.insert(3, {
-                xtype: 'button',
-                text: '<font size="1" face="Tahoma" style="color:#909090;">XML ansehen</font>',
-              //  style: 'background:white;',
-                style: 'background:white;border:red;',
-               // margin: '0 3 0 5',
-                listeners: {
-                    click: function (item, e, eOpts) {
-                        
-                        Ext.Ajax.request({
-                  
-                    url:'resources/xql/getXML.xql',
-                    method: 'GET',
-                    params: {
-                        uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
-                        type: 'source'
-                    },
-                    success: function (response) {
-                    
-                    
-                    var testText = response.responseXML;
-                    
-                    var tempDiv = document.createElementNS('http://www.music-encoding.org/ns/mei', 'div');
-                    var personArr = testText.getElementsByTagName('source');
-                    tempDiv.appendChild(personArr[0]);
-      
-                    var tmp = hljs.highlightAuto($(tempDiv).html()).value;
-                    var htmlVersion = '<pre>' + tmp + '</<pre>';
-                  
-                        var win = new Ext.window.Window({
-					       title: '<font style="color:gray;">XML for ' + me.title+'</font>',
-					        html: htmlVersion,
-					        icon: me.workIcon,
-					        bodyStyle:{"background-color":"white"},
-					        height: 600,
-                            width: 800,
-                            autoScroll: true,
-                            bodyPadding: 10
-					        });
-					   win.show();
-                     
-                    }
-                });
-				
-					}
-                }
+            /*afterrender: function (panel) {
+            var bar = panel.tabBar;
+            bar.insert(2, {
+            xtype: 'component',
+            flex: 1
             });
-               
-                bar.insert(4, {
-                xtype: 'button',
-                
-                /\*text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',*\/
-                text: '<font size="1" face="Tahoma" style="color:#909090;">XML laden</font>',
-                //style: 'background:white;',
-                
-                listeners: {
-                    click: function (item, e, eOpts) {
-                        
-                        Ext.Ajax.request({
-                  
-                    url:'resources/xql/getXML.xql',
-                    method: 'GET',
-                    params: {
-                        uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
-                        type: 'source'
-                    },
-                    success: function (response) {
-                    var xmltext = response.responseText;
-                   
-                    var pom = document.createElement('a');
-
-                    var filename = me.sourceID +".xml";
-                    var pom = document.createElement('a');
-                    var bb = new Blob([xmltext], {type: 'text/plain'});
-
-                    pom.setAttribute('href', window.URL.createObjectURL(bb));
-                    pom.setAttribute('download', filename);
-
-                    pom.dataset.downloadurl = ['text/plain', pom.download, pom.href].join(':');
-                    pom.draggable = true; 
-                    pom.classList.add('dragout');
-
-                    //apply the click on to download the file
-                    document.body.appendChild(pom);
-                    pom.click();
-                    document.body.removeChild(pom);
-                    
-                    }
-                });
-				
-				}
-                }
+            bar.insert(3, {
+            xtype: 'button',
+            text: '<font size="1" face="Tahoma" style="color:#909090;">XML ansehen</font>',
+            //  style: 'background:white;',
+            style: 'background:white;border:red;',
+            // margin: '0 3 0 5',
+            listeners: {
+            click: function (item, e, eOpts) {
+            
+            Ext.Ajax.request({
+            
+            url:'resources/xql/getXML.xql',
+            method: 'GET',
+            params: {
+            uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
+            type: 'source'
+            },
+            success: function (response) {
+            
+            
+            var testText = response.responseXML;
+            
+            var tempDiv = document.createElementNS('http://www.music-encoding.org/ns/mei', 'div');
+            var personArr = testText.getElementsByTagName('source');
+            tempDiv.appendChild(personArr[0]);
+            
+            var tmp = hljs.highlightAuto($(tempDiv).html()).value;
+            var htmlVersion = '<pre>' + tmp + '</<pre>';
+            
+            var win = new Ext.window.Window({
+            title: '<font style="color:gray;">XML for ' + me.title+'</font>',
+            html: htmlVersion,
+            icon: me.workIcon,
+            bodyStyle:{"background-color":"white"},
+            height: 600,
+            width: 800,
+            autoScroll: true,
+            bodyPadding: 10
             });
-               
-               
+            win.show();
+            
             }
-       */
+            });
+            
+            }
+            }
+            });
+            
+            bar.insert(4, {
+            xtype: 'button',
+            
+            /\*text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',*\/
+            text: '<font size="1" face="Tahoma" style="color:#909090;">XML laden</font>',
+            //style: 'background:white;',
+            
+            listeners: {
+            click: function (item, e, eOpts) {
+            
+            Ext.Ajax.request({
+            
+            url:'resources/xql/getXML.xql',
+            method: 'GET',
+            params: {
+            uri: '/db/apps/theater-data/sources/'+me.sourceID+'.xml',
+            type: 'source'
+            },
+            success: function (response) {
+            var xmltext = response.responseText;
+            
+            var pom = document.createElement('a');
+            
+            var filename = me.sourceID +".xml";
+            var pom = document.createElement('a');
+            var bb = new Blob([xmltext], {type: 'text/plain'});
+            
+            pom.setAttribute('href', window.URL.createObjectURL(bb));
+            pom.setAttribute('download', filename);
+            
+            pom.dataset.downloadurl = ['text/plain', pom.download, pom.href].join(':');
+            pom.draggable = true;
+            pom.classList.add('dragout');
+            
+            //apply the click on to download the file
+            document.body.appendChild(pom);
+            pom.click();
+            document.body.removeChild(pom);
+            
+            }
+            });
+            
+            }
+            }
+            });
+            
+            
+            }
+             */
         }
         
         

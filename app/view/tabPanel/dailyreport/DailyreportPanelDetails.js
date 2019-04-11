@@ -74,7 +74,7 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportPanelDetails', {
                 //if (Ext.browser.is('Firefox')) {
                 me.items.each(function (itm, idx) {
                     itm.tab.on('focus', function (tab) {
-                        var tabpanel = tab.up('tabpanel');
+                        var tabpanel = tab.up('HoftheaterDetmold');
                         tabpanel.setActiveTab(idx);
                     });
                 });

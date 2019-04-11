@@ -142,7 +142,8 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.roles.RolePanelInTab',
     'tabPanel.roles.RoleTabDetails',
     'tabPanel.playSchedules.ScheduleTable',
-    'tabPanel.NavigationHistory'],
+    'tabPanel.NavigationHistory',
+    'tabPanel.media.MediaPanelInTab'],
     
     models:[
     'Werk',
@@ -192,7 +193,7 @@ Ext.define('TheaterTool.Application', {
                     dbPathsMap. set (dbPaths[i].dbName, dbPaths[i].dbValue);
                 }
                 
-                //Ext.getCmp('NavigationTreeGlobal').getNavigationItems();
+                Ext.getCmp('NavigationTreeGlobal').getNavigationItems();
                 Ext.Ajax.request({
                     url: 'resources/xql/getTheaterData.xql',
                     method: 'GET',
