@@ -1,7 +1,3 @@
-/**
- * Creates class TheaterTool.view.tabPanel.CEPanel that extend from Ext.panel.Panel.
- * @class
- */
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', {
     extend: 'Ext.panel.Panel',
     
@@ -47,7 +43,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', 
                     bodyBorder: false,
                     
                     collapsible: false,
-                    //collapsed: false,
                     items:[]
                 });
                 me.items.add(titel_group);
@@ -65,13 +60,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', 
                     },
                     
                     style: {
-                        //width: '100%',
                         borderTop: '5px solid #FFFFFF',
                         borderBottom: '5px solid #FFFFFF'
                     },
                     autoScroll: true,
                     border: false,
-                    //bodyPadding: 10,
                     items:[]
                 });
                 titel_group.add(panel_0);
@@ -118,9 +111,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', 
                         colspan: 1,
                         type: 'hbox',
                         border: false,
-                        /*style: {
-                        borderBottom: '15px solid #FFFFFF'
-                        },*/
+                        
                         items:[]
                     });
                     panel_0.add(panel_10);
@@ -151,9 +142,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', 
                 me.pers = Ext.create('Ext.grid.Panel', {
                     store: persStore,
                     flex: 1,
-                    /*style: {
-                    width: '100%'
-                    },*/
+                    
                     columns:[ {
                         header: 'Name', dataIndex: 'name', flex: 2
                     }, {
@@ -171,8 +160,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', 
                             } else {
                                 this.items[0].icon = '';
                             }
-                            
-                            
+                           
                             metadata.style = 'cursor: pointer;';
                             return val;
                         },
@@ -194,7 +182,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', 
                             navTreeGlobal.add(repertoireTab);
                             navTreeGlobal.setActiveTab(repertoireTab);
                             navTreeGlobal.fireEvent('render', navTreeGlobal);
-                            
                         }
                     })],
                     margin: '0 0 10 55'
@@ -271,7 +258,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', 
                 me.overview = me.createTextArea('Beschreibung');
                 
                 me.instr = me.createTextArea('Besetzung');
-                //me.instr.setHight(200);
                 
                 var ov_panel_left = Ext.create('Ext.panel.Panel', {
                     border: false,
@@ -344,141 +330,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanelTest', 
                 width: '100%',
                 borderLeft: '5px solid #FFFFFF'
             },
-            //width: 235,
             fieldLabel: fieldName,
             anchor: '100%'
         });
         
         return textArea;
     }
-    
-    
-    /*initComponent: function () {
-    this.items = [
-    
-    {
-    layout: {
-    type: 'vbox',
-    pack: 'start',
-    
-    align: 'stretch'
-    },
-    
-    bodyPadding: 10,
-    flex:1,
-    defaults: {
-    frame: true,
-    bodyPadding: 10
-    },
-    
-    border: false,
-    items: [
-    {
-    xtype: 'textfield',
-    fieldLabel: "Einheitstitel",
-    width: 400,
-    value: 'Der Bettelstudent'
-    /\*name: "einheit"
-    render: function(value){
-    return title[1];
-    }*\/
-    }, {
-    fieldLabel: 'Titel (de)',
-    width: 400,
-    xtype: 'textfield',
-    //name: 'title',
-    value: 'Der Bettelstudent oder Das Donnerwetter'
-    },
-    {
-    fieldLabel: 'Altenativtitel (de)',
-    width: 400,
-    xtype: 'textfield',
-    //name: 'alternativ',
-    value: 'Der reisende Student'
-    },
-    {
-    fieldLabel: 'Untertitel (de)',
-    width: 400,
-    xtype: 'textfield',
-    //name: 'untertitel',
-    value: 'Operette in 2 Akten'
-    },
-    {
-    xtype: 'label',
-    margin: '10 0 0 0'
-    },
-    {
-    xtype: 'textfield',
-    fieldLabel: "Komponist",
-    width: 400,
-    value: 'Winter, Peter von'
-    /\*name: "einheit"
-    render: function(value){
-    return title[1];
-    }*\/
-    }, {
-    fieldLabel: 'Librettist',
-    width: 400,
-    xtype: 'textfield',
-    //name: 'title',
-    value: 'Weidmann, Paul'
-    }
-    
-    
-    ]
-    },
-    
-    
-    {
-    layout: {
-    type: 'vbox',
-    pack: 'start',
-    align: 'stretch'
-    },
-    flex:1,
-    bodyPadding: 10,
-    
-    defaults: {
-    frame: true,
-    bodyPadding: 10
-    },
-    
-    border: false,
-    items: [
-    {
-    fieldLabel: 'Sprache',
-    width: 400,
-    xtype: 'textfield',
-    //name: 'untertitel',
-    value: 'German'
-    },
-    
-    {
-    fieldLabel: 'Geschichte',
-    width: 400,
-    xtype: 'textarea',
-    grow: true,
-    //name: 'title',
-    value: 'First Performance: 17. April 1773, Wien'
-    },
-    
-    {
-    fieldLabel: 'Besetzung',
-    width: 400,
-    xtype: 'textarea',
-    grow: true,
-    //name: 'alternativ',
-    value: 'Brandheim, Hannchen, Jacob, Margareth, Tollberg'
-    }
-    ]
-    }
-    
-    
-    
-    
-    ]
-    
-    this.callParent();
-    }
-     */
+  
 });

@@ -29,23 +29,7 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
         me.store = Ext.create('Ext.data.Store', {
             model: 'TheaterTool.model.RefData',
             data:[]
-            /*sorters: [{
-            sorterFn: function(o1, o2){
-            var getRank = function(o){
-            var name = o.get('jahr');
-            var numberJahr = parseInt(name);
-            return numberJahr;
-            },
-            rank1 = getRank(o1),
-            rank2 = getRank(o2);
             
-            if (rank1 === rank2) {
-            return 0;
-            }
-            
-            return rank1 < rank2 ? -1 : 1;
-            }
-            }]*/
         });
         
         if (me.worksList != 'undefined') {
@@ -76,17 +60,15 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
         this.detailsColumn];
         
         this.listeners = { afterrender: function (panel) {
-                    //console.log(panel.header.el);
-                    panel.header.el.on('click', function () {
-                        // panel.header.el.on('click', function () {
-                        if (panel.collapsed) {
-                            panel.expand();
-                        } else {
-                            panel.collapse();
-                        }
-                    });
-                }
-            };
+                panel.header.el.on('click', function () {
+                    if (panel.collapsed) {
+                        panel.expand();
+                    } else {
+                        panel.collapse();
+                    }
+                });
+            }
+        };
         
         this.callParent();
     },
@@ -95,8 +77,7 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
         
         var eColumn = Ext.create('Ext.grid.column.Action', {
             xtype: 'actioncolumn',
-            //header: headerName,
-            //flex:0.3,
+            
             align: 'center',
             menuDisabled: true,
             renderer: function (val, metadata, record) {
@@ -131,17 +112,13 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
                 
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + workName + '</font>',
-                    icon: workIcon
+                    icon: workIcon,
+                    id: 'werk_' + workId
                 });
                 
-                /*var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
-                selection: workId, isSelected: true
-                });*/
                 var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                     selection: workId, isSelected: true, workName: workName, workIcon: workIcon
                 });
-                
-                // personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
                 repertoireTab.add(personDetails);
                 
                 repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -157,19 +134,15 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
             xtype: 'actioncolumn',
             header: headerName,
             flex: 1,
-            //align: 'center',
             dataIndex: dataind,
             menuDisabled: true,
             renderer: function (val, metadata, record) {
                 var presentationText = '';
                 if (record.data.id !== '') {
-                    // this.items[0].icon = 'resources/images/Door-24.png';
-                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getWorkContent(\'' + record.data.id + '\'' + ', \'' + record.data.name + '\');">' + record.data.name + '</a></small>';
+                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getWorkContent(\'' + record.data.id + '\'' + ', \'' + record.data.name + '\');">' + record.data.name + '</a></small>';
                 } else {
-                    //this.items[0].icon = '';
                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.name + ' </small>';
                 }
-                // metadata.style = 'cursor: pointer;';
                 return presentationText;
             }
         });

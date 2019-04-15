@@ -8,17 +8,13 @@ Ext.define('TheaterTool.view.tabPanel.media.MediaPanelInTab', {
     
     xtype: 'dataview-multisort',
     layout: 'fit',
-   
+    
     autoScroll: true,
     border: false,
     bodyBorder: false,
-    bodyPadding: 10,
-    
+    bodyPadding: 35,
     
     flex: 1,
-    dbkey: null,
-    
-    
     
     initComponent: function () {
         
@@ -34,8 +30,7 @@ Ext.define('TheaterTool.view.tabPanel.media.MediaPanelInTab', {
             '<img width="40%" height="auto" src="/exist/rest/db/apps/theater-data/media/{thumb}" />',
             '</a>',
             '<p></p>',
-            '</div>'
-            ],
+            '</div>'],
             itemCls: 'dataview-item',
             itemSelector: 'div.dataview-multisort-item',
             store: Ext.create('Ext.data.Store', {
@@ -53,6 +48,5 @@ Ext.define('TheaterTool.view.tabPanel.media.MediaPanelInTab', {
         };
         
         me.callParent();
-
     }
 });

@@ -1,9 +1,6 @@
-/**
- * This example illustrates how to use the grouping feature of the Grid.
- */
 Ext.define('TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule', {
     extend: 'Ext.panel.Panel',
-   
+    
     title: '<b style="color:gray;">XML</b>',
     
     border: true,
@@ -11,7 +8,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule', {
     bodyBorder: true,
     bodyPadding: 10,
     autoScroll: true,
-  
+    
     
     repertoireTab: null,
     
@@ -24,13 +21,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule', {
     initComponent: function () {
         
         var me = this;
-        
-        /* me.repertoireTab = new TheaterTool.view.tabPanel.repertoire.work.TabXMLWork();
-        
-        me.items =[
-        me.repertoireTab
-        ],*/
-        
+       
         me.listeners = {
             activate: function (eOpts) {
                 if (me.month === 'Januar') {
@@ -60,7 +51,6 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule', {
                 }
                 
                 Ext.Ajax.request({
-                    // url: 'data/Output_Exist.xql',
                     url: 'resources/xql/getScheduleXML.xql',
                     method: 'GET',
                     params: {
@@ -69,9 +59,6 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule', {
                     },
                     success: function (response) {
                         me.setTextInfo(response.responseText);
-                        //console.log( me.sectionSize);
-                       // me.height = me.sectionSize;
-                        //me.repertoireTab.setTextInfo(response.responseText);
                     }
                 });
             }
@@ -99,7 +86,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.XMLSectionSchedule', {
         me.setHeight(me.sectionSize);
     },
     
-    setSectionSize: function(sectionSize){
+    setSectionSize: function (sectionSize) {
         this.sectionSize = sectionSize;
     }
 });

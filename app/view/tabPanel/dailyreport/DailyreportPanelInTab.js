@@ -3,14 +3,13 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportPanelInTab', {
     
     flex: 1,
     border: false,
-    //bodyBorder: false,    
     autoScroll: true,
     
-    regieName: null,   
+    regieName: null,
     selectedWorkID: null,
     count: null,
     selectedReport: null,
-  
+    
     initComponent: function () {
         
         var me = this;
@@ -56,7 +55,7 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportPanelInTab', {
                 }
             }
         });
-               
+        
         me.callParent();
     }
 });

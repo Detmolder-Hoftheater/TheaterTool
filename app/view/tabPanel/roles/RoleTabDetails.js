@@ -1,18 +1,6 @@
 Ext.define('TheaterTool.view.tabPanel.roles.RoleTabDetails', {
     extend: 'Ext.panel.Panel',
     
-    // title: '<b style="color:gray;">Übersicht</b>',
-    
-    /*layout: {
-    type: 'vbox',
-    pack: 'start',
-    align: 'stretch'
-    },
-    autoScroll: true,
-    border: true,
-    bodyPadding: 10,
-    flex: 1,*/
-    
     layout: {
         type: 'vbox',
         pack: 'start',
@@ -33,15 +21,11 @@ Ext.define('TheaterTool.view.tabPanel.roles.RoleTabDetails', {
         
         getRoleContent = function (personId, personName) {
             
-           var toolBarGlobal = Ext.getCmp('toolbar');
+            var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');
-            // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
-            //if(!isHistoryItemExist){
             var menuItem = historyButton.menu.add({
                 text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/theatreB.png', dbkey: personId
             });
-            
-            //}
             
             var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
             var existItems = navTreeGlobal.items;
@@ -50,12 +34,12 @@ Ext.define('TheaterTool.view.tabPanel.roles.RoleTabDetails', {
                 
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + personName + '</font>',
-                    icon: 'resources/images/theatreB.png'
+                    icon: 'resources/images/theatreB.png',
+                    id: 'rolle_' + personId
                 });
                 var personDetails = new TheaterTool.view.tabPanel.roles.RolePanelInTab({
                     dbkey: personId, icon: 'resources/images/theatreB.png', title: '<font size="2" face="Tahoma" style="color:#909090;">Rolle: ' + personName + '</font>'
                 });
-                //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                 repertoireTab.add(personDetails);
                 
                 repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -64,13 +48,11 @@ Ext.define('TheaterTool.view.tabPanel.roles.RoleTabDetails', {
                 navTreeGlobal.add(repertoireTab);
                 navTreeGlobal.setActiveTab(repertoireTab);
                 navTreeGlobal.fireEvent('render', navTreeGlobal);
-               
-                
             }
-}
-
-getWorkContent = function (workId, workName) {
-           var toolBarGlobal = Ext.getCmp('toolbar');
+        }
+        
+        getWorkContent = function (workId, workName) {
+            var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');
             
             var workIcon = '';
@@ -91,17 +73,12 @@ getWorkContent = function (workId, workName) {
                 
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + workName + '</font>',
-                    icon: workIcon
+                    icon: workIcon,
+                    id: 'werk_' + workId
                 });
-                
-                /*var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
-                selection: workId, isSelected: true
-                });*/
-                var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
+               var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                     selection: workId, isSelected: true, workName: workName, workIcon: workIcon
                 });
-                
-               // personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
                 repertoireTab.add(personDetails);
                 
                 repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -111,9 +88,8 @@ getWorkContent = function (workId, workName) {
                 navTreeGlobal.setActiveTab(repertoireTab);
                 navTreeGlobal.fireEvent('render', navTreeGlobal);
             }
-}
-
-        
+        }
+       
         me.callParent();
     },
     
@@ -131,44 +107,25 @@ getWorkContent = function (workId, workName) {
                 var tableInhalt = result.responseText;
                 
                 me.add({
-                //html: tableInhalt,
-                border: false,
-                flex:1,
-                
-                items:[ {
-                        html: tableInhalt,
-                        border: false,
-                        bodyBorder: false
-                    }]
-                    /*layout: {
-                        type: 'vbox',
-                        pack: 'start',
-                        align: 'stretch'
-                    },
-                    margin: '0 15 15 15',
-                   bodyBorder: false,
-                   border: true,
+                    border: false,
+                    flex: 1,
+                    
                     items:[ {
                         html: tableInhalt,
                         border: false,
                         bodyBorder: false
-                    }]*/
-                   /* html: tableInhalt,
-                    border: false*/
+                    }]
+                   
                 });
             }
         });
         
         getPersonContent = function (personId, personName) {
-    var toolBarGlobal = Ext.getCmp('toolbar');
+            var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');
-            // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
-            //if(!isHistoryItemExist){
             var menuItem = historyButton.menu.add({
                 text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
             });
-            
-            //}
             
             var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
             var existItems = navTreeGlobal.items;
@@ -177,12 +134,12 @@ getWorkContent = function (workId, workName) {
                 
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + personName + '</font>',
-                    icon: 'resources/images/Mask-19.png'
+                    icon: 'resources/images/Mask-19.png',
+                    id: 'person_' + personId
                 });
                 var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                    dbkey: personId,  title: '<font size="2" face="Tahoma" style="color:#909090;">Person: '+personName+'</font>', icon: 'resources/images/Mask-19.png'
+                    dbkey: personId, title: '<font size="2" face="Tahoma" style="color:#909090;">Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
                 });
-                //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                 repertoireTab.add(personDetails);
                 
                 repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -192,6 +149,6 @@ getWorkContent = function (workId, workName) {
                 navTreeGlobal.setActiveTab(repertoireTab);
                 navTreeGlobal.fireEvent('render', navTreeGlobal);
             }
-}
+        }
     }
 });

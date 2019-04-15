@@ -1,6 +1,3 @@
-/**
- * This example illustrates how to use the grouping feature of the Grid.
- */
 Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
     extend: 'Ext.panel.Panel',
     
@@ -16,11 +13,11 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
     flex: 1,
     
     parentPanel: null,
-   
+    
     month: null,
     monthNumber: null,
     year: null,
-   
+    
     selectedWorkID: null,
     messageWindow: null,
     rev_index: -1,
@@ -118,7 +115,6 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
             }, {
                 xtype: 'button',
                 text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',
-                //disabled: true,
                 style: {
                     borderRight: '1px solid gray',
                     borderLeft: '1px solid gray',
@@ -274,14 +270,12 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
                         var element = filteredList[i];
                         element.style.backgroundColor = "lightgray";
                         
-                        if (elementToFocus === '' && parseInt(me.count) === parseInt(i)) {                            
+                        if (elementToFocus === '' && parseInt(me.count) === parseInt(i)) {
                             element.style.border = "thick solid lightgray";
                             elementToFocus = element;
                             elementToFocus.scrollIntoView();
                         }
                     }
-                    
-                    
                 }
                 getWorkContent = function (workId, workName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
@@ -305,7 +299,8 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
                         
                         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + workName + '</font>',
-                            icon: workIcon
+                            icon: workIcon,
+                            id: 'werk_' + workId
                         });
                         
                         /*var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
@@ -331,14 +326,10 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
                 getPersonContent = function (personId, personName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton');
-                    // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
-                    //if(!isHistoryItemExist){
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
                     });
-                    
-                    //}
-                    
+                   
                     var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
                     var existItems = navTreeGlobal.items;
                     var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId, menuItem.id);
@@ -346,12 +337,12 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
                         
                         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + personName + '</font>',
-                            icon: 'resources/images/Mask-19.png'
+                            icon: 'resources/images/Mask-19.png',
+                            id: 'person_' + personId
                         });
                         var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
                             dbkey: personId, title: '<font style="color:gray;"">Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
                         });
-                        //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                         repertoireTab.add(personDetails);
                         
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -365,19 +356,16 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
             }
         });
         
-         me.listeners = { afterrender: function (panel) {
-                    //console.log(panel.header.el);
-                    panel.header.el.on('click', function () {
-                        // panel.header.el.on('click', function () {
-                        if (panel.collapsed) {
-                            panel.expand();
-                        } else {
-                            panel.collapse();
-                        }
-                    });
-                   
-                }
-            };
+        me.listeners = { afterrender: function (panel) {
+                panel.header.el.on('click', function () {
+                    if (panel.collapsed) {
+                        panel.expand();
+                    } else {
+                        panel.collapse();
+                    }
+                });
+            }
+        };
         
         me.callParent();
     }

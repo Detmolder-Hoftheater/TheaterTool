@@ -1,6 +1,3 @@
-/**
- * This example illustrates how to use the grouping feature of the Grid.
- */
 Ext.define('TheaterTool.view.tabPanel.gagebooks.GageBookTabDetails', {
     extend: 'Ext.panel.Panel',
     layout: {
@@ -58,13 +55,12 @@ Ext.define('TheaterTool.view.tabPanel.gagebooks.GageBookTabDetails', {
                         var element = filteredList[i];
                         element.style.backgroundColor = "lightgray";
                         
-                        if (elementToFocus === '' && parseInt(me.count) === parseInt(i)) {                           
+                        if (elementToFocus === '' && parseInt(me.count) === parseInt(i)) {
                             element.style.border = "thick solid lightgray";
                             elementToFocus = element;
                             elementToFocus.scrollIntoView();
                         }
                     }
-                                       
                 }
                 getPersonContent = function (personId, personName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
@@ -84,7 +80,8 @@ Ext.define('TheaterTool.view.tabPanel.gagebooks.GageBookTabDetails', {
                         
                         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + personName + '</font>',
-                            icon: 'resources/images/Mask-19.png'
+                            icon: 'resources/images/Mask-19.png',
+                            id: 'person_' + personId
                         });
                         var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
                             dbkey: personId, title: '<font style="color:gray;">Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'

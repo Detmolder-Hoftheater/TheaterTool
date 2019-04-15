@@ -14,13 +14,11 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
         style: {
             backgroundColor: '#FFFFFF',
             backgroundImage: 'none'
-            // borderBottom: '5px solid #F2EEE1'
-        }
+            }
     },
     autoScroll: true,
     border: false,
     bodyBorder: false,
-    //bodyPadding: 10,
     flex: 1,
     
     repertoireTab: null,
@@ -35,8 +33,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
     iconTab: null,
     
     workID: null,
-    
-    //headerPosition: 'right',
     
     initComponent: function () {
         
@@ -55,31 +51,28 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
             
             afterrender: function (panel) {
                 this.header.insert(1,[ {
-                xtype: 'button',
-                border: false,
-                glyph: null,
-                icon: 'resources/images/link-16.png',
-                style: 'background:white;',
-               
-                margin: '0 5 0 0',
-                arrowCls: '',
-                showSeparator: false,
-               menu:[ 
-               {
-               xtype: 'textarea',
-                    value: 'https://edirom.hoftheater-detmold.de/exist/apps/TheaterTool/index.html#HoftheaterDetmold:quelle_'+me.sourceID,
-                    plain: true,
-                    readOnly: true,
-                    inputWrapCls: '',
-                    triggerWrapCls: '',
-            fieldStyle: 'background:white;',
-           border: false,
-            margin: '0 0 0 0',
-            selected: true
-                }]
-                
-                }
-                ]);
+                    xtype: 'button',
+                    border: false,
+                    glyph: null,
+                    icon: 'resources/images/link-16.png',
+                    style: 'background:white;',
+                    
+                    margin: '0 5 0 0',
+                    arrowCls: '',
+                    showSeparator: false,
+                    menu:[ {
+                        xtype: 'textarea',
+                        value: 'https://edirom.hoftheater-detmold.de/exist/apps/TheaterTool/index.html#HoftheaterDetmold:quelle_' + me.sourceID,
+                        plain: true,
+                        readOnly: true,
+                        inputWrapCls: '',
+                        triggerWrapCls: '',
+                        fieldStyle: 'background:white;',
+                        border: false,
+                        margin: '0 0 0 0',
+                        selected: true
+                    }]
+                }]);
                 this.header.insert(2, {
                     xtype: 'button',
                     text: '<font size="1" face="Tahoma" style="color:#909090;">XML ansehen</font>',
@@ -130,7 +123,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
                 
                 this.header.insert(3, {
                     xtype: 'button',
-                    /*text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',*/
                     text: '<font size="1" face="Tahoma" style="color:#909090;">XML laden</font>',
                     style: 'background:white;',
                     

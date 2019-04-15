@@ -1,6 +1,6 @@
 Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
     extend: 'Ext.panel.Panel',
-  
+    
     layout: {
         type: 'vbox',
         pack: 'start',
@@ -10,8 +10,8 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
     border: false,
     bodyPadding: 10,
     flex: 1,
-     
-    regieName: null,    
+    
+    regieName: null,
     count: null,
     dbkey: null,
     elementList: null,
@@ -30,7 +30,7 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
             success: function (response) {
                 
                 var tableInhalt = response.responseText;
-              
+                
                 me.add({
                     
                     html: tableInhalt,
@@ -66,13 +66,12 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
                         var element = filteredList[i];
                         element.style.backgroundColor = "lightgray";
                         
-                        if (elementToFocus === '' && parseInt(me.count) === parseInt(i)) {                           
+                        if (elementToFocus === '' && parseInt(me.count) === parseInt(i)) {
                             element.style.border = "thick solid lightgray";
                             elementToFocus = element;
                             elementToFocus.scrollIntoView();
                         }
-                    }                   
-                    
+                    }
                 }
                 
                 
@@ -98,17 +97,13 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
                         
                         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + workName + '</font>',
-                            icon: workIcon
+                            icon: workIcon,
+                            id: 'werk_' + workId
                         });
                         
-                        /*var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
-                        selection: workId, isSelected: true
-                        });*/
                         var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                             selection: workId, isSelected: true, workName: workName, workIcon: workIcon
                         });
-                        
-                        // personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
                         repertoireTab.add(personDetails);
                         
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -124,13 +119,9 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
                 getPersonContent = function (personId, personName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton');
-                    // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
-                    //if(!isHistoryItemExist){
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
                     });
-                    
-                    //}
                     
                     var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
                     var existItems = navTreeGlobal.items;
@@ -139,12 +130,12 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
                         
                         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + personName + '</font>',
-                            icon: 'resources/images/Mask-19.png'
+                            icon: 'resources/images/Mask-19.png',
+                            id: 'person_' + personId
                         });
                         var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
                             dbkey: personId, title: '<font style="color:gray;>Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
                         });
-                        //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                         repertoireTab.add(personDetails);
                         
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -155,7 +146,6 @@ Ext.define('TheaterTool.view.tabPanel.rolebooks.RoleTabDetails', {
                         navTreeGlobal.fireEvent('render', navTreeGlobal);
                     }
                 }
-                
             }
         });
         

@@ -60,17 +60,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RoleTable', {
         this.detailsColumn];
         
         this.listeners = { afterrender: function (panel) {
-                    //console.log(panel.header.el);
-                    panel.header.el.on('click', function () {
-                        // panel.header.el.on('click', function () {
-                        if (panel.collapsed) {
-                            panel.expand();
-                        } else {
-                            panel.collapse();
-                        }
-                    });
-                }
-            };
+                panel.header.el.on('click', function () {
+                    if (panel.collapsed) {
+                        panel.expand();
+                    } else {
+                        panel.collapse();
+                    }
+                });
+            }
+        };
         
         this.callParent();
     },
@@ -85,14 +83,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RoleTable', {
             var roleNameToHistory = vollName + ' (' + countNumber + ')';
             
             var historyButton = Ext.getCmp('historyButton');
-            //var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.name + '</font>');
-            //if(!isHistoryItemExist){
             var menuItem = historyButton.menu.add({
                 text: '<font style="color:gray;">' + roleNameToHistory + '</font>', icon: 'resources/images/carnival.png'
             });
-            //, selection: 3
-            
-            // }
             
             var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
             var existItems = navTreeGlobal.items;
@@ -100,12 +93,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RoleTable', {
             if (! isFoundItem) {
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
-                    icon: 'resources/images/carnival.png'
+                    icon: 'resources/images/carnival.png',
+                    id: 'rolle_' + me.dbkey
                 });
-                
-                /*var selectedRow = me.getSelectionModel().getSelection()[0];
-                var count = selectedRow.countFoSelection;*/
-                
+               
                 var personDetails = new TheaterTool.view.tabPanel.rolebooks.RoleKostuemPanelInTab({
                     regieName: roleName, count: countFoSelection, dbkey: me.dbkey
                 });
@@ -122,23 +113,18 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RoleTable', {
         
         var eColumn = Ext.create('Ext.grid.column.Action', {
             xtype: 'actioncolumn',
-            //header: headerName,
             flex: 1,
-            //align: 'center',
             dataIndex: 'name',
             menuDisabled: true,
             renderer: function (val, metadata, record) {
                 var presentationText = '';
                 
                 if (record.data.dbkey !== '') {
-                    // this.items[0].icon = 'resources/images/Door-24.png';
                     var countNumber = parseInt(record.data.countFoSelection) + 1;
                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getRoleCostumContent(\'' + record.data.name + '\',\'' + record.data.countFoSelection + '\');">' + record.data.name + '(' + countNumber + ')' + '</a></small>';
                 } else {
-                    //this.items[0].icon = '';
                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.name + ' </small>';
                 }
-                // metadata.style = 'cursor: pointer;';
                 return presentationText;
             }
         });

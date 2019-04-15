@@ -12,7 +12,7 @@ Ext.define('TheaterTool.view.tabPanel.issue.FacsimileView', {
     },
     
     border: false,
-   
+    
     pageSpinner: null,
     
     leafletFacsimile: null,
@@ -30,7 +30,7 @@ Ext.define('TheaterTool.view.tabPanel.issue.FacsimileView', {
         me.leafletFacsimile = new TheaterTool.view.tabPanel.issue.LeafletFacsimile({
             margin: '0 0 5 0', imageData: me.imageData
         });
-       
+        
         if (me.imageData.length > 1) {
             me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.issue.PageSpinner', {
                 leafletFacsimile: me.leafletFacsimile,
@@ -187,18 +187,18 @@ Ext.define('TheaterTool.view.tabPanel.issue.PageSpinner', {
     }
 });
 /*Ext.define('TheaterTool.view.tabPanel.issue.FacsimileView', {
-	extend: 'Ext.panel.Panel',
-	requires:[
-	'TheaterTool.view.tabPanel.issue.LeafletFacsimile'],
-	
-	flex: 1,
+extend: 'Ext.panel.Panel',
+requires:[
+'TheaterTool.view.tabPanel.issue.LeafletFacsimile'],
+
+flex: 1,
 
 layout: {
-		type: 'vbox',
-		pack: 'start',
-		align: 'stretch'
-	},
-	region: 'east',
+type: 'vbox',
+pack: 'start',
+align: 'stretch'
+},
+region: 'east',
 
 border: true,
 
@@ -209,15 +209,15 @@ leafletFacsimile: null,
 selectedWork: null,
 imagePath: null,
 
-	initComponent: function () {
-		
-		var me = this;
+initComponent: function () {
 
-	
-		me.leafletFacsimile = new TheaterTool.view.tabPanel.issue.LeafletFacsimile({margin: '0 0 5 0', imagePath: me.imagePath})
+var me = this;
 
 
-		me.items =[ 
+me.leafletFacsimile = new TheaterTool.view.tabPanel.issue.LeafletFacsimile({margin: '0 0 5 0', imagePath: me.imagePath})
+
+
+me.items =[
 me.leafletFacsimile
 
 
@@ -225,160 +225,160 @@ me.leafletFacsimile
 ];
 
 
-		this.callParent()
-	},
+this.callParent()
+},
 
-	getLeafletFacsimile: function(){
-		return this.leafletFacsimile;
-	},
+getLeafletFacsimile: function(){
+return this.leafletFacsimile;
+},
 
 getPageSpinner: function(){
-	return this.pageSpinner;
+return this.pageSpinner;
 },
-	
-	click: function () {		
-		console.log("Click");
-	}
+
+click: function () {
+console.log("Click");
+}
 });
 
 
 
 Ext.define('TheaterTool.view.tabPanel.issue.PageSpinner', {
-	extend: 'Ext.container.Container',
-	
-	alias: 'widget.verPageSpinner',
-	
-	layout: 'hbox',
+extend: 'Ext.container.Container',
 
-	pageID: null,
+alias: 'widget.verPageSpinner',
 
-	leafletFacsimile: null,
+layout: 'hbox',
 
-	selectedWork: null,
-	
-	initComponent: function () {
-		
-		this.items =[];
-		this.callParent();
-	},
-	
-	next: function () {
-		var newValue = this.combo.getValue() + 1;
-		if (this.store.indexOf(newValue) != -1) {
-			
+pageID: null,
 
-			this.leafletFacsimile.clear();
-			this.leafletFacsimile.loadFacsimile(this.pageID, newValue, this.selectedWork);
+leafletFacsimile: null,
 
-			this.setPage(newValue);
+selectedWork: null,
 
-			
-		}
-	},
-	
-	prev: function () {
-		var newValue = this.combo.getValue() -1;
-		if (this.store.indexOf(newValue) != -1) {
+initComponent: function () {
+
+this.items =[];
+this.callParent();
+},
+
+next: function () {
+var newValue = this.combo.getValue() + 1;
+if (this.store.indexOf(newValue) != -1) {
+
 
 this.leafletFacsimile.clear();
-			this.leafletFacsimile.loadFacsimile(this.pageID, newValue, this.selectedWork);
-			this.setPage(newValue);
-			
-		}
-	},
-	
-	setPageID: function(pageID){
-		this.pageID = pageID;
-	},
+this.leafletFacsimile.loadFacsimile(this.pageID, newValue, this.selectedWork);
 
-	setPage: function (id) {
-		this.combo.setValue(id);
-	},
-	
-	setStore: function (test) {
-		
-		var me = this;
+this.setPage(newValue);
+
+
+}
+},
+
+prev: function () {
+var newValue = this.combo.getValue() -1;
+if (this.store.indexOf(newValue) != -1) {
+
+this.leafletFacsimile.clear();
+this.leafletFacsimile.loadFacsimile(this.pageID, newValue, this.selectedWork);
+this.setPage(newValue);
+
+}
+},
+
+setPageID: function(pageID){
+this.pageID = pageID;
+},
+
+setPage: function (id) {
+this.combo.setValue(id);
+},
+
+setStore: function (test) {
+
+var me = this;
 
 //test=25;
-		
-		this.removeAll();
-		
-		var storeField = new Array(test-1);
-		var value = 1;
-		for (var i = 0; i <= test-1; i++) {
-			storeField[i] = value++;
-		}
-		
-		this.store = storeField;
-		
-		this.combo = Ext.create('Ext.form.ComboBox', {
-			width: 40,
+
+this.removeAll();
+
+var storeField = new Array(test-1);
+var value = 1;
+for (var i = 0; i <= test-1; i++) {
+storeField[i] = value++;
+}
+
+this.store = storeField;
+
+this.combo = Ext.create('Ext.form.ComboBox', {
+width: 40,
 //flex:1,
-			hideTrigger: true,
-			queryMode: 'local',
-			store: this.store,
+hideTrigger: true,
+queryMode: 'local',
+store: this.store,
 //fieldLabel: 'Seite',
-			displayField: 'name',
-			editable: true,
-			valueField: 'id',
-			//cls: 'pageInputBox',
-			autoSelect: true,
-			enableKeyEvents: true,
-			listeners: {			
-				keydown:function (combo, e, eOpts) {
-            		if (e.getKey() == 13) {
+displayField: 'name',
+editable: true,
+valueField: 'id',
+//cls: 'pageInputBox',
+autoSelect: true,
+enableKeyEvents: true,
+listeners: {
+keydown:function (combo, e, eOpts) {
+if (e.getKey() == 13) {
 
-						me.leafletFacsimile.clear();
-						me.leafletFacsimile.loadFacsimile(me.pageID, combo.getValue(), this.selectedWork);
-            			me.setPage(combo.getValue());
-						
-            		}
-        		}
-			}
-		});
-		
-		this.add([ 
+me.leafletFacsimile.clear();
+me.leafletFacsimile.loadFacsimile(me.pageID, combo.getValue(), this.selectedWork);
+me.setPage(combo.getValue());
+
+}
+}
+}
+});
+
+this.add([
 {
-        xtype: 'label',
-        text: 'Seite',
-        margin: '3 5 0 5'
-    },
+xtype: 'label',
+text: 'Seite',
+margin: '3 5 0 5'
+},
 
 {
-			xtype: 'button',
-			icon: 'resources/images/page-prev-disabled.gif',
+xtype: 'button',
+icon: 'resources/images/page-prev-disabled.gif',
 margin: '0 5 0 5',
 
- 
-			//cls: 'prev toolButton',
-			listeners: {
-				scope: this,
-				click: this.prev
-			}
-		},
 
-		this.combo, 
-		
-		{
-			xtype: 'button',
-			icon: 'resources/images/page-next-disabled.gif',
-margin: '0 5 0 5',
-			//cls: 'next toolButton',
-			listeners: {
-				scope: this,
-				click: this.next
-			}
-		},
+//cls: 'prev toolButton',
+listeners: {
+scope: this,
+click: this.prev
+}
+},
+
+this.combo,
+
 {
-        xtype: 'label',
-        text: 'von '+ test,
-        margin: '3 5 0 5'
-    }
+xtype: 'button',
+icon: 'resources/images/page-next-disabled.gif',
+margin: '0 5 0 5',
+//cls: 'next toolButton',
+listeners: {
+scope: this,
+click: this.next
+}
+},
+{
+xtype: 'label',
+text: 'von '+ test,
+margin: '3 5 0 5'
+}
 
 
 ]);
-	}
+}
 });
 
 
-*/
+ */

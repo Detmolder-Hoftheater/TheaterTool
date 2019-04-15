@@ -13,13 +13,11 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
     flex: 1,
     sortableColumns: false,
     border: false,
-     bodyBorder: false,
-    //title: '<b style="color:gray;">Suchergebnisse: Werke</b>',
+    bodyBorder: false,
     icon: 'resources/images/BooksVert-17.png',
     store: null,
     columnLines: true,
     detailsColumn: null,
-    //margin: '0 10 10 120',
     worksList: null,
     
     initComponent: function () {
@@ -28,25 +26,8 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
         
         me.store = Ext.create('Ext.data.Store', {
             model: 'TheaterTool.model.SearchWork',
-            //pageSize: 4,
             data:[]
-            /*sorters: [{
-            sorterFn: function(o1, o2){
-            var getRank = function(o){
-            var name = o.get('jahr');
-            var numberJahr = parseInt(name);
-            return numberJahr;
-            },
-            rank1 = getRank(o1),
-            rank2 = getRank(o2);
             
-            if (rank1 === rank2) {
-            return 0;
-            }
-            
-            return rank1 < rank2 ? -1 : 1;
-            }
-            }]*/
         });
         
         if (me.worksList != 'undefined') {
@@ -111,22 +92,10 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
             dataIndex: 'personen'
         },
         me.detailsColumn];
-        
-        /*	me.dockedItems = [{
-        xtype: 'pagingtoolbar',
-        store: me.store,
-        dock: 'bottom',
-        displayInfo: true
-        }];*/
-        
+       
         me.callParent();
     },
-    
-    /*afterRender: function(){
-    this.callParent(arguments);
-    this.getStore().loadPage(1);
-    },*/
-    
+   
     createColumn: function (headerName, path) {
         
         var eColumn = Ext.create('Ext.grid.column.Action', {
@@ -148,14 +117,8 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
                 
                 metadata.style = 'cursor: pointer;';
                 
-                /*if(headerName == 'Details'){
-                return '<div style="float:right; font-size: 13px; line-height: 1em;">'
-                + 'Hey!'
-                + '</div>';
-                }
-                else{*/
                 return val;
-                //	}
+                
             },
             
             handler: function (grid, rowIndex, colIndex) {
@@ -184,7 +147,6 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
                             title: '<font style="color:gray;">' + rec.data.name + '</font>',
                             icon: workIcon
                         });
-                        //var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({selection: dbkey, isSelected: true});
                         var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                             selection: dbkey, isSelected: true, workName: rec.data.name, workIcon: workIcon
                         });

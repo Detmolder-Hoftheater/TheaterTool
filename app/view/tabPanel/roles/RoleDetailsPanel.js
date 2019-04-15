@@ -10,13 +10,7 @@ Ext.define('TheaterTool.view.tabPanel.roles.RoleDetailsPanel', {
     
     bodyBorder: false,
     border: false,
-    /*style: {
-        borderRight: '7px solid white',
-        borderLeft: '7px solid white',
-        borderTop: '7px solid white',
-        borderBottom: '7px solid white'
-    },*/
-    
+   
     defaults: {
         autoScroll: true,
         split: true
@@ -36,7 +30,6 @@ Ext.define('TheaterTool.view.tabPanel.roles.RoleDetailsPanel', {
             success: function (result) {
                 
                 var json = jQuery.parseJSON(result.responseText);
-                
                 
                 var persons_list = json.roles;
                 

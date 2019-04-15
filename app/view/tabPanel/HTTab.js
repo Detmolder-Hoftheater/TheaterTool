@@ -2,7 +2,6 @@ Ext.define('TheaterTool.view.tabPanel.HTTab', {
     extend: 'Ext.panel.Panel',
     requires:[
     'Ext.layout.container.VBox'],
-    //xtype: 'layout-vertical-box',
     flex: 1,
     
     layout: {
@@ -10,32 +9,13 @@ Ext.define('TheaterTool.view.tabPanel.HTTab', {
         pack: 'start',
         align: 'stretch'
     },
-    
-    
-    //bodyPadding: 10,
-    
+   
     border: false,
     bodyBorder: false,
     
     closable: true,
     
     activeMenuItemId: null,
-    
-    /*defaults: {
-    frame: true,
-    autoScroll: true
-    },*/
-    
-    /* style: {
-    // borderRight: '5px solid #A80016'
-    borderLeft: '1px solid #FFF',
-    borderTop: '1px solid #FFF',
-    borderBottom: '1px solid #FFF'
-    },*/
-    
-    
-    //bodyPadding: 5,
-    //border: false,
     
     autoScroll: true,
     
@@ -46,17 +26,7 @@ Ext.define('TheaterTool.view.tabPanel.HTTab', {
     initComponent: function () {
         
         var me = this;
-        
-        //this.repertoireNavigation = new TheaterTool.view.tabPanel.repertoire.RepertoireAlphNavigation();
-        
-        //this.repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel();
-        
-        //	this.items =[
-        //this.repertoireNavigation,
-        //	this.repertoireDetails
-        //	];
-        
-        
+       
         me.listeners = {
             beforeclose: function (panel, eOpts) {
                 var historyButton = Ext.getCmp('historyButton');
@@ -71,11 +41,7 @@ Ext.define('TheaterTool.view.tabPanel.HTTab', {
                 }
                 for (i = 0; i < itemsToDelete.length; i++) {
                     var itemToDelete = itemsToDelete[i];
-                    historyButton.menu.remove(itemToDelete, true);
-                    //console.log(panel);
-                    //var toDelete = 'tabpanel:'+ Ext.History.getToken();
-                    //console.log(Ext.History.getToken());
-                    //Ext.History.destroyMembers(panel.id);
+                    historyButton.menu.remove(itemToDelete, true);                 
                 }
                 if (menuItems.items.length === 0) {
                     historyButton.setDisabled(true);
@@ -97,7 +63,6 @@ Ext.define('TheaterTool.view.tabPanel.HTTab', {
     
     setActiveMenuItemId: function (activeMenuItemId) {
         this.activeMenuItemId = activeMenuItemId;
-        // console.log("Set in HTTab : "+ activeMenuItemId);
     },
     
     setMenuAdded: function (isMenuAdded) {

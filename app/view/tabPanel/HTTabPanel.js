@@ -25,30 +25,20 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
         var me = this;
         Ext.History.init();
         var tokenDelimiter = ':';
-        /*var win = new TheaterTool.view.main.InformationDialog();
-        win.show();*/
         
-         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                            title: //'<font style="color:gray;">Aus dem Bestand</font>',
-                          '<div style="color:gray; font-size: 12px;">Aus dem Bestand</div>',
-                            id: 'Mediathek',
-                            closable: false
-                        });
-                        /*var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
-                        selection: 'H020149'
-                        });*/
-                        var repertoireDetails = new TheaterTool.view.tabPanel.media.MediaPanelInTab({
-                            
-                        });
-                        repertoireTab.add(repertoireDetails);
-             /* var navTreeGlobal = me.getHTTabPanel();          
-        navTreeGlobal.add(repertoireTab);
-                        navTreeGlobal.setActiveTab(repertoireTab);
-                        navTreeGlobal.fireEvent('render', this.tabPanel);*/
+        var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+            title: //'<font style="color:gray;">Aus dem Bestand</font>',
+            '<div style="color:gray; font-size: 12px;">Aus dem Bestand</div>',
+            id: 'Mediathek',
+            closable: false
+        });
+        
+        var repertoireDetails = new TheaterTool.view.tabPanel.media.MediaPanelInTab({
+        });
+        repertoireTab.add(repertoireDetails);
         
         me.items =[
-        repertoireTab
-        ],
+        repertoireTab],
         
         me.listeners = {
             tabchange: function (tabPanel, tab) {
@@ -68,7 +58,6 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
                 var oldToken = Ext.History.getToken();
                 
                 if (oldToken === null || oldToken.search(newToken) === -1) {
-                    console.log('add');
                     Ext.History.add(newToken);
                 }
             },
@@ -79,9 +68,6 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
                     if (token) {
                         parts = token.split(tokenDelimiter);
                         length = parts.length;
-                        console.log(parts);
-                        
-                        
                         
                         // setActiveTab in all nested tabs
                         for (i = 0; i < length - 1; i++) {
@@ -89,29 +75,18 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
                         }
                     }
                 });
-                
-                // This is the initial default state.  Necessary if you navigate starting from the
-                // page without any existing history token params and go back to the start state.
-                /*var activeTab1 = Ext.getCmp('HoftheaterDetmold').getActiveTab();
-                console.log(activeTab1);
-                if (activeTab1 !== null) {
-                    var activeTab2 = activeTab1.getActiveTab();
-                    me.tabchange(activeTab1, activeTab2);
-                }*/
+               
             },
             render: function () {
-                //if (Ext.browser.is('Firefox')) {
                 
                 me.items.each(function (itm, idx) {
                     itm.tab.on('focus', function (tab) {
-                        //var tabpanel = tab.up('HoftheaterDetmold');
                         me.setActiveTab(idx);
                     });
                 });
-                //}
+                
             },
-            
-            
+         
             beforetabchange: function (newCard, oldCard, eOpts) {
                 var historyButton = Ext.getCmp('historyButton');
                 if (! oldCard.isMenuAdded) {

@@ -1,6 +1,3 @@
-/**
- * This example illustrates how to use the grouping feature of the Grid.
- */
 Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
     extend: 'Ext.panel.Panel',
     
@@ -26,8 +23,6 @@ Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
         var me = this;
         
         Ext.Ajax.request({
-            // url: 'data/Output_Exist.xql',
-            //url: 'resources/xql/getAbo.xql',
             url: 'resources/xql/getTaxContent.xql',
             method: 'GET',
             params: {
@@ -42,8 +37,6 @@ Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
                     border: false,
                     listeners: {
                         afterrender: function (panel) {
-                            //console.log(panel.el);
-                            //console.log(panel.el.dom.getElementsByTagName('persName'));
                             me.elementList = panel.el.dom.getElementsByTagName('persname');
                             me.workelements = panel.el.dom.getElementsByTagName('rs');
                         }
@@ -104,18 +97,14 @@ Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
                 
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + workName + '</font>',
-                    icon: workIcon
+                    icon: workIcon,
+                    id: 'werk_' + workId
                 });
-                
-                /*var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
-                selection: workId, isSelected: true
-                });*/
+               
                 var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                     selection: workId, isSelected: true, workName: workName, workIcon: workIcon
                 });
-                
-                // personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
-                repertoireTab.add(personDetails);
+               repertoireTab.add(personDetails);
                 
                 repertoireTab.setActiveMenuItemId(menuItem.id);
                 repertoireTab.setMenuAdded(true);
@@ -125,18 +114,13 @@ Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
                 navTreeGlobal.fireEvent('render', navTreeGlobal);
             }
         };
-        
-        /**/
         getPersonContent = function (personId, personName) {
             var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');
-            // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
-            //if(!isHistoryItemExist){
+            
             var menuItem = historyButton.menu.add({
                 text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
             });
-            
-            //}
             
             var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
             var existItems = navTreeGlobal.items;
@@ -145,12 +129,12 @@ Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
                 
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + personName + '</font>',
-                    icon: 'resources/images/Mask-19.png'
+                    icon: 'resources/images/Mask-19.png',
+                    id: 'person_' + personId
                 });
                 var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
                     dbkey: personId, title: '<font size="2" face="Arial" style="color:#A87678;">Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
                 });
-                //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                 repertoireTab.add(personDetails);
                 
                 repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -161,9 +145,7 @@ Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
                 navTreeGlobal.fireEvent('render', navTreeGlobal);
             }
         }
-        
-        
-        
+      
         me.callParent();
     }
 });

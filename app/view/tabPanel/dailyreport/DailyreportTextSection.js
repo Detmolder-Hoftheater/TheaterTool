@@ -1,4 +1,4 @@
-Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {   
+Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
     extend: 'Ext.panel.Panel',
     
     layout: {
@@ -11,12 +11,12 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
     bodyPadding: 10,
     flex: 1,
     collapsible: true,
-   
-    year: null,   
-    reportPath: null,    
+    
+    year: null,
+    reportPath: null,
     count: null,
     dbkeyPerson: null,
-    dbkey: null,    
+    dbkey: null,
     elementList: null,
     workelements: null,
     
@@ -204,17 +204,13 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
                         
                         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + workName + '</font>',
-                            icon: workIcon
+                            icon: workIcon,
+                            id: 'werk_' + workId
                         });
-                        
-                        /*var personDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
-                        selection: workId, isSelected: true
-                        });*/
+                       
                         var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                             selection: workId, isSelected: true, workName: workName, workIcon: workIcon
                         });
-                        
-                        // personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + workName + '</font>');
                         repertoireTab.add(personDetails);
                         
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -230,13 +226,9 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
                 getPersonContent = function (personId, personName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton');
-                    // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
-                    //if(!isHistoryItemExist){
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
                     });
-                    
-                    //}
                     
                     var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
                     var existItems = navTreeGlobal.items;
@@ -248,9 +240,10 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
                             icon: 'resources/images/Mask-19.png'
                         });
                         var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                            dbkey: personId, title: '<font style="color:gray;">Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
+                            dbkey: personId, title: '<font style="color:gray;">Person: ' + personName + '</font>',
+                            icon: 'resources/images/Mask-19.png',
+                            id: 'person_' + personId
                         });
-                        //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                         repertoireTab.add(personDetails);
                         
                         repertoireTab.setActiveMenuItemId(menuItem.id);
@@ -264,21 +257,18 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
             }
         });
         
-         me.listeners = { afterrender: function (panel) {
-                    //console.log(panel.header.el);
-                    panel.header.el.on('click', function () {
-                        // panel.header.el.on('click', function () {
-                        if (panel.collapsed) {
-                            panel.expand();
-                        } else {
-                            panel.collapse();
-                        }
-                    });
-                   
-                }
-            };
+        me.listeners = { afterrender: function (panel) {
+                panel.header.el.on('click', function () {
+                    if (panel.collapsed) {
+                        panel.expand();
+                    } else {
+                        panel.collapse();
+                    }
+                });
+            }
+        };
         
-
+        
         me.callParent();
     }
 });

@@ -55,27 +55,18 @@ Ext.define('TheaterTool.view.tabPanel.GagenTable', {
         
         this.columns =[
         
-        /*{
-        text: 'Name',
-        flex: 2,
-        menuDisabled: true,
-        dataIndex: 'name'
-        
-        },*/
         this.detailsColumn];
         
         this.listeners = { afterrender: function (panel) {
-                    //console.log(panel.header.el);
-                    panel.header.el.on('click', function () {
-                        // panel.header.el.on('click', function () {
-                        if (panel.collapsed) {
-                            panel.expand();
-                        } else {
-                            panel.collapse();
-                        }
-                    });
-                }
-            };
+                panel.header.el.on('click', function () {
+                    if (panel.collapsed) {
+                        panel.expand();
+                    } else {
+                        panel.collapse();
+                    }
+                });
+            }
+        };
         
         this.callParent();
     },
@@ -91,25 +82,20 @@ Ext.define('TheaterTool.view.tabPanel.GagenTable', {
             var roleNameToHistory = gagenName + ' (' + countNumber + ')';
             
             var historyButton = Ext.getCmp('historyButton');
-            //var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.name + '</font>');
-            //if(!isHistoryItemExist){
             var menuItem = historyButton.menu.add({
                 text: '<font style="color:gray;">' + roleNameToHistory + '</font>', icon: 'resources/images/carnival.png'
             });
-            //, selection: 3
-            
-            // }
             
             var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
             var existItems = navTreeGlobal.items;
             var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">' + roleNameToHistory + '</font>');
             
-            
             if (! isFoundItem) {
                 
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
-                    icon: 'resources/images/Gift-17.png'
+                    icon: 'resources/images/Gift-17.png',
+                    id: 'gagenheft_' + roleName.replace(/\s/g, '').replace(/ü/g, 'u') + me.dbkey
                 });
                 var personDetails = new TheaterTool.view.tabPanel.gagebooks.GageBookPanelInTab({
                     regieName: roleName, count: countFoSelection, dbkey: me.dbkey
@@ -127,7 +113,6 @@ Ext.define('TheaterTool.view.tabPanel.GagenTable', {
             xtype: 'actioncolumn',
             header: headerName,
             flex: 1,
-            //align: 'center',
             dataIndex: 'name',
             menuDisabled: true,
             renderer: function (val, metadata, record) {
@@ -137,27 +122,7 @@ Ext.define('TheaterTool.view.tabPanel.GagenTable', {
                 
                 return presentationText;
             }
-            /*,
-            handler: function(grid, rowIndex, colIndex) {
-            var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
-            var existItems = navTreeGlobal.items;
-            var rec = grid.getStore().getAt(rowIndex);
-            var isFoundItem = navTreeGlobal.isItemFound(existItems, '<font style="color:gray;">'+rec.data.name+'</font>');
-            if (! isFoundItem) {
-            var dbkey = rec.data.name;
-            var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-            title: '<font style="color:gray;">'+rec.data.name+'</font>',
-            icon: 'resources/images/Gift-17.png'
-            });
-            var personDetails = new TheaterTool.view.tabPanel.gagebooks.GageBookPanelInTab({regieName: dbkey});
-            repertoireTab.add(personDetails);
-            
-            
-            navTreeGlobal.add(repertoireTab);
-            navTreeGlobal.setActiveTab(repertoireTab);
-            navTreeGlobal.fireEvent('render', navTreeGlobal);
-            }
-            }*/
+           
         });
         return eColumn;
     }

@@ -19,7 +19,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab', {
         var navTree = new TheaterTool.view.tabPanel.repertoire.RepertoireMenuItemTree();
         var navTreeStore = new TheaterTool.store.work.ExtWork();
         navTreeStore.getProxy().extraParams.workName = this.selection;
-        navTreeStore.load();       
+        navTreeStore.load();
         navTree.getView().bindStore(navTreeStore);
         navTree.setRepertoirePanel(me);
         navTree.setWorkSelection(me.selection);

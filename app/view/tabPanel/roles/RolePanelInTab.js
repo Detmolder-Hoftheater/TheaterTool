@@ -1,19 +1,9 @@
 Ext.define('TheaterTool.view.tabPanel.roles.RolePanelInTab', {
-    /*extend: 'Ext.tab.Panel',
     
-    border: false,
-    
-    flex: 1,
-    
-    dbkey: null,
-    
-    section_xml: null,
-    section_details: null,*/
     extend: 'Ext.panel.Panel',
     
     flex: 1,
     border: false,
-    //bodyBorder: false,
     
     autoScroll: true,
     
@@ -43,41 +33,33 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolePanelInTab', {
             
             afterrender: function (panel) {
                 this.header.insert(1,[ {
-                xtype: 'button',
-                border: false,
-                glyph: null,
-                icon: 'resources/images/link-16.png',
-                style: 'background:white;',
-               
-                margin: '0 5 0 0',
-                arrowCls: '',
-                showSeparator: false,
-               menu:[ 
-               {
-               xtype: 'textarea',
-                    value: 'https://edirom.hoftheater-detmold.de/exist/apps/TheaterTool/index.html#HoftheaterDetmold:rolle_'+me.dbkey,
-                    plain: true,
-                    readOnly: true,
-                    inputWrapCls: '',
-                    triggerWrapCls: '',
-            fieldStyle: 'background:white;',
-           border: false,
-            margin: '0 0 0 0',
-            selected: true
-                }]
-                
-                }
-                ]);
+                    xtype: 'button',
+                    border: false,
+                    glyph: null,
+                    icon: 'resources/images/link-16.png',
+                    style: 'background:white;',
+                    
+                    margin: '0 5 0 0',
+                    arrowCls: '',
+                    showSeparator: false,
+                    menu:[ {
+                        xtype: 'textarea',
+                        value: 'https://edirom.hoftheater-detmold.de/exist/apps/TheaterTool/index.html#HoftheaterDetmold:rolle_' + me.dbkey,
+                        plain: true,
+                        readOnly: true,
+                        inputWrapCls: '',
+                        triggerWrapCls: '',
+                        fieldStyle: 'background:white;',
+                        border: false,
+                        margin: '0 0 0 0',
+                        selected: true
+                    }]
+                }]);
                 this.header.insert(2, {
                     xtype: 'button',
                     text: '<font size="1" face="Tahoma" style="color:#909090;">XML ansehen</font>',
                     style: 'background:white;',
-                    /*style: {
-                    borderRight: '1px solid gray',
-                    borderLeft: '1px solid gray',
-                    borderTop: '1px solid gray',
-                    borderBottom: '1px solid gray'
-                    },*/
+                    
                     margin: '0 3 0 5',
                     listeners: {
                         click: function (item, e, eOpts) {
@@ -120,16 +102,9 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolePanelInTab', {
                 
                 this.header.insert(3, {
                     xtype: 'button',
-                    /*text: '<font size = "1"><b style="color:gray;">XML laden</b></font>',*/
                     text: '<font size="1" face="Tahoma" style="color:#909090;">XML laden</font>',
                     style: 'background:white;',
-                    //disabled: true,
-                    /*style: {
-                    borderRight: '1px solid gray',
-                    borderLeft: '1px solid gray',
-                    borderTop: '1px solid gray',
-                    borderBottom: '1px solid gray'
-                    },*/
+                    
                     listeners: {
                         click: function (item, e, eOpts) {
                             

@@ -1,70 +1,55 @@
 Ext.define('TheaterTool.view.tabPanel.link.LinkPanelInTab', {
-	extend: 'Ext.panel.Panel',
-	
-	layout: {
-		type: 'vbox',
-		pack: 'start',
-		align: 'stretch'
-	},
-
-	//border: true,
-
-	flex:1,
-	bodyPadding:7,
-
-	initComponent: function () {
-
-	this.items = [
-			
-			{
-    xtype: 'component',
-    margin: '10 0 10 10',
-    autoEl: {
-        tag: 'a',
-        href: 'http://s2w.hbz-nrw.de/llb/content/titleinfo/3305985',
-        html: 'Ein Rückblick auf das Fürstliche Theater in Detmold von 1825-1886',
-		target: "_blank"
-		
-    }
-    },
-    {
-    xtype: 'component',
-    margin: '10 0 10 10',
-    autoEl: {
-        tag: 'a',
-        href: 'http://nbn-resolving.de/urn:nbn:de:hbz:51:1-10750',
-        html: 'Ein Rückblick auf das Fürstliche Theater in Detmold unter der Direktion von H. Steffen von 1877–1892',
-		target: "_blank"
-		
-    }
+    extend: 'Ext.panel.Panel',
+    
+    layout: {
+        type: 'vbox',
+        pack: 'start',
+        align: 'stretch'
     },
     
-		{
-    xtype: 'component',
-    margin: '10 0 10 10',
-    autoEl: {
-        tag: 'a',
-        href: 'http://s2w.hbz-nrw.de/llb/urn/urn:nbn:de:hbz:51:1-3415',
-        html: 'Gesetzliche Ordnungen für das Hochfürstl. Lippesche Hoftheater',
-		target: "_blank"
-		
-    }
-    },
+    flex: 1,
+    bodyPadding: 7,
     
-		{
-    xtype: 'component',
-    margin: '10 0 10 10',
-    autoEl: {
-        tag: 'a',
-        href: 'http://nbn-resolving.de/urn:nbn:de:hbz:51:1-8807',
-        html: 'Theater-Journal des Fürstlichen Theaters zu Detmold',
-		target: "_blank"
-		
+    initComponent: function () {
+        
+        this.items =[ {
+            xtype: 'component',
+            margin: '10 0 10 10',
+            autoEl: {
+                tag: 'a',
+                href: 'http://s2w.hbz-nrw.de/llb/content/titleinfo/3305985',
+                html: 'Ein Rückblick auf das Fürstliche Theater in Detmold von 1825-1886',
+                target: "_blank"
+            }
+        }, {
+            xtype: 'component',
+            margin: '10 0 10 10',
+            autoEl: {
+                tag: 'a',
+                href: 'http://nbn-resolving.de/urn:nbn:de:hbz:51:1-10750',
+                html: 'Ein Rückblick auf das Fürstliche Theater in Detmold unter der Direktion von H. Steffen von 1877–1892',
+                target: "_blank"
+            }
+        }, {
+            xtype: 'component',
+            margin: '10 0 10 10',
+            autoEl: {
+                tag: 'a',
+                href: 'http://s2w.hbz-nrw.de/llb/urn/urn:nbn:de:hbz:51:1-3415',
+                html: 'Gesetzliche Ordnungen für das Hochfürstl. Lippesche Hoftheater',
+                target: "_blank"
+            }
+        }, {
+            xtype: 'component',
+            margin: '10 0 10 10',
+            autoEl: {
+                tag: 'a',
+                href: 'http://nbn-resolving.de/urn:nbn:de:hbz:51:1-8807',
+                html: 'Theater-Journal des Fürstlichen Theaters zu Detmold',
+                target: "_blank"
+            }
+        }]
+        
+        this.callParent();
     }
-    }		
-			
-    ]
-
-    	this.callParent();
-	}
 });

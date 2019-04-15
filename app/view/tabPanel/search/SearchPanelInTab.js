@@ -7,10 +7,6 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
         align: 'stretch'
     },
     
-    //border: true,
-    
-    /*flex:1,
-    bodyPadding:7,*/
     autoScroll: true,
     border: true,
     padding: 10,

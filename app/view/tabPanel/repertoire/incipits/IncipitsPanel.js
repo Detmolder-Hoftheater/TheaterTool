@@ -11,37 +11,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
     autoScroll: true,
     reserveScrollbar: true,
     
-    /*style: {
-    borderLeft: '3px solid #A80016',
-    borderRight: '3px solid #A80016',
-    borderTop: '3px solid #A80016',
-    borderBottom: '3px solid #A80016'
-    },*/
-    
-    
-    /*autoScroll: true,
-    reserveScrollbar: true,
-    flex: 1,
-    /\*
-    width: 850,
-    height:450,*\/
-    
-    layout: {
-    type: 'vbox',
-    pack: 'start',
-    align: 'stretch'
-    },
-    
-    bodyPadding: 5,
-    
-    defaults: {
-    frame: true
-    },
-    
-    
-    bodyBorder: false,
-    border: false,*/
-    
     bodyStyle: {
         "background-color": "white"
     },
@@ -53,40 +22,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
         
         var me = this;
         
-        /*Ext.Ajax.request({
-        //url: "data/test.mei",
-        url: "resources/xql/getIncipit.xql",
-        method: 'GET',
-        params: {
-        sourceID: me.sourceID
-        },
-        success: function (response) {
-        
-        var text = response.responseText;
-        var splittest = text.split('<html>');
-        for (i = 0; i < splittest.length; i++) {
-        var meiE_tmp = splittest[i];
-        var meiE = meiE_tmp.replace('</html>', '');
-        if (meiE !== '') {
-        var xmlFile = jQuery.parseXML(meiE);
-        var meiElements = xmlFile.getElementsByTagName('title');
-        
-        var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({
-        title: '<b style="color:gray;">' + meiElements[0].getAttribute('label') + '</b>'
-        });
-        me.add(incipitSection);
-        incipitSection.setTextInfo(meiE);
-        }
-        }
-        }
-        });*/
         var messageWindow = Ext.MessageBox.show({
-            // title: 'Load Incipits',
             msg: 'Loading...'
-            //buttons: Ext.MessageBox.OK
-        });
+            });
         Ext.Ajax.request({
-            //url: "data/test.mei",
             url: "resources/xql/getIncipit.xql",
             method: 'GET',
             params: {
@@ -109,20 +48,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                     if (meiE !== '') {
                         var xmlFile = jQuery.parseXML(meiE);
                         var meiElements = xmlFile.getElementsByTagName('title');
-                        
-                        
+                  
                         var incipitSection = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection({
-                            //titlename: '<font size="2" face="Arial" style="color:#A87678;">' +meiElements[0].getAttribute('label') + '</b>',
                             titlename: meiElements[0].getAttribute('label'),
                             width: 200,
-                            //height: 400,
                             x: xPosition, y: 25,
-                            /*items:[ {
-                            
-                            xtype: 'label',
-                            html: '<b style="color:gray;">' + meiElements[0].getAttribute('label') + '</b>',
-                            margin: '0 5 0 10'
-                            }],*/
+                           
                             listeners: {
                                 
                                 el: {
@@ -130,30 +61,27 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                                     mouseenter: {
                                         
                                         fn: function (event, html, eOpts) {
-                                         
-                                         var elements = html.getElementsByTagName('b');
-                                         var one_el = elements[0];
-                                         var one_value = one_el.innerHTML;
-                                         
-                                         for(var m = 0; m < me.items.items.length; m++){
-                                            var oneItem = me.items.items[m];
-                                            var titlename = oneItem.titlename;
-                                            if(titlename === one_value){
-                                                oneItem.setDisabled(false);
-                                                me.in_panel.setTitleParameter(titlename);
+                                            
+                                            var elements = html.getElementsByTagName('b');
+                                            var one_el = elements[0];
+                                            var one_value = one_el.innerHTML;
+                                            
+                                            for (var m = 0; m < me.items.items.length; m++) {
+                                                var oneItem = me.items.items[m];
+                                                var titlename = oneItem.titlename;
+                                                if (titlename === one_value) {
+                                                    oneItem.setDisabled(false);
+                                                    me.in_panel.setTitleParameter(titlename);
+                                                } else {
+                                                    oneItem.setDisabled(true);
+                                                }
                                             }
-                                            else{
-                                                oneItem.setDisabled(true);
-                                            }
-                                           
-                                         }
-                                     
                                         }
                                     }
                                 }
                             }
                         });
-                       
+                        
                         var position = me.items.length;
                         if (position === undefined) {
                             position = 0;
@@ -167,14 +95,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                             
                             xtype: 'label',
                             html: '<b style="color:gray;">' + meiElements[0].getAttribute('label') + '</b>'
-                            
-                            //margin: '15 15 15 15'
+                           
                         });
-                        //me.in_panel.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + meiElements[0].getAttribute('label') + '</b>');
-                        //me.in_panel.setTitle(meiElements[0].getAttribute('label'));
                         me.in_panel.setTitleParameter(meiElements[0].getAttribute('label'));
-                        
-                        //reverseitemObjs[splittest.length -1 - i] = incipitSection;
                     }
                     
                     if (i === 0) {
@@ -186,107 +109,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel', {
                 }
             }
         });
-        
-        
-        
-        /*Ext.Ajax.request({
-        url: "resources/xql/getIncipitImages.xql",
-        method: 'GET',
-        params: {
-        sourceID: me.sourceID
-        },
-        success: function (response) {
-        
-        var text = jQuery.parseJSON(response.responseText);;
-        var imageNames = text.names;
-        //console.log(imageNames);
-        var xPosition = 50*(imageNames.length+1);
-        var reverseitemObjs = new Array();
-        
-        for(i = imageNames.length-1; i > -1 ; i--){
-        xPosition = xPosition-50;
-        var imageName = imageNames[i];
-        var imagePath = '/exist/rest/db/apps/theater-data/incipitimages/H020263/'+imageName;
-        var item_1 = Ext.create('Ext.panel.Panel',
-        { width: 200, height: 400,
-        title: imageName,
-        items: [
-        { xtype: 'image', //padding: 3,
-        src: imagePath
-        }],
-        listeners: {
-        
-        el: {
-        /\*mouseover: {
-        fn: function (event, html, eOpts) {
-        console.log('mouseover');
-        }
-        },*\/
-        
-        mouseenter: {
-        
-        fn: function (event, html, eOpts) {
-        var me_me = this;
-        var old_index = -1;
-        var image_itemid = null;
-        for(i = 0; i < me.items.items.length; i++){
-        var image_item = me.items.items[i];
-        if(image_item.id === me_me.id){
-        image_itemid = image_item.id;
-        break;
-        }
-        }
-        
-        for(i = 0; i < reverseitemObjs.length-1 ; i++){
-        var savesItem = reverseitemObjs[i];
-        if(savesItem.id === image_itemid){
-        old_index = i;
-        break;
-        }
-        }
-        
-        var newObjItems = reverseitemObjs.slice(old_index, reverseitemObjs.length);
-        newObjItems.reverse();
-        
-        var   newReverseObjItems = reverseitemObjs.slice(0, old_index);
-        
-        var newItemsArray = newReverseObjItems.concat(newObjItems);
-        
-        
-        for(i = 0; i < newItemsArray.length ; i++){
-        var reorderedItem = newItemsArray[i];
-        me.insert(i, reorderedItem);
-        
-        }
-        
-        }
-        
-        
-        }
-        }
-        },
-        x: xPosition,
-        y: 50
-        // margin: '0 5 5 5'
-        /\*listeners: {
-        
-        afterrender: function(component) {
-        console.log('Y: ' + component.getY() +' X: '+ component.getX());
-        component.setPosition(500, 800);
-        console.log('Y: ' + component.getY() +' X: '+ component.getX());
-        
-        }
-        }*\/
-        });
-        
-        me.add(item_1);
-        reverseitemObjs[imageNames.length-1-i] =item_1;
-        }
-        
-        }
-        });*/
-        
-        
+    
         me.callParent();
     }
 });

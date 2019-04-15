@@ -6,11 +6,8 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolesNavigationTree', {
     
     flex: 3.3,
     region: 'east',
-    //title: '<b style="color:gray;">Personen</b>',
-    //icon: 'resources/images/theatreB.png',
     collapsible: true,
     header: false,
-    //sortableColumns: false,
     rowLines: false,
     columnLines: true,
     
@@ -46,7 +43,6 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolesNavigationTree', {
             var person = Ext.create('TheaterTool.model.Person', {
                 'name': person_details[0],
                 'persId': person_details[1],
-                //'forename': person_details[2],
                 'type': typeValue,
                 leaf: true
             });
@@ -54,8 +50,7 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolesNavigationTree', {
         }
         
         me.store.sort('name');
-        
-        
+       
         me.columns =[ {
             
             header: '<font style="color:#585858;">Name Variante/Pseudonym</font>',
@@ -63,26 +58,25 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolesNavigationTree', {
             menuDisabled: true,
             dataIndex: 'name',
             style: {
-         paddingLeft: 6,
-         paddingTop: 6,
-         paddingRight: 6,
-         paddingBottom: 6
-    }
+                paddingLeft: 6,
+                paddingTop: 6,
+                paddingRight: 6,
+                paddingBottom: 6
+            }
         }, {
-           
+            
             header: '<font style="color:#585858;">Name Variante</font>',
             flex: 1.3,
             menuDisabled: true,
             dataIndex: 'type',
             style: {
-         paddingLeft: 6,
-         paddingTop: 6,
-         paddingRight: 6,
-         paddingBottom: 6
-    }
+                paddingLeft: 6,
+                paddingTop: 6,
+                paddingRight: 6,
+                paddingBottom: 6
+            }
         }]
-        
-        
+       
         this.listeners = {
             
             selectionchange: function (selected, eOpts) {
@@ -91,93 +85,10 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolesNavigationTree', {
                     dbkey: eOpts[0].data.persId, icon: 'resources/images/theatreB.png', title: '<font size="2" face="Tahoma" style="color:#909090;">Rolle: ' + eOpts[0].data.name + '</font>'
                 });
                 me.repertoirePanel.add(me.workPanel);
-                //me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name +'</b>');
-                
-                //me.repertoirePanel.setIcon('resources/images/Mask-19.png');
-                
-                
-                
-                
-                /*  var personSelected = me.personen.getSelectionModel().getSelection()[0];
-                var selectedId = personSelected.data.persId;
-                var selectedName = personSelected.data.name + ', '+personSelected.data.forename;
-                var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                title: '<font style="color:gray;">'+selectedName+'</font>',
-                icon: 'resources/images/Mask-19.png'
-                });
-                var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({dbkey: selectedId});
-                personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">'+selectedName+'</font>');
-                repertoireTab.add(personDetails);
-                me.tabPanel.add(repertoireTab);
-                me.tabPanel.setActiveTab(repertoireTab);*/
-                
-                
-                /*if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 1) {
-                me.repertoirePanel.removeAll(true);
-                me.workPanel = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails({workID: eOpts[0].data.werkID});
-                me.repertoirePanel.add(me.workPanel);
-                me.repertoirePanel.setTitle('<b style="color:#A87678;">Werk: '+eOpts[0].data.name+', '+eOpts[0].data.componist+'</b>');
-                }
-                else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 2) {
-                me.repertoirePanel.removeAll(true);
-                me.sourcePanel = new TheaterTool.view.tabPanel.repertoire.source.SourcePanel({sourceID: eOpts[0].data.sourceID, werkTitle: eOpts[0].parentNode.data.name});
-                me.repertoirePanel.add(me.sourcePanel);
-                me.repertoirePanel.setTitle('<b style="color:#A87678;">'+eOpts[0].data.name+' (Werk: '+eOpts[0].parentNode.data.name+'; '+eOpts[0].parentNode.data.componist+')</b>');
-                }
-                else if (typeof eOpts[0] !== 'undefined' && eOpts[0].data.depth === 3) {
-                //console.log(eOpts[0].data);
-                me.repertoirePanel.removeAll(true);
-                /\*if(eOpts[0].data.name === 'Incipits' && name.indexOf('Bettelstudent') > -1){
-                me.incipitsPanel = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitsPanel();
-                me.repertoirePanel.add(me.incipitsPanel);
-                me.repertoirePanel.setTitle('<b style="color:gray;">Werk: '+eOpts[0].parentNode.parentNode.data.name+', '+eOpts[0].parentNode.parentNode.data.componist+' -> '+eOpts[0].parentNode.data.name+' -> Incipits</b>');
-                }*\/
-                //else
-                if(eOpts[0].data.name === 'Incipits'){
-                me.incipitsPanel = new TheaterTool.view.tabPanel.repertoire.incipits.IncipitsTabPanel({sourceID: eOpts[0].parentNode.parentNode.data.werkID});
-                me.repertoirePanel.add(me.incipitsPanel);
-                me.repertoirePanel.setTitle('<b style="color:#A87678;">Incipits für '+eOpts[0].parentNode.data.name+' (Werk: '+eOpts[0].parentNode.parentNode.data.name+'; '+eOpts[0].parentNode.parentNode.data.componist+')</b>');
-                }
-                else if(eOpts[0].data.name === 'RISM'){
-                me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel({sourceID: eOpts[0].parentNode.data.sourceID});
-                me.repertoirePanel.add(me.rismPanel);
-                me.repertoirePanel.setTitle('<b style="color:#A87678;">RISM für '+eOpts[0].parentNode.data.name+' (Werk: '+eOpts[0].parentNode.parentNode.data.name+'; '+eOpts[0].parentNode.parentNode.data.componist+')</b>');
-                }
-                else if(eOpts[0].data.name === 'Faksimiles'){
-                me.beatPanel = new TheaterTool.view.tabPanel.repertoire.beat.BeatPanel({selectedWork: eOpts[0].parentNode.parentNode.data.name});
-                me.repertoirePanel.add(me.beatPanel);
-                me.repertoirePanel.setTitle('<b style="color:#A87678;">Faksimiles für '+eOpts[0].parentNode.data.name+' (Werk: '+eOpts[0].parentNode.parentNode.data.name+'; '+eOpts[0].parentNode.parentNode.data.componist+')</b>');
-                }
-                
-                
-                }*/
+              
             }
         };
-        
-        
-        /*this.columns =[ {
-        xtype: 'treecolumn',
-        header: '<b style="color:gray;">Werk -> Quelle -> Faksimiles/Incipits/RISM</b>',
-        flex: 1,
-        sortable: true,
-        menuDisabled: true,
-        dataIndex: 'name'
-        
-        },
-        {
-        header: '<b style="color:gray;">Personen</b>',
-        flex: 1,
-        sortable: true,
-        menuDisabled: true,
-        //align: 'center',
-        dataIndex: 'componist'
-        
-        }
-        
-        ];*/
-        
-        
-        
+       
         me.callParent();
     },
     

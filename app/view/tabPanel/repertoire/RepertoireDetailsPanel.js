@@ -6,12 +6,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel', {
     flex: 1,
     bodyBorder: false,
     border: false,
-    /*style: {
-        borderRight: '7px solid white',
-        borderLeft: '7px solid white',
-        borderTop: '7px solid white',
-        borderBottom: '7px solid white'
-    },*/
     
     defaults: {
         autoScroll: true,
@@ -25,7 +19,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel', {
     initComponent: function () {
         
         var navTree = new TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree({
-            //title: this.navTreetitle
+           
         });
         
         var navTreeStore = new TheaterTool.store.work.Works();
@@ -34,7 +28,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel', {
         navTree.getView().bindStore(navTreeStore);
         navTreeStore.sort([ {
             sorterFn: function (event1, event2) {
-                //console.log('sorter 1');
                 var data1 = event1. get ('name').valueOf().toString();
                 var data2 = event2. get ('name').valueOf().toString();
                 

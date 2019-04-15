@@ -61,17 +61,15 @@ Ext.define('TheaterTool.view.tabPanel.TaxationTable', {
         this.detailsColumn];
         
         this.listeners = { afterrender: function (panel) {
-                    //console.log(panel.header.el);
-                    panel.header.el.on('click', function () {
-                        // panel.header.el.on('click', function () {
-                        if (panel.collapsed) {
-                            panel.expand();
-                        } else {
-                            panel.collapse();
-                        }
-                    });
-                }
-            };
+                panel.header.el.on('click', function () {
+                    if (panel.collapsed) {
+                        panel.expand();
+                    } else {
+                        panel.collapse();
+                    }
+                });
+            }
+        };
         
         this.callParent();
     },
@@ -86,14 +84,9 @@ Ext.define('TheaterTool.view.tabPanel.TaxationTable', {
             var roleNameToHistory = regieName + ' (' + countNumber + ')';
             
             var historyButton = Ext.getCmp('historyButton');
-            // var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">' + rec.data.name + '</font>');
-            // if(!isHistoryItemExist){
             var menuItem = historyButton.menu.add({
                 text: '<font style="color:gray;">' + roleNameToHistory + '</font>', icon: 'resources/images/tax.png'
             });
-            //, selection: 3
-            
-            // }
             
             var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
             var existItems = navTreeGlobal.items;
@@ -101,7 +94,8 @@ Ext.define('TheaterTool.view.tabPanel.TaxationTable', {
             if (! isFoundItem) {
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
-                    icon: 'resources/images/tax.png'
+                    icon: 'resources/images/tax.png',
+                    id: 'taxation_' + roleName.replace(/\s/g, '').replace(/[()]/g, '') + me.dbkey
                 });
                 
                 var selectedRow = me.getSelectionModel().getSelection()[0];
@@ -123,24 +117,19 @@ Ext.define('TheaterTool.view.tabPanel.TaxationTable', {
         
         var eColumn = Ext.create('Ext.grid.column.Action', {
             xtype: 'actioncolumn',
-            //header: headerName,
             flex: 1,
-            //align: 'center',
             menuDisabled: true,
             dataIndex: 'name',
             renderer: function (val, metadata, record) {
                 
                 var presentationText = '';
                 if (record.data.dbkey !== '') {
-                    // this.items[0].icon = 'resources/images/Door-24.png';
                     var countNumber = parseInt(record.data.countFoSelection) + 1;
                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getRegieContent(\'' + record.data.name + '\',\'' + record.data.countFoSelection + '\');">' + record.data.name + '(' + countNumber + ')' + '</a></small>';
                 } else {
-                    //this.items[0].icon = '';
                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.name + ' </small>';
                 }
-                // metadata.style = 'cursor: pointer;';
-                
+               
                 return presentationText;
             }
         });

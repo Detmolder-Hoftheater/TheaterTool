@@ -14,7 +14,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
     sortableColumns: false,
     collapsible: true,
     collapsed: true,
-    title: '<b style="color:gray; font-size: 12px;">Spielpläne (Generiert aus Einnahmen, Ausgaben und Rollen- und Kostümbüchern))</b>',
+    title: '<b style="color:gray; font-size: 12px;">Spielpläne (Generiert aus Einnahmen, Ausgaben und Rollen- und Kostümbüchern)</b>',
     icon: 'resources/images/Calendar-17.png',
     margin: '0 0 10 0',
     hideHeaders: true,
@@ -65,12 +65,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
                 nameForCount = roleName;
                 selectionCount = 0;
             }
-            
-            /*var datum = me.scheduleList[i];
-            var split_array = datum.split(' ');*/
             var role = Ext.create('TheaterTool.model.RefData', {
-                /*jahr : split_array[1],
-                monat: split_array[0]*/
                 jahr: dailyName,
                 countFoSelection: selectionCount,
                 selectedJahr: selectedJahr
@@ -81,29 +76,19 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
         this.detailsColumn = this.createColumn('Details', 'resources/images/Door-24.png', me);
         
         this.columns =[
-        /*{
-        //xtype: 'treecolumn',
-        //text: 'Jahr',
-        //flex: 2,
-        menuDisabled: true,
-        dataIndex: 'jahr'
-        
-        },*/
         
         this.detailsColumn];
         
         this.listeners = { afterrender: function (panel) {
-                    //console.log(panel.header.el);
-                    panel.header.el.on('click', function () {
-                        // panel.header.el.on('click', function () {
-                        if (panel.collapsed) {
-                            panel.expand();
-                        } else {
-                            panel.collapse();
-                        }
-                    });
-                }
-            };
+                panel.header.el.on('click', function () {
+                    if (panel.collapsed) {
+                        panel.expand();
+                    } else {
+                        panel.collapse();
+                    }
+                });
+            }
+        };
         
         this.callParent();
     },
@@ -119,14 +104,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
             var roleNameToHistory = jahr + ' (' + countNumber + ')';
             
             var historyButton = Ext.getCmp('historyButton');
-            // var isHistoryItemExist = toolBarGlobal.foundHistoryitem(historyButton.menu.items, '<font style="color:gray;">Spielpläne: ' + rec.data.jahr + '</font>');
-            //if(!isHistoryItemExist){
             var menuItem = historyButton.menu.add({
                 text: '<font style="color:gray;">' + roleNameToHistory + '</font>', icon: 'resources/images/Calendar-17.png'
             });
-            //, selection: 3
-            
-            // }
             
             var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
             var existItems = navTreeGlobal.items;
@@ -135,7 +115,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
             if (! isFoundItem) {
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
-                    icon: 'resources/images/Calendar-17.png'
+                    icon: 'resources/images/Calendar-17.png',
+                    id: 'spielplaene_' + selectedJahr + me.selectedWorkID
                 });
                 console.log(selectedJahr);
                 var personDetails = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab({
@@ -154,22 +135,17 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
         
         var eColumn = Ext.create('Ext.grid.column.Action', {
             xtype: 'actioncolumn',
-            //header: headerName,
             flex: 1,
-            //align: 'center',
             menuDisabled: true,
             dataIndex: 'monat',
             renderer: function (val, metadata, record) {
                 var presentationText = '';
                 if (record.data.dbkey !== '') {
                     var countNumber = parseInt(record.data.countFoSelection) + 1;
-                    // this.items[0].icon = 'resources/images/Door-24.png';
                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getPlanContent(\'' + record.data.jahr + '\'' + ', \'' + record.data.countFoSelection + '\',\'' + record.data.selectedJahr + '\');">' + record.data.jahr + '(' + countNumber + ')' + '</a></small>';
                 } else {
-                    //this.items[0].icon = '';
                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.monat + ' </small>';
                 }
-                // metadata.style = 'cursor: pointer;';
                 return presentationText;
             }
         });

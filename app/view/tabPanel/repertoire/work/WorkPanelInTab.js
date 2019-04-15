@@ -1,13 +1,6 @@
 Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab', {
     extend: 'Ext.panel.Panel',
-    /*layout: {
-    type: 'hbox',
-    pack: 'start',
-    align: 'stretch'
-    },
-    
-    flex: 1,
-    border: false,*/
+   
     extend: 'Ext.panel.Panel',
     
     requires:[ 'Ext.layout.container.Border'],
@@ -15,12 +8,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab', {
     flex: 1,
     bodyBorder: false,
     border: false,
-    /*style: {
-        borderRight: '7px solid white',
-        borderLeft: '7px solid white',
-        borderTop: '7px solid white',
-        borderBottom: '7px solid white'
-    },*/
     
     defaults: {
         autoScroll: true,
@@ -45,8 +32,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab', {
         navTree.setRepertoirePanel(me);
         navTree.setWorkSelection(me.selection);
         
-        
-        
         var repertoirePanel = new TheaterTool.view.tabPanel.repertoire.RepertoirePanel();
         navTree.setRepertoirePanel(repertoirePanel);
         
@@ -58,7 +43,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab', {
             });
             repertoirePanel.add(workPanel);
             
-            workPanel.setTitle('<font size="2" face="Tahoma" style="color:#909090;">Werk: '+me.workName+'</font>');
+            workPanel.setTitle('<font size="2" face="Tahoma" style="color:#909090;">Werk: ' + me.workName + '</font>');
             workPanel.setIcon(me.workIcon);
         } else {
             

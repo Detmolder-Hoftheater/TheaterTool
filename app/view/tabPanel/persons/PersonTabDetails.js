@@ -1,18 +1,6 @@
 Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
     extend: 'Ext.panel.Panel',
     
-    // title: '<b style="color:gray;">Übersicht</b>',
-    
-    /*layout: {
-    type: 'vbox',
-    pack: 'start',
-    align: 'stretch'
-    },
-    autoScroll: true,
-    border: true,
-    bodyPadding: 10,
-    flex: 1,*/
-    
     layout: {
         type: 'vbox',
         pack: 'start',
@@ -48,8 +36,6 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 
                 var json = jQuery.parseJSON(result.responseText);
                 
-                //console.log(json);
-                
                 me.add({
                     
                     xtype: 'label',
@@ -59,11 +45,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 
                 panel_10 = Ext.create('Ext.panel.Panel', {
                     colspan: 1,
-                    //type: 'hbox',
                     border: false,
                     bodyBorder: false,
                     margin: '0 10 0 10',
-                    //margin: '0 0 0 5',
                     items:[]
                 });
                 me.add(panel_10);
@@ -81,8 +65,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                             }
                         }
                     },
-                    // margin: '0 23 0 10',
-                    //bodyPadding: 10,
+                    
                     bodyBorder: false,
                     border: false,
                     items:[]
@@ -102,7 +85,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                                 if (regText !== '') {
                                     regText += ', ' + regs[j];
                                     /*if (j === 2) {
-                                        regText += '; ';
+                                    regText += '; ';
                                     }*/
                                 } else {
                                     regText = regs[j];
@@ -111,7 +94,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         }
                     }
                     regular.setValue(regText);
-                                  
+                    
                     name_panel.add(regular);
                 }
                 
@@ -320,21 +303,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     });
                     //titel_group.add(panel_0);
                     me.add(panel_011);
-                    
-                    /* panel_101 = Ext.create('Ext.panel.Panel', {
-                    colspan: 1,
-                    //type: 'hbox',
-                    border: false,
-                    bodyBorder: false,
-                    //bodyPadding: 10,
-                    margin: '0 0 10 10',
-                    //margin: '0 0 0 5',
-                    items:[
-                    /\*left_panel,
-                    right_panel,*\/]
-                    });
-                    panel_011.add(panel_101);*/
-                    
+                   
                     if (json.geschlecht[0][0] !== '') {
                         var gender = me.createTextFieldWithoutLabel();
                         if (json.geschlecht[0] === 'm') {
@@ -351,14 +320,14 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         });
                         panel_011.add(gender);
                     }
-                    //console.log(json.birth[0][0]);
+                    
                     if (json.birth[0][0] !== '') {
                         var birth = me.createTextFieldWithoutLabel();
                         birth.setValue(json.birth[0]);
                         panel_011.add({
                             html: '<img src="resources/images/Snowflake.png" style="width:25px;height:25px;">',
                             border: false
-                            //margin: '0 0 -11 0'
+                            
                         });
                         panel_011.add(birth);
                     }
@@ -369,28 +338,15 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         panel_011.add({
                             html: '<img src="resources/images/Cross.png" style="width:23px;height:19px;">',
                             border: false
-                            //margin: '0 0 -11 0'
+                           
                         });
                         panel_011.add(death);
                     }
                     
                     
                     if (typeof json.summaryText[0] !== 'undefined') {
-                        //var summary = me.createTextArea('Beschreibung');
                         var notes = json.summaryText[0];
-                        
-                        //summary.setValue(notes);
-                        //summary.setHeight(150);
-                        
-                        /*var annot_panel = Ext.create('Ext.panel.Panel', {
-                        border: false,
-                        //bodyPadding: 10,
-                        margin: '0 10 0 10',
-                        items:[]
-                        });
-                        me.add(annot_panel);
-                        annot_panel.add(summary);*/
-                        
+                      
                         var right_panel = Ext.create('Ext.panel.Panel', {
                             layout: {
                                 type: 'table',
@@ -583,20 +539,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 
                 if (json.worksRef.length > 0 || json.sourcesRef.length > 0 || json.journalRef.length > 0 || json.issueRef.length > 0 || json.gagenRef.length > 0 || json.roleRef.length > 0 || json.regieRef.length > 0 || json.rollen.length > 0 || json.taxation.length > 0 || json.dayReport.length > 0 || json.revenueRef.length > 0 || json.scheduleRef.length > 0) {
                     
-                    /* var refSection = Ext.create('Ext.panel.Panel', {
-                    title: '<b style="color:gray; font-size: 12px;">Spielbetrieb und Verwaltung</b>',
-                    bodyBorder: false,
-                    border: false,
-                    collapsed: true,
-                    collapsible: true,
-                    margin: '15 0 0 0',
-                    bodyPadding:10
-                    })*/
-                    
                     me.add(
                     
                     Ext.create('Ext.form.FieldSet', {
-                        //title: '<b style="color:gray; font-size: 15px;">Spielbetrieb und Verwaltung</b>',
                         bodyBorder: false,
                         collapsible: false,
                         collapsed: true,
@@ -604,7 +549,6 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     }));
                     
                     me.add(
-                    //refSection
                     {
                         
                         xtype: 'label',
@@ -614,24 +558,14 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 }
                 
                 if (json.worksRef.length > 0) {
-                    /*refSection.add({
-                    
-                    xtype: 'label',
-                    html: '<img src="resources/images/BooksVert-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Werke</b>',
-                    margin: '10 0 10 0'
-                    });*/
                     
                     var worksTable = new TheaterTool.view.tabPanel.WorksTable({
                         worksList: json.worksRef
                     });
                     
                     var work_panel = Ext.create('Ext.panel.Panel', {
-                        //colspan: 1,
-                        //type: 'hbox',
+                        
                         border: false,
-                        //margin: '0 10 0 10',
-                        //type: 'fit',
-                        //bodyPadding: 10,
                         items:[
                         
                         worksTable]
@@ -639,30 +573,15 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     
                     me.add(work_panel);
                 }
-                
-                /*var worksTable = new TheaterTool.view.tabPanel.WorksTable({
-                worksList: json.worksRef
-                });
-                ref_layout.add(worksTable);*/
+               
                 if (json.sourcesRef.length > 0) {
-                    /*refSection.add({
-                    
-                    xtype: 'label',
-                    html: '<b style="color:gray; font-size: 12px;">Quellen</b>',
-                    margin: '10 0 10 0'
-                    });
-                     */
+                   
                     var sourcesTable = new TheaterTool.view.tabPanel.SourcesTable({
                         sourcesList: json.sourcesRef
                     });
                     
                     var source_panel = Ext.create('Ext.panel.Panel', {
-                        //colspan: 1,
-                        //type: 'hbox',
                         border: false,
-                        // margin: '0 10 0 10',
-                        //type: 'fit',
-                        //bodyPadding: 10,
                         items:[
                         
                         sourcesTable]
@@ -671,40 +590,14 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     me.add(source_panel);
                 }
                 
-                /*var sourcesTable = new TheaterTool.view.tabPanel.SourcesTable({
-                sourcesList: json.sourcesRef
-                });
-                ref_layout.add(sourcesTable);*/
                 if (json.scheduleRef.length > 0) {
-                    /*var plan_group = Ext.create('Ext.form.FieldSet', {
-                    title: '<img src="resources/images/Calendar-17.png" style="vertical-align:middle;"><b style="color:gray;">Spielpläne</b>',
-                    // icon: 'resources/images/Mask-19.png',
-                    bodyBorder: false,
-                    collapsible: false,
-                    collapsed: true,
-                    margin: '10 0 0 0'
-                    });
-                    me.add(plan_group);*/
-                    
-                    /* refSection.add({
-                    
-                    xtype: 'label',
-                    html: '<img src="resources/images/Calendar-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Spielpläne</b>',
-                    margin: '10 0 10 0'
-                    });*/
                     
                     var playscheduleTable = new TheaterTool.view.tabPanel.repertoire.work.PlanTable({
                         scheduleList: json.scheduleRef, selectedWorkID: me.dbkey
                     });
-                    //ref_layout.add(playscheduleTable);
-                    
+                   
                     var plan_panel = Ext.create('Ext.panel.Panel', {
-                        //colspan: 1,
-                        //type: 'hbox',
                         border: false,
-                        //margin: '0 10 0 10',
-                        //type: 'fit',
-                        //bodyPadding: 10,
                         items:[
                         
                         playscheduleTable]
@@ -714,24 +607,13 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 }
                 
                 if (json.rollen.length > 0) {
-                    /*refSection.add({
-                    
-                    xtype: 'label',
-                    html: '<b style="color:gray; font-size: 12px;">Quellen</b>',
-                    margin: '10 0 10 0'
-                    });
-                     */
+                   
                     var roleTable = new TheaterTool.view.tabPanel.RoleTable({
                         rollenList: json.rollen
                     });
                     
                     var role_panel = Ext.create('Ext.panel.Panel', {
-                        //colspan: 1,
-                        //type: 'hbox',
                         border: false,
-                        // margin: '0 10 0 10',
-                        //type: 'fit',
-                        //bodyPadding: 10,
                         items:[
                         
                         roleTable]
@@ -753,35 +635,13 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     me.add(revenue_panel);
                 }
                 if (json.journalRef.length > 0) {
-                    /*var journal_group = Ext.create('Ext.form.FieldSet', {
-                    title: '<img src="resources/images/Presse-16.png" style="vertical-align:middle;"><b style="color:gray;">Theaterjournal</b>',
-                    // icon: 'resources/images/Mask-19.png',
-                    bodyBorder: false,
-                    collapsible: false,
-                    collapsed: true,
-                    margin: '10 0 0 0'
-                    });
-                    me.add(journal_group);*/
-                    
-                    /* refSection.add({
-                    
-                    xtype: 'label',
-                    html: '<img src="resources/images/Presse-16.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Theaterjournal</b>',
-                    margin: '10 0 10 0'
-                    });*/
                     
                     var journalTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable({
                         journalList: json.journalRef, dbkey: me.dbkey
                     });
-                    //ref_layout.add(journalTable);
                     
                     var journal_panel = Ext.create('Ext.panel.Panel', {
-                        //colspan: 1,
-                        //type: 'hbox',
                         border: false,
-                        //margin: '0 10 0 10',
-                        //type: 'fit',
-                        //bodyPadding: 10,
                         items:[
                         
                         journalTable]
@@ -791,41 +651,14 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     me.add(journal_panel);
                 }
                 
-                /* var journalTable = new TheaterTool.view.tabPanel.repertoire.work.JournalTable({
-                journalList: json.journalRef
-                });
-                ref_layout.add(journalTable);*/
-                
                 if (json.issueRef.length > 0) {
-                    /*var issue_group = Ext.create('Ext.form.FieldSet', {
-                    title: '<img src="resources/images/MoneyTransfer-17.png" style="vertical-align:middle;"><b style="color:gray;">Ausgaben</b>',
-                    // icon: 'resources/images/Mask-19.png',
-                    bodyBorder: false,
-                    collapsible: false,
-                    collapsed: true,
-                    margin: '10 0 0 0'
-                    });
-                    me.add(issue_group);*/
-                    
-                    /* refSection.add({
-                    
-                    xtype: 'label',
-                    html: '<img src="resources/images/MoneyTransfer-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Ausgaben</b>',
-                    margin: '10 0 10 0'
-                    });*/
                     
                     var issueTable = new TheaterTool.view.tabPanel.repertoire.work.IssueTable({
                         issueList: json.issueRef, selectedWorkID: me.dbkey
                     });
-                    //ref_layout.add(issueTable);
                     
                     var issue_panel = Ext.create('Ext.panel.Panel', {
-                        //colspan: 1,
-                        //type: 'hbox',
                         border: false,
-                        //margin: '0 10 0 10',
-                        //type: 'fit',
-                        //bodyPadding: 10,
                         items:[
                         
                         issueTable]
@@ -834,30 +667,14 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     me.add(issue_panel);
                 }
                 
-                /* var issueTable = new TheaterTool.view.tabPanel.repertoire.work.IssueTable({
-                issueList: json.issueRef
-                });
-                ref_layout.add(issueTable);*/
-                
                 if (json.gagenRef.length > 0) {
-                    /* refSection.add({
-                    
-                    xtype: 'label',
-                    html: '<img src="resources/images/Gift-17.png" style="vertical-align:middle;"><b style="color:gray; font-size: 12px;">Gagen</b>',
-                    margin: '10 0 10 0'
-                    });*/
                     
                     var gagenTable = new TheaterTool.view.tabPanel.GagenTable({
                         gagenList: json.gagenRef, dbkey: me.dbkey
                     });
                     
                     var gagen_panel = Ext.create('Ext.panel.Panel', {
-                        //colspan: 1,
-                        //type: 'hbox',
                         border: false,
-                        //margin: '0 10 0 10',
-                        //type: 'fit',
-                        //bodyPadding: 10,
                         items:[
                         
                         gagenTable]
@@ -865,16 +682,12 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     
                     me.add(gagen_panel);
                 }
-                
-                /* var gagenTable = new TheaterTool.view.tabPanel.GagenTable({
-                gagenList: json.gagenRef
-                });
-                ref_layout.add(gagenTable);*/
+               
                 if (json.regieRef.length > 0) {
                     
                     var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable({
                         regieList: json.regieRef, dbkey: me.dbkey
-                        //title: '<b style="color:gray;">Regiebücher</b>'
+                        
                     });
                     
                     var regie_panel = Ext.create('Ext.panel.Panel', {
@@ -890,7 +703,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     
                     var taxTable = new TheaterTool.view.tabPanel.TaxationTable({
                         taxList: json.taxation, dbkey: me.dbkey
-                        //title: '<b style="color:gray;">Regiebücher</b>'
+                       
                     });
                     
                     var tax_panel = Ext.create('Ext.panel.Panel', {
@@ -934,22 +747,12 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
         var textArea = Ext.create('Ext.form.field.TextArea', {
             name: fieldName,
             fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + fieldName + '</b></font>',
-            
-            //width: 235,
+           
             readOnly: true,
-            //anchor: '100%',
-            //cls: Ext.baseCSSPrefix + 'form-clear-trigger',
-            // remove default styling for element wrapping the input element
-            //inputWrapCls: '',
-            // remove default styling for div wrapping the input element and trigger button(s)
-            // triggerWrapCls: '',
-            // remove the input element's background
-            //fieldStyle: 'background:none',
-            style: {
-                //autoWidth: true,
+            
+            style: {               
                 width: '100%'
-                //height: '100%',
-                // borderLeft: '5px solid #FFFFFF'
+                
             }
         });
         
@@ -962,9 +765,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
             name: fieldName,
             readOnly: true,
             border: false,
-            //value: fieldValue,
-            // cls: Ext.baseCSSPrefix + 'form-clear-trigger',
-            // remove default styling for element wrapping the input element
+            
             inputWrapCls: '',
             // remove default styling for div wrapping the input element and trigger button(s)
             triggerWrapCls: '',
@@ -972,13 +773,11 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
             fieldStyle: 'background:none',
             style: {
                 width: '100%'
-                //border: false
-                //autoWidth: true,
-                //borderLeft: '5px solid #FFFFFF'
+                
             },
-            //width: 235,
+            
             fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + fieldName + '</b></font>'
-            //anchor: '100%'
+            
         });
         
         
@@ -988,11 +787,11 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
     createTextFieldWithoutLabel: function () {
         var me = this;
         var textArea = Ext.create('Ext.form.field.Text', {
-            //name: fieldName,
+            
             readOnly: true,
             border: false,
             margin: '0 0 0 80',
-            //value: fieldValue,
+            
             // cls: Ext.baseCSSPrefix + 'form-clear-trigger',
             // remove default styling for element wrapping the input element
             inputWrapCls: '',
@@ -1002,13 +801,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
             fieldStyle: 'background:none',
             style: {
                 width: '100%'
-                //border: false
-                //autoWidth: true,
-                //borderLeft: '5px solid #FFFFFF'
+               
             }
-            //width: 235,
-            //fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + fieldName + '</b></font>'
-            //anchor: '100%'
+            
         });
         
         

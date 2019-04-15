@@ -7,7 +7,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
     'Ext.window.MessageBox'],
     
     id: 'toolbar',
-       
+    
     style: {
         borderLeft: '3px solid #F2EEE1',
         borderTop: '5px solid #F2EEE1'
@@ -44,21 +44,18 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                 }
             }, {
                 
-                xtype: 'label',              
-                //html: '<font style="color:#CCC1C2; font-size: 19px;" face="Brush Script MT">Theatre Tool</font>',
+                xtype: 'label',
                 html: '<font style="color:#CCC1C2; font-size: 14px;">Theatre Tool</font>',
                 margin: '0 0 0 5'
-            }, 
-            '->', 
-            {
+            },
+            '->', {
                 xtype: 'button',
-                hidden:true,
+                hidden: true,
                 border: false,
                 glyph: null,
                 icon: 'resources/images/page-prev-disabled.gif',
                 id: 'prevHistoryButton',
                 disabled: true,
-                //margin: '0 5 0 0',
                 listeners: {
                     click: function () {
                         var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
@@ -93,13 +90,11 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                         me.handleHistoryButtons();
                     }
                 }
-            }, 
-            {
+            }, {
                 xtype: 'button',
                 id: 'historyButton',
-                hidden:true,
+                hidden: true,
                 selection: null,
-                //disabled: true,
                 text: '<span style="font-family:Tahoma; color:gray;">Verlauf</span>',
                 margin: '0 3 0 3',
                 menu: {
@@ -124,10 +119,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                         var menuItems = this.menu.items;
                         for (i = 0; i < menuItems.items.length; i++) {
                             var existItem = menuItems.items[i];
-                            //console.log("Get bei offnen existItem : "+ selectedTab);
-                            // console.log("Get bei activeMenuItemId: "+ selectedTab.activeMenuItemId);
                             if (existItem.text === selectedTab.title && selectedTab.activeMenuItemId === existItem.id) {
-                                //console.log(existItem.hasFocus);
                                 existItem.focus();
                                 selectedTab.setActiveMenuItemId(existItem.id);
                             }
@@ -135,15 +127,13 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                         me.handleHistoryButtons();
                     }
                 }
-            },
-            {
+            }, {
                 xtype: 'button',
                 id: 'naxtHistoryButton',
-                hidden:true,
+                hidden: true,
                 disabled: true,
                 border: false,
                 icon: 'resources/images/page-next-disabled.gif',
-                //margin: '0 0 0 5',
                 listeners: {
                     click: function () {
                         var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
@@ -164,7 +154,6 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                             }
                         }
                         if (itemToSelect !== undefined) {
-                            // selectedTab.setActiveMenuItemId(itemToSelect.id);
                             for (i = 0; i < openTabs.items.length; i++) {
                                 var openTab = openTabs.items[i];
                                 if (openTab.title === itemToSelect.text) {
@@ -178,21 +167,18 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                     }
                 }
             },
-            
-            
+           
             '->',
             
             this.searchFilterButton,
             
-            this.searchField, 
-            '->',
-            {
+            this.searchField,
+            '->', {
                 xtype: 'button',
                 text: '<span style="font-family:Tahoma; color:gray;">Hilfe</span>',
                 margin: '0 5 0 0',
                 
-                menu:[
-                {
+                menu:[ {
                     text: '<span style="font-family:Tahoma; color:gray;">Daten Relation</span>',
                     
                     listeners: {
@@ -205,16 +191,15 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                     }
                 }, {
                     xtype: 'component',
-                    //margin: '0 10 0 10',
-                    autoEl: {
+                     autoEl: {
                         tag: 'a',
                         href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
                         html: 'Dokumentation',
                         target: "_blank"
                     }
-                    //style:{color: '#CC9FA7'}
+                    
                 }]
-                //Desktop 173
+                
             }]
         });
         
@@ -231,7 +216,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
             
             xtype: 'button',
             text: '<span style="font-family:Tahoma; color:gray;">Suchfilter</span>',
-           
+            
             menu:[ {
                 text: '<span style="font-family:Tahoma; color:gray;">Werke</span>',
                 icon: 'resources/images/BooksVert-17.png',
@@ -263,8 +248,8 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
         
         var searchField = Ext.create('Ext.form.field.Text', {
             labelWidth: 0,
-          
-           fieldStyle: 'padding:1px;border:#CCC8C2;',
+            
+            fieldStyle: 'padding:1px;border:#CCC8C2;',
             triggers: {
                 clear: {
                     weight: 0,
@@ -300,7 +285,6 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                 
                 if (activeFilter) {
                     me.setValue('');
-                    //me.store.getFilters().remove(activeFilter);
                     me.activeFilter = null;
                     me.getTrigger('clear').hide();
                     me.updateLayout();
@@ -353,8 +337,6 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                 
                 
                 if (value.length > 0) {
-                    // Param name is ignored here since we use custom encoding in the proxy.
-                    // id is used by the Store to replace any previous filter
                     me.activeFilter = new Ext.util.Filter({
                         property: me.paramName,
                         value: value
@@ -371,8 +353,6 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
     foundHistoryitem: function (menuItems, titletext) {
         for (i = 0; i < menuItems.items.length; i++) {
             var existItem = menuItems.items[i];
-            /*console.log(existItem.text);
-            console.log(titletext);*/
             if (existItem.text === titletext) {
                 return true;
             }
@@ -383,8 +363,6 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
     foundHistoryitemWithId: function (menuItems, dbKey) {
         for (i = 0; i < menuItems.items.length; i++) {
             var existItem = menuItems.items[i];
-            /*console.log(existItem.text);
-            console.log(titletext);*/
             if (existItem.dbkey === dbKey) {
                 return true;
             }

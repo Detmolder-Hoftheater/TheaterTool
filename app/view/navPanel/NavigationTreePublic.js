@@ -452,9 +452,6 @@ var store = Ext.create('Ext.data.TreeStore', {
 })
 
 
-
-
-
 Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
     extend: 'Ext.tree.Panel',
     
@@ -471,8 +468,6 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
     bodyPadding: 13,
     //bodyborder: true,
     height: 700,
-    
-    
     
     getNavigationItems: function () {
         var me = this;
@@ -498,8 +493,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                 }
             }
         });
-        
-        
+               
         Ext.Ajax.request({
             url: 'resources/xql/getRegieMenu.xql',
             method: 'GET',
@@ -620,10 +614,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                 existItem.setMenuAdded(true);
                 this.tabPanel.setActiveTab(existItem);
                 existItem.setActiveMenuItemId(activeMenuItemId);
-                
-                //console.log("Set bei found: "+ activeMenuItemId);
-                // console.log(existItem);
-                // this.tabPanel.fireEvent('render', this.tabPanel);
+               
                 return true;
             }
         }
@@ -666,9 +657,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/BookBlau-16.png',
                             id: 'werk_H020149'
                         });
-                        /*var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
-                        selection: 'H020149'
-                        });*/
+                       
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                             selection: 'H020149', workName: item.data.text, workIcon: 'resources/images/BookBlau-16.png'
                         });
@@ -687,11 +676,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/BookBlau-16.png',
                             id: 'werk_H020048'
                         });
-                        
-                        //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Des Teufels Anteil'});
-                        /*var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
-                        selection: 'H020048'
-                        });*/
+                       
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                             selection: 'H020048', workName: item.data.text, workIcon: 'resources/images/BookBlau-16.png'
                         });
@@ -710,9 +695,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/BookBlau-16.png',
                             id: 'werk_H020263'
                         });
-                        /* var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
-                        selection: 'H020263'
-                        });*/
+                       
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                             selection: 'H020263', workName: item.data.text, workIcon: 'resources/images/BookBlau-16.png'
                         });
@@ -732,9 +715,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                             icon: 'resources/images/BookBlau-16.png',
                             id: 'werk_H020166'
                         });
-                        /* var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoirePanelInTab({
-                        selection: 'H020263'
-                        });*/
+                        
                         var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                             selection: 'H020166', workName: item.data.text, workIcon: 'resources/images/BookBlau-16.png'
                         });
@@ -1132,7 +1113,6 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                     }
                 }
             }
-            
         };
         
         
@@ -1142,7 +1122,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
         }];
         
         
-       
+        
         
         me.callParent();
     },

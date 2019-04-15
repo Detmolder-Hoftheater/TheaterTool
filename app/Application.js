@@ -82,6 +82,7 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.issue.IssueMenuItemTree',
     'tabPanel.issue.IssuePanelDetails',
     'tabPanel.issue.IssueTextSection',
+    'tabPanel.issue.FacsimileView',
     'tabPanel.issue.XMLSectionIssue',
     'tabPanel.repertoire.incipits.IncipitsPanel',
     'tabPanel.repertoire.incipits.IncipitSection',
@@ -213,12 +214,6 @@ Ext.define('TheaterTool.Application', {
                             var tailPathSrray = linkArray[linkArray.length -1].split('_');
                             var idName = tailPathSrray[1];
                             var folderName = tailPathSrray[0];
-                            console.log(idName);
-                            console.log(folderName);
-                            
-                            //var existItems = panel.items;
-                            //var repertoireTab = null;
-                            //var historyButton = Ext.getCmp('historyButton');
                             
                             if (folderName === 'werk') {
                                 Ext.Ajax.request({

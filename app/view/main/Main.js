@@ -18,7 +18,7 @@ Ext.define('TheaterTool.view.main.Main', {
     },
     
     bodyPadding: 1,
-   
+    
     htToolbar: null,
     htPanel: null,
     
