@@ -67,7 +67,7 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
                     console.log(objs);
                     for (i = 0; i < objs.length; i++) {
                         var nameMonthVoll = objs[i];
-                        console.log(nameMonthVoll);
+                        
                         var nameMonth = nameMonthVoll[0];
                         
                         if (me.selectedReport !== null) {
@@ -91,7 +91,6 @@ Ext.define('TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab', {
                         }
                     }
                 }
-               
             });
         }
         

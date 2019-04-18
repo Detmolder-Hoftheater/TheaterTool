@@ -75,7 +75,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
                                 },
                                 success: function (response) {
                                     var testText = response.responseXML;
-                                    console.log(testText);
+                                 
                                     var tempDiv = document.createElementNS('http://www.tei-c.org/ns/1.0l', 'div');
                                     var personArr = testText.getElementsByTagName('person');
                                     tempDiv.appendChild(personArr[0]);

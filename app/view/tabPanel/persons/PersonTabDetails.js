@@ -303,7 +303,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     });
                     //titel_group.add(panel_0);
                     me.add(panel_011);
-                   
+                    
                     if (json.geschlecht[0][0] !== '') {
                         var gender = me.createTextFieldWithoutLabel();
                         if (json.geschlecht[0] === 'm') {
@@ -327,7 +327,6 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         panel_011.add({
                             html: '<img src="resources/images/Snowflake.png" style="width:25px;height:25px;">',
                             border: false
-                            
                         });
                         panel_011.add(birth);
                     }
@@ -338,7 +337,6 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         panel_011.add({
                             html: '<img src="resources/images/Cross.png" style="width:23px;height:19px;">',
                             border: false
-                           
                         });
                         panel_011.add(death);
                     }
@@ -346,7 +344,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     
                     if (typeof json.summaryText[0] !== 'undefined') {
                         var notes = json.summaryText[0];
-                      
+                        
                         var right_panel = Ext.create('Ext.panel.Panel', {
                             layout: {
                                 type: 'table',
@@ -419,29 +417,55 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                                 if (occValue === '') {
                                     
                                     if (occupationBlock[1] === 'arr') {
-                                        occType = 'Arranger';
+                                        occType = 'Bearbeiter';
                                     } else if (occupationBlock[1] === 'cmp') {
-                                        occType = 'Composer';
+                                        occType = 'Komponist';
                                     } else if (occupationBlock[1] === 'lbt') {
                                         occType = 'Librettist';
                                     } else if (occupationBlock[1] === 'cnd') {
-                                        occType = 'Conductor';
+                                        occType = 'Dirigent';
                                     } else if (occupationBlock[1] === 'act') {
-                                        occType = 'Actor';
+                                        occType = 'Schauspieler';
                                     } else if (occupationBlock[1] === 'itr') {
                                         occType = 'Instrumentalist';
-                                    } else if (occupationBlock[1] === 'mcp') {
-                                        occType = 'Music copyist';
                                     } else if (occupationBlock[1] === 'msd') {
-                                        occType = 'Musical director';
+                                        occType = 'Generalmusikdirektor';
                                     } else if (occupationBlock[1] === 'sng') {
                                         occType = 'Singer';
+                                    } else if (occupationBlock[1] === 'cre') {
+                                        occType = 'Urheber';
+                                    } else if (occupationBlock[1] === 'trl') {
+                                        occType = 'Übersetzer';
+                                    } else if (occupationBlock[1] === 'asn') {
+                                        occType = 'Zugehöriger Name';
+                                    } else if (occupationBlock[1] === 'aut') {
+                                        occType = 'Autor';
+                                    } else if (occupationBlock[1] === 'ats') {
+                                        occType = 'Autor der Textquelle';
+                                    } else if (occupationBlock[1] === 'clb') {
+                                        occType = 'Mitarbeiter';
+                                    } else if (occupationBlock[1] === 'dte') {
+                                        occType = 'Widmungsträger';
+                                    } else if (occupationBlock[1] === 'egr') {
+                                        occType = 'Stecher';
+                                    } else if (occupationBlock[1] === 'fmo') {
+                                        occType = 'Ehemaliger Besitzer';
+                                    } else if (occupationBlock[1] === 'edt') {
+                                        occType = 'Editor';
+                                    } else if (occupationBlock[1] === 'lyr') {
+                                        occType = 'Textdichter';
+                                    } else if (occupationBlock[1] === 'mcp') {
+                                        occType = 'Kopist';
+                                     } else if (occupationBlock[1] === 'prf') {
+                                        occType = 'Darsteller';
+                                    } else if (occupationBlock[1] === 'scr') {
+                                        occType = 'Schreiber';
                                     } else {
                                         occType = occupationBlock[1]
                                     }
                                 } else {
                                 }
-                                
+                            
                                 var occContent = '';
                                 if (occValue !== '') {
                                     occContent = occValue;
@@ -548,8 +572,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         margin: '15 0 0 0'
                     }));
                     
-                    me.add(
-                    {
+                    me.add({
                         
                         xtype: 'label',
                         html: '<b style="color:gray; font-size: 12px;">Referenzen in Spielbetrieb und Verwaltung</b>',
@@ -573,9 +596,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     
                     me.add(work_panel);
                 }
-               
+                
                 if (json.sourcesRef.length > 0) {
-                   
+                    
                     var sourcesTable = new TheaterTool.view.tabPanel.SourcesTable({
                         sourcesList: json.sourcesRef
                     });
@@ -595,7 +618,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     var playscheduleTable = new TheaterTool.view.tabPanel.repertoire.work.PlanTable({
                         scheduleList: json.scheduleRef, selectedWorkID: me.dbkey
                     });
-                   
+                    
                     var plan_panel = Ext.create('Ext.panel.Panel', {
                         border: false,
                         items:[
@@ -607,7 +630,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                 }
                 
                 if (json.rollen.length > 0) {
-                   
+                    
                     var roleTable = new TheaterTool.view.tabPanel.RoleTable({
                         rollenList: json.rollen
                     });
@@ -682,12 +705,11 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     
                     me.add(gagen_panel);
                 }
-               
+                
                 if (json.regieRef.length > 0) {
                     
                     var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable({
                         regieList: json.regieRef, dbkey: me.dbkey
-                        
                     });
                     
                     var regie_panel = Ext.create('Ext.panel.Panel', {
@@ -703,7 +725,6 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     
                     var taxTable = new TheaterTool.view.tabPanel.TaxationTable({
                         taxList: json.taxation, dbkey: me.dbkey
-                       
                     });
                     
                     var tax_panel = Ext.create('Ext.panel.Panel', {
@@ -747,12 +768,11 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
         var textArea = Ext.create('Ext.form.field.TextArea', {
             name: fieldName,
             fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + fieldName + '</b></font>',
-           
+            
             readOnly: true,
             
-            style: {               
+            style: {
                 width: '100%'
-                
             }
         });
         
@@ -773,11 +793,9 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
             fieldStyle: 'background:none',
             style: {
                 width: '100%'
-                
             },
             
             fieldLabel: '<font size = "1"><b style="color:gray; vertical-align:top;">' + fieldName + '</b></font>'
-            
         });
         
         
@@ -801,9 +819,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
             fieldStyle: 'background:none',
             style: {
                 width: '100%'
-               
             }
-            
         });
         
         

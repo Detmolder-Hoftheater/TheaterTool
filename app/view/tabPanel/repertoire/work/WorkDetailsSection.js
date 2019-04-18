@@ -120,24 +120,18 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                             if (el[1] === 'uniform') {
                                 var w_ein_titel = me.createTextField('Einheitstitel' + titelKey, el[0]);
                                 panel_10.items.add(w_ein_titel);
-                               
                             } else if (el[1] === '') {
                                 var w_titel = me.createTextField('Titel' + titelKey, el[0]);
                                 panel_10.items.add(w_titel);
-                               
                             } else if (el[1] === 'alt') {
                                 var w_alt_titel = me.createTextField('Alternativtitel' + titelKey, el[0]);
                                 panel_10.items.add(w_alt_titel);
-                                
                             } else if (el[1] === 'sub') {
                                 var w_unter_titel = me.createTextField('Untertitel' + titelKey, el[0]);
                                 panel_10.items.add(w_unter_titel);
-                               
                             }
                         }
                     }
-                    
-                    
                 }
                 
                 if (json.autoren.length > 0) {
@@ -152,17 +146,25 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         var autor = json.autoren[i];
                         var persRole = '';
                         if (autor[1] === 'arr') {
-                            persRole = 'Arrangeur';
+                            persRole = 'Bearbeiter';
                         } else if (autor[1] === 'marc:aut') {
                             persRole = 'Autor';
+                        } else if (autor[1] === 'marc:act') {
+                            persRole = 'Schauspieler';
+                         } else if (autor[1] === 'marc:ats') {
+                            persRole = 'Autor der Textquelle';
                         } else if (autor[1] === 'marc:cmp') {
                             persRole = 'Komponist';
                         } else if (autor[1] === 'marc:cre') {
-                            persRole = 'Urheber ';
+                            persRole = 'Urheber';
+                        } else if (autor[1] === 'marc:egr') {
+                            persRole = 'Stecher';
+                        } else if (autor[1] === 'marc:dte') {
+                            persRole = 'Widmungsträger';
                         } else if (autor[1] === 'marc:lbt') {
                             persRole = 'Librettist';
                         } else if (autor[1] === 'marc:edt') {
-                            persRole = 'Verfasser';
+                            persRole = 'Editor';
                         } else if (autor[1] === 'marc:lyr') {
                             persRole = 'Textdichter';
                         } else if (autor[1] === 'marc:trl') {
@@ -170,17 +172,23 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         } else if (autor[1] === 'marc:scr') {
                             persRole = 'Schreiber';
                         } else if (autor[1] === 'marc:fmo') {
-                            persRole = 'former owner';
+                            persRole = 'Ehemaliger Besitzer';
                         } else if (autor[1] === 'marc:asn') {
-                            persRole = 'associated name';
+                            persRole = 'Zugehöriger Name';
                         } else if (autor[1] === 'marc:prf') {
-                            persRole = 'Schauspieler';
+                            persRole = 'Darsteller';
                         } else if (autor[1] === 'marc:clb') {
-                            persRole = 'Kollaborator';
+                            persRole = 'Mitarbeiter';
+                        } else if (autor[1] === 'marc:mcp') {
+                            persRole = 'Kopist';
+                        } else if (autor[1] === 'marc:cnd') {
+                            persRole = 'Dirigent';
+                        } else if (autor[1] === 'marc:msd') {
+                            persRole = 'Generalmusikdirektor';
                         } else {
                             persRole = autor[1];
                         }
-                       
+                        
                         var autorName = autor[0];
                         var dbkey = autor[2];
                         var name = null;
@@ -304,7 +312,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                                 });
                             }
                         }
-                        
                     }
                     
                     panel_011 = Ext.create('Ext.panel.Panel', {
@@ -331,7 +338,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         border: false,
                         bodyBorder: false,
                         margin: '0 0 10 10'
-                       
                     });
                     panel_011.add(panel_101);
                     
@@ -418,7 +424,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         html: '<b style="color:gray; font-size: 12px;">Uraufführung</b>',
                         margin: '10 0 10 0'
                     });
-                   
+                    
                     var content = '';
                     
                     for (i = 0; i < json.events.length; i++) {
@@ -443,9 +449,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         }
                     }
                     
-                    var left_panel_11 = Ext.create('Ext.panel.Panel', {                       
+                    var left_panel_11 = Ext.create('Ext.panel.Panel', {
                         border: false,
-                        margin: '0 10 0 10',                       
+                        margin: '0 10 0 10',
                         html: content
                     });
                     
@@ -463,9 +469,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         margin: '15 0 0 0'
                     }));
                     
-                    me.add(
-                    
-                    {
+                    me.add({
                         
                         xtype: 'label',
                         html: '<b style="color:gray; font-size: 12px;">Referenzen in Spielbetrieb und Verwaltung</b>',
@@ -480,7 +484,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     var plan_panel = Ext.create('Ext.panel.Panel', {
                         border: false,
-                       items:[                        
+                        items:[
                         playscheduleTable]
                     });
                     
@@ -509,10 +513,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     var journal_panel = Ext.create('Ext.panel.Panel', {
                         border: false,
-                        items:[                       
+                        items:[
                         journalTable]
                     });
-               
+                    
                     me.add(journal_panel);
                 }
                 
@@ -531,7 +535,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     me.add(issue_panel);
                 }
-               
+                
                 if (json.regieRef.length > 0) {
                     
                     var regieTable = new TheaterTool.view.tabPanel.repertoire.work.RegieTable({
@@ -551,7 +555,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     var taxTable = new TheaterTool.view.tabPanel.TaxationTable({
                         taxList: json.taxation, dbkey: me.workID
-                        });
+                    });
                     
                     var tax_panel = Ext.create('Ext.panel.Panel', {
                         border: false,
@@ -575,7 +579,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                 }
                 
                 if (json.roleRef.length > 0) {
-                   
+                    
                     var roleTable = new TheaterTool.view.tabPanel.repertoire.work.RoleTable({
                         roleList: json.roleRef, dbkey: me.workID
                     });
@@ -603,7 +607,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
             readOnly: true,
             style: {
                 width: '100%'
-                }
+            }
         });
         
         return textArea;
