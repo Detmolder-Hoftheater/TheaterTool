@@ -50,7 +50,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
             success: function (result) {
                 
                 var json = jQuery.parseJSON(result.responseText);
-             
+                
                 var source_list = json.sources;
                 
                 var tableTest = new TheaterTool.view.tabPanel.repertoire.source.SourcesTree({
@@ -160,7 +160,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                         pages = pages + ' ' + textValue;
                     } else if (oneElem === 'br') {
                         pages = pages + '</br>';
-                        }
+                    }
                 }
                 
                 right_panel.add({
@@ -174,7 +174,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 });
             }
         }
-     
+        
         if (selectedSource[0].data.signatur !== '') {
             
             right_panel.add({
@@ -190,13 +190,64 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         
         
         if (selectedSource[0].data.sourcetype !== '') {
-            
+            var sourceType = selectedSource[0].data.sourcetype;
+            var sourceTypeTranslated = '';
+            if(sourceType === 'ms'){
+                sourceTypeTranslated = 'Handschrift';
+            }else if(sourceType === 'ms_score'){
+                sourceTypeTranslated = 'handgeschriebene Partitur';                
+            }else if(sourceType === 'ms_piano_score'){
+                sourceTypeTranslated = 'handgeschriebener Klavierauszug';                
+            }else if(sourceType === 'ms_vocal_score'){
+                sourceTypeTranslated = 'handgeschriebener Klavierauszug';                
+            }else if(sourceType === 'ms_solo_part'){
+                sourceTypeTranslated = 'handgeschriebene Solostimme';                
+            }else if(sourceType === 'ms_choral_part'){
+                sourceTypeTranslated = 'handgeschriebene Chorstimme';                
+            }else if(sourceType === 'ms_instrumental_part'){
+                sourceTypeTranslated = 'handgeschriebene Instrumentalstimme';                
+            }else if(sourceType === 'ms_script'){
+                sourceTypeTranslated = 'handgeschriebenes Rollenheft';                
+            }else if(sourceType === 'ms_prompt_book'){
+                sourceTypeTranslated = 'handgeschriebenes Soufflierbuch';                
+            }else if(sourceType === 'ms_textbook'){
+                sourceTypeTranslated = 'handgeschriebenes Textbuch';                
+            }else if(sourceType === 'ms_inner_sheet'){
+                sourceTypeTranslated = 'handgeschriebenes Einlageblatt';                
+            }else if(sourceType === 'ms_cut_sheet'){
+                sourceTypeTranslated = 'handgeschriebenes Einzelblatt';                
+            }else if(sourceType === 'pr'){
+                sourceTypeTranslated = 'Druck';                
+            }else if(sourceType === 'pr_score'){
+                sourceTypeTranslated = 'gedruckte Partitur';                
+            }else if(sourceType === 'pr_piano_score'){
+                sourceTypeTranslated = 'gedruckter Klavierauszug';                
+            }else if(sourceType === 'pr_vocal_score'){
+                sourceTypeTranslated = 'gedruckter Klavierauszug';                
+            }else if(sourceType === 'pr_solo_part'){
+                sourceTypeTranslated = 'gedruckte Solostimme';                
+            }else if(sourceType === 'pr_choral_part'){
+                sourceTypeTranslated = 'gedruckte Chorstimme';                
+            }else if(sourceType === 'pr_instrumental_part'){
+                sourceTypeTranslated = 'gedruckte Instrumentalstimme';                
+            }else if(sourceType === 'pr_script'){
+                sourceTypeTranslated = 'gedrucktes Rollenheft';                
+            }else if(sourceType === 'pr_prompt_book'){
+                sourceTypeTranslated = 'gedrucktes Soufflierbuch';                
+            }else if(sourceType === 'pr_textbook'){
+                sourceTypeTranslated = 'gedrucktes Textbuch';                
+            }else if(sourceType === 'pr_inner_sheet'){
+                sourceTypeTranslated = 'gedrucktes Einlageblatt';                
+            }else if(sourceType === 'pr_cut_sheet'){
+                sourceTypeTranslated = 'gedrucktes Einzelblatt';                
+            }
+   
             right_panel.add({
                 bodyPadding: 10,
                 border: false,
                 html: '<b style="color:gray; font-size: 10px;">Quellentyp: </b>'
             }, {
-                html: selectedSource[0].data.sourcetype,
+                html: sourceTypeTranslated,
                 bodyPadding: 10,
                 border: false
             });
@@ -208,12 +259,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '' || selectedSource[0].data.inventarnummer !== '' || selectedSource[0].data.seitenzahl !== '' || selectedSource[0].data.groesse !== '') {
             
             right_panel.add({
-               html: '<b style="color:gray; font-size: 12px;">Physikalische Daten</b>',
+                html: '<b style="color:gray; font-size: 12px;">Physikalische Daten</b>',
                 border: false,
                 bodyPadding: 10,
                 colspan: 2
             });
-          
+            
             var pages = '';
             if (selectedSource[0].data.titlePages.length > 0) {
                 
@@ -221,38 +272,36 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 var titlePage = selectedSource[0].data.titlePages;
                 for (i = 0; i < titlePage.length; i++) {
                     var test_1 = titlePage[i];
-                   var oneElem = test_1[0];
-                   
+                    var oneElem = test_1[0];
+                    
                     if (oneElem === 'text') {
                         var textValue = test_1[1];
                         pages = pages + textValue;
                     } else if (oneElem === 'br') {
                         pages = pages + '</br>';
-                        
                     } else if (oneElem === 'add') {
                         var addValue = test_1[1];
-                       
+                        
                         pages = pages + '<span style="color:MediumSeaGreen;">' + addValue + '</span>';
                     } else if (oneElem === 'del') {
                         var delValue = test_1[1];
-                      
+                        
                         pages = pages + '<span style="color:Tomato;">' + delValue + '</span>';
                     }
                 }
-               
+                
                 right_panel.add({
                     bodyPadding: 10,
                     border: false,
                     html: '<b style="color:gray; font-size: 10px;">Titelseite(n):</b>'
-                },
-                {
+                }, {
                     html: pages,
                     bodyPadding: 10,
                     border: false
                 });
             }
             
-           
+            
             if (selectedSource[0].data.medium !== '') {
                 var umschlagValue = selectedSource[0].data.medium;
                 
@@ -418,7 +467,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                         var menuItem = historyButton.menu.add({
                             text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
                         });
-                       
+                        
                         var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
                         var existItems = navTreeGlobal.items;
                         var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId, menuItem.id);
@@ -476,9 +525,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 var inhaltText = '';
                 for (i = 0; i < selectedSource[0].data.inhalt.length; i++) {
                     inhaltText += selectedSource[0].data.inhalt[i] + '<br/><br/>'
-                   
                 }
-               
+                
                 right_panel.add({
                     border: false,
                     bodyPadding: 10,
@@ -495,7 +543,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 for (i = 0; i < selectedSource[0].data.s_bemerkungen.length; i++) {
                     bem += selectedSource[0].data.s_bemerkungen[i] + '<br/><br/>'
                 }
-                               
+                
                 right_panel.add({
                     border: false,
                     bodyPadding: 10,
@@ -560,7 +608,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                     bodyPadding: 10,
                     colspan: 2
                 });
-             
+                
                 for (i = 0; i < selectedSource[0].data.events.length; i++) {
                     var content = '';
                     var eventObj = selectedSource[0].data.events[i];
@@ -589,7 +637,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                         colspan: 2
                     });
                 }
-               
             }
         }
     }
