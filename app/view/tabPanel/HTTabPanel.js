@@ -23,6 +23,7 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
     initComponent: function () {
         
         var me = this;
+        
         Ext.History.init();
         var tokenDelimiter = ':';
         
@@ -37,8 +38,19 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
         });
         repertoireTab.add(repertoireDetails);
         
+        if (window.location.href.indexOf('#') === -1) {
+        var win = new TheaterTool.view.main.InformationDialog();
+            win.show();
         me.items =[
-        repertoireTab],
+        win,
+        repertoireTab];
+        
+        }
+        else{
+            me.items =[
+        repertoireTab];
+        }
+        
         
         me.listeners = {
             tabchange: function (tabPanel, tab) {
@@ -75,7 +87,6 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
                         }
                     }
                 });
-               
             },
             render: function () {
                 
@@ -84,9 +95,8 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
                         me.setActiveTab(idx);
                     });
                 });
-                
             },
-         
+            
             beforetabchange: function (newCard, oldCard, eOpts) {
                 var historyButton = Ext.getCmp('historyButton');
                 if (! oldCard.isMenuAdded) {

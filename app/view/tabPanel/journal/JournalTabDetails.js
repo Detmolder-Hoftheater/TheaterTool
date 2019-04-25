@@ -23,7 +23,7 @@ Ext.define('TheaterTool.view.tabPanel.journal.JournalTabDetails', {
         var me = this;
         
         Ext.Ajax.request({
-           
+            
             url: 'resources/xql/getJournalContent.xql',
             method: 'GET',
             params: {
@@ -76,7 +76,7 @@ Ext.define('TheaterTool.view.tabPanel.journal.JournalTabDetails', {
                     elementToFocus.scrollIntoView();
                 }
                 
-                getWorkContent = function (workId, workName) {
+                getWorkContentForJournal = function (workId, workName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton');
                     
@@ -101,7 +101,7 @@ Ext.define('TheaterTool.view.tabPanel.journal.JournalTabDetails', {
                             icon: workIcon,
                             id: 'werk_' + workId
                         });
-                       
+                        
                         var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                             selection: workId, isSelected: true, workName: workName, workIcon: workIcon
                         });
@@ -116,8 +116,8 @@ Ext.define('TheaterTool.view.tabPanel.journal.JournalTabDetails', {
                     }
                 };
                 
-               
-                getPersonContent = function (personId, personName) {
+                
+                getPersonContentForJournal = function (personId, personName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton');
                     var menuItem = historyButton.menu.add({
@@ -147,7 +147,6 @@ Ext.define('TheaterTool.view.tabPanel.journal.JournalTabDetails', {
                         navTreeGlobal.fireEvent('render', navTreeGlobal);
                     }
                 }
-                
             }
         });
         

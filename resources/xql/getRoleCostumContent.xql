@@ -218,7 +218,7 @@ declare function local:persName($node as element(tei:persName)) as element() {
             <persName
                 id='{$node/@key}'><a
                     style="color: inherit"
-                    href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
+                    href="javascript:getPersonContentForRoleCostum('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
             )
         else
             (
@@ -231,7 +231,7 @@ declare function local:persName($node as element(tei:persName)) as element() {
             (
             <persName
                 id='{$node/@key}'><a
-                    href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
+                    href="javascript:getPersonContentForRoleCostum('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
             )
         else
             (
@@ -265,13 +265,13 @@ declare function local:rs($node as element(tei:rs)) as element() {
             <rs
                 id='{$node/@key}'><a
                     style="color: inherit"
-                    href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a><p>{local:dispatch($node/node())}</p></rs>
+                    href="javascript:getWorkContentForRoleCostum('{$node/@key}', '{$node/text()}');">{$node}</a><p>{local:dispatch($node/node())}</p></rs>
             )
         else
             (
             <rs
                 id='{$node/@key}'><a
-                    href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a><p>{local:dispatch($node/node())}</p></rs>
+                    href="javascript:getWorkContentForRoleCostum('{$node/@key}', '{$node/text()}');">{$node}</a><p>{local:dispatch($node/node())}</p></rs>
             )
         )
     else
@@ -285,13 +285,13 @@ declare function local:rs($node as element(tei:rs)) as element() {
                 <rs
                     id='{$node/@key}'><a
                         style="color: inherit"
-                        href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs>
+                        href="javascript:getWorkContentForRoleCostum('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs>
                 )
             else
                 (
                 <rs
                     id='{$node/@key}'><a
-                        href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs>
+                        href="javascript:getWorkContentForRoleCostum('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs>
                 )
             )
         else

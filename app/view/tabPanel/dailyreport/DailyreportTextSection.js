@@ -182,7 +182,7 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
                     }
                 }
                 
-                getWorkContent = function (workId, workName) {
+                getWorkContentForDailyRep = function (workId, workName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton');
                     
@@ -207,7 +207,7 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
                             icon: workIcon,
                             id: 'werk_' + workId
                         });
-                       
+                        
                         var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                             selection: workId, isSelected: true, workName: workName, workIcon: workIcon
                         });
@@ -223,7 +223,7 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
                 };
                 
                 /**/
-                getPersonContent = function (personId, personName) {
+                getPersonContentForDailyRep = function (personId, personName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton');
                     var menuItem = historyButton.menu.add({
@@ -237,12 +237,12 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
                         
                         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + personName + '</font>',
-                            icon: 'resources/images/Mask-19.png'
-                        });
-                        var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                            dbkey: personId, title: '<font style="color:gray;">Person: ' + personName + '</font>',
                             icon: 'resources/images/Mask-19.png',
                             id: 'person_' + personId
+                        });
+                        var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
+                            dbkey: personId, title: '<font size="2" face="Tahoma" style="color:#909090;">Person: ' + personName + '</font>',
+                            icon: 'resources/images/Mask-19.png'
                         });
                         repertoireTab.add(personDetails);
                         

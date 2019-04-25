@@ -48,7 +48,7 @@ declare function local:dispatch($html_1 as node()*) as item()* {
             case element(tei:persName)
                 return
                     local:persName($node)
-             case element(tei:add)
+            case element(tei:add)
                 return
                     local:addElement($node)
             case element(tei:del)
@@ -56,7 +56,7 @@ declare function local:dispatch($html_1 as node()*) as item()* {
                     local:delElement($node)
             case element(tei:rs)
                 return
-                    local:rs($node)       
+                    local:rs($node)
             case element(tei:head)
                 return
                     local:head($node)
@@ -180,58 +180,82 @@ declare function local:cell($node as element(tei:cell)) as element() {
 };
 
 declare function local:persName($node as element(tei:persName)) as element() {
-    if ($node/parent::tei:add or $node/parent::tei:del) 
-     then(
-        if ($node/@key != '') 
-        then(
-            <persName id='{$node/@key}'><a style="color: inherit" href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
-        )
-        else(
+    if ($node/parent::tei:add or $node/parent::tei:del)
+    then
+        (
+        if ($node/@key != '')
+        then
+            (
+            <persName
+                id='{$node/@key}'><a
+                    style="color: inherit"
+                    href="javascript:getPersonContentForGage('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
+            )
+        else
+            (
             <persName>{$node}</persName>
+            )
         )
-    )
-    else(
-        if ($node/@key != '') 
-        then(
-            <persName id='{$node/@key}'><a href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
-        )
-        else(
+    else
+        (
+        if ($node/@key != '')
+        then
+            (
+            <persName
+                id='{$node/@key}'><a
+                    href="javascript:getPersonContentForGage('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
+            )
+        else
+            (
             <persName>{$node}</persName>
+            )
+        
         )
-    
-    )
 };
 
 declare function local:addElement($node as element(tei:add)) as element() {
-    <span style="color:MediumSeaGreen;">{local:dispatch($node/node())}</span>
+    <span
+        style="color:MediumSeaGreen;">{local:dispatch($node/node())}</span>
 
 
 };
 
 declare function local:delElement($node as element(tei:del)) as element() {
-    <s style="color:Tomato;">{local:dispatch($node/node())}</s>
+    <s
+        style="color:Tomato;">{local:dispatch($node/node())}</s>
 };
 
 declare function local:rs($node as element(tei:rs)) as element() {
-    if ($node/parent::tei:add or $node/parent::tei:del) 
-    then(
-        if ($node/@key != '') 
-        then(
-            <rs id='{$node/@key}'><a style="color: inherit" href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
-        )
-        else(
+    if ($node/parent::tei:add or $node/parent::tei:del)
+    then
+        (
+        if ($node/@key != '')
+        then
+            (
+            <rs
+                id='{$node/@key}'><a
+                    style="color: inherit"
+                    href="javascript:getWorkContentForGage('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
+            )
+        else
+            (
             <rs>{$node}</rs>
+            )
         )
-    )
-    else(
-        if ($node/@key != '') 
-        then(
-            <rs id='{$node/@key}'><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
-        )
-        else(
+    else
+        (
+        if ($node/@key != '')
+        then
+            (
+            <rs
+                id='{$node/@key}'><a
+                    href="javascript:getWorkContentForGage('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
+            )
+        else
+            (
             <rs>{$node}</rs>
+            )
         )
-    )
 };
 
 (

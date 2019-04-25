@@ -74,7 +74,7 @@ Ext.define('TheaterTool.view.tabPanel.regiebooks.RegieTabDetails', {
                     }
                 }
                 
-                getWorkContent = function (workId, workName) {
+                getWorkContentForRegie = function (workId, workName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton');
                     
@@ -113,13 +113,13 @@ Ext.define('TheaterTool.view.tabPanel.regiebooks.RegieTabDetails', {
                         navTreeGlobal.fireEvent('render', navTreeGlobal);
                     }
                 };
-                getPersonContent = function (personId, personName) {
+                getPersonContentForRegie = function (personId, personName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton');
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
                     });
-                   
+                    
                     var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
                     var existItems = navTreeGlobal.items;
                     var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId, menuItem.id);
@@ -131,7 +131,8 @@ Ext.define('TheaterTool.view.tabPanel.regiebooks.RegieTabDetails', {
                             id: 'person_' + personId
                         });
                         var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                            dbkey: personId, title: '<font style="color:gray;>Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
+                            dbkey: personId, title: '<font size="2" face="Tahoma" style="color:#909090;">Person: ' + personName + '</font>', 
+                            icon: 'resources/images/Mask-19.png'
                         });
                         repertoireTab.add(personDetails);
                         

@@ -319,7 +319,7 @@ declare function local:jsonifyReportRefNames($nameList) {
     let $volldate := $elem/root()//tei:titleStmt/tei:title/tei:date[1]/@when
     
     let $dateSplit := tokenize($volldate, '-')
-    let $names := concat($titleName, ': ', normalize-space(replace($elem, '"', '\\"')))
+    let $names := concat(normalize-space($titleName), ': ', normalize-space(replace($elem, '"', '\\"')))
     
     return
         if ($names != '') then
@@ -339,7 +339,7 @@ declare function local:jsonifyScheduleReferences($workID) {
     let $rolepath_1 := 'xmldb:exist:///apps/theater-data/ausgaben/'
     let $rolepath_2 := 'xmldb:exist:///apps/theater-data/spielplaene/'
     
-    let $rolefiles := collection($rolepath)  
+    let $rolefiles := collection($rolepath)
     let $rolefile := $rolefiles//tei:TEI//tei:term['Spielplan']
     let $nameList := $rolefile/root()//tei:rs[@key = $workID]
     
@@ -359,7 +359,7 @@ declare function local:jsonifyScheduleReferences($workID) {
             )
         else
             ()
-            
+
 };
 
 declare function local:jsonifyScheduleRefNames($nameList, $nameList_1, $nameList_2) {

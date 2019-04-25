@@ -232,7 +232,7 @@ declare function local:persName($node as element(tei:persName)) as element() {
             <persName
                 id='{$node/@key}'><a
                     style="color: inherit"
-                    href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
+                    href="javascript:getPersonContentForRegie('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
             )
         else
             (
@@ -245,7 +245,7 @@ declare function local:persName($node as element(tei:persName)) as element() {
             (
             <persName
                 id='{$node/@key}'><a
-                    href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
+                    href="javascript:getPersonContentForRegie('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
             )
         else
             (
@@ -256,7 +256,7 @@ declare function local:persName($node as element(tei:persName)) as element() {
 };
 
 declare function local:addElement($node as element(tei:add)) as element() {
-   
+    
     <span
         style="color:MediumSeaGreen;">{local:dispatch($node/node())}</span>
 
@@ -264,34 +264,55 @@ declare function local:addElement($node as element(tei:add)) as element() {
 };
 
 declare function local:delElement($node as element(tei:del)) as element() {
- 
-    <s style="color:Tomato;">{local:dispatch($node/node())}</s>
+    
+    <s
+        style="color:Tomato;">{local:dispatch($node/node())}</s>
 };
 
 declare function local:rs($node as element(tei:rs)) as element() {
-    if ($node/@key != '' and $node/tei:ref) 
-    then(
-        if($node/parent::tei:add or $node/parent::tei:del)
-        then(
-            <rs id='{$node/@key}'><a style="color: inherit" href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a><p>{local:dispatch($node/node())}</p></rs>
-        )else(
-            <rs id='{$node/@key}'><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a><p>{local:dispatch($node/node())}</p></rs>
+    if ($node/@key != '' and $node/tei:ref)
+    then
+        (
+        if ($node/parent::tei:add or $node/parent::tei:del)
+        then
+            (
+            <rs
+                id='{$node/@key}'><a
+                    style="color: inherit"
+                    href="javascript:getWorkContentForRegie('{$node/@key}', '{$node/text()}');">{$node}</a><p>{local:dispatch($node/node())}</p></rs>
+            )
+        else
+            (
+            <rs
+                id='{$node/@key}'><a
+                    href="javascript:getWorkContentForRegie('{$node/@key}', '{$node/text()}');">{$node}</a><p>{local:dispatch($node/node())}</p></rs>
+            )
         )
-                )
-    else(
+    else
+        (
         if ($node/@key != '')
-        then(
-            if($node/parent::tei:add or $node/parent::tei:del)then(
-            <rs id='{$node/@key}'><a style="color: inherit" href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs>
-       
-            )else(
-            <rs id='{$node/@key}'><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs>
-       )
-             )
-        else(          
+        then
+            (
+            if ($node/parent::tei:add or $node/parent::tei:del) then
+                (
+                <rs
+                    id='{$node/@key}'><a
+                        style="color: inherit"
+                        href="javascript:getWorkContentForRegie('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs>
+                
+                )
+            else
+                (
+                <rs
+                    id='{$node/@key}'><a
+                        href="javascript:getWorkContentForRegie('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs>
+                )
+            )
+        else
+            (
             <rs>{local:dispatch($node/node())}</rs>
+            )
         )
-     )
 };
 
 (

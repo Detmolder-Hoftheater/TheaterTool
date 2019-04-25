@@ -2,8 +2,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTable', {
     extend: 'Ext.grid.Panel',
     requires:[
     'Ext.grid.column.Action',
-    'TheaterTool.model.Theaterakte'
-    ],
+    'TheaterTool.model.Theaterakte'],
     layout: {
         type: 'hbox',
         pack: 'start',
@@ -169,7 +168,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTable', {
             var menuItem = historyButton.menu.add({
                 text: '<font style="color:gray;">' + personName + '</font>', icon: 'resources/images/Mask-19.png', dbkey: personId
             });
-           
+            
             var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
             var existItems = navTreeGlobal.items;
             var isFoundItem = navTreeGlobal.isItemFoundWithId(existItems, personId, menuItem.id);
@@ -235,7 +234,6 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTable', {
                     }
                 }
                 return '<span style="white-space:normal; font-size: 32px; margin: 50px 0 50px 0;">' + presentationText + '</span>';
-                
             }
         });
         return eColumn;

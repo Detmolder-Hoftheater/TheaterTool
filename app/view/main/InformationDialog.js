@@ -8,6 +8,7 @@ Ext.define('TheaterTool.view.main.InformationDialog', {
     width: 950,
     height: 500,
     autoScroll: true,
+    modal:true,
     
     layout: {
         type: 'vbox',

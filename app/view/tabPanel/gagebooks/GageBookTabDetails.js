@@ -62,7 +62,7 @@ Ext.define('TheaterTool.view.tabPanel.gagebooks.GageBookTabDetails', {
                         }
                     }
                 }
-                getPersonContent = function (personId, personName) {
+                getPersonContentForGage = function (personId, personName) {
                     var toolBarGlobal = Ext.getCmp('toolbar');
                     var historyButton = Ext.getCmp('historyButton');
                     // var isHistoryItemExist = toolBarGlobal.foundHistoryitemWithId(historyButton.menu.items, personId);
@@ -84,7 +84,7 @@ Ext.define('TheaterTool.view.tabPanel.gagebooks.GageBookTabDetails', {
                             id: 'person_' + personId
                         });
                         var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                            dbkey: personId, title: '<font style="color:gray;">Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
+                            dbkey: personId, title: '<font size="2" face="Tahoma" style="color:#909090;">Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
                         });
                         //personDetails.setTitle('<font size="2" face="Arial" style="color:#A87678;">' + personName + '</font>');
                         repertoireTab.add(personDetails);

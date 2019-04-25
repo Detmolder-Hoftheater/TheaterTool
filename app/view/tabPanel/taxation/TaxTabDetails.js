@@ -75,7 +75,7 @@ Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
             }
         });
         
-        getWorkContent = function (workId, workName) {
+        getWorkContentForTaxation = function (workId, workName) {
             var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');
             
@@ -100,11 +100,11 @@ Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
                     icon: workIcon,
                     id: 'werk_' + workId
                 });
-               
+                
                 var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                     selection: workId, isSelected: true, workName: workName, workIcon: workIcon
                 });
-               repertoireTab.add(personDetails);
+                repertoireTab.add(personDetails);
                 
                 repertoireTab.setActiveMenuItemId(menuItem.id);
                 repertoireTab.setMenuAdded(true);
@@ -114,7 +114,7 @@ Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
                 navTreeGlobal.fireEvent('render', navTreeGlobal);
             }
         };
-        getPersonContent = function (personId, personName) {
+        getPersonContentForTaxation = function (personId, personName) {
             var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');
             
@@ -133,7 +133,9 @@ Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
                     id: 'person_' + personId
                 });
                 var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                    dbkey: personId, title: '<font size="2" face="Arial" style="color:#A87678;">Person: ' + personName + '</font>', icon: 'resources/images/Mask-19.png'
+                    dbkey: personId,
+                    title: '<font size="2" face="Tahoma" style="color:#909090;">Person: ' + personName + '</font>',
+                    icon: 'resources/images/Mask-19.png'
                 });
                 repertoireTab.add(personDetails);
                 
@@ -145,7 +147,7 @@ Ext.define('TheaterTool.view.tabPanel.taxation.TaxTabDetails', {
                 navTreeGlobal.fireEvent('render', navTreeGlobal);
             }
         }
-      
+        
         me.callParent();
     }
 });

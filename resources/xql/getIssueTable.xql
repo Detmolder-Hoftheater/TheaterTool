@@ -228,7 +228,7 @@ declare function local:persName($node as element(tei:persName)) as element() {
             <persName
                 id='{$node/@key}'><a
                     style="color: inherit"
-                    href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
+                    href="javascript:getPersonContentForIssue('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
             )
         else
             (
@@ -241,7 +241,7 @@ declare function local:persName($node as element(tei:persName)) as element() {
             (
             <persName
                 id='{$node/@key}'><a
-                    href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
+                    href="javascript:getPersonContentForIssue('{$node/@key}', '{$node/text()}');">{$node}</a></persName>
             )
         else
             (
@@ -251,7 +251,7 @@ declare function local:persName($node as element(tei:persName)) as element() {
 };
 
 declare function local:addElement($node as element(tei:add)) as element() {
-  
+    
     <span
         style="color:MediumSeaGreen;">{local:dispatch($node/node())}</span>
 
@@ -259,31 +259,42 @@ declare function local:addElement($node as element(tei:add)) as element() {
 };
 
 declare function local:delElement($node as element(tei:del)) as element() {
-   
+    
     <s
         style="color:Tomato;">{local:dispatch($node/node())}</s>
 };
 
 declare function local:rs($node as element(tei:rs)) as element() {
-    if ($node/parent::tei:add or $node/parent::tei:del) 
-    then(
-        if ($node/@key != '') 
-        then(
-            <rs id='{$node/@key}'><a style="color: inherit" href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
-        )
-        else(
+    if ($node/parent::tei:add or $node/parent::tei:del)
+    then
+        (
+        if ($node/@key != '')
+        then
+            (
+            <rs
+                id='{$node/@key}'><a
+                    style="color: inherit"
+                    href="javascript:getWorkContentForIssue('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
+            )
+        else
+            (
             <rs>{$node}</rs>
+            )
         )
-    )
-    else(
-        if ($node/@key != '') 
-        then(
-            <rs id='{$node/@key}'><a href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
-        )
-        else(
+    else
+        (
+        if ($node/@key != '')
+        then
+            (
+            <rs
+                id='{$node/@key}'><a
+                    href="javascript:getWorkContentForIssue('{$node/@key}', '{$node/text()}');">{$node}</a></rs>
+            )
+        else
+            (
             <rs>{$node}</rs>
+            )
         )
-    )
 };
 
 

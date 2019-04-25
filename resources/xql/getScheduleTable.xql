@@ -21,7 +21,7 @@ declare variable $rolepath_1 := if ($year != '') then
     (concat('xmldb:exist:///apps/theater-data/ausgaben/', $year, '/'))
 else
     ();
-    
+
 declare variable $rolepath_2 := if ($year != '') then
     (concat('xmldb:exist:///apps/theater-data/spielplaene/', $year, '/'))
 else
@@ -35,7 +35,7 @@ declare variable $rolefiles_2 := collection($rolepath_2);
 
 declare variable $schedule := for $elem in ($rolefiles, $rolefiles_1, $rolefiles_2)
 return
-    if ($elem/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title = $month 
+    if ($elem/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt[1]/tei:title = $month
     or $year = '1820' or $year = '1821' or $year = '1822' or $year = '1823' or $year = '1824' or $year = ''
     ) then
         ($elem)
@@ -241,7 +241,7 @@ declare function local:persName($node as element(tei:persName)) as element() {
                 <persName
                     id='{$node/@key}'><a
                         style="color: inherit"
-                        href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName></td>
+                        href="javascript:getPersonContentForSchedule('{$node/@key}', '{$node/text()}');">{$node}</a></persName></td>
             )
         else
             (
@@ -256,7 +256,7 @@ declare function local:persName($node as element(tei:persName)) as element() {
             <td
                 width="300px"><persName
                     id='{$node/@key}'><a
-                        href="javascript:getPersonContent('{$node/@key}', '{$node/text()}');">{$node}</a></persName></td>
+                        href="javascript:getPersonContentForSchedule('{$node/@key}', '{$node/text()}');">{$node}</a></persName></td>
             )
         else
             (
@@ -294,7 +294,7 @@ declare function local:rs($node as element(tei:rs)) as element() {
         <td
             width="300px"><rs
                 id='{$node/@key}'><a
-                    href="javascript:getWorkContent('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs></td>
+                    href="javascript:getWorkContentForSchedule('{$node/@key}', '{$node/text()}');">{local:dispatch($node/node())}</a></rs></td>
         )
     else
         (
