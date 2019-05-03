@@ -116,7 +116,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
                     icon: 'resources/images/Calendar-17.png',
-                    id: 'spielplaene_' + selectedJahr + me.selectedWorkID
+                    id: 'spielplaene_' + selectedJahr + me.selectedWorkID+countFoSelection
                 });
                 console.log(selectedJahr);
                 var personDetails = new TheaterTool.view.tabPanel.playSchedules.SchedulePanelInTab({

@@ -95,7 +95,7 @@ Ext.define('TheaterTool.view.tabPanel.TaxationTable', {
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
                     icon: 'resources/images/tax.png',
-                    id: 'taxation_' + roleName.replace(/\s/g, '').replace(/[()]/g, '') + me.dbkey
+                    id: 'taxation_' + roleName.replace(/\s/g, '').replace(/[()]/g, '') + me.dbkey+countFoSelection
                 });
                 
                 var selectedRow = me.getSelectionModel().getSelection()[0];

@@ -99,7 +99,7 @@ Ext.define('TheaterTool.view.tabPanel.DayReportTable', {
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
                     icon: 'resources/images/news1-16.png',
-                    id: 'tagesberichte_' + selectedJahr + me.dbkey
+                    id: 'tagesberichte_' + selectedJahr + me.dbkey+countFoSelection
                 });
                 
                 var personDetails = new TheaterTool.view.tabPanel.dailyreport.DailyreportPanelInTab({

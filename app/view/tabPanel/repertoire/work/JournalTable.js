@@ -109,7 +109,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.JournalTable', {
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
                     icon: 'resources/images/Presse-16.png',
-                    id: 'theaterjournal_' + roleName.replace(/\s/g, '') + me.dbkey
+                    id: 'theaterjournal_' + roleName.replace(/\s/g, '') + me.dbkey+countFoSelection
                 });
                 var personDetails = new TheaterTool.view.tabPanel.journal.JournalPanelInTab({
                     regieName: roleName, count: countFoSelection, dbkey: me.dbkey

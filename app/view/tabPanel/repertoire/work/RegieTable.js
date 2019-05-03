@@ -95,7 +95,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RegieTable', {
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
                     icon: 'resources/images/Crown-17.png',
-                    id: 'regiebuch_' + roleName.replace(/\s/g, '').replace(/[()]/g, '') + me.dbkey
+                    id: 'regiebuch_' + roleName.replace(/\s/g, '').replace(/[()]/g, '') + me.dbkey+countFoSelection
                 });
                 var personDetails = new TheaterTool.view.tabPanel.regiebooks.RegiePanelInTab({
                     regieName: roleName, count: countFoSelection, dbkey: me.dbkey

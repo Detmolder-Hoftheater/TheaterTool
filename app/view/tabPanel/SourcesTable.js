@@ -92,7 +92,8 @@ Ext.define('TheaterTool.view.tabPanel.SourcesTable', {
     
     createColumn: function () {
         
-        getSourceContent = function (sourceId, sourceName, workId, refName, selLocation) {
+        getSourceContent = function (sourceId, /*sourceName,*/ workId, refName, selLocation) {
+            
             var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');
             
@@ -104,7 +105,7 @@ Ext.define('TheaterTool.view.tabPanel.SourcesTable', {
             }
             
             var menuItem = historyButton.menu.add({
-                text: '<font style="color:gray;">' + refName + ' (Werk: ' + sourceName + ')' + '</font>', icon: workIcon, dbkey: workId
+                text: '<font style="color:gray;">' + refName + /*' (Werk: ' + sourceName + ')' +*/ '</font>', icon: workIcon, dbkey: workId
             });
             
             var navTreeGlobal = Ext.getCmp('NavigationTreeGlobal').getHTTabPanel();
@@ -113,13 +114,13 @@ Ext.define('TheaterTool.view.tabPanel.SourcesTable', {
             if (! isFoundItem) {
                 
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
-                    title: '<font style="color:gray;">' + refName + ' (Werk: ' + sourceName + ')' + '</font>',
+                    title: '<font style="color:gray;">' + refName + /*' (Werk: ' + sourceName + ')' +*/ '</font>',
                     icon: workIcon,
                     id: 'quelle_' + sourceId
                 });
                
                 var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
-                    selection: workId, isSelected: true, workName: sourceName, workIcon: workIcon, sourceId: sourceId, sourceTitle: refName, selLocation: selLocation
+                    selection: workId, isSelected: true, workName: ''/*sourceName*/, workIcon: workIcon, sourceId: sourceId, sourceTitle: refName, selLocation: selLocation
                 });
                 repertoireTab.add(personDetails);
                 
@@ -140,9 +141,11 @@ Ext.define('TheaterTool.view.tabPanel.SourcesTable', {
             renderer: function (val, metadata, record) {
                 var presentationText = '';
                 if (record.data.id !== '') {
-                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getSourceContent(\'' + record.data.id + '\'' + ', \'' + record.data.name + '\'' + ', \'' + record.data.refId + '\'' + ', \'' + record.data.refName + '\'' + ', \'' + record.data.selLocation + '\');">' + record.data.refName + ' (Werk: ' + record.data.name + ')' + '</a></small>';
+                    /*presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getSourceContent(\'' + record.data.id + '\'' + ', \'' + record.data.name + '\'' + ', \'' + record.data.refId + '\'' + ', \'' + record.data.refName + '\'' + ', \'' + record.data.selLocation + '\');">' + record.data.refName + ' (Werk: ' + record.data.name + ')' +'</a></small>';
+                    */presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getSourceContent(\'' + record.data.id + '\'' /*+ ', \'' + record.data.name + '\''*/ + ', \'' + record.data.refId + '\'' + ', \'' + record.data.refName + '\'' + ', \'' + record.data.selLocation + '\');">' + record.data.refName /*+ ' (Werk: ' + record.data.name + ')'*/ +'</a></small>';
+                
                 } else {
-                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.refName + ' (Werk: ' + record.data.name + ')' + ' </small>';
+                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.refName +/* ' (Werk: ' + record.data.name + ')' +*/ ' </small>';
                 }
                 return presentationText;
             }

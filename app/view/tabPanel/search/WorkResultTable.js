@@ -145,7 +145,8 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
                         
                         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + rec.data.name + '</font>',
-                            icon: workIcon
+                            icon: workIcon,
+                            id: 'werk_' + dbkey
                         });
                         var personDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
                             selection: dbkey, isSelected: true, workName: rec.data.name, workIcon: workIcon

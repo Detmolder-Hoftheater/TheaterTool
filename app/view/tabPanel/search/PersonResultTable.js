@@ -117,10 +117,11 @@ Ext.define('TheaterTool.view.tabPanel.search.PersonResultTable', {
                         
                         var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                             title: '<font style="color:gray;">' + rec.data.name + '</font>',
-                            icon: 'resources/images/Mask-19.png'
+                            icon: 'resources/images/Mask-19.png',
+                            id: 'person_' + dbkey
                         });
                         var personDetails = new TheaterTool.view.tabPanel.persons.PersonPanelInTab({
-                            dbkey: dbkey, title: '<font style="color:gray;">' + rec.data.name + '</font>',
+                            dbkey: dbkey, title: '<font size="2" face="Tahoma" style="color:#909090;">Person: ' + rec.data.name + '</font>',
                             icon: 'resources/images/Mask-19.png'
                         });
                         repertoireTab.add(personDetails);

@@ -102,7 +102,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.IssueTable', {
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
                     icon: 'resources/images/MoneyTransfer-17.png',
-                    id: 'ausgaben_' + selectedJahr + me.selectedWorkID
+                    id: 'ausgaben_' + selectedJahr + me.selectedWorkID+countFoSelection
                 });
                 var cutJahr = jahr.split('-');
                 var jahrSplitted = cutJahr[0];

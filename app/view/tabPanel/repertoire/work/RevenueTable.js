@@ -114,7 +114,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
                     icon: 'resources/images/MoneyBox-17.png',
-                    id: 'einnahmen_' + selectedJahr + me.selectedWorkID
+                    id: 'einnahmen_' + selectedJahr + me.selectedWorkID+countFoSelection
                 });
                 var personDetails = new TheaterTool.view.tabPanel.revenue.RevenuePanelInTab({
                     year: selectedJahr, /*monat: monat,*/ selectedWorkID: me.selectedWorkID, count: countFoSelection, selectedReport: roleName

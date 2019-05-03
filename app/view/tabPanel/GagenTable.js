@@ -95,7 +95,7 @@ Ext.define('TheaterTool.view.tabPanel.GagenTable', {
                 var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                     title: '<font style="color:gray;">' + roleNameToHistory + '</font>',
                     icon: 'resources/images/Gift-17.png',
-                    id: 'gagenheft_' + roleName.replace(/\s/g, '').replace(/ü/g, 'u') + me.dbkey
+                    id: 'gagenheft_' + roleName.replace(/\s/g, '').replace(/ü/g, 'u') + me.dbkey+countFoSelection
                 });
                 var personDetails = new TheaterTool.view.tabPanel.gagebooks.GageBookPanelInTab({
                     regieName: roleName, count: countFoSelection, dbkey: me.dbkey
