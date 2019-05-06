@@ -27,28 +27,30 @@ Ext.define('TheaterTool.view.tabPanel.HTTabPanel', {
         Ext.History.init();
         var tokenDelimiter = ':';
         
-        var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+       /* var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
             title: //'<font style="color:gray;">Aus dem Bestand</font>',
             '<div style="color:gray; font-size: 12px;">Aus dem Bestand</div>',
             id: 'Mediathek',
             closable: false
-        });
+        });*/
         
-        var repertoireDetails = new TheaterTool.view.tabPanel.media.MediaPanelInTab({
+        /*var repertoireDetails = new TheaterTool.view.tabPanel.media.MediaPanelInTab({
         });
-        repertoireTab.add(repertoireDetails);
+        repertoireTab.add(repertoireDetails);*/
         
         if (window.location.href.indexOf('#') === -1) {
         var win = new TheaterTool.view.main.InformationDialog();
             win.show();
         me.items =[
-        win,
-        repertoireTab];
+        win
+        //,repertoireTab
+        ];
         
         }
         else{
             me.items =[
-        repertoireTab];
+        //repertoireTab
+        ];
         }
         
         

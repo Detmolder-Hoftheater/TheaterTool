@@ -312,6 +312,33 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                                 });
                             }
                         }
+                        
+                         if (json.wega[0].length > 0) {
+                            var gndList = json.wega[0];
+                            for (i = 0; i < gndList.length; i++) {
+                                var gndId = gndList[i];
+                                
+                                var panel_10111 = Ext.create('Ext.panel.Panel', {
+                                    colspan: 1,
+                                    border: false,
+                                    bodyBorder: false,
+                                    margin: '0 0 10 10',
+                                    items:[]
+                                });
+                                panel_1011.add(panel_10111);
+                                panel_10111.add({
+                                    xtype: 'component',
+                                    bodyPadding: 10,
+                                    margin: '0 0 0 107',
+                                    autoEl: {
+                                        tag: 'a',
+                                        href: 'http://weber-gesamtausgabe.de/de/Suche?d=works&q=' + gndId,
+                                        html: 'Werkinformationen auf der Seite der Carl-Maria-von-Weber-Gesamtausgabe',
+                                        target: "_blank"
+                                    }
+                                });
+                            }
+                        }
                     }
                     
                     panel_011 = Ext.create('Ext.panel.Panel', {
