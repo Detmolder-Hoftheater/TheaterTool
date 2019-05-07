@@ -525,6 +525,37 @@ concat('["',$names, '",', '"', $date, '"]')
 
 };
 
+declare function local:jsonifyWV($content) {
+
+let $strings := for $elem in $content
+
+					let $id :=$elem//mei:identifier[@type='WV']
+					
+					let $gndList := local:jsonifyWVList($id)
+                   
+                    return 
+                        
+concat('[',$gndList,']')
+    
+    return 
+        string-join($strings,',') 
+};
+
+declare function local:jsonifyWVList($id) {
+
+let $strings := for $elem in $id
+
+					let $id :=$elem
+                   
+                    return 
+                      if($id != '')then(        
+concat(
+							'"',$id,'"'))else()
+    
+    return 
+        string-join($strings,',') 
+};
+
 declare function local:jsonifyGNDList($id) {
     
     let $strings := for $elem in $id
@@ -618,6 +649,8 @@ local:jsonifyAutoren($content),
 local:jsonifySprachen($content),
 '],"gnd":[',
 local:jsonifyGND($content),
+'],"wv":[',
+local:jsonifyWV($content),
 '],"wega":[',
 local:jsonifyWega($content),
 '],"hoverview":[',

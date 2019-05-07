@@ -263,7 +263,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     
                     
-                    if (json.gnd[0].length > 0 || json.wega[0].length > 0) {
+                    if (json.gnd[0].length > 0 || json.wega[0].length > 0 || json.wv.length > 0) {
                         
                         var panel_1011 = Ext.create('Ext.panel.Panel', {
                             layout: {
@@ -338,6 +338,27 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                                     }
                                 });
                             }
+                        }
+                        if (json.wv.length > 0) {
+                            var wegaId = json.wv[0];
+                            
+                            var panel_101111 = Ext.create('Ext.panel.Panel', {
+                                colspan: 1,
+                                // type: 'vbox',
+                                border: false,
+                                bodyBorder: false,
+                                // bodyPadding: 10,
+                                margin: '0 0 10 10',
+                                //margin: '0 0 0 5',
+                                items:[]
+                            });
+                            panel_1011.add(panel_101111);
+                            panel_101111.add({
+                            xtype: 'label',
+                            bodyBorder: false,
+                            margin: '0 0 0 107',
+                            html: 'Werkverzeichniss: '+ wegaId
+                            });
                         }
                     }
                     
