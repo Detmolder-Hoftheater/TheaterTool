@@ -357,7 +357,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                             xtype: 'label',
                             bodyBorder: false,
                             margin: '0 0 0 107',
-                            html: 'Werkverzeichniss: '+ wegaId
+                            html: 'Werkverzeichnis: '+ wegaId
                             });
                         }
                     }

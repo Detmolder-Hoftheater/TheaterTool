@@ -24,7 +24,7 @@ declare variable $fileNames := $file/tei:TEI;
                  document-uri($elem);:)
 
 
-declare variable $html_1 := $fileNames/tei:text/tei:body/child::*;
+declare variable $html_1 := $fileNames/child::*[not(self::tei:teiHeader)]; (:$fileNames/tei:text/tei:body/child::*;:)
 declare variable $html := local:dispatch($html_1);
 
 declare function local:dispatch($html_1 as node()*) as item()* {
@@ -78,6 +78,9 @@ declare function local:dispatch($html_1 as node()*) as item()* {
             case element(tei:del)
                 return
                     local:delElement($node)
+            case element(tei:graphic)
+                return
+                    local:graphic($node)
             default
                 return
                     local:passthru($node)
@@ -100,6 +103,14 @@ declare function local:passthru($node as node()*) as item()* {
   return
   <span data-sentence="{$sentence}">{local:dispatch($node/node())}</span>
 };:)
+
+declare function local:graphic($node as element(tei:graphic)) as element() {
+    
+    <el
+        src='{$node/@url}'
+        height='{$node/@height}'
+        width='{$node/@width}'></el>
+};
 
 (: <p> to <p> with attributes :)
 declare function local:p($node as element(tei:p)) as element() {

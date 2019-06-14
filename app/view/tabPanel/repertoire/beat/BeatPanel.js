@@ -11,7 +11,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         style: {
             backgroundColor: '#FFFFFF',
             backgroundImage: 'none'
-            }
+        }
     },
     
     layout: {
@@ -23,7 +23,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         frame: true,
         bodyPadding: 10
     },
-
+    
     detailSection: null,
     xmlSection: null,
     navTree: null,
@@ -34,7 +34,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
     initComponent: function () {
         
         var me = this;
-      
+        
         var selFolder = null;
         console.log(me.selectedWork);
         if (me.selectedWork === 'H020149') {
@@ -48,7 +48,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         }
         
         var folderForEO = selFolder + '/';
-       
+        
         if (me.selectedWork === 'H020166' || me.selectedWork === 'H020224' || me.selectedWork === 'H021013') {
             me.tbar = {
                 style: {
@@ -69,6 +69,15 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
                 fixed: true,
                 height: 25,
                 items:[ {
+                    style: {
+                        background: 'white'
+                    },
+                    border: false,
+                    fixed: true,
+                    height: 30,
+                    html: '<i>Die Faksimiles werden wegen des Datenbankumzugs noch nicht angezeigt, sind aber in Kürze wieder verfügbar.</i>',
+                    style: 'display:block; padding:5px 0px 5px 10px; background: white;'
+                }, {
                     xtype: 'component',
                     margin: '0 0 0 13',
                     autoEl: {
@@ -89,6 +98,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         var pageSpinner = me.detailSection.getPageSpinner();
         
         me.items =[
+        
         me.detailSection];
         
         me.callParent();

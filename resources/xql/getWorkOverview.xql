@@ -278,7 +278,7 @@ declare function local:jsonifyRoleRefNames($nameList) {
     
     let $strings := for $elem in $nameList
     let $titleName := $elem/root()//tei:titleStmt/tei:title
-    let $names := concat($titleName, ': ', normalize-space($elem))
+    let $names := concat($titleName, ': ', replace(normalize-space($elem), '"', '\\"'))
     
     return
         if ($names != '') then

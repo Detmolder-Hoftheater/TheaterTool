@@ -161,14 +161,14 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         me.pageNumber = 1;
         //console.log(imageData);
         
-        if(me.pageSpinner !== null){
+        if (me.pageSpinner !== null) {
             //me.pageSpinner.setStore(imageData.length);
             me.pageSpinner.setPage(selectedPage);
             me.pageSpinner.setPageID(selectedPage);
         }
         
         
-        var first_elem = imageData[selectedPage-1];
+        var first_elem = imageData[selectedPage -1];
         
         var image_px_h = first_elem[1];
         
@@ -200,7 +200,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         var map = L.map(me.getId());
         
         map.setView([0, 0], Math.round(maxZoomLevel / 2));
-        //map.setView([0, 0], 0); 
+        //map.setView([0, 0], 0);
         
         
         me.setMap(map);
@@ -209,7 +209,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         /*var image_directory_array = original_imagepath.split(".");
         var image_directory = image_directory_array[0];*/
         
-       /* var splitted_array = original_imagepath.split("/");
+        /* var splitted_array = original_imagepath.split("/");
         var last_elem_array = splitted_array[splitted_array.length -1];
         var image_directory_parent = splitted_array[splitted_array.length -2];
         var image_directory_array = last_elem_array.split(".");
@@ -254,7 +254,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         
         me.facsimileTile.fitInImage();
         
-        map.setZoom(Math.round(maxZoomLevel / 2-1));
+        map.setZoom(Math.round(maxZoomLevel / 2 -1));
     },
     
     getPageNumber: function () {

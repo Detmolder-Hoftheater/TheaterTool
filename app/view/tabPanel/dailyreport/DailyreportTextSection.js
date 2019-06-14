@@ -19,6 +19,7 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
     dbkey: null,
     elementList: null,
     workelements: null,
+    imagesContent: null,
     
     initComponent: function () {
         
@@ -143,12 +144,39 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
                 var tableInhalt = response.responseText;
                 me.add({
                     
-                    html: tableInhalt,
+                    /*html: tableInhalt,
+                    border: false,*/
+                    flex: 1.5,
+                    layout: {
+                        type: 'vbox',
+                        pack: 'start',
+                        align: 'stretch'
+                    },
                     border: false,
+                    items:[ {
+                        html: tableInhalt
+                    }],
                     listeners: {
                         afterrender: function (panel) {
                             me.elementList = panel.el.dom.getElementsByTagName('persname');
                             me.workelements = panel.el.dom.getElementsByTagName('rs');
+                            me.imagesContent = panel.el.dom.getElementsByTagName('el');
+                            if (me.imagesContent !== null && me.imagesContent.length > 0) {
+                                var graphicsArray = new Array();
+                                for (var i = 0; i < me.imagesContent.length; i++) {
+                                    var oneElement = me.imagesContent[i];
+                                    var graphicContent = new Array();
+                                    graphicContent.push(oneElement.getAttribute('src'));
+                                    graphicContent.push(oneElement.getAttribute('height'));
+                                    graphicContent.push(oneElement.getAttribute('width'));
+                                    graphicsArray.push(graphicContent);
+                                }
+                                
+                                var detailSection = new TheaterTool.view.tabPanel.dailyreport.FacsimileView({
+                                    imageData: graphicsArray
+                                });
+                                me.add(detailSection);
+                            }
                         }
                     }
                 });
