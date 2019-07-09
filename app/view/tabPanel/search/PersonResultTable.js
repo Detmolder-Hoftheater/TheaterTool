@@ -32,13 +32,13 @@ Ext.define('TheaterTool.view.tabPanel.search.PersonResultTable', {
             
             var options = {
                 keys:[ 'title'],
-                threshold: 0.3
+                threshold: 0.5
             };
             var fuse = new Fuse(me.personList, options);
             
             var resPers = fuse.search(me.searchValue);
             //console.log(resPers);
-            if(me.searchValue === ''){
+            if (me.searchValue === '') {
                 resPers = me.personList;
             }
             for (i = 0; i < resPers.length; i++) {
