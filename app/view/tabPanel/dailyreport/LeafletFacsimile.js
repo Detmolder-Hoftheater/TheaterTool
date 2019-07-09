@@ -216,7 +216,7 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.LeafletFacsimile', {
         var image_directory = image_directory_array[0];*/
         
         //leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/" + image_directory;
-        
+        console.log(first_elem);
         var splitted_array = original_imagepath.split("/");
         var last_elem_array = splitted_array[splitted_array.length -1];
         var image_directory_parent = splitted_array[splitted_array.length -2];

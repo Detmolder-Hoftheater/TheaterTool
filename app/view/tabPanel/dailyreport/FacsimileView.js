@@ -1,3 +1,4 @@
+//Ausgaben
 Ext.define('TheaterTool.view.tabPanel.dailyreport.FacsimileView', {
     extend: 'Ext.panel.Panel',
     requires:[
@@ -22,6 +23,8 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.FacsimileView', {
     imagePath: null,
     
     imageData: null,
+    
+    height: 650,
     
     initComponent: function () {
         

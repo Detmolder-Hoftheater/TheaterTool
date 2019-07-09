@@ -19,6 +19,7 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
     columnLines: true,
     detailsColumn: null,
     worksList: null,
+    searchValue: null,
     
     initComponent: function () {
         
@@ -27,21 +28,30 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
         me.store = Ext.create('Ext.data.Store', {
             model: 'TheaterTool.model.SearchWork',
             data:[]
-            
         });
         
         if (me.worksList != 'undefined') {
-            for (i = 0; i < me.worksList.length; i++) {
-                var work = me.worksList[i];
+        
+        var options = {
+            keys: ['title'],
+            threshold: 0.3         
+        };
+        var fuse = new Fuse(me.worksList, options);
+
+        var resWorks = fuse.search(me.searchValue);
+       
+            for (i = 0; i < resWorks.length; i++) {
+                var work = resWorks[i];
+               
                 var iconExtend = '';
-                if (work[1] === 'H020149' || work[1] === 'H020048' || work[1] === 'H020263') {
+                if (work.dbkey === 'H020149' || work.dbkey === 'H020048' || work.dbkey === 'H020263') {
                     iconExtend = 'resources/images/BookBlau-17.png';
                 } else {
                     iconExtend = 'resources/images/Books1-17.png';
                 }
                 
                 var nameTypeLong = '';
-                var nameTypeShort = work[3];
+                var nameTypeShort = work.type;
                 if (nameTypeShort === 'uniform') {
                     nameTypeLong = 'Einheitstitel';
                 } else if (nameTypeShort === 'alt') {
@@ -50,11 +60,11 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
                 
                 
                 var workRow = Ext.create('TheaterTool.model.SearchWork', {
-                    name: work[0],
+                    name: work.title,
                     iconExtend: iconExtend,
-                    personen: work[2],
-                    workid: work[1],
-                    language: work[4],
+                    personen: work.authors,
+                    workid: work.dbkey,
+                    language: work.lang,
                     nametype: nameTypeLong
                 });
                 me.store.add(workRow);
@@ -92,10 +102,23 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
             dataIndex: 'personen'
         },
         me.detailsColumn];
-       
+        
+        
+        /*var books = [{
+  'ISBN': 'A',
+  'title': "Oldisch Man's War",
+  'author': 'John Scalzi drüben'
+}, {
+  'ISBN': 'B',
+  'title': 'The Lock Artist',
+  'author': 'Steve Hamilton'
+}];*/
+
+
+        
         me.callParent();
     },
-   
+    
     createColumn: function (headerName, path) {
         
         var eColumn = Ext.create('Ext.grid.column.Action', {
@@ -118,7 +141,6 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
                 metadata.style = 'cursor: pointer;';
                 
                 return val;
-                
             },
             
             handler: function (grid, rowIndex, colIndex) {

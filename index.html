@@ -2,9 +2,12 @@
     <head>
         <!--<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>-->
         <meta charset="UTF-8" />
-        
+
+        <meta http-equiv="Access-Control-Allow-Origin" content="*" /> 
+        <meta http-equiv="Access-Control-Allow-Headers" content="X-Requested-With" />
+
         <title>Theatre Tool</title>
-        
+
         <!-- The line below must be kept intact for Sencha Cmd to build your application -->
         <!--<script src="http://rism-ch.github.io/verovio/javascript/verovio-toolkit.js"></script>-->
         <script src="resources/verovio/verovio-toolkit-2.js" type="text/javascript" charset="utf-8"></script>
@@ -17,10 +20,11 @@
         <link rel="stylesheet" href="resources/leaflet-0.7.3/leaflet.css" />
         <script type="text/javascript" src="resources/leaflet-0.7.3/leaflet.js"></script>
         <script type="text/javascript" src="resources/facsimileLayer/FacsimileLayer.js"></script>
+        <script type="text/javascript" src="resources/fuse/fuse.min.js"></script>
         <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
         <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>-->
         <!-- <script src="resources/verovio/verovio-toolkit.js" type="text/javascript" charset="utf-8"></script>-->
-        
+
         <!-- <style>
             .x-grid-cell-inner{
     color: #F2EEE1;
@@ -49,7 +53,7 @@ color: #F2EEE1;
 }    
 
         </style>-->
-        
+
         <style>
             /*  .navigationTabPanel .x-tab-bar-body .x-tab-default-top {    
     background : white !important;   
@@ -89,30 +93,25 @@ color: #F2EEE1;
                 box-shadow: none;
                 /* default is 21 */
             }
-        
-        .dataview-item{
-   width : 33.33%;
-   /*height : 100%;*/
-   border-right: 0px solid #F9F9F9;
-   border-bottom: 0px solid #F9F9F9;
-   float:left;  
-   padding:2px;
-   display: inline-block !important;
-}
+            
+            .dataview-item {
+                width: 33.33%;
+                /*height : 100%;*/
+                border-right: 0px solid #F9F9F9;
+                border-bottom: 0px solid #F9F9F9;
+                float: left;
+                padding: 2px;
+                display: inline-block !important;
+            }
+            
+            .arHeadline {
+            
+                font-family: 'Tahoma';
+            
+            }</style>
 
-.arHeadline{
-    
-    font-family: 'Tahoma';
-    
-}
-      
-        
-        
-        
-        </style>
-        
     </head>
-    
+
     <body>
         <!-- <form id="history-form" class="x-hide-display">
             <input type="hidden" id="x-history-field" />

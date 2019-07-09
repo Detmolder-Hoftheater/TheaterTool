@@ -58,7 +58,8 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
                     
                     var worksTable = new TheaterTool.view.tabPanel.search.WorkResultTable({
                         worksList: json,
-                        title: tableTitle
+                        title: tableTitle,
+                        searchValue: me.searchValue
                     });
                     ref_layout.add(worksTable);
                 }
@@ -101,7 +102,8 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
                     
                     var personTable = new TheaterTool.view.tabPanel.search.PersonResultTable({
                         personList: json,
-                        title: tableTitle
+                        title: tableTitle,
+                        searchValue: me.searchValue
                     });
                     ref_layout.add(personTable);
                 }

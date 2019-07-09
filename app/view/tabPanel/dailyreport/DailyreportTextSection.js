@@ -2,7 +2,7 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
     extend: 'Ext.panel.Panel',
     
     layout: {
-        type: 'vbox',
+        type: 'hbox',
         pack: 'start',
         align: 'stretch'
     },
@@ -21,14 +21,16 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
     workelements: null,
     imagesContent: null,
     
+    
+    
     initComponent: function () {
         
         var me = this;
         
-        if (me.count === null) {
+       /* if (me.count === null) {
             me.collapsed = true;
         }
-        
+        */
         me.tbar = {
             style: {
                 background: 'white'
@@ -152,6 +154,8 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
                         pack: 'start',
                         align: 'stretch'
                     },
+                     height: 650,
+                     autoScroll: true,
                     border: false,
                     items:[ {
                         html: tableInhalt
@@ -161,25 +165,32 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
                             me.elementList = panel.el.dom.getElementsByTagName('persname');
                             me.workelements = panel.el.dom.getElementsByTagName('rs');
                             me.imagesContent = panel.el.dom.getElementsByTagName('el');
-                            if (me.imagesContent !== null && me.imagesContent.length > 0) {
+                            
+                        }
+                    }
+                });
+               
+                if (me.imagesContent !== null && me.imagesContent.length > 0) {
                                 var graphicsArray = new Array();
                                 for (var i = 0; i < me.imagesContent.length; i++) {
-                                    var oneElement = me.imagesContent[i];
-                                    var graphicContent = new Array();
+                                    var oneElement = me.imagesContent[i]; 
+                                    if(oneElement.getAttribute('src') !== '' && oneElement.getAttribute('height') !== ''){
+                                        var graphicContent = new Array();
                                     graphicContent.push(oneElement.getAttribute('src'));
                                     graphicContent.push(oneElement.getAttribute('height'));
                                     graphicContent.push(oneElement.getAttribute('width'));
                                     graphicsArray.push(graphicContent);
+                                    }
+                                    
                                 }
-                                
-                                var detailSection = new TheaterTool.view.tabPanel.dailyreport.FacsimileView({
+                                if(graphicsArray.length > 0){
+                                    var detailSection = new TheaterTool.view.tabPanel.dailyreport.FacsimileView({
                                     imageData: graphicsArray
                                 });
                                 me.add(detailSection);
+                                }
+                                
                             }
-                        }
-                    }
-                });
                 
                 if (me.dbkey !== null) {
                     var elementToFocus = '';
@@ -208,6 +219,15 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.DailyreportTextSection', {
                             elementToFocus.scrollIntoView();
                         }
                     }
+                }
+               else{
+                   me.collapse();
+                        /*var itemsList = me.parentPanel.items.getRange();
+                        for (var i = 0; i < itemsList.length; i++) {
+                            var panelToCollapse = itemsList[i];
+                            panelToCollapse.collapse();
+                        }*/
+                   
                 }
                 
                 getWorkContentForDailyRep = function (workId, workName) {

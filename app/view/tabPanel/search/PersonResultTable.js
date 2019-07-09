@@ -17,6 +17,7 @@ Ext.define('TheaterTool.view.tabPanel.search.PersonResultTable', {
     columnLines: true,
     detailsColumn: null,
     personList: null,
+    searchValue: null,
     
     initComponent: function () {
         
@@ -25,15 +26,23 @@ Ext.define('TheaterTool.view.tabPanel.search.PersonResultTable', {
         me.store = Ext.create('Ext.data.Store', {
             model: 'TheaterTool.model.Person',
             data:[]
-            
         });
         
         if (me.personList != 'undefined') {
-            for (i = 0; i < me.personList.length; i++) {
-                var work = me.personList[i];
+        
+        var options = {
+            keys: ['title'],
+            threshold: 0.3         
+        };
+        var fuse = new Fuse(me.personList, options);
+
+        var resPers = fuse.search(me.searchValue);
+        
+            for (i = 0; i < resPers.length; i++) {
+                var work = resPers[i];
                 
                 var nameTypeLong = '';
-                var nameTypeShort = work[2];
+                var nameTypeShort = work.type;
                 if (nameTypeShort === 'uniform') {
                     nameTypeLong = 'Einheitstitel';
                 } else if (nameTypeShort === 'alt') {
@@ -43,9 +52,9 @@ Ext.define('TheaterTool.view.tabPanel.search.PersonResultTable', {
                 }
                 
                 var workRow = Ext.create('TheaterTool.model.Person', {
-                    name: work[0],
-                    dbkey: work[1],
-                    type: work[2]
+                    name: work.title,
+                    dbkey: work.dbkey,
+                    type: work.type
                 });
                 me.store.add(workRow);
             }
@@ -95,9 +104,8 @@ Ext.define('TheaterTool.view.tabPanel.search.PersonResultTable', {
                 }
                 
                 metadata.style = 'cursor: pointer;';
-              
+                
                 return val;
-               
             },
             
             handler: function (grid, rowIndex, colIndex) {
