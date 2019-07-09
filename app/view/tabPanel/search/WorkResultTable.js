@@ -31,18 +31,22 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
         });
         
         if (me.worksList != 'undefined') {
-        
-        var options = {
-            keys: ['title'],
-            threshold: 0.3         
-        };
-        var fuse = new Fuse(me.worksList, options);
-
-        var resWorks = fuse.search(me.searchValue);
-       
+            
+            var options = {
+                keys:[ 'title'],
+                threshold: 0.3
+            };
+            var fuse = new Fuse(me.worksList, options);
+            
+            var resWorks = fuse.search(me.searchValue);
+            
+            if(me.searchValue === ''){
+                resPers = me.worksList;
+            }
+            
             for (i = 0; i < resWorks.length; i++) {
                 var work = resWorks[i];
-               
+                
                 var iconExtend = '';
                 if (work.dbkey === 'H020149' || work.dbkey === 'H020048' || work.dbkey === 'H020263') {
                     iconExtend = 'resources/images/BookBlau-17.png';
@@ -105,16 +109,16 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
         
         
         /*var books = [{
-  'ISBN': 'A',
-  'title': "Oldisch Man's War",
-  'author': 'John Scalzi drüben'
-}, {
-  'ISBN': 'B',
-  'title': 'The Lock Artist',
-  'author': 'Steve Hamilton'
-}];*/
-
-
+        'ISBN': 'A',
+        'title': "Oldisch Man's War",
+        'author': 'John Scalzi drüben'
+        }, {
+        'ISBN': 'B',
+        'title': 'The Lock Artist',
+        'author': 'Steve Hamilton'
+        }];*/
+        
+        
         
         me.callParent();
     },

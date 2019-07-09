@@ -29,15 +29,18 @@ Ext.define('TheaterTool.view.tabPanel.search.PersonResultTable', {
         });
         
         if (me.personList != 'undefined') {
-        
-        var options = {
-            keys: ['title'],
-            threshold: 0.3         
-        };
-        var fuse = new Fuse(me.personList, options);
-
-        var resPers = fuse.search(me.searchValue);
-        
+            
+            var options = {
+                keys:[ 'title'],
+                threshold: 0.3
+            };
+            var fuse = new Fuse(me.personList, options);
+            
+            var resPers = fuse.search(me.searchValue);
+            //console.log(resPers);
+            if(me.searchValue === ''){
+                resPers = me.personList;
+            }
             for (i = 0; i < resPers.length; i++) {
                 var work = resPers[i];
                 
