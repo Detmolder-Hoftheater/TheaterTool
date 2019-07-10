@@ -137,6 +137,7 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.search.SearchPanelInTab',
     'tabPanel.search.WorkResultTable',
     'tabPanel.search.PersonResultTable',
+    'tabPanel.search.RolesResultTable',
     'tabPanel.rolebooks.RoleTable',
     'tabPanel.roles.RoleDetailsPanel',
     'tabPanel.roles.RolesNavigationTree',

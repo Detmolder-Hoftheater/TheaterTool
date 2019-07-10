@@ -108,7 +108,52 @@ Ext.define('TheaterTool.view.tabPanel.search.SearchPanelInTab', {
                     ref_layout.add(personTable);
                 }
             });
+        }else if (me.type === '<span style="font-family:Tahoma; color:gray;">Rollen</span>') {
+            Ext.Ajax.request({
+                url: 'resources/xql/searchRolls.xql',
+                method: 'GET',
+                params: {
+                    searchValue: me.searchValue,
+                    path: dbPathsMap. get ('persons')
+                },
+                success: function (response, options) {
+                    var json = jQuery.parseJSON(response.responseText);
+                    var ref_layout = Ext.create('Ext.panel.Panel', {
+                        layout: {
+                            type: 'table',
+                            columns: 1,
+                            tdAttrs: {
+                                valign: 'top'
+                            },
+                            tableAttrs: {
+                                style: {
+                                    width: '100%'
+                                }
+                            }
+                        },
+                        bodyBorder: false,
+                        border: false,
+                        items:[]
+                    });
+                    me.add(ref_layout);
+                    
+                    var tableTitle = '';
+                    if (me.searchValue === '') {
+                        tableTitle = '<b style="color:gray;">Alle Rollen</b>';
+                    } else {
+                        tableTitle = '<b style="color:gray;">Rollen mit "' + me.searchValue + '"</b>';
+                    }
+                    
+                    var personTable = new TheaterTool.view.tabPanel.search.RolesResultTable({
+                        personList: json,
+                        title: tableTitle,
+                        searchValue: me.searchValue
+                    });
+                    ref_layout.add(personTable);
+                }
+            });
         }
+        
         
         me.callParent();
     }

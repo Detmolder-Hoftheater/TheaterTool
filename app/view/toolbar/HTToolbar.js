@@ -167,7 +167,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                     }
                 }
             },
-           
+            
             '->',
             
             this.searchFilterButton,
@@ -191,15 +191,13 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                     }
                 }, {
                     xtype: 'component',
-                     autoEl: {
+                    autoEl: {
                         tag: 'a',
                         href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
                         html: 'Dokumentation',
                         target: "_blank"
                     }
-                    
                 }]
-                
             }]
         });
         
@@ -218,22 +216,33 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
             text: '<span style="font-family:Tahoma; color:gray;">Suchfilter</span>',
             
             menu:[ {
-                text: '<span style="font-family:Tahoma; color:gray;">Werke</span>',
-                icon: 'resources/images/BooksVert-17.png',
-                listeners: {
-                    
-                    click: function (item, e, eOpts) {
-                        
-                        menuButton.setText(item.text);
-                    }
-                }
-            }, {
                 text: '<span style="font-family:Tahoma; color:gray;">Personen</span>',
                 icon: 'resources/images/Mask-19.png',
                 listeners: {
                     
                     click: function (item, e, eOpts) {
                         
+                        
+                        menuButton.setText(item.text);
+                    }
+                }
+            }, {
+                text: '<span style="font-family:Tahoma; color:gray;">Rollen</span>',
+                icon: 'resources/images/theatreB.png',
+                listeners: {
+                    
+                    click: function (item, e, eOpts) {
+                        
+                        
+                        menuButton.setText(item.text);
+                    }
+                }
+            }, {
+                text: '<span style="font-family:Tahoma; color:gray;">Werke</span>',
+                icon: 'resources/images/BooksVert-17.png',
+                listeners: {
+                    
+                    click: function (item, e, eOpts) {
                         
                         menuButton.setText(item.text);
                     }
