@@ -30,9 +30,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {
         } else {
             me.loadFacsimile(me.voiceID, me.number, me.selectedWork);
         }
-       
     },
-  
+    
     onResize: function (w, h, oW, oH) {
         this.callParent(arguments);
         var map = this.getMap();
@@ -44,7 +43,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {
     setPageSpinner: function (pageSpinner) {
         this.pageSpinner = pageSpinner;
     },
-   
+    
     loadFacsimile: function (voiceID, number, selectedWork) {
         var me = this;
         Ext.Ajax.request({
@@ -101,28 +100,30 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {
                 //var leaflet_prefix = getPreference('leaflet_prefix');
                 
                 var fields = page.path.split('.');
-                var name = fields[0];
+                var name1 = fields[0];
+                var name = name1.replace(/\//g, "%2F");
+                
+                var leaflet_path = 'https://api.hoftheater-detmold.de/Scaler/IIIF/%2F'+name+'%2F{z}-{x}-{y}.jpg/full/full/0/native.jpg';
+                
                 //leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
-                leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/" + name;
-                /*"http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/" + name;*/
-                
+                //leaflet_path = 'https://api.hoftheater-detmold.de/Scaler/IIIF/%2Fedition-HT_Bettelstudent%2Fedirom_source_0351c809-fcfa-4723-9aa2-b5547c06ec90%2FMUS-N_237_VIOLINO_SECONDO_018%2F';
+                //"/exist/rest/db/apps/theater-data/leafletImages/" + name;
+                /*"http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/" + name;*/                
                 //var path = 'http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/edition-HT_Isouard/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586/MUS-N_120_BASS-VIOLONCELLO_001/{z}-{x}-{y}.jpg';
+        
+        me.facsimileTile = L.tileLayer.facsimileLayer( leaflet_path, {
+            minZoom: 0,
+                maxZoom: maxZoomLevel,
+                continuousWorld: true
+            });
                
-                me.facsimileTile =
+                 me.facsimileTile.setWidth(facsimileWidth);
                 
-                L.tileLayer.facsimileLayer(leaflet_path + '/{z}-{x}-{y}.jpg', {
-                    minZoom: 0,
-                    maxZoom: maxZoomLevel,
-                    continuousWorld: true
-                });
-                
-                me.facsimileTile.setWidth(facsimileWidth);
-                
-                me.facsimileTile.setHeight(facsimileHeight);
+                 me.facsimileTile.setHeight(facsimileHeight);
                 
                 me.facsimileTile.addTo(map);
                 
-                me.facsimileTile.fitInImage();
+                 me.facsimileTile.fitInImage();
                 
                 map.setZoom(Math.round(maxZoomLevel / 2 -1));
             }
@@ -166,5 +167,4 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {
             map.remove();
         }
     }
-    
 });

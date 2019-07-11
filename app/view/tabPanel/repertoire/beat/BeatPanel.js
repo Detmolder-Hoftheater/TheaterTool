@@ -75,13 +75,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
                     border: false,
                     fixed: true,
                     height: 30,
-                    html: '<i>Die Faksimiles werden wegen des Datenbankumzugs noch nicht angezeigt, sind aber in Kürze wieder verfügbar.</i>',
+                    html: '<i>Edirom Online ist wegen des Datenbankumzugs noch nicht verfügbar, ist aber in Kürze wieder erreichbar.</i>',
                     style: 'display:block; padding:5px 0px 5px 10px; background: white;'
                 }, {
                     xtype: 'component',
                     margin: '0 0 0 13',
                     autoEl: {
-                        tag: 'a',
+                        tag: 'a',                       
                         href: 'https://edirom.hoftheater-detmold.de/' + folderForEO,
                         html: 'Zur Erschließung mit Edirom Online',
                         target: "_blank"

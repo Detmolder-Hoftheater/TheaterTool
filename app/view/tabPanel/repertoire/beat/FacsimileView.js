@@ -12,7 +12,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.FacsimileView', {
     },
     
     border: false,
-   
+    
     pageSpinner: null,
     
     leafletFacsimile: null,
@@ -23,22 +23,24 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.FacsimileView', {
     initComponent: function () {
         
         var me = this;
-       
+        
         me.leafletFacsimile = new TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile({
-            margin: '0 0 5 0', voiceID: me.xmlId, number: 1, selectedWork: me.selectedWork
+            margin: '0 0 5 0', voiceID: me.xmlId, number: 1, selectedWork: me.selectedWork, border:true
         })
         
         me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {
             leafletFacsimile: me.leafletFacsimile,
             selectedWork: me.selectedWork
         });
+        
        
         this.items =[
         
         me.leafletFacsimile,
         
-        me.pageSpinner];
-               
+        me.pageSpinner
+        ];
+        
         me.leafletFacsimile.setPageSpinner(me.pageSpinner);
         
         this.callParent()
