@@ -453,7 +453,8 @@ declare function local:jsonifyDayReport($workID) {
     let $rolefiles := collection($rolepath)
     
     let $rolefile := $rolefiles//tei:TEI
-    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $nameList := $rolefile/root()//tei:persName[@key = $workID]
+   (: $rolefile//tei:TEI//tei:persName[@key = $workID]:)
     let $names := local:jsonifyReportRefNames($nameList)
     
     return
@@ -498,7 +499,9 @@ declare function local:jsonifyRoleReferences($workID) {
     (:let $rolefileTest := if($rolefile[@key=$workID != ''])then($rolefile)else():)
     (:let $refData := local:jsonifyRefDataRoles($rolefile):)
     
-    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $nameList := $rolefile/root()//tei:persName[@key = $workID]
+   (: $rolefile//tei:TEI//tei:persName[@key = $workID]:)
+    
     let $names := local:jsonifyRoleRefNames($nameList)
     
     return
@@ -536,7 +539,8 @@ let $rolepath := if($roleTailPath != '')then(concat('/db/apps/', $roleTailPath, 
     let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/'
     let $rolefiles := collection($rolepath)
     let $rolefile := $rolefiles//tei:TEI
-    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $nameList := $rolefile/root()//tei:persName[@key = $workID]
+    (:$rolefile//tei:TEI//tei:persName[@key = $workID]:)
     let $names := local:jsonifyRoleRefNames($nameList)
     
     return
@@ -554,7 +558,9 @@ declare function local:jsonifyTaxReferences($workID) {
     let $rolefiles := collection($rolepath)
     let $rolefile := $rolefiles//tei:TEI
     (:let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/':)
-    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $nameList := $rolefile/root()//tei:persName[@key = $workID]
+    (:$rolefile//tei:TEI//tei:persName[@key = $workID]:)
+    
     let $names := local:jsonifyRoleRefNames($nameList)
     
     return
@@ -756,7 +762,8 @@ declare function local:jsonifyRevenueReferences($workID) {
     let $rolefiles := collection($rolepath)
     let $rolefile := $rolefiles//tei:TEI
     
-    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $nameList := $rolefile/root()//tei:persName[@key = $workID]
+   (: $rolefile//tei:TEI//tei:persName[@key = $workID]:)
     let $names := local:jsonifyReportRefNames($nameList)
     
     return
@@ -786,7 +793,8 @@ declare function local:jsonifyJournalReferences($workID) {
     let $rolefiles := collection($rolepath)
     let $rolefile := $rolefiles//tei:TEI
     
-    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $nameList := $rolefile/root()//tei:persName[@key = $workID]
+    (:$rolefile//tei:TEI//tei:persName[@key = $workID]:)
     let $names := local:jsonifyRoleRefNames($nameList)
     
     return
@@ -820,7 +828,8 @@ declare function local:jsonifyGagenRefReferences($workID) {
     let $rolepath := 'xmldb:exist:///apps/theater-data/gagenbuecher/'
     let $rolefiles := collection($rolepath)
     let $rolefile := $rolefiles//tei:TEI
-    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $nameList := $rolefile/root()//tei:persName[@key = $workID]
+    (:$rolefile//tei:TEI//tei:persName[@key = $workID]:)
     let $names := local:jsonifyRoleRefNames($nameList)
     
     return
@@ -856,7 +865,8 @@ declare function local:jsonifyIssueReferences($workID) {
     let $rolefiles := collection($rolepath)
     let $rolefile := $rolefiles//tei:TEI
     
-    let $nameList := $rolefile//tei:TEI//tei:persName[@key = $workID]
+    let $nameList := $rolefile/root()//tei:persName[@key = $workID]
+    (:$rolefile//tei:TEI//tei:persName[@key = $workID]:)
     let $names := local:jsonifyReportRefNames($nameList)
     
     return

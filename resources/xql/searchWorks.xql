@@ -100,8 +100,8 @@ declare function local:jsonifyNormalizeCharacter($titles, $fileID, $names) {
         else
             (
             $title_1)):)
-            
-            let $title := normalize-space($elem)
+    
+    let $title := normalize-space($elem)
     
     let $comp := local:jsonifyRoles($names)
     
@@ -111,7 +111,34 @@ declare function local:jsonifyNormalizeCharacter($titles, $fileID, $names) {
     return
         
         if ($title != '') then
-            (concat('{', '"title":"',replace($title, '"', '\\"'), '",','"dbkey":"', $fileID, '",','"authors":"', $comp, '",','"type":"', $type, '",', '"lang":"',$language, '"}'))
+            (concat('{', '"title":"', replace($title, '"', '\\"'), '",', '"dbkey":"', $fileID, '",', '"authors":"', $comp, '",', '"type":"', $type, '",', '"lang":"', $language, '"}'))
+        else
+            ()
+    
+    return
+        string-join($strings, ',')
+
+};
+
+
+declare function local:getWork($titles, $fileID, $names) {
+    
+    let $strings := for $elem in $titles
+    
+    let $type := $elem/@type
+    
+    let $lang := $elem/@xml:lang
+    
+    let $elemValue := normalize-space($elem)
+    
+    let $comp := local:jsonifyRoles($names)
+    
+    return
+        
+        if ($elemValue != '') then
+            (:(concat('["', replace($elemValue, '"', '\\"'), '","', $fileID, '","', $type, '","', $lang, '"]')):)
+            (concat('{', '"title":"', replace($elemValue, '"', '\\"'), '",', '"dbkey":"', $fileID, '",', '"authors":"', $comp, '",', '"type":"', $type, '",', '"lang":"', $lang, '"}'))
+        
         else
             ()
     
@@ -134,7 +161,14 @@ declare function local:jsonifyTitels($fileNames) {
     
     
     let $titles := $file1//mei:titleStmt[1]/mei:title[not(@type = 'sub')]
-    let $fileName_1 := local:jsonifyNormalizeCharacter($titles, $fileID, $names)
+    
+     let $fileName_1 := if ($searchValue = '*') then
+        (local:getWork($titles, $fileID, $names))
+    else
+        (local:jsonifyNormalizeCharacter($titles, $fileID, $names))
+    
+    
+    (:let $fileName_1 := local:jsonifyNormalizeCharacter($titles, $fileID, $names):)
     
     return
         if ($fileName_1 != '') then

@@ -40,8 +40,8 @@ Ext.define('TheaterTool.view.tabPanel.search.WorkResultTable', {
             
             var resWorks = fuse.search(me.searchValue);
             
-            if(me.searchValue === ''){
-                resPers = me.worksList;
+            if (me.searchValue === '') {
+                resWorks = me.worksList;
             }
             
             for (i = 0; i < resWorks.length; i++) {
