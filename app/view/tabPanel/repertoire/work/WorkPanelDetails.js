@@ -88,7 +88,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
                                     var htmlVersion = '<pre>' + tmp + '</<pre>';
                                     
                                     var win = new Ext.window.Window({
-                                        title: '<font style="color:gray;">XML for ' + me.workName + '</font>',
+                                        title: '<font style="color:gray;">XML for ' + me.title + '</font>',
                                         html: htmlVersion,
                                         icon: me.workIcon,
                                         bodyStyle: {

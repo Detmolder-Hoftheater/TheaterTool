@@ -68,7 +68,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
                 border: false,
                 fixed: true,
                 height: 25,
-                items:[ {
+                items:[ /*{
                     style: {
                         background: 'white'
                     },
@@ -77,7 +77,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
                     height: 30,
                     html: '<i>Edirom Online ist wegen des Datenbankumzugs noch nicht verfügbar, ist aber in Kürze wieder erreichbar.</i>',
                     style: 'display:block; padding:5px 0px 5px 10px; background: white;'
-                }, {
+                },*/ {
                     xtype: 'component',
                     margin: '0 0 0 13',
                     autoEl: {

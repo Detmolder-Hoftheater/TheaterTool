@@ -223,7 +223,8 @@ Ext.define('TheaterTool.view.tabPanel.issue.LeafletFacsimile', {
         var image_directory_array = last_elem_array.split(".");
         var image_directory = image_directory_array[0];
         
-        leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
+        leaflet_path = "https://dev.hoftheater-detmold.de/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
+        //"/exist/rest/db/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
         
         //leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
         //leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/TA_30/TA_30_066";

@@ -431,7 +431,7 @@ declare function local:jsonifyOccupationDetails($events) {
     
     let $strings := for $elem in $events
     
-    let $occ := $elem
+    let $occ := normalize-space(replace($elem, '"', ' '))
     let $type := $elem/@type
     let $date_from := $elem/@from
     let $date_to := $elem/@to

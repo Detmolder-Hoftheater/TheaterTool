@@ -17,10 +17,12 @@ let $path := 'xmldb:exist:///apps/theater-data/theaterjournal/'
 
 
 let $files := collection($path)
-let $fileNames := for $file in $files
+let $fileNames := $files/tei:TEI[tei:teiHeader//tei:titleStmt[1][tei:title = $bookName]]
+
+(:let $fileNames := for $file in $files
 return
 if($file//tei:TEI[tei:teiHeader//tei:titleStmt[1]/tei:title[tei:date = $bookName]])
-then($file)else()
+then($file)else():)
 
 
 (:let $doc := eutil:getDoc($path)/tei:TEI:)

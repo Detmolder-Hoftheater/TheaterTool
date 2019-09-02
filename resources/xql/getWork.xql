@@ -73,8 +73,24 @@ declare function local:jsonifySlurs() {
     (:if(contains($fileName, $selection1))
 			then($fileName)
 			else():)
+			
+    let $expPath := concat('xmldb:exist:///apps/theater-data/expressions/', $fileID, '_expr1', '.xml')
+    let $file_1 := doc($expPath)
     
-    let $expression := $file1//mei:relation[@rel = "hasRealization"]/@target
+    let $file_exp := doc($expPath)
+    
+    let $source := $file_1//mei:relation[@rel = "hasEmbodiment"]/@target
+    
+    let $sourceFileName := substring-after($source, '#')
+   
+    let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
+    let $fileSource := doc($path2)
+    let $rismLabel := $fileSource//mei:physLoc//mei:repository//mei:identifier[@label = "RISM-label"][1]
+    let $physLoc := normalize-space($fileSource//mei:physLoc//mei:identifier[@type = "shelfLocation"][1])
+    let $sourceName := concat('Quelle: ', $rismLabel, ' , ', $physLoc)
+    let $extName := concat($fileName1, ': ', $comp)	
+    
+   (: let $expression := $file1//mei:relation[@rel = "hasRealization"]/@target
     let $expressionFileName := tokenize($expression, "#")[last()]
     let $path_1 := concat('xmldb:exist:///apps/theater-data/expressions/', $expressionFileName, '.xml')
     let $file_exp := doc($path_1)
@@ -85,17 +101,7 @@ declare function local:jsonifySlurs() {
     else
         ($file1//mei:relation[@rel = "hasEmbodiment"]/@target)
         
-        (:let $source := $file_1//mei:relation[@rel ="hasEmbodiment"]/@target
-		
-		let $source := if(contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent')  or contains($fileName1, 'Des Teufels Anteil'))
-			then($file_1//mei:relation[@rel ="hasEmbodiment"]/@target)
-			else($file1//mei:relation[@rel ="hasEmbodiment"]/@target):)
-        
-        (:let $sourceFileName := tokenize($source, "#")[last()]
-    let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
-    let $fileSource := doc($path2):)
-    
-    
+     
     let $sourceFileName := tokenize($source, "#")[last()]
     let $path2 := concat('xmldb:exist:///apps/theater-data/sources/', $sourceFileName, '.xml')
     let $fileSource := doc($path2)
@@ -103,7 +109,7 @@ declare function local:jsonifySlurs() {
     let $physLoc := normalize-space($fileSource//mei:physLoc//mei:identifier[@type = "shelfLocation"][1])
     let $sourceName := concat('Quelle: ', $rismLabel, ' , ', $physLoc)
     let $extName := concat($fileName1, ': ', $comp)
-    
+    :)
     let $workFolder := if (contains($fileID, 'H020149')) then
         ('aschenbroedel/edition-HT_Isouard.xml')
     else
