@@ -47,7 +47,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
                     showSeparator: false,
                     menu:[ {
                         xtype: 'textarea',
-                        value: 'https://edirom.hoftheater-detmold.de/exist/apps/TheaterTool/index.html#HoftheaterDetmold:werk_' + me.workID,
+                        value: 'https://dev.hoftheater-detmold.de/index.html#HoftheaterDetmold:werk_' + me.workID,
                         plain: true,
                         readOnly: true,
                         inputWrapCls: '',
