@@ -124,15 +124,17 @@ let $roleTypeAsElem := if($roleType = 'reg')
 let $roleId := $node/@key
 let $roleName := $node/text()
 let $parentRole := $node/parent::node()/local-name()
+let $roleType := $node/@type
+let $roleTypeValue := if($roleType != '')then(concat('(', $roleType, ')'))else()
 return
     if($parentRole ='castItem')
         then(if ( $roleId!= '') then
         (       
-        <dev><font size = "1"><b style="color:gray;">Rollenname: </b></font><a href="javascript:getRoleContent('{$roleId}', '{$roleName}');">{$roleName}</a></dev>
+        <dev><font size = "1"><b style="color:gray;">Rollenname {$roleTypeValue}: </b></font><a href="javascript:getRoleContent('{$roleId}', '{$roleName}');">{$roleName}</a></dev>
         )
     else
         (
-        <p><font size = "1"><b style="color:gray;">Rollenname: </b></font>{$roleName}</p>
+        <p><font size = "1"><b style="color:gray;">Rollenname {$roleTypeValue}: </b></font>{$roleName}</p>
         ))
         else(if ( $roleId!= '') then
         (       
