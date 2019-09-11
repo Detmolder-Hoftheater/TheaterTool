@@ -32,7 +32,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
         }
         
         
-        me.overviewSection = new TheaterTool.view.tabPanel.repertoire.source.SourceOverviewSection({
+        me.overviewSection = new TheaterTool.view.tabPanel.repertoire.rism.RISMOverviewSection({
             path: ovPath
         });
         
