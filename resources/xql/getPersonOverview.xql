@@ -277,7 +277,8 @@ declare function local:jsonifyRegNames($titles) {
     
     let $strings := for $elem in $titles
     
-    let $title := $elem/tei:surname
+    let $title1 := $elem/tei:surname
+    let $title := local:jsonifyForename($title1)
     let $foreNameList := $elem/tei:forename
     let $foreNames := local:jsonifyForename($foreNameList)
     let $language := $elem/tei:nameLink
