@@ -45,7 +45,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel', {
                     var tmp_1 = data2.split(data2_substr);
                     data2 = tmp_1[1];
                 }
-                
+                if(data1 === undefined){return;}
                 return data1.localeCompare(data2);
             },
             direction: 'ASC'

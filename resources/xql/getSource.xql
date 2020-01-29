@@ -49,7 +49,8 @@ declare function local:jsonifyRISM($content) {
         if (contains($id, '_')) then
             (substring-after($id, '_'))
         else
-            ($id)
+             if(contains($id,'['))then(concat('"', translate(translate($id,'[', ''),']', '' )), '"')else($id)
+            
     
     return
         string-join($strings, ',')

@@ -419,7 +419,13 @@ var store = Ext.create('Ext.data.TreeStore', {
                 }]
             },
             /*{ leaf:true, text: '<font style="color:gray;">Dekoration</font>',
-            icon: 'resources/images/theatre.png' },*/ {
+            icon: 'resources/images/theatre.png' },*/ 
+            {
+                text: 'Bestandsverzeichnisse',
+                icon: 'resources/images/openBox1.png',
+                children:[]
+            },
+            {
                 text: 'Regiebücher',
                 icon: 'resources/images/Crown-17.png',
                 children:[]
@@ -504,7 +510,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                 var json = jQuery.parseJSON(response.responseText);
                 
                 var navTreeStoreRoot = me.store.getRootNode();
-                var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[1];
+                var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[2];
                 
                 for (i = 0; i < json.names.length; i++) {
                     var regName = json.names[i];
@@ -527,7 +533,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                 
                 //console.log(json);
                 var navTreeStoreRoot = me.store.getRootNode();
-                var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[2];
+                var regieMenu = navTreeStoreRoot.childNodes[1].childNodes[3];
                 for (i = 0; i < json.names.length; i++) {
                     var regName = json.names[i];
                     regieMenu.appendChild({
