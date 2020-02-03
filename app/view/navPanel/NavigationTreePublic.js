@@ -523,6 +523,28 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
         });
         
         Ext.Ajax.request({
+            url: 'resources/xql/getBestandMenu.xql',
+            method: 'GET',
+            params: {
+                path: dbPathsMap. get ('bestand')
+            },
+            success: function (response, options) {
+                var json = jQuery.parseJSON(response.responseText);
+                
+                var navTreeStoreRoot = me.store.getRootNode();
+                var bestandMenu = navTreeStoreRoot.childNodes[1].childNodes[1];
+                
+                for (i = 0; i < json.names.length; i++) {
+                    var bestandName = json.names[i];
+                    bestandMenu.appendChild({
+                        leaf: true, text: bestandName,
+                        icon: 'resources/images/openBox1.png'
+                    });
+                }
+            }
+        });
+        
+        Ext.Ajax.request({
             url: 'resources/xql/getRollenKostuemMenu.xql',
             method: 'GET',
             params: {
@@ -948,7 +970,25 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.data.text === 'Linksammlung') {
+                } else if (item.parentNode.data.text === 'Bestandsverzeichnisse') {
+                    var menuItem = historyButton.menu.add({
+                        text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/openBox1.png', selection: item.data.text
+                    });
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">' + item.data.text + '</font>', menuItem.id);
+                    if (! isFoundItem) {
+                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: '<font style="color:gray;">' + item.data.text + '</font>',
+                            icon: 'resources/images/openBox1.png',
+                            id: 'bestand_' + item.data.text.replace(/\s/g, '').replace(/[()]/g, '')
+                        });
+                        var regieDetails = new TheaterTool.view.tabPanel.bestand.BestandPanelInTab({
+                            regieName: item.data.text
+                        });
+                        repertoireTab.add(regieDetails);
+                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                    }
+                }else if (item.data.text === 'Linksammlung') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">' + item.data.text + '</font>', icon: 'resources/images/Presse-16.png', selection: item.data.text
                     });

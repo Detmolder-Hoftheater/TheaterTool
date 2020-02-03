@@ -736,6 +736,21 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                     
                     me.add(tax_panel);
                 }
+                if (json.bestand.length > 0) {
+                    
+                    var taxTable = new TheaterTool.view.tabPanel.BestandTable({
+                        taxList: json.bestand, dbkey: me.dbkey
+                    });
+                    
+                    var tax_panel = Ext.create('Ext.panel.Panel', {
+                        border: false,
+                        items:[
+                        
+                        taxTable]
+                    });
+                    
+                    me.add(tax_panel);
+                }
                 
                 if (json.dayReport.length > 0) {
                     var dayReportTable = new TheaterTool.view.tabPanel.DayReportTable({

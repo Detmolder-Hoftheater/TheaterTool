@@ -614,6 +614,21 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     
                     me.add(tax_panel);
                 }
+                if (json.bestand.length > 0) {
+                    
+                    var bestandTable = new TheaterTool.view.tabPanel.BestandTable({
+                        taxList: json.bestand, dbkey: me.workID
+                    });
+                    
+                    var bestand_panel = Ext.create('Ext.panel.Panel', {
+                        border: false,
+                        items:[
+                        
+                        bestandTable]
+                    });
+                    
+                    me.add(bestand_panel);
+                }
                 if (json.dayReport.length > 0) {
                     var dayReportTable = new TheaterTool.view.tabPanel.DayReportTable({
                         dayReportList: json.dayReport, dbkey: me.workID

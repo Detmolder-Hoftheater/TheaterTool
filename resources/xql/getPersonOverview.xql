@@ -574,6 +574,27 @@ declare function local:jsonifyTaxReferences($workID) {
 
 };
 
+declare function local:jsonifyBestandReferences($workID) {
+    
+    let $rolepath := 'xmldb:exist:///apps/theater-data/bestand/'
+    let $rolefiles := collection($rolepath)
+    let $rolefile := $rolefiles//tei:TEI
+    (:let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/':)
+    let $nameList := $rolefile/root()//tei:persName[@key = $workID]
+    (:$rolefile//tei:TEI//tei:persName[@key = $workID]:)
+    
+    let $names := local:jsonifyRoleRefNames($nameList)
+    
+    return
+        if ($names != '') then
+            (
+            concat('', $names, '')
+            )
+        else
+            ()
+
+};
+
 declare function local:jsonifySourcesReferences($workID) {
     
     let $rolepath := 'xmldb:exist:///apps/theater-data/sources/'
@@ -1121,6 +1142,8 @@ local:jsonifyRollenReferences($workID),
 local:jsonifyDayReport($workID),
 '],"taxation":[',
 local:jsonifyTaxReferences($workID),
+'],"bestand":[',
+local:jsonifyBestandReferences($workID),
 '],"worksRef":[',
 local:jsonifyWorksReferences($workID),
 '],"journalRef":[',
