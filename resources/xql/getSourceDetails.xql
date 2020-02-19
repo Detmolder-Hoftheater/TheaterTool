@@ -670,7 +670,7 @@ declare function local:jsonifyEventDetails($event_list) {
     
     return
         
-        concat('["', $over, '",', '"', $date, '",', '"', $geogNamesOrt, '",', '"', $geogNamesStadt, '"]')
+        concat('["', $over, '",', '"', normalize-space($date), '",', '"', $geogNamesOrt, '",', '"', $geogNamesStadt, '"]')
     return
         string-join($strings, ',')
 
