@@ -193,7 +193,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                     xtype: 'component',
                     autoEl: {
                         tag: 'a',
-                        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/master/add/docu',
+                        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/theaterTool_detHof/add/docu',
                         html: 'Dokumentation',
                         target: "_blank"
                     }
