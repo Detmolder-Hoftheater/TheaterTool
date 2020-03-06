@@ -21,7 +21,7 @@ Ext.define('TheaterTool.view.tabPanel.zettel.TheaterZettelPanelInTab', {
             margin: '10 0 10 10',
             autoEl: {
                 tag: 'a',
-                href: 'http://www.llb-detmold.de/webOPACClient_lippe/start.do',
+                href: 'http://katalog.llb-detmold.de/webOPACClient_lippe',
                 html: 'Theaterzettelsuche in der Lippischen Landesbibliothek',
                 target: "_blank"
             }
