@@ -226,7 +226,8 @@ Ext.define('TheaterTool.Application', {
                                     async: false,
                                     method: 'GET',
                                     params: {
-                                        dbkey: idName
+                                        dbkey: idName,
+                                        path: dbPathsMap. get ('works')
                                     },
                                     success: function (result) {
                                         var json = jQuery.parseJSON(result.responseText);

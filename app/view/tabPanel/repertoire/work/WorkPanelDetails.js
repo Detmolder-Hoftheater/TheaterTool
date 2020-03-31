@@ -67,13 +67,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
                     margin: '0 3 0 5',
                     listeners: {
                         click: function (item, e, eOpts) {
-                            
+                            var path = dbPathsMap. get ('works');
                             Ext.Ajax.request({
                                 
                                 url: 'resources/xql/getXML.xql',
                                 method: 'GET',
                                 params: {
-                                    uri: '/db/apps/theater-data/works/' + me.workID + '.xml',
+                                    uri: path +'/' + me.workID + '.xml',
                                     type: 'work'
                                 },
                                 success: function (response) {
@@ -114,13 +114,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
                     
                     listeners: {
                         click: function (item, e, eOpts) {
-                            
+                            var path = dbPathsMap. get ('works');
                             Ext.Ajax.request({
                                 
                                 url: 'resources/xql/getXML.xql',
                                 method: 'GET',
                                 params: {
-                                    uri: '/db/apps/theater-data/works/' + me.workID + '.xml',
+                                    uri: path+'/' + me.workID + '.xml',
                                     type: 'work'
                                 },
                                 success: function (response) {

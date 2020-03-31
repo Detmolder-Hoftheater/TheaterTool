@@ -51,7 +51,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
             async: false,
             method: 'GET',
             params: {
-                workID: me.workID
+                workID: me.workID,
+                path: dbPathsMap. get ('works')
             },
             success: function (result) {
                 

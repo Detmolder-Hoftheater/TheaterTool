@@ -16,7 +16,7 @@ declare variable $searchValue := request:get-parameter('searchValue', '');
 (:declare variable $type := request:get-parameter('type', '');:)
 
 declare variable $db_path := request:get-parameter('path', '');
-declare variable $path := concat('xmldb:exist:///apps/', $db_path, '/');
+declare variable $path := concat($db_path, '/');
 
 (:declare variable $path := 'xmldb:exist:///apps/theater-data/works/';:)
 declare variable $file := collection($path);

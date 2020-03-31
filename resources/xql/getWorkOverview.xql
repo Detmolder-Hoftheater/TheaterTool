@@ -12,10 +12,10 @@ declare option exist:serialize "method=text media-type=text/plain omit-xml-decla
 
 
 declare variable $workID := request:get-parameter('workID', '');
-declare variable $uri := concat('/db/apps/theater-data/works/', $workID, '.xml');
+declare variable $path := request:get-parameter('path', '');
+declare variable $uri := concat($path, '/', $workID, '.xml');
 declare variable $file := doc($uri);
 declare variable $content := $file//mei:work;
-
 
 declare function local:jsonifyRoles($id) {
     

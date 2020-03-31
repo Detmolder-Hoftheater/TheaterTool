@@ -12,12 +12,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsTabPanel', {
         
         var me = this;
         
-        
+        var path = dbPathsMap. get ('works');
         Ext.Ajax.request({
             url: 'resources/xql/getWorkText.xql',
             method: 'GET',
             params: {
-                uri: '/db/apps/theater-data/works/' + me.workID + '.xml',
+                uri: path+ '/' + me.workID + '.xml',
                 type: 'work'
             },
             success: function (response) {

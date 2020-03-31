@@ -18,13 +18,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSectionXML', {
        
         me.listeners = {
             activate: function (eOpts) {
-                console.log("activate");
-                
+                //console.log("activate");
+                var path = dbPathsMap. get ('works');
                 Ext.Ajax.request({
                     url: 'resources/xql/getXML.xql',
                     method: 'GET',
                     params: {
-                        uri: '/db/apps/theater-data/works/' + me.workID + '.xml',
+                        uri: path +'/' + me.workID + '.xml',
                         type: 'work'
                     },
                     success: function (response, options) {

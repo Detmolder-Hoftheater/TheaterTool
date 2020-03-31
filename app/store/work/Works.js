@@ -2,7 +2,8 @@ Ext.define('TheaterTool.store.work.Works', {
     extend: 'Ext.data.TreeStore',
     model: 'TheaterTool.model.Werk',
     extraParams: {
-        selection: ''
+        selection: '',
+        path: ''
     },
     proxy: {
         type: 'ajax',

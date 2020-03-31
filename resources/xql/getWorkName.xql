@@ -14,7 +14,8 @@ declare option exist:serialize "method=text media-type=text/plain omit-xml-decla
 
 declare variable $selection := request:get-parameter('dbkey', '');
 
-declare variable $path := concat('/db/apps/theater-data/works/', $selection, '.xml');
+declare variable $tailpath := request:get-parameter('path', '');
+declare variable $path := concat($tailpath, '/',$selection, '.xml');
 declare variable $file := doc($path);
 declare variable $fileNames := $file//mei:work;
 
