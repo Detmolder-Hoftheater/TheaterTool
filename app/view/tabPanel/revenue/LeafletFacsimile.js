@@ -214,6 +214,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         var image_directory = image_directory_array[0];*/
         var pathroot = dbPathsMap.get('leafletimagesRevenue');
         leaflet_path = "/exist/rest/db/apps/"+pathroot+'/' + image_directory;
+        console.log(leaflet_path);
         //leaflet_path = "/exist/rest/db/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
         
         //leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
