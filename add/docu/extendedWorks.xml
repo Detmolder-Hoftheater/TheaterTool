@@ -1,10 +1,15 @@
 <prefs>
 	<version>1.0</version>
 	<entries>
-		<entry key="name" value="Detmolder Hoftheater"/> 
-		<entry key="years" value="1825-1875"/> 
-		<entry key="work" value="H020149"/> 
-		<entry key="work" value="H020048"/> 
-		<entry key="work" value="H020263"/> 		
+		<entry key="name" value="Detmolder Hoftheater"/>  
+		<entry key="years" value="1825-1875"/>  
+		<entry key="dbpath" value="https://edirom.hoftheater-detmold.de"/>  
+		<entry key="work" value="H020149"/>  
+		<entry key="work" value="H020048"/>  
+		<entry key="work" value="H020263"/>  
+		<entry key="work" value="H020076"/> 
+		<entry key="work" value="H020166"/> 
+		<entry key="work" value="H020224"/> 
+		<entry key="work" value="H021013"/> 
 	</entries>
 </prefs>

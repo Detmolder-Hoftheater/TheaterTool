@@ -1,61 +1,0 @@
-<prefs>
-	<version>1.0</version>
-	<entries>
-		<entry key="works" value="theater-data/works"/>  
-		<entry key="sources" value="theater-data/sources"/> 
-		<entry key="leafletimages" value="theater-data/leafletimages"/> 
-		<entry key="einnahmen" value="theater-data/einnahmen"/> 
-		<entry key="persons" value="theater-data/persons"/>
-		<entry key="spielplaene" value="theater-data/spielplaene"/>
-		<entry key="vertaktung" value="theater-data/vertaktung"/>
-		<entry key="regie" value="theater-data/regiebuecher"/>
-		<entry key="role" value="theater-data/rollen_kostuem"/>
-		<entry key="gage" value="theater-data/gagenbuecher"/>
-		<entry key="abo" value="theater-data/abonnement"/>
-		<entry key="journal" value="theater-data/theaterjournal"/>
-		<entry key="tax" value="theater-data/taxation"/>
-		<entry key="bestand" value="theater-data/bestand"/>
-	</entries>
-</prefs>
-<!--<prefs>
-	<entries>
-		<entry key="language" value="de"/>  
-		<!-\-Types of Navigation: "theatre", "other". For type "theatre" two items "Organization" (Spielbetrieb) and "Administration" (Verwaltung)-\->
-		<entry key="navigation_type" value="theatre"/>  
-		<entry key="name" value="Detmolder Hoftheater"/>  
-		<entry key="startyear" value="1825"/>  
-		<entry key="endyear" value="1875"/> 
-		<!-\- path for example 'xmldb:http://....de:9090/exist/apps/xml-data/works' -\->
-		<!-\-  or local xmldb:exist:///apps/theater-data/works -\->
-		<entry key="works" value="xmldb:exist:///apps/theater-data/works"/>  
-		<entry key="sources" value="theater-data/sources"/>  
-		<entry key="expressions" value="theater-data/expressions"/>
-		<entry key="iiifSource" value="theater-data/leafletImages"/>
-		<entry key="leafletiiifSource" value="theater-data/leafletImages"/>
-		<entry key="vertaktung" value="theater-data/vertaktung"/> 
-		<entry key="playschedule" value="theater-data/spielplaene"/>
-		<entry key="persons" value="theater-data/persons"/>
-		<entry key="rollen" value="theater-data/rollen"/>
-		<!-\-        -\->
-		<entry key="journal" value="theater-data/theaterjournal"/>  
-		<entry key="einnahmen" value="theater-data/einnahmen"/>  
-		<entry key="leafletEinnahmen" value="theater-data/leafletImages/einnahmen/"/>
-		<entry key="ausgaben" value="theater-data/ausgaben"/>  
-		<entry key="leafletAusgaben" value="theater-data/leafletImages/ausgaben/"/>
-		<!-\-        -\->
-		<entry key="abo" value="theater-data/abonnement"/>
-		<!-\-        -\->  
-		<entry key="gage" value="theater-data/gagenbuecher"/>
-		<!-\-        -\->
-		<entry key="tax" value="theater-data/taxation"/>
-		<!-\-        -\->
-		<entry key="bestand" value="theater-data/bestand"/>
-		<!-\-        -\->
-		<entry key="regie" value="theater-data/regiebuecher"/>
-		<!-\-        -\->
-		<entry key="role" value="theater-data/rollen_kostuem"/>               
-		<entry key="tagesbericht" value="theater-data/tagesberichte"/>
-		<entry key="leafletTag" value="theater-data/leafletImages/tagesberichte/"/>
-	</entries>
-</prefs>
--->
