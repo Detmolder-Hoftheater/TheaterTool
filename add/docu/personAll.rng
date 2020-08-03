@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.tei-c.org/ns/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start>
+    <element name="person">
+      <optional>
+        <attribute name="status">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <attribute>
+        <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+        <data type="NCName"/>
+      </attribute>
+      <oneOrMore>
+        <choice>
+          <ref name="note"/>
+          <ref name="persName"/>
+          <ref name="settlement"/>
+          <element name="birth">
+            <zeroOrMore>
+              <ref name="date"/>
+            </zeroOrMore>
+            <optional>
+              <ref name="placeName"/>
+            </optional>
+          </element>
+          <element name="death">
+            <oneOrMore>
+              <ref name="date"/>
+            </oneOrMore>
+            <optional>
+              <ref name="placeName"/>
+            </optional>
+          </element>
+          <element name="idno">
+            <attribute name="type">
+              <data type="NCName"/>
+            </attribute>
+            <data type="NMTOKEN"/>
+          </element>
+          <element name="occupation">
+            <optional>
+              <attribute name="from">
+                <data type="NMTOKEN"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="notBefore">
+                <data type="integer"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="ref">
+                <data type="anyURI"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="to">
+                <data type="NMTOKEN"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="type">
+                <data type="NCName"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="when">
+                <data type="NMTOKEN"/>
+              </attribute>
+            </optional>
+            <oneOrMore>
+              <choice>
+                <text/>
+                <ref name="workName"/>
+              </choice>
+            </oneOrMore>
+          </element>
+          <element name="residence">
+            <optional>
+              <attribute name="cert">
+                <data type="NCName"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="from">
+                <data type="NMTOKEN"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="notAfter">
+                <data type="integer"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="to">
+                <data type="NMTOKEN"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="when">
+                <data type="NMTOKEN"/>
+              </attribute>
+            </optional>
+            <choice>
+              <ref name="country"/>
+              <ref name="region"/>
+              <ref name="settlement"/>
+            </choice>
+          </element>
+          <element name="sex">
+            <data type="NCName"/>
+          </element>
+          <element name="staffNum">
+            <attribute name="ref"/>
+          </element>
+        </choice>
+      </oneOrMore>
+      <choice>
+        <element name="bibl">
+          <oneOrMore>
+            <choice>
+              <text/>
+              <ref name="date"/>
+              <ref name="surname"/>
+              <ref name="workName"/>
+              <element name="geogName">
+                <data type="NCName"/>
+              </element>
+            </choice>
+          </oneOrMore>
+        </element>
+        <zeroOrMore>
+          <element name="event">
+            <optional>
+              <attribute name="from">
+                <data type="NMTOKEN"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="notAfter">
+                <data type="date"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="notBefore">
+                <data type="date"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="to">
+                <data type="NMTOKEN"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="when">
+                <data type="NMTOKEN"/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="where">
+                <data type="NCName"/>
+              </attribute>
+            </optional>
+            <ref name="head"/>
+            <oneOrMore>
+              <ref name="p"/>
+            </oneOrMore>
+            <optional>
+              <ref name="list"/>
+            </optional>
+          </element>
+        </zeroOrMore>
+      </choice>
+    </element>
+  </start>
+  <define name="date">
+    <element name="date">
+      <optional>
+        <attribute name="cert">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="notAfter">
+          <data type="date"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="notBefore">
+          <data type="NMTOKEN"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="to">
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="when">
+          <data type="NMTOKEN"/>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="note"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="placeName">
+    <element name="placeName">
+      <optional>
+        <attribute name="cert">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="country"/>
+          <ref name="region"/>
+          <ref name="settlement"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="workName">
+    <element name="workName">
+      <optional>
+        <attribute name="key">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="hi"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="settlement">
+    <element name="settlement">
+      <text/>
+    </element>
+  </define>
+  <define name="note">
+    <element name="note">
+      <optional>
+        <attribute name="resp">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <attribute name="type">
+        <data type="NCName"/>
+      </attribute>
+      <optional>
+        <attribute>
+          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="characterName"/>
+          <ref name="country"/>
+          <ref name="hi"/>
+          <ref name="item"/>
+          <ref name="list"/>
+          <ref name="p"/>
+          <ref name="persName"/>
+          <ref name="placeName"/>
+          <ref name="rs"/>
+          <ref name="workName"/>
+          <element name="workname">
+            <attribute name="key">
+              <data type="NCName"/>
+            </attribute>
+            <text/>
+          </element>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="country">
+    <element name="country">
+      <data type="NCName"/>
+    </element>
+  </define>
+  <define name="region">
+    <element name="region">
+      <data type="NCName"/>
+    </element>
+  </define>
+  <define name="persName">
+    <element name="persName">
+      <optional>
+        <attribute name="from">
+          <data type="date"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="key">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="subtype">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="to">
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute>
+          <name ns="http://www.w3.org/XML/1998/namespace">lang</name>
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="persName"/>
+          <ref name="roleName"/>
+          <ref name="surname"/>
+          <element name="addName">
+            <optional>
+              <attribute name="type">
+                <data type="NCName"/>
+              </attribute>
+            </optional>
+            <data type="NCName"/>
+          </element>
+          <element name="forename">
+            <optional>
+              <attribute name="cert">
+                <data type="NCName"/>
+              </attribute>
+            </optional>
+            <text/>
+          </element>
+          <element name="forname">
+            <data type="NCName"/>
+          </element>
+          <element name="genName">
+            <text/>
+          </element>
+          <element name="nameLink">
+            <text/>
+          </element>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="surname">
+    <element name="surname">
+      <text/>
+    </element>
+  </define>
+  <define name="head">
+    <element name="head">
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="hi"/>
+          <ref name="placeName"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="p">
+    <element name="p">
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="hi"/>
+          <ref name="persName"/>
+          <ref name="placeName"/>
+          <ref name="roleName"/>
+          <ref name="rs"/>
+          <ref name="workName"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="list">
+    <element name="list">
+      <zeroOrMore>
+        <ref name="head"/>
+      </zeroOrMore>
+      <oneOrMore>
+        <ref name="item"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="hi">
+    <element name="hi">
+      <attribute name="rend">
+        <data type="NCName"/>
+      </attribute>
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="hi"/>
+          <ref name="workName"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="characterName">
+    <element name="characterName">
+      <text/>
+    </element>
+  </define>
+  <define name="rs">
+    <element name="rs">
+      <optional>
+        <attribute name="key">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <attribute name="type">
+        <data type="NCName"/>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+  <define name="item">
+    <element name="item">
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="characterName"/>
+          <ref name="hi"/>
+          <ref name="persName"/>
+          <ref name="placeName"/>
+          <ref name="rs"/>
+          <ref name="workName"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="roleName">
+    <element name="roleName">
+      <text/>
+    </element>
+  </define>
+</grammar>

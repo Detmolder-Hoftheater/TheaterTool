@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.music-encoding.org/ns/mei" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <start>
+    <ref name="work"/>
+  </start>
+  <define name="work">
+    <element name="work">
+      <attribute name="xml:id">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">regularizes the naming of an element and thus facilitates building links between it and other resources. Each id attribute within a document must have a unique value.</a:documentation>
+        <data type="ID"/>
+      </attribute>
+      <zeroOrMore>
+        <ref name="identifier"/>
+      </zeroOrMore>
+      <element name="titleStmt">
+        <ref name="att.bibl.attributes"/>        
+        <oneOrMore>
+          <ref name="title"/>
+        </oneOrMore>
+        <optional>
+          <element name="respStmt">
+            <zeroOrMore>
+              <ref name="persName"/>
+            </zeroOrMore>
+          </element>
+        </optional>
+      </element>
+      <optional>
+        <element name="history">
+          <zeroOrMore>
+            <element name="p">
+              <text/>
+            </element>
+          </zeroOrMore>
+          <optional>
+            <element name="eventList">
+              <zeroOrMore>
+                <element name="event">
+                  <ref name="att.bibl.attributes"/>  
+                  <oneOrMore>
+                    <choice>
+                      <ref name="date"/>
+                      <ref name="geogName"/>
+                      <zeroOrMore>
+                        <element name="p">
+                          <text/>
+                        </element>
+                      </zeroOrMore>
+                    </choice>
+                  </oneOrMore>
+                </element>
+              </zeroOrMore>
+            </element>
+          </optional>
+          <optional>
+            <ref name="creation"/>
+          </optional>
+        </element>
+      </optional>
+      <optional>
+        <element name="langUsage">
+          <ref name="language"/>
+        </element>
+      </optional>
+      <optional>
+        <element name="perfMedium">
+          <ref name="perfMedium"/>
+        </element>
+      </optional>
+      <optional>
+          <element name="contents">
+            <oneOrMore>
+              <element name="contentItem">
+                <attribute name="xml:id">
+                  <data type="ID"/> 
+                </attribute>
+                <text/>
+              </element>
+            </oneOrMore>
+          </element>
+      </optional>
+      <optional>
+        <ref name="relationList"/>
+      </optional>
+    </element>
+  </define>
+  <define name="key.work.pattern">
+    <data type="string">
+      <!--<param name="pattern">H02\d{4}</param>-->
+    </data>
+  </define>
+  <define name="relationList">
+    <element name="relationList">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Gathers bibliographic relation elements.</a:documentation>
+      <zeroOrMore>
+        <ref name="model.relationLike"/>
+      </zeroOrMore>
+      <empty/>
+    </element>
+  </define> 
+  <define name="model.relationLike">
+    <choice>
+      <ref name="relation"/>
+    </choice>
+  </define>
+  <define name="relation">
+    <element name="relation">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">A relation element describes the relationship between its parent and the object referenced by the relation element's target attribute. </a:documentation>
+      <empty/>
+      <ref name="att.pointing.attribute.target"/>
+      <ref name="att.rel.attributes"/>
+    </element>
+  </define>
+  <define name="att.pointing.attribute.target">
+    <optional>
+      <attribute name="target">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">allows the use of one or more previously-undeclared URIs to identify an external electronic object.</a:documentation>
+        <ref name="data.URIS"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="data.URIS">
+    <list>
+      <zeroOrMore>
+        <ref name="data.URI"/>
+      </zeroOrMore>
+    </list>
+  </define>
+  <define name="att.rel.attributes">
+    <ref name="att.rel.attribute.rel"/>
+  </define>
+  <define name="att.rel.attribute.rel">
+    <attribute name="rel">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Describes the relationship between the element's parent (subject) and the object pointed at. The values follow FRBR (see http://www.ifla.org/files/cataloguing/frbr/frbr_2008.pdf).</a:documentation>
+      <choice>
+        <value>hasSuccessor</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isSuccessorOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasSupplement</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isSupplementOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasComplement</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isComplementOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasSummarization</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isSummarizationOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasAdaptation</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isAdaptationOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasTransformation</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isTransformationOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasImitation</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isImitationOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasPart</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isPartOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasReproduction</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isReproductionOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasAbridgement</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isAbridgementOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasRevision</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isRevisionOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasTranslation</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isTranslationOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasArrangement</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isArrangementOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasAlternate</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isAlternateOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasReconfiguration</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isReconfigurationOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasRealization</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isRealizationOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasEmbodiment</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isEmbodimentOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>hasExemplar</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <value>isExemplarOf</value>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+      </choice>
+    </attribute>
+  </define>
+  
+  <define name="perfMedium">
+    <element name="perfMedium">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(performance medium) – Indicates the number and character of the performing forces used in a musical composition. </a:documentation>
+      <optional>
+        <ref name="instrumentation"/>
+      </optional>
+    </element>
+  </define>
+  <define name="instrumentation">
+    <element name="instrumentation">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Instrumental and non-dramatic vocal resources.</a:documentation>
+      <zeroOrMore>
+        <choice>
+          <ref name="instrVoice"/>
+          <ref name="instrVoiceGrp"/>
+        </choice>
+      </zeroOrMore>
+      <empty/>
+    </element>
+  </define>
+  <define name="instrVoice">
+    <element name="instrVoice">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(instrument or voice) – Name of an instrument on which a performer plays or a performer's voice range.</a:documentation>
+      <text/>
+      <ref name="att.common.attributes"/>
+      <ref name="att.coded.attributes"/>
+      <optional>
+        <attribute name="count">
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates the number of performers.</a:documentation>
+          <data type="positiveInteger"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="att.coded.attributes">
+    <ref name="att.coded.attribute.code"/>
+  </define>
+  <define name="att.coded.attribute.code">
+    <optional>
+      <attribute name="code">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">captures one or more coded values for the textual content of this element.</a:documentation>
+        <data type="NMTOKENS"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.common.attributes">
+    <ref name="att.common.attribute.label"/>
+  </define>
+  <define name="att.common.attribute.label">
+    <optional>
+      <attribute name="label">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">provides a label for an element. The value may be any string.</a:documentation>
+        <text/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="instrVoiceGrp">
+    <element name="instrVoiceGrp">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Several instrumental or vocal resources treated as a group.</a:documentation>
+      <oneOrMore>        
+          <ref name="instrVoice"/>
+      </oneOrMore>
+      <empty/>
+    </element>
+  </define>
+  <define name="language">
+    <element name="language">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Description of a language used in the document. </a:documentation>   
+      <text/>
+      <attribute name="xml:id">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">regularizes the naming of an element and thus facilitates building links between it and other resources. Each id attribute within a document must have a unique value.</a:documentation>
+        <data type="ID"/>
+      </attribute>
+      <ref name="att.bibl.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="creation">
+    <element name="creation">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Non-bibliographic details of the creation of an intellectual entity, in narrative form, such as the date, place, and circumstances of its composition. </a:documentation>
+      <zeroOrMore>
+        <choice>
+          <ref name="date"/>
+          <ref name="geogName"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="date">
+    <element name="date" ns="http://www.music-encoding.org/ns/mei">
+      <text/>
+      <ref name="att.datable.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="att.datable.attributes">
+    <ref name="att.datable.attribute.isodate"/>
+    <ref name="att.datable.attribute.notafter"/>
+    <ref name="att.datable.attribute.notbefore"/>
+  </define>
+  <define name="att.datable.attribute.isodate">
+    <optional>
+      <attribute name="isodate">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">provides the value of a textual date in standard ISO form.</a:documentation>
+        <ref name="data.ISODATE"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.datable.attribute.notafter">
+    <optional>
+      <attribute name="notafter">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains an upper boundary for an uncertain date in standard ISO form.</a:documentation>
+        <ref name="data.ISODATE"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.datable.attribute.notbefore">
+    <optional>
+      <attribute name="notbefore">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains a lower boundary, in standard ISO form, for an uncertain date.</a:documentation>
+        <ref name="data.ISODATE"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="data.ISODATE">
+    <choice>
+      <data type="date"/>
+      <data type="gYear"/>
+      <data type="gYearMonth"/>
+    </choice>
+  </define>
+  <define name="geogName">
+    <element name="geogName">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(geographic name) – The proper noun designation for a place, natural feature, or political jurisdiction. </a:documentation>     
+      <text/>
+      <ref name="att.name.attributes"/>
+      <ref name="att.typed.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="att.name.attributes">
+    <ref name="att.authorized.attributes"/>
+    <ref name="att.canonical.attributes"/>
+  </define>
+  <define name="att.canonical.attributes">
+    <ref name="att.canonical.attribute.dbkey"/>
+  </define>
+  <define name="att.canonical.attribute.dbkey">
+    <optional>
+      <attribute name="dbkey">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">used to record a value which serves as a primary key in an external database.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.authorized.attributes">
+    <ref name="att.authorized.attribute.authority"/>
+    <ref name="att.authorized.attribute.authURI"/>
+  </define>
+  <define name="att.authorized.attribute.authority">
+    <optional>
+      <attribute name="authority">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">a name or label associated with the controlled vocabulary from which the value is taken.</a:documentation>
+        <text/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.authorized.attribute.authURI">
+    <optional>
+      <attribute name="authURI">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">the web-accessible location of the controlled vocabulary from which the value is taken.</a:documentation>
+        <ref name="data.URI"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="data.URI">
+    <data type="anyURI"/>
+  </define>
+  <define name="att.typed.attributes">
+    <ref name="att.typed.attribute.type"/>
+  </define>
+  <define name="att.typed.attribute.type">
+    <optional>
+      <attribute name="type">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="persName">
+    <element name="persName">
+      <optional>
+        <attribute name="dbkey">
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Die WeGA ID der jeweiligen Person, z.B. "A002068" für Carl Maria von Weber</a:documentation>
+          <ref name="key.person.pattern"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="role">
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Die Rolle oder Beziehung der Person mit dem Text/der Partitur. Werte werden von der MARC Code List for Relators genommen.</a:documentation>
+          <ref name="marcRelator.list"/>
+        </attribute>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  <define name="key.person.pattern">
+    <data type="string">
+      <!--<param name="pattern">H00\d{4}</param>-->
+    </data>
+  </define>
+  <define name="marcRelator.list">
+    <choice>
+      <value>act</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Actor) A performer contributing to an expression of a work by acting as a cast member or player in a musical or dramatic presentation, etc.</a:documentation>
+      <value>arr</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Arranger) A person, family, or organization contributing to a musical work by rewriting the composition for a medium of performance different from that for which the work was originally intended, or modifying the work for the same medium of performance, etc., such that the musical substance of the original composition remains essentially unchanged. For extensive modification that effectively results in the creation of a new musical work, see composer.</a:documentation>
+      <value>asn</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Associated name) A person or organization associated with or found in an item or collection, which cannot be determined to be that of a Former owner [fmo] or other designated relationship indicative of provenance.</a:documentation>
+      <value>aut</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Author) Use for a person or organization chiefly responsible for the intellectual or artistic content of a work, usually printed text. This term may also be used when more than one person or body bears such responsibility.</a:documentation>
+      <value>ats</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Author of textual source) Use for a person responsible for the textual source of a work. This term may also be used when more than one person or body bears such responsibility.</a:documentation>
+      <value>clb</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Collaborator)</a:documentation>
+      <value>cmp</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Composer) Use for a person or organization who creates a musical work, usually a piece of music in manuscript or printed form.</a:documentation>
+      <value>cre</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Creator) A person or organization responsible for the intellectual or artistic content of a resource</a:documentation>
+      <value>dte</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Dedicatee) Use for a person or organization to whom a book, manuscript, etc., is dedicated (not the recipient of a gift).</a:documentation>
+      <value>egr</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Engraver) A person or organization who cuts letters, figures, etc. on a surface, such as a wooden or metal plate used for printing.</a:documentation>
+      <value>fmo</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Former owner) A person, family, or organization formerly having legal possession of an item</a:documentation>
+      <value>lbt</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Librettist) Use for a person or organization who is a writer of the text of an opera, oratorio, etc.</a:documentation>
+      <value>edt</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Editor) Use for a person or organization who prepares for publication a work not primarily his/her own, such as by elucidating text, adding introductory or other critical matter, or technically directing an editorial staff.</a:documentation>
+      <value>editorial_assistant</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Editorial Assistant) Use for a person who assisted in editing the text/score.</a:documentation>
+      <value>lyr</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Lyricist) Use for a person or organization who is a writer of the text of a song.</a:documentation>
+      <value>mcp</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Music copyist) A person who transcribes or copies musical notation.</a:documentation>
+      <value>prf</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Performer) A person contributing to a resource by performing music, acting, dancing, speaking, etc., often in a musical or dramatic presentation, etc. If specific codes are used, [prf] is used for a person whose principal skill is not known or specified</a:documentation>
+      <value>scr</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Scribe) A person who is an amanuensis and for a writer of manuscripts proper.</a:documentation>
+      <value>trl</value>
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Translator) Use for a person or organization who renders a text from one language into another, or from an older form of a language into the modern form.</a:documentation>
+    </choice>
+  </define>
+  <define name="identifier">
+    
+    <element name="identifier">
+      <data type="string"/>
+      <attribute name="type">
+        <choice>
+          <value>gnd</value>
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Gemeinsame Normdatei) </a:documentation>
+          <value>viaf</value>
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">('Virtual International Authority File') </a:documentation>
+        </choice>
+      </attribute>     
+    </element>
+     
+  </define>
+  <define name="title">
+    <element name="title" ns="http://www.music-encoding.org/ns/mei">
+      <ref name="att.bibl.attributes"/>
+      <ref name="att.lang.attributes"/>
+      <optional>
+        <attribute name="type">
+          <choice>
+            <value>sub</value>
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Markiert einen Untertitel.</a:documentation>
+            <value>alt</value>
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(alternativ) Markiert einen alternativen Titel, meist in Übersetzung (siehe xml:lang).</a:documentation>
+            <value>div</value>
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Nummer) Markiert einen Titel einer musikalischen Nummer (z.B. Szene, Arie).</a:documentation>
+            <value>uniform</value>
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Einheitssachtitel) </a:documentation>
+            <value>short</value>
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Markiert einen Kurztitel.</a:documentation>
+            <value>cover</value>
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Markiert einen Titel auf dem Umschlag einer Partitur, Stimme etc.</a:documentation>
+            <value>firstPage</value>
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Markiert einen Titel auf der ersten (Noten)Seite einer Partitur, Stimme etc.</a:documentation>
+          </choice>
+        </attribute>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  <define name="att.bibl.attributes">
+    <ref name="att.bibl.attribute.analog"/>
+  </define>
+  <define name="att.bibl.attribute.analog">
+    <optional>
+      <attribute name="analog">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains a reference to a field or element in another descriptive encoding system to which this MEI element is comparable. </a:documentation>
+        <text/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.lang.attributes">
+    <ref name="att.lang.attribute.xmllang"/>
+  </define>
+  <define name="att.lang.attribute.xmllang">
+    <optional>
+      <attribute name="xml:lang">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">identifies the language of the element's content. The values for this attribute are language 'tags' as defined in BCP 47. All language tags that make use of private use sub-tags must be documented in a corresponding language element in the MEI header whose id attribute is the same as the language tag's value.</a:documentation>
+        <data type="language"/>
+      </attribute>
+    </optional>
+  </define>
+</grammar>
