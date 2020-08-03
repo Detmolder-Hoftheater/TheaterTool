@@ -1,12 +1,0 @@
-<prefs>
-	<version>1.0</version>
-	<entries>
-		<entry key="works" value="theater-data/works"/>  
-		<entry key="sources" value="theater-data/sources"/> 
-		<entry key="leafletimages" value="theater-data/leafletimages"/> 
-		<entry key="einnahmen" value="theater-data/einnahmen"/> 
-		<entry key="persons" value="theater-data/persons"/>
-		<entry key="spielplaene" value="theater-data/spielplaene"/>
-		<entry key="vertaktung" value="theater-data/vertaktung"/>
-	</entries>
-</prefs>
