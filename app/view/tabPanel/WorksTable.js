@@ -91,9 +91,10 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
     createColumn: function (headerName, path, dataind) {
         
         getWorkContent = function (workId, workName) {
+            
             var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');
-            
+           
             var workIcon = '';
             if (extWorkKeys.indexOf(workId) > -1) {
                 workIcon = 'resources/images/BookBlau-16.png';
@@ -137,11 +138,15 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
             dataIndex: dataind,
             menuDisabled: true,
             renderer: function (val, metadata, record) {
+            console.log(record.data.name);
                 var presentationText = '';
+                
                 if (record.data.id !== '') {
-                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getWorkContent(\'' + record.data.id + '\'' + ', \'' + record.data.name + '\');">' + record.data.name + '</a></small>';
+                var nameWork = record.data.name;
+                var nameWorkNorm = nameWork.replace("'", "\\'");
+                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getWorkContent(\'' + record.data.id + '\'' + ', \'' + nameWorkNorm + '\');">' + record.data.name + '</a></small>';
                 } else {
-                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.name + ' </small>';
+                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + nameWorkNorm + ' </small>';
                 }
                 return presentationText;
             }
