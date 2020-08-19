@@ -591,7 +591,10 @@ declare function local:jsonifySourceHier($s_list) {
             ($titlePages)
         else
             (), '],',
-        '"hoverview":', '"', $hover, '",',
+        '"hoverview":', if ($hover != '') then
+            ($hover)
+        else
+            ('[]'), ',',
         '"creation":', '"', $creation, '",',
         '"events":[', if ($events != '') then
             ($events)
@@ -791,7 +794,11 @@ declare function local:jsonifyContenSource($source_el) {
             ($titlePages)
         else
             (), '],',
-        '"hoverview":', '"', $hover, '",',
+       
+        '"hoverview":', if ($hover != '') then
+            ($hover)
+        else
+            ('[]'), ',',
         '"creation":', '"', $creation, '",',
         '"events":[', if ($events != '') then
             ($events)
