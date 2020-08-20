@@ -1,46 +1,41 @@
 <prefs>
 	<entries>
-		<!--Langusge value: "en" or "de".-->
-		<entry key="language" value="en"/>  
-		<!--Types of Navigation: "theatre", "other". For type "theatre" two items "Organization" and "Administration"-->
+		<entry key="language" value="de"/>  
+		<!--Types of Navigation: "theatre", "other". For type "theatre" two items "Organization" (Spielbetrieb) and "Administration" (Verwaltung)-->
 		<entry key="navigation_type" value="theatre"/>  
 		<entry key="name" value="Detmolder Hoftheater"/>  
 		<entry key="startyear" value="1825"/>  
-		<entry key="endyear" value="1875"/>  
-		<!--Database paths. For each path one item in navigation tree will be ganerated.-->
-		<!--If one item will be not generated the value is value="".-->
-		<!--Key words are not changeable.-->
-		<!--For more details please show "Systems Design" in help menu in toolbar.-->
-		<!--DB paths for repetoire item. For show repertoire work path must be exist, other paths are otpional.-->
-		<entry key="works" value="theater-data-exs/works"/>  
-		<entry key="sources" value="theater-data-exs/sources"/>  
-		<entry key="expressions" value="theater-data-exs/expressions"/>  
-		<entry key="liPath" value="theater-data-exs/leafletImages"/>
-		<entry key="eoutPath" value="theater-data-exs/vertaktung"/>
-		<entry key="eoPath" value="http://hoftheater-detmold.de"/>
-		<!--Schedule paths are optional.-->
-		<entry key="playschedule" value="theater-data-exs/spielplaene"/>
-		<entry key="leafletimagesSchedule" value="theater-data-exs/leafletImages/spielplaene"/>
-		<!--DB path for persons is optional.-->
-		<entry key="persons" value="theater-data-exs/persons"/>
-		<!--DB paths for revenue  are optional.-->
-		<entry key="revenue" value="theater-data-exs/einnahmen"/>  
-		<entry key="leafletimagesRevenue" value="theater-data-exs/leafletImages/einnahmen"/>
-		<!--DB path for expenses  are optional.-->
-		<entry key="expenses" value="theater-data-exs/ausgaben"/>  
-		<entry key="leafletimagesExpenses" value="theater-data-exs/leafletImages/ausgaben"/>
-		<!--DB path for theaterjournal is optional.-->
-		<entry key="journal" value="theater-data-exs/theaterjournal"/>
-		<!--DB path for abonnement is optional.-->
-		<entry key="abo" value="theater-data-exs/abonnement"/>
-		<!--DB path for gagen is optional.-->
-		<entry key="gage" value="theater-data-exs/gagenbuecher"/>
-		<!--DB path for dierection is optional.-->
-		<entry key="regie" value="theater-data-exs/regiebuecher"/>
-		<!--DB path for role- & costumebooks is optional.-->
-		<entry key="rolebook" value="theater-data-exs/rollen_kostuem"/>
-		<!--Definition of one or more custom navigation items. Value is name for navigation item.-->
-		<entry key="custom" value="Books" dbPath="theater-data-exs/info"/>
-		<!--<entry key="custom" value="Documentation" dbPath="theater-data-exs/docu"/>-->
+		<entry key="endyear" value="1875"/> 
+		<!-- path for example 'xmldb:http://....de:9090/exist/apps/xml-data/works' -->
+		<!--  or local xmldb:exist:///apps/theater-data/works -->
+		<entry key="works" value="xmldb:exist:///apps/theater-data/works"/>  
+		<entry key="sources" value="theater-data/sources"/>  
+		<entry key="expressions" value="theater-data/expressions"/>
+		<entry key="iiifSource" value="theater-data/leafletImages"/>
+		<entry key="leafletiiifSource" value="theater-data/leafletImages"/>
+		<entry key="vertaktung" value="theater-data/vertaktung"/> 
+		<entry key="playschedule" value="theater-data/spielplaene"/>
+		<entry key="persons" value="theater-data/persons"/>
+		<entry key="rollen" value="theater-data/rollen"/>
+		<!--        -->
+		<entry key="journal" value="theater-data/theaterjournal"/>  
+		<entry key="einnahmen" value="theater-data/einnahmen"/>  
+		<entry key="leafletEinnahmen" value="theater-data/leafletImages/einnahmen/"/>
+		<entry key="ausgaben" value="theater-data/ausgaben"/>  
+		<entry key="leafletAusgaben" value="theater-data/leafletImages/ausgaben/"/>
+		<!--        -->
+		<entry key="abo" value="theater-data/abonnement"/>
+		<!--        -->  
+		<entry key="gage" value="theater-data/gagenbuecher"/>
+		<!--        -->
+		<entry key="tax" value="theater-data/taxation"/>
+		<!--        -->
+		<entry key="bestand" value="theater-data/bestand"/>
+		<!--        -->
+		<entry key="regie" value="theater-data/regiebuecher"/>
+		<!--        -->
+		<entry key="role" value="theater-data/rollen_kostuem"/>               
+		<entry key="tagesbericht" value="theater-data/tagesberichte"/>
+		<entry key="leafletTag" value="theater-data/leafletImages/tagesberichte/"/>
 	</entries>
 </prefs>
