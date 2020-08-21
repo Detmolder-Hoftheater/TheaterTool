@@ -143,8 +143,11 @@ declare function local:hi($node as element(tei:hi)) as element() {
                     then
                         (<i>{$node/text()}</i>)
                     else
-                        (<td
+                        if($node/parent::tei:rs)
+                            then(<i>{$node/text()}</i>)
+                            else(<td
                             width="300px"><i>{$node/text()}</i></td>)
+                        
                 
                 else
                     if ($rend = 'underline') then
