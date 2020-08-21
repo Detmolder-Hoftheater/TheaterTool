@@ -7,7 +7,7 @@ var store = Ext.create('Ext.data.TreeStore', {
             icon: 'resources/images/Library-17.png',
             expanded: true,
             children:[ {
-                text: 'Repertoire (1.303 Werke)',
+                text: 'Repertoire (1.750 Werke)',
                 icon: 'resources/images/Folder-17.png',
                 children:[ {
                     leaf: true, text: 'A-B-C',
@@ -172,7 +172,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                 }]
                 }*/]
             }, {
-                text: 'Personen (1.710)',
+                text: 'Personen (2.089)',
                 icon: 'resources/images/Mask-19.png',
                 children:[ {
                     leaf: true, text: 'A-B-C',
@@ -200,7 +200,7 @@ var store = Ext.create('Ext.data.TreeStore', {
                     icon: 'resources/images/Mask-19.png'
                 }]
             }, {
-                text: 'Rollen (2.460)',
+                text: 'Rollen (2.665)',
                 icon: 'resources/images/theatreB.png',
                 children:[/*{
                 leaf: true, text: 'Zahlen',
@@ -818,7 +818,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Repertoire (1.303 Werke)') {
+                } else if (item.parentNode.data.text === 'Repertoire (1.750 Werke)') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Werke: ' + item.data.text + '</font>', icon: 'resources/images/BooksVert-17.png', selection: 1
                     });
@@ -898,7 +898,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                 repertoireTab.setActiveMenuItemId(menuItem.id);
                 repertoireTab.setMenuAdded(true);
                 }
-                }*/ else if (item.parentNode.data.text === 'Personen (1.710)') {
+                }*/ else if (item.parentNode.data.text === 'Personen (2.089)') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Personen: ' + item.data.text + '</font>', icon: 'resources/images/Mask-19.png', selection: item.data.text
                     });
@@ -916,7 +916,7 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.parentNode.data.text === 'Rollen (2.460)') {
+                } else if (item.parentNode.data.text === 'Rollen (2.665)') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Rollen: ' + item.data.text + '</font>', icon: 'resources/images/theatreB.png', selection: item.data.text
                     });
