@@ -221,7 +221,7 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
     
     let $strings := for $elem in $titles
     
-    let $fileName := normalize-space($elem)
+    let $fileName := replace(normalize-space($elem), '"', '\\"')
     
     let $nametype := $elem/@type
     let $language := $elem/@xml:lang
