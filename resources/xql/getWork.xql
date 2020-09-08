@@ -169,10 +169,10 @@ declare function local:jsonifySlurs() {
     let $file1 := doc($path1)
     let $fileName1 := $file1//mei:title[not(@type)][1]
     
-    let $fileName := if ($fileName1 != " ") then
-        ($fileName1)
+   let $fileName := if ($fileName1 != " ") then
+        (replace(normalize-space($fileName1), '"', '\\"'))
     else
-        ($file1//mei:titleStmt//mei:title[1])
+        (replace(normalize-space($file1//mei:titleStmt//mei:title[1]), '"', '\\"' ))
     
     let $fileID := if (contains($file1//mei:work/@xml:id, $selection1))
     then

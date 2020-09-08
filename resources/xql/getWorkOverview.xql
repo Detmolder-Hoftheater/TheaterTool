@@ -138,12 +138,13 @@ declare function local:jsonifyTitleInformation($titles) {
     
     let $strings := for $elem in $titles
     
-    let $title := normalize-space($elem)
+    let $title1 := normalize-space($elem)
+    (:let $title := replace($title1, "'", "\'"):)
     let $type := $elem/@type
     let $language := $elem/@xml:lang
     
     return
-        concat('["', replace($title, '"', '\\"'), '","', $type, '","', $language, '"]')
+        concat('["', replace($title1, '"', '\\"'), '","', $type, '","', $language, '"]')
     return
         string-join($strings, ',')
 

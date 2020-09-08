@@ -28,7 +28,7 @@ declare function local:jsonifyRegs($fileNames) {
     
     return
         if ($titles != '') then
-            concat('"', normalize-space($titles), '"')
+            concat('"', replace(normalize-space($titles), '"', '\\"'), '"')
         else
             ()
     

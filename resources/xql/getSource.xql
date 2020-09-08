@@ -49,9 +49,8 @@ declare function local:jsonifyRISM($content) {
         if (contains($id, '_')) then
             (substring-after($id, '_'))
         else
-             if(contains($id,'['))then(concat('"', translate(translate($id,'[', ''),']', '' )), '"')else($id)
+            if(contains($id,'['))then(concat('"', translate(translate($id,'[', ''),']', '' )), '"')else($id)
             
-    
     return
         string-join($strings, ',')
 
@@ -467,7 +466,7 @@ declare function local:jsonifyTitleInformation($titles) {
     let $language := $elem/@xml:lang
     
     return
-        concat('["', normalize-space($title), '","', $type, '","', $language, '"]')
+        concat('["', replace(normalize-space($title), '"', '\\"'), '","', $type, '","', $language, '"]')
     return
         string-join($strings, ',')
 
