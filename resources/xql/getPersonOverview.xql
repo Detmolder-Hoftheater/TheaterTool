@@ -710,7 +710,7 @@ declare function local:jsonifyPersNames($names, $file1) {
     let $strings := for $elem in $names
     
     let $name := if ($elem[@dbkey = $workID]) then
-        ($file1//mei:titleStmt//mei:title[1])
+        (replace($file1//mei:titleStmt//mei:title[1], '"', '\\"'))
     else
         ()
     let $dbId := if ($elem[@dbkey = $workID]) then

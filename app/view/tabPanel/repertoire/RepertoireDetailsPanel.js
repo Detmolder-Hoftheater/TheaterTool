@@ -24,6 +24,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel', {
         
         var navTreeStore = new TheaterTool.store.work.Works();
         navTreeStore.getProxy().extraParams.selection = this.selection;
+        navTreeStore.getProxy().extraParams.path = dbPathsMap.get('works');
         navTreeStore.load();
         navTree.getView().bindStore(navTreeStore);
         navTreeStore.sort([ {
