@@ -143,7 +143,7 @@ Ext.define('TheaterTool.view.tabPanel.WorksTable', {
                 
                 if (record.data.id !== '') {
                 var nameWork = record.data.name;
-                var nameWorkNorm = nameWork.replace("'", "\\'");
+                var nameWorkNorm = nameWork.replaceAll("'", "\\'");
                      presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getWorkContent(\'' + record.data.id + '\'' + ', \'' + nameWorkNorm + '\');">' + record.data.name + '</a></small>';
                 } else {
                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + nameWorkNorm + ' </small>';
