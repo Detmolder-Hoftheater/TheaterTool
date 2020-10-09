@@ -49,7 +49,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         
         var folderForEO = selFolder + '/';
         
-        if (me.selectedWork === 'H020166' || me.selectedWork === 'H020224' || me.selectedWork === 'H021013') {
+        if (me.selectedWork === 'H020166' || me.selectedWork === 'H020224' || me.selectedWork === 'H021013' || me.selectedWork === 'H020261') {
             me.tbar = {
                 style: {
                     background: 'white'
