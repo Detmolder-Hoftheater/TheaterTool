@@ -38,7 +38,15 @@ else
                     else(
                         if(contains($selectedWork, 'H020261')) then(
                             'muellerBalett/'
-                        )else()
+                        )
+                        else(
+                            if(contains($selectedWork, 'H020090')) then(
+                            'derKapellmeister/'
+                        )
+                        else()
+                        
+                        
+                        )
                     
                     )))))));
 

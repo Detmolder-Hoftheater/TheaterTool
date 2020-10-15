@@ -123,13 +123,13 @@ declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimName
     let $physLoc := normalize-space($fileSource//mei:physLoc//mei:identifier[@type = "shelfLocation"][1])
     let $sourceName := concat('Quelle: ', $rismLabel, ' , ', $physLoc)
     let $extName := concat($fileName1, ': ', $comp)	
-     let $iconIncipits := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileID, 'H020224') or contains($fileID, 'H021013') or contains($fileID, 'H020166') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076')  or contains($fileID, 'H020261'))
+     let $iconIncipits := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileID, 'H020224') or contains($fileID, 'H021013') or contains($fileID, 'H020166') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076')  or contains($fileID, 'H020261') or contains($fileID, 'H020090'))
     then
         ('resources/images/IncBlue.png')
     else
         ('resources/images/IncRed.png')
         
-         let $iconSource := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Joseph') or contains($fileID, 'H020224') or contains($fileID, 'H021013') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076')  or contains($fileID, 'H020261'))
+         let $iconSource := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileName1, 'Joseph') or contains($fileID, 'H020224') or contains($fileID, 'H021013') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076')  or contains($fileID, 'H020261') or contains($fileID, 'H020090'))
     then
         ('resources/images/SourceBlue.png')
     else
@@ -165,7 +165,7 @@ declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimName
     else
         ()
         
-         let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($sourceFileName, 'H220154') or contains($fileID, 'H021013') or contains($fileID, 'H020224') or contains($fileID, 'H020076')  or contains($fileID, 'H020261'))
+         let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($sourceFileName, 'H220154') or contains($fileID, 'H021013') or contains($fileID, 'H020224') or contains($fileID, 'H020076')  or contains($fileID, 'H020261') or contains($fileID, 'H020090'))
     then
         (concat('{',
         '"leaf":"false",',
@@ -320,7 +320,9 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
                                 if(contains($fileID, 'H020261'))then    
                                 ('muellerBalett/edition_MuellerBalett.xml')
                                     else(
-                            
+                                        if(contains($fileID, 'H020090'))then(
+                                        'derKapellmeister/edition_DerKapellmeister.xml'
+                                        )else()
                                     ('test/'))))))))
                             
     let $edpath := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder)

@@ -47,6 +47,9 @@ var store = Ext.create('Ext.data.TreeStore', {
                 }, {
                     leaf: true, text: 'Joseph',
                     icon: 'resources/images/BookBlau-16.png'
+                },{
+                    leaf: true, text: 'Der Kapellmeister',
+                    icon: 'resources/images/BookBlau-16.png'
                 }, {
                     leaf: true, text: 'Der Müller',
                     icon: 'resources/images/BookBlau-16.png'
@@ -755,7 +758,27 @@ Ext.define('TheaterTool.view.navPanel.NavigationTreePublic', {
                         repertoireTab.setActiveMenuItemId(menuItem.id);
                         repertoireTab.setMenuAdded(true);
                     }
-                } else if (item.data.text === 'Der Müller') {
+                } else if (item.data.text === 'Der Kapellmeister') {
+                    var menuItem = historyButton.menu.add({
+                        text: '<font style="color:gray;">Werk: Der Kapellmeister</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H020090'
+                    });
+                    var isFoundItem = me.isItemFound(existItems, '<font style="color:gray;">Werk: Der Kapellmeister</font>', menuItem.id);
+                    if (! isFoundItem) {
+                        repertoireTab = new TheaterTool.view.tabPanel.HTTab({
+                            title: '<font style="color:gray;">Werk: Der Kapellmeister</font>',
+                            icon: 'resources/images/BookBlau-16.png',
+                            id: 'werk_H020090'
+                        });
+                        
+                        var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.work.WorkPanelInTab({
+                            selection: 'H020090', workName: item.data.text, workIcon: 'resources/images/BookBlau-16.png'
+                        });
+                        //var repertoireDetails = new TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel({selection: 'Der Bettelstudent'});
+                        repertoireTab.add(repertoireDetails);
+                        repertoireTab.setActiveMenuItemId(menuItem.id);
+                        repertoireTab.setMenuAdded(true);
+                    }
+                }else if (item.data.text === 'Der Müller') {
                     var menuItem = historyButton.menu.add({
                         text: '<font style="color:gray;">Werk: Der Müller</font>', icon: 'resources/images/BookBlau-16.png', selection: 'H020261'
                     });
