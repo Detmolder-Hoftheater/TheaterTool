@@ -322,8 +322,8 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
                                     else(
                                         if(contains($fileID, 'H020090'))then(
                                         'derKapellmeister/edition_DerKapellmeister.xml'
-                                        )else()
-                                    ('test/'))))))))
+                                        )else(('test/')))))))))
+                                    
                             
     let $edpath := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder)
     (:let $file := collection($path):)
