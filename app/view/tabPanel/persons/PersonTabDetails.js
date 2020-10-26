@@ -559,6 +559,85 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                             }
                         }
                     }
+                if (json.affiliation.length > 0) {
+                        
+                        me.add({
+                            
+                            xtype: 'label',
+                            html: '<b style="color:gray; font-size: 12px;">Institution(en)</b>',
+                            margin: '10 0 10 0'
+                        });
+                        
+                        var residencesPanel = Ext.create('Ext.panel.Panel', {
+                            layout: {
+                                type: 'table',
+                                columns: 1,
+                                tdAttrs: {
+                                    valign: 'top'
+                                }
+                            },
+                            bodyBorder: false,
+                            border: false,
+                            //bodyPadding: 3,
+                            items:[]
+                        });
+                        me.add(residencesPanel);
+                        var residenceBlocks = json.affiliation;
+                        var arr = Object.keys(residenceBlocks).map(function (key) {
+                            return residenceBlocks[key];
+                        });
+                        for (var i = 0; i < arr.length; i++) {
+                            var datePanel = Ext.create('Ext.panel.Panel', {
+                                layout: {
+                                    type: 'table',
+                                    columns: 4,
+                                    tdAttrs: {
+                                        valign: 'top'
+                                    }
+                                },
+                                bodyBorder: false,
+                                border: false,
+                                margin: '5 0 0 3',
+                                items:[]
+                            });
+                            
+                            residencesPanel.add(datePanel);
+                            var residenceBlock = arr[i];
+                            
+                            if (residenceBlock[0] !== '') {
+                                datePanel.add({
+                                    xtype: 'label',
+                                    html: residenceBlock[0] + ' ',
+                                    style: 'display:block; padding:0px 0px 5px 15px'
+                                });
+                            }
+                            
+                            if (residenceBlock[3] !== '') {
+                                datePanel.add({
+                                    xtype: 'label',
+                                    html: 'When: ' + residenceBlock[3] + '  ',
+                                    style: 'display:block; padding:0px 0px 5px 15px'
+                                });
+                            }
+                            
+                            if (residenceBlock[1] !== '') {
+                                datePanel.add({
+                                    xtype: 'label',
+                                    html: 'From: ' + residenceBlock[1] + '  ',
+                                    style: 'display:block; padding:0px 0px 5px 15px'
+                                });
+                            }
+                            
+                            if (residenceBlock[2] !== '') {
+                                datePanel.add({
+                                    xtype: 'label',
+                                    html: 'To: ' + residenceBlock[2],
+                                    style: 'display:block; padding:0px 0px 5px 15px'
+                                });
+                            }
+                        }
+                    }
+                
                 }
                 
                 if (json.worksRef.length > 0 || json.sourcesRef.length > 0 || json.journalRef.length > 0 || json.issueRef.length > 0 || json.gagenRef.length > 0 || json.roleRef.length > 0 || json.regieRef.length > 0 || json.rollen.length > 0 || json.taxation.length > 0 || json.dayReport.length > 0 || json.revenueRef.length > 0 || json.scheduleRef.length > 0) {

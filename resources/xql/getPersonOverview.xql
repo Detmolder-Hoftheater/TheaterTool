@@ -408,6 +408,45 @@ declare function local:jsonifyResidence($content) {
 
 };
 
+declare function local:jsonifyAffiliation($content) {
+    
+    let $strings := for $elem in $content
+    
+    let $events := $elem//tei:affiliation
+    
+    let $names := local:jsonifyAffiliationDetails($events)
+    return
+        if ($names != '') then
+            (
+            $names
+            )
+        else
+            ()
+    return
+        string-join($strings, ',')
+
+
+};
+
+declare function local:jsonifyAffiliationDetails($events) {
+    
+    let $strings := for $elem in $events
+    
+    let $over := $elem/tei:orgName
+    let $date_from := if($elem/@from != '')then($elem/@from)else($over/@from)
+    let $date_to := if($elem/@to != '')then($elem/@to)else($over/@to)
+    let $date_when := if($elem/@when != '')then($elem/@when)else($over/@when)
+    (:let $geogNamesOrt :=$elem/mei:geogName[@type='venue']
+					let $geogNamesStadt := $elem/mei:geogName[@type='place']:)
+    
+    return
+        
+        concat('["', $over, '",', '"', $date_from, '",', '"', $date_to, '",', '"', $date_when, '"]')
+    return
+        string-join($strings, ',')
+
+};
+
 declare function local:jsonifyOccupation($content) {
     
     let $strings := for $elem in $content
@@ -1128,6 +1167,8 @@ local:jsonifyDeath($content),
 local:jsonifyOccupation($content),
 '],"residence":[',
 local:jsonifyResidence($content),
+'],"affiliation":[',
+local:jsonifyAffiliation($content),
 '],"summaryText":[',
 local:jsonifySummaryText($content),
 (: '],"summary":[',
