@@ -368,6 +368,62 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                         me.add(right_panel);
                     }
                     
+                    if (typeof json.biblText[0] !== 'undefined') {
+                        var notes = json.biblText[0];
+                        var right_panel = '';
+                        if(notes.includes('http')){
+                            right_panel = Ext.create('Ext.panel.Panel', {
+                            layout: {
+                                type: 'table',
+                                columns: 2,
+                                tdAttrs: {
+                                    valign: 'top'
+                                }
+                            },
+                            margin: '0 0 10 0',
+                            autoScroll: true,
+                            border: false,
+                            items:[ {
+                                xtype: 'label',
+                                html: '<b style="color:gray; font-size: 10px;">Bibliographie:</b>'
+                            }, {
+                    xtype: 'component',
+                    margin: '0 0 0 13',
+                    autoEl: {
+                        tag: 'a',                       
+                        href: notes,
+                        html: notes,
+                        target: "_blank"
+                    }
+                }]
+                        });
+                        }
+                        
+                        else{
+                        right_panel = Ext.create('Ext.panel.Panel', {
+                            layout: {
+                                type: 'table',
+                                columns: 2,
+                                tdAttrs: {
+                                    valign: 'top'
+                                }
+                            },
+                            margin: '0 0 10 0',
+                            autoScroll: true,
+                            border: false,
+                            items:[ {
+                                xtype: 'label',
+                                html: '<b style="color:gray; font-size: 10px;">Bibliographie:</b>'
+                            }, {
+                                html: notes,
+                                margin: '0 0 0 45',
+                                border: false
+                            }]
+                        });
+                        }
+                        me.add(right_panel);
+                    }
+                    
                     
                     if (json.occupation.length > 0) {
                         

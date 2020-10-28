@@ -131,6 +131,40 @@ declare function local:jsonifySummaryText($content) {
 
 };
 
+declare function local:jsonifyBiblText($content) {
+    
+    let $strings := for $elem in $content
+    
+    let $id_1 := local:jsonifyBiblValues($elem//tei:bibl/node())(:if($elem//tei:bibl/node() ='')then(normalize-space($elem//tei:bibl))else(local:jsonifyBiblValues($elem//tei:bibl/node())):)
+    
+    return
+        if ($id_1 != '') then
+            (
+            concat('"', replace($id_1, '"', '\\"'), '"'))
+        else
+            ()
+    return
+        string-join($strings, ',')
+
+};
+
+declare function local:jsonifyBiblValues($content) {
+    
+    let $strings := for $elem in $content
+    
+    let $id_1 := $elem
+    
+    return
+        if ($id_1 != '') then
+            (
+            $id_1 )
+        else
+            ()
+    return
+        string-join($strings, ' ')
+
+};
+
 
 declare function local:jsonifyRegs($content) {
     
@@ -1171,6 +1205,8 @@ local:jsonifyResidence($content),
 local:jsonifyAffiliation($content),
 '],"summaryText":[',
 local:jsonifySummaryText($content),
+'],"biblText":[',
+local:jsonifyBiblText($content),
 (: '],"summary":[',
         local:jsonifySummary($content),:)
 '],"roleRef":[',
