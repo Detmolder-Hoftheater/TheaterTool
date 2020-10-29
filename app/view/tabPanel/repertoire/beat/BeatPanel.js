@@ -30,6 +30,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
     selectedWork: null,
     
     xmlId: null,
+    sourceID: null,
     
     initComponent: function () {
         
@@ -49,7 +50,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         
         var folderForEO = selFolder + '/';
         
-        if (me.selectedWork === 'H020166' || me.selectedWork === 'H020224' || me.selectedWork === 'H021013' || me.selectedWork === 'H020261' || me.selectedWork === 'H020090') {
+        if (me.selectedWork === 'H020166' || me.selectedWork === 'H020224' || me.selectedWork === 'H021013' || me.selectedWork === 'H020261' || me.selectedWork === 'H020090' /*|| me.sourceID === 'H220246'*/) {
             me.tbar = {
                 style: {
                     background: 'white'
@@ -91,7 +92,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         }
         
         me.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView({
-            selectedWork: me.selectedWork, xmlId: me.xmlId
+            selectedWork: me.selectedWork, xmlId: me.xmlId, sourceID: me.sourceID
         });
         
         var leafletFacsimile = me.detailSection.getLeafletFacsimile();

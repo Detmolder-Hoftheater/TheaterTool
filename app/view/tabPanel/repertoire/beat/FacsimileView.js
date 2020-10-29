@@ -19,13 +19,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.FacsimileView', {
     
     selectedWork: null,
     xmlId: null,
+    sourceID: null,
     
     initComponent: function () {
         
         var me = this;
         
         me.leafletFacsimile = new TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile({
-            margin: '0 0 5 0', voiceID: me.xmlId, number: 1, selectedWork: me.selectedWork, border:true
+            margin: '0 0 5 0', voiceID: me.xmlId, number: 1, selectedWork: me.selectedWork, border:true, sourceID: me.sourceID
         })
         
         me.pageSpinner = Ext.create('TheaterTool.view.tabPanel.repertoire.beat.PageSpinner', {

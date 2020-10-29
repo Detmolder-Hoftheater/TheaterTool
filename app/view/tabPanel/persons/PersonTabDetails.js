@@ -388,7 +388,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonTabDetails', {
                                 html: '<b style="color:gray; font-size: 10px;">Bibliographie:</b>'
                             }, {
                     xtype: 'component',
-                    margin: '0 0 0 13',
+                    margin: '0 0 0 45',
                     autoEl: {
                         tag: 'a',                       
                         href: notes,

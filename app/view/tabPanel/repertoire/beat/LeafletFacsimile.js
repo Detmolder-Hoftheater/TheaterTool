@@ -18,6 +18,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {
     
     zones: null,
     facsimileTile: null,
+    sourceID: null,
     
     afterRender: function (t, eOpts) {
         
@@ -53,7 +54,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {
             params: {
                 fileName: voiceID,
                 pageNr: number,
-                selectedWork: selectedWork
+                selectedWork: selectedWork,
+                sourceID: me.sourceID
             },
             success: function (result) {
                 

@@ -51,7 +51,7 @@ declare function local:jsonifySlurs($fileNames) {
     (:let $fileName :=  $file1//mei:title[not(@type='sub')][1]:)
     
     let $titles := $file1//mei:titleStmt[1]/mei:title[not(@type = 'sub')]
-    let $fileName := local:jsonifyTitleInformation($titles, $file1)
+    let $fileName := local:jsonifyTitle($titles, $file1)
     
     
     
@@ -102,7 +102,21 @@ declare function local:getFacsimNames($file) {
 
 };
 
-declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimNames, $expression) {
+declare function local:getNewFacsimNames() {
+    
+    let $workFolder := 'josephDresden/edition_Joseph_Dresden.xml'
+    let $edpath := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder)
+    let $file_1 := doc($edpath)
+    let $file_2 := $file_1/edirom:edition
+    let $file_3 := $file_2/edirom:works[1]/edirom:work/edirom:navigatorDefinition/edirom:navigatorCategory[2]/edirom:navigatorItem
+    let $facsimNames := concat('"children":[', local:getFacsimNames($file_3), ']')
+
+    return
+        $facsimNames
+};
+
+
+declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimNames1, $expression) {
 
     let $strings := for $elem in $expression
 
@@ -164,8 +178,14 @@ declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimName
         )
     else
         ()
-        
-         let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($sourceFileName, 'H220154') or contains($fileID, 'H021013') or contains($fileID, 'H020224') or contains($fileID, 'H020076')  or contains($fileID, 'H020261') or contains($fileID, 'H020090'))
+       
+       
+       
+    let $facsimNames := if(contains($sourceFileName, 'H220246'))then(
+         local:getNewFacsimNames()
+        )else($facsimNames1)   
+       
+    let $isExtend := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($sourceFileName, 'H220154') or contains($fileID, 'H021013') or contains($fileID, 'H020224') or contains($fileID, 'H020076')  or contains($fileID, 'H020261') or contains($fileID, 'H020090') or contains($sourceFileName, 'H220246'))
     then
         (concat('{',
         '"leaf":"false",',
@@ -217,7 +237,7 @@ declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimName
 
 };
 
-declare function local:jsonifyTitleInformation($titles, $file1) {
+declare function local:jsonifyTitle($titles, $file1) {
     
     let $strings := for $elem in $titles
     
@@ -269,32 +289,6 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
     else
         ('resources/images/Books1-17.png')
         
-    (:let $workFolder := if (contains($fileID, 'H020149')) then
-        ('aschenbroedel/')
-    else
-        (
-        if (contains($fileID, 'H020263')) then
-            ('bettelstudent/')
-        else
-            (if (contains($fileID, 'H020048')) then
-                ('desTeufelsAnteil/')
-            else
-                (if (contains($fileID, 'H020076')) then
-                    ('unbekannte/')
-                else
-                    (if (contains($fileID, 'H020166')) then
-                        ('joseph/')
-                    else
-                        (if (contains($fileID, 'H020224')) then
-                            ('yelvaLortzing/')
-                        else
-                            (if (contains($fileID, 'H021013')) then
-                                ('yelvaReissiger/')
-                            else
-                                ('test/')))))))
-    
-    let $path := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder, '/')
-    let $file := collection($path):)
     let $workFolder := if (contains($fileID, 'H020149')) then
         ('aschenbroedel/edition-HT_Isouard.xml')
     else
@@ -322,8 +316,8 @@ declare function local:jsonifyTitleInformation($titles, $file1) {
                                     else(
                                         if(contains($fileID, 'H020090'))then(
                                         'derKapellmeister/edition_DerKapellmeister.xml'
-                                        )else(('test/')))))))))
-                                    
+                                        )else( ('test/')))))))))
+                                   
                             
     let $edpath := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder)
     (:let $file := collection($path):)
