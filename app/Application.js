@@ -148,8 +148,7 @@ Ext.define('TheaterTool.Application', {
     'tabPanel.roles.RolePanelInTab',
     'tabPanel.roles.RoleTabDetails',
     'tabPanel.playSchedules.ScheduleTable',
-    'tabPanel.NavigationHistory',
-    'tabPanel.media.MediaPanelInTab'],
+    'tabPanel.NavigationHistory'],
     
     models:[
     'Werk',
