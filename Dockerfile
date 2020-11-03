@@ -30,5 +30,7 @@ RUN ./build.sh
 # and adding our freshly built xar-package
 #########################
 FROM stadlerpeter/existdb:4
+ARG DATA_PACKAGE_URL
 
+ADD --chown=wegajetty ${DATA_PACKAGE_URL} ${EXIST_HOME}/autodeploy/
 COPY --chown=wegajetty --from=builder /app/build-xar/*.xar ${EXIST_HOME}/autodeploy/
