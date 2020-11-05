@@ -105,7 +105,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.LeafletFacsimile', {
                 var name1 = fields[0];
                 var name = name1.replace(/\//g, "%2F");
                 
-                var leaflet_path = 'https://api.hoftheater-detmold.de/Scaler/IIIF/%2F'+name+'%2F{z}-{x}-{y}.jpg/full/full/0/native.jpg';
+                var leaflet_path = 'https://images.hoftheater-detmold.de/Scaler/IIIF/%2F'+name+'%2F{z}-{x}-{y}.jpg/full/full/0/native.jpg';
                 
                 //leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
                 //leaflet_path = 'https://api.hoftheater-detmold.de/Scaler/IIIF/%2Fedition-HT_Bettelstudent%2Fedirom_source_0351c809-fcfa-4723-9aa2-b5547c06ec90%2FMUS-N_237_VIOLINO_SECONDO_018%2F';

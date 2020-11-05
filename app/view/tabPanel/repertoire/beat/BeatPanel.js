@@ -46,6 +46,14 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
             selFolder = 'desTeufelsAnteil';
         } else if (me.selectedWork === 'H020076') {
             selFolder = 'unbekannte';
+        }else if (me.selectedWork === 'H020166') {
+            selFolder = 'edition-HT_Joseph';
+        }else if (me.selectedWork === 'H020224') {
+            selFolder = 'yelvaLortz';
+        }else if (me.selectedWork === 'H021013') {
+            selFolder = 'yelvaReissiger';
+        }else if (me.selectedWork === 'H021013') {
+            selFolder = 'edition_Der_Mueller';
         }
         
         var folderForEO = selFolder + '/';
