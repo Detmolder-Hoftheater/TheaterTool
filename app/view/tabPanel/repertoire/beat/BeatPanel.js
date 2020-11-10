@@ -52,13 +52,13 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
             selFolder = 'yelvaLortz';
         }else if (me.selectedWork === 'H021013') {
             selFolder = 'yelvaReissiger';
-        }else if (me.selectedWork === 'H021013') {
+        }else if (me.selectedWork === 'H020261') {
             selFolder = 'edition_Der_Mueller';
         }
         
         var folderForEO = selFolder + '/';
         
-        if (me.selectedWork === 'H020166' || me.selectedWork === 'H020224' || me.selectedWork === 'H021013' || me.selectedWork === 'H020261' || me.selectedWork === 'H020090' /*|| me.sourceID === 'H220246'*/) {
+        if (me.selectedWork === 'H020090' || me.sourceID === 'H220246') {
             me.tbar = {
                 style: {
                     background: 'white'
@@ -70,6 +70,29 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
                 style: 'display:block; padding:5px 0px 5px 10px; background: white;'
             };
         } else {
+            if(me.selectedWork === 'H020261' || me.selectedWork === 'H021013' || me.selectedWork === 'H020224' || me.selectedWork === 'H020166'){
+                me.tbar = {
+                style: {
+                    background: 'white'
+                },
+                border: false,
+                fixed: true,
+                height: 25,
+                items:[ {
+                    style: {
+                        background: 'white'
+                    },
+                    border: false,
+                    fixed: true,
+                    height: 30,
+                    html: '<i>Edirom Online wird noch nicht angezeigt. Die Seite ist noch in Bearbeitung.</i>',
+                    style: 'display:block; padding:5px 0px 5px 10px; background: white;'
+                }]
+            };
+                
+            }
+        
+        else{
             me.tbar = {
                 style: {
                     background: 'white'
@@ -97,6 +120,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
                     }
                 }]
             };
+            }
         }
         
         me.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView({
