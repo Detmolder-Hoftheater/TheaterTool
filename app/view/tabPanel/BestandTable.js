@@ -76,7 +76,7 @@ Ext.define('TheaterTool.view.tabPanel.BestandTable', {
     
     createColumn: function (headerName, path, me) {
         
-        getRegieContent = function (regieName, countFoSelection) {
+        getBestandContent = function (regieName, countFoSelection) {
             var toolBarGlobal = Ext.getCmp('toolbar');
             var nameForLoad = regieName.split(':');
             var roleName = nameForLoad[0];
@@ -125,7 +125,7 @@ Ext.define('TheaterTool.view.tabPanel.BestandTable', {
                 var presentationText = '';
                 if (record.data.dbkey !== '') {
                     var countNumber = parseInt(record.data.countFoSelection) + 1;
-                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getRegieContent(\'' + record.data.name + '\',\'' + record.data.countFoSelection + '\');">' + record.data.name + '(' + countNumber + ')' + '</a></small>';
+                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getBestandContent(\'' + record.data.name + '\',\'' + record.data.countFoSelection + '\');">' + record.data.name + '(' + countNumber + ')' + '</a></small>';
                 } else {
                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.name + ' </small>';
                 }

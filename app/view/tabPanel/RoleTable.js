@@ -65,7 +65,7 @@ Ext.define('TheaterTool.view.tabPanel.RoleTable', {
     
     createColumn: function (headerName, path) {
         
-        getRegieContent = function (regieName, dbid) {
+        getRoleTableContent = function (regieName, dbid) {
             var toolBarGlobal = Ext.getCmp('toolbar');
             var historyButton = Ext.getCmp('historyButton');
             var menuItem = historyButton.menu.add({
@@ -104,7 +104,7 @@ Ext.define('TheaterTool.view.tabPanel.RoleTable', {
                 
                 var presentationText = '';
                 if (record.data.dbkey !== '') {
-                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getRegieContent(\'' + record.data.name + '\'' + ', \'' + record.data.id + '\');">' + record.data.name + '</a></small>';
+                    presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"><a href="javascript:getRoleTableContent(\'' + record.data.name + '\'' + ', \'' + record.data.id + '\');">' + record.data.name + '</a></small>';
                 } else {
                     presentationText = '<small style="font-size: 11px; line-height: 1.5em; vertical-align:top;"> ' + record.data.name + ' </small>';
                 }
