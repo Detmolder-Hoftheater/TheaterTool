@@ -222,8 +222,10 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         var image_directory_parent = splitted_array[splitted_array.length -2];
         var image_directory_array = last_elem_array.split(".");
         var image_directory = image_directory_array[0];
+        var name = image_directory.replace(/\//g, "%2F");
+        leaflet_path = 'https://images.hoftheater-detmold.de/Scaler/IIIF/%2FTheaterakten%2F'+name+'%2F{z}-{x}-{y}.jpg/full/full/0/native.jpg';
         
-        leaflet_path = "https://dev.hoftheater-detmold.de/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
+        //leaflet_path = "https://dev.hoftheater-detmold.de/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
         //"/exist/rest/db/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
         
         //leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
@@ -232,20 +234,19 @@ Ext.define('TheaterTool.view.tabPanel.revenue.LeafletFacsimile', {
         /*"http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/" + name;*/
         
         //var path = 'http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/edition-HT_Isouard/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586/MUS-N_120_BASS-VIOLONCELLO_001/{z}-{x}-{y}.jpg';
-        
-        me.facsimileTile =
-        /*L.tileLayer.facsimileLayer('data/example/{z}-{x}-{y}.jpg', {
-        minZoom: 0,
-        maxZoom: maxZoomLevel,
-        continuousWorld: true
-        });*/
-        
-        
+         me.facsimileTile =
+        L.tileLayer.facsimileLayer( leaflet_path, {
+            minZoom: 0,
+                maxZoom: maxZoomLevel,
+                continuousWorld: true
+            });
+       /* me.facsimileTile =
+       
         L.tileLayer.facsimileLayer(leaflet_path + '/{z}-{x}-{y}.jpg', {
             minZoom: 0,
             maxZoom: maxZoomLevel,
             continuousWorld: true
-        });
+        });*/
         
         me.facsimileTile.setWidth(facsimileWidth);
         

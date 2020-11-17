@@ -222,9 +222,20 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.LeafletFacsimile', {
         var image_directory_parent = splitted_array[splitted_array.length -2];
         var image_directory_array = last_elem_array.split(".");
         var image_directory = image_directory_array[0];
+        var name = image_directory.replace(/\//g, "%2F");
         //"/exist/rest/db/apps/theater-data/leafletImages/Theaterakten/"
         //"/apps/theater-data/leafletImages/Theaterakten/"
-        leaflet_path = "https://dev.hoftheater-detmold.de/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
+        leaflet_path = 'https://images.hoftheater-detmold.de/Scaler/IIIF/%2FTheaterakten%2F'+name+'%2F{z}-{x}-{y}.jpg/full/full/0/native.jpg';
+        
+        //"https://dev.hoftheater-detmold.de/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
+        
+        //https://dev.hoftheater-detmold.de/apps/theater-data/leafletImages/Theaterakten/TA_57_035/2-0-2.jpg
+        //https://images.hoftheater-detmold.de/Scaler/IIIF/%2FTheaterakten%2FTA_57_035%2F2-0-2.jpg/full/full/0/native.jpg
+        
+        //https://images.hoftheater-detmold.de/Scaler/IIIF/%2Fedition-HT_Isouard%2Fedirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586%2FMUS-N_120_BASS-VIOLONCELLO_001%2F0-0-0.jpg/full/full/0/native.jpg
+        
+        
+        
         //"/exist/rest/db/apps/theater-data/leafletImages/Theaterakten/" + image_directory;
         
         //leaflet_path = "http://localhost:8080/exist/rest/db/contents/leafletImages/" + name;
@@ -235,6 +246,11 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.LeafletFacsimile', {
         //var path = 'http://localhost:8080/exist/rest/db/apps/theater-data/leafletImages/edition-HT_Isouard/edirom_source_0f385ae9-ab62-4188-8795-5c0931cd4586/MUS-N_120_BASS-VIOLONCELLO_001/{z}-{x}-{y}.jpg';
         
         me.facsimileTile =
+        L.tileLayer.facsimileLayer( leaflet_path, {
+            minZoom: 0,
+                maxZoom: maxZoomLevel,
+                continuousWorld: true
+            });
         /*L.tileLayer.facsimileLayer('data/example/{z}-{x}-{y}.jpg', {
         minZoom: 0,
         maxZoom: maxZoomLevel,
@@ -242,11 +258,11 @@ Ext.define('TheaterTool.view.tabPanel.dailyreport.LeafletFacsimile', {
         });*/
         
         
-        L.tileLayer.facsimileLayer(leaflet_path + '/{z}-{x}-{y}.jpg', {
+       /* L.tileLayer.facsimileLayer(leaflet_path + '/{z}-{x}-{y}.jpg', {
             minZoom: 0,
             maxZoom: maxZoomLevel,
             continuousWorld: true
-        });
+        });*/
         
         me.facsimileTile.setWidth(facsimileWidth);
         
