@@ -27,8 +27,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
             ovPath = 'Einleitung_Mus-n120_Aschenbroedel';
         } else if (me.sourceID === 'H020263') {
             ovPath = 'Einleitung_Mus-n237_Bettelstudent';
-        } else {
+        } else if(me.sourceID === 'H220079'){
             ovPath = 'Einleitung_Mus-n16_TeufelsAnteil';
+        } else{
+            ovPath = 'Einleitung_Mus-n43_DieUnbekannte';           
         }
         
         

@@ -51,7 +51,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         } else if (me.selectedWork === 'H020076') {
             selFolder = 'unbekannte';
             editFile = 'unbekannte/edition.xml';
-        }else if (me.selectedWork === 'H020166') {
+        }else if (me.selectedWork === 'H020166' && me.sourceID !== 'H220246') {
             selFolder = 'edition-HT_Joseph';
              editFile = 'joseph/edition_Joseph_DT.xml';
         }else if (me.selectedWork === 'H020224') {

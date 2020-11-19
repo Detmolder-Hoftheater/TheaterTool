@@ -108,7 +108,7 @@ declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimName
         )
     else
         ()
-    let $isOverwiew := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048'))
+    let $isOverwiew := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020076'))
     then
         (concat('{',
         '"leaf":"true",',
