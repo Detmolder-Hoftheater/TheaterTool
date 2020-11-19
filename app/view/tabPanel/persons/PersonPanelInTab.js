@@ -46,7 +46,7 @@ Ext.define('TheaterTool.view.tabPanel.persons.PersonPanelInTab', {
                     showSeparator: false,
                     menu:[ {
                         xtype: 'textarea',
-                        value: 'https://dev.hoftheater-detmold.de/index.html#HoftheaterDetmold:person_' + me.dbkey,
+                        value: 'https://portal.hoftheater-detmold.de/index.html#HoftheaterDetmold:person_' + me.dbkey,
                         plain: true,
                         readOnly: true,
                         inputWrapCls: '',

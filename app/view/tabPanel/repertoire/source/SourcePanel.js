@@ -62,7 +62,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
                     showSeparator: false,
                     menu:[ {
                         xtype: 'textarea',
-                        value: 'https://dev.hoftheater-detmold.de/index.html#HoftheaterDetmold:quelle_' + me.sourceID,
+                        value: 'https://portal.hoftheater-detmold.de/index.html#HoftheaterDetmold:quelle_' + me.sourceID,
                         plain: true,
                         readOnly: true,
                         inputWrapCls: '',

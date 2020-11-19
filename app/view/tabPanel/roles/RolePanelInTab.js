@@ -44,7 +44,7 @@ Ext.define('TheaterTool.view.tabPanel.roles.RolePanelInTab', {
                     showSeparator: false,
                     menu:[ {
                         xtype: 'textarea',
-                        value: 'https://dev.hoftheater-detmold.de/index.html#HoftheaterDetmold:rolle_' + me.dbkey,
+                        value: 'https://portal.hoftheater-detmold.de/index.html#HoftheaterDetmold:rolle_' + me.dbkey,
                         plain: true,
                         readOnly: true,
                         inputWrapCls: '',
