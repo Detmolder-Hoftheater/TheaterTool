@@ -25,6 +25,7 @@ Ext.define('TheaterTool.view.main.InformationDialog', {
         'Die Software ist so angelegt, dass Sie nicht nur für dieses Projekt angewendet werden kann, ' +
         'sondern auf die Erschließung ähnlicher Bestände übertragbar ist. ' +
         'Die Software wird auf github zur Verfügung gestellt:  <a href="https://github.com/Detmolder-Hoftheater/TheatreTool_1-Dev"  target="_blank">https://github.com/Detmolder-Hoftheater/TheatreTool_1-Dev</a>.</p>' +
+        '<p>Das Benutzerhandbuch ist unter Hilfe Menü zu finden.</p>'+
         '<p>Dargestellt werden die Personen, die Werke und die Quellen sowie die im Aufbau befindlichen Rollen, ' +
         'darüber hinaus die Übertragungen der Theaterakten, wobei diesen z. T. die entsprechenden Faksimiles gegenübergestellt sind (vgl. z. B: die Einnahmen). ' +
         'Hierbei ist zu beachten, dass die Regie- und Kostümbücher nur als Regesten erschlossen sind, ' +

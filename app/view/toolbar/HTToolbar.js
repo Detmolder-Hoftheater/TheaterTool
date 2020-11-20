@@ -176,7 +176,7 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
             '->', {
                 xtype: 'button',
                 text: '<span style="font-family:Tahoma; color:gray;">Hilfe</span>',
-                margin: '0 5 0 0',
+                margin: '5 0 0 0',
                 
                 menu:[ {
                     text: '<span style="font-family:Tahoma; color:gray;">Daten Relation</span>',
@@ -191,13 +191,26 @@ Ext.define('TheaterTool.view.toolbar.HTToolbar', {
                     }
                 }, {
                     xtype: 'component',
+                    margin: '5 0 5 32',
                     autoEl: {
                         tag: 'a',
                         href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/tree/theaterTool_detHof/add/docu',
-                        html: 'Dokumentation',
+                        html: '<span style="font-family:Tahoma;">Dokumentation</span>',                       
                         target: "_blank"
                     }
-                }]
+                },
+                {
+                    xtype: 'component',
+                    margin: '5 0 5 32',
+                    autoEl: {
+                        tag: 'a',                      
+                        href: 'https://github.com/Detmolder-Hoftheater/TheaterTool/blob/theaterTool_detHof/add/docu/UserManualTT.pdf',
+                        html: '<span style="font-family:Tahoma;">Benutzerhandbuch</span>',                       
+                        target: "_blank"
+                    }
+                }
+              
+                ]
             }]
         });
         
