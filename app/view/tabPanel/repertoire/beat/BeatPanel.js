@@ -73,38 +73,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
         
         var folderForEO = selFolder + '/';
         
-        if (me.selectedWork === 'H020090' || me.sourceID === 'H220246') {
-           
-            me.tbar = {
-                style: {
-                    background: 'white'
-                },
-                border: false,
-                fixed: true,
-                height: 25,
-                items:[ {
-                    style: {
-                        background: 'white'
-                    },
-                    border: false,
-                    fixed: true,
-                    height: 30,
-                    html: '<i>Die Faksimiles werden noch nicht angezeigt. Die Seite ist noch in Bearbeitung.</i>',
-                    style: 'display:block; padding:5px 0px 5px 10px; background: white;'
-                },
-                {
-                    xtype: 'component',
-                    margin: '0 0 0 13',
-                    autoEl: {
-                        tag: 'a',                       
-                        href: 'https://edirom.hoftheater-detmold.de/index.html?edition=xmldb:exist:///db/apps/theater-data/vertaktung/' + editFile,
-                        html: 'Zur Erschließung mit Edirom Online',
-                        target: "_blank"
-                    }
-                }]
-            };
-           } 
-        else{
+        
             me.tbar = {
                 style: {
                     background: 'white'
@@ -125,7 +94,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.beat.BeatPanel', {
                 }]
             };
       
-        }
+        
       
         me.detailSection = new TheaterTool.view.tabPanel.repertoire.beat.FacsimileView({
             selectedWork: me.selectedWork, xmlId: me.xmlId, sourceID: me.sourceID
