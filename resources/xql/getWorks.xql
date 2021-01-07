@@ -50,7 +50,7 @@ declare function local:jsonifySlurs($fileNames) {
     let $file1 := doc($path1)
     (:let $fileName :=  $file1//mei:title[not(@type='sub')][1]:)
     
-    let $titles := $file1//mei:titleStmt[1]/mei:title[not(@type = 'sub')]
+    let $titles := $file1//mei:title[not(@type = 'sub')]
     let $fileName := local:jsonifyTitle($titles, $file1)
     
     
@@ -164,7 +164,7 @@ declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimName
         )
     else
         ()
-    let $isOverwiew := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020076'))
+    let $isOverwiew := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020076') or contains($fileID, 'H020261') or contains($fileID, 'H020224') or contains($fileID, 'H021013'))
     then
         (concat('{',
         '"leaf":"true",',
@@ -210,10 +210,11 @@ declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimName
     let $xmlid := $sourceDov/mei:mei/@xml:id:)
     
     return
-        if ($sourceName != '') then
+        if ($sourceName != '') 
+        then
             (
             concat('{',
-      'name:"', $sourceName, '",',
+        'name:"', $sourceName, '",',
          'physLocation:"', $physLoc, '",',
         'extName:"', $sourceName, '",',
         'incipits:"', "true", '",',
@@ -232,9 +233,6 @@ declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimName
             ()
     return
         string-join($strings, ',')
-
-
-
 };
 
 declare function local:jsonifyTitle($titles, $file1) {
@@ -248,7 +246,7 @@ declare function local:jsonifyTitle($titles, $file1) {
     
     let $fileID := $file1/mei:work/@xml:id
     
-    let $names := $file1//mei:titleStmt//mei:persName
+    let $names := $file1//mei:persName[parent::mei:*/parent::mei:work]
     
     let $comp := local:jsonifyRoles($names)
     
@@ -506,37 +504,8 @@ declare function local:jsonifyTitle($titles, $file1) {
 
 };
 
-(:declare function local:jsonifySlurs($path) {
-
-let $local-doctypes := collection($path)
-
-let $strings1 := for $elem1 in $local-doctypes
-					(\:let $fileTest := doc($elem1):\)
-				let $surname := $elem1
-                   (\: let $strings := for $elem in $elem1
-                    	let $surname := $elem//mei:persName:\)
-					
-                    	return 
-                        	concat('{name:"',$surname,'",',
-							'details:"',"true",'",',                          
-                            'xml:"',"true",'"',
-                            '}')
-   (\: return 
-        string-join($strings,','):\)
-    return 
-        string-join($strings1,',')
-
-};:)
-
-
-
 
 (
-
-(: '[',
-        local:jsonifySlurs($persName),
-
-    ']':)
 
 '{"children":[',
 local:jsonifySlurs($fileNames),

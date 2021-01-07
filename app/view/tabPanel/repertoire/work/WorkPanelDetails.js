@@ -27,7 +27,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkPanelDetails', {
             workID: me.workID, workName: me.title, workIcon: me.icon
         });
         
-        me.detailSection.createComponents();
+       // me.detailSection.createComponents();
         
         me.items =[
         

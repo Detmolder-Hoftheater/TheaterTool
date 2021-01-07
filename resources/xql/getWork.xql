@@ -108,7 +108,7 @@ declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimName
         )
     else
         ()
-    let $isOverwiew := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020076'))
+    let $isOverwiew := if (contains($fileID, 'H020149') or contains($fileID, 'H020263') or contains($fileID, 'H020048') or contains($fileID, 'H020076') or contains($fileID, 'H020261') or contains($fileID, 'H020224') or contains($fileID, 'H021013'))
     then
         (concat('{',
         '"leaf":"true",',
@@ -156,11 +156,11 @@ declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimName
     let $xmlid := $sourceDov/mei:mei/@xml:id:)
     
     return
-        if ($sourceName != '') then
-            (
+        if ($sourceName != '') 
+        then(
             concat('{',
-      'name:"', $sourceName, '",',
-         'physLocation:"', $physLoc, '",',
+        'name:"', $sourceName, '",',
+        'physLocation:"', $physLoc, '",',
         'extName:"', $sourceName, '",',
         'incipits:"', "true", '",',
         'sourceID:"', $sourceFileName, '",',
@@ -192,15 +192,15 @@ declare function local:jsonifySlurs() {
    let $fileName := if ($fileName1 != " ") then
         (replace(normalize-space($fileName1), '"', '\\"'))
     else
-        (replace(normalize-space($file1//mei:titleStmt//mei:title[1]), '"', '\\"' ))
+        (replace(normalize-space($file1//mei:title[1]), '"', '\\"' ))
     
     let $fileID := if (contains($file1//mei:work/@xml:id, $selection1))
     then
         ($file1//mei:work/@xml:id)
     else
         ()
-        
-    let $comp := $file1//mei:persName[@role = "cmp"][1]
+    
+    let $comp := $file1//mei:persName[parent::node()/local-name() = "composer"][1]
     
     let $fileName1 := $fileName
     

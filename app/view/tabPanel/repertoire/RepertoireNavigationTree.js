@@ -117,7 +117,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireNavigationTree', {
                     } else if (eOpts[0].data.name === 'Beschreibung') {
                         me.repertoirePanel.removeAll(true);
                         me.rismPanel = new TheaterTool.view.tabPanel.repertoire.rism.RISMPanel({
-                            sourceID: eOpts[0].parentNode.parentNode.data.werkID, title: eOpts[0].parentNode.data.name, title: '<font size="2" face="Tahoma" style="color:#909090;">Beschreibung für ' + eOpts[0].parentNode.data.name + '</font>'
+                            sourceID: eOpts[0].parentNode.data.sourceID, title: eOpts[0].parentNode.data.name, title: '<font size="2" face="Tahoma" style="color:#909090;">Beschreibung für ' + eOpts[0].parentNode.data.name + '</font>'
                         });
                         me.repertoirePanel.add(me.rismPanel);
                         //me.repertoirePanel.setTitle('<b style="color:#A87678;">RISM für '+eOpts[0].parentNode.data.name+' (Werk: '+eOpts[0].parentNode.parentNode.data.name+'; '+eOpts[0].parentNode.parentNode.data.componist+')</b>');

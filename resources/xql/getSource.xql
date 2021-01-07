@@ -442,7 +442,7 @@ declare function local:jsonifyWorkTitel($content) {
         ($origId_1)
     let $uriWork := concat($workPath, $origId, '.xml')
     let $fileWork := doc($uriWork)
-    let $titles := $fileWork//mei:titleStmt[1]/mei:title
+    let $titles := $fileWork//mei:title
     let $content_title := local:jsonifyTitleInformation($titles)
     
     return   

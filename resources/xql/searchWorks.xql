@@ -157,10 +157,10 @@ declare function local:jsonifyTitels($fileNames) {
     
     let $fileID := $file1/mei:work/@xml:id
     
-    let $names := $file1//mei:persName
+    let $names := $file1//mei:persName[parent::mei:*/parent::mei:work]
     
     
-    let $titles := $file1//mei:titleStmt[1]/mei:title[not(@type = 'sub')]
+    let $titles := $file1//mei:title[not(@type = 'sub')]
     
      let $fileName_1 := if ($searchValue = '*') then
         (local:getWork($titles, $fileID, $names))
@@ -187,11 +187,6 @@ declare function local:jsonifyTitels($fileNames) {
 local:jsonifyTitels($fileNames),
 
 ']'
-
-(: '{"children":[',
-        local:jsonifyTitels($fileNames),
-    ']}' :)
-
 
 )
 

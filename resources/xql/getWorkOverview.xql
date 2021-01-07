@@ -9,7 +9,7 @@ declare namespace system = "http://exist-db.org/xquery/system";
 declare namespace transform = "http://exist-db.org/xquery/transform";
 
 declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";
-
+(:declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=yes indent=yes";:)
 
 declare variable $workID := request:get-parameter('workID', '');
 declare variable $path := request:get-parameter('path', '');
@@ -22,8 +22,8 @@ declare function local:jsonifyRoles($id) {
     let $strings := for $elem in $id
     
     let $id_1 := normalize-space($elem)
-    let $role := $elem/@role
-    let $dbkey := $elem/@dbkey
+    let $role := $elem/parent::node()/local-name()
+    let $dbkey := $elem/@codedval
     
     return
         if ($id_1 != '') then
@@ -41,7 +41,7 @@ declare function local:jsonifyAutoren($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem//mei:titleStmt//mei:persName
+    let $id := $elem//mei:persName[parent::mei:*/parent::mei:work]
     
     let $names := local:jsonifyRoles($id)
     return
@@ -80,12 +80,14 @@ declare function local:jsonifyInstr($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem//mei:instrumentation//mei:instrVoice
+    let $id := $elem//mei:perfMedium/mei:perfResList
     
-    let $names := local:jsonifyInstrVoice($id)
+    let $names := if($id/mei:perfResList != '')then(local:jsonifyInstrVoice($id/mei:perfResList))else(local:jsonifyInstrVoice($id))
+   
     return
         if ($names != '') then
             (
+            
             $names
             )
         else
@@ -98,6 +100,22 @@ declare function local:jsonifyInstr($content) {
 
 
 declare function local:jsonifyInstrVoice($id) {
+    
+    let $strings := for $elem in $id
+    
+    let $id_1 := local:jsonifyOneInstrVoice($elem/mei:perfRes)
+    
+    return
+        if ($id_1 != '') then           
+            concat('[', $id_1, ']')
+        else
+            ()
+    return
+        string-join($strings, ',')
+
+};
+
+declare function local:jsonifyOneInstrVoice($id) {
     
     let $strings := for $elem in $id
     
@@ -119,7 +137,7 @@ declare function local:jsonifyWorkTitel($content) {
     
     let $strings := for $elem in $content
     
-    let $titles := $elem//mei:titleStmt[1]/mei:title
+    let $titles := $elem//mei:title
     let $content_title := local:jsonifyTitleInformation($titles)
     
     return
@@ -157,9 +175,8 @@ declare function local:jsonifyHOverview($content) {
     
     let $id_1 := $elem//mei:history/mei:p
     
-    let $id := local:jsonifyPs($id_1)
-    
-    
+    let $id_0:= local:dispatch($id_1)
+    let $id:= local:jsonifyPs($id_0)
     
     return
         if ($id != '') then
@@ -173,15 +190,81 @@ declare function local:jsonifyHOverview($content) {
         string-join($strings, ',')
 };
 
+declare function local:dispatch($id_1 as node()*) as item()* {
+    for $nodet in $id_1
+    return
+        typeswitch ($nodet)          
+            (:case element(mei:p)
+                return
+                    local:p($nodet)  :)            
+            case element(mei:persName) 
+                return 
+                    local:persName($nodet)
+            case text()
+                return
+                    $nodet 
+            default
+                return
+                    local:passthru($nodet)
+
+};
+
+declare function local:p($node as element(mei:p)) as element() {
+    <p>{local:dispatch($node/node())}</p>
+};
+
+declare function local:passthru($node as node()*) as item()* {
+    local:dispatch($node/node())
+};
+
+declare function local:persName($node as element(mei:persName)) as element() {
+    if ($node/@codedval != '') then
+        <persName>{concat(
+        '<persName id=', $node/@codedval,
+        '><a href="javascript:getPersonContentForP(&apos;',
+        $node/@codedval, '&apos;,&apos;',$node,'&apos;);">',$node,'</a></persName>')}</persName>
+    else(
+        
+        <persName>{concat('"', $node, '"')}</persName>
+        )
+        
+};
+
 declare function local:jsonifyPs($id_1) {
     
     let $strings := for $elem in $id_1
     
     let $id := normalize-space($elem)
+    (:let $id := replace($id_0, ';', '\\;'):)
+    (:let $id_1 := replace($id_0,'&lt;', '<')
+    let $id := replace($id_1, '&gt;', '>'):)
+   
     
     return
+       
         if ($id != '') then
             (replace($id, '"', '\\"'))
+        else
+            ()
+    
+    return
+        string-join($strings, ' ')
+
+};
+
+declare function local:jsonifyBibl($content) {
+    
+    let $strings := for $elem in $content
+    
+    let $bibltext := $elem/mei:bibl/*
+    
+    
+    let $completBibl := local:jsonifyOneEl($bibltext)
+    
+    return
+       
+        if ($completBibl != '') then
+           concat('"',(replace($completBibl, '"', '\\"')), '"')
         else
             ()
     
@@ -189,6 +272,45 @@ declare function local:jsonifyPs($id_1) {
         string-join($strings, ', ')
 
 };
+
+declare function local:jsonifyNots($content) {
+    
+    let $strings := for $elem in $content
+    
+    let $bibltext := $elem/mei:notesStmt/*
+    
+    
+    let $completBibl := local:jsonifyOneEl($bibltext)
+    
+    return
+       
+        if ($completBibl != '') then
+           concat('"',normalize-space((replace($completBibl, '"', '\\"'))), '"')
+        else
+            ()    
+    return
+        string-join($strings, ', ')
+
+};
+
+declare function local:jsonifyOneEl($bibltext) {
+    
+    let $strings := for $elem in $bibltext
+    
+    let $oneEl := if($elem/local-name() = 'persName' or $elem/* != '' and $elem/*/local-name() = 'persName')then(local:dispatch($elem))else(normalize-space($elem))
+      
+    return
+       
+        if ($oneEl != '') then
+           $oneEl
+        else
+            ()
+    
+    return
+        string-join($strings, ' ')
+
+};
+
 
 declare function local:jsonifyCreation($content) {
     
@@ -223,16 +345,16 @@ declare function local:jsonifyCreation($content) {
 declare function local:jsonifyEventDetails($events) {
     
     let $strings := for $elem in $events
-    
+    let $urauf := $elem/@type
     let $ps := $elem/mei:p
     let $over := local:jsonifyPS($ps)
-    let $date := normalize-space($elem/mei:date)
+    let $date := if($elem/mei:date != '')then(normalize-space($elem/mei:date))else($elem/mei:date/@isodate)
     let $geogNamesOrt := $elem/mei:geogName[@type = 'venue']
-    let $geogNamesStadt := $elem/mei:geogName[@type = 'place']
+    let $geogNamesStadt := if($elem/mei:geogName[@type = 'place'] != '')then($elem/mei:geogName[@type = 'place'])else($elem/mei:geogName)
     
     return
         
-        concat('["', $over, '",', '"', $date, '",', '"', $geogNamesOrt, '",', '"', $geogNamesStadt, '"]')
+        concat('["', $over, '",', '"', $date, '",', '"', $geogNamesOrt, '",', '"', $geogNamesStadt, '",', '"', $urauf, '"]')
     return
         string-join($strings, ',')
 
@@ -708,6 +830,10 @@ local:jsonifyWega($content),
 local:jsonifyHOverview($content),
 '],"creation":[',
 local:jsonifyCreation($content),
+'],"bibl":[',
+local:jsonifyBibl($content),
+'],"notes":[',
+local:jsonifyNots($content),
 '],"events":[',
 local:jsonifyEvents($content),
 '],"instr":[',
