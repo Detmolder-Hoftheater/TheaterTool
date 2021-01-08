@@ -762,7 +762,7 @@ declare function local:jsonifyWorksReferences($workID) {
     
     let $path1 := concat($rolepath, $elem, '.xml')
     let $file1 := doc($path1)
-    let $names := $file1//mei:titleStmt//mei:persName
+    let $names := $file1//mei:persName
     let $listNames := local:jsonifyPersNames($names, $file1)
     (: let $names := $elem/mei:work//mei:titlestmt[1]/mei:title[1]:)
     (:let $names := if($elem/mei:work//mei:persname[@dbkey=$workID])then($elem//mei:titlestmt[1]/mei:title[1])else():)

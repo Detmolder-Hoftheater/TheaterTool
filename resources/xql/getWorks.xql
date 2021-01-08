@@ -246,7 +246,7 @@ declare function local:jsonifyTitle($titles, $file1) {
     
     let $fileID := $file1/mei:work/@xml:id
     
-    let $names := $file1//mei:persName(:[parent::mei:*/parent::mei:work]:)
+    let $names := $file1//mei:persName[parent::mei:*/parent::mei:work]
     
     let $comp := local:jsonifyRoles($names)
     
