@@ -45,6 +45,12 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.rism.RISMPanel', {
         else if(me.sourceID === 'H220126'){
             ovPath = 'Einleitung_Mus-n195_Yelva_Reissiger';           
         }
+        else if(me.sourceID === 'H220022'){
+            ovPath = 'Einleitung_Mus_n58_Kapellmeister';           
+        }
+        else if(me.sourceID === 'H220154'){
+            ovPath = 'Einleitung_Mus_n136_Joseph';           
+        }
         
         
         me.overviewSection = new TheaterTool.view.tabPanel.repertoire.rism.RISMOverviewSection({

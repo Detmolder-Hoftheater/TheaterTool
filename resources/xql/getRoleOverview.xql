@@ -155,7 +155,7 @@ declare function local:workRef($node as element(tei:ref)) as element() {
     let $workpath := concat('/db/apps/theater-data/works/', $workId, '.xml')
     let $workfile := doc($workpath)
     let $workcontent := $workfile//mei:work
-    let $worktitle := $workcontent//mei:titleStmt[1]/mei:title[1]/text()
+    let $worktitle := $workcontent//mei:title[1]/text()
     return  
      <p><font size = "1"><b style="color:gray;">Werk: </b></font><a href="javascript:getWorkContent('{$workId}', '{$worktitle}');">{$worktitle}</a></p> 
 };
