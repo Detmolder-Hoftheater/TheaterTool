@@ -37,7 +37,7 @@ declare function local:jsonifyPersons($titles, $elem_1) {
 
 let $strings := for $elem in $titles
 
-		let $fileName :=  $elem//tei:surname[1]
+		let $fileName :=  if($elem//tei:surname[1] != '')then($elem//tei:surname[1])else($elem//tei:forename[1])
 		
 		let $subName := substring($fileName, 1,1)
 		let $fileName1 := if(contains($selection, $subName))
@@ -51,8 +51,7 @@ let $personId := if($fileName1 != '')
 			
 	let $foreName := 	if($fileName1 != '')
 			then(
-			local:jsonifyForename($elem//tei:forename)
-			
+			 if($elem//tei:surname[1] != '')then(local:jsonifyForename($elem//tei:forename))else(local:jsonifyForename($elem//tei:roleName))			
 			)
 			else()
 			

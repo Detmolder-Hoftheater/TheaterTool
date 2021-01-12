@@ -118,17 +118,71 @@ declare function local:jsonifySummaryText($content) {
     
     let $strings := for $elem in $content
     
-    let $id_1 := normalize-space($elem//tei:note)
+    (:let $id_1 := normalize-space($elem//tei:note):)
+    let $notetext := $elem/tei:note/node()
+    
+    let $completNote := local:jsonifyOneEl($notetext)
     
     return
-        if ($id_1 != '') then
-            (
-            concat('"', replace($id_1, '"', '\\"'), '"'))
+        if ($completNote != '') then
+            
+            concat('"',normalize-space((replace($completNote, '"', '\\"'))), '"')
         else
             ()
     return
-        string-join($strings, ',')
+        string-join($strings, ', ')
 
+};
+
+declare function local:jsonifyOneEl($notetext) {
+    
+    let $strings := for $elem in $notetext
+    
+    let $oneEl := if($elem/local-name() = 'persName')then(local:dispatch($elem))else($elem)
+      
+    return
+       
+        if ($oneEl != '') then
+           $oneEl
+        else
+            ()
+    
+    return
+        string-join($strings, ' ')
+
+};
+
+declare function local:dispatch($id_1 as node()*) as item()* {
+    for $nodet in $id_1
+    return
+        typeswitch ($nodet)                     
+            case element(tei:persName) 
+                return 
+                    local:persName($nodet)
+            case text()
+                return
+                    $nodet 
+            default
+                return
+                    local:passthru($nodet)
+
+};
+
+declare function local:passthru($node as node()*) as item()* {
+    local:dispatch($node/node())
+};
+
+declare function local:persName($node as element(tei:persName)) as element() {
+    if ($node/@key != '') then
+        <persName>{concat(
+        '<persName id=', $node/@key,
+        '><a href="javascript:getPersonContentForPerson(&apos;',
+        $node/@key, '&apos;,&apos;',$node,'&apos;);">',$node,'</a></persName>')}</persName>
+    else(
+        
+        <persName>{concat('"', $node, '"')}</persName>
+        )
+        
 };
 
 declare function local:jsonifyBiblText($content) {
@@ -198,6 +252,31 @@ declare function local:jsonifyFulls($content) {
     let $titles := for $title in $elem//tei:persName
     return
         if ($title/@type = 'full') then
+            ($title)
+        else
+            ()
+            
+            (:let $titles := $elem//tei:persName[@type = 'full']:)
+    let $content_title := local:jsonifyRegNames($titles)
+    
+    return
+        if ($content_title != '') then
+            ($content_title)
+        else
+            ()
+    
+    return
+        string-join($strings, ',')
+
+};
+
+declare function local:jsonifyReals($content) {
+    
+    let $strings := for $elem in $content
+    
+    let $titles := for $title in $elem//tei:persName
+    return
+        if ($title/@type = 'real') then
             ($title)
         else
             ()
@@ -316,9 +395,10 @@ declare function local:jsonifyRegNames($titles) {
     let $foreNameList := $elem/tei:forename
     let $foreNames := local:jsonifyForename($foreNameList)
     let $language := $elem/tei:nameLink
+    let $persRole := $elem/tei:roleName
     
     return
-        concat('["', $title, '","', $foreNames, '","', $language, '"]')
+        concat('["', $title, '","', $foreNames, '","', $language, '","', $persRole, '"]')
     return
         string-join($strings, ',')
 
@@ -763,7 +843,7 @@ declare function local:jsonifyWorksReferences($workID) {
     let $path1 := concat($rolepath, $elem, '.xml')
     let $file1 := doc($path1)
     let $names := $file1//mei:persName
-    let $listNames := local:jsonifyPersNames($names, $file1)
+    let $listNames := local:jsonifyPersNames($names, $file1, $workID)
     (: let $names := $elem/mei:work//mei:titlestmt[1]/mei:title[1]:)
     (:let $names := if($elem/mei:work//mei:persname[@dbkey=$workID])then($elem//mei:titlestmt[1]/mei:title[1])else():)
     return
@@ -778,15 +858,15 @@ declare function local:jsonifyWorksReferences($workID) {
 };
 
 
-declare function local:jsonifyPersNames($names, $file1) {
+declare function local:jsonifyPersNames($names, $file1, $workID) {
     
     let $strings := for $elem in $names
     
-    let $name := if ($elem[@dbkey = $workID]) then
-        (replace($file1//mei:titleStmt//mei:title[1], '"', '\\"'))
+    let $name := if ($elem[@codedval = $workID]) then
+        (replace($file1/mei:title[1], '"', '\\"'))
     else
         ()
-    let $dbId := if ($elem[@dbkey = $workID]) then
+    let $dbId := if ($elem[@codedval = $workID]) then
         ($file1//mei:work/@xml:id)
     else
         ()
@@ -1241,6 +1321,8 @@ local:jsonifyPseuds($content),
 local:jsonifyAlts($content),
 '],"fulls":[',
 local:jsonifyFulls($content),
+'],"reals":[',
+local:jsonifyReals($content),
 '],"regs":[',
 local:jsonifyRegs($content),
 ']}'
