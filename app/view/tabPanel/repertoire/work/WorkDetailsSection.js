@@ -138,47 +138,54 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                     for (i = 0; i < json.autoren.length; i++) {
                         var autor = json.autoren[i];
                         var persRole = '';
-                        if (autor[1] === 'arr') {
+                        if (autor[1] === 'arranger') {
                             persRole = 'Bearbeiter';
-                        } else if (autor[1] === 'marc:aut') {
-                            persRole = 'Autor';
-                        } else if (autor[1] === 'marc:act') {
+                        } else if (autor[1] === 'author') {
+                            if(autor[3] === 'textualSource'){
+                                persRole = 'Autor der Textvorlage';
+                            }
+                            else{
+                                persRole = 'Autor';
+                            }                           
+                        } else if (autor[1] === 'actor') {
                             persRole = 'Schauspieler';
                          } else if (autor[1] === 'marc:ats') {
                             persRole = 'Autor der Textquelle';
-                        } else if (autor[1] === 'marc:cmp') {
+                        } else if (autor[1] === 'composer') {
                             persRole = 'Komponist';
-                        } else if (autor[1] === 'marc:cre') {
+                        } else if (autor[1] === 'creator') {
                             persRole = 'Urheber';
-                        } else if (autor[1] === 'marc:egr') {
+                        } else if (autor[1] === 'engraver') {
                             persRole = 'Stecher';
-                        } else if (autor[1] === 'marc:dte') {
+                        } else if (autor[1] === 'dedicatee') {
                             persRole = 'Widmungsträger';
-                        } else if (autor[1] === 'marc:lbt') {
+                        } else if (autor[1] === 'librettist') {
                             persRole = 'Librettist';
-                        } else if (autor[1] === 'marc:edt') {
+                        } else if (autor[1] === 'editor') {
                             persRole = 'Editor';
-                        } else if (autor[1] === 'marc:lyr') {
+                        } else if (autor[1] === 'lyricist') {
                             persRole = 'Textdichter';
-                        } else if (autor[1] === 'marc:trl') {
+                        } else if (autor[1] === 'translator') {
                             persRole = 'Übersetzer';
-                        } else if (autor[1] === 'marc:scr') {
+                        } else if (autor[1] === 'scribe') {
                             persRole = 'Schreiber';
-                        } else if (autor[1] === 'marc:fmo') {
+                        } else if (autor[1] === 'marc:fmo') { //Former owner
                             persRole = 'Ehemaliger Besitzer';
-                        } else if (autor[1] === 'marc:asn') {
+                        } else if (autor[1] === 'marc:asn') { //Associated name
                             persRole = 'Zugehöriger Name';
-                        } else if (autor[1] === 'marc:prf') {
+                        } else if (autor[1] === 'performer') {
                             persRole = 'Darsteller';
                         } else if (autor[1] === 'marc:clb') {
                             persRole = 'Mitarbeiter';
-                        } else if (autor[1] === 'marc:mcp') {
+                        } else if (autor[1] === 'marc:mcp') { // Music copyist
                             persRole = 'Kopist';
-                        } else if (autor[1] === 'marc:cnd') {
+                        } else if (autor[1] === 'conductor') {
                             persRole = 'Dirigent';
-                        } else if (autor[1] === 'marc:msd') {
+                        } else if (autor[1] === 'marc:msd') { // Musical director
                             persRole = 'Generalmusikdirektor';
-                        } else {
+                        } else if (autor[1] === 'contributor') { 
+                            persRole = 'Übersetzer';
+                        }else {
                             persRole = autor[1];
                         }
                         

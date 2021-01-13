@@ -23,12 +23,13 @@ declare function local:jsonifyRoles($id) {
     
     let $id_1 := normalize-space($elem)
     let $role := $elem/parent::node()/local-name()
+    let $type := $elem/parent::node()/@type
     let $dbkey := $elem/@codedval
     
     return
         if ($id_1 != '') then
             (
-            concat('["', $id_1, '",', '"', $role, '",', '"', $dbkey, '"]'))
+            concat('["', $id_1, '",', '"', $role, '",', '"', $dbkey, '",', '"', $type, '"]'))
         else
             ()
     return
@@ -137,7 +138,7 @@ declare function local:jsonifyWorkTitel($content) {
     
     let $strings := for $elem in $content
     
-    let $titles := $elem//mei:title
+    let $titles := $elem/mei:title
     let $content_title := local:jsonifyTitleInformation($titles)
     
     return

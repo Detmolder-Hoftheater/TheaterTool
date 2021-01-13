@@ -34,7 +34,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel', {
                 
                 var data1_substrArray = data1.split(' ');
                 var data1_substr = data1_substrArray[0] + ' ';
-                if (data1_substr.indexOf('Der ') !== -1 || data1_substr.indexOf('Die ') !== -1 || data1_substr.indexOf('Das ') !== -1 || data1_substr.indexOf('Des ') !== -1 || data1_substr.indexOf('der ') !== -1 || data1_substr.indexOf('die ') !== -1 || data1_substr.indexOf('das ') !== -1 || data1_substr.indexOf('des ') !== -1 || data1_substr.indexOf('The ') !== -1 || data1_substr.indexOf('Les ') !== -1 || data1_substr.indexOf('Le ') !== -1 || data1_substr.indexOf('La ') !== -1 || data1_substr.indexOf("L' ") !== -1) {
+                if (data1_substr.length < 5 && (data1_substr.indexOf('Der ') !== -1 || data1_substr.indexOf('Die ') !== -1 || data1_substr.indexOf('Das ') !== -1 || data1_substr.indexOf('Des ') !== -1 || data1_substr.indexOf('der ') !== -1 || data1_substr.indexOf('die ') !== -1 || data1_substr.indexOf('das ') !== -1 || data1_substr.indexOf('des ') !== -1 || data1_substr.indexOf('The ') !== -1 || data1_substr.indexOf('Les ') !== -1 || data1_substr.indexOf('Le ') !== -1 || data1_substr.indexOf('La ') !== -1 || data1_substr.indexOf("L' ") !== -1)) {
                     var tmp = data1.split(data1_substr);
                     data1 = tmp[1];
                 }
@@ -42,7 +42,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.RepertoireDetailsPanel', {
                 var data2_substrArray = data2.split(' ', 2);
                 
                 var data2_substr = data2_substrArray[0] + ' ';
-                if (data2_substr.indexOf('Der ') !== -1 || data2_substr.indexOf('Die ') !== -1 || data2_substr.indexOf('Das ') !== -1 || data2_substr.indexOf('Des ') !== -1 || data2_substr.indexOf('der ') !== -1 || data2_substr.indexOf('die ') !== -1 || data2_substr.indexOf('das ') !== -1 || data2_substr.indexOf('des ') !== -1 || data2_substr.indexOf('The ') !== -1 || data2_substr.indexOf('Les ') !== -1 || data2_substr.indexOf('Le ') !== -1 || data2_substr.indexOf('La ') !== -1 || data2_substr.indexOf("L' ") !== -1) {
+                if (data2_substr.length < 5 && (data2_substr.indexOf('Der ') !== -1 || data2_substr.indexOf('Die ') !== -1 || data2_substr.indexOf('Das ') !== -1 || data2_substr.indexOf('Des ') !== -1 || data2_substr.indexOf('der ') !== -1 || data2_substr.indexOf('die ') !== -1 || data2_substr.indexOf('das ') !== -1 || data2_substr.indexOf('des ') !== -1 || data2_substr.indexOf('The ') !== -1 || data2_substr.indexOf('Les ') !== -1 || data2_substr.indexOf('Le ') !== -1 || data2_substr.indexOf('La ') !== -1 || data2_substr.indexOf("L' ") !== -1)) {
                     var tmp_1 = data2.split(data2_substr);
                     data2 = tmp_1[1];
                 }
