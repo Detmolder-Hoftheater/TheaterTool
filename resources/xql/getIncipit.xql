@@ -28,10 +28,7 @@ for $elem in $doc return
 <mei xmlns:xmldb="http://exist-db.org/xquery/xmldb" xmlns="http://www.music-encoding.org/ns/mei" meiversion="2013">
     <meiHead>
         <fileDesc>
-            <titleStmt>
                 <title>{$elem/@label}</title>
-            </titleStmt>
-            <pubStmt/>
         </fileDesc>
     </meiHead>
     <music>

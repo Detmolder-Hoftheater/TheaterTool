@@ -20,7 +20,7 @@ Ext.define('TheaterTool.view.main.InformationDialog', {
     text: null,
     
     initComponent: function () {
-        this.text = '<span style="color:red"><p color="rot">Wir Transformieren gerade unsere MEI Daten nach MEI 4.0 und anpassen entsprechend unsere grafische Darstellungen! (06.01.2021)</p></span>'+
+        this.text = '<span style="color:red"><p color="rot">Wir Transformieren gerade unsere MEI Daten nach MEI 4.0 und anpassen entsprechend unsere grafische Darstellungen! (06.01.2021 - 19.01.2021)</p></span>'+
         '<p>Die Software „Theatre Tool“ befindet sich in der Entwicklungsphase. ' +
         'Ziel der Software ist die Darstellung der in XML-Daten erschlossenen Inhalte und deren Verknüpfungen. ' +
         'Die Software ist so angelegt, dass Sie nicht nur für dieses Projekt angewendet werden kann, ' +

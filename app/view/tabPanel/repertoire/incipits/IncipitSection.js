@@ -32,13 +32,17 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitSection', {
         var me = this;
         me.meiE = meiE;
         
-        var options = JSON.stringify({
+        /*var options = JSON.stringify({
             noLayout: 1,
             scale: 20
-        });
-        renderer.setOptions(options);
+        });*/
+        var options = {
+            noLayout: 1,
+            scale: 20
+        };
+       // renderer.setOptions(options);
         
-        renderer.loadData(meiE);
+       // renderer.loadData(meiE);
         
         var svg_1 = renderer.renderData(meiE, options);
         $('#' + this.id + '-innerCt').html(svg_1);

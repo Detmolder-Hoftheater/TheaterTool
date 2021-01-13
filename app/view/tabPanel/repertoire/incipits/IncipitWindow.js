@@ -15,14 +15,17 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.incipits.IncipitWindow', {
     
     showNoten: function (meiE) {
         var me = this;
-        var options = JSON.stringify({
+        /*var options = JSON.stringify({
             noLayout: 1,
             scale: 50
         });
         renderer.setOptions(options);
         
-        renderer.loadData(meiE);
-        console.log(me.id);
+        renderer.loadData(meiE);*/
+         var options = {
+            noLayout: 1,
+            scale: 50
+        };
         var svg_1 = renderer.renderData(meiE, options);
         $('#' + me.id + '-innerCt').html(svg_1);
     }
