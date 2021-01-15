@@ -23,7 +23,7 @@ declare function local:jsonifyRegs($fileNames) {
     let $strings := for $elem_1 in $fileNames
     
     
-    let $titles := $elem_1//tei:roleName
+    let $titles := $elem_1/tei:roleName[1]
     
     return
         if ($titles != '') then

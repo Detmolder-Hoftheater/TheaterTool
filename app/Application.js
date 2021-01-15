@@ -212,7 +212,7 @@ Ext.define('TheaterTool.Application', {
                         this.projectYears = json.years;
                         //  Ext.getCmp('htNavigationPanel').setTitle('<span style="font-family:Tahoma; color:gray;">' + projectName + ' ' + this.projectYears + '</span>');
                         dbTheaterPath = json.dbpath;
-                        
+                      
                         if (window.location.href.indexOf('#') !== -1) {
                             var linkArray = window.location.href.split(':');
                             var tailPathSrray = linkArray[linkArray.length -1].split('_');
@@ -314,7 +314,7 @@ Ext.define('TheaterTool.Application', {
                                         }
                                     }
                                 });
-                            } else if (folderName === 'rolle') {
+                            } else if (folderName === 'role') {
                                 
                                 Ext.Ajax.request({
                                     url: 'resources/xql/getRolleName.xql',
@@ -339,7 +339,7 @@ Ext.define('TheaterTool.Application', {
                                             var repertoireTab = new TheaterTool.view.tabPanel.HTTab({
                                                 title: '<font style="color:gray;">' + persName + '</font>',
                                                 icon: 'resources/images/theatreB.png',
-                                                id: 'rolle_' + idName
+                                                id: 'role_' + idName
                                             });
                                             
                                             var personDetails = new TheaterTool.view.tabPanel.roles.RolePanelInTab({
