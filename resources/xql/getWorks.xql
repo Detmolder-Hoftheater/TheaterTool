@@ -50,13 +50,8 @@ declare function local:jsonifySlurs($fileNames) {
     let $file1 := doc($path1)
     (:let $fileName :=  $file1//mei:title[not(@type='sub')][1]:)
     
-    let $titles := $file1//mei:title[not(@type = 'sub')]
+    let $titles := $file1//mei:work/mei:title[not(@type = 'sub')]
     let $fileName := local:jsonifyTitle($titles, $file1)
-    
-    
-    
-    (:let $type := $elem/@type
-	let $language := $elem/@xml:lang:)
     
     return
         if ($fileName != '') then

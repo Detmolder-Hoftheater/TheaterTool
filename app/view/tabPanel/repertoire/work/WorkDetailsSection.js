@@ -557,7 +557,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.WorkDetailsSection', {
                         
                         }
                 
-                if (json.scheduleRef.length > 0 || json.revenueRef.length > 0 || json.journalRef.length > 0 || json.issueRef.length > 0 || json.regieRef.length > 0 || json.roleRef.length > 0 || json.taxation.length > 0 || json.dayReport.length > 0) {
+                if (json.scheduleRef.length > 0 || json.revenueRef.length > 0 || json.journalRef.length > 0 || json.issueRef.length > 0 || json.regieRef.length > 0 || json.roleRef.length > 0 || json.taxation.length > 0 || json.dayReport.length > 0 || json.bestand.length > 0) {
                     
                     me.add(
                     

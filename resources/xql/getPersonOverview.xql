@@ -390,15 +390,11 @@ declare function local:jsonifyRegNames($titles) {
     
     let $strings := for $elem in $titles
     
-    let $title1 := $elem/tei:surname
+    let $title1 := $elem/node()
     let $title := local:jsonifyForename($title1)
-    let $foreNameList := $elem/tei:forename
-    let $foreNames := local:jsonifyForename($foreNameList)
-    let $language := $elem/tei:nameLink
-    let $persRole := $elem/tei:roleName
-    
+  
     return
-        concat('["', $title, '","', $foreNames, '","', $language, '","', $persRole, '"]')
+        concat('["', $title, '"]')
     return
         string-join($strings, ',')
 
@@ -415,7 +411,7 @@ declare function local:jsonifyForename($foreNameList) {
         $forename
     
     return
-        string-join($strings, ', ')
+        string-join($strings, ' ')
 
 };
 

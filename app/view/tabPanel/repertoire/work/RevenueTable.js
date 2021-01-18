@@ -35,7 +35,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.RevenueTable', {
             sorters:[ {
                 sorterFn: function (o1, o2) {
                     var getRank = function (o) {
-                        var name = o. get ('jahr');
+                        
+                        var name = o. get ('selectedJahr');
                         var numberJahr = parseInt(name);
                         return numberJahr;
                     },

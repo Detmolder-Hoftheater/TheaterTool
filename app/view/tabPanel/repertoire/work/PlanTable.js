@@ -35,8 +35,9 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
             sorters:[ {
                 sorterFn: function (o1, o2) {
                     var getRank = function (o) {
-                        var name = o. get ('jahr');
+                        var name = o.get ('selectedJahr');
                         var numberJahr = parseInt(name);
+                        
                         return numberJahr;
                     },
                     rank1 = getRank(o1),
@@ -52,6 +53,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.PlanTable', {
         });
         var nameForCount = '';
         var selectionCount = 0;
+      
         for (i = 0; i < me.scheduleList.length; i++) {
             var dailyArray = me.scheduleList[i];
             var dailyName = dailyArray[0];

@@ -32,7 +32,25 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.work.IssueTable', {
         
         me.store = Ext.create('Ext.data.Store', {
             model: 'TheaterTool.model.RefData',
-            data:[]
+            data:[],
+            sorters:[ {
+                sorterFn: function (o1, o2) {
+                    var getRank = function (o) {
+                        
+                        var name = o. get ('selectedJahr');
+                        var numberJahr = parseInt(name);
+                        return numberJahr;
+                    },
+                    rank1 = getRank(o1),
+                    rank2 = getRank(o2);
+                    
+                    if (rank1 === rank2) {
+                        return 0;
+                    }
+                    
+                    return rank1 < rank2 ? -1: 1;
+                }
+            }]
         });
         var nameForCount = '';
         var selectionCount = 0;
