@@ -176,7 +176,7 @@ Ext.define('TheaterTool.view.tabPanel.roles.RoleTabDetails', {
                     colspan: 1,
                     border: false,
                     bodyBorder: false,
-                    margin: '0 0 0 10',
+                    margin: '3 0 0 10',
                     items:[]
                 });
                 me.add(panel_10);
@@ -274,8 +274,8 @@ Ext.define('TheaterTool.view.tabPanel.roles.RoleTabDetails', {
                 
                 }
                 
-                if(typeof json.actors !== 'undefined'){
-                    
+                if(json.actors.length > 0){
+                   
                      me.add({
                     
                     xtype: 'label',

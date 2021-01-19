@@ -270,7 +270,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         
         
         if (typeof selectedSource[0].data.titlePages[0] !== 'undefined' || selectedSource[0].data.medium !== '' || typeof selectedSource[0].data.schreiber !== 'undefined' ||
-        typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '' || selectedSource[0].data.seitenzahl !== '' || selectedSource[0].data.groesse !== '') {
+        typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '' || selectedSource[0].data.seitenzahl !== '' || selectedSource[0].data.groesse !== '' || selectedSource[0].data.stamp !== '') {
             
             right_panel.add({
                 html: '<b style="color:gray; font-size: 12px;">Physikalische Daten</b>',
@@ -376,7 +376,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                     border: false
                 });
             }
-            
+                      
             if (selectedSource[0].data.groesse !== '') {
                 
                 right_panel.add({
@@ -389,6 +389,22 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                     border: false
                 });
             }
+             if (selectedSource[0].data.stempel !== '') {
+                
+                for(var i = 0; i < selectedSource[0].data.stempel.length; i++){
+                    right_panel.add({
+                    bodyPadding: 10,
+                    border: false,
+                    html: '<b style="color:gray; font-size: 10px;">Stempel:</b>'
+                }, {
+                    html: selectedSource[0].data.stempel[i],
+                    bodyPadding: 10,
+                    border: false
+                });
+                    
+                }
+                
+            }
             
             if (selectedSource[0].data.schreiber.length > 0) {
                 
@@ -399,7 +415,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                     colspan: 2
                 });
                 
-                for (i = 0; i < selectedSource[0].data.schreiber.length; i++) {
+                for (var i = 0; i < selectedSource[0].data.schreiber.length; i++) {
                     
                     var autor = selectedSource[0].data.schreiber[i];
                     var autorName = autor[0];

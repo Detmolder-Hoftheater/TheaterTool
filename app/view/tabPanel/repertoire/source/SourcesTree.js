@@ -61,6 +61,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
                 'entstehung': source_details[0].entstehung,
                 'events': source_details[0].events,
                 'hoverview': source_details[0].hoverview,
+                'stempel': source_details[0].stempel,
                 'creation': source_details[0].creation,
                 'inhalt': source_details[0].inhalt,
                 leaf: isLeaf

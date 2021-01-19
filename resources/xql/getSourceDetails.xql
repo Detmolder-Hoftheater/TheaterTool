@@ -476,6 +476,28 @@ declare function local:jsonifyAnnots($annots) {
 
 };
 
+
+declare function local:jsonifyStamp($stamp) {
+    
+    let $strings := for $elem_1 in $stamp
+    
+    let $item := normalize-space($elem_1)
+    
+    return
+        if ($item != '') then
+            (concat('"', replace($item, '"', '\\"'), '"'))
+        else
+            ()
+    
+    
+    return
+        string-join($strings, ',')
+
+};
+
+
+
+
 declare function local:jsonifyTitleArray($s_title_array) {
     
     let $strings := for $elem_1 in $s_title_array
@@ -736,6 +758,8 @@ declare function local:jsonifyContenSource($source_el) {
     
     let $inhalt := local:jsonifyInhalt($items)
     
+    let $stamp := local:jsonifyStamp($elem_1/mei:physDesc[1]/mei:stamp)
+    
     let $annots := $elem_1/mei:notesStmt[1]/mei:annot
     
     let $s_bemerkungen := local:jsonifyAnnots($annots)
@@ -802,6 +826,10 @@ declare function local:jsonifyContenSource($source_el) {
         '"seitenzahl":', '"', normalize-space($pages), '",',
         '"groesse":', '"', normalize-space($dimension), '",',
         '"condition":', '"', $condition, '",',
+        '"stempel":[', if ($stamp != '') then
+            ($stamp)
+        else
+            (), '],',
         '"inhalt":[', if ($inhalt != '') then
             ($inhalt)
         else

@@ -15,7 +15,7 @@ Ext.define('TheaterTool.model.SourceDetails', {
 		{name: 'schreiber',  type: 'auto'},
 		{name: 'entstehung',  type: 'auto'},
 		{name: 'events',  type: 'auto'},
-		{name: 'stamp',  type: 'auto'},
+		{name: 'stempel',  type: 'auto'},
 		{name: 'sprache',  type: 'auto'},
 		{name: 'inhalt',  type: 'auto'}       
     ]

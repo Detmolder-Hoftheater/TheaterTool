@@ -40,6 +40,20 @@ declare function local:dispatch($html_1 as node()*) as item()* {
             case element(tei:ref)
                 return
                     local:ref($node)
+                    
+                    
+            case element(tei:table)
+                return
+                    local:table($node)
+            case element(tei:head)
+                return
+                    local:head($node)
+            case element(tei:row)
+                return
+                    local:row($node)
+            case element(tei:cell)
+                return
+                    local:cell($node)
             default
                 return
                     local:passthru($node)
@@ -48,6 +62,39 @@ declare function local:dispatch($html_1 as node()*) as item()* {
 
 declare function local:passthru($node as node()*) as item()* {
     local:dispatch($node/node())
+};
+
+declare function local:cell($node as element(tei:cell)) as element() {
+    <td
+        width="300px">{(local:dispatch($node/node()))}</td>
+    (:if($node//tei:rs/@type ='work')then(<td width="300px" bgcolor="red">{(local:dispatch($node/node()))}</td>)else(<td width="300px">{(local:dispatch($node/node()))}</td>)
+  :)
+};
+
+declare function local:row($node as element(tei:row)) as element() {
+    <tr>{local:dispatch($node/node())}</tr>
+};
+
+declare function local:head($node as element(tei:head)) as element() {
+    <thead>{local:dispatch($node/node())}</thead>
+};
+
+declare function local:table($node as element(tei:table)) as element() {
+    (:td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;:)
+    
+    <span><p></p><table
+            border="1"
+            cellpadding="10"
+            cellspacing="0"
+            style="font-size: 12px; border-collapse: collapse; table-layout:fixed; word-wrap:break-word; font-family: arial, sans-serif">
+            {local:dispatch($node/node())}</table></span>
 };
 
 declare function local:div($node as element(tei:div)) as element() {
