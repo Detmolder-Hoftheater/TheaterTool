@@ -35,7 +35,6 @@ Ext.define('TheaterTool.view.tabPanel.SourcesTable', {
         if (me.sourcesList != 'undefined') {
             for (i = 0; i < me.sourcesList.length; i++) {
                 var source = me.sourcesList[i];
-               
                 var sourceRow = Ext.create('TheaterTool.model.RefData', {
                     name: source[0],
                     id: source[1],

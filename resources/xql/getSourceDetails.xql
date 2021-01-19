@@ -15,7 +15,7 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 declare variable $sourceID := request:get-parameter('sourceID', '');
 declare variable $workPath := request:get-parameter('workPath', '/db/apps/theater-data/works/');
 declare variable $uri := concat('/db/apps/theater-data/sources/', $sourceID, '.xml');
-declare variable $content := eutil:getDoc($uri)/mei:source;
+declare variable $content := eutil:getDoc($uri)/mei:manifestation;
 (:let $content := $file/mei:source:)
 
 
@@ -23,7 +23,7 @@ declare function local:jsonifyTitel($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem/mei:titleStmt[not(ancestor::mei:componentGrp)][1]/mei:title
+    let $id := $elem/mei:titleStmt[not(ancestor::mei:componentList)][1]/mei:title
     
     return
         
@@ -43,7 +43,7 @@ declare function local:jsonifyRISM($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem/mei:identifier[not(ancestor::mei:componentGrp)][1]
+    let $id := $elem/mei:identifier[not(ancestor::mei:componentList)][1]
     
     return
         
@@ -87,7 +87,7 @@ declare function local:jsonifyAutoren($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem/mei:titleStmt[not(ancestor::mei:componentGrp)][1]//mei:persName
+    let $id := $elem/mei:titleStmt[not(ancestor::mei:componentList)][1]//mei:persName
     
     let $names := local:jsonifyRoles($id)
     return
@@ -179,8 +179,8 @@ declare function local:jsonifyBib($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem//mei:physLoc[not(ancestor::mei:componentGrp)]/mei:repository/mei:name
-    let $sign := $elem//mei:physLoc[not(ancestor::mei:componentGrp)]/mei:identifier
+    let $id := $elem//mei:physLoc[not(ancestor::mei:componentList)]/mei:repository/mei:name
+    let $sign := $elem//mei:physLoc[not(ancestor::mei:componentList)]/mei:identifier
     
     return
         if ($id != '') then
@@ -200,7 +200,7 @@ declare function local:jsonifyBemerkungen($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem//mei:notesStmt[not(ancestor::mei:componentGrp)]/mei:annot
+    let $id := $elem//mei:notesStmt[not(ancestor::mei:componentList)]/mei:annot
     
     let $sign := local:jsonifyAnnot($id)
     
@@ -239,9 +239,9 @@ let $strings := for $elem in $content
 
 					
 
-			let $s_title :=$elem/mei:componentGrp/mei:source[@xml:id=$source_id]/mei:titleStmt[1]/mei:title[not(@type)]
+			let $s_title :=$elem/mei:componentList/mei:source[@xml:id=$source_id]/mei:titleStmt[1]/mei:title[not(@type)]
 
-			(\:let $subtitle :=$elem/mei:titleStmt[ancestor::mei:componentGrp][1]/mei:title[@type ='sub']
+			(\:let $subtitle :=$elem/mei:titleStmt[ancestor::mei:componentList][1]/mei:title[@type ='sub']
 					let $repository := normalize-space($elem):\)
                    
 				return 
@@ -261,7 +261,7 @@ declare function local:jsonifyInscription($persNames) {
     
     let $persName := replace($elem_1, '"', '\\"')
     
-    let $dbkey := $elem_1/@dbkey
+    let $dbkey := $elem_1/@codedval
     
     return
         if ($persName != '') then
@@ -342,6 +342,7 @@ declare function local:jsonifyTitlePages($desc) {
     let $strings := for $elem_1 in $desc
     
     let $pages := $elem_1/mei:titlePage
+    
     let $onepage := if ($pages != '') then
         (local:jsonifyTitles($pages))
     else
@@ -367,12 +368,13 @@ declare function local:jsonifyTitlePages($desc) {
 declare function local:jsonifyTitles($pages) {
     
     let $strings := for $elem in $pages
-    let $page := local:jsonifyPageTitle($elem/node())
+    let $label := if($elem/@label != '')then(concat('(', $elem/@label, ')'))else()
+    let $page := local:jsonifyPageTitle($elem/node(), $label)
     
     return
         if ($page != '') then
             (
-            $page
+            concat('[',$page, ']')
             
             )
         else
@@ -382,16 +384,18 @@ declare function local:jsonifyTitles($pages) {
 
 };
 
-declare function local:jsonifyPageTitle($pages) {
+declare function local:jsonifyPageTitle($pages, $label) {
     
     let $strings := for $elem in $pages
     
-    let $page := local:jsonifyLB($elem/node())
+    let $page := local:jsonifyLB($elem/node(), $label)
     
     return
         if ($page != '') then
             (
-            $page)
+            
+            concat($page, ', ["label","', $label, '"]' )
+            )
         else
             ()
     
@@ -400,31 +404,8 @@ declare function local:jsonifyPageTitle($pages) {
 
 };
 
-(:declare function local:jsonifyLB($pages) {
 
-let $strings := for $elem in $pages
-
-    let $page := if($elem[self::mei:add])
-        then(concat('<span style="color:MediumSeaGreen;">', $elem, '</span>'))
-        else(
-            if($elem[self::mei:del])
-            then(concat('<span style="color:Tomato;">', $elem, '</span>'))
-            else(
-                if($elem/self::node() = '')
-                then('</br>')
-                else($elem/self::node())))
-				return 
-if($page != '')then(
-concat('"',replace(normalize-space($page), '"', '\\"' ), '"')
- (\: concat('"',$page, '"'):\)
-
-)else()
-return
-        string-join($strings,',')
-
-};:)
-
-declare function local:jsonifyLB($pages) {
+declare function local:jsonifyLB($pages, $label) {
     
     let $strings := for $elem in $pages
     
@@ -684,7 +665,7 @@ declare function local:jsonifySTitleInformation($titles) {
     let $strings := for $elem in $titles
     
     
-    let $title := local:jsonifyLB($elem/node())
+    let $title := local:jsonifyLB($elem/node(), '')
     
     (:if($elem/self::node() = '')
                 then('["br"]')
@@ -759,7 +740,7 @@ declare function local:jsonifyContenSource($source_el) {
     
     let $s_bemerkungen := local:jsonifyAnnots($annots)
     
-    let $s_list := $elem_1/mei:componentGrp/mei:source
+    let $s_list := $elem_1/mei:componentList/mei:manifestation
     let $source_hier := local:jsonifySourceHier($s_list)
     
     let $p_list := $elem_1/mei:history/mei:p
@@ -846,7 +827,7 @@ declare function local:jsonifySources($content) {
     let $rel := $elem[@rel = 'hasPart']/@target
     let $source_id := substring-after($rel, '#')
     
-    let $source_el := $test/mei:componentGrp/mei:source[@xml:id = $source_id]
+    let $source_el := $test/mei:componentList/mei:manifestation[@xml:id = $source_id]
     let $content_source := local:jsonifyContenSource($source_el)
     
     

@@ -88,7 +88,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
                                 method: 'GET',
                                 params: {
                                     uri: '/db/apps/theater-data/sources/' + me.sourceID + '.xml',
-                                    type: 'source'
+                                    type: 'manifestation'
                                 },
                                 success: function (response) {
                                     
@@ -96,7 +96,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
                                     var testText = response.responseXML;
                                     
                                     var tempDiv = document.createElementNS('http://www.music-encoding.org/ns/mei', 'div');
-                                    var personArr = testText.getElementsByTagName('source');
+                                    var personArr = testText.getElementsByTagName('manifestation');
                                     tempDiv.appendChild(personArr[0]);
                                     
                                     var tmp = hljs.highlightAuto($(tempDiv).html()).value;
@@ -135,7 +135,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcePanel', {
                                 method: 'GET',
                                 params: {
                                     uri: '/db/apps/theater-data/sources/' + me.sourceID + '.xml',
-                                    type: 'source'
+                                    type: 'manifestation'
                                 },
                                 success: function (response) {
                                     var xmltext = response.responseText;

@@ -404,7 +404,7 @@ declare function local:jsonifySourcesReferences($workID) {
     let $sorcepath := 'xmldb:exist:///apps/theater-data/sources/'
     let $allSourceFiles := collection($sorcepath)
     
-    let $strings := $allSourceFiles//mei:source[descendant::*[@dbkey = $workID]]
+    let $strings := $allSourceFiles//mei:manifestation[descendant::*[@codedval = $workID]]
     let $oneSource : = local:jsonifyOneSorcesData($strings)   
     (:let $stringContent := local:jsonifySorcesData($strings):)
     
@@ -420,11 +420,11 @@ declare function local:jsonifySourcesReferences($workID) {
 
 declare function local:jsonifyOneSorcesData($content) {
 
-    let $sourcetitle := $content/parent::mei:componentGrp/parent::mei:source/mei:titleStmt/mei:title[1]
-    let $sourceID := $content/parent::mei:componentGrp/parent::mei:source/@xml:id
+    let $sourcetitle := $content/parent::mei:componentList/parent::mei:manifestation/mei:titleStmt/mei:title[1]
+    let $sourceID := $content/parent::mei:componentList/parent::mei:manifestation/@xml:id
     
     
-    let $worTargetId := $content/parent::mei:componentGrp/parent::mei:source[not(ancestor::mei:componentGrp)]/mei:relationList/mei:relation[@rel = 'isEmbodimentOf']/@target
+    let $worTargetId := $content/parent::mei:componentList/parent::mei:manifestation[not(ancestor::mei:componentList)]/mei:relationList/mei:relation[@rel = 'isEmbodimentOf']/@target
     let $workIdExpr := tokenize($worTargetId, "#")[last()]
     let $workRefId := substring-before($workIdExpr, '_')
     
@@ -448,13 +448,13 @@ let $strings := for $elem in $content
     let $rolefile := $elem/@xml:id
     let $location := $elem/mei:physLoc/mei:identifier
     let $rismLabel := $elem//mei:identifier[@label = "RISM-label"][1]
-    
-    let $sourceName := concat('Quelle: ', $sourcetitle, ', Einzellquelle ', $worktitle, ' , ', $rismLabel, ' , ', $location)
+    let $rismLabelEmpty := if($rismLabel != '')then(concat(' , ', $rismLabel, ' , '))else()
+    let $sourceName := concat('Quelle: ', $sourcetitle, ', Einzellquelle ', $worktitle, $rismLabelEmpty, $location)
     
     return
             (
             
-            concat('["', $worktitle, '",', '"', $rolefile, '",', '"', $workRefId, '",', '"', $sourceName, '",', '"', $location, '"]')
+            concat('["', $worktitle, '",', '"', $sourceID, '",', '"', $workRefId, '",', '"', $sourceName, '",', '"', $location, '"]')
             
             )
             
@@ -470,7 +470,7 @@ declare function local:jsonifyRollenReferences($workID) {
     let $rolefiles := collection($rolepath)
     
     let $strings := for $elem in $rolefiles
-    let $tailSources := $elem/mei:source/mei:componentGrp/mei:source[descendant::*[@dbkey = $workID]]/mei:physDesc/mei:titlePage
+    let $tailSources := $elem/mei:manifestation/mei:componentList/mei:manifestation[descendant::*[@codedval = $workID]]/mei:physDesc/mei:titlePage
     
     let $tailSource := local:getRoleData($tailSources)
     
@@ -571,28 +571,28 @@ declare function local:jsonifyPersNamesForSources($names, $file1) {
     let $strings := for $elem in $names
     
     let $name := if ($elem[@dbkey = $workID]) then
-        ($file1//mei:titleStmt[not(ancestor::mei:componentGrp)][1]/mei:title[1])
+        ($file1//mei:titleStmt[not(ancestor::mei:componentList)][1]/mei:title[1])
     else
         ()
     let $dbId := if ($elem[@dbkey = $workID]) then
-        ($file1/mei:source[not(ancestor::mei:componentGrp)]/@xml:id)
+        ($file1/mei:manifestation[not(ancestor::mei:componentList)]/@xml:id)
     else
         ()
         (:let $workIdREf:)
     let $worTargetId := if ($elem[@dbkey = $workID]) then
-        ($file1/mei:source[not(ancestor::mei:componentGrp)]/mei:relationList/mei:relation[@rel = 'isEmbodimentOf']/@target)
+        ($file1/mei:manifestation[not(ancestor::mei:componentList)]/mei:relationList/mei:relation[@rel = 'isEmbodimentOf']/@target)
     else
         ()
     let $workIdExpr := tokenize($worTargetId, "#")[last()]
     let $workRefId := substring-before($workIdExpr, '_')
     
     let $rismLabel := if ($elem[@dbkey = $workID]) then
-        ($file1/mei:source//mei:identifier[@label = "RISM-label"][1])
+        ($file1/mei:manifestation//mei:identifier[@label = "RISM-label"][1])
     else
         ()
     
     let $physLoc_tmp := if ($elem[@dbkey = $workID]) then
-        ($file1/mei:source//mei:identifier[@type = "shelfLocation"][1])
+        ($file1/mei:manifestation//mei:identifier[@type = "shelfLocation"][1])
     else
         ()
     let $physLoc := replace($physLoc_tmp, '\n', '')

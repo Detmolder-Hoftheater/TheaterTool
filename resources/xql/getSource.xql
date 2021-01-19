@@ -15,14 +15,14 @@ declare variable $sourceID := request:get-parameter('sourceID', '');
 declare variable $workPath := request:get-parameter('workPath', '/db/apps/theater-data/works/');
 declare variable $uri := concat('/db/apps/theater-data/sources/', $sourceID, '.xml');
 declare variable $file := doc($uri);
-declare variable $content := $file//mei:source;
+declare variable $content := $file//mei:manifestation;
 
 
 declare function local:jsonifyTitel($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem/mei:titleStmt[not(ancestor::mei:componentGrp)][1]/mei:title[1]
+    let $id := $elem/mei:titleStmt[not(ancestor::mei:componentList)][1]/mei:title[1]
     
     return
         
@@ -42,7 +42,7 @@ declare function local:jsonifyRISM($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem/mei:identifier[not(ancestor::mei:componentGrp)][1]
+    let $id := $elem/mei:identifier[not(ancestor::mei:componentList)][1]
     
     return
         
@@ -64,7 +64,7 @@ declare function local:jsonifyRoles($id) {
     
     let $id_1 := replace($elem, '"', '\\"')
     let $role := $elem/@role
-    let $dbkey := $elem/@dbkey
+    let $dbkey := $elem/@codedval
     
     return
         if ($id_1 != '') then
@@ -86,7 +86,7 @@ declare function local:jsonifyAutoren($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem/mei:titleStmt[not(ancestor::mei:componentGrp)][1]//mei:persName
+    let $id := $elem/mei:titleStmt[not(ancestor::mei:componentList)][1]//mei:persName
     
     let $names := local:jsonifyRoles($id)
     return
@@ -178,8 +178,8 @@ declare function local:jsonifyBib($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem//mei:physLoc[not(ancestor::mei:componentGrp)]/mei:repository[0]/mei:name
-    let $sign := $elem//mei:physLoc[not(ancestor::mei:componentGrp)]/mei:identifier
+    let $id := $elem//mei:physLoc[not(ancestor::mei:componentList)]/mei:repository[0]/mei:name
+    let $sign := $elem//mei:physLoc[not(ancestor::mei:componentList)]/mei:identifier
     
     return
         if ($id != '') then
@@ -199,7 +199,7 @@ declare function local:jsonifyBemerkungen($content) {
     
     let $strings := for $elem in $content
     
-    let $id := $elem//mei:notesStmt[not(ancestor::mei:componentGrp)]/mei:annot
+    let $id := $elem//mei:notesStmt[not(ancestor::mei:componentList)]/mei:annot
     
     let $sign := local:jsonifyAnnot($id)
     
@@ -238,9 +238,9 @@ let $strings := for $elem in $content
 
 					
 
-			let $s_title :=$elem/mei:componentGrp/mei:source[@xml:id=$source_id]/mei:titleStmt[1]/mei:title[not(@type)]
+			let $s_title :=$elem/mei:componentList/mei:source[@xml:id=$source_id]/mei:titleStmt[1]/mei:title[not(@type)]
 
-			(\:let $subtitle :=$elem/mei:titleStmt[ancestor::mei:componentGrp][1]/mei:title[@type ='sub']
+			(\:let $subtitle :=$elem/mei:titleStmt[ancestor::mei:componentList][1]/mei:title[@type ='sub']
 					let $repository := normalize-space($elem):\)
                    
 				return 
@@ -419,7 +419,7 @@ declare function local:jsonifyContenSource($elem) {
 
 declare function local:jsonifySources($content) {
     
-    let $strings := for $elem in $content/mei:componentGrp/mei:source
+    let $strings := for $elem in $content/mei:componentList/mei:manifestation
     
     let $content_source := local:jsonifyContenSource($elem)
     
@@ -476,7 +476,7 @@ declare function local:jsonifyHOverview($content) {
     
     let $strings := for $elem in $content
     
-    let $id_1 := $elem//mei:history[not(ancestor::mei:componentGrp)]/mei:p
+    let $id_1 := $elem//mei:history[not(ancestor::mei:componentList)]/mei:p
     
     let $id := normalize-space($id_1)
     
@@ -496,9 +496,9 @@ declare function local:jsonifyCreation($content) {
     
     let $strings := for $elem in $content
     
-    let $date := $elem//mei:history[not(ancestor::mei:componentGrp)]/mei:creation/mei:date//@isodate
+    let $date := $elem//mei:history[not(ancestor::mei:componentList)]/mei:creation/mei:date//@isodate
     
-    let $place := $elem//mei:history[not(ancestor::mei:componentGrp)]/mei:creation/mei:geogName
+    let $place := $elem//mei:history[not(ancestor::mei:componentList)]/mei:creation/mei:geogName
     
     let $data := if ($date != '')
     then
@@ -547,7 +547,7 @@ declare function local:jsonifyEvents($content) {
     
     let $strings := for $elem in $content
     
-    let $events := $elem//mei:eventList[not(ancestor::mei:componentGrp)]//mei:event
+    let $events := $elem//mei:eventList[not(ancestor::mei:componentList)]//mei:event
     
     let $names := local:jsonifyEventDetails($events)
     return
@@ -565,7 +565,7 @@ declare function local:jsonifyEvents($content) {
 
 declare function local:jsonifyHandList($content) {
     let $strings := for $elem_1 in $content
-    let $handList := $elem_1/mei:physDesc[1]/mei:handList[not(ancestor::mei:componentGrp)]/mei:hand
+    let $handList := $elem_1/mei:physDesc[1]/mei:handList[not(ancestor::mei:componentList)]/mei:hand
 			let $hand := local:jsonifyHands($handList)
     
     return

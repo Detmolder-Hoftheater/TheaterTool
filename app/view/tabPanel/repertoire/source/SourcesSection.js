@@ -188,6 +188,20 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
             });
         }
         
+        if (selectedSource[0].data.inventarnummer !== '') {
+                
+                right_panel.add({
+                    bodyPadding: 10,
+                    border: false,
+                    html: '<b style="color:gray; font-size: 10px;">Inventarnr. des Hoftheaters:</b>'
+                }, {
+                    html: selectedSource[0].data.inventarnummer,
+                    bodyPadding: 10,
+                    border: false
+                });
+            }
+            
+        
         
         if (selectedSource[0].data.sourcetype !== '') {
             var sourceType = selectedSource[0].data.sourcetype;
@@ -256,7 +270,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         
         
         if (typeof selectedSource[0].data.titlePages[0] !== 'undefined' || selectedSource[0].data.medium !== '' || typeof selectedSource[0].data.schreiber !== 'undefined' ||
-        typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '' || selectedSource[0].data.inventarnummer !== '' || selectedSource[0].data.seitenzahl !== '' || selectedSource[0].data.groesse !== '') {
+        typeof selectedSource[0].data.condition !== 'undefined' && selectedSource[0].data.condition !== '' || selectedSource[0].data.seitenzahl !== '' || selectedSource[0].data.groesse !== '') {
             
             right_panel.add({
                 html: '<b style="color:gray; font-size: 12px;">Physikalische Daten</b>',
@@ -265,14 +279,23 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 colspan: 2
             });
             
-            var pages = '';
+            
             if (selectedSource[0].data.titlePages.length > 0) {
+                right_panel.add({
+                    bodyPadding: 10,
+                    border: false,
+                    html: '<b style="color:gray; font-size: 10px;">Titelseite(n):</b>',
+                    colspan: 2
+                });
                 
-                var elArray = new Array();
                 var titlePage = selectedSource[0].data.titlePages;
-                for (i = 0; i < titlePage.length; i++) {
-                    var test_1 = titlePage[i];
-                    var oneElem = test_1[0];
+                for (var i = 0; i < titlePage.length; i++) {
+                    var titlePages = titlePage[i];
+                    
+                    var pages = '';
+                    for(var j = 0; j < titlePages.length; j++){
+                        var test_1= titlePages[j];
+                         var oneElem = test_1[0];
                     
                     if (oneElem === 'text') {
                         var textValue = test_1[1];
@@ -284,21 +307,29 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                         
                         pages = pages + '<span style="color:MediumSeaGreen;">' + addValue + '</span>';
                     } else if (oneElem === 'del') {
-                        var delValue = test_1[1];
-                        
+                        var delValue = test_1[1];                        
                         pages = pages + '<span style="color:Tomato;">' + delValue + '</span>';
                     }
-                }
-                
-                right_panel.add({
-                    bodyPadding: 10,
-                    border: false,
-                    html: '<b style="color:gray; font-size: 10px;">Titelseite(n):</b>'
-                }, {
+                    else if(oneElem === 'label'){
+                        var labelValue = test_1[1];
+                        if(labelValue != ''){
+                            pages = pages + ' '+labelValue+'</br>';
+                        }
+                    }
+                    }
+                    
+                    right_panel.add({
                     html: pages,
                     bodyPadding: 10,
-                    border: false
+                    margin: '0 0 0 95',
+                    border: false,
+                    colspan: 2
                 });
+                   
+                    
+                }
+                
+                
             }
             
             
@@ -332,18 +363,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 });
             }
             
-            if (selectedSource[0].data.inventarnummer !== '') {
-                
-                right_panel.add({
-                    bodyPadding: 10,
-                    border: false,
-                    html: '<b style="color:gray; font-size: 10px;">Inventarnr. des Hoftheaters:</b>'
-                }, {
-                    html: selectedSource[0].data.inventarnummer,
-                    bodyPadding: 10,
-                    border: false
-                });
-            }
             
             if (selectedSource[0].data.seitenzahl !== '') {
                 
@@ -448,7 +467,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
         if (selectedSource[0].data.inscription.length > 0) {
             
             right_panel.add({
-                html: '<b style="color:gray; font-size: 12px;">Darsteller</b>',
+                html: '<b style="color:gray; font-size: 12px;">Eintragungen</b>',
                 border: false,
                 bodyPadding: 10,
                 colspan: 2
@@ -586,7 +605,7 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesSection', {
                 });
             }
             
-            if (selectedSource[0].data.hoverview !== '') {
+            if (selectedSource[0].data.hoverview.length > 0) {
                 var beschrValue = selectedSource[0].data.hoverview;
                 
                 right_panel.add({
