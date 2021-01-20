@@ -80,17 +80,11 @@ declare function local:head($node as element(tei:head)) as element() {
 };
 
 declare function local:table($node as element(tei:table)) as element() {
-    (:td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;:)
-    if($node/ancestor::tei:table)
-    then(
-    local:dispatch($node/node())
+    let $proof := $node/ancestor::tei:table
+    return
+    if($proof)
+    then(    
+    <head>{local:dispatch($node/node())}</head>
     )
     else(
     <span><p></p><table
