@@ -76,7 +76,7 @@ declare function local:row($node as element(tei:row)) as element() {
 };
 
 declare function local:head($node as element(tei:head)) as element() {
-    <thead>{local:dispatch($node/node())}</thead>
+    <head>{local:dispatch($node/node())}</head>
 };
 
 declare function local:table($node as element(tei:table)) as element() {
@@ -88,13 +88,19 @@ declare function local:table($node as element(tei:table)) as element() {
 
 tr:nth-child(even) {
     background-color: #dddddd;:)
-    
+    if($node/ancestor::tei:table)
+    then(
+    local:dispatch($node/node())
+    )
+    else(
     <span><p></p><table
             border="1"
             cellpadding="10"
             cellspacing="0"
             style="font-size: 12px; border-collapse: collapse; table-layout:fixed; word-wrap:break-word; font-family: arial, sans-serif">
             {local:dispatch($node/node())}</table></span>
+    )
+    
 };
 
 declare function local:div($node as element(tei:div)) as element() {
