@@ -220,7 +220,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenueTextSection', {
                     }
                 });
                 
-                if (me.imagesContent.length > 0) {
+                if (me.imagesContent !== null && me.imagesContent.length > 0) {
                     var graphicsArray = new Array();
                     for (var i = 0; i < me.imagesContent.length; i++) {
                         var oneElement = me.imagesContent[i];

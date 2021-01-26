@@ -32,7 +32,7 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
                 
                 var objs = new Array();
                 for (i = 0; i < json.names.length; i++) {
-                    var name = json.names[i];
+                    var name = json.names[i][0];
                     if (name === 'Januar') {
                         objs[1] = name;
                     } else if (name === 'Februar') {
@@ -61,7 +61,8 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
                 }
                 
                 if (me.selectedReport !== null) {
-                    for (i = 0; i < json.names.length; i++) {
+                    for (var i = 0; i < json.names.length; i++) {
+                        
                         var nameMonth = json.names[i][0];
                         
                         var title = json.names[i][1];
@@ -76,15 +77,21 @@ Ext.define('TheaterTool.view.tabPanel.revenue.RevenuePanelInTab', {
                         }
                     }
                 } else {
-                    for (i = 0; i < json.names.length; i++) {
-                        var nameMonth = json.names[i][0];
-                        
-                        var detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({
+                for(var j = 0; j < objs.length; j++){
+                    for (var i = 0; i < json.names.length; i++) {
+                        var nameMonth = json.names[i][0];                       
+                            var arrMonth = objs[j];                            
+                            if(nameMonth === arrMonth){
+                                 var detailSection = new TheaterTool.view.tabPanel.revenue.RevenueTextSection({
                             month: nameMonth, year: me.year, value: 2, title: '<b style="color:gray; font-size: 12px;">' + nameMonth + '</b>', /*selectedMonth: me.monat,*/
                             selectedWorkID: me.selectedWorkID, messageWindow: messageWindow, rev_index: i, rev_length: json.names.length -1, count: me.count, selectedReport: me.selectedReport, parentPanel: me,
                             icon: 'resources/images/MoneyBox-17.png'
-                        });
-                        me.add(detailSection);
+                            });
+                            me.add(detailSection);
+                            }
+                        }
+                        
+                       
                     }
                 }
             }
