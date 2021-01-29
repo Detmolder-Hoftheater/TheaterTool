@@ -221,28 +221,9 @@ declare function local:jsonifyBiblValues($content) {
 
 
 declare function local:jsonifyRegs($content) {
-    
-    let $strings := for $elem in $content
-    
-    let $titles := for $title in $elem//tei:persName
-    return
-        if ($title/@type = 'reg') then
-            ($title)
-        else
-            ()
-            
-            (:let $titles := $elem//tei:persName[@type = 'reg']:)
-    let $content_title := local:jsonifyRegNames($titles)
-    
-    return
-        if ($content_title != '') then
-            ($content_title)
-        else
-            ()
-    
-    return
-        string-join($strings, ',')
 
+    string-join( $content//tei:persName[@type = 'reg']/normalize-space(), ',' )
+    
 };
 
 declare function local:jsonifyFulls($content) {
