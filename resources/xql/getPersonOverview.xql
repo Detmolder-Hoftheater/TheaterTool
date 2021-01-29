@@ -222,7 +222,7 @@ declare function local:jsonifyBiblValues($content) {
 
 declare function local:jsonifyRegs($content) {
 
-    string-join( $content//tei:persName[@type = 'reg']/normalize-space(), ',' )
+    ($content//tei:persName[@type = 'reg']/normalize-space() ! local:jsonifyRegNames(.)) => string-join(',')
     
 };
 
