@@ -222,7 +222,7 @@ declare function local:jsonifyBiblValues($content) {
 
 declare function local:jsonifyRegs($content) {
 
-    ($content//tei:persName[@type = 'reg']/normalize-space() ! local:jsonifyRegNames(.)) => string-join(',')
+    ($content//tei:persName[@type = 'reg'] ! local:jsonifyRegNames(.)) => string-join(',')
     
 };
 
@@ -389,7 +389,7 @@ declare function local:jsonifyForename($foreNameList) {
     let $forename := $elem
     
     return
-        $forename
+        normalize-space($forename)
     
     return
         string-join($strings, ' ')
