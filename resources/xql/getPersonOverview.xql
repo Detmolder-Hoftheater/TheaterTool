@@ -23,7 +23,7 @@ declare function local:jsonifyRoles($id) {
     
     let $id_1 := $elem
     let $role := $elem/@role
-    let $dbkey := $elem/@dbkey
+    let $dbkey := $elem/@codedval
     
     return
         if ($id_1 != '') then
@@ -793,8 +793,8 @@ declare function local:getRoleData($tailSources) {
 declare function local:getRoleNames($roleName) {
     
     let $strings := for $elem in $roleName
-    let $roleNames := $elem
-    let $roleKey := $elem/@dbkey
+    let $roleNames := normalize-space($elem)
+    let $roleKey := $elem/@codedval
     return
         if ($roleNames != '') then
             (
