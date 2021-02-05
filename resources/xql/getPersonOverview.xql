@@ -746,10 +746,10 @@ declare function local:jsonifySourcesReferences($workID) {
         string-join($refs, ',')
 };
 
-declare function local:jsonifyRollenReferences($workID) as array(*)? {
+declare function local:jsonifyRollenReferences($workID as xs:string) as array(*)? {
     
     let $sources := collection('/db/apps/theater-data/sources/')
-    let $titlePages := $sources/mei:manifestation/mei:componentList/mei:manifestation[descendant::*[@codedval = $workID]]/mei:physDesc/mei:titlePage
+    let $titlePages := $sources//@codedval[. = $workID]/ancestor::mei:manifestation[count(ancestor::*) = 2]/mei:physDesc/mei:titlePage
     let $names := $titlePages/mei:p/mei:name
     return 
         array { 
