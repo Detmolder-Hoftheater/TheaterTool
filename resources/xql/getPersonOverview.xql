@@ -8,6 +8,8 @@ declare namespace xmldb = "http://exist-db.org/xquery/xmldb";
 declare namespace system = "http://exist-db.org/xquery/system";
 declare namespace transform = "http://exist-db.org/xquery/transform";
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
+declare namespace range = "http://exist-db.org/xquery/range";
+declare namespace exist="http://exist.sourceforge.net/NS/exist";
 
 declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";
 
