@@ -760,57 +760,18 @@ declare function local:jsonifyRollenReferences($workID as xs:string) as array(*)
 };
 
 
-declare function local:jsonifyWorksReferences($workID) {
+declare function local:jsonifyWorksReferences($workID as xs:string) as array(*)? {
     
-    let $rolepath := 'xmldb:exist:///apps/theater-data/works/'
-    let $rolefiles := collection($rolepath)
-    let $rolefile := $rolefiles//mei:work/@xml:id
-    
-    let $strings := for $elem in $rolefile
-    
-    let $path1 := concat($rolepath, $elem, '.xml')
-    let $file1 := doc($path1)
-    let $names := $file1//mei:persName
-    let $listNames := local:jsonifyPersNames($names, $file1, $workID)
-    (: let $names := $elem/mei:work//mei:titlestmt[1]/mei:title[1]:)
-    (:let $names := if($elem/mei:work//mei:persname[@dbkey=$workID])then($elem//mei:titlestmt[1]/mei:title[1])else():)
+    let $works := collection('/db/apps/theater-data/works/')//@codedval[. = $workID]/ancestor::mei:work
     return
-        if ($listNames != '') then
-            (
-            $listNames
-            )
-        else
-            ()
-    return
-        string-join($strings, ',')
+        array { 
+            for $work in $works
+            let $title := ($work//mei:title)[1] => normalize-space()
+            return
+                array { $title, $work/data(@xml:id) }
+        }
 };
 
-
-declare function local:jsonifyPersNames($names, $file1, $workID) {
-    
-    let $strings := for $elem in $names
-    
-    let $name := if ($elem[@codedval = $workID]) then
-        (replace(($file1//mei:title)[1], '"', '\\"'))
-    else
-        ()
-    let $dbId := if ($elem[@codedval = $workID]) then
-        ($file1//mei:work/@xml:id)
-    else
-        ()
-    
-    return
-        if ($name != '') then
-            (
-            concat('["', $name, '",', '"', $dbId, '"]')
-            )
-        else
-            ()
-    return
-        string-join($strings, ',')
-
-
-};
 
 declare function local:jsonifyRevenueReferences($workID) {
     
@@ -1182,9 +1143,9 @@ local:jsonifyDayReport($workID),
 local:jsonifyTaxReferences($workID),
 '],"bestand":[',
 local:jsonifyBestandReferences($workID),
-'],"worksRef":[',
-local:jsonifyWorksReferences($workID),
-'],"journalRef":[',
+'],"worksRef":',
+local:jsonifyWorksReferences($workID) => serialize(<output:serialization-parameters><output:method>json</output:method></output:serialization-parameters>),
+',"journalRef":[',
 local:jsonifyJournalReferences($workID),
 '],"regieRef":[',
 local:jsonifyRegieReferences($workID),
