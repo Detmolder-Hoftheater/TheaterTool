@@ -7,6 +7,7 @@ declare namespace tei = "http://www.tei-c.org/ns/1.0";
 declare namespace xmldb = "http://exist-db.org/xquery/xmldb";
 declare namespace system = "http://exist-db.org/xquery/system";
 declare namespace transform = "http://exist-db.org/xquery/transform";
+declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 
 declare option exist:serialize "method=text media-type=text/plain omit-xml-declaration=yes";
 
@@ -745,62 +746,17 @@ declare function local:jsonifySourcesReferences($workID) {
         string-join($refs, ',')
 };
 
-declare function local:jsonifyRollenReferences($workID) {
+declare function local:jsonifyRollenReferences($workID) as array(*)? {
     
-    let $rolepath := 'xmldb:exist:///apps/theater-data/sources/'
-    let $rolefiles := collection($rolepath)
-    
-    let $strings := for $elem in $rolefiles
-    let $tailSources := $elem/mei:manifestation/mei:componentList/mei:manifestation[descendant::*[@codedval = $workID]]/mei:physDesc/mei:titlePage
-    
-    let $tailSource := local:getRoleData($tailSources)
-    
-    return
-        if ($tailSource != '') then
-            $tailSource
-        else
-            ()
-    return
-        string-join($strings, ',')
-
-
-};
-
-
-declare function local:getRoleData($tailSources) {
-    
-    let $strings := for $elem in $tailSources
-    let $roleName := local:getRoleNames($elem/mei:p/mei:name)
-    (:local:getRoleNames($elem/mei:p/mei:name/node()):)
-    (:let $roleKey := $elem/mei:p/mei:name/@dbkey:)
-    return
-        if ($roleName != '') then
-            ($roleName)
-        else
-            ()
-    
-    return
-        string-join($strings, ',')
-
-
-};
-
-declare function local:getRoleNames($roleName) {
-    
-    let $strings := for $elem in $roleName
-    let $roleNames := normalize-space($elem)
-    let $roleKey := $elem/@codedval
-    return
-        if ($roleNames != '') then
-            (
-            concat('["', $roleNames, '",', '"', $roleKey, '"]')
-            )
-        else
-            ()
-    return
-        string-join($strings, ',')
-
-
+    let $sources := collection('/db/apps/theater-data/sources/')
+    let $titlePages := $sources/mei:manifestation/mei:componentList/mei:manifestation[descendant::*[@codedval = $workID]]/mei:physDesc/mei:titlePage
+    let $names := $titlePages/mei:p/mei:name
+    return 
+        array { 
+            for $name in $names
+            return
+                array { normalize-space($name), $name/data(@codedval) }
+        }
 };
 
 
@@ -1218,9 +1174,9 @@ local:jsonifyBiblText($content),
 local:jsonifyRoleReferences($workID),
 '],"sourcesRef":[',
 local:jsonifySourcesReferences($workID),
-'],"rollen":[',
-local:jsonifyRollenReferences($workID),
-'],"dayReport":[',
+'],"rollen":',
+local:jsonifyRollenReferences($workID) => serialize(<output:serialization-parameters><output:method>json</output:method></output:serialization-parameters>),
+',"dayReport":[',
 local:jsonifyDayReport($workID),
 '],"taxation":[',
 local:jsonifyTaxReferences($workID),
