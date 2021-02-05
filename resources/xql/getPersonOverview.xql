@@ -727,27 +727,22 @@ declare function local:jsonifyBestandReferences($workID) {
 
 declare function local:jsonifySourcesReferences($workID) {
     
-    let $rolepath := 'xmldb:exist:///apps/theater-data/sources/'
-    let $rolefiles := collection($rolepath)
-    let $rolefile := $rolefiles//mei:manifestation/@xml:id
+    let $sources := collection('/db/apps/theater-data/sources/')
+    let $persNames := $sources//mei:persName[@codedval = $workID]
+    let $manifestations := $persNames/root()//mei:manifestation[not(ancestor::mei:componentList)]
     
-    let $strings := for $elem in $rolefile
-    let $path1 := concat($rolepath, $elem, '.xml')
-    let $file1 := doc($path1)
-    let $names := $file1//mei:persName
-    let $listNames := local:jsonifyPersNamesForSources($names, $file1)
-    (:let $names := if($elem//mei:source//mei:persname[@dbkey=$workID])then($elem//mei:titlestmt/mei:title[1])else():)
+    let $refs :=
+        for $manifestation in $manifestations
+        let $title := $manifestation/mei:titleStmt[1]/mei:title[1]
+        let $dbId := $manifestation/data(@xml:id)
+        let $workRefId := $manifestation/mei:relationList/mei:relation[@rel = 'isEmbodimentOf']/substring-after(@target, '#') => substring-before('_')
+        let $physLoc := ($manifestation//mei:identifier[@type = "shelfLocation"])[1] => normalize-space()
+        let $rismLabel := ($manifestation//mei:identifier[@codedval = "RISM-label"])[1] => normalize-space()
+        let $sourceName := concat('Quelle: ', $rismLabel, ', ', $physLoc)
+        return
+            concat('["', replace(normalize-space($title), '"', '\\"'), '",', '"', $dbId, '",', '"', $workRefId, '",', '"', $sourceName, '",', '"', $physLoc, '"]')
     return
-        if ($listNames != '') then
-            (
-            $listNames
-            )
-        else
-            ()
-    return
-        string-join($strings, ',')
-
-
+        string-join($refs, ',')
 };
 
 declare function local:jsonifyRollenReferences($workID) {
@@ -852,53 +847,6 @@ declare function local:jsonifyPersNames($names, $file1, $workID) {
         if ($name != '') then
             (
             concat('["', $name, '",', '"', $dbId, '"]')
-            )
-        else
-            ()
-    return
-        string-join($strings, ',')
-
-
-};
-
-declare function local:jsonifyPersNamesForSources($names, $file1) {
-    
-    let $strings := for $elem in $names
-    
-    let $name := if ($elem[@codedval = $workID]) then
-        ($file1//mei:titleStmt[not(ancestor::mei:componentList)][1]/mei:title[1])
-    else
-        ()
-    let $dbId := if ($elem[@codedval = $workID]) then
-        ($file1/mei:manifestation[not(ancestor::mei:componentList)]/@xml:id)
-    else
-        ()
-        (:let $workIdREf:)
-    let $worTargetId := if ($elem[@codedval = $workID]) then
-        ($file1/mei:manifestation[not(ancestor::mei:componentList)]/mei:relationList/mei:relation[@rel = 'isEmbodimentOf']/@target)
-    else
-        ()
-    let $workIdExpr := tokenize($worTargetId, "#")[last()]
-    let $workRefId := substring-before($workIdExpr, '_')
-    
-    let $rismLabel := if ($elem[@codedval = $workID]) then
-        ($file1/mei:manifestation//mei:identifier[@label = "RISM-label"][1])
-    else
-        ()
-    
-    let $physLoc_tmp := if ($elem[@codedval = $workID]) then
-        ($file1/mei:manifestation//mei:identifier[@type = "shelfLocation"][1])
-    else
-        ()
-    let $physLoc := replace($physLoc_tmp, '\n', '')
-    
-    let $sourceName := concat('Quelle: ', $rismLabel, ' , ', $physLoc)
-    
-    return
-        if ($name != '') then
-            (
-            
-            concat('["', replace(normalize-space($name), '"', '\\"'), '",', '"', $dbId, '",', '"', $workRefId, '",', '"', $sourceName, '",', '"', $physLoc, '"]')
             )
         else
             ()
