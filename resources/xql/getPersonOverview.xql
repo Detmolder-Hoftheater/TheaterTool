@@ -705,25 +705,16 @@ declare function local:jsonifyTaxReferences($workID) {
 
 };
 
-declare function local:jsonifyBestandReferences($workID) {
+declare function local:jsonifyBestandReferences($workID as xs:string) as array(*) {
     
-    let $rolepath := 'xmldb:exist:///apps/theater-data/bestand/'
-    let $rolefiles := collection($rolepath)
-    let $rolefile := $rolefiles//tei:TEI
-    (:let $rolepath := 'xmldb:exist:///apps/theater-data/regiebuecher/':)
-    let $nameList := $rolefile/root()//tei:persName[@key = $workID]
-    (:$rolefile//tei:TEI//tei:persName[@key = $workID]:)
-    
-    let $names := local:jsonifyRoleRefNames($nameList)
-    
+    let $names := collection('/db/apps/theater-data/bestand/')//@key[. = $workID]/parent::*
     return
-        if ($names != '') then
-            (
-            concat('', $names, '')
-            )
-        else
-            ()
-
+        array { 
+            for $name in $names
+            let $title := ($name/ancestor::tei:TEI//tei:titleStmt/tei:title)[1] => normalize-space()
+            return
+                $title || ': ' ||  normalize-space($name)
+        }
 };
 
 declare function local:jsonifySourcesReferences($workID) {
@@ -1141,9 +1132,9 @@ local:jsonifyRollenReferences($workID) => serialize(<output:serialization-parame
 local:jsonifyDayReport($workID),
 '],"taxation":[',
 local:jsonifyTaxReferences($workID),
-'],"bestand":[',
-local:jsonifyBestandReferences($workID),
-'],"worksRef":',
+'],"bestand":',
+local:jsonifyBestandReferences($workID) => serialize(<output:serialization-parameters><output:method>json</output:method></output:serialization-parameters>),
+',"worksRef":',
 local:jsonifyWorksReferences($workID) => serialize(<output:serialization-parameters><output:method>json</output:method></output:serialization-parameters>),
 ',"journalRef":[',
 local:jsonifyJournalReferences($workID),
