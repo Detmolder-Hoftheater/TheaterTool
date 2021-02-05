@@ -749,7 +749,7 @@ declare function local:jsonifySourcesReferences($workID) {
 declare function local:jsonifyRollenReferences($workID as xs:string) as array(*)? {
     
     let $sources := collection('/db/apps/theater-data/sources/')
-    let $titlePages := $sources//@codedval[. = $workID]/ancestor::mei:manifestation[count(ancestor::*) = 2]/mei:physDesc/mei:titlePage
+    let $titlePages := $sources//@codedval[range:eq(.,$workID)]/ancestor::mei:manifestation[count(ancestor::*) = 2]/mei:physDesc/mei:titlePage
     let $names := $titlePages/mei:p/mei:name
     return 
         array { 
@@ -762,7 +762,7 @@ declare function local:jsonifyRollenReferences($workID as xs:string) as array(*)
 
 declare function local:jsonifyWorksReferences($workID as xs:string) as array(*)? {
     
-    let $works := collection('/db/apps/theater-data/works/')//@codedval[. = $workID]/ancestor::mei:work
+    let $works := collection('/db/apps/theater-data/works/')//@codedval[range:eq(.,$workID)]/ancestor::mei:work
     return
         array { 
             for $work in $works
