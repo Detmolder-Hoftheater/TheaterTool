@@ -29,13 +29,13 @@ declare function local:jsonifyRegs($fileNames) {
     let $workIdExpr := tokenize($worTargetId, "#")[last()]
     let $workRefId := substring-before($workIdExpr, '_')
     
-    let $rismLabel := $elem/mei:source//mei:identifier[@label = "RISM-label"][1]
+    let $rismLabel := $elem/mei:source//mei:identifier[@codedval = "RISM-label"][1]
     
     let $physLoc_tmp := $elem/mei:source//mei:identifier[@type = "shelfLocation"][1]
     
     let $physLoc := replace($physLoc_tmp, '\n', '')
     
-    let $sourceName := concat('Quelle: ', $rismLabel, ' , ', $physLoc)
+    let $sourceName := concat('Quelle: ', $rismLabel, ', ', $physLoc)
     
     return
         if ($titles != '') then
