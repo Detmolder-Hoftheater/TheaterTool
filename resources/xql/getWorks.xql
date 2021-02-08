@@ -314,7 +314,9 @@ declare function local:jsonifyTitle($titles, $file1) {
                             
     let $edpath := concat('xmldb:exist:///apps/theater-data/vertaktung/', $workFolder)
     (:let $file := collection($path):)
-    let $file_1 := doc($edpath)
+    let $file_1 := 
+        if($fileName1) then doc($edpath)
+        else ()
     let $file_2 := $file_1/edirom:edition
     let $file_3 := $file_2/edirom:works[1]/edirom:work/edirom:navigatorDefinition/edirom:navigatorCategory[2]/edirom:navigatorItem
     
@@ -323,7 +325,9 @@ declare function local:jsonifyTitle($titles, $file1) {
     
     
     let $expression := $file1//mei:relation[@rel = "hasRealization"]/@target
-    let $sourcesContent :=  local:getSourcesContent($fileID, $fileName1, $comp, $facsimNames, $expression)	
+    let $sourcesContent :=  
+        if($fileName1) then local:getSourcesContent($fileID, $fileName1, $comp, $facsimNames, $expression)	
+        else ()
     
     
     
