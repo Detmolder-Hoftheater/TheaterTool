@@ -332,7 +332,7 @@ declare function local:jsonifyTitleArray($s_title_array) {
     
     let $strings := for $elem_1 in $s_title_array
     
-    let $item := $elem_1
+    let $item := normalize-space($elem_1)
     
     return
         if ($item != '') then
