@@ -187,12 +187,12 @@ declare function local:jsonifySlurs() {
     
     let $path1 := concat($path, $selection1, '.xml')
     let $file1 := doc($path1)
-    let $fileName1 := $file1//mei:title[not(@type)][1]
+    let $fileName1 := ($file1//mei:title[not(@type)])[1]
     
    let $fileName := if ($fileName1 != " ") then
         (replace(normalize-space($fileName1), '"', '\\"'))
     else
-        (replace(normalize-space($file1//mei:title[1]), '"', '\\"' ))
+        (replace(normalize-space(($file1//mei:title)[1]), '"', '\\"' ))
     
     let $fileID := if (contains($file1//mei:work/@xml:id, $selection1))
     then
@@ -200,7 +200,7 @@ declare function local:jsonifySlurs() {
     else
         ()
     
-    let $comp := $file1//mei:persName[parent::node()/local-name() = "composer"][1]
+    let $comp := ($file1//mei:persName[parent::node()/local-name() = "composer"])[1]
     
     let $fileName1 := $fileName
     
