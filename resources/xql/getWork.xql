@@ -80,7 +80,7 @@ declare function local:getSourcesContent($fileID, $fileName1, $comp, $facsimName
     let $rismLabel := $fileSource//mei:physLoc//mei:repository//mei:identifier[@codedval = "RISM-label"][1]
     let $physLoc := normalize-space($fileSource//mei:physLoc//mei:identifier[@type = "shelfLocation"][1])
     let $sourceName := concat('Quelle: ', $rismLabel, ', ', $physLoc)
-    let $extName := concat($fileName1, ': ', $comp)	
+    
      let $iconIncipits := if (contains($fileName1, 'Aschenbrödel') or contains($fileName1, 'Der Bettelstudent') or contains($fileID, 'H020224') or contains($fileID, 'H021013') or contains($fileID, 'H020166') or contains($fileName1, 'Des Teufels Anteil') or contains($fileID, 'H020076')  or contains($fileID, 'H020261') or contains($fileID, 'H020090'))
     then
         ('resources/images/IncBlue.png')
