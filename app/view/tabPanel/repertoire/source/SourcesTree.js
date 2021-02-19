@@ -72,6 +72,8 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
                     
                     source.appendChild({
                         "titel": child[0].s_title,
+                        'sourcetype': child[0].sourcetype,
+                        'titlecontent': child[0].s_titlecontent,
                         'icon': Ext.BLANK_IMAGE_URL,
                         //"iconCls": '',
                         "signatur": child[0].signatur,
@@ -86,10 +88,10 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
                         'condition': child.condition,
                         'schreiber': child[0].schreiber,
                         'sprache': child[0].sprache,
-                        'entstehung': child[0].entstehung,
-                        'events': source_details[0].events,
-                        'hoverview': source_details[0].hoverview,
-                        'creation': source_details[0].creation,
+                        'events': child[0].events,
+                        'hoverview': child[0].hoverview,
+                        'stempel': child[0].stempel,
+                        'creation': child[0].creation,
                         'inhalt': child[0].inhalt,
                         leaf: true
                     });
