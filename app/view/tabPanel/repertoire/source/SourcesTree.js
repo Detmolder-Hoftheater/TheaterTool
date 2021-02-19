@@ -58,7 +58,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
                 'condition': source_details[0].condition,
                 'schreiber': source_details[0].schreiber,
                 'sprache': source_details[0].sprache,
-                'entstehung': source_details[0].entstehung,
                 'events': source_details[0].events,
                 'hoverview': source_details[0].hoverview,
                 'stempel': source_details[0].stempel,
@@ -138,66 +137,6 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
     
     setTablePanel: function (tablePanel) {
         this.tablePanel = tablePanel;
-    },
-    
-    createContentForSources: function (source_list) {
-        
-        var rootNode = this.store.getRootNode();
-        for (i = 0; i < source_list.length; i++) {
-            var source_details = source_list[i];
-            var isLeaf = true;
-            if (source_details[0].source_hier.length > 0) {
-                isLeaf = false
-            }
-            
-            var source = Ext.create('TheaterTool.model.SourceDetails', {
-                "titel": source_details[0].s_title,
-                'icon': Ext.BLANK_IMAGE_URL,
-                "signatur": source_details[0].signatur,
-                "inventarnummer": source_details[0].inventarnummer,
-                'titlePages': source_details[0].titlePages,
-                'medium': source_details[0].medium,
-                'source_hier': source_details[0].source_hier,
-                'inscription': source_details[0].inscription,
-                's_bemerkungen': source_details[0].s_bemerkungen,
-                'seitenzahl': source_details[0].seitenzahl,
-                'groesse': source_details[0].groesse,
-                'schreiber': source_details[0].schreiber,
-                'sprache': source_details[0].sprache,
-                'entstehung': source_details[0].entstehung,
-                'auffuehrungen': source_details[0].auffuehrungen,
-                'inhalt': source_details[0].inhalt,
-                leaf: isLeaf
-            });
-            rootNode.appendChild(source);
-            
-            if (! isLeaf) {
-              
-                for (j = 0; j < source_details[0].source_hier.length; j++) {
-                    var child = source_details[0].source_hier[j];
-                    var child_source = Ext.create('TheaterTool.model.SourceDetails', {
-                        "titel": child.s_title,
-                        'icon': Ext.BLANK_IMAGE_URL,
-                        "signatur": child.signatur,
-                        "inventarnummer": child.inventarnummer,
-                        'titlePages': child.titlePages,
-                        'medium': child.medium,
-                        'source_hier': child.source_hier,
-                        'inscription': child.inscription,
-                        's_bemerkungen': child.s_bemerkungen,
-                        'seitenzahl': child.seitenzahl,
-                        'groesse': child.groesse,
-                        'schreiber': child.schreiber,
-                        'sprache': child.sprache,
-                        'entstehung': child.entstehung,
-                        'auffuehrungen': child.auffuehrungen,
-                        'inhalt': child.inhalt,
-                        leaf: true
-                    });
-                    source.appendChild(child_source);
-                }
-            }
-        }
     }
     
 });
