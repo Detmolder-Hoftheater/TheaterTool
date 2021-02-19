@@ -67,32 +67,32 @@ Ext.define('TheaterTool.view.tabPanel.repertoire.source.SourcesTree', {
             });
             
             if (! isLeaf) {
-                for (j = 0; j < source_details[0].source_hier[0].sources_1.length; j++) {
-                    var child = source_details[0].source_hier[0].sources_1[j];
+                for (j = 0; j < source_details[0].source_hier.length; j++) {
+                    var child = source_details[0].source_hier[j];
                     
                     source.appendChild({
-                        "titel": child[0].s_title,
-                        'sourcetype': child[0].sourcetype,
-                        'titlecontent': child[0].s_titlecontent,
+                        "titel": child.s_title,
+                        'sourcetype': child.sourcetype,
+                        'titlecontent': child.s_titlecontent,
                         'icon': Ext.BLANK_IMAGE_URL,
                         //"iconCls": '',
-                        "signatur": child[0].signatur,
-                        "inventarnummer": child[0].inventarnummer,
-                        'titlePages': child[0].titlePages,
-                        'medium': child[0].medium,
-                        'source_hier': child[0].source_hier,
-                        'inscription': child[0].inscription,
-                        's_bemerkungen': child[0].s_bemerkungen,
-                        'seitenzahl': child[0].seitenzahl,
-                        'groesse': child[0].groesse,
+                        "signatur": child.signatur,
+                        "inventarnummer": child.inventarnummer,
+                        'titlePages': child.titlePages,
+                        'medium': child.medium,
+                        'source_hier': child.source_hier,
+                        'inscription': child.inscription,
+                        's_bemerkungen': child.s_bemerkungen,
+                        'seitenzahl': child.seitenzahl,
+                        'groesse': child.groesse,
                         'condition': child.condition,
-                        'schreiber': child[0].schreiber,
-                        'sprache': child[0].sprache,
-                        'events': child[0].events,
-                        'hoverview': child[0].hoverview,
-                        'stempel': child[0].stempel,
-                        'creation': child[0].creation,
-                        'inhalt': child[0].inhalt,
+                        'schreiber': child.schreiber,
+                        'sprache': child.sprache,
+                        'events': child.events,
+                        'hoverview': child.hoverview,
+                        'stempel': child.stempel,
+                        'creation': child.creation,
+                        'inhalt': child.inhalt,
                         leaf: true
                     });
                     

@@ -26,10 +26,7 @@ declare function local:manifestation($manifestation as element(mei:manifestation
         'inventarnummer': ($manifestation/mei:identifier[@label = "Inventarnummer"])[1] => normalize-space(),
         'titlePages': $manifestation/mei:physDesc/mei:titlePage => local:titlePages(),
         'medium': ($manifestation/mei:physDesc/mei:physMedium)[1] => normalize-space(),
-        'source_hier': array {
-            if(array:size($einlagen) gt 0) then map { 'sources_1': array { $einlagen } }
-            else ()
-        },
+        'source_hier': $einlagen,
         'inscription': $manifestation/mei:physDesc/mei:inscription/mei:persName => local:inscription(),
         's_bemerkungen': array { $manifestation/mei:notesStmt/mei:annot ! normalize-space(.) },
         'seitenzahl': $seitenzahl,
