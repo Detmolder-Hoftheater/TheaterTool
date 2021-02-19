@@ -2,3 +2,4 @@ build/*
 build-xar/*
 temp/*
 .DS_Store
+.idea
