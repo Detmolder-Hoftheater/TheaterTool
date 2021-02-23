@@ -20,83 +20,130 @@ Ext.define('TheaterTool.view.main.InformationDialog', {
     text: null,
     
     initComponent: function () {
-        this.text = 'Ziel der Software ist die Darstellung der in XML-Daten erschlossenen Inhalte und deren Verknüpfungen. ' +
-        'Die Software ist so angelegt, dass Sie nicht nur für dieses Projekt angewendet werden kann, ' +
-        'sondern auf die Erschließung ähnlicher Bestände übertragbar ist. ' +
-        'Die Software wird auf github zur Verfügung gestellt:  <a href="https://github.com/Detmolder-Hoftheater/TheatreTool_1-Dev"  target="_blank">https://github.com/Detmolder-Hoftheater/TheatreTool_1-Dev</a>.</p>' +
-        '<p>Das Benutzerhandbuch ist unter Hilfe Menü zu finden.</p>'+
-        '<p>Dargestellt werden die Personen, die Werke und die Quellen sowie die im Aufbau befindlichen Rollen, ' +
-        'darüber hinaus die Übertragungen der Theaterakten, wobei diesen z. T. die entsprechenden Faksimiles gegenübergestellt sind (vgl. z. B: die Einnahmen). ' +
-        'Hierbei ist zu beachten, dass die Regie- und Kostümbücher nur als Regesten erschlossen sind, ' +
-        'd. h. bis auf einige Ausnahmen sind diese Dateien „nur“ ein Inhaltsverzeichnis. ' +
-        'Die Finanzakten sind nur in der Rubrik „Bibliothek“ und „Musikalien“ als Volltext erschlossen, ' +
-        'die übrigen Rubriken sind nur in Auswahl erfasst. Die dazugehörigen Belege sind nicht im Volltext sondern als Regest erfasst. ' +
-        'Auch hier sind nur die Belege zur Rubrik „Bibliothek“ und „Musikalien“ mit den wesentlichen Daten wiedergegeben.</p>' +
-        '<p>Unter „Programm“ findet sich ein Spielplan für die Jahre 1820 bis 1847, der aus den Angaben zu den Einnahmen in den Theaterakten generiert ist.</p>' +
-        '<p>Nach der Übertragung der Dokumente werden diese ausgezeichnet, so dass die Verbindungen zwischen den Dokumenten hergestellt werden können. ' +
-        'Diese Auszeichnung, auf der die Nachweise der Referenzen bei den Personen, Werken und Rollen beruhen, ist für die erfassten Dokumente noch nicht abgeschlossen und nicht geprüft. ' +
-        'Wir bitten Lücken und ev. Fehler zu entschuldigen.</p>' +
-        '<p>Das Portal hat bisher eine einfache Suche nach Personen und Werken.</p>' +
-        '<p>Die zugrundeliegenden XML-Daten können eingesehen und heruntergeladen werden.</p>' +
-        '<p>Die Incipits sind für einige Quellen und für tiefenerschlossenen Werke verfügbar.</p>' +
-        
-        '<p><b>Tiefenerschlossene Werke</b></p>' +
-        '<p>In dem Projekt wird an einigen Beispielen, den tiefenerschlossenen Werken, gezeigt, wie weit eine Quellenbeschreibung gehen kann, ' +
-        'wenn gleichzeitig Faksimiles der Quellen zur Verfügung gestellt werden und diese für einen taktgenauen Zugriff aufbereitet werden. ' +
-        'D. h. bei diesen Quellen enthalten die Beschreibungen auch taktgenaue Informationen zu Strichen und weiteren Eintragungen. ' +
-        'Die Verknüpfung der Angaben in der Quellenbeschreibung direkt mit den Faksimiles ist noch nicht verfügbar.</p>' +
-        '<p>Außerdem sind bei diesen auch Faksimiles verfügbar. ' +
-        'Öffnet man diese, so erscheinen die Dateien zuerst „nur“ als Bilddateien. ' +
-        'Klickt man auf den Link „Zur Erschließung mit Edirom online“, so öffnet sich das Faksimile erneut. ' +
-        'Sie können jetzt unten links wechseln zwischen einer seiten- und einer taktbasierten Ansicht und dann die einzelnen Takte gezielt öffnen.</p>' +
-        
-        '<p><b style="color:#A87678;">Navigation</b></p>' +
-        '<p>Auf der linken Seite finden Sie eine Gliederung des Inhalts des Portals. Dieses ist gegliedert in „Spielbetrieb“ und „Verwaltung“. ' +
-        'Bei „Repertoire“, „Personen“ und „Rollen“ öffnet sich ein Alphabeth-Gruppierung. ' +
-        'Klickt man diese an, öffnet sich rechts die vollständige Liste. (Die Suche nach Werken und Personen ist aber auch über das Suchfenster möglich.)</p>' +
-        '<p>Klickt man auf die Einträge rechts, öffnet sich im Mittelfeld der Datensatz. ' +
-        'Dieser enthält die Grundinformationen, die ggf. über die Angabe von Normdaten leicht erweitert werden können. ' +
-        'Am Ende des Datensatzes sind die Querverweise zu den übrigen Materialien des Portals – nach den verschiedenen Quellenarten sortiert – aufgelistet.</p>' +
-        '<p>Bei den Werken sind diejenigen, zu denen sich Aufführungsmaterialien erhalten haben, mit einem Dreieck markiert. ' +
-        'Öffnet man die Quelle, so erscheinen zunächst die Grunddaten. ' +
-        'Die detaillierte Quellenbeschreibung öffnet sich über den Reiter „Einzelquellen“. ' +
-        'Auf Grund einer technischen Umstellung sind zur Zeit die Einlagen zu den einzelnen Quellen nicht einsehbar.</p>';
-        
-        
-        /*this.text = '<p>Die Software „Theatre Tool“ befindet sich erst in der Entwicklungsphase. '+
-        'In einem ersten Schritt werden damit die erarbeiteten Informationen, die '+
-        'als XML-Daten abgelegt und als solche weiterverwendbar sein sollen, '+
-        'innerhalb einer katalogartigen Struktur zugänglich gemacht, visualisiert '+
-        'und mit einander verknüpft. Andere, benutzerfreundlichere Zugangsformen '+
-        'zu den Daten und Abbildungen sind erst nach Umsetzung dieser '+
-        'Basisfunktionen vorgesehen. '+
-        'Gegenwärtig werden die Text- und XML-Ansichten im Bereich des '+
-        'Repertoires (Einzelansichten der Werke und Quellen) sowie die '+
-        'referenzierten Personendaten bearbeitet und die entsprechenden Daten '+
-        'sukzessive integriert. '+
-        'Da sich die Darstellung der Texte noch in einem Entwurfsstadium '+
-        'befindet, haben Sie bitte Verständnis dafür, dass erst Teile der '+
-        'Informationen angezeigt werden können.</p><p></p>'+
-        
-        '<p><b style="color:#A87678;">Navigation</b></p>'+
-        
-        '<p>Einzelne Werke können durch einen Klick auf die Items unter '+
-        '„Repertoire“ bzw. auf die unter „Tiefenerschlossene Werke“ aufgelisteten Werke '+
-        'im Navigationsbaum aufgerufen werden.</p><p></p>'+
-        
-        '<p>Die vertakteten Partituren und Stimmen für die tiefenerschlossenen Werke werden mit Edirom Online dargestellt. '+
-        'Die Edirom Online kann über einen Link in der Faksimilie-Ansicht der Quelle geöffnet werden.</p><p></p>'+
-        
-        '<p>Die Incipits sind unter „Tiefenerschlossene Werke“'+
-        'mit der Itemselektion "Incipits" zu sehen. '+
-        'Ein Dppelklick in das Einzelincipit öffnet eine größere Darstellung.</p><p></p>'+
-        
-        '<p>Allgemeine Informationen mit den Referenzen und XML-Ansichten sind für alle Daten-Objekte verfügbar und '+
-        'können durch einen Klick auf die Items im Navigationsbaum angezeigt werden.</p><p></p>'+
-        
-        '<p>Eine einfache Suche nach Werken oder nach Personen ist in Toolbar vorhanden.</p><p></p>';*/
-        
-        
+        this.text = '<p>'+
+            '<b>Wir begrüßen Sie herzlich im Portal des Projektes „Detmolder Hoftheater'+
+            '1825–1875“</b>'+
+            '</p>'+
+            '<p>'+
+            '<span> </span>'+
+            '</p>'+
+            '<p>Alle Daten, die in diesem Portal erfasst sind, sind in den XML-Formaten der Music'+
+            'Encoding Initiative (4.0) bzw. Text Encoding Initiative (5.0) gespeichert. Diese'+
+            'Daten werden mit der eigens im Projekt entwickelten Software „Theatre Tool“'+
+            'dargestellt, so dass sowohl die erschlossenen Inhalte als auch die darin durch'+
+            'Markup angelegten Verknüpfungen sichtbar werden. Die Software ist so angelegt, dass'+
+            'sie nicht nur für dieses Projekt angewendet werden kann, sondern auf die'+
+            'Erschließung ähnlicher Bestände übertragbar ist. Die Software wird auf GitHub zur'+
+            'Verfügung gestellt: <a'+
+            'href="https://github.com/Detmolder-Hoftheater/TheatreTool_1-Dev" target="_blank"'+
+            '>https://github.com/Detmolder-Hoftheater/TheatreTool_1-Dev</a>. Das'+
+            'Benutzerhandbuch ist auf der Portal-Startseite oben rechts unter dem Button „Hilfe“'+
+            'zu finden.</p>'+
+            '<p>Viele erfasste Daten können als XML-Datei eingesehen und heruntergeladen werden, der'+
+            'vollständige Datenbestand ist (ab März 2021) unter Zenodo abrufbar.</p>'+
+            '<p>'+
+            '<span> </span>'+
+            '</p>'+
+            '<p>Der Aufbau des Portals ist im Prinzip selbsterklärend und wird auch im'+
+            'Benutzerhandbuch erläutert. Es sei an dieser Stelle nur auf einige wenige Punkte'+
+            'hingewiesen.</p>'+
+            '<ul>'+
+            '<li>Spielbetrieb</li>'+
+            '<li>Verwaltung</li>'+
+            '<li>Tiefenerschlossene Werke</li>'+
+            '<li>Parallelerschließung</li>'+
+            '</ul>'+
+            '<p>Die Informationen gliedern sich in den Bereich „Spielbetrieb“ und „Verwaltung“.'+
+            '<br />Unter „<b>Spielbetrieb</b>“ finden sich die Angaben zum Repertoire und zu den'+
+            'Akteuren des Theaters, wobei man (durch das im Hintergrund liegende FRBR-Modell)'+
+            'über das Repertoire, also die Auflistung der dokumentierten Werke (Musik- und'+
+            'Sprechtheater) zur Erschließung des erhaltenen Aufführungsmaterials gelangt. In'+
+            'diesem Projekt konnten „nur“ die gut 250 Materialien zum Musiktheater erfasst'+
+            'werden, die ebenfalls noch erhaltenen Rollenhefte zum Repertoire des Sprechtheaters'+
+            'konnten nur in Ausnahmefällen (vgl. z. B. „Die Zeiträume“) einbezogen werden. Einen'+
+            '„geführten“ Einblick in die Erschließung der Quellen erhalten Sie hier.</p>'+
+            '<p>Neben diesen Säulen des Spielbetriebs (Personen, Werke, Aufführungsmaterial) finden'+
+            'Sie in diesem Bereich auch ein Verzeichnis der Rollen, das auf Grund der'+
+            'erschlossenen Quellen zum Musiktheater angelegt ist, also nur in Ausnahmefällen'+
+            'Rollen aus Dramen, dafür aber aus Possen und Vaudevilles enthält, da diese durch den'+
+            'regelmäßigen Einsatz von Musik unter den erschlossenen Materialien recht häufig'+
+            'vertreten sind.</p>'+
+            '<p>Außerdem findet sich unter „Spielbetrieb“ der Spielplan des Theaters für alle'+
+            'Spielstätten (einige grundlegende Daten und Fakten des Theaters sind auf der'+
+            'Homepage zusammengefasst.) Hierbei ist zu beachten, dass der Spielplan bereits 1820,'+
+            'also fünf Jahre vor der Eröffnung des Detmolder Hoftheaters einsetzt. Das Rollen-'+
+            'und Kostümbuch TA 55 wird seinem Namen nur in geringen Teilen recht. Zum größten'+
+            'Teil ist es ein Spielplan der Gesellschaft von August Pichler aus den Jahren 1820'+
+            'bis 1825. Diese Gesellschaft, in der etliche Mitglieder spielten, die später auch'+
+            'beim Hoftheater angestellt waren, spielte in einigen Städten um Detmold herum, in'+
+            'Bremen, Minden, Paderborn, Osnabrück und vor allem in Pyrmont, denn das dortige'+
+            'Theater gehörte seit 1818 Pichler persönlich.</p>'+
+            '<p>'+
+            '<span> </span>'+
+            '</p>'+
+            '<p>'+
+            '<span>Im Bereich „<b>Verwaltung</b>“ findet sich die Erschließung der Akten, die'+
+            'sowohl die finanzielle als auch die künstlerische Arbeit dokumentieren. Die'+
+            'Finanzakten dokumentieren nur die Zeit von 1825 bis 1847. In den folgenden'+
+            'Jahren erhielt die Theatergesellschaft zwar einen Zuschuss vom Fürstenhaus,'+
+            'wirtschaftete aber selbständig, weshalb aus dieser Zeit kaum Dokumente erhalten'+
+            'sind.</span>'+
+            '</p>'+
+            '<p>Eine Besonderheit sind hierbei die sog. „Taxationen“: In diesen Büchern wurde 1828'+
+            'sämtliches Material, das August Pichler aus seiner früheren Tätigkeit als'+
+            'Theaterdirektor mitgebracht hatte (neben den Aufführungsmaterialien auch die Kostüme'+
+            'und Dekorationen) aufgelistet und bewertet.</p>'+
+            '<p>Ergibt sich durch die Taxationen bereits ein guter Gesamteindruck von dem gespielten'+
+            'Repertoire, so wird dieser noch ergänzt durch die Bestandsverzeichnisse, die zwar'+
+            'auch z. T. früh angelegt, aber weit über diese Zeit hinaus weitergeführt wurden. </p>'+
+            '<p>Einen Einblick in den Bühnenalltag gewähren die Tagesberichte, die aus den Jahren'+
+            '1843 bis 1846 erhalten sind.</p>'+
+            '<p>'+
+            '<span> </span>'+
+            '</p>'+
+            '<p>'+
+            '<b>Tiefenerschlossene Werke</b>'+
+            '</p>'+
+            '<p>In dem Projekt wird an einigen Beispielen gezeigt, wie weit eine Quellenbeschreibung'+
+            'gehen kann, wenn gleichzeitig Faksimiles der Quellen zur Verfügung gestellt und'+
+            'diese für einen taktgenauen Zugriff aufbereitet werden. D. h. bei diesen Quellen'+
+            'enthalten die Beschreibungen auch taktgenaue Informationen zu Strichen und weiteren'+
+            'Eintragungen. In einer Beschreibung werden erste Ergebnisse dieser detaillierten'+
+            'Erschließung zusammengefasst.</p>'+
+            '<p>Außerdem sind bei diesen Quellen auch Faksimiles verfügbar. Öffnet man diese, so'+
+            'erscheinen die Dateien zunächst „nur“ als Bilddateien. Klickt man auf den Link „Zur'+
+            'Erschließung mit Edirom online“, so können Sie das Faksimile erneut öffnen. Sie'+
+            'haben hier die Möglichkeit unten links zwischen einer seiten- und einer'+
+            'taktbasierten Ansicht zu wechseln (oder Sie wählen oben in der Leiste die Rubrik „Go'+
+            'to“) und dann die einzelnen Sätze gezielt zu öffnen und darin taktgenau zu'+
+            'navigieren. Um jeweils die Taktzahl im Notentext sehen zu können, markieren Sie'+
+            'bitte unter der Rubrik „Display“ die Anzeige der Taktzahlen. </p>'+
+            '<p>'+
+            '<span> </span>'+
+            '</p>'+
+            '<p>'+
+            '<b>'+
+            '<span>Parallelerschließung</span>'+
+            '</b>'+
+            '</p>'+
+            '<p>An einem Beispiel können wir demonstrieren, ob und welche Vorteile sich ergeben, wenn'+
+            'nicht nur ein, sondern mehrere Materialien zu einem Werk erfasst werden können. Zu'+
+            'der Oper <i>Joseph</i> von Etienne Nicolas Méhul wurden zusätzlich die erhaltenen'+
+            'Materialien aus Berlin, Dresden, Frankfurt, München und eine weitere nicht zur'+
+            'Aufführung bestimmte Partitur aus Leipzig (ganz oder teilweise) erfasst, wodurch ein'+
+            'direkter Vergleich der Anlage der Materialien und der überlieferten Gestalt der Oper'+
+            'möglich ist. </p>'+
+            '<p>Unsere Aufgabe bestand darin, die Materialien zu erschließen, zu verknüpfen und'+
+            'bereit zu stellen. Wir hoffen, dass jetzt viele Interessenten diese Informationen'+
+            'nutzen, sei es für wissenschaftliche Forschung oder private Interessen, und damit'+
+            'das Wissen über den Theaterbetrieb der Hoftheatergesellschaft bzw. des Fürstlichen'+
+            'Theaters Detmold, über einzelne Darsteller, über Repertoireeigenheiten oder über'+
+            'andere Themen, die Ihnen einfallen, erweitern. Sollten Sie dabei wichtige weitere'+
+            'Dokumente erschließen, so melden Sie sich bitte, damit wir diese in dieses Portal'+
+            'integrieren können.</p>'+
+            '<p>Für Fragen stehen wir Ihnen jeder Zeit unter info@hoftheater-detmold.de zur'+
+            'Verfügung.</p>';
+
         this.items =[ {
             html: this.text,
             bodyPadding: 10
