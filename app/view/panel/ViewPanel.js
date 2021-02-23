@@ -31,7 +31,7 @@ Ext.define('TheaterTool.view.panel.ViewPanel', {
             region: 'north',
             height: 33,
             style: 'display:block; background-color:white; padding:8px 0px 5px 17px',
-            html: '<font style="color:gray; font-size: 14px;">Detmolder Hoftheater (1825-1875)</font>'
+            html: '<font style="color:gray; font-size: 14px;">Detmolder Hoftheater (1825–1875)</font>'
         });
         
         
