@@ -183,7 +183,7 @@ declare function local:persName($node as element(tei:persName)) as element() {
         $node/@key, '&apos;,&apos;',$node,'&apos;);">',$node,'</a></persName>')}</persName>
     else(
         
-        <persName>{concat('"', $node, '"')}</persName>
+        <persName>{string($node)}</persName>
         )
         
 };
