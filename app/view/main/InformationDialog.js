@@ -21,7 +21,7 @@ Ext.define('TheaterTool.view.main.InformationDialog', {
     
     initComponent: function () {
         this.text = '<p>'+
-            '<b>Wir begrüßen Sie herzlich im Portal des Projektes „Detmolder Hoftheater'+
+            '<b>Wir begrüßen Sie herzlich im Portal des Projektes „Detmolder Hoftheater '+
             '1825–1875“</b>'+
             '</p>'+
             '<p>'+
