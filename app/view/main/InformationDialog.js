@@ -61,7 +61,9 @@ Ext.define('TheaterTool.view.main.InformationDialog', {
             'diesem Projekt konnten „nur“ die gut 250 Materialien zum Musiktheater erfasst '+
             'werden, die ebenfalls noch erhaltenen Rollenhefte zum Repertoire des Sprechtheaters '+
             'konnten nur in Ausnahmefällen (vgl. z. B. „Die Zeiträume“) einbezogen werden. Einen '+
-            '„geführten“ Einblick in die Erschließung der Quellen erhalten Sie hier.</p>'+
+            '„geführten“ Einblick in die Erschließung der Quellen erhalten Sie in unserem ' +
+            '<a href="https://hoftheater-detmold.de/daten-hoftheater/zum-auffuehrungsmaterial/" ' +
+            'target="_blank" alt="Videotutorial">Einführungsvideo</a>.</p>'+
             '<p>Neben diesen Säulen des Spielbetriebs (Personen, Werke, Aufführungsmaterial) finden '+
             'Sie in diesem Bereich auch ein Verzeichnis der Rollen, das auf Grund der '+
             'erschlossenen Quellen zum Musiktheater angelegt ist, also nur in Ausnahmefällen '+
